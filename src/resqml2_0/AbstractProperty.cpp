@@ -1,0 +1,321 @@
+/*-----------------------------------------------------------------------
+Copyright F2I-CONSULTING, (2014) 
+
+philippe.verney@f2i-consulting.com
+
+This software is a computer program whose purpose is to access to data formatted using Energistics standards.
+
+This software is governed by the CeCILL-B license under French law and
+abiding by the rules of distribution of free software.  You can  use,
+modify and/ or redistribute the software under the terms of the CeCILL-B
+license as circulated by CEA, CNRS and INRIA at the following URL
+"http://www.cecill.info".
+
+As a counterpart to the access to the source code and  rights to copy,
+modify and redistribute granted by the license, users are provided only
+with a limited warranty  and the software's author,  the holder of the
+economic rights,  and the successive licensors  have only  limited
+liability.
+
+In this respect, the user's attention is drawn to the risks associated
+with loading,  using,  modifying and/or developing or reproducing the
+software by the user in light of its specific status of free software,
+that may mean  that it is complicated to manipulate,  and  that  also
+therefore means  that it is reserved for developers  and  experienced
+professionals having in-depth computer knowledge. Users are therefore
+encouraged to load and test the software's suitability as regards their
+requirements in conditions enabling the security of their systems and/or
+data to be ensured and,  more generally, to use and operate it in the
+same conditions as regards security.
+
+The fact that you are presently reading this means that you have had
+knowledge of the CeCILL-B license and that you accept its terms.
+-----------------------------------------------------------------------*/
+#include "resqml2_0/AbstractProperty.h"
+
+#include <stdexcept>
+
+#include "resqml2_0/AbstractRepresentation.h"
+#include "resqml2_0/PropertyKind.h"
+#include "resqml2_0/AbstractLocal3dCrs.h"
+#include "resqml2_0/HdfProxy.h"
+#include "resqml2_0/TimeSeries.h"
+#include "resqml2_0/PropertyKindMapper.h"
+
+using namespace gsoap_resqml2_0;
+using namespace resqml2_0;
+using namespace std;
+using namespace epc;
+
+vector<Relationship> AbstractProperty::getAllEpcRelationships() const
+{
+	resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
+
+	vector<Relationship> result;
+
+	// XML forward relationship
+	if (representation)
+	{
+		Relationship relRep(representation->getPartNameInEpcDocument(), "", prop->SupportingRepresentation->UUID);
+		relRep.setDestinationObjectType();
+		result.push_back(relRep);
+	}
+	else
+		throw domain_error("The representation associated to the interpretation cannot be NULL.");
+
+	if (localPropertyKind)
+	{
+		Relationship relPropType(localPropertyKind->getPartNameInEpcDocument(), "", localPropertyKind->getUuid());
+		relPropType.setDestinationObjectType();
+		result.push_back(relPropType);
+	}
+
+	if (local3dCrs)
+	{
+		Relationship relCrs(local3dCrs->getPartNameInEpcDocument(), "", local3dCrs->getUuid());
+		relCrs.setDestinationObjectType();
+		result.push_back(relCrs);
+	}
+
+	if (timeSeries)
+	{
+		Relationship relTs(timeSeries->getPartNameInEpcDocument(), "", timeSeries->getUuid());
+		relTs.setDestinationObjectType();
+		result.push_back(relTs);
+	}
+
+	if (hdfProxy)
+	{
+		Relationship relHdf(hdfProxy->getPartNameInEpcDocument(), "", hdfProxy->getUuid());
+		relHdf.setMlToExternalPartProxyType();
+		result.push_back(relHdf);
+	}
+
+	return result;
+}
+
+void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
+{
+	resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
+
+	updateXml = false;
+	setRepresentation(static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SupportingRepresentation->UUID)));
+	updateXml = true;
+
+	if (prop->TimeIndex)
+	{
+		updateXml = false;
+		setTimeSeries(static_cast<TimeSeries*>(epcDoc->getResqmlAbstractObjectByUuid(prop->TimeIndex->TimeSeries->UUID)));
+		updateXml = true;
+	}
+
+	if (prop->PropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__LocalPropertyKind)
+	{
+		resqml2__LocalPropertyKind* xmlLocalPropertyKind = static_cast<resqml2__LocalPropertyKind*>(prop->PropertyKind);
+		localPropertyKind = static_cast<PropertyKind*>(epcDoc->getResqmlAbstractObjectByUuid(xmlLocalPropertyKind->LocalPropertyKind->UUID));
+		localPropertyKind->addProperty(this);
+	}
+}
+
+std::string AbstractProperty::getPropertyKindUomAsString() const
+{
+	if (isAssociatedToOneStandardEnergisticsPropertyKind() == false)
+	{
+		return getLocalPropertyKind()->getUomAsString();
+	}
+	else if(epcDocument->getPropertyKindMapper() != NULL)
+	{
+		return epcDocument->getPropertyKindMapper()->getUomOfResqmlStandardPropertyKindName(getEnergisticsPropertyKind());
+	}
+	else
+		throw std::invalid_argument("You must load the property kind mapping files if you want to get the uom.");
+}
+
+gsoap_resqml2_0::resqml2__IndexableElements AbstractProperty::getAttachmentKind() const
+{
+	return static_cast<resqml2__AbstractProperty*>(gsoapProxy)->IndexableElement;
+}
+
+void AbstractProperty::setRepresentation(AbstractRepresentation * rep)
+{
+	if (!rep)
+		throw invalid_argument("The representation of this property values cannot be null.");
+
+	// EPC
+	representation = rep;
+	representation->propertySet.push_back(this);
+
+	// XML
+	if (updateXml)
+	{
+		static_cast<resqml2__AbstractProperty*>(gsoapProxy)->SupportingRepresentation = rep->newResqmlReference();
+	}
+}
+
+void AbstractProperty::setTimeSeries(TimeSeries * ts)
+{
+	if (!ts)
+		throw invalid_argument("The time series of this property values cannot be null.");
+
+	// EPC
+	timeSeries = ts;
+	timeSeries->propertySet.push_back(this);
+
+	// XML
+	if (updateXml)
+	{
+		if (static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex)
+			static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex->TimeSeries = ts->newResqmlReference();
+		else
+			throw invalid_argument("The time series cannot be set on a property without time index.");
+	}
+}
+
+void AbstractProperty::setTimeIndex(const unsigned int & timeIndex, TimeSeries * ts)
+{
+	static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex = soap_new_resqml2__TimeIndex(gsoapProxy->soap, 1);
+	static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex->Index = timeIndex;
+
+	setTimeSeries(ts);
+}
+
+time_t AbstractProperty::getTimestamp() const
+{
+	if (timeSeries && static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex)
+	{
+		return timeSeries->getTimestamp(static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex->Index);
+	}
+	else
+		throw invalid_argument("This property does not have any timestamp.");
+}
+
+void AbstractProperty::setTimeStep(const unsigned int & timeStep)
+{
+	if (static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep == NULL)
+		static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	*(static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep) = timeStep;
+}
+
+std::string AbstractProperty::getPropertyKindDescription() const
+{
+	if (isAssociatedToOneStandardEnergisticsPropertyKind()) {
+		if(epcDocument->getPropertyKindMapper())
+			return epcDocument->getPropertyKindMapper()->getPropertyKindParentOfResqmlStandardPropertyKindNameAsString(getEnergisticsPropertyKind());
+		else
+			throw std::invalid_argument("You must load the property kind mapping files if you want to get the parent property kind.");
+	}
+	else {
+		return getLocalPropertyKind()->getDescription();
+	}
+}
+
+std::string AbstractProperty::getPropertyKindAsString() const
+{
+	if (isAssociatedToOneStandardEnergisticsPropertyKind()) {
+		return epcDocument->getResqmlStandardPropertyKindName(getEnergisticsPropertyKind());
+	}
+	else {
+		return getLocalPropertyKind()->getTitle();
+	}
+}
+
+std::string AbstractProperty::getPropertyKindParentAsString() const
+{
+	if (isAssociatedToOneStandardEnergisticsPropertyKind()) {
+		if(epcDocument->getPropertyKindMapper())
+			return epcDocument->getPropertyKindMapper()->getPropertyKindParentOfResqmlStandardPropertyKindNameAsString(getEnergisticsPropertyKind());
+		else
+			throw std::invalid_argument("You must load the property kind mapping files if you want to get the parent property kind.");
+	}
+	else {
+		return getLocalPropertyKind()->getParentAsString();
+	}
+}
+
+bool AbstractProperty::isAssociatedToOneStandardEnergisticsPropertyKind() const
+{
+	return static_cast<resqml2__AbstractProperty*>(gsoapProxy)->PropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__StandardPropertyKind;
+}
+
+resqml2__ResqmlPropertyKind AbstractProperty::getEnergisticsPropertyKind() const
+{
+	resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
+
+	if (isAssociatedToOneStandardEnergisticsPropertyKind())
+	{
+		return static_cast<resqml2__StandardPropertyKind*>(prop->PropertyKind)->Kind;
+	}
+	else
+		throw invalid_argument("The property type of this property is not a standard one."); 
+}
+
+std::string AbstractProperty::getLocalPropertyKindUuid() const
+{
+	resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
+
+	if (!isAssociatedToOneStandardEnergisticsPropertyKind())
+	{
+		return static_cast<resqml2__LocalPropertyKind*>(prop->PropertyKind)->LocalPropertyKind->UUID;
+	}
+	else
+		throw invalid_argument("The property type of this property is not a local one."); 
+}
+
+unsigned int AbstractProperty::getElementCountPerValue() const
+{
+	return static_cast<resqml2__AbstractProperty*>(gsoapProxy)->Count;
+}
+
+std::string AbstractProperty::getRepresentationUuid() const
+{
+	return static_cast<resqml2__AbstractProperty*>(gsoapProxy)->SupportingRepresentation->UUID;
+}
+
+void AbstractProperty::setHdfProxy(HdfProxy * proxy)
+{
+	if (!hdfProxy)
+	{
+		hdfProxy = proxy;
+		proxy->propertySourceObject.push_back(this);
+	}
+}
+
+std::string AbstractProperty::getHdfProxyUuid() const
+{
+	if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__AbstractValuesProperty)
+	{
+		resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy);
+		resqml2__PatchOfValues* firstPatch = prop->PatchOfValues[0];
+
+		int valuesType = firstPatch->Values->soap_type();
+		/*if (valuesType == SOAP_TYPE_gsoap_resqml2_0_resqml2__BooleanHdf5Array)
+		{
+			return static_cast<resqml2__BooleanHdf5Array*>(prop->Values)->Values->HdfProxy->uuid;
+		}
+		else */if (valuesType == SOAP_TYPE_gsoap_resqml2_0_resqml2__DoubleHdf5Array)
+		{
+			return static_cast<resqml2__DoubleHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID;
+		}
+		else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_resqml2__IntegerHdf5Array)
+		{
+			return static_cast<resqml2__IntegerHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID;
+		}
+		else
+			return "";
+	}
+	else if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREPointsProperty)
+	{
+		_resqml2__PointsProperty* prop = static_cast<_resqml2__PointsProperty*>(gsoapProxy);
+		resqml2__PatchOfPoints* firstPatch = prop->PatchOfPoints[0];
+		
+		int valuesType = firstPatch->Points->soap_type();
+		if (valuesType == SOAP_TYPE_gsoap_resqml2_0_resqml2__Point3dHdf5Array)
+		{
+			return static_cast<resqml2__Point3dHdf5Array*>(firstPatch->Points)->Coordinates->HdfProxy->UUID;
+		}
+		else
+			return "";
+	}
+	else
+		return "";
+}
