@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015)
 
 philippe.verney@f2i-consulting.com
 
@@ -236,6 +236,7 @@ void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
     Horizon* horizon1 = pck->createHorizon("", "Horizon1");
     Horizon* horizon2 = pck->createHorizon("", "Horizon2");
     Fault* fault1 = pck->createFault("", "Fault1");
+    fault1->setMetadata("1424bcc2-3d9d-4f30-b1f9-69dcb897e33b", "", "philippe", 148526020, "philippe", "", 148526100, "F2I", "");
 
     // Interpretations
 	//BoundaryFeatureInterpretation* bfi = pck->createBoundaryFeatureInterpretation(bf, "", "testingBoundaryFeatureInterp");
@@ -1189,6 +1190,8 @@ void deserialize(const string & inputFile)
 	std::cout << endl << "WELLBORES CUBIC TRAJ" << endl;
 	for (unsigned int i = 0; i < wellboreCubicTrajSet.size(); i++)
 	{
+		if (wellboreCubicTrajSet[i]->getTitle() != "B2")
+			continue;
 		std::cout << "Title is : " << wellboreCubicTrajSet[i]->getTitle() << std::endl;
 		std::cout << "Guid is : " << wellboreCubicTrajSet[i]->getUuid() << std::endl;
 		std::cout << "MD Datum is : " << wellboreCubicTrajSet[i]->getMdDatum()->getTitle() << std::endl;
@@ -1294,9 +1297,9 @@ int main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	string filePath("../../testingPackageCpp.epc");
-	serialize(filePath);
-	//string filePath("C:/temp/test.epc");
+	//string filePath("../../testingPackageCpp.epc");
+	//serialize(filePath);
+	string filePath("/data_local/philippeVerney/resqmlExchangedModel/v2_0/oceanPlugin/test.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;

@@ -7,6 +7,7 @@
   SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
   SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 */
+// Notice you must not compile the C++ API with an optimisation superior to -O1 with gcc 4.4.7 in order SWIG to work
 SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
 SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 #endif

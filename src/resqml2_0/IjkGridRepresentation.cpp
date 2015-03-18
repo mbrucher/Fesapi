@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014)
+Copyright F2I-CONSULTING, (2014-2015)
 
 philippe.verney@f2i-consulting.com
 
@@ -1329,7 +1329,7 @@ void IjkGridRepresentation::setGeometryAsParametricSplittedPillarNodes(
 	unsigned char * definedPillars = new unsigned char[(getJCount() + 1) * (getICount() + 1)];
 	for (unsigned int i = 0; i < (getJCount() + 1) * (getICount() + 1); ++i)
 		if (pillarKind[i] == -1) definedPillars[i] = 0; else definedPillars[i] = 1;
-	hsize_t * pillarGeometryIsDefinedCount = new hsize_t[3];
+	hsize_t * pillarGeometryIsDefinedCount = new hsize_t[2];
 	pillarGeometryIsDefinedCount[0] = getJCount() + 1;
 	pillarGeometryIsDefinedCount[1] = getICount() + 1;
 	hdfProxy->writeArrayNd(gsoapProxy->uuid, "PillarGeometryIsDefined", H5::PredType::NATIVE_UCHAR, definedPillars, pillarGeometryIsDefinedCount, 2);
