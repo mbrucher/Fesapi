@@ -30,6 +30,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>mol</unitOfMeasure>
 		<dimensionalClass>N</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Amount of substance</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>amplitude</name>
@@ -74,6 +78,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>m2</unitOfMeasure>
 		<dimensionalClass>L2</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Area</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>area per area</name>
@@ -112,6 +120,10 @@
 		<parentKind>plane angle</parentKind>
 		<unitOfMeasure>rad</unitOfMeasure>
 		<dimensionalClass>A</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Dip azimuth</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>bubble point pressure</name>
@@ -128,6 +140,10 @@
 		<parentKind>pressure</parentKind>
 		<unitOfMeasure>Pa</unitOfMeasure>
 		<dimensionalClass>M/LT2</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Bulk modulus</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>capacitance</name>
@@ -191,6 +207,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>S/m</unitOfMeasure>
 		<dimensionalClass>C2T3/L3M</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Conductivity</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>continuous</name>
@@ -234,6 +254,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>K</unitOfMeasure>
 		<dimensionalClass>K</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Differential temperature</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>density</name>
@@ -253,6 +277,10 @@
 		<parentKind>length</parentKind>
 		<unitOfMeasure>m</unitOfMeasure>
 		<dimensionalClass>L</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Elevation depth</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>diffusion coefficient</name>
@@ -260,6 +288,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>m2/s</unitOfMeasure>
 		<dimensionalClass>L2/T</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Diffusivity</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>digital storage</name>
@@ -283,6 +315,10 @@
 		<parentKind>plane angle</parentKind>
 		<unitOfMeasure>rad</unitOfMeasure>
 		<dimensionalClass>A</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Dip angle</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>discrete</name>
@@ -359,6 +395,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>V</unitOfMeasure>
 		<dimensionalClass>L2M/CT3</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Spontaneous potential</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electrical resistivity</name>
@@ -366,6 +406,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>ohm.m</unitOfMeasure>
 		<dimensionalClass>L3M/C2T3</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Resistivity</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electrochemical equivalent</name>
@@ -512,6 +556,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>gAPI</unitOfMeasure>
 		<dimensionalClass>1</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Gamma ray</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>heat capacity</name>
@@ -534,6 +582,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>W/m2.K</unitOfMeasure>
 		<dimensionalClass>M/KT3</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Heat transfer coefficient</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>illuminance</name>
@@ -576,6 +628,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>(Pa.kg)/m3</unitOfMeasure>
 		<dimensionalClass>M2/L4T2</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Lambda*Rho</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>Lame constant</name>
@@ -712,6 +768,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>kg</unitOfMeasure>
 		<dimensionalClass>M</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Mass</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass attenuation coefficient</name>
@@ -734,6 +794,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>kg/s</unitOfMeasure>
 		<dimensionalClass>M/T</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Mass flow rate</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass length</name>
@@ -784,6 +848,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>m2/Pa.s</unitOfMeasure>
 		<dimensionalClass>L3T/M</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Mobility</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>modulus of compression</name>
@@ -813,6 +881,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>m3/mol</unitOfMeasure>
 		<dimensionalClass>L3/N</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Molar volume</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mole per area</name>
@@ -870,6 +942,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>(Pa.kg)/m3</unitOfMeasure>
 		<dimensionalClass>M2/L4T2</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Mu*Rho</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>net to gross ratio</name>
@@ -878,6 +954,10 @@
 		<parentKind>volume per volume</parentKind>
 		<unitOfMeasure>Euc</unitOfMeasure>
 		<dimensionalClass>ratio(L3)</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Net/Gross</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>neutron API unit</name>
@@ -955,6 +1035,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>m3</unitOfMeasure>
 		<dimensionalClass>L3</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Permeability-length</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>permeability rock</name>
@@ -1007,6 +1091,10 @@
 		<parentKind>dimensionless</parentKind>
 		<unitOfMeasure>Euc</unitOfMeasure>
 		<dimensionalClass>1</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Poissons ratio</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>pore volume</name>
@@ -1015,6 +1103,10 @@
 		<parentKind>volume</parentKind>
 		<unitOfMeasure>m3</unitOfMeasure>
 		<dimensionalClass>L3</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Pore volume</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>porosity</name>
@@ -1137,6 +1229,10 @@
 		<parentKind>dimensionless</parentKind>
 		<unitOfMeasure>Euc</unitOfMeasure>
 		<dimensionalClass>Ratio(L2)</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Relative permeability</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>relative power</name>
@@ -1195,6 +1291,10 @@
 		<parentKind>permeability rock</parentKind>
 		<unitOfMeasure>m2</unitOfMeasure>
 		<dimensionalClass>L2</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Permeability</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>rock volume</name>
@@ -1203,6 +1303,10 @@
 		<parentKind>volume</parentKind>
 		<unitOfMeasure>m3</unitOfMeasure>
 		<dimensionalClass>L3</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Rock volume</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>saturation</name>
@@ -1226,6 +1330,10 @@
 		<parentKind>pressure</parentKind>
 		<unitOfMeasure>Pa</unitOfMeasure>
 		<dimensionalClass>M/LT2</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Shear modulus</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>solid angle</name>
@@ -1241,6 +1349,10 @@
 		<parentKind>volume per volume</parentKind>
 		<unitOfMeasure>Euc</unitOfMeasure>
 		<dimensionalClass>ratio(L3)</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Solution gas-oil ratio</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>specific activity (of radioactivity)</name>
@@ -1290,6 +1402,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>K/m</unitOfMeasure>
 		<dimensionalClass>K/L</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Thermal Gradient</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>temperature per time</name>
@@ -1332,6 +1448,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>K/W</unitOfMeasure>
 		<dimensionalClass>KT3/L2M</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Thermal resistance</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>thermodynamic temperature</name>
@@ -1351,6 +1471,10 @@
 		<parentKind>length</parentKind>
 		<unitOfMeasure>m</unitOfMeasure>
 		<dimensionalClass>L</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Thickness general</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>time</name>
@@ -1358,6 +1482,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>s</unitOfMeasure>
 		<dimensionalClass>T</dimensionalClass>
+		<equivalentPropertyType>
+			<name>General time</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>time per length</name>
@@ -1403,6 +1531,10 @@
 		<parentKind>volume per volume</parentKind>
 		<unitOfMeasure>Euc</unitOfMeasure>
 		<dimensionalClass>ratio(L3)</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Vapourized oil-gas ratio</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>velocity</name>
@@ -1410,6 +1542,10 @@
 		<parentKind>quantity</parentKind>
 		<unitOfMeasure>m/s</unitOfMeasure>
 		<dimensionalClass>L/T</dimensionalClass>
+		<equivalentPropertyType>
+			<name>Velocity</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume</name>
