@@ -56,8 +56,12 @@ public class WellboreTrajectoryRepresentation extends com.f2i.energisticsStandar
     return (cPtr == 0) ? null : new com.f2i.energisticsStandardsApi.resqml2_0.MdDatum(cPtr, false);
   }
 
+  public void setGeometry(SWIGTYPE_p_double controlPoints, SWIGTYPE_p_double controlPointParameters, long controlPointCount, com.f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
+    com.f2i.energisticsStandardsApi.energisticsApiJNI.resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_0(swigCPtr, this, SWIGTYPE_p_double.getCPtr(controlPoints), SWIGTYPE_p_double.getCPtr(controlPointParameters), controlPointCount, com.f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), proxy);
+  }
+
   public void setGeometry(SWIGTYPE_p_double controlPoints, SWIGTYPE_p_double tangentVectors, SWIGTYPE_p_double controlPointParameters, long controlPointCount, com.f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    com.f2i.energisticsStandardsApi.energisticsApiJNI.resqml2_0_WellboreTrajectoryRepresentation_setGeometry(swigCPtr, this, SWIGTYPE_p_double.getCPtr(controlPoints), SWIGTYPE_p_double.getCPtr(tangentVectors), SWIGTYPE_p_double.getCPtr(controlPointParameters), controlPointCount, com.f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), proxy);
+    com.f2i.energisticsStandardsApi.energisticsApiJNI.resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(controlPoints), SWIGTYPE_p_double.getCPtr(tangentVectors), SWIGTYPE_p_double.getCPtr(controlPointParameters), controlPointCount, com.f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), proxy);
   }
 
   public void addParentTrajectory(double kickoffMd, double parentMd, com.f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation parentTrajRep) {

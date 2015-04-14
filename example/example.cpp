@@ -888,24 +888,18 @@ void serializePropertyKindMappingFiles(common::EpcDocument * pck)
 
 void deserializePropertyKindMappingFiles(common::EpcDocument * pck)
 {
-	PropertyKindMapper ptMapper(pck);
+	PropertyKindMapper* ptMapper = pck->getPropertyKindMapper();
 
-	string result = ptMapper.loadMappingFilesFromDirectory("../../PropertyKindMapping");
-	if (result.empty())
-	{
-		cout << "Application property kind name for azimuth : " << ptMapper.getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__azimuth, "Petrel") << endl;
-		cout << "Application property kind name for dip : " << ptMapper.getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__dip, "myApplication") << endl;
+	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__azimuth, "Petrel") << endl;
+	cout << "Application property kind name for dip : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__dip, "myApplication") << endl;
 
-		cout << "Standard property for Petrel \"Dip Azimuth\" : " << ptMapper.getResqmlStandardPropertyKindNameFromApplicationPropertyKindName("Dip Azimuth", "Petrel") << endl;
-		cout << "Standard property for Application property Absolute temperature : " << ptMapper.getResqmlStandardPropertyKindNameFromApplicationPropertyKindName("Absolute temperature", "myApplication") << endl;
+	cout << "Standard property for Petrel \"Dip Azimuth\" : " << ptMapper->getResqmlStandardPropertyKindNameFromApplicationPropertyKindName("Dip Azimuth", "Petrel") << endl;
+	cout << "Standard property for Application property Absolute temperature : " << ptMapper->getResqmlStandardPropertyKindNameFromApplicationPropertyKindName("Absolute temperature", "myApplication") << endl;
 
-		cout << "Application property kind for unknown local property type uuid  : " << ptMapper.getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid("unknownUuid", "myApplication") << endl;
-		cout << "Application property kind for local property type 079de4b6-61f0-50ca-8fdc-328836a1838f (true vertical depth sub-sea) : " << ptMapper.getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid("079de4b6-61f0-50ca-8fdc-328836a1838f", "Petrel") << endl;
+	cout << "Application property kind for unknown local property type uuid  : " << ptMapper->getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid("unknownUuid", "myApplication") << endl;
+	cout << "Application property kind for local property type 959cf4e1-d485-5225-bbdb-f53c16cc0c3c (VShale) : " << ptMapper->getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid("959cf4e1-d485-5225-bbdb-f53c16cc0c3c", "Sismage") << endl;
 
-		ptMapper.addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName("Elevation depth", "Petrel");
-	}
-	else
-		cerr << result << endl;
+	ptMapper->addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName("Elevation depth", "Petrel");
 }
 
 void serialize(const string & filePath)
@@ -945,7 +939,8 @@ void serialize(const string & filePath)
 
 void deserialize(const string & inputFile)
 {
-    common::EpcDocument pck(inputFile);
+	common::EpcDocument pck(inputFile);
+    //common::EpcDocument pck(inputFile, "/home/philippe/dev/total/workspace_daily-16mars/SismageApp/target/Install/Sismage/config/EnergisticsPropertyKindCatalog");
 	string resqmlResult = pck.deserialize();
 	if (!resqmlResult.empty())
 		cerr << resqmlResult << endl;
@@ -1299,7 +1294,7 @@ int main(int argc, char **argv)
 {
 	//string filePath("../../testingPackageCpp.epc");
 	//serialize(filePath);
-	string filePath("/data_local/philippeVerney/resqmlExchangedModel/v2_0/oceanPlugin/test.epc");
+	string filePath("/home/philippe/data/resqml/test.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;

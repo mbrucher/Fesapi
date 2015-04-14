@@ -90452,7 +90452,53 @@ SWIGEXPORT jlong JNICALL Java_com_f2i_energisticsStandardsApi_energisticsApiJNI_
 }
 
 
-SWIGEXPORT void JNICALL Java_com_f2i_energisticsStandardsApi_energisticsApiJNI_resqml2_10_1WellboreTrajectoryRepresentation_1setGeometry(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6, jobject jarg6_) {
+SWIGEXPORT void JNICALL Java_com_f2i_energisticsStandardsApi_energisticsApiJNI_resqml2_10_1WellboreTrajectoryRepresentation_1setGeometry_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jobject jarg5_) {
+  resqml2_0::WellboreTrajectoryRepresentation *arg1 = (resqml2_0::WellboreTrajectoryRepresentation *) 0 ;
+  double *arg2 = (double *) 0 ;
+  double *arg3 = (double *) 0 ;
+  unsigned int *arg4 = 0 ;
+  resqml2_0::HdfProxy *arg5 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg5_;
+  arg1 = *(resqml2_0::WellboreTrajectoryRepresentation **)&jarg1; 
+  arg2 = *(double **)&jarg2; 
+  arg3 = *(double **)&jarg3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  arg5 = *(resqml2_0::HdfProxy **)&jarg5; 
+  {
+    try {
+      (arg1)->setGeometry(arg2,arg3,(unsigned int const &)*arg4,arg5);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_JavaException(jenv, SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_com_f2i_energisticsStandardsApi_energisticsApiJNI_resqml2_10_1WellboreTrajectoryRepresentation_1setGeometry_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6, jobject jarg6_) {
   resqml2_0::WellboreTrajectoryRepresentation *arg1 = (resqml2_0::WellboreTrajectoryRepresentation *) 0 ;
   double *arg2 = (double *) 0 ;
   double *arg3 = (double *) 0 ;

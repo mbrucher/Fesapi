@@ -770,6 +770,9 @@ namespace resqml2_0
 		MdDatum * getMdDatum();
 		
 		void setGeometry(double * controlPoints,
+			double* controlPointParameters, const unsigned int & controlPointCount,
+			HdfProxy * proxy);
+		void setGeometry(double * controlPoints,
 			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
 			HdfProxy * proxy);
 			

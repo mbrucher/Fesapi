@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015)
 
 philippe.verney@f2i-consulting.com
 
@@ -262,7 +262,7 @@ void AbstractObject::initMandatoryMetadata()
 #endif
 
 	//FORMAT
-    gsoapProxy->Citation->Format = "[F2I-CONSULTING:resqml2CppApi]";
+    gsoapProxy->Citation->Format = "[F2I-CONSULTING:fesapi]";
 }
 
 void AbstractObject::setMetadata(const std::string & guid, const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,

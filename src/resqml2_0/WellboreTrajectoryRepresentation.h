@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -76,6 +76,17 @@ namespace resqml2_0
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
+		/*
+		*  Set the geometry of the representation by means of one natural cubic parametric line.
+		* @param controlPoints					All the control points of all the cubic parametric lines. They are ordered by parametric line first.
+		* @param controlPointCount				The count of control points and control point parameters per cubic parametric line.
+		* @param controlPointParameters			The arrays of control point parameters (ordered regarding the control points). It corresponds to the MD values in a WellboreFeature context.
+		* @param proxy							The HDF proxy which indicates in which HDF5 file the control points and its parameters will be stored.
+		*										It must be already opened for writing and won't be closed.
+		*/
+		void setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
+			class HdfProxy * proxy);
 
 		/*
 		*  Set the geometry of the representation by means of one cubic parametric line.

@@ -116,7 +116,12 @@ EpcDocument::EpcDocument(const std::string & fileName, const std::string & prope
 
 	// Load property kind mapping files
 	propertyKindMapper = new PropertyKindMapper(this);
-	propertyKindMapper->loadMappingFilesFromDirectory(propertyKindMappingFilesDirectory);
+	string error = propertyKindMapper->loadMappingFilesFromDirectory(propertyKindMappingFilesDirectory);
+	if (error.size() != 0)
+	{
+		delete propertyKindMapper;
+		propertyKindMapper = NULL;
+	}
 }
 
 EpcDocument::~EpcDocument()

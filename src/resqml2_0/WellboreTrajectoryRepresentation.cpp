@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -74,8 +74,7 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
-void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
-			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
+void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
 			HdfProxy * proxy)
 {
 	setHdfProxy(proxy);
@@ -90,7 +89,7 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
 	rep->Geometry = paramLine;
 
 	paramLine->KnotCount = controlPointCount;
-	paramLine->LineKindIndex = 5;
+	paramLine->LineKindIndex = 2;
 
 	// XML control points
 	resqml2__Point3dHdf5Array* xmlControlPoints = soap_new_resqml2__Point3dHdf5Array(gsoapProxy->soap, 1);
@@ -103,16 +102,6 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
 	hsize_t dim[] = {controlPointCount, 3};
 	hdfProxy->writeArrayNdOfDoubleValues(rep->uuid, "controlPoints", controlPoints, dim, 2);
 
-	// XML tangent vectors
-	resqml2__Point3dHdf5Array* xmlTangentVectors = soap_new_resqml2__Point3dHdf5Array(gsoapProxy->soap, 1);
-	xmlTangentVectors->Coordinates = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
-	xmlTangentVectors->Coordinates->HdfProxy = hdfProxy->newResqmlReference();
-	xmlTangentVectors->Coordinates->PathInHdfFile = "/RESQML/" + rep->uuid + "/tangentVectors";
-	paramLine->TangentVectors = xmlTangentVectors;
-
-	// HDF tangent vectors
-	hdfProxy->writeArrayNdOfDoubleValues(rep->uuid, "tangentVectors", tangentVectors, dim, 2);
-
 	// XML control point parameters
 	resqml2__DoubleHdf5Array* xmlControlPointParameters = soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
 	xmlControlPointParameters->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
@@ -123,6 +112,28 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
 	// HDF control point parameters
 	hsize_t dimParamDataSet[] = {controlPointCount};
 	hdfProxy->writeArrayNdOfDoubleValues(rep->uuid, "controlPointParameters", controlPointParameters, dimParamDataSet, 1);
+}
+
+void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
+			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
+			HdfProxy * proxy)
+{
+	setGeometry(controlPoints, controlPointParameters, controlPointCount, proxy);
+
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
+	resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
+	paramLine->LineKindIndex = 5;
+	hsize_t dim[] = {controlPointCount, 3};
+
+	// XML tangent vectors
+	resqml2__Point3dHdf5Array* xmlTangentVectors = soap_new_resqml2__Point3dHdf5Array(gsoapProxy->soap, 1);
+	xmlTangentVectors->Coordinates = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	xmlTangentVectors->Coordinates->HdfProxy = hdfProxy->newResqmlReference();
+	xmlTangentVectors->Coordinates->PathInHdfFile = "/RESQML/" + rep->uuid + "/tangentVectors";
+	paramLine->TangentVectors = xmlTangentVectors;
+
+	// HDF tangent vectors
+	hdfProxy->writeArrayNdOfDoubleValues(rep->uuid, "tangentVectors", tangentVectors, dim, 2);
 }
 
 void WellboreTrajectoryRepresentation::setWitsmlTrajectory(witsml1_4_1_1::Trajectory * witsmlTraj)
