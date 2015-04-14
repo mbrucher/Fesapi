@@ -1292,9 +1292,9 @@ int main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	//string filePath("../../testingPackageCpp.epc");
-	//serialize(filePath);
-	string filePath("/home/philippe/data/resqml/test.epc");
+	string filePath("../../testingPackageCpp.epc");
+	serialize(filePath);
+	//string filePath("/home/philippe/data/resqml/test.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;
