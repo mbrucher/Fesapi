@@ -268,22 +268,20 @@ double Grid2dRepresentation::getYJOffset() const
 		return std::numeric_limits<double>::signaling_NaN();
 }
 
+// TODO rotation
 double Grid2dRepresentation::getXJOffsetInGlobalCrs() const
 {
 	double result = getXJOffset();
-	if (result != result)
-		return result;
 
-	return result + localCrs->getOriginOrdinal1(); // TODO rotation
+	return result;
 }
 
+// TODO rotation
 double Grid2dRepresentation::getYJOffsetInGlobalCrs() const
 {
 	double result = getYJOffset();
-	if (result != result)
-		return result;
 
-	return result + localCrs->getOriginOrdinal2(); // TODO rotation
+	return result;
 }
 
 double Grid2dRepresentation::getXIOffset() const
@@ -314,22 +312,20 @@ double Grid2dRepresentation::getYIOffset() const
 		return std::numeric_limits<double>::signaling_NaN();
 }
 
+// TODO rotation
 double Grid2dRepresentation::getXIOffsetInGlobalCrs() const
 {
 	double result = getXIOffset();
-	if (result != result)
-		return result;
 
-	return result + localCrs->getOriginOrdinal1(); // TODO rotation
+	return result;
 }
 
+// TODO rotation
 double Grid2dRepresentation::getYIOffsetInGlobalCrs() const
 {
 	double result = getYIOffset();
-	if (result != result)
-		return result;
 
-	return result + localCrs->getOriginOrdinal2(); // TODO rotation
+	return result;
 }
 
 
