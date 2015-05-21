@@ -1,4 +1,4 @@
-%module energisticsApi
+%module fesapi
 
 
 #ifdef SWIGJAVA
@@ -61,7 +61,9 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %include "swigResqml2_0Include.i"
 %include "swigWitsml1_4_1_1Include.i"
 
-%nspace common::EpcDocument;
+#ifdef SWIGCSHARP
+	%nspace common::EpcDocument;
+#endif
 
 namespace common
 {

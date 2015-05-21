@@ -891,6 +891,8 @@ void deserializePropertyKindMappingFiles(common::EpcDocument * pck)
 	PropertyKindMapper* ptMapper = pck->getPropertyKindMapper();
 
 	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__azimuth, "Petrel") << endl;
+	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__gamma_x0020ray_x0020API_x0020unit, "Petrel") << endl;
+	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__gamma_x0020ray_x0020API_x0020unit, "Sismage") << endl;
 	cout << "Application property kind name for dip : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__dip, "myApplication") << endl;
 
 	cout << "Standard property for Petrel \"Dip Azimuth\" : " << ptMapper->getResqmlStandardPropertyKindNameFromApplicationPropertyKindName("Dip Azimuth", "Petrel") << endl;
@@ -940,7 +942,7 @@ void serialize(const string & filePath)
 void deserialize(const string & inputFile)
 {
 	common::EpcDocument pck(inputFile);
-    //common::EpcDocument pck(inputFile, "/home/philippe/dev/total/workspace_daily-16mars/SismageApp/target/Install/Sismage/config/EnergisticsPropertyKindCatalog");
+    //common::EpcDocument pck(inputFile, "/home/philippe/dev/fesapi/resources");
 	string resqmlResult = pck.deserialize();
 	if (!resqmlResult.empty())
 		cerr << resqmlResult << endl;
@@ -1292,9 +1294,9 @@ int main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	string filePath("../../testingPackageCpp.epc");
-	serialize(filePath);
-	//string filePath("/home/philippe/data/resqml/test.epc");
+	//string filePath("../../testingPackageCpp.epc");
+	//serialize(filePath);
+	string filePath("/home/philippe/data/resqml/ttt.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;

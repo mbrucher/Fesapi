@@ -1,4 +1,6 @@
 %{
+#define SWIG_FILE_WITH_INIT // In case we use Python Swig Wrapping
+
 #include "resqml2_0/LocalDepth3dCrs.h"
 #include "resqml2_0/LocalTime3dCrs.h"
 #include "resqml2_0/MdDatum.h"
@@ -156,89 +158,103 @@ namespace witsml1_4_1_1 {
 	class FormationMarker;
 }
 
+#ifdef SWIGPYTHON
+namespace resqml2_0
+{
+	%typemap(out) AbstractObject*, AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*, AbstractValuesProperty*, WellboreFrameRepresentation*, AbstractLocal3dCrs* {
+		// Check potential downcasting
+		swig_type_info * const outtype = SWIG_TypeQuery(("resqml2_0::" + result->getXmlTag() + " *").c_str());
+		resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), outtype, 0);
+	}
+}
+#endif
 #ifdef SWIGJAVA
 	%include "swigResqml2_0JavaInclude.i"
 #endif
 #ifdef SWIGCSHARP
 	%include "swigResqml2_0CsInclude.i"
+	
+	%nspace resqml2_0::AbstractObject;
+	%nspace resqml2_0::AbstractResqmlDataObject;
+	%nspace resqml2_0::EpcExternalPartReference;
+	%nspace resqml2_0::HdfProxy;
+	%nspace resqml2_0::AbstractLocal3dCrs;
+	%nspace resqml2_0::LocalDepth3dCrs;
+	%nspace resqml2_0::LocalTime3dCrs ;
+	%nspace resqml2_0::MdDatum;
+	%nspace resqml2_0::AbstractFeature;
+	%nspace resqml2_0::AbstractGeologicFeature;
+	%nspace resqml2_0::GeologicUnitFeature;
+	%nspace resqml2_0::BoundaryFeature;
+	%nspace resqml2_0::GeneticBoundaryFeature;
+	%nspace resqml2_0::Horizon;
+	%nspace resqml2_0::TectonicBoundaryFeature;
+	%nspace resqml2_0::Fault;
+	%nspace resqml2_0::Fracture;
+	%nspace resqml2_0::AbstractTechnicalFeature;
+	%nspace resqml2_0::SeismicLineSetFeature;
+	%nspace resqml2_0::SeismicLineFeature;
+	%nspace resqml2_0::SeismicLatticeFeature;
+	%nspace resqml2_0::WellboreFeature;
+	%nspace resqml2_0::OrganizationFeature;
+	%nspace resqml2_0::AbstractFeatureInterpretation;
+	%nspace resqml2_0::GenericFeatureInterpretation;
+	%nspace resqml2_0::BoundaryFeatureInterpretation;
+	%nspace resqml2_0::FaultInterpretation;
+	%nspace resqml2_0::HorizonInterpretation;
+	%nspace resqml2_0::WellboreInterpretation;
+	%nspace resqml2_0::AbstractOrganizationInterpretation;
+	%nspace resqml2_0::StructuralOrganizationInterpretation;
+	%nspace resqml2_0::StratigraphicUnitFeature;
+	%nspace resqml2_0::StratigraphicUnitInterpretation;
+	%nspace resqml2_0::StratigraphicColumnRankInterpretation;
+	%nspace resqml2_0::StratigraphicOccurrenceInterpretation;
+	%nspace resqml2_0::StratigraphicColumn;
+	%nspace resqml2_0::EarthModelInterpretation;
+	%nspace resqml2_0::AbstractRepresentation;
+	%nspace resqml2_0::SubRepresentation;
+	%nspace resqml2_0::PolylineSetRepresentation;
+	%nspace resqml2_0::PointSetRepresentation;
+	%nspace resqml2_0::PolylineRepresentation;
+	%nspace resqml2_0::AbstractSurfaceRepresentation;
+	%nspace resqml2_0::Grid2dRepresentation;
+	%nspace resqml2_0::Grid2dSetRepresentation;
+	%nspace resqml2_0::TriangulatedSetRepresentation;
+	%nspace resqml2_0::WellboreTrajectoryRepresentation;
+	%nspace resqml2_0::WellboreFrameRepresentation;
+	%nspace resqml2_0::WellboreMarker;
+	%nspace resqml2_0::WellboreMarkerFrameRepresentation;
+	%nspace resqml2_0::RepresentationSetRepresentation;
+	%nspace resqml2_0::NonSealedSurfaceFrameworkRepresentation;
+	%nspace resqml2_0::SealedSurfaceFrameworkRepresentation;
+	%nspace resqml2_0::AbstractGridRepresentation;
+	%nspace resqml2_0::AbstractColumnLayerGridRepresentation;
+	%nspace resqml2_0::IjkGridRepresentation;
+	%nspace resqml2_0::UnstructuredGridRepresentation;
+	%nspace resqml2_0::GridConnectionSetRepresentation;
+	%nspace resqml2_0::TimeSeries;
+	%nspace resqml2_0::PropertyKind;
+	%nspace resqml2_0::StringTableLookup;
+	%nspace resqml2_0::AbstractProperty;
+	%nspace resqml2_0::AbstractValuesProperty;
+	%nspace resqml2_0::CommentProperty;
+	%nspace resqml2_0::ContinuousProperty;
+	%nspace resqml2_0::DiscreteProperty;
+	%nspace resqml2_0::CategoricalProperty;
+	%nspace resqml2_0::PropertyKindMapper;
+	%nspace resqml2_0::FrontierFeature;
+	%nspace resqml2_0::PlaneSetRepresentation;
+	%nspace resqml2_0::FluidBoundaryFeature;
 #endif
-
-%nspace resqml2_0::AbstractObject;
-%nspace resqml2_0::AbstractResqmlDataObject;
-%nspace resqml2_0::EpcExternalPartReference;
-%nspace resqml2_0::HdfProxy;
-%nspace resqml2_0::AbstractLocal3dCrs;
-%nspace resqml2_0::LocalDepth3dCrs;
-%nspace resqml2_0::LocalTime3dCrs ;
-%nspace resqml2_0::MdDatum;
-%nspace resqml2_0::AbstractFeature;
-%nspace resqml2_0::AbstractGeologicFeature;
-%nspace resqml2_0::GeologicUnitFeature;
-%nspace resqml2_0::BoundaryFeature;
-%nspace resqml2_0::GeneticBoundaryFeature;
-%nspace resqml2_0::Horizon;
-%nspace resqml2_0::TectonicBoundaryFeature;
-%nspace resqml2_0::Fault;
-%nspace resqml2_0::Fracture;
-%nspace resqml2_0::AbstractTechnicalFeature;
-%nspace resqml2_0::SeismicLineSetFeature;
-%nspace resqml2_0::SeismicLineFeature;
-%nspace resqml2_0::SeismicLatticeFeature;
-%nspace resqml2_0::WellboreFeature;
-%nspace resqml2_0::OrganizationFeature;
-%nspace resqml2_0::AbstractFeatureInterpretation;
-%nspace resqml2_0::GenericFeatureInterpretation;
-%nspace resqml2_0::BoundaryFeatureInterpretation;
-%nspace resqml2_0::FaultInterpretation;
-%nspace resqml2_0::HorizonInterpretation;
-%nspace resqml2_0::WellboreInterpretation;
-%nspace resqml2_0::AbstractOrganizationInterpretation;
-%nspace resqml2_0::StructuralOrganizationInterpretation;
-%nspace resqml2_0::StratigraphicUnitFeature;
-%nspace resqml2_0::StratigraphicUnitInterpretation;
-%nspace resqml2_0::StratigraphicColumnRankInterpretation;
-%nspace resqml2_0::StratigraphicOccurrenceInterpretation;
-%nspace resqml2_0::StratigraphicColumn;
-%nspace resqml2_0::EarthModelInterpretation;
-%nspace resqml2_0::AbstractRepresentation;
-%nspace resqml2_0::SubRepresentation;
-%nspace resqml2_0::PolylineSetRepresentation;
-%nspace resqml2_0::PointSetRepresentation;
-%nspace resqml2_0::PolylineRepresentation;
-%nspace resqml2_0::AbstractSurfaceRepresentation;
-%nspace resqml2_0::Grid2dRepresentation;
-%nspace resqml2_0::Grid2dSetRepresentation;
-%nspace resqml2_0::TriangulatedSetRepresentation;
-%nspace resqml2_0::WellboreTrajectoryRepresentation;
-%nspace resqml2_0::WellboreFrameRepresentation;
-%nspace resqml2_0::WellboreMarker;
-%nspace resqml2_0::WellboreMarkerFrameRepresentation;
-%nspace resqml2_0::RepresentationSetRepresentation;
-%nspace resqml2_0::NonSealedSurfaceFrameworkRepresentation;
-%nspace resqml2_0::SealedSurfaceFrameworkRepresentation;
-%nspace resqml2_0::AbstractGridRepresentation;
-%nspace resqml2_0::AbstractColumnLayerGridRepresentation;
-%nspace resqml2_0::IjkGridRepresentation;
-%nspace resqml2_0::UnstructuredGridRepresentation;
-%nspace resqml2_0::GridConnectionSetRepresentation;
-%nspace resqml2_0::TimeSeries;
-%nspace resqml2_0::PropertyKind;
-%nspace resqml2_0::StringTableLookup;
-%nspace resqml2_0::AbstractProperty;
-%nspace resqml2_0::AbstractValuesProperty;
-%nspace resqml2_0::CommentProperty;
-%nspace resqml2_0::ContinuousProperty;
-%nspace resqml2_0::DiscreteProperty;
-%nspace resqml2_0::CategoricalProperty;
-%nspace resqml2_0::PropertyKindMapper;
-%nspace resqml2_0::FrontierFeature;
-%nspace resqml2_0::PlaneSetRepresentation;
-%nspace resqml2_0::FluidBoundaryFeature;
 
 namespace resqml2_0
 {
 	%nodefaultctor; // Disable creation of default constructors
 	
+	
+#ifdef SWIGPYTHON
+	%rename(Resqml2_0AbstractObject) AbstractObject;
+#endif
 	class AbstractObject
 	{
 	public:

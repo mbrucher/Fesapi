@@ -40,23 +40,29 @@ namespace gsoap_witsml1_4_1_1
 #ifdef SWIGJAVA
 	%include "swigWitsml1_4_1_1JavaInclude.i"
 #endif
+#ifdef SWIGPYTHON
+
+#endif
 #ifdef SWIGCSHARP
 	%include "swigWitsml1_4_1_1CsInclude.i"
-#endif
 
-%nspace witsml1_4_1_1::AbstractObject;
-%nspace witsml1_4_1_1::CoordinateReferenceSystem;
-%nspace witsml1_4_1_1::Well;
-%nspace witsml1_4_1_1::Wellbore;
-%nspace witsml1_4_1_1::Trajectory;
-%nspace witsml1_4_1_1::Log;
-%nspace witsml1_4_1_1::FormationMarker;
+	%nspace witsml1_4_1_1::AbstractObject;
+	%nspace witsml1_4_1_1::CoordinateReferenceSystem;
+	%nspace witsml1_4_1_1::Well;
+	%nspace witsml1_4_1_1::Wellbore;
+	%nspace witsml1_4_1_1::Trajectory;
+	%nspace witsml1_4_1_1::Log;
+	%nspace witsml1_4_1_1::FormationMarker;
+#endif
 
 namespace witsml1_4_1_1
 {
 	%nodefaultctor; // Disable creation of default constructors
 	
 	class CoordinateReferenceSystem;
+#ifdef SWIGPYTHON
+	%rename(Witsml1_4_1_1AbstractObject) AbstractObject;
+#endif
 	class AbstractObject
 	{
 	public:
