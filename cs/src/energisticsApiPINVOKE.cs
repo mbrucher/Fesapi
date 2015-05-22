@@ -3302,8 +3302,11 @@ class energisticsApiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_WellboreTrajectoryRepresentation_getMdDatum")]
   public static extern global::System.IntPtr resqml2_0_WellboreTrajectoryRepresentation_getMdDatum(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_WellboreTrajectoryRepresentation_setGeometry")]
-  public static extern void resqml2_0_WellboreTrajectoryRepresentation_setGeometry(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, uint jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_0")]
+  public static extern void resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, uint jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_1")]
+  public static extern void resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, uint jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_WellboreTrajectoryRepresentation_addParentTrajectory")]
   public static extern void resqml2_0_WellboreTrajectoryRepresentation_addParentTrajectory(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, double jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);

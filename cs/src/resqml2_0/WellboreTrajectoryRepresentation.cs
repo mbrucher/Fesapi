@@ -65,8 +65,13 @@ public class WellboreTrajectoryRepresentation : f2i.energisticsStandardsApi.resq
     return ret;
   }
 
+  public void setGeometry(SWIGTYPE_p_double controlPoints, SWIGTYPE_p_double controlPointParameters, uint controlPointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
+    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_0(swigCPtr, SWIGTYPE_p_double.getCPtr(controlPoints), SWIGTYPE_p_double.getCPtr(controlPointParameters), controlPointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public void setGeometry(SWIGTYPE_p_double controlPoints, SWIGTYPE_p_double tangentVectors, SWIGTYPE_p_double controlPointParameters, uint controlPointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreTrajectoryRepresentation_setGeometry(swigCPtr, SWIGTYPE_p_double.getCPtr(controlPoints), SWIGTYPE_p_double.getCPtr(tangentVectors), SWIGTYPE_p_double.getCPtr(controlPointParameters), controlPointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_1(swigCPtr, SWIGTYPE_p_double.getCPtr(controlPoints), SWIGTYPE_p_double.getCPtr(tangentVectors), SWIGTYPE_p_double.getCPtr(controlPointParameters), controlPointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
     if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
   }
 
