@@ -37200,6 +37200,42 @@ SWIGEXPORT int SWIGSTDCALL CSharp_resqml2_0_PolylineSetRepresentation_getLineRol
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_PolylineSetRepresentation_setLineRole(void * jarg1, int jarg2) {
+  resqml2_0::PolylineSetRepresentation *arg1 = (resqml2_0::PolylineSetRepresentation *) 0 ;
+  gsoap_resqml2_0::resqml2__LineRole *arg2 = 0 ;
+  gsoap_resqml2_0::resqml2__LineRole temp2 ;
+  
+  arg1 = (resqml2_0::PolylineSetRepresentation *)jarg1; 
+  temp2 = (gsoap_resqml2_0::resqml2__LineRole)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      (arg1)->setLineRole((gsoap_resqml2_0::resqml2__LineRole const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_delete_resqml2_0_PolylineSetRepresentation(void * jarg1) {
   resqml2_0::PolylineSetRepresentation *arg1 = (resqml2_0::PolylineSetRepresentation *) 0 ;
   
@@ -37585,6 +37621,42 @@ SWIGEXPORT int SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_getLineRole(v
   }
   jresult = (int)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_setLineRole(void * jarg1, int jarg2) {
+  resqml2_0::PolylineRepresentation *arg1 = (resqml2_0::PolylineRepresentation *) 0 ;
+  gsoap_resqml2_0::resqml2__LineRole *arg2 = 0 ;
+  gsoap_resqml2_0::resqml2__LineRole temp2 ;
+  
+  arg1 = (resqml2_0::PolylineRepresentation *)jarg1; 
+  temp2 = (gsoap_resqml2_0::resqml2__LineRole)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      (arg1)->setLineRole((gsoap_resqml2_0::resqml2__LineRole const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
 }
 
 
@@ -62011,7 +62083,59 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createTriangulatedSetRep
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_0(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_0(void * jarg1, void * jarg2, char * jarg3, char * jarg4) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  resqml2_0::AbstractLocal3dCrs *arg2 = (resqml2_0::AbstractLocal3dCrs *) 0 ;
+  std::string *arg3 = 0 ;
+  std::string *arg4 = 0 ;
+  resqml2_0::PolylineSetRepresentation *result = 0 ;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  arg2 = (resqml2_0::AbstractLocal3dCrs *)jarg2; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  if (!jarg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg4_str(jarg4);
+  arg4 = &arg4_str; 
+  {
+    try {
+      result = (resqml2_0::PolylineSetRepresentation *)(arg1)->createPolylineSetRepresentation(arg2,(std::string const &)*arg3,(std::string const &)*arg4);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_1(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;
@@ -62065,7 +62189,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetReprese
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_1(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, int jarg6) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_2(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, int jarg6) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;
@@ -62231,7 +62355,113 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPlaneSetRepresenta
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_0(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, unsigned int jarg6) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_0(void * jarg1, void * jarg2, char * jarg3, char * jarg4, unsigned int jarg5) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  resqml2_0::AbstractLocal3dCrs *arg2 = (resqml2_0::AbstractLocal3dCrs *) 0 ;
+  std::string *arg3 = 0 ;
+  std::string *arg4 = 0 ;
+  bool arg5 ;
+  resqml2_0::PolylineRepresentation *result = 0 ;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  arg2 = (resqml2_0::AbstractLocal3dCrs *)jarg2; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  if (!jarg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg4_str(jarg4);
+  arg4 = &arg4_str; 
+  arg5 = jarg5 ? true : false; 
+  {
+    try {
+      result = (resqml2_0::PolylineRepresentation *)(arg1)->createPolylineRepresentation(arg2,(std::string const &)*arg3,(std::string const &)*arg4,arg5);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_1(void * jarg1, void * jarg2, char * jarg3, char * jarg4) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  resqml2_0::AbstractLocal3dCrs *arg2 = (resqml2_0::AbstractLocal3dCrs *) 0 ;
+  std::string *arg3 = 0 ;
+  std::string *arg4 = 0 ;
+  resqml2_0::PolylineRepresentation *result = 0 ;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  arg2 = (resqml2_0::AbstractLocal3dCrs *)jarg2; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  if (!jarg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg4_str(jarg4);
+  arg4 = &arg4_str; 
+  {
+    try {
+      result = (resqml2_0::PolylineRepresentation *)(arg1)->createPolylineRepresentation(arg2,(std::string const &)*arg3,(std::string const &)*arg4);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_2(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, unsigned int jarg6) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;
@@ -62287,7 +62517,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresenta
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_1(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_3(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;
@@ -62341,7 +62571,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresenta
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_2(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, int jarg6, unsigned int jarg7) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_4(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, int jarg6, unsigned int jarg7) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;
@@ -62401,7 +62631,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresenta
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_3(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, int jarg6) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_5(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, int jarg6) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;

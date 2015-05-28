@@ -46,7 +46,7 @@ const char* PolylineRepresentation::XML_TAG = "PolylineRepresentation";
 void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineRepresentation(interp->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getGsoapProxy()->soap, 1);
 	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy);
 
 	polylineRep->IsClosed = isClosed;
@@ -55,7 +55,8 @@ void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, Abstrac
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// relationships
-	setInterpretation(interp);
+	if (interp != nullptr)
+		setInterpretation(interp);
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
@@ -63,6 +64,13 @@ void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, Abstrac
 	// epc document
 	if (interp->getEpcDocument())
 		interp->getEpcDocument()->addGsoapProxy(this);
+}
+
+PolylineRepresentation::PolylineRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, bool isClosed):
+	AbstractRepresentation(nullptr, crs)
+{
+	init(nullptr, crs, guid, title, isClosed);
 }
 
 PolylineRepresentation::PolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
@@ -155,4 +163,12 @@ vector<Relationship> PolylineRepresentation::getAllEpcRelationships() const
 	}
 
 	return result;
+}
+
+void PolylineRepresentation::setLineRole(const gsoap_resqml2_0::resqml2__LineRole & lineRole)
+{
+	if (hasALineRole() == false)
+		static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole = (resqml2__LineRole*)soap_malloc(gsoapProxy->soap, sizeof(resqml2__LineRole));
+
+	(*static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole) = lineRole;
 }

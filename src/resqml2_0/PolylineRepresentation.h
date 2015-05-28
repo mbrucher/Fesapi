@@ -78,6 +78,17 @@ namespace resqml2_0
 
 		/**
 		* Creates an instance of this class in a gsoap context.
+		* @param epcDoc					The epc document which contains the instance.
+		* @param crs					The local 3d crs where this representation is given.
+		* @param guid					The guid to set to the new instance. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param isClosed				Indicates wether this line representaiton is closed or not.
+		*/
+		PolylineRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, bool isClosed = false);
+
+		/**
+		* Creates an instance of this class in a gsoap context.
 		* @param interp					The interpretation which this representation represents.
 		* @param crs					The local 3d crs where this representation is given.
 		* @param guid					The guid to set to the new instance. If empty then a new guid will be generated.
@@ -129,6 +140,11 @@ namespace resqml2_0
 		* Throw an exception if the polyline has no role (see method hasALineRole).
 		*/
         gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
+
+		/**
+		* Set the line role of this instance
+		*/
+		void setLineRole(const gsoap_resqml2_0::resqml2__LineRole & lineRole);
 
 		unsigned int getPatchCount() const {return 1;}
 

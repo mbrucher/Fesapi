@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -45,6 +45,17 @@ namespace resqml2_0
 				  const std::string & guid, const std::string & title);
 
 	public:
+		
+		/**
+		* Creates an instance of this class in a gsoap context.
+		* @param epcDoc							The epc document which contains the instance.
+		* @param crs							The local CRS where the geometry of this representation is given.
+		* @param guid							The guid to set to the new instance. If empty then a new guid will be generated.
+		* @param title							A title for the instance to create.
+		*/
+		PolylineSetRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+				const std::string & guid, const std::string & title);
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param interp							The interpretation this representation represents.
@@ -166,5 +177,11 @@ namespace resqml2_0
 		* Throw an exception if the polylineSet has no role (see method hasALineRole).
 		*/
         gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
+
+		/**
+		* Set the line role of this instance
+		*/
+		void setLineRole(const gsoap_resqml2_0::resqml2__LineRole & lineRole);
+
 	};
 }

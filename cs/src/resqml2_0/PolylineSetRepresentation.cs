@@ -117,6 +117,11 @@ public class PolylineSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.A
     return ret;
   }
 
+  public void setLineRole(resqml2__LineRole lineRole) {
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineSetRepresentation_setLineRole(swigCPtr, (int)lineRole);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+  }
+
 }
 
 }

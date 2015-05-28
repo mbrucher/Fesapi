@@ -657,6 +657,7 @@ namespace resqml2_0
 		void getClosedFlagPerPolylineOfAllPatches(bool * closedFlagPerPolyline) const;
 		bool hasALineRole() const;
 		gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
+		void setLineRole(const gsoap_resqml2_0::resqml2__LineRole & lineRole);
 	};
 	
 	class PointSetRepresentation : public AbstractRepresentation
@@ -683,6 +684,7 @@ namespace resqml2_0
 		bool isclosed() const;
 		bool hasALineRole() const;
 		gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
+		void setLineRole(const gsoap_resqml2_0::resqml2__LineRole & lineRole);
 	};
 	
 	class AbstractSurfaceRepresentation : public AbstractRepresentation

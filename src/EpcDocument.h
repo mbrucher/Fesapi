@@ -500,6 +500,9 @@ namespace common
 		resqml2_0::TriangulatedSetRepresentation* createTriangulatedSetRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title);
 
+		resqml2_0::PolylineSetRepresentation* createPolylineSetRepresentation(resqml2_0::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title);
+
 		resqml2_0::PolylineSetRepresentation* createPolylineSetRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title);
 
@@ -511,6 +514,9 @@ namespace common
 
 		resqml2_0::PlaneSetRepresentation* createPlaneSetRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title);
+
+		resqml2_0::PolylineRepresentation* createPolylineRepresentation(resqml2_0::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, bool isClosed = false);
 
 		resqml2_0::PolylineRepresentation* createPolylineRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed = false);

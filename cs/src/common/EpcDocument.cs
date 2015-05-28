@@ -567,15 +567,22 @@ public class EpcDocument : global::System.IDisposable {
     return ret;
   }
 
+  public f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation createPolylineSetRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title) {
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineSetRepresentation__SWIG_0(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title);
+    f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation(cPtr, false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation createPolylineSetRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation interp, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineSetRepresentation__SWIG_0(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineSetRepresentation__SWIG_1(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title);
     f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation(cPtr, false);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation createPolylineSetRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation interp, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title, resqml2__LineRole roleKind) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineSetRepresentation__SWIG_1(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, (int)roleKind);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineSetRepresentation__SWIG_2(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, (int)roleKind);
     f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation(cPtr, false);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
@@ -595,29 +602,43 @@ public class EpcDocument : global::System.IDisposable {
     return ret;
   }
 
+  public f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation createPolylineRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title, bool isClosed) {
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_0(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, isClosed);
+    f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation(cPtr, false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation createPolylineRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title) {
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_1(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title);
+    f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation(cPtr, false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation createPolylineRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation interp, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title, bool isClosed) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_0(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, isClosed);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_2(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, isClosed);
     f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation(cPtr, false);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation createPolylineRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation interp, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_1(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_3(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title);
     f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation(cPtr, false);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation createPolylineRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation interp, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title, resqml2__LineRole roleKind, bool isClosed) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_2(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, (int)roleKind, isClosed);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_4(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, (int)roleKind, isClosed);
     f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation(cPtr, false);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation createPolylineRepresentation(f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation interp, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs crs, string guid, string title, resqml2__LineRole roleKind) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_3(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, (int)roleKind);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_createPolylineRepresentation__SWIG_5(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(interp), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(crs), guid, title, (int)roleKind);
     f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation(cPtr, false);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;

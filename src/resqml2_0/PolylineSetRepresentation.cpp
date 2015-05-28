@@ -50,14 +50,15 @@ const char* PolylineSetRepresentation::XML_TAG = "PolylineSetRepresentation";
 void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 									 const std::string & guid, const std::string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(interp->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(crs->getGsoapProxy()->soap, 1);
 	_resqml2__PolylineSetRepresentation* polylineSetRep = static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// relationships
-	setInterpretation(interp);
+	if (interp != nullptr)
+		setInterpretation(interp);
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
@@ -65,6 +66,12 @@ void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, Abst
 	// epc document
 	if (interp->getEpcDocument())
 		interp->getEpcDocument()->addGsoapProxy(this);
+}
+
+PolylineSetRepresentation::PolylineSetRepresentation(common::EpcDocument * epcDoc, AbstractLocal3dCrs * crs, const string & guid, const string & title):
+	AbstractRepresentation(nullptr, crs)
+{
+	init(nullptr, crs, guid, title);
 }
 
 PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
@@ -624,4 +631,12 @@ gsoap_resqml2_0::resqml2__LineRole PolylineSetRepresentation::getLineRole() cons
 		throw invalid_argument("The polylineSet doesn't have any role");
 
 	return *(static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LineRole);
+}
+
+void PolylineSetRepresentation::setLineRole(const gsoap_resqml2_0::resqml2__LineRole & lineRole)
+{
+	if (hasALineRole() == false)
+		static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LineRole = (resqml2__LineRole*)soap_malloc(gsoapProxy->soap, sizeof(resqml2__LineRole));
+
+	(*static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LineRole) = lineRole;
 }

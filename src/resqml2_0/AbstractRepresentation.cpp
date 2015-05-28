@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -167,7 +167,7 @@ void AbstractRepresentation::importRelationshipSetFromEpc(common::EpcDocument* e
 
 void AbstractRepresentation::setInterpretation(AbstractFeatureInterpretation * interp)
 {
-	if (!interp)
+	if (interp == nullptr)
 	{
 		return;
 	}

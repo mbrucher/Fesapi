@@ -1391,6 +1391,14 @@ TriangulatedSetRepresentation* EpcDocument::createTriangulatedSetRepresentation(
 	return new TriangulatedSetRepresentation(interp, crs, guid, title);
 }
 
+PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new PolylineSetRepresentation(this, crs, guid, title);
+}
+
 PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
@@ -1423,12 +1431,12 @@ PlaneSetRepresentation* EpcDocument::createPlaneSetRepresentation(resqml2_0::Abs
 	return new PlaneSetRepresentation(interp, crs, guid, title);
 }
 
-PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
-			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind, bool isClosed)
+PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, bool isClosed)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != NULL)
 		return NULL;
-	return new PolylineRepresentation(interp, crs, guid, title, roleKind, isClosed);
+	return new PolylineRepresentation(this, crs, guid, title, isClosed);
 }
 
 PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
@@ -1437,6 +1445,14 @@ PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatur
 	if (getResqmlAbstractObjectByUuid(guid) != NULL)
 		return NULL;
 	return new PolylineRepresentation(interp, crs, guid, title, isClosed);
+}
+
+PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind, bool isClosed)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new PolylineRepresentation(interp, crs, guid, title, roleKind, isClosed);
 }
 
 Grid2dRepresentation* EpcDocument::createGrid2dRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,

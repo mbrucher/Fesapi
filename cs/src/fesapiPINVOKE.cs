@@ -3098,6 +3098,9 @@ class fesapiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineSetRepresentation_getLineRole")]
   public static extern int resqml2_0_PolylineSetRepresentation_getLineRole(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineSetRepresentation_setLineRole")]
+  public static extern void resqml2_0_PolylineSetRepresentation_setLineRole(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_resqml2_0_PolylineSetRepresentation")]
   public static extern void delete_resqml2_0_PolylineSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -3127,6 +3130,9 @@ class fesapiPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_getLineRole")]
   public static extern int resqml2_0_PolylineRepresentation_getLineRole(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_setLineRole")]
+  public static extern void resqml2_0_PolylineRepresentation_setLineRole(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_resqml2_0_PolylineRepresentation")]
   public static extern void delete_resqml2_0_PolylineRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4916,10 +4922,13 @@ class fesapiPINVOKE {
   public static extern global::System.IntPtr common_EpcDocument_createTriangulatedSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_0")]
-  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, string jarg3, string jarg4);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_1")]
-  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, int jarg6);
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_2")]
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, int jarg6);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPointSetRepresentation")]
   public static extern global::System.IntPtr common_EpcDocument_createPointSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
@@ -4928,16 +4937,22 @@ class fesapiPINVOKE {
   public static extern global::System.IntPtr common_EpcDocument_createPlaneSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_0")]
-  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, bool jarg6);
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, string jarg3, string jarg4, bool jarg5);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_1")]
-  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, string jarg3, string jarg4);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_2")]
-  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, int jarg6, bool jarg7);
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, bool jarg6);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_3")]
-  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, int jarg6);
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_4")]
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_4(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, int jarg6, bool jarg7);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineRepresentation__SWIG_5")]
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineRepresentation__SWIG_5(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, int jarg6);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createGrid2dRepresentation")]
   public static extern global::System.IntPtr common_EpcDocument_createGrid2dRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
