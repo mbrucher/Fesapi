@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class HdfProxy : f2i.energisticsStandardsApi.resqml2_0.EpcExternalPartReference {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal HdfProxy(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_HdfProxy_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal HdfProxy(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_HdfProxy_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class HdfProxy : f2i.energisticsStandardsApi.resqml2_0.EpcExternalPartRef
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_HdfProxy(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_HdfProxy(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,19 +40,19 @@ public class HdfProxy : f2i.energisticsStandardsApi.resqml2_0.EpcExternalPartRef
   }
 
   public bool isOpened() {
-    bool ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_HdfProxy_isOpened(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_HdfProxy_isOpened(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void close() {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_HdfProxy_close(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_HdfProxy_close(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void setCompressionLevel(uint newCompressionLevel) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_HdfProxy_setCompressionLevel(swigCPtr, newCompressionLevel);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_HdfProxy_setCompressionLevel(swigCPtr, newCompressionLevel);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

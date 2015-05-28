@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class StratigraphicUnitFeature : f2i.energisticsStandardsApi.resqml2_0.GeologicUnitFeature {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal StratigraphicUnitFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_StratigraphicUnitFeature_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal StratigraphicUnitFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_StratigraphicUnitFeature_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class StratigraphicUnitFeature : f2i.energisticsStandardsApi.resqml2_0.Ge
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_StratigraphicUnitFeature(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_StratigraphicUnitFeature(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }

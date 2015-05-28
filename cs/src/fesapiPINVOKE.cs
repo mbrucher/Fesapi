@@ -10,7 +10,7 @@
 
 namespace f2i.energisticsStandardsApi {
 
-class energisticsApiPINVOKE {
+class fesapiPINVOKE {
 
   protected class SWIGExceptionHelper {
 
@@ -33,8 +33,8 @@ class energisticsApiPINVOKE {
     static ExceptionArgumentDelegate argumentNullDelegate = new ExceptionArgumentDelegate(SetPendingArgumentNullException);
     static ExceptionArgumentDelegate argumentOutOfRangeDelegate = new ExceptionArgumentDelegate(SetPendingArgumentOutOfRangeException);
 
-    [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="SWIGRegisterExceptionCallbacks_energisticsApi")]
-    public static extern void SWIGRegisterExceptionCallbacks_energisticsApi(
+    [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="SWIGRegisterExceptionCallbacks_fesapi")]
+    public static extern void SWIGRegisterExceptionCallbacks_fesapi(
                                 ExceptionDelegate applicationDelegate,
                                 ExceptionDelegate arithmeticDelegate,
                                 ExceptionDelegate divideByZeroDelegate, 
@@ -47,8 +47,8 @@ class energisticsApiPINVOKE {
                                 ExceptionDelegate overflowDelegate, 
                                 ExceptionDelegate systemExceptionDelegate);
 
-    [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="SWIGRegisterExceptionArgumentCallbacks_energisticsApi")]
-    public static extern void SWIGRegisterExceptionCallbacksArgument_energisticsApi(
+    [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="SWIGRegisterExceptionArgumentCallbacks_fesapi")]
+    public static extern void SWIGRegisterExceptionCallbacksArgument_fesapi(
                                 ExceptionArgumentDelegate argumentDelegate,
                                 ExceptionArgumentDelegate argumentNullDelegate,
                                 ExceptionArgumentDelegate argumentOutOfRangeDelegate);
@@ -102,7 +102,7 @@ class energisticsApiPINVOKE {
     }
 
     static SWIGExceptionHelper() {
-      SWIGRegisterExceptionCallbacks_energisticsApi(
+      SWIGRegisterExceptionCallbacks_fesapi(
                                 applicationDelegate,
                                 arithmeticDelegate,
                                 divideByZeroDelegate,
@@ -115,7 +115,7 @@ class energisticsApiPINVOKE {
                                 overflowDelegate,
                                 systemDelegate);
 
-      SWIGRegisterExceptionCallbacksArgument_energisticsApi(
+      SWIGRegisterExceptionCallbacksArgument_fesapi(
                                 argumentDelegate,
                                 argumentNullDelegate,
                                 argumentOutOfRangeDelegate);
@@ -143,7 +143,7 @@ class energisticsApiPINVOKE {
       if (pendingException != null)
         throw new global::System.ApplicationException("FATAL: An earlier pending exception from unmanaged code was missed and thus not thrown (" + pendingException.ToString() + ")", e);
       pendingException = e;
-      lock(typeof(energisticsApiPINVOKE)) {
+      lock(typeof(fesapiPINVOKE)) {
         numExceptionsPending++;
       }
     }
@@ -154,7 +154,7 @@ class energisticsApiPINVOKE {
         if (pendingException != null) {
           e = pendingException;
           pendingException = null;
-          lock(typeof(energisticsApiPINVOKE)) {
+          lock(typeof(fesapiPINVOKE)) {
             numExceptionsPending--;
           }
         }
@@ -169,22 +169,22 @@ class energisticsApiPINVOKE {
     public delegate string SWIGStringDelegate(string message);
     static SWIGStringDelegate stringDelegate = new SWIGStringDelegate(CreateString);
 
-    [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="SWIGRegisterStringCallback_energisticsApi")]
-    public static extern void SWIGRegisterStringCallback_energisticsApi(SWIGStringDelegate stringDelegate);
+    [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="SWIGRegisterStringCallback_fesapi")]
+    public static extern void SWIGRegisterStringCallback_fesapi(SWIGStringDelegate stringDelegate);
 
     static string CreateString(string cString) {
       return cString;
     }
 
     static SWIGStringHelper() {
-      SWIGRegisterStringCallback_energisticsApi(stringDelegate);
+      SWIGRegisterStringCallback_fesapi(stringDelegate);
     }
   }
 
   static protected SWIGStringHelper swigStringHelper = new SWIGStringHelper();
 
 
-  static energisticsApiPINVOKE() {
+  static fesapiPINVOKE() {
   }
 
 
@@ -2293,7 +2293,7 @@ class energisticsApiPINVOKE {
 		return ret;
 	}
 	
-    string type = energisticsApiPINVOKE.resqml2_0_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+    string type = fesapiPINVOKE.resqml2_0_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
 	if (type == "BoundaryFeature")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0.BoundaryFeature(cPtr, owner);
@@ -2495,7 +2495,7 @@ class energisticsApiPINVOKE {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
     }
-    string type = energisticsApiPINVOKE.resqml2_0_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+    string type = fesapiPINVOKE.resqml2_0_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
 	if (type == "WellboreFrameRepresentation")
     {
         return new f2i.energisticsStandardsApi.resqml2_0.WellboreFrameRepresentation(cPtr, owner);
@@ -2513,7 +2513,7 @@ class energisticsApiPINVOKE {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
     }
-    string type = energisticsApiPINVOKE.resqml2_0_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+    string type = fesapiPINVOKE.resqml2_0_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
 	
     if (type == "LocalDepth3dCrs")
     {
@@ -3092,6 +3092,12 @@ class energisticsApiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineSetRepresentation_getClosedFlagPerPolylineOfAllPatches")]
   public static extern void resqml2_0_PolylineSetRepresentation_getClosedFlagPerPolylineOfAllPatches(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineSetRepresentation_hasALineRole")]
+  public static extern bool resqml2_0_PolylineSetRepresentation_hasALineRole(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineSetRepresentation_getLineRole")]
+  public static extern int resqml2_0_PolylineSetRepresentation_getLineRole(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_resqml2_0_PolylineSetRepresentation")]
   public static extern void delete_resqml2_0_PolylineSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -3115,6 +3121,12 @@ class energisticsApiPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_isclosed")]
   public static extern bool resqml2_0_PolylineRepresentation_isclosed(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_hasALineRole")]
+  public static extern bool resqml2_0_PolylineRepresentation_hasALineRole(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_getLineRole")]
+  public static extern int resqml2_0_PolylineRepresentation_getLineRole(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_resqml2_0_PolylineRepresentation")]
   public static extern void delete_resqml2_0_PolylineRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -3827,8 +3839,8 @@ class energisticsApiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getNullValueOfPatch")]
   public static extern int resqml2_0_AbstractValuesProperty_getNullValueOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOfPatch")]
-  public static extern int resqml2_0_AbstractValuesProperty_getLongValuesOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_0")]
+  public static extern int resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getULongValuesOfPatch")]
   public static extern uint resqml2_0_AbstractValuesProperty_getULongValuesOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
@@ -3850,6 +3862,33 @@ class energisticsApiPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getUCharValuesOfPatch")]
   public static extern byte resqml2_0_AbstractValuesProperty_getUCharValuesOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getValuesCountOfPatch")]
+  public static extern uint resqml2_0_AbstractValuesProperty_getValuesCountOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getValuesCountOfDimensionOfPatch")]
+  public static extern uint resqml2_0_AbstractValuesProperty_getValuesCountOfDimensionOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getDimensionsCountOfPatch")]
+  public static extern uint resqml2_0_AbstractValuesProperty_getDimensionsCountOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_createLongHdf5ArrayOfValues")]
+  public static extern void resqml2_0_AbstractValuesProperty_createLongHdf5ArrayOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_createLongHdf5Array3dOfValues")]
+  public static extern void resqml2_0_AbstractValuesProperty_createLongHdf5Array3dOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3, uint jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArray3dOfValues")]
+  public static extern void resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArray3dOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, uint jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArrayOfValues")]
+  public static extern void resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArrayOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, uint jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_1")]
+  public static extern void resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5, uint jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOf3dPatch")]
+  public static extern void resqml2_0_AbstractValuesProperty_getLongValuesOf3dPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, uint jarg8, uint jarg9);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_resqml2_0_AbstractValuesProperty")]
   public static extern void delete_resqml2_0_AbstractValuesProperty(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -3944,8 +3983,26 @@ class energisticsApiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getDoubleValuesOfPatch")]
   public static extern void resqml2_0_ContinuousProperty_getDoubleValuesOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getFloatValuesOfPatch")]
-  public static extern void resqml2_0_ContinuousProperty_getFloatValuesOfPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getFloatValuesOfPatch__SWIG_0")]
+  public static extern void resqml2_0_ContinuousProperty_getFloatValuesOfPatch__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_createFloatHdf5ArrayOfValues")]
+  public static extern void resqml2_0_ContinuousProperty_createFloatHdf5ArrayOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_createFloatHdf5Array3dOfValues")]
+  public static extern void resqml2_0_ContinuousProperty_createFloatHdf5Array3dOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3, uint jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_pushBackFloatHdf5SlabArray3dOfValues")]
+  public static extern void resqml2_0_ContinuousProperty_pushBackFloatHdf5SlabArray3dOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, uint jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_pushBackFloatHdf5SlabArrayOfValues")]
+  public static extern void resqml2_0_ContinuousProperty_pushBackFloatHdf5SlabArrayOfValues(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, uint jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getFloatValuesOfPatch__SWIG_1")]
+  public static extern void resqml2_0_ContinuousProperty_getFloatValuesOfPatch__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5, uint jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getFloatValuesOf3dPatch")]
+  public static extern void resqml2_0_ContinuousProperty_getFloatValuesOf3dPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, uint jarg8, uint jarg9);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_resqml2_0_ContinuousProperty")]
   public static extern void delete_resqml2_0_ContinuousProperty(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4344,7 +4401,7 @@ class energisticsApiPINVOKE {
       return ret;
     }
 	
-    string type = energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+    string type = fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
 	if (type == "coordinateReferenceSystems")
     {
         ret = new f2i.energisticsStandardsApi.witsml1_4_1_1.CoordinateReferenceSystem(cPtr, owner);
@@ -4858,8 +4915,11 @@ class energisticsApiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createTriangulatedSetRepresentation")]
   public static extern global::System.IntPtr common_EpcDocument_createTriangulatedSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineSetRepresentation")]
-  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_0")]
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_1")]
+  public static extern global::System.IntPtr common_EpcDocument_createPolylineSetRepresentation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, int jarg6);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createPointSetRepresentation")]
   public static extern global::System.IntPtr common_EpcDocument_createPointSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5);
@@ -4915,8 +4975,11 @@ class energisticsApiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createUnstructuredGridRepresentation")]
   public static extern global::System.IntPtr common_EpcDocument_createUnstructuredGridRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, string jarg3, string jarg4, uint jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createSubRepresentation")]
-  public static extern global::System.IntPtr common_EpcDocument_createSubRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createSubRepresentation__SWIG_0")]
+  public static extern global::System.IntPtr common_EpcDocument_createSubRepresentation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, string jarg3, string jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createSubRepresentation__SWIG_1")]
+  public static extern global::System.IntPtr common_EpcDocument_createSubRepresentation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_createGridConnectionSetRepresentation")]
   public static extern global::System.IntPtr common_EpcDocument_createGridConnectionSetRepresentation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4, string jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);

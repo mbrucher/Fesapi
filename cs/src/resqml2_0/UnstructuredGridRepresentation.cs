@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class UnstructuredGridRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractGridRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal UnstructuredGridRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal UnstructuredGridRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class UnstructuredGridRepresentation : f2i.energisticsStandardsApi.resqml
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_UnstructuredGridRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_UnstructuredGridRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,45 +40,45 @@ public class UnstructuredGridRepresentation : f2i.energisticsStandardsApi.resqml
   }
 
   public uint getCellCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getCellCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getCellCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getFaceCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getFaceCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getFaceCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void getFacesOfCells(SWIGTYPE_p_unsigned_int faceIndices) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getFacesOfCells(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(faceIndices));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getFacesOfCells(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(faceIndices));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void getFaceCountOfCells(SWIGTYPE_p_unsigned_int faceCountPerCell) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getFaceCountOfCells(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(faceCountPerCell));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getFaceCountOfCells(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(faceCountPerCell));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void getNodesOfFaces(SWIGTYPE_p_unsigned_int nodeIndices) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getNodesOfFaces(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(nodeIndices));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getNodesOfFaces(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(nodeIndices));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void getNodeCountOfFaces(SWIGTYPE_p_unsigned_int nodeCountPerFace) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getNodeCountOfFaces(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(nodeCountPerFace));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_getNodeCountOfFaces(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(nodeCountPerFace));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void setGeometry(bool isRightHanded, SWIGTYPE_p_double points, uint pointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, SWIGTYPE_p_unsigned_int faceIndicesPerCell, SWIGTYPE_p_unsigned_int faceIndicesCumulativeCountPerCell, uint faceCount, SWIGTYPE_p_unsigned_int nodeIndicesPerFace, SWIGTYPE_p_unsigned_int nodeIndicesCumulativeCountPerFace, uint nodeCount, resqml2__CellShape cellShape) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_setGeometry(swigCPtr, isRightHanded, SWIGTYPE_p_double.getCPtr(points), pointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), SWIGTYPE_p_unsigned_int.getCPtr(faceIndicesPerCell), SWIGTYPE_p_unsigned_int.getCPtr(faceIndicesCumulativeCountPerCell), faceCount, SWIGTYPE_p_unsigned_int.getCPtr(nodeIndicesPerFace), SWIGTYPE_p_unsigned_int.getCPtr(nodeIndicesCumulativeCountPerFace), nodeCount, (int)cellShape);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_setGeometry(swigCPtr, isRightHanded, SWIGTYPE_p_double.getCPtr(points), pointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), SWIGTYPE_p_unsigned_int.getCPtr(faceIndicesPerCell), SWIGTYPE_p_unsigned_int.getCPtr(faceIndicesCumulativeCountPerCell), faceCount, SWIGTYPE_p_unsigned_int.getCPtr(nodeIndicesPerFace), SWIGTYPE_p_unsigned_int.getCPtr(nodeIndicesCumulativeCountPerFace), nodeCount, (int)cellShape);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void setTetrahedraOnlyGeometry(bool isRightHanded, SWIGTYPE_p_double points, uint pointCount, uint faceCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, SWIGTYPE_p_unsigned_int faceIndicesPerCell, SWIGTYPE_p_unsigned_int nodeIndicesPerFace) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_UnstructuredGridRepresentation_setTetrahedraOnlyGeometry(swigCPtr, isRightHanded, SWIGTYPE_p_double.getCPtr(points), pointCount, faceCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), SWIGTYPE_p_unsigned_int.getCPtr(faceIndicesPerCell), SWIGTYPE_p_unsigned_int.getCPtr(nodeIndicesPerFace));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_UnstructuredGridRepresentation_setTetrahedraOnlyGeometry(swigCPtr, isRightHanded, SWIGTYPE_p_double.getCPtr(points), pointCount, faceCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), SWIGTYPE_p_unsigned_int.getCPtr(faceIndicesPerCell), SWIGTYPE_p_unsigned_int.getCPtr(nodeIndicesPerFace));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

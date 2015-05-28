@@ -655,6 +655,8 @@ namespace resqml2_0
 		bool areAllPolylinesNonClosedOfAllPatches() const;
 		void getClosedFlagPerPolylineOfPatch(const unsigned int & patchIndex, bool * closedFlagPerPolyline) const;
 		void getClosedFlagPerPolylineOfAllPatches(bool * closedFlagPerPolyline) const;
+		bool hasALineRole() const;
+		gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
 	};
 	
 	class PointSetRepresentation : public AbstractRepresentation
@@ -679,6 +681,8 @@ namespace resqml2_0
 	public:
 		void setGeometry(double * points, const unsigned int & pointCount, HdfProxy * proxy);
 		bool isclosed() const;
+		bool hasALineRole() const;
+		gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
 	};
 	
 	class AbstractSurfaceRepresentation : public AbstractRepresentation
@@ -1071,6 +1075,57 @@ namespace resqml2_0
 		unsigned short getUShortValuesOfPatch(const unsigned int & patchIndex, unsigned short * values);
 		char getCharValuesOfPatch(const unsigned int & patchIndex, char * values);
 		unsigned char getUCharValuesOfPatch(const unsigned int & patchIndex, unsigned char * values);
+		
+		unsigned int getValuesCountOfPatch (const unsigned int & patchIndex);
+		unsigned int getValuesCountOfDimensionOfPatch(const unsigned int & dimIndex, const unsigned int & patchIndex);
+		unsigned int getDimensionsCountOfPatch(const unsigned int & patchIndex);
+		
+		void createLongHdf5ArrayOfValues(
+			hsize_t* numValues, 
+			const unsigned int& numArrayDimensions, 
+			HdfProxy* proxy
+		);
+		void createLongHdf5Array3dOfValues(
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			HdfProxy * proxy
+		);
+		void pushBackLongHdf5SlabArray3dOfValues(
+			long* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim, 
+			HdfProxy* proxy
+		);
+		void pushBackLongHdf5SlabArrayOfValues(
+			long * values, 
+			hsize_t * numValues, 
+			hsize_t * offsetValues, 
+			const unsigned int & numArrayDimensions, 
+			HdfProxy * proxy
+		);
+		void getLongValuesOfPatch(
+			const unsigned int& patchIndex, 
+			long* values, 
+			hsize_t* numValuesInEachDimension,
+			hsize_t* offsetInEachDimension, 
+			const unsigned int& numArrayDimensions
+		);
+		void getLongValuesOf3dPatch(
+			const unsigned int& patchIndex, 
+			long* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim
+		);
+		
 	};
 	
 	class CommentProperty : public AbstractValuesProperty
@@ -1105,6 +1160,53 @@ namespace resqml2_0
 			double * minimumValue = NULL, double * maximumValue = NULL);
 		void getDoubleValuesOfPatch(const unsigned int & patchIndex, double * values);
 		void getFloatValuesOfPatch(const unsigned int & patchIndex, float * values);
+		
+		void createFloatHdf5ArrayOfValues(
+			hsize_t* numValues, 
+			const unsigned int& numArrayDimensions, 
+			HdfProxy* proxy
+		);
+		void createFloatHdf5Array3dOfValues(
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			HdfProxy * proxy
+		);
+		void pushBackFloatHdf5SlabArray3dOfValues(
+			float* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim, 
+			HdfProxy* proxy
+		);
+		void pushBackFloatHdf5SlabArrayOfValues(
+			float * values, 
+			hsize_t * numValues, 
+			hsize_t * offsetValues, 
+			const unsigned int & numArrayDimensions, 
+			HdfProxy * proxy
+		);
+		void getFloatValuesOfPatch(
+			const unsigned int& patchIndex, 
+			float* values, 
+			hsize_t* numValuesInEachDimension,
+			hsize_t* offsetInEachDimension, 
+			const unsigned int& numArrayDimensions
+		);
+		void getFloatValuesOf3dPatch(
+			const unsigned int& patchIndex, 
+			float* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim
+		);
+		
 	};
 	
 	class DiscreteProperty : public AbstractValuesProperty

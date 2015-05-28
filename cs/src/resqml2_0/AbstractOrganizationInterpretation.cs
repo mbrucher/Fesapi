@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class AbstractOrganizationInterpretation : f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal AbstractOrganizationInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractOrganizationInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal AbstractOrganizationInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractOrganizationInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class AbstractOrganizationInterpretation : f2i.energisticsStandardsApi.re
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_AbstractOrganizationInterpretation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_AbstractOrganizationInterpretation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,13 +40,13 @@ public class AbstractOrganizationInterpretation : f2i.energisticsStandardsApi.re
   }
 
   public void pushBackBinaryContact(resqml2__ContactRelationship kind, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation subject, resqml2__ContactVerb verb, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation directObject) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractOrganizationInterpretation_pushBackBinaryContact__SWIG_0(swigCPtr, (int)kind, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(subject), (int)verb, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(directObject));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractOrganizationInterpretation_pushBackBinaryContact__SWIG_0(swigCPtr, (int)kind, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(subject), (int)verb, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(directObject));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackBinaryContact(resqml2__ContactRelationship kind, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation subject, resqml2__ContactVerb verb, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation directObject, resqml2__ContactSide directObjectQualifier) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractOrganizationInterpretation_pushBackBinaryContact__SWIG_1(swigCPtr, (int)kind, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(subject), (int)verb, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(directObject), (int)directObjectQualifier);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractOrganizationInterpretation_pushBackBinaryContact__SWIG_1(swigCPtr, (int)kind, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(subject), (int)verb, f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation.getCPtr(directObject), (int)directObjectQualifier);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

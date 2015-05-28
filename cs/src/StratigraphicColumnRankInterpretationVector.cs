@@ -34,7 +34,7 @@ public class StratigraphicColumnRankInterpretationVector : global::System.IDispo
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_StratigraphicColumnRankInterpretationVector(swigCPtr);
+          fesapiPINVOKE.delete_StratigraphicColumnRankInterpretationVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class StratigraphicColumnRankInterpretationVector : global::System.IDispo
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation x) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicColumnRankInterpretationVector() : this(energisticsApiPINVOKE.new_StratigraphicColumnRankInterpretationVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicColumnRankInterpretationVector() : this(fesapiPINVOKE.new_StratigraphicColumnRankInterpretationVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicColumnRankInterpretationVector(StratigraphicColumnRankInterpretationVector other) : this(energisticsApiPINVOKE.new_StratigraphicColumnRankInterpretationVector__SWIG_1(StratigraphicColumnRankInterpretationVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicColumnRankInterpretationVector(StratigraphicColumnRankInterpretationVector other) : this(fesapiPINVOKE.new_StratigraphicColumnRankInterpretationVector__SWIG_1(StratigraphicColumnRankInterpretationVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicColumnRankInterpretationVector(int capacity) : this(energisticsApiPINVOKE.new_StratigraphicColumnRankInterpretationVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicColumnRankInterpretationVector(int capacity) : this(fesapiPINVOKE.new_StratigraphicColumnRankInterpretationVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation val) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(StratigraphicColumnRankInterpretationVector values) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_AddRange(swigCPtr, StratigraphicColumnRankInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_AddRange(swigCPtr, StratigraphicColumnRankInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public StratigraphicColumnRankInterpretationVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_GetRange(swigCPtr, index, count);
     StratigraphicColumnRankInterpretationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StratigraphicColumnRankInterpretationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation x) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, StratigraphicColumnRankInterpretationVector values) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_InsertRange(swigCPtr, index, StratigraphicColumnRankInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_InsertRange(swigCPtr, index, StratigraphicColumnRankInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static StratigraphicColumnRankInterpretationVector Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value), count);
     StratigraphicColumnRankInterpretationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StratigraphicColumnRankInterpretationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, StratigraphicColumnRankInterpretationVector values) {
-    energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_SetRange(swigCPtr, index, StratigraphicColumnRankInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_SetRange(swigCPtr, index, StratigraphicColumnRankInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation value) {
-    bool ret = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation value) {
-    int ret = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation value) {
-    int ret = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation value) {
-    bool ret = energisticsApiPINVOKE.StratigraphicColumnRankInterpretationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.StratigraphicColumnRankInterpretationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumnRankInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

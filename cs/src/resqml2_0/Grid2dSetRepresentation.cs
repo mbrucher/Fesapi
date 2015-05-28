@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class Grid2dSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractSurfaceRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal Grid2dSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal Grid2dSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class Grid2dSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abs
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_Grid2dSetRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_Grid2dSetRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,80 +40,80 @@ public class Grid2dSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abs
   }
 
   public uint getNodeCountAlongIAxis(uint patchIndex) {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getNodeCountAlongIAxis(swigCPtr, patchIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getNodeCountAlongIAxis(swigCPtr, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getNodeCountAlongJAxis(uint patchIndex) {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getNodeCountAlongJAxis(swigCPtr, patchIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getNodeCountAlongJAxis(swigCPtr, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void getZValuesOfPatch(uint patchIndex, SWIGTYPE_p_double values) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getZValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_double.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getZValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_double.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void getZValuesOfPatchInGlobalCrs(uint patchIndex, SWIGTYPE_p_double values) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getZValuesOfPatchInGlobalCrs(swigCPtr, patchIndex, SWIGTYPE_p_double.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getZValuesOfPatchInGlobalCrs(swigCPtr, patchIndex, SWIGTYPE_p_double.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackGeometryPatch(SWIGTYPE_p_double zValues, uint numI, uint numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation supportingGrid2dRepresentation, uint startIndexI, uint startIndexJ, int indexIncrementI, int indexIncrementJ) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_0(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI, startIndexJ, indexIncrementI, indexIncrementJ);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_0(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI, startIndexJ, indexIncrementI, indexIncrementJ);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackGeometryPatch(SWIGTYPE_p_double zValues, uint numI, uint numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation supportingGrid2dRepresentation, uint startIndexI, uint startIndexJ, int indexIncrementI) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_1(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI, startIndexJ, indexIncrementI);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_1(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI, startIndexJ, indexIncrementI);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackGeometryPatch(SWIGTYPE_p_double zValues, uint numI, uint numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation supportingGrid2dRepresentation, uint startIndexI, uint startIndexJ) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_2(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI, startIndexJ);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_2(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI, startIndexJ);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackGeometryPatch(SWIGTYPE_p_double zValues, uint numI, uint numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation supportingGrid2dRepresentation, uint startIndexI) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_3(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_3(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation), startIndexI);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackGeometryPatch(SWIGTYPE_p_double zValues, uint numI, uint numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation supportingGrid2dRepresentation) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_4(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_pushBackGeometryPatch__SWIG_4(swigCPtr, SWIGTYPE_p_double.getCPtr(zValues), numI, numJ, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation.getCPtr(supportingGrid2dRepresentation));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public string getSupportingRepresentationUuid(uint patchIndex) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getSupportingRepresentationUuid(swigCPtr, patchIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getSupportingRepresentationUuid(swigCPtr, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation getSupportingRepresentation(uint patchIndex) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getSupportingRepresentation(swigCPtr, patchIndex);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getSupportingRepresentation(swigCPtr, patchIndex);
     f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.Grid2dRepresentation(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getIndexOriginOnSupportingRepresentation(uint patchIndex, uint dimension) {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getIndexOriginOnSupportingRepresentation(swigCPtr, patchIndex, dimension);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getIndexOriginOnSupportingRepresentation(swigCPtr, patchIndex, dimension);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getNodeCountOnSupportingRepresentation(uint patchIndex, uint dimension) {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getNodeCountOnSupportingRepresentation(swigCPtr, patchIndex, dimension);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getNodeCountOnSupportingRepresentation(swigCPtr, patchIndex, dimension);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getIndexOffsetOnSupportingRepresentation(uint patchIndex, uint dimension) {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_Grid2dSetRepresentation_getIndexOffsetOnSupportingRepresentation(swigCPtr, patchIndex, dimension);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_Grid2dSetRepresentation_getIndexOffsetOnSupportingRepresentation(swigCPtr, patchIndex, dimension);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -191,6 +191,71 @@ namespace resqml2_0
 			double * minimumValue = NULL, double * maximumValue = NULL);
 
 		/**
+		* Create an array (potentially multi dimensions) of explicit float values to the property values. No values are written to this array yet.
+		* @param numValues				The number of property values ordered by dimension of the array to write.
+		* @param numArrayDimensions		The number of dimensions of the array to write.
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void createFloatHdf5ArrayOfValues(
+			hsize_t* numValues, 
+			const unsigned int& numArrayDimensions, 
+			HdfProxy* proxy
+		);
+
+		/**
+		* Create a 3d array of explicit float values to the property values.
+		* @param valueCountInFastestDim	The number of values to write in the fastest dimension (mainly I dimension).
+		* @param valueCountInMiddleDim	The number of values to write in the middle dimension (mainly J dimension).
+		* @param valueCountInSlowestDim The number of values to write in the slowest dimension (mainly K dimension).
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void createFloatHdf5Array3dOfValues(
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			HdfProxy * proxy
+		);
+
+		/**
+		* Add a 3d array of explicit float values to the property values.
+		* @param values					All the property values to set ordered according the topology of the representation it is based on.
+		* @param valueCountInFastestDim	The number of values to write in the fastest dimension (mainly I dimension).
+		* @param valueCountInMiddleDim	The number of values to write in the middle dimension (mainly J dimension).
+		* @param valueCountInSlowestDim The number of values to write in the slowest dimension (mainly K dimension).
+		* @param offsetInFastestDim		The offset to write in the fastest dimension (mainly I dimension).
+		* @param offsetInMiddleDim		The offset value to write in the middle dimension (mainly J dimension).
+		* @param offsetInSlowestDim		The offset value to write in the slowest dimension (mainly K dimension).
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void pushBackFloatHdf5SlabArray3dOfValues(
+			float* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim, 
+			HdfProxy* proxy
+		);
+
+		/**
+		* Add an array (potentially multi dimensions) of explicit float values to the property values.
+		* This method is to be used along with createFloatHdf5ArrayOfValues.
+		* @param values					All the property values to set ordered according the topology of the representation it is based on.
+		* @param numValues				The number of property values ordered by dimension of the array to write.
+		* @param offsetValues			The offset values ordered by dimension of the array to write.
+		* @param numArrayDimensions		The number of dimensions of the array to write.
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void pushBackFloatHdf5SlabArrayOfValues(
+			float * values, 
+			hsize_t * numValues, 
+			hsize_t * offsetValues, 
+			const unsigned int & numArrayDimensions, 
+			HdfProxy * proxy
+		);
+
+		/**
 		* Get all the values of the instance which are supposed to be double ones.
 		* @param values	The array (pointer) of values must be preallocated.
 		*/
@@ -202,7 +267,110 @@ namespace resqml2_0
 		*/
 		void getFloatValuesOfPatch(const unsigned int & patchIndex, float * values);
 
+		/**
+		* Get all the values of the instance which are supposed to be float ones.
+		* @param patchIndex					Patch index.
+		* @param values						The array (pointer) of values. It must be preallocated.
+		* @param numValuesInEachDimension	The number of property values ordered by dimension of the array to write.
+		* @param offsetInEachDimension		The offset values ordered by dimension of the array to write.
+		* @param numArrayDimensions			The number of dimensions of the HDF5 array to read.
+		*/
+		void getFloatValuesOfPatch(
+			const unsigned int& patchIndex, 
+			float* values, 
+			hsize_t* numValuesInEachDimension,
+			hsize_t* offsetInEachDimension, 
+			const unsigned int& numArrayDimensions
+		);
+
+		/**
+		* Get all the values of the instance which are supposed to be float ones.
+		* @param patchIndex				Patch index.
+		* @param values					The array (pointer) of values. It must be preallocated.
+		* @param valueCountInFastestDim	The number of values to read in the fastest dimension (mainly I dimension).
+		* @param valueCountInMiddleDim	The number of values to read in the middle dimension (mainly J dimension).
+		* @param valueCountInSlowestDim The number of values to read in the slowest dimension (mainly K dimension).
+		* @param offsetInFastestDim		The offset value to read in the fastest dimension (mainly I dimension).
+		* @param offsetInMiddleDim		The offset value to read in the middle dimension (mainly J dimension).
+		* @param offsetInSlowestDim		The offset value to read in the slowest dimension (mainly K dimension).
+		*/
+		void getFloatValuesOf3dPatch(
+			const unsigned int& patchIndex, 
+			float* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim
+		);
+
+		double getMinimumValue();
+		double getMaximumValue();
+
 	private:
+		/**
+		* Compute and set the minimum and maximum value in \p values. 
+		* @param values				The array of values.
+		* @param numValues			The number of property values in each dimension.
+		* @param numArrayDimensions	The number of dimensions of the array.
+		*/
+		template <class T>
+		void setPropertyMinMax(
+			T* values, 
+			hsize_t* numValuesInEachDimension,
+			const unsigned int& numArrayDimensions
+		) {
+			gsoap_resqml2_0::_resqml2__ContinuousProperty* prop = 
+				static_cast<gsoap_resqml2_0::_resqml2__ContinuousProperty*>(gsoapProxy);
+			if (prop->Count == 1) {
+
+				hsize_t nValues = numValuesInEachDimension[0];
+
+				for (unsigned int dim = 1; dim < numArrayDimensions; dim++) {
+					nValues *= numValuesInEachDimension[dim];
+				}
+
+				T computedMin = prop->MinimumValue[0];
+				T computedMax = prop->MaximumValue[0];
+
+				for(int i = 0; i < nValues; ++i) {
+					if( values[i] < computedMin ) {
+						computedMin = values[i];
+					} else if( values[i] > computedMax ) {
+						computedMax = values[i];
+					}
+				}
+				prop->MinimumValue[0] = computedMin;
+				prop->MaximumValue[0] = computedMax;
+			} else if (prop->Count > 1) {
+				//In this case, the last (fastest) dimension 
+				//has the number of elements in the representation.
+				hsize_t nValues = numValuesInEachDimension[0];
+
+				for (unsigned int dim = 1; dim < numArrayDimensions-1; dim++) {
+					nValues *= numValuesInEachDimension[dim];
+				}
+
+				const int nProperties = prop->Count;
+
+				for(int propIndex = 0; propIndex < nProperties; ++propIndex) {
+					T computedMin = prop->MinimumValue[propIndex];
+					T computedMax = prop->MaximumValue[propIndex];
+
+					for(int valIndex = 0; valIndex < nValues; ++valIndex) {
+						T propVal = values[propIndex+(nProperties*valIndex)];
+						if( propVal < computedMin ) {
+							computedMin = values[valIndex];
+						} else if( propVal > computedMax ) {
+							computedMax = values[valIndex];
+						}
+					}
+					prop->MinimumValue.push_back(computedMin);
+					prop->MaximumValue.push_back(computedMax);
+				}
+			}
+		}
 
 		template <class valueType>
 		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, hsize_t * numValues, const unsigned int & numValueDimensions, HdfProxy * proxy,

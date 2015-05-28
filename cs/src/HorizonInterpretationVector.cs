@@ -34,7 +34,7 @@ public class HorizonInterpretationVector : global::System.IDisposable, global::S
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_HorizonInterpretationVector(swigCPtr);
+          fesapiPINVOKE.delete_HorizonInterpretationVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class HorizonInterpretationVector : global::System.IDisposable, global::S
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.HorizonInterpretationVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation x) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.HorizonInterpretationVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.HorizonInterpretationVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.HorizonInterpretationVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.HorizonInterpretationVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public HorizonInterpretationVector() : this(energisticsApiPINVOKE.new_HorizonInterpretationVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public HorizonInterpretationVector() : this(fesapiPINVOKE.new_HorizonInterpretationVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public HorizonInterpretationVector(HorizonInterpretationVector other) : this(energisticsApiPINVOKE.new_HorizonInterpretationVector__SWIG_1(HorizonInterpretationVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public HorizonInterpretationVector(HorizonInterpretationVector other) : this(fesapiPINVOKE.new_HorizonInterpretationVector__SWIG_1(HorizonInterpretationVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public HorizonInterpretationVector(int capacity) : this(energisticsApiPINVOKE.new_HorizonInterpretationVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public HorizonInterpretationVector(int capacity) : this(fesapiPINVOKE.new_HorizonInterpretationVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HorizonInterpretationVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HorizonInterpretationVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HorizonInterpretationVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HorizonInterpretationVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation val) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(HorizonInterpretationVector values) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_AddRange(swigCPtr, HorizonInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_AddRange(swigCPtr, HorizonInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public HorizonInterpretationVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HorizonInterpretationVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HorizonInterpretationVector_GetRange(swigCPtr, index, count);
     HorizonInterpretationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new HorizonInterpretationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation x) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, HorizonInterpretationVector values) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_InsertRange(swigCPtr, index, HorizonInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_InsertRange(swigCPtr, index, HorizonInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static HorizonInterpretationVector Repeat(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HorizonInterpretationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HorizonInterpretationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value), count);
     HorizonInterpretationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new HorizonInterpretationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.HorizonInterpretationVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, HorizonInterpretationVector values) {
-    energisticsApiPINVOKE.HorizonInterpretationVector_SetRange(swigCPtr, index, HorizonInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HorizonInterpretationVector_SetRange(swigCPtr, index, HorizonInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation value) {
-    bool ret = energisticsApiPINVOKE.HorizonInterpretationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.HorizonInterpretationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation value) {
-    int ret = energisticsApiPINVOKE.HorizonInterpretationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.HorizonInterpretationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation value) {
-    int ret = energisticsApiPINVOKE.HorizonInterpretationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.HorizonInterpretationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation value) {
-    bool ret = energisticsApiPINVOKE.HorizonInterpretationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.HorizonInterpretationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

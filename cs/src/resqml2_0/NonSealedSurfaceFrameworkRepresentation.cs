@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class NonSealedSurfaceFrameworkRepresentation : f2i.energisticsStandardsApi.resqml2_0.RepresentationSetRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal NonSealedSurfaceFrameworkRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_NonSealedSurfaceFrameworkRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal NonSealedSurfaceFrameworkRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_NonSealedSurfaceFrameworkRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class NonSealedSurfaceFrameworkRepresentation : f2i.energisticsStandardsA
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_NonSealedSurfaceFrameworkRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_NonSealedSurfaceFrameworkRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,8 +40,8 @@ public class NonSealedSurfaceFrameworkRepresentation : f2i.energisticsStandardsA
   }
 
   public void pushBackNonSealedContactRepresentation(uint pointCount, SWIGTYPE_p_double points, f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs localCrs, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_NonSealedSurfaceFrameworkRepresentation_pushBackNonSealedContactRepresentation(swigCPtr, pointCount, SWIGTYPE_p_double.getCPtr(points), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(localCrs), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_NonSealedSurfaceFrameworkRepresentation_pushBackNonSealedContactRepresentation(swigCPtr, pointCount, SWIGTYPE_p_double.getCPtr(points), f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs.getCPtr(localCrs), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

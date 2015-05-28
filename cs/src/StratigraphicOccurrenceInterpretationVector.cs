@@ -34,7 +34,7 @@ public class StratigraphicOccurrenceInterpretationVector : global::System.IDispo
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_StratigraphicOccurrenceInterpretationVector(swigCPtr);
+          fesapiPINVOKE.delete_StratigraphicOccurrenceInterpretationVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class StratigraphicOccurrenceInterpretationVector : global::System.IDispo
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation x) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicOccurrenceInterpretationVector() : this(energisticsApiPINVOKE.new_StratigraphicOccurrenceInterpretationVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicOccurrenceInterpretationVector() : this(fesapiPINVOKE.new_StratigraphicOccurrenceInterpretationVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicOccurrenceInterpretationVector(StratigraphicOccurrenceInterpretationVector other) : this(energisticsApiPINVOKE.new_StratigraphicOccurrenceInterpretationVector__SWIG_1(StratigraphicOccurrenceInterpretationVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicOccurrenceInterpretationVector(StratigraphicOccurrenceInterpretationVector other) : this(fesapiPINVOKE.new_StratigraphicOccurrenceInterpretationVector__SWIG_1(StratigraphicOccurrenceInterpretationVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicOccurrenceInterpretationVector(int capacity) : this(energisticsApiPINVOKE.new_StratigraphicOccurrenceInterpretationVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicOccurrenceInterpretationVector(int capacity) : this(fesapiPINVOKE.new_StratigraphicOccurrenceInterpretationVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation val) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(StratigraphicOccurrenceInterpretationVector values) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_AddRange(swigCPtr, StratigraphicOccurrenceInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_AddRange(swigCPtr, StratigraphicOccurrenceInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public StratigraphicOccurrenceInterpretationVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_GetRange(swigCPtr, index, count);
     StratigraphicOccurrenceInterpretationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StratigraphicOccurrenceInterpretationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation x) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, StratigraphicOccurrenceInterpretationVector values) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_InsertRange(swigCPtr, index, StratigraphicOccurrenceInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_InsertRange(swigCPtr, index, StratigraphicOccurrenceInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static StratigraphicOccurrenceInterpretationVector Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value), count);
     StratigraphicOccurrenceInterpretationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StratigraphicOccurrenceInterpretationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, StratigraphicOccurrenceInterpretationVector values) {
-    energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_SetRange(swigCPtr, index, StratigraphicOccurrenceInterpretationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_SetRange(swigCPtr, index, StratigraphicOccurrenceInterpretationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation value) {
-    bool ret = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation value) {
-    int ret = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation value) {
-    int ret = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation value) {
-    bool ret = energisticsApiPINVOKE.StratigraphicOccurrenceInterpretationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.StratigraphicOccurrenceInterpretationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicOccurrenceInterpretation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class EarthModelInterpretation : f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal EarthModelInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_EarthModelInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal EarthModelInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_EarthModelInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class EarthModelInterpretation : f2i.energisticsStandardsApi.resqml2_0.Ab
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_EarthModelInterpretation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_EarthModelInterpretation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,13 +40,13 @@ public class EarthModelInterpretation : f2i.energisticsStandardsApi.resqml2_0.Ab
   }
 
   public void setStructuralOrganizationInterpretation(f2i.energisticsStandardsApi.resqml2_0.StructuralOrganizationInterpretation structOrganization) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_EarthModelInterpretation_setStructuralOrganizationInterpretation(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StructuralOrganizationInterpretation.getCPtr(structOrganization));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_EarthModelInterpretation_setStructuralOrganizationInterpretation(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StructuralOrganizationInterpretation.getCPtr(structOrganization));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void setStratiColumn(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn stratiColumn) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_EarthModelInterpretation_setStratiColumn(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(stratiColumn));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_EarthModelInterpretation_setStratiColumn(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(stratiColumn));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

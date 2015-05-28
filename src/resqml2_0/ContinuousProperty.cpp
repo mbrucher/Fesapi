@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -166,8 +166,6 @@ void ContinuousProperty::pushBackDoubleHdf5ArrayOfValues(double * values, hsize_
 			numValues, numArrayDimensions);
 }
 
-
-
 void ContinuousProperty::pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, HdfProxy * proxy,
 		const double & minimumValue, const double & maximumValue)
 {
@@ -216,6 +214,37 @@ void ContinuousProperty::pushBackFloatHdf5Array3dOfValues(float * values, const 
 	}
 }
 
+void ContinuousProperty::createFloatHdf5Array3dOfValues(
+	const unsigned int& valueCountInFastestDim, 
+	const unsigned int& valueCountInMiddleDim, 
+	const unsigned int& valueCountInSlowestDim, 
+	HdfProxy* proxy)
+{
+	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
+	createFloatHdf5ArrayOfValues(valueCountPerDimension, 3, proxy);
+}
+
+void ContinuousProperty::pushBackFloatHdf5SlabArray3dOfValues(
+	float* values, 
+	const unsigned int& valueCountInFastestDim, 
+	const unsigned int& valueCountInMiddleDim, 
+	const unsigned int& valueCountInSlowestDim, 
+	const unsigned int& offsetInFastestDim, 
+	const unsigned int& offsetInMiddleDim, 
+	const unsigned int& offsetInSlowestDim,
+	HdfProxy* proxy)
+{
+	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
+	hsize_t offsetPerDimension[3] = {offsetInSlowestDim, offsetInMiddleDim, offsetInFastestDim};
+	pushBackFloatHdf5SlabArrayOfValues(
+		values, 
+		valueCountPerDimension, 
+		offsetPerDimension, 
+		3, 
+		proxy
+	);
+}
+
 void ContinuousProperty::pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, HdfProxy * proxy,
 	double * minimumValue, double * maximumValue)
 {
@@ -231,6 +260,73 @@ void ContinuousProperty::pushBackFloatHdf5ArrayOfValues(float * values, hsize_t 
 			H5::PredType::NATIVE_FLOAT,
 			values,
 			numValues, numArrayDimensions);
+}
+
+void ContinuousProperty::createFloatHdf5ArrayOfValues(
+	hsize_t* numValues, 
+	const unsigned int& numArrayDimensions, 
+	HdfProxy* proxy)
+{
+	setHdfProxy(proxy);
+	gsoap_resqml2_0::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0::_resqml2__ContinuousProperty*>(gsoapProxy);
+
+	gsoap_resqml2_0::resqml2__PatchOfValues* patch = gsoap_resqml2_0::soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
+
+	// XML
+	gsoap_resqml2_0::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0::soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
+	xmlValues->Values = gsoap_resqml2_0::soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
+	std::ostringstream ossForHdf;
+	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
+	xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
+	patch->Values = xmlValues;
+
+	prop->PatchOfValues.push_back(patch);
+
+	for(int i = 0; i < prop->Count; ++i) {
+		prop->MinimumValue.push_back(FLT_MAX);
+		prop->MaximumValue.push_back(FLT_MIN);
+	}
+
+	ostringstream oss;
+	oss << "values_patch" << prop->PatchOfValues.size() - 1;
+
+	// HDF
+	hdfProxy->createArrayNd(prop->uuid,
+		oss.str(),
+		H5::PredType::NATIVE_FLOAT,
+		numValues, numArrayDimensions);
+}
+
+
+void ContinuousProperty::pushBackFloatHdf5SlabArrayOfValues(
+	float* values, hsize_t* numValuesInEachDimension,
+	hsize_t* offsetInEachDimension, const unsigned int& numArrayDimensions, 
+	HdfProxy* proxy)
+{
+
+	_resqml2__ContinuousProperty* prop = 
+		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+
+	setPropertyMinMax(
+		values,
+		numValuesInEachDimension, 
+		numArrayDimensions
+	);
+
+	ostringstream oss;
+	oss << "values_patch" << prop->PatchOfValues.size() - 1;
+
+	// HDF
+	hdfProxy->writeArrayNdSlab(
+		prop->uuid,
+		oss.str(),
+		values,
+		numValuesInEachDimension, 
+		offsetInEachDimension, 
+		numArrayDimensions);
 }
 
 void ContinuousProperty::getDoubleValuesOfPatch(const unsigned int & patchIndex, double * values)
@@ -261,3 +357,68 @@ void ContinuousProperty::getFloatValuesOfPatch(const unsigned int & patchIndex, 
 	hdfProxy->readArrayNdOfFloatValues(hdfValues->Values->PathInHdfFile, values);
 }
 
+void ContinuousProperty::getFloatValuesOfPatch(
+	const unsigned int& patchIndex, 
+	float* values, 
+	hsize_t* numValuesInEachDimension,
+	hsize_t* offsetInEachDimension, 
+	const unsigned int& numArrayDimensions)
+{
+	if (hdfProxy == NULL) {
+		return;
+	}
+
+	if (!hdfProxy->isOpened()) {
+		hdfProxy->openForReading();
+	}
+
+	_resqml2__ContinuousProperty* prop = 
+		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	resqml2__DoubleHdf5Array* hdfValues = 
+		static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
+
+	hdfProxy->readArrayNdOfFloatValues(
+        hdfValues->Values->PathInHdfFile, 
+		values, 
+		numValuesInEachDimension,
+		offsetInEachDimension,
+		numArrayDimensions);
+}
+
+void ContinuousProperty::getFloatValuesOf3dPatch(
+	const unsigned int& patchIndex, 
+	float* values, 
+	const unsigned int& valueCountInFastestDim, 
+	const unsigned int& valueCountInMiddleDim, 
+	const unsigned int& valueCountInSlowestDim, 
+	const unsigned int& offsetInFastestDim, 
+	const unsigned int& offsetInMiddleDim, 
+	const unsigned int& offsetInSlowestDim)
+{
+	hsize_t valueCountPerDimension[3] = 
+		{valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
+	hsize_t offsetPerDimension[3] = 
+		{offsetInSlowestDim, offsetInMiddleDim, offsetInFastestDim};
+
+	getFloatValuesOfPatch(
+		patchIndex,
+		values, 
+		valueCountPerDimension, 
+		offsetPerDimension, 
+		3
+	);
+}
+
+double ContinuousProperty::getMinimumValue()
+{
+		_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+
+		return prop->MinimumValue[0];
+}
+
+double ContinuousProperty::getMaximumValue()
+{
+		_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+
+		return prop->MaximumValue[0];
+}

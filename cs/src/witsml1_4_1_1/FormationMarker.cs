@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.witsml1_4_1_1 {
 public class FormationMarker : f2i.energisticsStandardsApi.witsml1_4_1_1.AbstractObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal FormationMarker(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_FormationMarker_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal FormationMarker(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_FormationMarker_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class FormationMarker : f2i.energisticsStandardsApi.witsml1_4_1_1.Abstrac
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_witsml1_4_1_1_FormationMarker(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_witsml1_4_1_1_FormationMarker(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,16 +40,16 @@ public class FormationMarker : f2i.energisticsStandardsApi.witsml1_4_1_1.Abstrac
   }
 
   public f2i.energisticsStandardsApi.witsml1_4_1_1.Wellbore getWellbore() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_FormationMarker_getWellbore(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_FormationMarker_getWellbore(swigCPtr);
     f2i.energisticsStandardsApi.witsml1_4_1_1.Wellbore ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.witsml1_4_1_1.Wellbore(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.WellboreMarkerFrameRepresentation getResqmlWellboreMarkerFrameRepresentation() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_FormationMarker_getResqmlWellboreMarkerFrameRepresentation(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_FormationMarker_getResqmlWellboreMarkerFrameRepresentation(swigCPtr);
     f2i.energisticsStandardsApi.resqml2_0.WellboreMarkerFrameRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.WellboreMarkerFrameRepresentation(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

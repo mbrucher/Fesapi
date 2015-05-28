@@ -32,7 +32,7 @@ public class BoolArray : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_BoolArray(swigCPtr);
+          fesapiPINVOKE.delete_BoolArray(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,26 +40,26 @@ public class BoolArray : global::System.IDisposable {
     }
   }
 
-  public BoolArray(int nelements) : this(energisticsApiPINVOKE.new_BoolArray(nelements), true) {
+  public BoolArray(int nelements) : this(fesapiPINVOKE.new_BoolArray(nelements), true) {
   }
 
   public bool getitem(int index) {
-    bool ret = energisticsApiPINVOKE.BoolArray_getitem(swigCPtr, index);
+    bool ret = fesapiPINVOKE.BoolArray_getitem(swigCPtr, index);
     return ret;
   }
 
   public void setitem(int index, bool value) {
-    energisticsApiPINVOKE.BoolArray_setitem(swigCPtr, index, value);
+    fesapiPINVOKE.BoolArray_setitem(swigCPtr, index, value);
   }
 
   public SWIGTYPE_p_bool cast() {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.BoolArray_cast(swigCPtr);
+    global::System.IntPtr cPtr = fesapiPINVOKE.BoolArray_cast(swigCPtr);
     SWIGTYPE_p_bool ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_bool(cPtr, false);
     return ret;
   }
 
   public static BoolArray frompointer(SWIGTYPE_p_bool t) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.BoolArray_frompointer(SWIGTYPE_p_bool.getCPtr(t));
+    global::System.IntPtr cPtr = fesapiPINVOKE.BoolArray_frompointer(SWIGTYPE_p_bool.getCPtr(t));
     BoolArray ret = (cPtr == global::System.IntPtr.Zero) ? null : new BoolArray(cPtr, false);
     return ret;
   }

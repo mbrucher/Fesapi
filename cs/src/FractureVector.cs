@@ -34,7 +34,7 @@ public class FractureVector : global::System.IDisposable, global::System.Collect
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_FractureVector(swigCPtr);
+          fesapiPINVOKE.delete_FractureVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class FractureVector : global::System.IDisposable, global::System.Collect
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.FractureVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.Fracture x) {
-    energisticsApiPINVOKE.FractureVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.FractureVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.FractureVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.FractureVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.FractureVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.FractureVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public FractureVector() : this(energisticsApiPINVOKE.new_FractureVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public FractureVector() : this(fesapiPINVOKE.new_FractureVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public FractureVector(FractureVector other) : this(energisticsApiPINVOKE.new_FractureVector__SWIG_1(FractureVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public FractureVector(FractureVector other) : this(fesapiPINVOKE.new_FractureVector__SWIG_1(FractureVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public FractureVector(int capacity) : this(energisticsApiPINVOKE.new_FractureVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public FractureVector(int capacity) : this(fesapiPINVOKE.new_FractureVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.Fracture getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.FractureVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.FractureVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.Fracture ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.Fracture(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.Fracture getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.FractureVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.FractureVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.Fracture ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.Fracture(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.Fracture val) {
-    energisticsApiPINVOKE.FractureVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(FractureVector values) {
-    energisticsApiPINVOKE.FractureVector_AddRange(swigCPtr, FractureVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_AddRange(swigCPtr, FractureVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public FractureVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.FractureVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.FractureVector_GetRange(swigCPtr, index, count);
     FractureVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new FractureVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.Fracture x) {
-    energisticsApiPINVOKE.FractureVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, FractureVector values) {
-    energisticsApiPINVOKE.FractureVector_InsertRange(swigCPtr, index, FractureVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_InsertRange(swigCPtr, index, FractureVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.FractureVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.FractureVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static FractureVector Repeat(f2i.energisticsStandardsApi.resqml2_0.Fracture value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.FractureVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.FractureVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value), count);
     FractureVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new FractureVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.FractureVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.FractureVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, FractureVector values) {
-    energisticsApiPINVOKE.FractureVector_SetRange(swigCPtr, index, FractureVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.FractureVector_SetRange(swigCPtr, index, FractureVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.Fracture value) {
-    bool ret = energisticsApiPINVOKE.FractureVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.FractureVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.Fracture value) {
-    int ret = energisticsApiPINVOKE.FractureVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.FractureVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.Fracture value) {
-    int ret = energisticsApiPINVOKE.FractureVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.FractureVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.Fracture value) {
-    bool ret = energisticsApiPINVOKE.FractureVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.FractureVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.Fracture.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -47,17 +47,16 @@ using namespace gsoap_resqml2_0;
 
 const char* PolylineSetRepresentation::XML_TAG = "PolylineSetRepresentation";
 
-PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
-		const std::string & guid, const std::string & title):
-	AbstractRepresentation(interp, crs)
+void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+									 const std::string & guid, const std::string & title)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(interp->getGsoapProxy()->soap, 1);
-	_resqml2__PolylineSetRepresentation* plSetRep = static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy);
+	_resqml2__PolylineSetRepresentation* polylineSetRep = static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
-	// relationhsips
+	// relationships
 	setInterpretation(interp);
 
 	localCrs = crs;
@@ -66,6 +65,23 @@ PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretati
 	// epc document
 	if (interp->getEpcDocument())
 		interp->getEpcDocument()->addGsoapProxy(this);
+}
+
+PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+													 const std::string & guid, const std::string & title):
+	AbstractRepresentation(interp, crs)
+{
+	init(interp, crs, guid, title);
+}
+
+PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+													 const std::string & guid, const std::string & title,
+													 const resqml2__LineRole & roleKind):
+	AbstractRepresentation(interp, crs)
+{
+	init(interp, crs, guid, title);
+	static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LineRole = (resqml2__LineRole*)soap_malloc(gsoapProxy->soap, sizeof(resqml2__LineRole));
+	(*static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LineRole) = roleKind;
 }
 
 void PolylineSetRepresentation::pushBackGeometryPatch(
@@ -595,4 +611,17 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfAllPatches(bool * clos
 		getClosedFlagPerPolylineOfPatch(i, closedFlagPerPolyline);
 		closedFlagPerPolyline += getPolylineCountOfPatch(i);
 	}
+}
+
+bool PolylineSetRepresentation::hasALineRole() const
+{
+	return static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LineRole;
+}
+
+gsoap_resqml2_0::resqml2__LineRole PolylineSetRepresentation::getLineRole() const
+{
+	if (!hasALineRole())
+		throw invalid_argument("The polylineSet doesn't have any role");
+
+	return *(static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LineRole);
 }

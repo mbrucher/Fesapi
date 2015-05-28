@@ -34,7 +34,7 @@ public class TrajectoryVector : global::System.IDisposable, global::System.Colle
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_TrajectoryVector(swigCPtr);
+          fesapiPINVOKE.delete_TrajectoryVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class TrajectoryVector : global::System.IDisposable, global::System.Colle
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.TrajectoryVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory x) {
-    energisticsApiPINVOKE.TrajectoryVector_Add(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_Add(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.TrajectoryVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.TrajectoryVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.TrajectoryVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.TrajectoryVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.TrajectoryVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public TrajectoryVector() : this(energisticsApiPINVOKE.new_TrajectoryVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public TrajectoryVector() : this(fesapiPINVOKE.new_TrajectoryVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public TrajectoryVector(TrajectoryVector other) : this(energisticsApiPINVOKE.new_TrajectoryVector__SWIG_1(TrajectoryVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public TrajectoryVector(TrajectoryVector other) : this(fesapiPINVOKE.new_TrajectoryVector__SWIG_1(TrajectoryVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public TrajectoryVector(int capacity) : this(energisticsApiPINVOKE.new_TrajectoryVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public TrajectoryVector(int capacity) : this(fesapiPINVOKE.new_TrajectoryVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.TrajectoryVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.TrajectoryVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.TrajectoryVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.TrajectoryVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory val) {
-    energisticsApiPINVOKE.TrajectoryVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(TrajectoryVector values) {
-    energisticsApiPINVOKE.TrajectoryVector_AddRange(swigCPtr, TrajectoryVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_AddRange(swigCPtr, TrajectoryVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public TrajectoryVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.TrajectoryVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.TrajectoryVector_GetRange(swigCPtr, index, count);
     TrajectoryVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajectoryVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory x) {
-    energisticsApiPINVOKE.TrajectoryVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, TrajectoryVector values) {
-    energisticsApiPINVOKE.TrajectoryVector_InsertRange(swigCPtr, index, TrajectoryVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_InsertRange(swigCPtr, index, TrajectoryVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.TrajectoryVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.TrajectoryVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static TrajectoryVector Repeat(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.TrajectoryVector_Repeat(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.TrajectoryVector_Repeat(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value), count);
     TrajectoryVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajectoryVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.TrajectoryVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.TrajectoryVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, TrajectoryVector values) {
-    energisticsApiPINVOKE.TrajectoryVector_SetRange(swigCPtr, index, TrajectoryVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.TrajectoryVector_SetRange(swigCPtr, index, TrajectoryVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory value) {
-    bool ret = energisticsApiPINVOKE.TrajectoryVector_Contains(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.TrajectoryVector_Contains(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory value) {
-    int ret = energisticsApiPINVOKE.TrajectoryVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.TrajectoryVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory value) {
-    int ret = energisticsApiPINVOKE.TrajectoryVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.TrajectoryVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory value) {
-    bool ret = energisticsApiPINVOKE.TrajectoryVector_Remove(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.TrajectoryVector_Remove(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Trajectory.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -70,12 +70,12 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 	struct dirent* currentFile = readdir(rep); // first file
 	do
 	{
-		string fileName = currentFile->d_name;
+		string fileName = directory + "/" + currentFile->d_name;
 #endif
 		unsigned int pos = fileName.find_last_of('.');
 		if (pos < fileName.size())
 		{
-			if (fileName.substr(pos).compare(".xml") == 0)
+			if (fileName.substr(pos).compare(".xml") == 0 && fileName.find("PropertyKind") != std::string::npos)
 			{
 				if (fileName.compare("PropertyKindMapping.xml") == 0)
 				{

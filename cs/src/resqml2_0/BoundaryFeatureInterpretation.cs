@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class BoundaryFeatureInterpretation : f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal BoundaryFeatureInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_BoundaryFeatureInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal BoundaryFeatureInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_BoundaryFeatureInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class BoundaryFeatureInterpretation : f2i.energisticsStandardsApi.resqml2
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_BoundaryFeatureInterpretation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_BoundaryFeatureInterpretation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }

@@ -32,7 +32,7 @@ public class FloatArray : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_FloatArray(swigCPtr);
+          fesapiPINVOKE.delete_FloatArray(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,26 +40,26 @@ public class FloatArray : global::System.IDisposable {
     }
   }
 
-  public FloatArray(int nelements) : this(energisticsApiPINVOKE.new_FloatArray(nelements), true) {
+  public FloatArray(int nelements) : this(fesapiPINVOKE.new_FloatArray(nelements), true) {
   }
 
   public float getitem(int index) {
-    float ret = energisticsApiPINVOKE.FloatArray_getitem(swigCPtr, index);
+    float ret = fesapiPINVOKE.FloatArray_getitem(swigCPtr, index);
     return ret;
   }
 
   public void setitem(int index, float value) {
-    energisticsApiPINVOKE.FloatArray_setitem(swigCPtr, index, value);
+    fesapiPINVOKE.FloatArray_setitem(swigCPtr, index, value);
   }
 
   public SWIGTYPE_p_float cast() {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.FloatArray_cast(swigCPtr);
+    global::System.IntPtr cPtr = fesapiPINVOKE.FloatArray_cast(swigCPtr);
     SWIGTYPE_p_float ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_float(cPtr, false);
     return ret;
   }
 
   public static FloatArray frompointer(SWIGTYPE_p_float t) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.FloatArray_frompointer(SWIGTYPE_p_float.getCPtr(t));
+    global::System.IntPtr cPtr = fesapiPINVOKE.FloatArray_frompointer(SWIGTYPE_p_float.getCPtr(t));
     FloatArray ret = (cPtr == global::System.IntPtr.Zero) ? null : new FloatArray(cPtr, false);
     return ret;
   }

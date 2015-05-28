@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class SeismicLatticeFeature : f2i.energisticsStandardsApi.resqml2_0.AbstractTechnicalFeature {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal SeismicLatticeFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLatticeFeature_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal SeismicLatticeFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLatticeFeature_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class SeismicLatticeFeature : f2i.energisticsStandardsApi.resqml2_0.Abstr
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_SeismicLatticeFeature(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_SeismicLatticeFeature(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,26 +40,26 @@ public class SeismicLatticeFeature : f2i.energisticsStandardsApi.resqml2_0.Abstr
   }
 
   public int getCrosslineIncrement() {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLatticeFeature_getCrosslineIncrement(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLatticeFeature_getCrosslineIncrement(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getInlineIncrement() {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLatticeFeature_getInlineIncrement(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLatticeFeature_getInlineIncrement(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getOriginCrossline() {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLatticeFeature_getOriginCrossline(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLatticeFeature_getOriginCrossline(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getOriginInline() {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLatticeFeature_getOriginInline(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLatticeFeature_getOriginInline(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

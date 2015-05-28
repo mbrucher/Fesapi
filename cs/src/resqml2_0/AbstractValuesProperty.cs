@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class AbstractValuesProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractProperty {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal AbstractValuesProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal AbstractValuesProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class AbstractValuesProperty : f2i.energisticsStandardsApi.resqml2_0.Abst
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_AbstractValuesProperty(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_AbstractValuesProperty(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,63 +40,111 @@ public class AbstractValuesProperty : f2i.energisticsStandardsApi.resqml2_0.Abst
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum getValuesHdfDatatype() {
-    f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getValuesHdfDatatype(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getValuesHdfDatatype(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getNullValueOfPatch(uint patchIndex) {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getNullValueOfPatch(swigCPtr, patchIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getNullValueOfPatch(swigCPtr, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getLongValuesOfPatch(uint patchIndex, SWIGTYPE_p_long values) {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getLongValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_long.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_0(swigCPtr, patchIndex, SWIGTYPE_p_long.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getULongValuesOfPatch(uint patchIndex, SWIGTYPE_p_unsigned_long values) {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getULongValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_long.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getULongValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_long.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getIntValuesOfPatch(uint patchIndex, SWIGTYPE_p_int values) {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getIntValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_int.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getIntValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_int.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getUIntValuesOfPatch(uint patchIndex, SWIGTYPE_p_unsigned_int values) {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getUIntValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_int.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getUIntValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_int.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public short getShortValuesOfPatch(uint patchIndex, SWIGTYPE_p_short values) {
-    short ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getShortValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_short.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    short ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getShortValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_short.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public ushort getUShortValuesOfPatch(uint patchIndex, SWIGTYPE_p_unsigned_short values) {
-    ushort ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getUShortValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_short.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    ushort ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getUShortValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_short.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public char getCharValuesOfPatch(uint patchIndex, string values) {
-    char ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getCharValuesOfPatch(swigCPtr, patchIndex, values);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    char ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getCharValuesOfPatch(swigCPtr, patchIndex, values);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public byte getUCharValuesOfPatch(uint patchIndex, SWIGTYPE_p_unsigned_char values) {
-    byte ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractValuesProperty_getUCharValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_char.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    byte ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getUCharValuesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_char.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
+  }
+
+  public uint getValuesCountOfPatch(uint patchIndex) {
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getValuesCountOfPatch(swigCPtr, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint getValuesCountOfDimensionOfPatch(uint dimIndex, uint patchIndex) {
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getValuesCountOfDimensionOfPatch(swigCPtr, dimIndex, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint getDimensionsCountOfPatch(uint patchIndex) {
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getDimensionsCountOfPatch(swigCPtr, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void createLongHdf5ArrayOfValues(SWIGTYPE_p_unsigned_long_long numValues, uint numArrayDimensions, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_createLongHdf5ArrayOfValues(swigCPtr, SWIGTYPE_p_unsigned_long_long.getCPtr(numValues), numArrayDimensions, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void createLongHdf5Array3dOfValues(uint valueCountInFastestDim, uint valueCountInMiddleDim, uint valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_createLongHdf5Array3dOfValues(swigCPtr, valueCountInFastestDim, valueCountInMiddleDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void pushBackLongHdf5SlabArray3dOfValues(SWIGTYPE_p_long values, uint valueCountInFastestDim, uint valueCountInMiddleDim, uint valueCountInSlowestDim, uint offsetInFastestDim, uint offsetInMiddleDim, uint offsetInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArray3dOfValues(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInMiddleDim, valueCountInSlowestDim, offsetInFastestDim, offsetInMiddleDim, offsetInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void pushBackLongHdf5SlabArrayOfValues(SWIGTYPE_p_long values, SWIGTYPE_p_unsigned_long_long numValues, SWIGTYPE_p_unsigned_long_long offsetValues, uint numArrayDimensions, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArrayOfValues(swigCPtr, SWIGTYPE_p_long.getCPtr(values), SWIGTYPE_p_unsigned_long_long.getCPtr(numValues), SWIGTYPE_p_unsigned_long_long.getCPtr(offsetValues), numArrayDimensions, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void getLongValuesOfPatch(uint patchIndex, SWIGTYPE_p_long values, SWIGTYPE_p_unsigned_long_long numValuesInEachDimension, SWIGTYPE_p_unsigned_long_long offsetInEachDimension, uint numArrayDimensions) {
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_1(swigCPtr, patchIndex, SWIGTYPE_p_long.getCPtr(values), SWIGTYPE_p_unsigned_long_long.getCPtr(numValuesInEachDimension), SWIGTYPE_p_unsigned_long_long.getCPtr(offsetInEachDimension), numArrayDimensions);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void getLongValuesOf3dPatch(uint patchIndex, SWIGTYPE_p_long values, uint valueCountInFastestDim, uint valueCountInMiddleDim, uint valueCountInSlowestDim, uint offsetInFastestDim, uint offsetInMiddleDim, uint offsetInSlowestDim) {
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractValuesProperty_getLongValuesOf3dPatch(swigCPtr, patchIndex, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInMiddleDim, valueCountInSlowestDim, offsetInFastestDim, offsetInMiddleDim, offsetInSlowestDim);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public enum hdfDatatypeEnum {

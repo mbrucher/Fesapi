@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class TimeSeries : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal TimeSeries(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TimeSeries_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal TimeSeries(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TimeSeries_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class TimeSeries : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDa
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_TimeSeries(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_TimeSeries(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,25 +40,25 @@ public class TimeSeries : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDa
   }
 
   public void pushBackTimestamp(long timestamp) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TimeSeries_pushBackTimestamp(swigCPtr, timestamp);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TimeSeries_pushBackTimestamp(swigCPtr, timestamp);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint getTimestampIndex(long timestamp) {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TimeSeries_getTimestampIndex(swigCPtr, timestamp);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TimeSeries_getTimestampIndex(swigCPtr, timestamp);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getTimestampCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TimeSeries_getTimestampCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TimeSeries_getTimestampCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public long getTimestamp(uint index) {
-    long ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TimeSeries_getTimestamp(swigCPtr, index);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    long ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TimeSeries_getTimestamp(swigCPtr, index);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

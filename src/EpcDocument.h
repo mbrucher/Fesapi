@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -503,6 +503,9 @@ namespace common
 		resqml2_0::PolylineSetRepresentation* createPolylineSetRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title);
 
+		resqml2_0::PolylineSetRepresentation* createPolylineSetRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, const gsoap_resqml2_0::resqml2__LineRole & roleKind);
+
 		resqml2_0::PointSetRepresentation* createPointSetRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title);
 
@@ -553,6 +556,10 @@ namespace common
 		resqml2_0::UnstructuredGridRepresentation* createUnstructuredGridRepresentation(resqml2_0::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & cellCount);
+
+		resqml2_0::SubRepresentation* createSubRepresentation(resqml2_0::AbstractLocal3dCrs * crs, 
+                const std::string & guid, const std::string & title,
+				resqml2_0::AbstractRepresentation * supportingRep);
 
 		resqml2_0::SubRepresentation* createSubRepresentation(resqml2_0::AbstractFeatureInterpretation* interp, resqml2_0::AbstractLocal3dCrs * crs, 
                 const std::string & guid, const std::string & title,

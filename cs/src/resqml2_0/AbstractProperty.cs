@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class AbstractProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal AbstractProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal AbstractProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class AbstractProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractRe
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_AbstractProperty(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_AbstractProperty(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,112 +40,112 @@ public class AbstractProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractRe
   }
 
   public string getRepresentationUuid() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getRepresentationUuid(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getRepresentationUuid(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation getRepresentation() {
-		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getRepresentation(swigCPtr);
-		f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation) energisticsApiPINVOKE.resqml2_0_instantiateConcreteObject(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getRepresentation(swigCPtr);
+		f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation) fesapiPINVOKE.resqml2_0_instantiateConcreteObject(cPtr, false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
 		return ret;
 	}
 
   public string getHdfProxyUuid() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getHdfProxyUuid(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getHdfProxyUuid(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.HdfProxy getHdfProxy() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getHdfProxy(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getHdfProxy(swigCPtr);
     f2i.energisticsStandardsApi.resqml2_0.HdfProxy ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.HdfProxy(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getPropertyKindUomAsString() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindUomAsString(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindUomAsString(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getPropertyKindDescription() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindDescription(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindDescription(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getPropertyKindAsString() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindAsString(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindAsString(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getPropertyKindParentAsString() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindParentAsString(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getPropertyKindParentAsString(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool isAssociatedToOneStandardEnergisticsPropertyKind() {
-    bool ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_isAssociatedToOneStandardEnergisticsPropertyKind(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_isAssociatedToOneStandardEnergisticsPropertyKind(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public resqml2__ResqmlPropertyKind getEnergisticsPropertyKind() {
-    resqml2__ResqmlPropertyKind ret = (resqml2__ResqmlPropertyKind)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getEnergisticsPropertyKind(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    resqml2__ResqmlPropertyKind ret = (resqml2__ResqmlPropertyKind)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getEnergisticsPropertyKind(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getLocalPropertyKindUuid() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getLocalPropertyKindUuid(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getLocalPropertyKindUuid(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.PropertyKind getLocalPropertyKind() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getLocalPropertyKind(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getLocalPropertyKind(swigCPtr);
     f2i.energisticsStandardsApi.resqml2_0.PropertyKind ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PropertyKind(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getElementCountPerValue() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getElementCountPerValue(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getElementCountPerValue(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public resqml2__IndexableElements getAttachmentKind() {
-    resqml2__IndexableElements ret = (resqml2__IndexableElements)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getAttachmentKind(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    resqml2__IndexableElements ret = (resqml2__IndexableElements)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getAttachmentKind(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void setTimeIndex(uint timeIndex, f2i.energisticsStandardsApi.resqml2_0.TimeSeries ts) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_setTimeIndex(swigCPtr, timeIndex, f2i.energisticsStandardsApi.resqml2_0.TimeSeries.getCPtr(ts));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_setTimeIndex(swigCPtr, timeIndex, f2i.energisticsStandardsApi.resqml2_0.TimeSeries.getCPtr(ts));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void setTimeStep(uint timeStep) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_setTimeStep(swigCPtr, timeStep);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_setTimeStep(swigCPtr, timeStep);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.TimeSeries getTimeSeries() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getTimeSeries(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getTimeSeries(swigCPtr);
     f2i.energisticsStandardsApi.resqml2_0.TimeSeries ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.TimeSeries(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public long getTimestamp() {
-    long ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractProperty_getTimestamp(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    long ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractProperty_getTimestamp(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

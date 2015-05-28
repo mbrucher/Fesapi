@@ -34,7 +34,7 @@ public class HdfProxyVector : global::System.IDisposable, global::System.Collect
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_HdfProxyVector(swigCPtr);
+          fesapiPINVOKE.delete_HdfProxyVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class HdfProxyVector : global::System.IDisposable, global::System.Collect
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.HdfProxyVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.HdfProxy x) {
-    energisticsApiPINVOKE.HdfProxyVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.HdfProxyVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.HdfProxyVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.HdfProxyVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.HdfProxyVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.HdfProxyVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public HdfProxyVector() : this(energisticsApiPINVOKE.new_HdfProxyVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public HdfProxyVector() : this(fesapiPINVOKE.new_HdfProxyVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public HdfProxyVector(HdfProxyVector other) : this(energisticsApiPINVOKE.new_HdfProxyVector__SWIG_1(HdfProxyVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public HdfProxyVector(HdfProxyVector other) : this(fesapiPINVOKE.new_HdfProxyVector__SWIG_1(HdfProxyVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public HdfProxyVector(int capacity) : this(energisticsApiPINVOKE.new_HdfProxyVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public HdfProxyVector(int capacity) : this(fesapiPINVOKE.new_HdfProxyVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.HdfProxy getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HdfProxyVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HdfProxyVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.HdfProxy ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.HdfProxy(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.HdfProxy getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HdfProxyVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HdfProxyVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.HdfProxy ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.HdfProxy(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.HdfProxy val) {
-    energisticsApiPINVOKE.HdfProxyVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(HdfProxyVector values) {
-    energisticsApiPINVOKE.HdfProxyVector_AddRange(swigCPtr, HdfProxyVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_AddRange(swigCPtr, HdfProxyVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public HdfProxyVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HdfProxyVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HdfProxyVector_GetRange(swigCPtr, index, count);
     HdfProxyVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new HdfProxyVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.HdfProxy x) {
-    energisticsApiPINVOKE.HdfProxyVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, HdfProxyVector values) {
-    energisticsApiPINVOKE.HdfProxyVector_InsertRange(swigCPtr, index, HdfProxyVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_InsertRange(swigCPtr, index, HdfProxyVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.HdfProxyVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.HdfProxyVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static HdfProxyVector Repeat(f2i.energisticsStandardsApi.resqml2_0.HdfProxy value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.HdfProxyVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.HdfProxyVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value), count);
     HdfProxyVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new HdfProxyVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.HdfProxyVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.HdfProxyVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, HdfProxyVector values) {
-    energisticsApiPINVOKE.HdfProxyVector_SetRange(swigCPtr, index, HdfProxyVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.HdfProxyVector_SetRange(swigCPtr, index, HdfProxyVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.HdfProxy value) {
-    bool ret = energisticsApiPINVOKE.HdfProxyVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.HdfProxyVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.HdfProxy value) {
-    int ret = energisticsApiPINVOKE.HdfProxyVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.HdfProxyVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.HdfProxy value) {
-    int ret = energisticsApiPINVOKE.HdfProxyVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.HdfProxyVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.HdfProxy value) {
-    bool ret = energisticsApiPINVOKE.HdfProxyVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.HdfProxyVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

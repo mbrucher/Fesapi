@@ -41,6 +41,8 @@ namespace resqml2_0
 	{
 	private :
 		gsoap_resqml2_0::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
+		void init(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+				  const std::string & guid, const std::string & title);
 
 	public:
 		/**
@@ -52,6 +54,17 @@ namespace resqml2_0
 		*/
 		PolylineSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title);
+
+		/**
+		* Creates an instance of this class in a gsoap context.
+		* @param interp							The interpretation this representation represents.
+		* @param crs							The local CRS where the geometry of this representation is given.
+		* @param guid							The guid to set to the new instance. If empty then a new guid will be generated.
+		* @param title							A title for the instance to create.
+		* @param roleKind						Indicates the role of this representation.
+		*/
+		PolylineSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+				const std::string & guid, const std::string & title, const gsoap_resqml2_0::resqml2__LineRole & roleKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -142,5 +155,16 @@ namespace resqml2_0
 		 */
 		void getClosedFlagPerPolylineOfPatch(const unsigned int & patchIndex, bool * closedFlagPerPolyline) const;
 		void getClosedFlagPerPolylineOfAllPatches(bool * closedFlagPerPolyline) const;
+
+		/**
+		* Indicates if the polylineSet is associated to a particular LineRole.
+		*/
+		bool hasALineRole() const;
+
+		/**
+		* Get the role of this polylineSet.
+		* Throw an exception if the polylineSet has no role (see method hasALineRole).
+		*/
+        gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
 	};
 }

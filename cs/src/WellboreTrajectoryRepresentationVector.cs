@@ -34,7 +34,7 @@ public class WellboreTrajectoryRepresentationVector : global::System.IDisposable
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_WellboreTrajectoryRepresentationVector(swigCPtr);
+          fesapiPINVOKE.delete_WellboreTrajectoryRepresentationVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class WellboreTrajectoryRepresentationVector : global::System.IDisposable
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation x) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public WellboreTrajectoryRepresentationVector() : this(energisticsApiPINVOKE.new_WellboreTrajectoryRepresentationVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public WellboreTrajectoryRepresentationVector() : this(fesapiPINVOKE.new_WellboreTrajectoryRepresentationVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public WellboreTrajectoryRepresentationVector(WellboreTrajectoryRepresentationVector other) : this(energisticsApiPINVOKE.new_WellboreTrajectoryRepresentationVector__SWIG_1(WellboreTrajectoryRepresentationVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public WellboreTrajectoryRepresentationVector(WellboreTrajectoryRepresentationVector other) : this(fesapiPINVOKE.new_WellboreTrajectoryRepresentationVector__SWIG_1(WellboreTrajectoryRepresentationVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public WellboreTrajectoryRepresentationVector(int capacity) : this(energisticsApiPINVOKE.new_WellboreTrajectoryRepresentationVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public WellboreTrajectoryRepresentationVector(int capacity) : this(fesapiPINVOKE.new_WellboreTrajectoryRepresentationVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation val) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(WellboreTrajectoryRepresentationVector values) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_AddRange(swigCPtr, WellboreTrajectoryRepresentationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_AddRange(swigCPtr, WellboreTrajectoryRepresentationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public WellboreTrajectoryRepresentationVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_GetRange(swigCPtr, index, count);
     WellboreTrajectoryRepresentationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new WellboreTrajectoryRepresentationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation x) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, WellboreTrajectoryRepresentationVector values) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_InsertRange(swigCPtr, index, WellboreTrajectoryRepresentationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_InsertRange(swigCPtr, index, WellboreTrajectoryRepresentationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static WellboreTrajectoryRepresentationVector Repeat(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value), count);
     WellboreTrajectoryRepresentationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new WellboreTrajectoryRepresentationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, WellboreTrajectoryRepresentationVector values) {
-    energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_SetRange(swigCPtr, index, WellboreTrajectoryRepresentationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.WellboreTrajectoryRepresentationVector_SetRange(swigCPtr, index, WellboreTrajectoryRepresentationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation value) {
-    bool ret = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation value) {
-    int ret = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation value) {
-    int ret = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation value) {
-    bool ret = energisticsApiPINVOKE.WellboreTrajectoryRepresentationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.WellboreTrajectoryRepresentationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

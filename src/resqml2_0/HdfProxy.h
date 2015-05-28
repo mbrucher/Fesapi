@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -106,6 +106,12 @@ namespace resqml2_0
 			const hsize_t & elementsSize);
 
 		/**
+		* Get the number of dimensions in an HDF dataset of the proxy.
+		* @param datasetName	The absolute name of the dataset we want to get the number of dimensions.
+		*/
+		unsigned int getDimensionCount(const std::string & datasetName);
+
+		/**
 		* Get the number of elements in an HDF dataset of the proxy. The number of elements is get from all dimensions.
 		* @param datasetName	The absolute name of the dataset we want to get the number of elements.
 		*/
@@ -125,9 +131,9 @@ namespace resqml2_0
 
 		/**
 		* Write an array (potentially with multi dimensions) of double values into the HDF file by means of a single dataset.
-		* @param groupName						The name of the group where to create the array 2d of double values.
+		* @param groupName						The name of the group where to create the array of double values.
 		*										This name must not contain '/' character and must be directly contained in RESQML group.
-		* @param name							The name of the array 2d of double values hdf dataset. It must not exist.
+		* @param name							The name of the array of double values hdf dataset. It must not already exist.
 		* @param dblValues						1d array of double values ordered firstly by fastest direction.
 		* @param numValuesInEachDimension		Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
 		* @param numDimensions					The number of the dimensions of the array to write
@@ -137,27 +143,27 @@ namespace resqml2_0
 			double * dblValues,
 			hsize_t * numValuesInEachDimension,
 			const unsigned int & numDimensions);
-        
-        /**
+
+		/**
 		* Write an array (potentially with multi dimensions) of int values into the HDF file by means of a single dataset.
-		* @param groupName						The name of the group where to create the array 2d of int values.
+		* @param groupName						The name of the group where to create the array of int values.
 		*										This name must not contain '/' character and must be directly contained in RESQML group.
-		* @param name							The name of the array 2d of int values hdf dataset. It must not exist.
+		* @param name							The name of the array of int values hdf dataset. It must not already exist.
 		* @param dblValues						1d array of int values ordered firstly by fastest direction.
 		* @param numValuesInEachDimension		Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
 		* @param numDimensions					The number of the dimensions of the array to write
 		*/
 		void writeArrayNdOfIntValues(const std::string & groupName,
-            const std::string & name,
-            int * intValues,
-            hsize_t * numValuesInEachDimension,
-            const unsigned int & numDimensions);
+			const std::string & name,
+			int * intValues,
+			hsize_t * numValuesInEachDimension,
+			const unsigned int & numDimensions);
 
 		/**
 		* Write an array (potentially with multi dimensions) of a specific datatype into the HDF file by means of a single dataset.
-		* @param groupName						The name of the group where to create the array 2d of double values.
+		* @param groupName						The name of the group where to create the array of values.
 		*										This name must not contain '/' character and must be directly contained in RESQML group.
-		* @param name							The name of the array (potentially with multi dimensions) of a specific datatype hdf dataset. It must not exist.
+		* @param name							The name of the array (potentially with multi dimensions) of a specific datatype hdf dataset. It must not already exist.
 		* @param datatype						The specific datatype of the valeus to write.
 		* @param values							1d array of specific datatype ordered firstly by fastest direction.
 		* @param numValuesInEachDimension		Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
@@ -169,6 +175,41 @@ namespace resqml2_0
 			void * values,
 			hsize_t * numValuesInEachDimension,
 			const unsigned int & numDimensions);
+
+		/**
+		* Create an array (potentially with multi dimensions) of a specific datatype into the HDF file. Values are not yet written to this array.
+		* @param groupName                      The name of the group where to create the array of double values.
+		*                                       This name must not contain '/' character and must be directly contained in RESQML group.
+		* @param name                           The name of the array (potentially with multi dimensions) of a specific datatype hdf dataset. It must not exist.
+		* @param datatype                       The specific datatype of the values to write.
+		* @param numValuesInEachDimension       Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
+		* @param numDimensions                  The number of the dimensions of the array to write.
+		*/
+		void createArrayNd(
+			const std::string& groupName,
+			const std::string& name,
+			const H5::DataType& datatype,
+			hsize_t* numValuesInEachDimension,
+			const unsigned int& numDimensions
+		);
+
+		/**
+		* Find the array associated with @p groupName and @p name and write to it.
+		* @param groupName                      The name of the group associated with the array.
+		* @param name                           The name of the array (potentially with multi dimensions).
+		* @param values                         1d array of specific datatype ordered firstly by fastest direction.
+		* @param numValuesInEachDimension       Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
+		* @param offsetValuesInEachDimension    Offset values in each dimension of the array to write. They are ordered from fastest index to slowest index.
+		* @param numDimensions                  The number of the dimensions of the array to write.
+		*/
+		void writeArrayNdSlab(
+			const std::string& groupName,
+			const std::string& name,
+			void* values,
+			hsize_t* numValuesInEachDimension,
+			hsize_t* offsetValuesInEachDimension,
+			const unsigned int& numDimensions
+		);
 
 		/**
 		* Read an array Nd of double values stored in a specific dataset
@@ -185,11 +226,43 @@ namespace resqml2_0
 		void readArrayNdOfFloatValues(const std::string & datasetName, float* values);
 
 		/**
+		* Find the array associated with @p datasetName and read from it.
+		* @param datasetName                    The name of the array (potentially with multi dimensions).
+		* @param values                         1d array output of float values ordered firstly by fastest direction.
+		* @param numValuesInEachDimension       Number of values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		* @param offsetValuesInEachDimension    Offset values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		* @param numDimensions                  The number of the dimensions of the array to read.
+		*/
+		void readArrayNdOfFloatValues(
+			const std::string & datasetName, 
+			float* values, 
+			hsize_t * numValuesInEachDimension, 
+			hsize_t * offsetInEachDimension, 
+			const unsigned int & numDimensions
+		);
+
+		/**
 		* Read an array Nd of long values stored in a specific dataset.
 		* @param datasetName	The absolute dataset name where to read the values
 		* @param values 		The values must be pre-allocated.
 		*/
 		void readArrayNdOfLongValues(const std::string & datasetName, long* values);
+
+		/**
+		* Find the array associated with datasetName and read from it.
+		* @param datasetName                    The name of the array (potentially with multi dimensions).
+		* @param values                         1d array output of long values ordered firstly by fastest direction.
+		* @param numValuesInEachDimension       Number of values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		* @param offsetValuesInEachDimension    Offset values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		* @param numDimensions                  The number of the dimensions of the array to read.
+		*/
+		void readArrayNdOfLongValues(
+			const std::string & datasetName, 
+			long* values, 
+			hsize_t * numValuesInEachDimension, 
+			hsize_t * offsetInEachDimension, 
+			const unsigned int & numDimensions
+		);
 
 		/**
 		* Read an array Nd of unsigned long values stored in a specific dataset.

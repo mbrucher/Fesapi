@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class PolylineRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal PolylineRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PolylineRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal PolylineRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class PolylineRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abst
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_PolylineRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_PolylineRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,13 +40,25 @@ public class PolylineRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abst
   }
 
   public void setGeometry(SWIGTYPE_p_double points, uint pointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PolylineRepresentation_setGeometry(swigCPtr, SWIGTYPE_p_double.getCPtr(points), pointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineRepresentation_setGeometry(swigCPtr, SWIGTYPE_p_double.getCPtr(points), pointCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool isclosed() {
-    bool ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PolylineRepresentation_isclosed(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineRepresentation_isclosed(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool hasALineRole() {
+    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineRepresentation_hasALineRole(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public resqml2__LineRole getLineRole() {
+    resqml2__LineRole ret = (resqml2__LineRole)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineRepresentation_getLineRole(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

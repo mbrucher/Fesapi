@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class AbstractFeature : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal AbstractFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractFeature_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal AbstractFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractFeature_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class AbstractFeature : f2i.energisticsStandardsApi.resqml2_0.AbstractRes
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_AbstractFeature(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_AbstractFeature(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,15 +40,15 @@ public class AbstractFeature : f2i.energisticsStandardsApi.resqml2_0.AbstractRes
   }
 
   public uint getInterpretationCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractFeature_getInterpretationCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractFeature_getInterpretationCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation getInterpretation(uint index) {
-		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractFeature_getInterpretation(swigCPtr, index);
-		f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation) energisticsApiPINVOKE.resqml2_0_instantiateConcreteObject(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractFeature_getInterpretation(swigCPtr, index);
+		f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractFeatureInterpretation) fesapiPINVOKE.resqml2_0_instantiateConcreteObject(cPtr, false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
 		return ret;
 	}
 

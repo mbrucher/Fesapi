@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class DiscreteProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal DiscreteProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal DiscreteProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class DiscreteProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractVa
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_DiscreteProperty(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_DiscreteProperty(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,43 +40,43 @@ public class DiscreteProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractVa
   }
 
   public void pushBackLongHdf5Array1dOfValues(SWIGTYPE_p_long values, uint valueCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue, int minimumValue, int maximumValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array1dOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array1dOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLongHdf5Array1dOfValues(SWIGTYPE_p_long values, uint valueCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array1dOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array1dOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCount, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLongHdf5Array2dOfValues(SWIGTYPE_p_long values, uint valueCountInFastestDim, uint valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue, int minimumValue, int maximumValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array2dOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array2dOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLongHdf5Array2dOfValues(SWIGTYPE_p_long values, uint valueCountInFastestDim, uint valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array2dOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array2dOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLongHdf5Array3dOfValues(SWIGTYPE_p_long values, uint valueCountInFastestDim, uint valueCountInMiddleDim, uint valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue, int minimumValue, int maximumValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array3dOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInMiddleDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array3dOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInMiddleDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLongHdf5Array3dOfValues(SWIGTYPE_p_long values, uint valueCountInFastestDim, uint valueCountInMiddleDim, uint valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array3dOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInMiddleDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5Array3dOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), valueCountInFastestDim, valueCountInMiddleDim, valueCountInSlowestDim, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLongHdf5ArrayOfValues(SWIGTYPE_p_long values, SWIGTYPE_p_unsigned_long_long numValues, uint numDimensionsInArray, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue, int minimumValue, int maximumValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5ArrayOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), SWIGTYPE_p_unsigned_long_long.getCPtr(numValues), numDimensionsInArray, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5ArrayOfValues__SWIG_0(swigCPtr, SWIGTYPE_p_long.getCPtr(values), SWIGTYPE_p_unsigned_long_long.getCPtr(numValues), numDimensionsInArray, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue, minimumValue, maximumValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLongHdf5ArrayOfValues(SWIGTYPE_p_long values, SWIGTYPE_p_unsigned_long_long numValues, uint numDimensionsInArray, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy, int nullValue) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5ArrayOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), SWIGTYPE_p_unsigned_long_long.getCPtr(numValues), numDimensionsInArray, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_DiscreteProperty_pushBackLongHdf5ArrayOfValues__SWIG_1(swigCPtr, SWIGTYPE_p_long.getCPtr(values), SWIGTYPE_p_unsigned_long_long.getCPtr(numValues), numDimensionsInArray, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy), nullValue);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

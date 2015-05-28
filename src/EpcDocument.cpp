@@ -192,13 +192,19 @@ void EpcDocument::close()
 	s = NULL;
 
 	filePath = "";
+	localDepth3dCrsSet.clear();
+	localTime3dCrsSet.clear();
 	faultSet.clear();
+	fractureSet.clear();
 	horizonSet.clear();
 	seismicLineSet.clear();
 	hdfProxySet.clear();
 	wellboreSet.clear();
+	witsmlTrajectorySet.clear();
+	triangulatedSetRepresentationSet.clear();
 	ijkGridRepresentationSet.clear();
 	unstructuredGridRepresentationSet.clear();
+	stratigraphicColumnSet.clear();
 
 	if (propertyKindMapper)
 		delete propertyKindMapper;
@@ -1393,6 +1399,14 @@ PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(Abstract
 	return new PolylineSetRepresentation(interp, crs, guid, title);
 }
 
+PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new PolylineSetRepresentation(interp, crs, guid, title, roleKind);
+}
+
 PointSetRepresentation* EpcDocument::createPointSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
@@ -1525,6 +1539,14 @@ UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentatio
 	if (getResqmlAbstractObjectByUuid(guid) != NULL)
 		return NULL;
 	return new UnstructuredGridRepresentation(this, crs, guid, title, cellCount);
+}
+
+SubRepresentation* EpcDocument::createSubRepresentation(AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+	return new SubRepresentation(this, crs, guid, title, supportingRep);
 }
 
 SubRepresentation* EpcDocument::createSubRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,

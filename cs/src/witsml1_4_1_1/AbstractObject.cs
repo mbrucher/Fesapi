@@ -32,7 +32,7 @@ public class AbstractObject : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_witsml1_4_1_1_AbstractObject(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_witsml1_4_1_1_AbstractObject(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -41,46 +41,46 @@ public class AbstractObject : global::System.IDisposable {
   }
 
   public f2i.energisticsStandardsApi.common.EpcDocument getEpcDocument() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getEpcDocument(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getEpcDocument(swigCPtr);
     f2i.energisticsStandardsApi.common.EpcDocument ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.common.EpcDocument(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getXmlTag() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getXmlTag(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getXmlTag(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getTitle() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getTitle(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getTitle(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getUuid() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getUuid(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getUuid(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public long getCreation() {
-    long ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getCreation(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    long ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getCreation(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public long getLastUpdate() {
-    long ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getLastUpdate(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    long ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getLastUpdate(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.witsml1_4_1_1.CoordinateReferenceSystem getCoordinateReferenceSystem() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_AbstractObject_getCoordinateReferenceSystem(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_AbstractObject_getCoordinateReferenceSystem(swigCPtr);
     f2i.energisticsStandardsApi.witsml1_4_1_1.CoordinateReferenceSystem ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.witsml1_4_1_1.CoordinateReferenceSystem(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

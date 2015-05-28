@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class AbstractLocal3dCrs : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal AbstractLocal3dCrs(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal AbstractLocal3dCrs(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class AbstractLocal3dCrs : f2i.energisticsStandardsApi.resqml2_0.Abstract
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_AbstractLocal3dCrs(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_AbstractLocal3dCrs(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,74 +40,74 @@ public class AbstractLocal3dCrs : f2i.energisticsStandardsApi.resqml2_0.Abstract
   }
 
   public double getOriginOrdinal1() {
-    double ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getOriginOrdinal1(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getOriginOrdinal1(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double getOriginOrdinal2() {
-    double ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getOriginOrdinal2(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getOriginOrdinal2(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double getOriginDepthOrElevation() {
-    double ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getOriginDepthOrElevation(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getOriginDepthOrElevation(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double getArealRotation() {
-    double ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getArealRotation(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getArealRotation(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool isDepthOriented() {
-    bool ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_isDepthOriented(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_isDepthOriented(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public ulong getProjectedCrsEpsgCode() {
-    ulong ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getProjectedCrsEpsgCode(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    ulong ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getProjectedCrsEpsgCode(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public ulong getVerticalCrsEpsgCode() {
-    ulong ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getVerticalCrsEpsgCode(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    ulong ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getVerticalCrsEpsgCode(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public eml__LengthUom getProjectedCrsUnit() {
-    eml__LengthUom ret = (eml__LengthUom)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getProjectedCrsUnit(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    eml__LengthUom ret = (eml__LengthUom)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getProjectedCrsUnit(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getProjectedCrsUnitAsString() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getProjectedCrsUnitAsString(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getProjectedCrsUnitAsString(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public eml__LengthUom getVerticalCrsUnit() {
-    eml__LengthUom ret = (eml__LengthUom)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getVerticalCrsUnit(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    eml__LengthUom ret = (eml__LengthUom)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getVerticalCrsUnit(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getVerticalCrsUnitAsString() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getVerticalCrsUnitAsString(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getVerticalCrsUnitAsString(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public eml__AxisOrder2d getAxisOrder() {
-    eml__AxisOrder2d ret = (eml__AxisOrder2d)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractLocal3dCrs_getAxisOrder(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    eml__AxisOrder2d ret = (eml__AxisOrder2d)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractLocal3dCrs_getAxisOrder(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

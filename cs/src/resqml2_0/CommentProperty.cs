@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class CommentProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal CommentProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_CommentProperty_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal CommentProperty(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_CommentProperty_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class CommentProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractVal
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_CommentProperty(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_CommentProperty(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,13 +40,13 @@ public class CommentProperty : f2i.energisticsStandardsApi.resqml2_0.AbstractVal
   }
 
   public void pushBackStringHdf5ArrayOfValues(StringVector values, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_CommentProperty_pushBackStringHdf5ArrayOfValues(swigCPtr, StringVector.getCPtr(values), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_CommentProperty_pushBackStringHdf5ArrayOfValues(swigCPtr, StringVector.getCPtr(values), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public StringVector getStringValuesOfPatch(uint patchIndex) {
-    StringVector ret = new StringVector(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_CommentProperty_getStringValuesOfPatch(swigCPtr, patchIndex), true);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    StringVector ret = new StringVector(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_CommentProperty_getStringValuesOfPatch(swigCPtr, patchIndex), true);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

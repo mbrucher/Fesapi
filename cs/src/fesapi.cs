@@ -10,7 +10,7 @@
 
 namespace f2i.energisticsStandardsApi {
 
-public class energisticsApi {
+public class fesapi {
 }
 
 }

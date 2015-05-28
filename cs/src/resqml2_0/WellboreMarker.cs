@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class WellboreMarker : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal WellboreMarker(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreMarker_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal WellboreMarker(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreMarker_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class WellboreMarker : f2i.energisticsStandardsApi.resqml2_0.AbstractResq
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_WellboreMarker(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_WellboreMarker(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,33 +40,33 @@ public class WellboreMarker : f2i.energisticsStandardsApi.resqml2_0.AbstractResq
   }
 
   public bool hasAGeologicBoundaryKind() {
-    bool ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreMarker_hasAGeologicBoundaryKind(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreMarker_hasAGeologicBoundaryKind(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public resqml2__GeologicBoundaryKind getGeologicBoundaryKind() {
-    resqml2__GeologicBoundaryKind ret = (resqml2__GeologicBoundaryKind)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreMarker_getGeologicBoundaryKind(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    resqml2__GeologicBoundaryKind ret = (resqml2__GeologicBoundaryKind)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreMarker_getGeologicBoundaryKind(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation getHorizonInterpretation() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreMarker_getHorizonInterpretation(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreMarker_getHorizonInterpretation(swigCPtr);
     f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getHorizonInterpretationUuid() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreMarker_getHorizonInterpretationUuid(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreMarker_getHorizonInterpretationUuid(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void setHorizonInterpretation(f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation interp) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreMarker_setHorizonInterpretation(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(interp));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreMarker_setHorizonInterpretation(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.HorizonInterpretation.getCPtr(interp));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

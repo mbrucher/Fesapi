@@ -224,7 +224,7 @@ static void SWIGUNUSED SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpExcepti
 #ifdef __cplusplus
 extern "C" 
 #endif
-SWIGEXPORT void SWIGSTDCALL SWIGRegisterExceptionCallbacks_energisticsApi(
+SWIGEXPORT void SWIGSTDCALL SWIGRegisterExceptionCallbacks_fesapi(
                                                 SWIG_CSharpExceptionCallback_t applicationCallback,
                                                 SWIG_CSharpExceptionCallback_t arithmeticCallback,
                                                 SWIG_CSharpExceptionCallback_t divideByZeroCallback, 
@@ -252,7 +252,7 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterExceptionCallbacks_energisticsApi(
 #ifdef __cplusplus
 extern "C" 
 #endif
-SWIGEXPORT void SWIGSTDCALL SWIGRegisterExceptionArgumentCallbacks_energisticsApi(
+SWIGEXPORT void SWIGSTDCALL SWIGRegisterExceptionArgumentCallbacks_fesapi(
                                                 SWIG_CSharpExceptionArgumentCallback_t argumentCallback,
                                                 SWIG_CSharpExceptionArgumentCallback_t argumentNullCallback,
                                                 SWIG_CSharpExceptionArgumentCallback_t argumentOutOfRangeCallback) {
@@ -270,7 +270,7 @@ static SWIG_CSharpStringHelperCallback SWIG_csharp_string_callback = NULL;
 #ifdef __cplusplus
 extern "C" 
 #endif
-SWIGEXPORT void SWIGSTDCALL SWIGRegisterStringCallback_energisticsApi(SWIG_CSharpStringHelperCallback callback) {
+SWIGEXPORT void SWIGSTDCALL SWIGRegisterStringCallback_fesapi(SWIG_CSharpStringHelperCallback callback) {
   SWIG_csharp_string_callback = callback;
 }
 
@@ -590,6 +590,8 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 
 #include <stdexcept>
 
+
+#define SWIG_FILE_WITH_INIT // In case we use Python Swig Wrapping
 
 #include "resqml2_0/LocalDepth3dCrs.h"
 #include "resqml2_0/LocalTime3dCrs.h"
@@ -37126,6 +37128,78 @@ SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_PolylineSetRepresentation_getClosed
 }
 
 
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_PolylineSetRepresentation_hasALineRole(void * jarg1) {
+  unsigned int jresult ;
+  resqml2_0::PolylineSetRepresentation *arg1 = (resqml2_0::PolylineSetRepresentation *) 0 ;
+  bool result;
+  
+  arg1 = (resqml2_0::PolylineSetRepresentation *)jarg1; 
+  {
+    try {
+      result = (bool)((resqml2_0::PolylineSetRepresentation const *)arg1)->hasALineRole();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_resqml2_0_PolylineSetRepresentation_getLineRole(void * jarg1) {
+  int jresult ;
+  resqml2_0::PolylineSetRepresentation *arg1 = (resqml2_0::PolylineSetRepresentation *) 0 ;
+  gsoap_resqml2_0::resqml2__LineRole result;
+  
+  arg1 = (resqml2_0::PolylineSetRepresentation *)jarg1; 
+  {
+    try {
+      result = (gsoap_resqml2_0::resqml2__LineRole)((resqml2_0::PolylineSetRepresentation const *)arg1)->getLineRole();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_delete_resqml2_0_PolylineSetRepresentation(void * jarg1) {
   resqml2_0::PolylineSetRepresentation *arg1 = (resqml2_0::PolylineSetRepresentation *) 0 ;
   
@@ -37438,6 +37512,78 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_iscl
     }
   }
   jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_hasALineRole(void * jarg1) {
+  unsigned int jresult ;
+  resqml2_0::PolylineRepresentation *arg1 = (resqml2_0::PolylineRepresentation *) 0 ;
+  bool result;
+  
+  arg1 = (resqml2_0::PolylineRepresentation *)jarg1; 
+  {
+    try {
+      result = (bool)((resqml2_0::PolylineRepresentation const *)arg1)->hasALineRole();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_getLineRole(void * jarg1) {
+  int jresult ;
+  resqml2_0::PolylineRepresentation *arg1 = (resqml2_0::PolylineRepresentation *) 0 ;
+  gsoap_resqml2_0::resqml2__LineRole result;
+  
+  arg1 = (resqml2_0::PolylineRepresentation *)jarg1; 
+  {
+    try {
+      result = (gsoap_resqml2_0::resqml2__LineRole)((resqml2_0::PolylineRepresentation const *)arg1)->getLineRole();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
   return jresult;
 }
 
@@ -40002,7 +40148,49 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_resqml2_0_WellboreTrajectoryRepresentation_
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_WellboreTrajectoryRepresentation_setGeometry(void * jarg1, void * jarg2, void * jarg3, void * jarg4, unsigned int jarg5, void * jarg6) {
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_0(void * jarg1, void * jarg2, void * jarg3, unsigned int jarg4, void * jarg5) {
+  resqml2_0::WellboreTrajectoryRepresentation *arg1 = (resqml2_0::WellboreTrajectoryRepresentation *) 0 ;
+  double *arg2 = (double *) 0 ;
+  double *arg3 = (double *) 0 ;
+  unsigned int *arg4 = 0 ;
+  resqml2_0::HdfProxy *arg5 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp4 ;
+  
+  arg1 = (resqml2_0::WellboreTrajectoryRepresentation *)jarg1; 
+  arg2 = (double *)jarg2; 
+  arg3 = (double *)jarg3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  arg5 = (resqml2_0::HdfProxy *)jarg5; 
+  {
+    try {
+      (arg1)->setGeometry(arg2,arg3,(unsigned int const &)*arg4,arg5);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_WellboreTrajectoryRepresentation_setGeometry__SWIG_1(void * jarg1, void * jarg2, void * jarg3, void * jarg4, unsigned int jarg5, void * jarg6) {
   resqml2_0::WellboreTrajectoryRepresentation *arg1 = (resqml2_0::WellboreTrajectoryRepresentation *) 0 ;
   double *arg2 = (double *) 0 ;
   double *arg3 = (double *) 0 ;
@@ -46672,7 +46860,7 @@ SWIGEXPORT long SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getNullValue
 }
 
 
-SWIGEXPORT long SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOfPatch(void * jarg1, unsigned int jarg2, void * jarg3) {
+SWIGEXPORT long SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_0(void * jarg1, unsigned int jarg2, void * jarg3) {
   long jresult ;
   resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
   unsigned int *arg2 = 0 ;
@@ -47005,6 +47193,428 @@ SWIGEXPORT unsigned char SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_get
   }
   jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getValuesCountOfPatch(void * jarg1, unsigned int jarg2) {
+  unsigned int jresult ;
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int temp2 ;
+  unsigned int result;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      result = (unsigned int)(arg1)->getValuesCountOfPatch((unsigned int const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getValuesCountOfDimensionOfPatch(void * jarg1, unsigned int jarg2, unsigned int jarg3) {
+  unsigned int jresult ;
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int *arg3 = 0 ;
+  unsigned int temp2 ;
+  unsigned int temp3 ;
+  unsigned int result;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  {
+    try {
+      result = (unsigned int)(arg1)->getValuesCountOfDimensionOfPatch((unsigned int const &)*arg2,(unsigned int const &)*arg3);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getDimensionsCountOfPatch(void * jarg1, unsigned int jarg2) {
+  unsigned int jresult ;
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int temp2 ;
+  unsigned int result;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      result = (unsigned int)(arg1)->getDimensionsCountOfPatch((unsigned int const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_createLongHdf5ArrayOfValues(void * jarg1, void * jarg2, unsigned int jarg3, void * jarg4) {
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  hsize_t *arg2 = (hsize_t *) 0 ;
+  unsigned int *arg3 = 0 ;
+  resqml2_0::HdfProxy *arg4 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp3 ;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  arg2 = (hsize_t *)jarg2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  arg4 = (resqml2_0::HdfProxy *)jarg4; 
+  {
+    try {
+      (arg1)->createLongHdf5ArrayOfValues(arg2,(unsigned int const &)*arg3,arg4);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_createLongHdf5Array3dOfValues(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, void * jarg5) {
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int *arg3 = 0 ;
+  unsigned int *arg4 = 0 ;
+  resqml2_0::HdfProxy *arg5 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp2 ;
+  unsigned int temp3 ;
+  unsigned int temp4 ;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  arg5 = (resqml2_0::HdfProxy *)jarg5; 
+  {
+    try {
+      (arg1)->createLongHdf5Array3dOfValues((unsigned int const &)*arg2,(unsigned int const &)*arg3,(unsigned int const &)*arg4,arg5);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArray3dOfValues(void * jarg1, void * jarg2, unsigned int jarg3, unsigned int jarg4, unsigned int jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, void * jarg9) {
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  long *arg2 = (long *) 0 ;
+  unsigned int *arg3 = 0 ;
+  unsigned int *arg4 = 0 ;
+  unsigned int *arg5 = 0 ;
+  unsigned int *arg6 = 0 ;
+  unsigned int *arg7 = 0 ;
+  unsigned int *arg8 = 0 ;
+  resqml2_0::HdfProxy *arg9 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp3 ;
+  unsigned int temp4 ;
+  unsigned int temp5 ;
+  unsigned int temp6 ;
+  unsigned int temp7 ;
+  unsigned int temp8 ;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  arg2 = (long *)jarg2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (unsigned int)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (unsigned int)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (unsigned int)jarg7; 
+  arg7 = &temp7; 
+  temp8 = (unsigned int)jarg8; 
+  arg8 = &temp8; 
+  arg9 = (resqml2_0::HdfProxy *)jarg9; 
+  {
+    try {
+      (arg1)->pushBackLongHdf5SlabArray3dOfValues(arg2,(unsigned int const &)*arg3,(unsigned int const &)*arg4,(unsigned int const &)*arg5,(unsigned int const &)*arg6,(unsigned int const &)*arg7,(unsigned int const &)*arg8,arg9);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_pushBackLongHdf5SlabArrayOfValues(void * jarg1, void * jarg2, void * jarg3, void * jarg4, unsigned int jarg5, void * jarg6) {
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  long *arg2 = (long *) 0 ;
+  hsize_t *arg3 = (hsize_t *) 0 ;
+  hsize_t *arg4 = (hsize_t *) 0 ;
+  unsigned int *arg5 = 0 ;
+  resqml2_0::HdfProxy *arg6 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp5 ;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  arg2 = (long *)jarg2; 
+  arg3 = (hsize_t *)jarg3; 
+  arg4 = (hsize_t *)jarg4; 
+  temp5 = (unsigned int)jarg5; 
+  arg5 = &temp5; 
+  arg6 = (resqml2_0::HdfProxy *)jarg6; 
+  {
+    try {
+      (arg1)->pushBackLongHdf5SlabArrayOfValues(arg2,arg3,arg4,(unsigned int const &)*arg5,arg6);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOfPatch__SWIG_1(void * jarg1, unsigned int jarg2, void * jarg3, void * jarg4, void * jarg5, unsigned int jarg6) {
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  long *arg3 = (long *) 0 ;
+  hsize_t *arg4 = (hsize_t *) 0 ;
+  hsize_t *arg5 = (hsize_t *) 0 ;
+  unsigned int *arg6 = 0 ;
+  unsigned int temp2 ;
+  unsigned int temp6 ;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  arg3 = (long *)jarg3; 
+  arg4 = (hsize_t *)jarg4; 
+  arg5 = (hsize_t *)jarg5; 
+  temp6 = (unsigned int)jarg6; 
+  arg6 = &temp6; 
+  {
+    try {
+      (arg1)->getLongValuesOfPatch((unsigned int const &)*arg2,arg3,arg4,arg5,(unsigned int const &)*arg6);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_AbstractValuesProperty_getLongValuesOf3dPatch(void * jarg1, unsigned int jarg2, void * jarg3, unsigned int jarg4, unsigned int jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9) {
+  resqml2_0::AbstractValuesProperty *arg1 = (resqml2_0::AbstractValuesProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  long *arg3 = (long *) 0 ;
+  unsigned int *arg4 = 0 ;
+  unsigned int *arg5 = 0 ;
+  unsigned int *arg6 = 0 ;
+  unsigned int *arg7 = 0 ;
+  unsigned int *arg8 = 0 ;
+  unsigned int *arg9 = 0 ;
+  unsigned int temp2 ;
+  unsigned int temp4 ;
+  unsigned int temp5 ;
+  unsigned int temp6 ;
+  unsigned int temp7 ;
+  unsigned int temp8 ;
+  unsigned int temp9 ;
+  
+  arg1 = (resqml2_0::AbstractValuesProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  arg3 = (long *)jarg3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (unsigned int)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (unsigned int)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (unsigned int)jarg7; 
+  arg7 = &temp7; 
+  temp8 = (unsigned int)jarg8; 
+  arg8 = &temp8; 
+  temp9 = (unsigned int)jarg9; 
+  arg9 = &temp9; 
+  {
+    try {
+      (arg1)->getLongValuesOf3dPatch((unsigned int const &)*arg2,arg3,(unsigned int const &)*arg4,(unsigned int const &)*arg5,(unsigned int const &)*arg6,(unsigned int const &)*arg7,(unsigned int const &)*arg8,(unsigned int const &)*arg9);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
 }
 
 
@@ -48390,7 +49000,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getDoubleValuesO
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getFloatValuesOfPatch(void * jarg1, unsigned int jarg2, void * jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getFloatValuesOfPatch__SWIG_0(void * jarg1, unsigned int jarg2, void * jarg3) {
   resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
   unsigned int *arg2 = 0 ;
   float *arg3 = (float *) 0 ;
@@ -48403,6 +49013,304 @@ SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getFloatValuesOf
   {
     try {
       (arg1)->getFloatValuesOfPatch((unsigned int const &)*arg2,arg3);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_createFloatHdf5ArrayOfValues(void * jarg1, void * jarg2, unsigned int jarg3, void * jarg4) {
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  hsize_t *arg2 = (hsize_t *) 0 ;
+  unsigned int *arg3 = 0 ;
+  resqml2_0::HdfProxy *arg4 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp3 ;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  arg2 = (hsize_t *)jarg2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  arg4 = (resqml2_0::HdfProxy *)jarg4; 
+  {
+    try {
+      (arg1)->createFloatHdf5ArrayOfValues(arg2,(unsigned int const &)*arg3,arg4);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_createFloatHdf5Array3dOfValues(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, void * jarg5) {
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int *arg3 = 0 ;
+  unsigned int *arg4 = 0 ;
+  resqml2_0::HdfProxy *arg5 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp2 ;
+  unsigned int temp3 ;
+  unsigned int temp4 ;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  arg5 = (resqml2_0::HdfProxy *)jarg5; 
+  {
+    try {
+      (arg1)->createFloatHdf5Array3dOfValues((unsigned int const &)*arg2,(unsigned int const &)*arg3,(unsigned int const &)*arg4,arg5);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_pushBackFloatHdf5SlabArray3dOfValues(void * jarg1, void * jarg2, unsigned int jarg3, unsigned int jarg4, unsigned int jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, void * jarg9) {
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  float *arg2 = (float *) 0 ;
+  unsigned int *arg3 = 0 ;
+  unsigned int *arg4 = 0 ;
+  unsigned int *arg5 = 0 ;
+  unsigned int *arg6 = 0 ;
+  unsigned int *arg7 = 0 ;
+  unsigned int *arg8 = 0 ;
+  resqml2_0::HdfProxy *arg9 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp3 ;
+  unsigned int temp4 ;
+  unsigned int temp5 ;
+  unsigned int temp6 ;
+  unsigned int temp7 ;
+  unsigned int temp8 ;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  arg2 = (float *)jarg2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (unsigned int)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (unsigned int)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (unsigned int)jarg7; 
+  arg7 = &temp7; 
+  temp8 = (unsigned int)jarg8; 
+  arg8 = &temp8; 
+  arg9 = (resqml2_0::HdfProxy *)jarg9; 
+  {
+    try {
+      (arg1)->pushBackFloatHdf5SlabArray3dOfValues(arg2,(unsigned int const &)*arg3,(unsigned int const &)*arg4,(unsigned int const &)*arg5,(unsigned int const &)*arg6,(unsigned int const &)*arg7,(unsigned int const &)*arg8,arg9);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_pushBackFloatHdf5SlabArrayOfValues(void * jarg1, void * jarg2, void * jarg3, void * jarg4, unsigned int jarg5, void * jarg6) {
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  float *arg2 = (float *) 0 ;
+  hsize_t *arg3 = (hsize_t *) 0 ;
+  hsize_t *arg4 = (hsize_t *) 0 ;
+  unsigned int *arg5 = 0 ;
+  resqml2_0::HdfProxy *arg6 = (resqml2_0::HdfProxy *) 0 ;
+  unsigned int temp5 ;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  arg2 = (float *)jarg2; 
+  arg3 = (hsize_t *)jarg3; 
+  arg4 = (hsize_t *)jarg4; 
+  temp5 = (unsigned int)jarg5; 
+  arg5 = &temp5; 
+  arg6 = (resqml2_0::HdfProxy *)jarg6; 
+  {
+    try {
+      (arg1)->pushBackFloatHdf5SlabArrayOfValues(arg2,arg3,arg4,(unsigned int const &)*arg5,arg6);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getFloatValuesOfPatch__SWIG_1(void * jarg1, unsigned int jarg2, void * jarg3, void * jarg4, void * jarg5, unsigned int jarg6) {
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  float *arg3 = (float *) 0 ;
+  hsize_t *arg4 = (hsize_t *) 0 ;
+  hsize_t *arg5 = (hsize_t *) 0 ;
+  unsigned int *arg6 = 0 ;
+  unsigned int temp2 ;
+  unsigned int temp6 ;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  arg3 = (float *)jarg3; 
+  arg4 = (hsize_t *)jarg4; 
+  arg5 = (hsize_t *)jarg5; 
+  temp6 = (unsigned int)jarg6; 
+  arg6 = &temp6; 
+  {
+    try {
+      (arg1)->getFloatValuesOfPatch((unsigned int const &)*arg2,arg3,arg4,arg5,(unsigned int const &)*arg6);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getFloatValuesOf3dPatch(void * jarg1, unsigned int jarg2, void * jarg3, unsigned int jarg4, unsigned int jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9) {
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  unsigned int *arg2 = 0 ;
+  float *arg3 = (float *) 0 ;
+  unsigned int *arg4 = 0 ;
+  unsigned int *arg5 = 0 ;
+  unsigned int *arg6 = 0 ;
+  unsigned int *arg7 = 0 ;
+  unsigned int *arg8 = 0 ;
+  unsigned int *arg9 = 0 ;
+  unsigned int temp2 ;
+  unsigned int temp4 ;
+  unsigned int temp5 ;
+  unsigned int temp6 ;
+  unsigned int temp7 ;
+  unsigned int temp8 ;
+  unsigned int temp9 ;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  arg3 = (float *)jarg3; 
+  temp4 = (unsigned int)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (unsigned int)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (unsigned int)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (unsigned int)jarg7; 
+  arg7 = &temp7; 
+  temp8 = (unsigned int)jarg8; 
+  arg8 = &temp8; 
+  temp9 = (unsigned int)jarg9; 
+  arg9 = &temp9; 
+  {
+    try {
+      (arg1)->getFloatValuesOf3dPatch((unsigned int const &)*arg2,arg3,(unsigned int const &)*arg4,(unsigned int const &)*arg5,(unsigned int const &)*arg6,(unsigned int const &)*arg7,(unsigned int const &)*arg8,(unsigned int const &)*arg9);
     }
     catch (std::invalid_argument & e) {
       {
@@ -61103,7 +62011,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createTriangulatedSetRep
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_0(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;
@@ -61130,6 +62038,64 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetReprese
   {
     try {
       result = (resqml2_0::PolylineSetRepresentation *)(arg1)->createPolylineSetRepresentation(arg2,arg3,(std::string const &)*arg4,(std::string const &)*arg5);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createPolylineSetRepresentation__SWIG_1(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, int jarg6) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;
+  resqml2_0::AbstractLocal3dCrs *arg3 = (resqml2_0::AbstractLocal3dCrs *) 0 ;
+  std::string *arg4 = 0 ;
+  std::string *arg5 = 0 ;
+  gsoap_resqml2_0::resqml2__LineRole *arg6 = 0 ;
+  gsoap_resqml2_0::resqml2__LineRole temp6 ;
+  resqml2_0::PolylineSetRepresentation *result = 0 ;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  arg2 = (resqml2_0::AbstractFeatureInterpretation *)jarg2; 
+  arg3 = (resqml2_0::AbstractLocal3dCrs *)jarg3; 
+  if (!jarg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg4_str(jarg4);
+  arg4 = &arg4_str; 
+  if (!jarg5) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg5_str(jarg5);
+  arg5 = &arg5_str; 
+  temp6 = (gsoap_resqml2_0::resqml2__LineRole)jarg6; 
+  arg6 = &temp6; 
+  {
+    try {
+      result = (resqml2_0::PolylineSetRepresentation *)(arg1)->createPolylineSetRepresentation(arg2,arg3,(std::string const &)*arg4,(std::string const &)*arg5,(gsoap_resqml2_0::resqml2__LineRole const &)*arg6);
     }
     catch (std::invalid_argument & e) {
       {
@@ -62169,7 +63135,61 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createUnstructuredGridRe
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createSubRepresentation(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, void * jarg6) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createSubRepresentation__SWIG_0(void * jarg1, void * jarg2, char * jarg3, char * jarg4, void * jarg5) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  resqml2_0::AbstractLocal3dCrs *arg2 = (resqml2_0::AbstractLocal3dCrs *) 0 ;
+  std::string *arg3 = 0 ;
+  std::string *arg4 = 0 ;
+  resqml2_0::AbstractRepresentation *arg5 = (resqml2_0::AbstractRepresentation *) 0 ;
+  resqml2_0::SubRepresentation *result = 0 ;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  arg2 = (resqml2_0::AbstractLocal3dCrs *)jarg2; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  if (!jarg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg4_str(jarg4);
+  arg4 = &arg4_str; 
+  arg5 = (resqml2_0::AbstractRepresentation *)jarg5; 
+  {
+    try {
+      result = (resqml2_0::SubRepresentation *)(arg1)->createSubRepresentation(arg2,(std::string const &)*arg3,(std::string const &)*arg4,arg5);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_createSubRepresentation__SWIG_1(void * jarg1, void * jarg2, void * jarg3, char * jarg4, char * jarg5, void * jarg6) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
   resqml2_0::AbstractFeatureInterpretation *arg2 = (resqml2_0::AbstractFeatureInterpretation *) 0 ;

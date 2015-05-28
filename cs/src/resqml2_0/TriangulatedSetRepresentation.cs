@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class TriangulatedSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractSurfaceRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal TriangulatedSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TriangulatedSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal TriangulatedSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TriangulatedSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class TriangulatedSetRepresentation : f2i.energisticsStandardsApi.resqml2
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_TriangulatedSetRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_TriangulatedSetRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,30 +40,30 @@ public class TriangulatedSetRepresentation : f2i.energisticsStandardsApi.resqml2
   }
 
   public uint getTriangleCountOfPatch(uint patchIndex) {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleCountOfPatch(swigCPtr, patchIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleCountOfPatch(swigCPtr, patchIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getTriangleCountOfAllPatches() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleCountOfAllPatches(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleCountOfAllPatches(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void getTriangleNodeIndicesOfPatch(uint patchIndex, SWIGTYPE_p_unsigned_int triangleNodeIndices) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleNodeIndicesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_int.getCPtr(triangleNodeIndices));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleNodeIndicesOfPatch(swigCPtr, patchIndex, SWIGTYPE_p_unsigned_int.getCPtr(triangleNodeIndices));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void getTriangleNodeIndicesOfAllPatches(SWIGTYPE_p_unsigned_int triangleNodeIndices) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleNodeIndicesOfAllPatches(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(triangleNodeIndices));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TriangulatedSetRepresentation_getTriangleNodeIndicesOfAllPatches(swigCPtr, SWIGTYPE_p_unsigned_int.getCPtr(triangleNodeIndices));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackTrianglePatch(uint NodeCount, SWIGTYPE_p_double nodes, uint triangleCount, SWIGTYPE_p_unsigned_int triangleNodeIndices, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_TriangulatedSetRepresentation_pushBackTrianglePatch(swigCPtr, NodeCount, SWIGTYPE_p_double.getCPtr(nodes), triangleCount, SWIGTYPE_p_unsigned_int.getCPtr(triangleNodeIndices), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_TriangulatedSetRepresentation_pushBackTrianglePatch(swigCPtr, NodeCount, SWIGTYPE_p_double.getCPtr(nodes), triangleCount, SWIGTYPE_p_unsigned_int.getCPtr(triangleNodeIndices), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

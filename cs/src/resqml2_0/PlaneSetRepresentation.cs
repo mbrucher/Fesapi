@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class PlaneSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal PlaneSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PlaneSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal PlaneSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PlaneSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class PlaneSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abst
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_PlaneSetRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_PlaneSetRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,13 +40,13 @@ public class PlaneSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abst
   }
 
   public void pushBackHorizontalPlaneGeometryPatch(double zCoordinate) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PlaneSetRepresentation_pushBackHorizontalPlaneGeometryPatch(swigCPtr, zCoordinate);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PlaneSetRepresentation_pushBackHorizontalPlaneGeometryPatch(swigCPtr, zCoordinate);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackTiltedPlaneGeometryPatch(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PlaneSetRepresentation_pushBackTiltedPlaneGeometryPatch(swigCPtr, x1, y1, z1, x2, y2, z2, x3, y3, z3);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PlaneSetRepresentation_pushBackTiltedPlaneGeometryPatch(swigCPtr, x1, y1, z1, x2, y2, z2, x3, y3, z3);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

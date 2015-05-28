@@ -32,7 +32,7 @@ public class UShortArray : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_UShortArray(swigCPtr);
+          fesapiPINVOKE.delete_UShortArray(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,26 +40,26 @@ public class UShortArray : global::System.IDisposable {
     }
   }
 
-  public UShortArray(int nelements) : this(energisticsApiPINVOKE.new_UShortArray(nelements), true) {
+  public UShortArray(int nelements) : this(fesapiPINVOKE.new_UShortArray(nelements), true) {
   }
 
   public ushort getitem(int index) {
-    ushort ret = energisticsApiPINVOKE.UShortArray_getitem(swigCPtr, index);
+    ushort ret = fesapiPINVOKE.UShortArray_getitem(swigCPtr, index);
     return ret;
   }
 
   public void setitem(int index, ushort value) {
-    energisticsApiPINVOKE.UShortArray_setitem(swigCPtr, index, value);
+    fesapiPINVOKE.UShortArray_setitem(swigCPtr, index, value);
   }
 
   public SWIGTYPE_p_unsigned_short cast() {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.UShortArray_cast(swigCPtr);
+    global::System.IntPtr cPtr = fesapiPINVOKE.UShortArray_cast(swigCPtr);
     SWIGTYPE_p_unsigned_short ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_unsigned_short(cPtr, false);
     return ret;
   }
 
   public static UShortArray frompointer(SWIGTYPE_p_unsigned_short t) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.UShortArray_frompointer(SWIGTYPE_p_unsigned_short.getCPtr(t));
+    global::System.IntPtr cPtr = fesapiPINVOKE.UShortArray_frompointer(SWIGTYPE_p_unsigned_short.getCPtr(t));
     UShortArray ret = (cPtr == global::System.IntPtr.Zero) ? null : new UShortArray(cPtr, false);
     return ret;
   }

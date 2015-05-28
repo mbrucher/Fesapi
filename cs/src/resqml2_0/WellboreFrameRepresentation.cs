@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class WellboreFrameRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal WellboreFrameRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal WellboreFrameRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class WellboreFrameRepresentation : f2i.energisticsStandardsApi.resqml2_0
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_WellboreFrameRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_WellboreFrameRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,54 +40,54 @@ public class WellboreFrameRepresentation : f2i.energisticsStandardsApi.resqml2_0
   }
 
   public void setMdValuesAsArray1dOfExplicitValues(SWIGTYPE_p_double mdValues, uint numMdValues, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_setMdValuesAsArray1dOfExplicitValues(swigCPtr, SWIGTYPE_p_double.getCPtr(mdValues), numMdValues, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_setMdValuesAsArray1dOfExplicitValues(swigCPtr, SWIGTYPE_p_double.getCPtr(mdValues), numMdValues, f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint getMdValuesCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdValuesCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdValuesCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum getMdHdfDatatype() {
-    f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdHdfDatatype(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractValuesProperty.hdfDatatypeEnum)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdHdfDatatype(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void getMdAsDoubleValues(SWIGTYPE_p_double values) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdAsDoubleValues(swigCPtr, SWIGTYPE_p_double.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdAsDoubleValues(swigCPtr, SWIGTYPE_p_double.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void getMdAsFloatValues(SWIGTYPE_p_float values) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdAsFloatValues(swigCPtr, SWIGTYPE_p_float.getCPtr(values));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_getMdAsFloatValues(swigCPtr, SWIGTYPE_p_float.getCPtr(values));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public string getWellboreTrajectoryUuid() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_getWellboreTrajectoryUuid(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_getWellboreTrajectoryUuid(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation getWellboreTrajectory() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_getWellboreTrajectory(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_getWellboreTrajectory(swigCPtr);
     f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.WellboreTrajectoryRepresentation(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void setWitsmlLog(f2i.energisticsStandardsApi.witsml1_4_1_1.Log witsmlLogToSet) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_setWitsmlLog(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Log.getCPtr(witsmlLogToSet));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_setWitsmlLog(swigCPtr, f2i.energisticsStandardsApi.witsml1_4_1_1.Log.getCPtr(witsmlLogToSet));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public f2i.energisticsStandardsApi.witsml1_4_1_1.Log getWitsmlLog() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_WellboreFrameRepresentation_getWitsmlLog(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_WellboreFrameRepresentation_getWitsmlLog(swigCPtr);
     f2i.energisticsStandardsApi.witsml1_4_1_1.Log ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.witsml1_4_1_1.Log(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

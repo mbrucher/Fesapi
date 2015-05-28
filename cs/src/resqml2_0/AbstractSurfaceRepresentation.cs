@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class AbstractSurfaceRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal AbstractSurfaceRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal AbstractSurfaceRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class AbstractSurfaceRepresentation : f2i.energisticsStandardsApi.resqml2
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_AbstractSurfaceRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_AbstractSurfaceRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,19 +40,19 @@ public class AbstractSurfaceRepresentation : f2i.energisticsStandardsApi.resqml2
   }
 
   public void setSurfaceRole(resqml2__SurfaceRole surfaceRole) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_setSurfaceRole(swigCPtr, (int)surfaceRole);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_setSurfaceRole(swigCPtr, (int)surfaceRole);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public resqml2__SurfaceRole getSurfaceRole() {
-    resqml2__SurfaceRole ret = (resqml2__SurfaceRole)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_getSurfaceRole(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    resqml2__SurfaceRole ret = (resqml2__SurfaceRole)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_getSurfaceRole(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void pushBackOuterRing(f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation outerRing) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_pushBackOuterRing(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation.getCPtr(outerRing));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractSurfaceRepresentation_pushBackOuterRing(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineRepresentation.getCPtr(outerRing));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

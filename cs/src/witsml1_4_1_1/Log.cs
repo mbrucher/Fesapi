@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.witsml1_4_1_1 {
 public class Log : f2i.energisticsStandardsApi.witsml1_4_1_1.AbstractObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal Log(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal Log(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class Log : f2i.energisticsStandardsApi.witsml1_4_1_1.AbstractObject {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_witsml1_4_1_1_Log(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_witsml1_4_1_1_Log(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,79 +40,79 @@ public class Log : f2i.energisticsStandardsApi.witsml1_4_1_1.AbstractObject {
   }
 
   public witsml1__LogIndexType getIndexType() {
-    witsml1__LogIndexType ret = (witsml1__LogIndexType)f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getIndexType(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    witsml1__LogIndexType ret = (witsml1__LogIndexType)f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getIndexType(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getIndexMnemonic() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getIndexMnemonic(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getIndexMnemonic(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public StringVector getData() {
-    StringVector ret = new StringVector(f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getData(swigCPtr), false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    StringVector ret = new StringVector(f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getData(swigCPtr), false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public StringVector getMnemonicSet() {
-    StringVector ret = new StringVector(f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getMnemonicSet(swigCPtr), true);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    StringVector ret = new StringVector(f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getMnemonicSet(swigCPtr), true);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void setValues(string description, string dataDelimiter, string startEndIncrementUOM, double startIndex, double endIndex, double stepIncrement, witsml1__LogIndexDirection direction, string mnemonicList, string unitList, StringVector data) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_setValues(swigCPtr, description, dataDelimiter, startEndIncrementUOM, startIndex, endIndex, stepIncrement, (int)direction, mnemonicList, unitList, StringVector.getCPtr(data));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_setValues(swigCPtr, description, dataDelimiter, startEndIncrementUOM, startIndex, endIndex, stepIncrement, (int)direction, mnemonicList, unitList, StringVector.getCPtr(data));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint getLogCurveCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getLogCurveCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getLogCurveCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getLogCurveMnemonic(uint logCurveIndex) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getLogCurveMnemonic(swigCPtr, logCurveIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getLogCurveMnemonic(swigCPtr, logCurveIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public witsml1__LogDataType getLogCurveDataType(uint logCurveIndex) {
-    witsml1__LogDataType ret = (witsml1__LogDataType)f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getLogCurveDataType(swigCPtr, logCurveIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    witsml1__LogDataType ret = (witsml1__LogDataType)f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getLogCurveDataType(swigCPtr, logCurveIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getLogCurveUom(uint logCurveIndex) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getLogCurveUom(swigCPtr, logCurveIndex);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getLogCurveUom(swigCPtr, logCurveIndex);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void pushBackLogCurveInfo(string mnemonic, witsml1__LogDataType typeLogData) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_pushBackLogCurveInfo__SWIG_0(swigCPtr, mnemonic, (int)typeLogData);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_pushBackLogCurveInfo__SWIG_0(swigCPtr, mnemonic, (int)typeLogData);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void pushBackLogCurveInfo(string namingSystem, string mnemonic, string classWitsml, string unit, int datumIndex, string minMaxIndexUOM, double minIndex, double maxIndex, string curveDescription, witsml1__PerLengthUom perLengthUOM, double densData, witsml1__LogTraceOrigin traceOrigin, witsml1__LogDataType typeLogData) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_pushBackLogCurveInfo__SWIG_1(swigCPtr, namingSystem, mnemonic, classWitsml, unit, datumIndex, minMaxIndexUOM, minIndex, maxIndex, curveDescription, (int)perLengthUOM, densData, (int)traceOrigin, (int)typeLogData);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_pushBackLogCurveInfo__SWIG_1(swigCPtr, namingSystem, mnemonic, classWitsml, unit, datumIndex, minMaxIndexUOM, minIndex, maxIndex, curveDescription, (int)perLengthUOM, densData, (int)traceOrigin, (int)typeLogData);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public f2i.energisticsStandardsApi.witsml1_4_1_1.Wellbore getWellbore() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getWellbore(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getWellbore(swigCPtr);
     f2i.energisticsStandardsApi.witsml1_4_1_1.Wellbore ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.witsml1_4_1_1.Wellbore(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.WellboreFrameRepresentation getResqmlWellboreFrameRepresentation() {
-		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.witsml1_4_1_1_Log_getResqmlWellboreFrameRepresentation(swigCPtr);
-		f2i.energisticsStandardsApi.resqml2_0.WellboreFrameRepresentation ret = (f2i.energisticsStandardsApi.resqml2_0.WellboreFrameRepresentation) energisticsApiPINVOKE.resqml2_0_instantiateWellboreFrameRepresentationObject(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.witsml1_4_1_1_Log_getResqmlWellboreFrameRepresentation(swigCPtr);
+		f2i.energisticsStandardsApi.resqml2_0.WellboreFrameRepresentation ret = (f2i.energisticsStandardsApi.resqml2_0.WellboreFrameRepresentation) fesapiPINVOKE.resqml2_0_instantiateWellboreFrameRepresentationObject(cPtr, false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
 		return ret;
 	}
 

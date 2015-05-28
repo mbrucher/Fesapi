@@ -34,7 +34,7 @@ public class PolylineSetRepresentationVector : global::System.IDisposable, globa
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_PolylineSetRepresentationVector(swigCPtr);
+          fesapiPINVOKE.delete_PolylineSetRepresentationVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class PolylineSetRepresentationVector : global::System.IDisposable, globa
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation x) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.PolylineSetRepresentationVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.PolylineSetRepresentationVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.PolylineSetRepresentationVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.PolylineSetRepresentationVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public PolylineSetRepresentationVector() : this(energisticsApiPINVOKE.new_PolylineSetRepresentationVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public PolylineSetRepresentationVector() : this(fesapiPINVOKE.new_PolylineSetRepresentationVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public PolylineSetRepresentationVector(PolylineSetRepresentationVector other) : this(energisticsApiPINVOKE.new_PolylineSetRepresentationVector__SWIG_1(PolylineSetRepresentationVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public PolylineSetRepresentationVector(PolylineSetRepresentationVector other) : this(fesapiPINVOKE.new_PolylineSetRepresentationVector__SWIG_1(PolylineSetRepresentationVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public PolylineSetRepresentationVector(int capacity) : this(energisticsApiPINVOKE.new_PolylineSetRepresentationVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public PolylineSetRepresentationVector(int capacity) : this(fesapiPINVOKE.new_PolylineSetRepresentationVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.PolylineSetRepresentationVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.PolylineSetRepresentationVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.PolylineSetRepresentationVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.PolylineSetRepresentationVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation val) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(PolylineSetRepresentationVector values) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_AddRange(swigCPtr, PolylineSetRepresentationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_AddRange(swigCPtr, PolylineSetRepresentationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public PolylineSetRepresentationVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.PolylineSetRepresentationVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.PolylineSetRepresentationVector_GetRange(swigCPtr, index, count);
     PolylineSetRepresentationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new PolylineSetRepresentationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation x) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, PolylineSetRepresentationVector values) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_InsertRange(swigCPtr, index, PolylineSetRepresentationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_InsertRange(swigCPtr, index, PolylineSetRepresentationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static PolylineSetRepresentationVector Repeat(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.PolylineSetRepresentationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.PolylineSetRepresentationVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value), count);
     PolylineSetRepresentationVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new PolylineSetRepresentationVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, PolylineSetRepresentationVector values) {
-    energisticsApiPINVOKE.PolylineSetRepresentationVector_SetRange(swigCPtr, index, PolylineSetRepresentationVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.PolylineSetRepresentationVector_SetRange(swigCPtr, index, PolylineSetRepresentationVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation value) {
-    bool ret = energisticsApiPINVOKE.PolylineSetRepresentationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.PolylineSetRepresentationVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation value) {
-    int ret = energisticsApiPINVOKE.PolylineSetRepresentationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.PolylineSetRepresentationVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation value) {
-    int ret = energisticsApiPINVOKE.PolylineSetRepresentationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.PolylineSetRepresentationVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation value) {
-    bool ret = energisticsApiPINVOKE.PolylineSetRepresentationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.PolylineSetRepresentationVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.PolylineSetRepresentation.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

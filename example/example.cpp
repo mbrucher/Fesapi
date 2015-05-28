@@ -1250,6 +1250,16 @@ void deserialize(const string & inputFile)
 		ijkGridRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
 		std::cout << "--------------------------------------------------" << std::endl;
 		delete [] gridPoints;
+
+		for (unsigned int l = 0; l < ijkGridRepSet[i]->getPropertySet().size(); l++)
+		{
+			AbstractValuesProperty* propVal = static_cast<AbstractValuesProperty*>(ijkGridRepSet[i]->getPropertySet()[l]);
+			std::cout << "Dimension count is : " << propVal->getDimensionsCountOfPatch(0) << std::endl;
+			std::cout << "Values count in slowest dimension is : " << propVal->getValuesCountOfDimensionOfPatch(0, 0) << std::endl;
+			std::cout << "Values count in middle dimension is : " << propVal->getValuesCountOfDimensionOfPatch(1, 0) << std::endl;
+			std::cout << "Values count in fastest dimension is : " << propVal->getValuesCountOfDimensionOfPatch(2, 0) << std::endl;
+			std::cout << "Values count in all dimensions is : " << propVal->getValuesCountOfPatch(0) << std::endl;
+		}
 	}
 
 	std::cout << endl << "UNSTRUCTURED GRID REP" << endl;
@@ -1294,9 +1304,9 @@ int main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	//string filePath("../../testingPackageCpp.epc");
-	//serialize(filePath);
-	string filePath("/home/philippe/data/resqml/ttt.epc");
+	string filePath("../../testingPackageCpp.epc");
+	serialize(filePath);
+	//string filePath("/home/philippe/data/resqml/ttt.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;

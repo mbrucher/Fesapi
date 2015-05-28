@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class AbstractResqmlDataObject : f2i.energisticsStandardsApi.resqml2_0.AbstractObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal AbstractResqmlDataObject(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractResqmlDataObject_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal AbstractResqmlDataObject(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractResqmlDataObject_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class AbstractResqmlDataObject : f2i.energisticsStandardsApi.resqml2_0.Ab
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_AbstractResqmlDataObject(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_AbstractResqmlDataObject(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,31 +40,31 @@ public class AbstractResqmlDataObject : f2i.energisticsStandardsApi.resqml2_0.Ab
   }
 
   public void addOrSetExtraMetadata(string key, string value) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractResqmlDataObject_addOrSetExtraMetadata(swigCPtr, key, value);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractResqmlDataObject_addOrSetExtraMetadata(swigCPtr, key, value);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public string getExtraMetadata(string key) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadata(swigCPtr, key);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadata(swigCPtr, key);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getExtraMetadataCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadataCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadataCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getExtraMetadataKeyAtIndex(uint index) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadataKeyAtIndex(swigCPtr, index);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadataKeyAtIndex(swigCPtr, index);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getExtraMetadataStringValueAtIndex(uint index) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadataStringValueAtIndex(swigCPtr, index);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_AbstractResqmlDataObject_getExtraMetadataStringValueAtIndex(swigCPtr, index);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

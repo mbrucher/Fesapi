@@ -39,9 +39,24 @@ namespace resqml2_0
 {
 	class DLL_IMPORT_OR_EXPORT SubRepresentation : public AbstractRepresentation
 	{
+	private :
+		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs, 
+                const std::string & guid, const std::string & title,
+				class AbstractRepresentation * supportingRep);
+
 	public:
+
 		/**
-		* Creates an instance of this class in a gsoap context.
+		* Creates an instance of this class in a gsoap context. This instance is not linked to any interpretation.
+		* @param epcDoc	The epc document which contains the instance.
+		* @param title A title for the instance to create.
+		*/
+		SubRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs, 
+                const std::string & guid, const std::string & title,
+				class AbstractRepresentation * supportingRep);
+
+		/**
+		* Creates an instance of this class in a gsoap context. This instance must be linked to an interpretation.
 		* @param interp	The interpretation the instance represents.
 		* @param title A title for the instance to create.
 		*/

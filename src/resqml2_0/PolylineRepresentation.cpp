@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -119,6 +119,19 @@ void PolylineRepresentation::setGeometry(double * points, const unsigned int & p
 bool PolylineRepresentation::isclosed() const
 {
 	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->IsClosed;
+}
+
+bool PolylineRepresentation::hasALineRole() const
+{
+	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole;
+}
+
+gsoap_resqml2_0::resqml2__LineRole PolylineRepresentation::getLineRole() const
+{
+	if (!hasALineRole())
+		throw invalid_argument("The polyline doesn't have any role");
+
+	return *(static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole);
 }
 
 vector<Relationship> PolylineRepresentation::getAllEpcRelationships() const

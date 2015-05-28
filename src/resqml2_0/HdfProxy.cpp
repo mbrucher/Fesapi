@@ -185,6 +185,22 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 	grp.close();
 }
 
+unsigned int HdfProxy::getDimensionCount(const std::string & datasetName)
+{
+	if (!isOpened())
+		openForReading();
+
+	DataSet dataset = hdfFile->openDataSet(datasetName.c_str());
+
+	DataSpace dataspace = dataset.getSpace();
+	unsigned int result = dataspace.getSimpleExtentNdims();
+
+	dataspace.close();
+	dataset.close();
+
+	return result;
+}
+
 unsigned int HdfProxy::getElementCount(const std::string & datasetName)
 {
 	if (!isOpened())
@@ -270,6 +286,80 @@ void HdfProxy::writeArrayNd(const string & groupName,
 	grp.close();
 }
 
+void HdfProxy::createArrayNd(
+	const string& groupName,
+	const string& datasetName,
+	const H5::DataType& datatype,
+	hsize_t* numValuesInEachDimension,
+	const unsigned int& numDimensions
+) {
+	if (!isOpened()) {
+		openForWriting();
+	}
+
+	Group grp = getOrCreateGroupInResqmlGroup(groupName.c_str());
+
+	// Create the data space
+	DataSpace space(numDimensions, numValuesInEachDimension);
+
+	// Create the dataset.
+	if (compressionLevel) {
+		// create dataset creation prop list
+		DSetCreatPropList ds_creatplist;
+
+		// then modify it for compression
+		ds_creatplist.setChunk( numDimensions, numValuesInEachDimension );
+		ds_creatplist.setDeflate( compressionLevel );
+		DataSet dataset = grp.createDataSet(
+			datasetName.c_str(), datatype, space, ds_creatplist
+		);
+
+		dataset.close();
+		ds_creatplist.close();
+	} else {
+		DataSet dataset = grp.createDataSet(datasetName.c_str(), datatype, space);
+		dataset.close();
+	}
+
+	space.close();
+	grp.close();
+}
+
+
+void HdfProxy::writeArrayNdSlab(
+	const string& groupName,
+	const string& datasetName,
+	void* values,
+	hsize_t* numValuesInEachDimension,
+	hsize_t* offsetInEachDimension,
+	const unsigned int& numDimensions
+) {
+	if (!isOpened()) {
+		openForWriting();
+	}
+
+	Group grp = getOrCreateGroupInResqmlGroup(groupName.c_str());
+	DataSet dataset = grp.openDataSet(datasetName.c_str());
+
+	DataSpace filespace = dataset.getSpace();
+	filespace.selectHyperslab(
+		H5S_SELECT_SET, numValuesInEachDimension, offsetInEachDimension);
+
+	hsize_t slab_size = 1;
+	for(int h = 0; h < numDimensions; h++){
+		slab_size *= numValuesInEachDimension[h];
+	}
+
+	DataSpace memspace;
+	memspace.setExtentSimple(1, &slab_size, &slab_size);
+	dataset.write(values, dataset.getDataType(), memspace, filespace);
+
+	memspace.close();
+	filespace.close();
+	dataset.close();
+	grp.close();
+}
+
 void HdfProxy::readArrayNdOfDoubleValues(const std::string & datasetName, double* values)
 {
 	if (!isOpened())
@@ -290,6 +380,37 @@ void HdfProxy::readArrayNdOfFloatValues(const std::string & datasetName, float* 
 	dataset.close();
 }
 
+void HdfProxy::readArrayNdOfFloatValues(
+	const std::string& datasetName, float* values,
+	hsize_t* numValuesInEachDimension,
+	hsize_t* offsetInEachDimension,
+	const unsigned int& numDimensions)
+{
+	if (!isOpened()) {
+		openForReading();
+	}
+
+	DataSet dataset = hdfFile->openDataSet(datasetName.c_str());
+
+	DataSpace filespace = dataset.getSpace();
+	filespace.selectHyperslab(
+		H5S_SELECT_SET, numValuesInEachDimension, offsetInEachDimension);
+
+	hsize_t slab_size =1;
+	for(int h=0; h<numDimensions; h++){
+		slab_size *= numValuesInEachDimension[h];
+	}
+
+	H5::DataSpace memspace;
+	memspace.setExtentSimple(1, &slab_size, &slab_size);
+
+	dataset.read(values, PredType::NATIVE_FLOAT, memspace, filespace);
+
+	memspace.close();
+	filespace.close();
+	dataset.close();
+}
+
 void HdfProxy::readArrayNdOfLongValues(const std::string & datasetName, long* values)
 {
 	if (!isOpened())
@@ -297,6 +418,37 @@ void HdfProxy::readArrayNdOfLongValues(const std::string & datasetName, long* va
 
 	DataSet dataset = hdfFile->openDataSet(datasetName.c_str());
 	dataset.read(values, PredType::NATIVE_LONG);
+	dataset.close();
+}
+
+void HdfProxy::readArrayNdOfLongValues(
+	const std::string& datasetName, long* values,
+	hsize_t* numValuesInEachDimension,
+	hsize_t* offsetInEachDimension,
+	const unsigned int& numDimensions)
+{
+	if (!isOpened()) {
+		openForReading();
+	}
+
+	DataSet dataset = hdfFile->openDataSet(datasetName.c_str());
+
+	DataSpace filespace = dataset.getSpace();
+	filespace.selectHyperslab(
+		H5S_SELECT_SET, numValuesInEachDimension, offsetInEachDimension);
+
+	hsize_t slab_size =1;
+	for(int h=0; h<numDimensions; h++){
+		slab_size *= numValuesInEachDimension[h];
+	}
+
+	DataSpace memspace;
+	memspace.setExtentSimple(1, &slab_size, &slab_size);
+
+	dataset.read(values, PredType::NATIVE_LONG, memspace, filespace);
+
+	memspace.close();
+	filespace.close();
 	dataset.close();
 }
 

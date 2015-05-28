@@ -32,7 +32,7 @@ public class PropertyKindMapper : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_PropertyKindMapper(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_PropertyKindMapper(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,50 +40,50 @@ public class PropertyKindMapper : global::System.IDisposable {
     }
   }
 
-  public PropertyKindMapper(f2i.energisticsStandardsApi.common.EpcDocument epcDoc) : this(f2i.energisticsStandardsApi.energisticsApiPINVOKE.new_resqml2_0_PropertyKindMapper(f2i.energisticsStandardsApi.common.EpcDocument.getCPtr(epcDoc)), true) {
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public PropertyKindMapper(f2i.energisticsStandardsApi.common.EpcDocument epcDoc) : this(f2i.energisticsStandardsApi.fesapiPINVOKE.new_resqml2_0_PropertyKindMapper(f2i.energisticsStandardsApi.common.EpcDocument.getCPtr(epcDoc)), true) {
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public string loadMappingFilesFromDirectory(string directory) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PropertyKindMapper_loadMappingFilesFromDirectory(swigCPtr, directory);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PropertyKindMapper_loadMappingFilesFromDirectory(swigCPtr, directory);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getUomOfResqmlStandardPropertyKindName(resqml2__ResqmlPropertyKind resqmlStandardPropertyKindName) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PropertyKindMapper_getUomOfResqmlStandardPropertyKindName(swigCPtr, (int)resqmlStandardPropertyKindName);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PropertyKindMapper_getUomOfResqmlStandardPropertyKindName(swigCPtr, (int)resqmlStandardPropertyKindName);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(resqml2__ResqmlPropertyKind resqmlStandardPropertyKindName, string application) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PropertyKindMapper_getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(swigCPtr, (int)resqmlStandardPropertyKindName, application);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PropertyKindMapper_getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(swigCPtr, (int)resqmlStandardPropertyKindName, application);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public resqml2__ResqmlPropertyKind getResqmlStandardPropertyKindNameFromApplicationPropertyKindName(string applicationPropertyKindName, string application) {
-    resqml2__ResqmlPropertyKind ret = (resqml2__ResqmlPropertyKind)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PropertyKindMapper_getResqmlStandardPropertyKindNameFromApplicationPropertyKindName(swigCPtr, applicationPropertyKindName, application);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    resqml2__ResqmlPropertyKind ret = (resqml2__ResqmlPropertyKind)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PropertyKindMapper_getResqmlStandardPropertyKindNameFromApplicationPropertyKindName(swigCPtr, applicationPropertyKindName, application);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid(string resqmlLocalPropertyKindUuid, string application) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PropertyKindMapper_getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid(swigCPtr, resqmlLocalPropertyKindUuid, application);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PropertyKindMapper_getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid(swigCPtr, resqmlLocalPropertyKindUuid, application);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getResqmlLocalPropertyKindUuidFromApplicationPropertyKindName(string applicationPropertyKindName, string application) {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PropertyKindMapper_getResqmlLocalPropertyKindUuidFromApplicationPropertyKindName(swigCPtr, applicationPropertyKindName, application);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PropertyKindMapper_getResqmlLocalPropertyKindUuidFromApplicationPropertyKindName(swigCPtr, applicationPropertyKindName, application);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.PropertyKind addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName(string applicationPropertyKindName, string application) {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PropertyKindMapper_addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName(swigCPtr, applicationPropertyKindName, application);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PropertyKindMapper_addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName(swigCPtr, applicationPropertyKindName, application);
     f2i.energisticsStandardsApi.resqml2_0.PropertyKind ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.PropertyKind(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class PointSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.AbstractRepresentation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal PointSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PointSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal PointSetRepresentation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PointSetRepresentation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class PointSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abst
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_PointSetRepresentation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_PointSetRepresentation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,8 +40,8 @@ public class PointSetRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abst
   }
 
   public void pushBackGeometryPatch(uint xyzPointCount, SWIGTYPE_p_double xyzPoints, f2i.energisticsStandardsApi.resqml2_0.HdfProxy proxy) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_PointSetRepresentation_pushBackGeometryPatch(swigCPtr, xyzPointCount, SWIGTYPE_p_double.getCPtr(xyzPoints), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PointSetRepresentation_pushBackGeometryPatch(swigCPtr, xyzPointCount, SWIGTYPE_p_double.getCPtr(xyzPoints), f2i.energisticsStandardsApi.resqml2_0.HdfProxy.getCPtr(proxy));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

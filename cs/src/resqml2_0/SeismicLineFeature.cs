@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class SeismicLineFeature : f2i.energisticsStandardsApi.resqml2_0.AbstractTechnicalFeature {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal SeismicLineFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLineFeature_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal SeismicLineFeature(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLineFeature_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class SeismicLineFeature : f2i.energisticsStandardsApi.resqml2_0.Abstract
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_SeismicLineFeature(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_SeismicLineFeature(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,33 +40,33 @@ public class SeismicLineFeature : f2i.energisticsStandardsApi.resqml2_0.Abstract
   }
 
   public int getTraceIndexIncrement() {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLineFeature_getTraceIndexIncrement(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLineFeature_getTraceIndexIncrement(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int getFirstTraceIndex() {
-    int ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLineFeature_getFirstTraceIndex(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLineFeature_getFirstTraceIndex(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint getTraceCount() {
-    uint ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLineFeature_getTraceCount(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLineFeature_getTraceCount(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.SeismicLineSetFeature getSeismicLineSet() {
-    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLineFeature_getSeismicLineSet(swigCPtr);
+    global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLineFeature_getSeismicLineSet(swigCPtr);
     f2i.energisticsStandardsApi.resqml2_0.SeismicLineSetFeature ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.SeismicLineSetFeature(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void setSeismicLineSet(f2i.energisticsStandardsApi.resqml2_0.SeismicLineSetFeature seisLineSet) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_SeismicLineFeature_setSeismicLineSet(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineSetFeature.getCPtr(seisLineSet));
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_SeismicLineFeature_setSeismicLineSet(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineSetFeature.getCPtr(seisLineSet));
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

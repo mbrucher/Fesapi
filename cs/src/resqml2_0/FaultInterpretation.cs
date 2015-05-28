@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class FaultInterpretation : f2i.energisticsStandardsApi.resqml2_0.BoundaryFeatureInterpretation {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal FaultInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_FaultInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal FaultInterpretation(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_FaultInterpretation_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class FaultInterpretation : f2i.energisticsStandardsApi.resqml2_0.Boundar
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_FaultInterpretation(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_FaultInterpretation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,8 +40,8 @@ public class FaultInterpretation : f2i.energisticsStandardsApi.resqml2_0.Boundar
   }
 
   public void pushBackThrowInterpretation(resqml2__ThrowKind throwKind) {
-    f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_FaultInterpretation_pushBackThrowInterpretation(swigCPtr, (int)throwKind);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_FaultInterpretation_pushBackThrowInterpretation(swigCPtr, (int)throwKind);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

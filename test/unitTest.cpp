@@ -9,10 +9,13 @@
 #include "EpcDocument.h"
 #include "resqml2_0/LocalDepth3dCrs.h"
 #include "resqml2_0/LocalTime3dCrs.h"
+#include "resqml2_0/FaultInterpretation.h"
 #include "resqml2_0/HdfProxy.h"
+#include "resqml2_0/IjkGridRepresentation.h"
 #include "resqml2_0/WellboreTrajectoryRepresentation.h"
 #include "resqml2_0/MdDatum.h"
 #include "resqml2_0/WellboreMarkerFrameRepresentation.h"
+#include "resqml2_0/SubRepresentation.h"
 #include "resqml2_0/StratigraphicColumn.h"
 #include "resqml2_0/StratigraphicColumnRankInterpretation.h"
 #include "resqml2_0/StratigraphicOccurrenceInterpretation.h"
@@ -58,7 +61,27 @@ WellboreTrajectoryRepresentation* addWellTrajectory(common::EpcDocument * epcDoc
 	return w1i1TrajRep;
 }
 
-WellboreMarkerFrameRepresentation* addWellboreMarkerFrameToStrtiOrganization(common::EpcDocument * epcDoc)
+void addSubrepresentation(common::EpcDocument * epcDoc)
+{
+	// Features
+	Fault* fault = epcDoc->createFault("1f870a12-7950-4c20-8c2d-05111b509645", "FaultForSubRep");
+
+	// Interpretations
+	FaultInterpretation* fault1Interp1 = epcDoc->createFaultInterpretation(fault, "2c87a12-7950-4c20-8c2d-05111b509645", "FaultForSubRep Interp1");
+
+	WellboreTrajectoryRepresentation*  wbTraj = addWellTrajectory(epcDoc);
+
+	// Representation with link to interp
+	SubRepresentation* subRepWithInterp = epcDoc->createSubRepresentation(fault1Interp1, epcDoc->getLocalDepth3dCrsSet()[0], "3e87a12-7950-4c20-8c2d-05111b509645", "subRepWithInterp", wbTraj);
+	unsigned int elementIndices[1] = {1};
+	subRepWithInterp->pushBackSubRepresentationPatch(gsoap_resqml2_0::resqml2__IndexableElements__nodes, 1, elementIndices , epcDoc->getHdfProxySet()[0]);
+
+	// Representation without link to interp	
+	SubRepresentation* subRepWithoutInterp = epcDoc->createSubRepresentation(epcDoc->getLocalDepth3dCrsSet()[0], "4567a12-7950-4c20-8c2d-05111b509645", "subRepWithoutInterp", wbTraj);
+	subRepWithoutInterp->pushBackSubRepresentationPatch(gsoap_resqml2_0::resqml2__IndexableElements__nodes, 1, elementIndices , epcDoc->getHdfProxySet()[0]);
+}
+
+WellboreMarkerFrameRepresentation* addWellboreMarkerFrameToStratiOrganization(common::EpcDocument * epcDoc)
 {
 	WellboreTrajectoryRepresentation* w1i1TrajRep = addWellTrajectory(epcDoc);
 
@@ -135,7 +158,7 @@ TEST_CASE( "Export and import a wellbore marker frame", "[well][stratigraphy]" )
 	common::EpcDocument* epcDoc = new common::EpcDocument("../../testingStratiMarker.epc");
 	initEpcDocument(epcDoc);
 	
-	addWellboreMarkerFrameToStrtiOrganization(epcDoc);
+	addWellboreMarkerFrameToStratiOrganization(epcDoc);
 
 	epcDoc->serialize();
 	delete epcDoc;
@@ -161,6 +184,46 @@ TEST_CASE( "Export and import a wellbore marker frame", "[well][stratigraphy]" )
 	wmf->getMdAsDoubleValues(markerMdValues);
 	REQUIRE( markerMdValues[0] == 350);
 	REQUIRE( markerMdValues[1] == 550);
+
+	delete epcDoc;
+}
+
+TEST_CASE( "Create subrepresentation with and without interpretation link" )
+{
+	//Export
+	common::EpcDocument* epcDoc = new common::EpcDocument("../../testingSubrepresentation.epc");
+	initEpcDocument(epcDoc);
+	
+	addSubrepresentation(epcDoc);
+
+	epcDoc->serialize();
+	delete epcDoc;
+
+	// Import
+	epcDoc = new common::EpcDocument("../../testingSubrepresentation.epc");
+	string validationResult = epcDoc->deserialize();
+	REQUIRE( validationResult.size() == 0 );
+	REQUIRE( epcDoc->getLocalDepth3dCrsSet().size() == 1 );
+	REQUIRE( epcDoc->getLocalTime3dCrsSet().size() == 1 );
+	REQUIRE( epcDoc->getHdfProxySet().size() == 1 );
+
+	REQUIRE( epcDoc->getWellboreCubicParamLineTrajRepSet().size() == 1);
+	WellboreTrajectoryRepresentation* wbTraj = epcDoc->getWellboreCubicParamLineTrajRepSet()[0];
+	REQUIRE( wbTraj->getSubRepresentationSet().size() == 2);
+	SubRepresentation* subRep0 = wbTraj->getSubRepresentation(0);
+	SubRepresentation* subRep1 = wbTraj->getSubRepresentation(1);
+	if(subRep0->getTitle() == "subRepWithInterp")
+	{
+		REQUIRE( subRep0->getInterpretation() != NULL);
+		REQUIRE( subRep0->getInterpretation()->getTitle() == "FaultForSubRep Interp1");
+		REQUIRE( subRep1->getInterpretation() == NULL);
+	}
+	else
+	{
+		REQUIRE( subRep1->getInterpretation() != NULL);
+		REQUIRE( subRep1->getInterpretation()->getTitle() == "FaultForSubRep Interp1");
+		REQUIRE( subRep0->getInterpretation() == NULL);
+	}
 
 	delete epcDoc;
 }

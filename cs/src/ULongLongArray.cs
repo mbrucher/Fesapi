@@ -32,7 +32,7 @@ public class ULongLongArray : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_ULongLongArray(swigCPtr);
+          fesapiPINVOKE.delete_ULongLongArray(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,26 +40,26 @@ public class ULongLongArray : global::System.IDisposable {
     }
   }
 
-  public ULongLongArray(int nelements) : this(energisticsApiPINVOKE.new_ULongLongArray(nelements), true) {
+  public ULongLongArray(int nelements) : this(fesapiPINVOKE.new_ULongLongArray(nelements), true) {
   }
 
   public ulong getitem(int index) {
-    ulong ret = energisticsApiPINVOKE.ULongLongArray_getitem(swigCPtr, index);
+    ulong ret = fesapiPINVOKE.ULongLongArray_getitem(swigCPtr, index);
     return ret;
   }
 
   public void setitem(int index, ulong value) {
-    energisticsApiPINVOKE.ULongLongArray_setitem(swigCPtr, index, value);
+    fesapiPINVOKE.ULongLongArray_setitem(swigCPtr, index, value);
   }
 
   public SWIGTYPE_p_unsigned_long_long cast() {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.ULongLongArray_cast(swigCPtr);
+    global::System.IntPtr cPtr = fesapiPINVOKE.ULongLongArray_cast(swigCPtr);
     SWIGTYPE_p_unsigned_long_long ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_unsigned_long_long(cPtr, false);
     return ret;
   }
 
   public static ULongLongArray frompointer(SWIGTYPE_p_unsigned_long_long t) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.ULongLongArray_frompointer(SWIGTYPE_p_unsigned_long_long.getCPtr(t));
+    global::System.IntPtr cPtr = fesapiPINVOKE.ULongLongArray_frompointer(SWIGTYPE_p_unsigned_long_long.getCPtr(t));
     ULongLongArray ret = (cPtr == global::System.IntPtr.Zero) ? null : new ULongLongArray(cPtr, false);
     return ret;
   }

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0/AbstractProperty.h"
+#include "H5public.h"
 
 namespace resqml2_0
 {
@@ -128,5 +129,133 @@ namespace resqml2_0
 		* @return the null value
 		*/
 		unsigned char getUCharValuesOfPatch(const unsigned int & patchIndex, unsigned char * values);
+
+		/**
+		* Get the count of all values contained into the underlying HDF5 dataset of this property for a particular patch.
+		*/
+		unsigned int getValuesCountOfPatch (const unsigned int & patchIndex);
+
+		/**
+		* Get the count of values on a specific dimension of the underlying HDF5 dataset of this property.
+		* @param dimIndex	The index of the dimension we want to know the values count in this property.
+		* @param patchIndex	The index of the patch we want to know the values count in this property.
+		* @return			The number of values, 0 otherwise.
+		*/
+		unsigned int getValuesCountOfDimensionOfPatch(const unsigned int & dimIndex, const unsigned int & patchIndex);
+
+		/**
+		* Get the count of dimension of the underlying HDF5 dataset of this property.
+		* @param patchIndex	The index of the patch we want to know the dimensions in this property.
+		* @return			The number of values, 0 otherwise.
+		*/
+		unsigned int getDimensionsCountOfPatch(const unsigned int & patchIndex);
+
+		//***************************
+		//*** For hyperslabbing *****
+		//***************************
+
+		/**
+		* Create an array (potentially multi dimensions) of explicit long values to the property values. No values are written to this array yet.
+		* @param numValues				The number of property values ordered by dimension of the array to write.
+		* @param numArrayDimensions		The number of dimensions of the array to write.
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void createLongHdf5ArrayOfValues(
+			hsize_t* numValues, 
+			const unsigned int& numArrayDimensions, 
+			HdfProxy* proxy
+		);
+
+		/**
+		* Create a 3d array of explicit Long values to the property values.
+		* @param valueCountInFastestDim	The number of values to write in the fastest dimension (mainly I dimension).
+		* @param valueCountInMiddleDim	The number of values to write in the middle dimension (mainly J dimension).
+		* @param valueCountInSlowestDim The number of values to write in the slowest dimension (mainly K dimension).
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void createLongHdf5Array3dOfValues(
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			HdfProxy * proxy
+		);
+
+		/**
+		* Add a 3d array of explicit Long values to the property values.
+		* @param values					All the property values to set ordered according the topology of the representation it is based on.
+		* @param valueCountInFastestDim	The number of values to write in the fastest dimension (mainly I dimension).
+		* @param valueCountInMiddleDim	The number of values to write in the middle dimension (mainly J dimension).
+		* @param valueCountInSlowestDim The number of values to write in the slowest dimension (mainly K dimension).
+		* @param offsetInFastestDim		The offset to write in the fastest dimension (mainly I dimension).
+		* @param offsetInMiddleDim		The offset value to write in the middle dimension (mainly J dimension).
+		* @param offsetInSlowestDim		The offset value to write in the slowest dimension (mainly K dimension).
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void pushBackLongHdf5SlabArray3dOfValues(
+			long* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim, 
+			HdfProxy* proxy
+		);
+
+		/**
+		* Add an array (potentially multi dimensions) of explicit long values to the property values.
+		* This method is to be used along with createLongHdf5ArrayOfValues.
+		* @param values					All the property values to set ordered according the topology of the representation it is based on.
+		* @param numValues				The number of property values ordered by dimension of the array to write.
+		* @param offsetValues			The offset values ordered by dimension of the array to write.
+		* @param numArrayDimensions		The number of dimensions of the array to write.
+		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
+		*/
+		void pushBackLongHdf5SlabArrayOfValues(
+			long * values, 
+			hsize_t * numValues, 
+			hsize_t * offsetValues, 
+			const unsigned int & numArrayDimensions, 
+			HdfProxy * proxy
+		);
+
+		/**
+		* Get all the values of the instance which are supposed to be long ones.
+		* @param patchIndex	Patch index.
+		* @param values					The array (pointer) of values which must be preallocated.
+		* @param numValues				The number of property values ordered by dimension of the array to write.
+		* @param offsetValues			The offset values ordered by dimension of the array to write.
+		* @param numArrayDimensions		The number of dimensions of the array to write.
+		*/
+		void getLongValuesOfPatch(
+			const unsigned int& patchIndex, 
+			long* values, 
+			hsize_t* numValuesInEachDimension,
+			hsize_t* offsetInEachDimension, 
+			const unsigned int& numArrayDimensions
+		);
+
+		/**
+		* Get all the values of the instance which are supposed to be long ones.
+		* @param patchIndex				Patch index.
+		* @param values					The array (pointer) of values must be preallocated.
+		* @param valueCountInFastestDim	The number of values to write in the fastest dimension (mainly I dimension).
+		* @param valueCountInMiddleDim	The number of values to write in the middle dimension (mainly J dimension).
+		* @param valueCountInSlowestDim The number of values to write in the slowest dimension (mainly K dimension).
+		* @param offsetInFastestDim		The offset to write in the fastest dimension (mainly I dimension).
+		* @param offsetInMiddleDim		The offset value to write in the middle dimension (mainly J dimension).
+		* @param offsetInSlowestDim		The offset value to write in the slowest dimension (mainly K dimension).
+		*/
+		void getLongValuesOf3dPatch(
+			const unsigned int& patchIndex, 
+			long* values, 
+			const unsigned int& valueCountInFastestDim, 
+			const unsigned int& valueCountInMiddleDim, 
+			const unsigned int& valueCountInSlowestDim, 
+			const unsigned int& offsetInFastestDim, 
+			const unsigned int& offsetInMiddleDim, 
+			const unsigned int& offsetInSlowestDim
+		);
+
 	};
 }

@@ -52,9 +52,9 @@ void IjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (!epcDoc)
+	if (epcDoc == nullptr)
 		throw invalid_argument("The EPC document where the ijk grid will be stored cannot be null.");
-	if (!crs)
+	if (crs == nullptr)
 		throw invalid_argument("The local CRS of the IJK Grid cannot be null.");
 
 	gsoapProxy = soap_new_resqml2__obj_USCOREIjkGridRepresentation(epcDoc->getGsoapContext(), 1);
@@ -78,7 +78,7 @@ void IjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs
 IjkGridRepresentation::IjkGridRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
-	AbstractColumnLayerGridRepresentation(NULL, crs)
+	AbstractColumnLayerGridRepresentation(nullptr, crs)
 {
 	init(epcDoc, crs, guid, title, iCount, jCount, kCount);
 }
@@ -88,13 +88,10 @@ IjkGridRepresentation::IjkGridRepresentation(AbstractFeatureInterpretation* inte
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractColumnLayerGridRepresentation(interp, crs)
 {
-	if (!interp)
+	if (interp == nullptr)
 		throw invalid_argument("The interpretation of the IJK grid cannot be null.");
-	if (!crs)
-		throw invalid_argument("The local CRS of the IJK Grid cannot be null.");
 
-	if (interp->getEpcDocument())
-		init(interp->getEpcDocument(), crs, guid, title, iCount, jCount, kCount);
+	init(interp->getEpcDocument(), crs, guid, title, iCount, jCount, kCount);
 
 	// relationhsips
 	setInterpretation(interp);

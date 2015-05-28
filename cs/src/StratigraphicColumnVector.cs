@@ -34,7 +34,7 @@ public class StratigraphicColumnVector : global::System.IDisposable, global::Sys
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_StratigraphicColumnVector(swigCPtr);
+          fesapiPINVOKE.delete_StratigraphicColumnVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class StratigraphicColumnVector : global::System.IDisposable, global::Sys
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.StratigraphicColumnVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn x) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.StratigraphicColumnVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.StratigraphicColumnVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.StratigraphicColumnVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.StratigraphicColumnVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicColumnVector() : this(energisticsApiPINVOKE.new_StratigraphicColumnVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicColumnVector() : this(fesapiPINVOKE.new_StratigraphicColumnVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicColumnVector(StratigraphicColumnVector other) : this(energisticsApiPINVOKE.new_StratigraphicColumnVector__SWIG_1(StratigraphicColumnVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicColumnVector(StratigraphicColumnVector other) : this(fesapiPINVOKE.new_StratigraphicColumnVector__SWIG_1(StratigraphicColumnVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StratigraphicColumnVector(int capacity) : this(energisticsApiPINVOKE.new_StratigraphicColumnVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public StratigraphicColumnVector(int capacity) : this(fesapiPINVOKE.new_StratigraphicColumnVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn val) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(StratigraphicColumnVector values) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_AddRange(swigCPtr, StratigraphicColumnVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_AddRange(swigCPtr, StratigraphicColumnVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public StratigraphicColumnVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnVector_GetRange(swigCPtr, index, count);
     StratigraphicColumnVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StratigraphicColumnVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn x) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, StratigraphicColumnVector values) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_InsertRange(swigCPtr, index, StratigraphicColumnVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_InsertRange(swigCPtr, index, StratigraphicColumnVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static StratigraphicColumnVector Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.StratigraphicColumnVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.StratigraphicColumnVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value), count);
     StratigraphicColumnVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StratigraphicColumnVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.StratigraphicColumnVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, StratigraphicColumnVector values) {
-    energisticsApiPINVOKE.StratigraphicColumnVector_SetRange(swigCPtr, index, StratigraphicColumnVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.StratigraphicColumnVector_SetRange(swigCPtr, index, StratigraphicColumnVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn value) {
-    bool ret = energisticsApiPINVOKE.StratigraphicColumnVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.StratigraphicColumnVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn value) {
-    int ret = energisticsApiPINVOKE.StratigraphicColumnVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.StratigraphicColumnVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn value) {
-    int ret = energisticsApiPINVOKE.StratigraphicColumnVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.StratigraphicColumnVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn value) {
-    bool ret = energisticsApiPINVOKE.StratigraphicColumnVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.StratigraphicColumnVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.StratigraphicColumn.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

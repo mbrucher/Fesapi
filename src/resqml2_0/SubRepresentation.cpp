@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -47,27 +47,55 @@ using namespace gsoap_resqml2_0;
 
 const char* SubRepresentation::XML_TAG = "SubRepresentation";
 
-SubRepresentation::SubRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+void SubRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
         const string & guid, const string & title,
-		AbstractRepresentation * supportingRep):
-	AbstractRepresentation(interp, crs)
+		AbstractRepresentation * supportingRep)
 {
-    gsoapProxy = soap_new_resqml2__obj_USCORESubRepresentation(interp->getGsoapProxy()->soap, 1);
-    _resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
-    
-    initMandatoryMetadata();
+	if (epcDoc == nullptr)
+		throw invalid_argument("The EPC document where the subrepresentation will be stored cannot be null.");
+	if (crs == nullptr)
+		throw invalid_argument("The local CRS of the subrepresentation cannot be null.");
+	if (supportingRep == nullptr)
+		throw invalid_argument("The supportng representation of the subrepresentation cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCORESubRepresentation(epcDoc->getGsoapContext(), 1);
+	_resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
+
+	initMandatoryMetadata();
     setMetadata(guid, title, "", -1, "", "", -1, "", "");
-    
-	// relationshsips
-	setInterpretation(interp);
 	
 	rep->SupportingRepresentation = supportingRep->newResqmlReference();
 	supportingRepresentation = supportingRep;
 	supportingRep->addSubRepresentation(this);
 
 	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
+	epcDoc->addGsoapProxy(this);
+
+	// relationhsips
+	localCrs = crs;
+	localCrs->addRepresentation(this);
+}
+
+SubRepresentation::SubRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+        const string & guid, const string & title,
+		AbstractRepresentation * supportingRep):
+	AbstractRepresentation(nullptr, crs)
+{
+	init(epcDoc, crs, guid, title, supportingRep);
+}
+
+SubRepresentation::SubRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+        const string & guid, const string & title,
+		AbstractRepresentation * supportingRep):
+	AbstractRepresentation(interp, crs)
+{
+	if (interp == nullptr)
+		throw invalid_argument("The interpretation of the subrepresentation cannot be null.");
+
+	init(interp->getEpcDocument(), crs, guid, title, supportingRep);
+
+	// relationhsips
+	setInterpretation(interp);
 }
 
 bool SubRepresentation::isElementPairBased(const unsigned int & patchIndex) const

@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class MdDatum : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataObject {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal MdDatum(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_MdDatum_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal MdDatum(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_MdDatum_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class MdDatum : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataO
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_MdDatum(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_MdDatum(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,39 +40,39 @@ public class MdDatum : f2i.energisticsStandardsApi.resqml2_0.AbstractResqmlDataO
   }
 
   public string getLocalCrsUuid() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_MdDatum_getLocalCrsUuid(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_MdDatum_getLocalCrsUuid(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs getLocalCrs() {
-		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_MdDatum_getLocalCrs(swigCPtr);
-		f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs) energisticsApiPINVOKE.resqml2_0_instantiateConcreteLocal3dCrs(cPtr, false);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+		global::System.IntPtr cPtr = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_MdDatum_getLocalCrs(swigCPtr);
+		f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs ret = (f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs) fesapiPINVOKE.resqml2_0_instantiateConcreteLocal3dCrs(cPtr, false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
 		return ret;
 	}
 
   public double getLocationOrdinal1() {
-    double ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_MdDatum_getLocationOrdinal1(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_MdDatum_getLocationOrdinal1(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double getLocationOrdinal2() {
-    double ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_MdDatum_getLocationOrdinal2(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_MdDatum_getLocationOrdinal2(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double getLocationOrdinal3() {
-    double ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_MdDatum_getLocationOrdinal3(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_MdDatum_getLocationOrdinal3(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public resqml2__MdReference getOriginKind() {
-    resqml2__MdReference ret = (resqml2__MdReference)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_MdDatum_getOriginKind(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    resqml2__MdReference ret = (resqml2__MdReference)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_MdDatum_getOriginKind(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

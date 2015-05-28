@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -69,7 +69,7 @@ namespace resqml2_0
 		* @param crs					The local 3d crs where this representation is given.
 		* @param guid					The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
-		* @param roleKind				Indicates the role of this repreesntation.
+		* @param roleKind				Indicates the role of this representation.
 		* @param isClosed				Indicates wether this line representaiton is closed or not.
 		*/
 		PolylineRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
@@ -118,6 +118,17 @@ namespace resqml2_0
 		* Indicates if the representaiton is a closed polyline or a non closed polyline.
 		*/
 		bool isclosed() const;
+
+		/**
+		* Indicates if the polyline is associated to a particular LineRole.
+		*/
+		bool hasALineRole() const;
+
+		/**
+		* Get the role of this polyline.
+		* Throw an exception if the polyline has no role (see method hasALineRole).
+		*/
+        gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
 
 		unsigned int getPatchCount() const {return 1;}
 

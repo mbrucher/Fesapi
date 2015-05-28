@@ -34,7 +34,7 @@ public class SeismicLineFeatureVector : global::System.IDisposable, global::Syst
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          energisticsApiPINVOKE.delete_SeismicLineFeatureVector(swigCPtr);
+          fesapiPINVOKE.delete_SeismicLineFeatureVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -201,138 +201,138 @@ public class SeismicLineFeatureVector : global::System.IDisposable, global::Syst
   }
 
   public void Clear() {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_Clear(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_Clear(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature x) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_Add(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = energisticsApiPINVOKE.SeismicLineFeatureVector_size(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.SeismicLineFeatureVector_size(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = energisticsApiPINVOKE.SeismicLineFeatureVector_capacity(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    uint ret = fesapiPINVOKE.SeismicLineFeatureVector_capacity(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_reserve(swigCPtr, n);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_reserve(swigCPtr, n);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public SeismicLineFeatureVector() : this(energisticsApiPINVOKE.new_SeismicLineFeatureVector__SWIG_0(), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public SeismicLineFeatureVector() : this(fesapiPINVOKE.new_SeismicLineFeatureVector__SWIG_0(), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public SeismicLineFeatureVector(SeismicLineFeatureVector other) : this(energisticsApiPINVOKE.new_SeismicLineFeatureVector__SWIG_1(SeismicLineFeatureVector.getCPtr(other)), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public SeismicLineFeatureVector(SeismicLineFeatureVector other) : this(fesapiPINVOKE.new_SeismicLineFeatureVector__SWIG_1(SeismicLineFeatureVector.getCPtr(other)), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public SeismicLineFeatureVector(int capacity) : this(energisticsApiPINVOKE.new_SeismicLineFeatureVector__SWIG_2(capacity), true) {
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+  public SeismicLineFeatureVector(int capacity) : this(fesapiPINVOKE.new_SeismicLineFeatureVector__SWIG_2(capacity), true) {
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature getitemcopy(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.SeismicLineFeatureVector_getitemcopy(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.SeismicLineFeatureVector_getitemcopy(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature getitem(int index) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.SeismicLineFeatureVector_getitem(swigCPtr, index);
+    global::System.IntPtr cPtr = fesapiPINVOKE.SeismicLineFeatureVector_getitem(swigCPtr, index);
     f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature ret = (cPtr == global::System.IntPtr.Zero) ? null : new f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature(cPtr, false);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature val) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(val));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_setitem(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(val));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void AddRange(SeismicLineFeatureVector values) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_AddRange(swigCPtr, SeismicLineFeatureVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_AddRange(swigCPtr, SeismicLineFeatureVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public SeismicLineFeatureVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.SeismicLineFeatureVector_GetRange(swigCPtr, index, count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.SeismicLineFeatureVector_GetRange(swigCPtr, index, count);
     SeismicLineFeatureVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new SeismicLineFeatureVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature x) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(x));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_Insert(swigCPtr, index, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(x));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void InsertRange(int index, SeismicLineFeatureVector values) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_InsertRange(swigCPtr, index, SeismicLineFeatureVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_InsertRange(swigCPtr, index, SeismicLineFeatureVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_RemoveAt(swigCPtr, index);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_RemoveAt(swigCPtr, index);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_RemoveRange(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_RemoveRange(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public static SeismicLineFeatureVector Repeat(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature value, int count) {
-    global::System.IntPtr cPtr = energisticsApiPINVOKE.SeismicLineFeatureVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value), count);
+    global::System.IntPtr cPtr = fesapiPINVOKE.SeismicLineFeatureVector_Repeat(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value), count);
     SeismicLineFeatureVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new SeismicLineFeatureVector(cPtr, true);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_Reverse__SWIG_0(swigCPtr);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_Reverse__SWIG_0(swigCPtr);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_Reverse__SWIG_1(swigCPtr, index, count);
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_Reverse__SWIG_1(swigCPtr, index, count);
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void SetRange(int index, SeismicLineFeatureVector values) {
-    energisticsApiPINVOKE.SeismicLineFeatureVector_SetRange(swigCPtr, index, SeismicLineFeatureVector.getCPtr(values));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    fesapiPINVOKE.SeismicLineFeatureVector_SetRange(swigCPtr, index, SeismicLineFeatureVector.getCPtr(values));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool Contains(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature value) {
-    bool ret = energisticsApiPINVOKE.SeismicLineFeatureVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.SeismicLineFeatureVector_Contains(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature value) {
-    int ret = energisticsApiPINVOKE.SeismicLineFeatureVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.SeismicLineFeatureVector_IndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature value) {
-    int ret = energisticsApiPINVOKE.SeismicLineFeatureVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    int ret = fesapiPINVOKE.SeismicLineFeatureVector_LastIndexOf(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature value) {
-    bool ret = energisticsApiPINVOKE.SeismicLineFeatureVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
-    if (energisticsApiPINVOKE.SWIGPendingException.Pending) throw energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    bool ret = fesapiPINVOKE.SeismicLineFeatureVector_Remove(swigCPtr, f2i.energisticsStandardsApi.resqml2_0.SeismicLineFeature.getCPtr(value));
+    if (fesapiPINVOKE.SWIGPendingException.Pending) throw fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

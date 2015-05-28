@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class LocalDepth3dCrs : f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal LocalDepth3dCrs(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_LocalDepth3dCrs_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal LocalDepth3dCrs(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_LocalDepth3dCrs_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class LocalDepth3dCrs : f2i.energisticsStandardsApi.resqml2_0.AbstractLoc
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_LocalDepth3dCrs(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_LocalDepth3dCrs(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }

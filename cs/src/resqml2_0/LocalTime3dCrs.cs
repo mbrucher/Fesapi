@@ -13,7 +13,7 @@ namespace f2i.energisticsStandardsApi.resqml2_0 {
 public class LocalTime3dCrs : f2i.energisticsStandardsApi.resqml2_0.AbstractLocal3dCrs {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal LocalTime3dCrs(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_LocalTime3dCrs_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal LocalTime3dCrs(global::System.IntPtr cPtr, bool cMemoryOwn) : base(f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_LocalTime3dCrs_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -30,7 +30,7 @@ public class LocalTime3dCrs : f2i.energisticsStandardsApi.resqml2_0.AbstractLoca
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          f2i.energisticsStandardsApi.energisticsApiPINVOKE.delete_resqml2_0_LocalTime3dCrs(swigCPtr);
+          f2i.energisticsStandardsApi.fesapiPINVOKE.delete_resqml2_0_LocalTime3dCrs(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,14 +40,14 @@ public class LocalTime3dCrs : f2i.energisticsStandardsApi.resqml2_0.AbstractLoca
   }
 
   public eml__TimeUom getUnit() {
-    eml__TimeUom ret = (eml__TimeUom)f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_LocalTime3dCrs_getUnit(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    eml__TimeUom ret = (eml__TimeUom)f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_LocalTime3dCrs_getUnit(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string getUnitAsString() {
-    string ret = f2i.energisticsStandardsApi.energisticsApiPINVOKE.resqml2_0_LocalTime3dCrs_getUnitAsString(swigCPtr);
-    if (f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.energisticsApiPINVOKE.SWIGPendingException.Retrieve();
+    string ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_LocalTime3dCrs_getUnitAsString(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
