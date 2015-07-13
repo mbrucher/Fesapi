@@ -33,8 +33,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "PolylineRepresentation.h"
 
-#include "AbstractFeatureInterpretation.h"
-#include "AbstractLocal3dCrs.h"
+#include "resqml2_0/AbstractFeatureInterpretation.h"
+#include "resqml2_0/AbstractFeature.h"
+#include "resqml2_0/AbstractLocal3dCrs.h"
+#include "resqml2_0/AbstractValuesProperty.h"
 
 using namespace std;
 using namespace resqml2_0;
@@ -124,7 +126,7 @@ void PolylineRepresentation::setGeometry(double * points, const unsigned int & p
 	polylineRep->NodePatch->Geometry = createPointGeometryPatch(0, points, pointCountDims, 1, proxy);
 }
 
-bool PolylineRepresentation::isclosed() const
+bool PolylineRepresentation::isClosed() const
 {
 	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->IsClosed;
 }
@@ -140,6 +142,46 @@ gsoap_resqml2_0::resqml2__LineRole PolylineRepresentation::getLineRole() const
 		throw invalid_argument("The polyline doesn't have any role");
 
 	return *(static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole);
+}
+
+bool PolylineRepresentation::isASeismicLine() const
+{
+	// A Seismic line is defined by an PolylineRepresentation that has a feature of type SeismicLineFeature and that
+	// has at least one continuous property (amplitude).
+	bool atLeastOneContProp = false;
+    vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
+    for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
+    {
+        if (allValuesProperty[propIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREContinuousProperty)
+        {
+            atLeastOneContProp = true;
+            break;
+        }
+    }
+    if (!atLeastOneContProp)
+        return false;
+
+	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCORESeismicLineFeature;
+}
+
+bool PolylineRepresentation::isAFaciesLine() const
+{
+	// A Facies line is defined by an PolylineRepresentation that has a feature of type SeismicLineFeature and that
+	// has at least one categorical property (facies).
+	bool atLeastOneCateProp = false;
+    vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
+    for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
+    {
+        if (allValuesProperty[propIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCORECategoricalProperty)
+        {
+            atLeastOneCateProp = true;
+            break;
+        }
+    }
+    if (!atLeastOneCateProp)
+        return false;
+
+	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCORESeismicLineFeature;
 }
 
 vector<Relationship> PolylineRepresentation::getAllEpcRelationships() const

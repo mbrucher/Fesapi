@@ -274,7 +274,12 @@ namespace common
 		*/
 		std::vector<resqml2_0::PolylineSetRepresentation*> getFracturePolylineSetRepSet() const;
 
-        /**
+		/**
+		* Get all the individual representations of frontiers which are associated to a polyline set topology
+		*/
+		std::vector<resqml2_0::PolylineSetRepresentation*> getFrontierPolylineSetRepSet() const;
+
+		/**
 		* Get all the individual representations of faults which are associated to a triangulation set topology
 		*/
 		std::vector<resqml2_0::TriangulatedSetRepresentation*> getFaultTriangulatedSetRepSet() const;
@@ -340,6 +345,16 @@ namespace common
 		std::vector<resqml2_0::WellboreTrajectoryRepresentation*> getWellboreCubicParamLineTrajRepSet() const;
 
 		/**
+		* Get all the polyline representation contained into the EPC document.
+		*/
+		std::vector<resqml2_0::PolylineRepresentation*> getPolylineRepresentationSet() const {return polylineRepresentationSet;}
+
+		/**
+		* Get all the single polyline representations contained into the EPC document which correspond to a seismic line.
+		*/
+		std::vector<resqml2_0::PolylineRepresentation*> getSeismicLinePolylineRepSet() const;
+
+		/**
 		* Get all the ijk grid contained into the EPC document.
 		*/
 		std::vector<resqml2_0::IjkGridRepresentation*> getIjkGridRepresentationSet() const {return ijkGridRepresentationSet;}
@@ -358,6 +373,11 @@ namespace common
 		* Get all the unstructured grid contained into the EPC document
 		*/
 		std::vector<resqml2_0::UnstructuredGridRepresentation*> getUnstructuredGridRepresentationSet() const {return unstructuredGridRepresentationSet;}
+
+		/**
+		* Get all the frontier features contained into the EPC document
+		*/
+		const std::vector<resqml2_0::FrontierFeature*> & getFrontierSet() const {return frontierSet;}
 
 		/**
 		* Get all the Hdf proxies used with this EPC document
@@ -684,9 +704,11 @@ namespace common
 		std::vector<resqml2_0::WellboreFeature*>				wellboreSet;
 		std::vector<witsml1_4_1_1::Trajectory*>					witsmlTrajectorySet;
 		std::vector<resqml2_0::TriangulatedSetRepresentation*>	triangulatedSetRepresentationSet;
+		std::vector<resqml2_0::PolylineRepresentation*>			polylineRepresentationSet;
 		std::vector<resqml2_0::IjkGridRepresentation*>			ijkGridRepresentationSet;
 		std::vector<resqml2_0::UnstructuredGridRepresentation*>	unstructuredGridRepresentationSet;
 		std::vector<resqml2_0::StratigraphicColumn*>			stratigraphicColumnSet;
+		std::vector<resqml2_0::FrontierFeature*>				frontierSet;
 
 		resqml2_0::PropertyKindMapper* propertyKindMapper;
 	};

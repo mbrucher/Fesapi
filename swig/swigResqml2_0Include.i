@@ -73,6 +73,7 @@ namespace resqml2_0 {
 	class Fault;
 	class Fracture;
 	class Horizon;
+    class FrontierFeature;
 	class StratigraphicUnitInterpretation;
 	class HorizonInterpretation;
 	class StratigraphicOccurrenceInterpretation;
@@ -103,6 +104,7 @@ namespace std {
    %template(FaultVector) vector<resqml2_0::Fault*>;
    %template(FractureVector) vector<resqml2_0::Fracture*>;
    %template(HorizonVector) vector<resqml2_0::Horizon*>;
+   %template(FrontierVector) vector<resqml2_0::FrontierFeature*>;
    %template(StratigraphicUnitInterpretationVector) vector<resqml2_0::StratigraphicUnitInterpretation*>;
    %template(StratigraphicOccurrenceInterpretationVector) vector<resqml2_0::StratigraphicOccurrenceInterpretation*>;
    %template(HorizonInterpretationVector) vector<resqml2_0::HorizonInterpretation*>;
@@ -681,7 +683,7 @@ namespace resqml2_0
 	{
 	public:
 		void setGeometry(double * points, const unsigned int & pointCount, HdfProxy * proxy);
-		bool isclosed() const;
+		bool isClosed() const;
 		bool hasALineRole() const;
 		gsoap_resqml2_0::resqml2__LineRole getLineRole() const;
 		void setLineRole(const gsoap_resqml2_0::resqml2__LineRole & lineRole);
@@ -1208,6 +1210,9 @@ namespace resqml2_0
 			const unsigned int& offsetInMiddleDim, 
 			const unsigned int& offsetInSlowestDim
 		);
+		
+		double getMinimumValue();
+		double getMaximumValue();
 		
 	};
 	

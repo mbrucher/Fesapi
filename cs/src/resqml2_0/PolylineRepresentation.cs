@@ -44,8 +44,8 @@ public class PolylineRepresentation : f2i.energisticsStandardsApi.resqml2_0.Abst
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public bool isclosed() {
-    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineRepresentation_isclosed(swigCPtr);
+  public bool isClosed() {
+    bool ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_PolylineRepresentation_isClosed(swigCPtr);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

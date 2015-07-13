@@ -202,9 +202,11 @@ void EpcDocument::close()
 	wellboreSet.clear();
 	witsmlTrajectorySet.clear();
 	triangulatedSetRepresentationSet.clear();
+	polylineRepresentationSet.clear();
 	ijkGridRepresentationSet.clear();
 	unstructuredGridRepresentationSet.clear();
 	stratigraphicColumnSet.clear();
+	frontierSet.clear();
 
 	if (propertyKindMapper)
 		delete propertyKindMapper;
@@ -262,6 +264,8 @@ void EpcDocument::addGsoapProxy(resqml2_0::AbstractObject* proxy)
 		hdfProxySet.push_back(static_cast<HdfProxy*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREWellboreFeature :
 		wellboreSet.push_back(static_cast<WellboreFeature*>(proxy)); break;
+	case SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREPolylineRepresentation :
+		polylineRepresentationSet.push_back(static_cast<PolylineRepresentation*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREIjkGridRepresentation :
 		ijkGridRepresentationSet.push_back(static_cast<IjkGridRepresentation*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREUnstructuredGridRepresentation :
@@ -274,6 +278,8 @@ void EpcDocument::addGsoapProxy(resqml2_0::AbstractObject* proxy)
 		stratigraphicColumnSet.push_back(static_cast<StratigraphicColumn*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCORETriangulatedSetRepresentation :
 		triangulatedSetRepresentationSet.push_back(static_cast<TriangulatedSetRepresentation*>(proxy)); break;
+	case SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREFrontierFeature :
+		frontierSet.push_back(static_cast<FrontierFeature*>(proxy)); break;
 	}
 	resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
 	proxy->epcDocument = this;
@@ -814,6 +820,30 @@ vector<PolylineSetRepresentation*> EpcDocument::getFracturePolylineSetRepSet() c
 	return result;
 }
 
+vector<PolylineSetRepresentation*> EpcDocument::getFrontierPolylineSetRepSet() const
+{
+	vector<PolylineSetRepresentation*> result;
+
+	vector<FrontierFeature*> frontierSet = getFrontierSet();
+	for (unsigned int featureIndex = 0; featureIndex < frontierSet.size(); featureIndex++)
+	{
+		vector<AbstractFeatureInterpretation*> interpSet = frontierSet[featureIndex]->getInterpretationSet();
+		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
+		{
+			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
+			{
+				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREPolylineSetRepresentation)
+				{
+					result.push_back(static_cast<PolylineSetRepresentation*>(repSet[repIndex]));
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
 vector<TriangulatedSetRepresentation*> EpcDocument::getFaultTriangulatedSetRepSet() const
 {
 	vector<TriangulatedSetRepresentation*> result;
@@ -1033,6 +1063,20 @@ vector<IjkGridRepresentation*> EpcDocument::getIjkParametricGridRepresentationSe
 			result.push_back(allgrids[i]);
 	}
 	
+	return result;
+}
+
+std::vector<PolylineRepresentation*> EpcDocument::getSeismicLinePolylineRepSet() const
+{
+	vector<PolylineRepresentation*> result;
+	vector<PolylineRepresentation*> polylineRepSet = getPolylineRepresentationSet();
+
+	for (unsigned int i = 0; i < polylineRepSet.size(); ++i)
+	{
+		if (polylineRepSet[i]->isASeismicLine())
+			result.push_back(polylineRepSet[i]);
+	}
+
 	return result;
 }
 

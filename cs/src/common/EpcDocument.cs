@@ -149,6 +149,12 @@ public class EpcDocument : global::System.IDisposable {
     return ret;
   }
 
+  public FrontierVector getFrontierSet() {
+    FrontierVector ret = new FrontierVector(f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_getFrontierSet(swigCPtr), false);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public PolylineSetRepresentationVector getFaultPolylineSetRepSet() {
     PolylineSetRepresentationVector ret = new PolylineSetRepresentationVector(f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_getFaultPolylineSetRepSet(swigCPtr), true);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
@@ -157,6 +163,12 @@ public class EpcDocument : global::System.IDisposable {
 
   public PolylineSetRepresentationVector getFracturePolylineSetRepSet() {
     PolylineSetRepresentationVector ret = new PolylineSetRepresentationVector(f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_getFracturePolylineSetRepSet(swigCPtr), true);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public PolylineSetRepresentationVector getFrontierPolylineSetRepSet() {
+    PolylineSetRepresentationVector ret = new PolylineSetRepresentationVector(f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_getFrontierPolylineSetRepSet(swigCPtr), true);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -253,6 +265,12 @@ public class EpcDocument : global::System.IDisposable {
 
   public IjkGridRepresentationVector getIjkParametricGridRepresentationSet() {
     IjkGridRepresentationVector ret = new IjkGridRepresentationVector(f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_getIjkParametricGridRepresentationSet(swigCPtr), true);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public PolylineRepresentationVector getSeismicLinePolylineRepSet() {
+    PolylineRepresentationVector ret = new PolylineRepresentationVector(f2i.energisticsStandardsApi.fesapiPINVOKE.common_EpcDocument_getSeismicLinePolylineRepSet(swigCPtr), true);
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

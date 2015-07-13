@@ -1468,6 +1468,122 @@ SWIGINTERN bool std_vector_Sl_resqml2_0_Horizon_Sm__Sg__Remove(std::vector< resq
         }
         return false;
       }
+SWIGINTERN std::vector< resqml2_0::FrontierFeature * > *new_std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg___SWIG_2(int capacity){
+        std::vector< resqml2_0::FrontierFeature * >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< resqml2_0::FrontierFeature * >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN resqml2_0::FrontierFeature *std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__getitemcopy(std::vector< resqml2_0::FrontierFeature * > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN resqml2_0::FrontierFeature *const &std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__getitem(std::vector< resqml2_0::FrontierFeature * > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__setitem(std::vector< resqml2_0::FrontierFeature * > *self,int index,resqml2_0::FrontierFeature *const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__AddRange(std::vector< resqml2_0::FrontierFeature * > *self,std::vector< resqml2_0::FrontierFeature * > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< resqml2_0::FrontierFeature * > *std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__GetRange(std::vector< resqml2_0::FrontierFeature * > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< resqml2_0::FrontierFeature * >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Insert(std::vector< resqml2_0::FrontierFeature * > *self,int index,resqml2_0::FrontierFeature *const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__InsertRange(std::vector< resqml2_0::FrontierFeature * > *self,int index,std::vector< resqml2_0::FrontierFeature * > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__RemoveAt(std::vector< resqml2_0::FrontierFeature * > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__RemoveRange(std::vector< resqml2_0::FrontierFeature * > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< resqml2_0::FrontierFeature * > *std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Repeat(resqml2_0::FrontierFeature *const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< resqml2_0::FrontierFeature * >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Reverse__SWIG_0(std::vector< resqml2_0::FrontierFeature * > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Reverse__SWIG_1(std::vector< resqml2_0::FrontierFeature * > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__SetRange(std::vector< resqml2_0::FrontierFeature * > *self,int index,std::vector< resqml2_0::FrontierFeature * > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN bool std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Contains(std::vector< resqml2_0::FrontierFeature * > *self,resqml2_0::FrontierFeature *const &value){
+        return std::find(self->begin(), self->end(), value) != self->end();
+      }
+SWIGINTERN int std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__IndexOf(std::vector< resqml2_0::FrontierFeature * > *self,resqml2_0::FrontierFeature *const &value){
+        int index = -1;
+        std::vector< resqml2_0::FrontierFeature * >::iterator it = std::find(self->begin(), self->end(), value);
+        if (it != self->end())
+          index = (int)(it - self->begin());
+        return index;
+      }
+SWIGINTERN int std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__LastIndexOf(std::vector< resqml2_0::FrontierFeature * > *self,resqml2_0::FrontierFeature *const &value){
+        int index = -1;
+        std::vector< resqml2_0::FrontierFeature * >::reverse_iterator rit = std::find(self->rbegin(), self->rend(), value);
+        if (rit != self->rend())
+          index = (int)(self->rend() - 1 - rit);
+        return index;
+      }
+SWIGINTERN bool std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Remove(std::vector< resqml2_0::FrontierFeature * > *self,resqml2_0::FrontierFeature *const &value){
+        std::vector< resqml2_0::FrontierFeature * >::iterator it = std::find(self->begin(), self->end(), value);
+        if (it != self->end()) {
+          self->erase(it);
+	  return true;
+        }
+        return false;
+      }
 SWIGINTERN std::vector< resqml2_0::StratigraphicUnitInterpretation * > *new_std_vector_Sl_resqml2_0_StratigraphicUnitInterpretation_Sm__Sg___SWIG_2(int capacity){
         std::vector< resqml2_0::StratigraphicUnitInterpretation * >* pv = 0;
         if (capacity >= 0) {
@@ -12146,6 +12262,1066 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_HorizonVector(void * jarg1) {
   std::vector< resqml2_0::Horizon * > *arg1 = (std::vector< resqml2_0::Horizon * > *) 0 ;
   
   arg1 = (std::vector< resqml2_0::Horizon * > *)jarg1; 
+  {
+    try {
+      delete arg1;
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_Clear(void * jarg1) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  {
+    try {
+      (arg1)->clear();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_Add(void * jarg1, void * jarg2) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  resqml2_0::FrontierFeature **arg2 = 0 ;
+  resqml2_0::FrontierFeature *temp2 = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  temp2 = (resqml2_0::FrontierFeature *)jarg2;
+  arg2 = (resqml2_0::FrontierFeature **)&temp2; 
+  {
+    try {
+      (arg1)->push_back((resqml2_0::FrontierFeature *const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_FrontierVector_size(void * jarg1) {
+  unsigned long jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  std::vector< resqml2_0::FrontierFeature * >::size_type result;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< resqml2_0::FrontierFeature * > const *)arg1)->size();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_FrontierVector_capacity(void * jarg1) {
+  unsigned long jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  std::vector< resqml2_0::FrontierFeature * >::size_type result;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< resqml2_0::FrontierFeature * > const *)arg1)->capacity();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_reserve(void * jarg1, unsigned long jarg2) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  std::vector< resqml2_0::FrontierFeature * >::size_type arg2 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (std::vector< resqml2_0::FrontierFeature * >::size_type)jarg2; 
+  {
+    try {
+      (arg1)->reserve(arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_FrontierVector__SWIG_0() {
+  void * jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *result = 0 ;
+  
+  {
+    try {
+      result = (std::vector< resqml2_0::FrontierFeature * > *)new std::vector< resqml2_0::FrontierFeature * >();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_FrontierVector__SWIG_1(void * jarg1) {
+  void * jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = 0 ;
+  std::vector< resqml2_0::FrontierFeature * > *result = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< resqml2_0::FrontierFeature * > const & type is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (std::vector< resqml2_0::FrontierFeature * > *)new std::vector< resqml2_0::FrontierFeature * >((std::vector< resqml2_0::FrontierFeature * > const &)*arg1);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_FrontierVector__SWIG_2(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  std::vector< resqml2_0::FrontierFeature * > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      try {
+        result = (std::vector< resqml2_0::FrontierFeature * > *)new_std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg___SWIG_2(arg1);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_FrontierVector_getitemcopy(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  resqml2_0::FrontierFeature *result = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (resqml2_0::FrontierFeature *)std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__getitemcopy(arg1,arg2);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_FrontierVector_getitem(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  resqml2_0::FrontierFeature **result = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (resqml2_0::FrontierFeature **) &std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__getitem(arg1,arg2);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)*result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_setitem(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  resqml2_0::FrontierFeature **arg3 = 0 ;
+  resqml2_0::FrontierFeature *temp3 = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (resqml2_0::FrontierFeature *)jarg3;
+  arg3 = (resqml2_0::FrontierFeature **)&temp3; 
+  {
+    try {
+      try {
+        std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__setitem(arg1,arg2,(resqml2_0::FrontierFeature *const &)*arg3);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_AddRange(void * jarg1, void * jarg2) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  std::vector< resqml2_0::FrontierFeature * > *arg2 = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (std::vector< resqml2_0::FrontierFeature * > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< resqml2_0::FrontierFeature * > const & type is null", 0);
+    return ;
+  } 
+  {
+    try {
+      std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__AddRange(arg1,(std::vector< resqml2_0::FrontierFeature * > const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_FrontierVector_GetRange(void * jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< resqml2_0::FrontierFeature * > *result = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        result = (std::vector< resqml2_0::FrontierFeature * > *)std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__GetRange(arg1,arg2,arg3);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+      catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_Insert(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  resqml2_0::FrontierFeature **arg3 = 0 ;
+  resqml2_0::FrontierFeature *temp3 = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (resqml2_0::FrontierFeature *)jarg3;
+  arg3 = (resqml2_0::FrontierFeature **)&temp3; 
+  {
+    try {
+      try {
+        std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Insert(arg1,arg2,(resqml2_0::FrontierFeature *const &)*arg3);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  std::vector< resqml2_0::FrontierFeature * > *arg3 = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< resqml2_0::FrontierFeature * > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< resqml2_0::FrontierFeature * > const & type is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__InsertRange(arg1,arg2,(std::vector< resqml2_0::FrontierFeature * > const &)*arg3);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_RemoveAt(void * jarg1, int jarg2) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__RemoveAt(arg1,arg2);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__RemoveRange(arg1,arg2,arg3);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+      catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_FrontierVector_Repeat(void * jarg1, int jarg2) {
+  void * jresult ;
+  resqml2_0::FrontierFeature **arg1 = 0 ;
+  int arg2 ;
+  resqml2_0::FrontierFeature *temp1 = 0 ;
+  std::vector< resqml2_0::FrontierFeature * > *result = 0 ;
+  
+  temp1 = (resqml2_0::FrontierFeature *)jarg1;
+  arg1 = (resqml2_0::FrontierFeature **)&temp1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< resqml2_0::FrontierFeature * > *)std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Repeat((resqml2_0::FrontierFeature *const &)*arg1,arg2);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_Reverse__SWIG_0(void * jarg1) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  {
+    try {
+      std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+      catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_FrontierVector_SetRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  int arg2 ;
+  std::vector< resqml2_0::FrontierFeature * > *arg3 = 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< resqml2_0::FrontierFeature * > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< resqml2_0::FrontierFeature * > const & type is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__SetRange(arg1,arg2,(std::vector< resqml2_0::FrontierFeature * > const &)*arg3);
+      }
+      catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+      
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return ; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return ; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_FrontierVector_Contains(void * jarg1, void * jarg2) {
+  unsigned int jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  resqml2_0::FrontierFeature **arg2 = 0 ;
+  resqml2_0::FrontierFeature *temp2 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  temp2 = (resqml2_0::FrontierFeature *)jarg2;
+  arg2 = (resqml2_0::FrontierFeature **)&temp2; 
+  {
+    try {
+      result = (bool)std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Contains(arg1,(resqml2_0::FrontierFeature *const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_FrontierVector_IndexOf(void * jarg1, void * jarg2) {
+  int jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  resqml2_0::FrontierFeature **arg2 = 0 ;
+  resqml2_0::FrontierFeature *temp2 = 0 ;
+  int result;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  temp2 = (resqml2_0::FrontierFeature *)jarg2;
+  arg2 = (resqml2_0::FrontierFeature **)&temp2; 
+  {
+    try {
+      result = (int)std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__IndexOf(arg1,(resqml2_0::FrontierFeature *const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_FrontierVector_LastIndexOf(void * jarg1, void * jarg2) {
+  int jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  resqml2_0::FrontierFeature **arg2 = 0 ;
+  resqml2_0::FrontierFeature *temp2 = 0 ;
+  int result;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  temp2 = (resqml2_0::FrontierFeature *)jarg2;
+  arg2 = (resqml2_0::FrontierFeature **)&temp2; 
+  {
+    try {
+      result = (int)std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__LastIndexOf(arg1,(resqml2_0::FrontierFeature *const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_FrontierVector_Remove(void * jarg1, void * jarg2) {
+  unsigned int jresult ;
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  resqml2_0::FrontierFeature **arg2 = 0 ;
+  resqml2_0::FrontierFeature *temp2 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
+  temp2 = (resqml2_0::FrontierFeature *)jarg2;
+  arg2 = (resqml2_0::FrontierFeature **)&temp2; 
+  {
+    try {
+      result = (bool)std_vector_Sl_resqml2_0_FrontierFeature_Sm__Sg__Remove(arg1,(resqml2_0::FrontierFeature *const &)*arg2);
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_FrontierVector(void * jarg1) {
+  std::vector< resqml2_0::FrontierFeature * > *arg1 = (std::vector< resqml2_0::FrontierFeature * > *) 0 ;
+  
+  arg1 = (std::vector< resqml2_0::FrontierFeature * > *)jarg1; 
   {
     try {
       delete arg1;
@@ -37516,7 +38692,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_setGeometry(
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_isclosed(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_isClosed(void * jarg1) {
   unsigned int jresult ;
   resqml2_0::PolylineRepresentation *arg1 = (resqml2_0::PolylineRepresentation *) 0 ;
   bool result;
@@ -37524,7 +38700,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_resqml2_0_PolylineRepresentation_iscl
   arg1 = (resqml2_0::PolylineRepresentation *)jarg1; 
   {
     try {
-      result = (bool)((resqml2_0::PolylineRepresentation const *)arg1)->isclosed();
+      result = (bool)((resqml2_0::PolylineRepresentation const *)arg1)->isClosed();
     }
     catch (std::invalid_argument & e) {
       {
@@ -49408,6 +50584,78 @@ SWIGEXPORT void SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getFloatValuesOf
 }
 
 
+SWIGEXPORT double SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getMinimumValue(void * jarg1) {
+  double jresult ;
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  double result;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  {
+    try {
+      result = (double)(arg1)->getMinimumValue();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_resqml2_0_ContinuousProperty_getMaximumValue(void * jarg1) {
+  double jresult ;
+  resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
+  double result;
+  
+  arg1 = (resqml2_0::ContinuousProperty *)jarg1; 
+  {
+    try {
+      result = (double)(arg1)->getMaximumValue();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_delete_resqml2_0_ContinuousProperty(void * jarg1) {
   resqml2_0::ContinuousProperty *arg1 = (resqml2_0::ContinuousProperty *) 0 ;
   
@@ -58920,6 +60168,42 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_getFractureSet(void * ja
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_getFrontierSet(void * jarg1) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  std::vector< resqml2_0::FrontierFeature * > *result = 0 ;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  {
+    try {
+      result = (std::vector< resqml2_0::FrontierFeature * > *) &((common::EpcDocument const *)arg1)->getFrontierSet();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_getFaultPolylineSetRepSet(void * jarg1) {
   void * jresult ;
   common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
@@ -58965,6 +60249,42 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_getFracturePolylineSetRe
   {
     try {
       result = ((common::EpcDocument const *)arg1)->getFracturePolylineSetRepSet();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< resqml2_0::PolylineSetRepresentation * >((const std::vector< resqml2_0::PolylineSetRepresentation * > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_getFrontierPolylineSetRepSet(void * jarg1) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  std::vector< resqml2_0::PolylineSetRepresentation * > result;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  {
+    try {
+      result = ((common::EpcDocument const *)arg1)->getFrontierPolylineSetRepSet();
     }
     catch (std::invalid_argument & e) {
       {
@@ -59564,6 +60884,42 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_getIjkParametricGridRepr
     }
   }
   jresult = new std::vector< resqml2_0::IjkGridRepresentation * >((const std::vector< resqml2_0::IjkGridRepresentation * > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_common_EpcDocument_getSeismicLinePolylineRepSet(void * jarg1) {
+  void * jresult ;
+  common::EpcDocument *arg1 = (common::EpcDocument *) 0 ;
+  std::vector< resqml2_0::PolylineRepresentation * > result;
+  
+  arg1 = (common::EpcDocument *)jarg1; 
+  {
+    try {
+      result = ((common::EpcDocument const *)arg1)->getSeismicLinePolylineRepSet();
+    }
+    catch (std::invalid_argument & e) {
+      {
+        SWIG_CSharpException(SWIG_TypeError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch (std::out_of_range& e) {
+      {
+        SWIG_CSharpException(SWIG_IndexError, const_cast<char*>(e.what())); return 0; 
+      };
+    }
+    catch (std::logic_error & e) {
+      {
+        SWIG_CSharpException(SWIG_SyntaxError, const_cast<char*>(e.what())); return 0; 
+      };
+    } 
+    catch(...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown exception at F2I C++ API level"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< resqml2_0::PolylineRepresentation * >((const std::vector< resqml2_0::PolylineRepresentation * > &)result); 
   return jresult;
 }
 

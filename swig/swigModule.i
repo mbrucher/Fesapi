@@ -96,8 +96,10 @@ namespace common
 		
 		const std::vector<resqml2_0::Fault*> & getFaultSet() const;
 		const std::vector<resqml2_0::Fracture*> & getFractureSet() const {return fractureSet;}
+		const std::vector<resqml2_0::FrontierFeature*> & getFrontierSet() const;
 		std::vector<resqml2_0::PolylineSetRepresentation*> getFaultPolylineSetRepSet() const;
 		std::vector<resqml2_0::PolylineSetRepresentation*> getFracturePolylineSetRepSet() const;
+		std::vector<resqml2_0::PolylineSetRepresentation*> getFrontierPolylineSetRepSet() const;
 		std::vector<resqml2_0::TriangulatedSetRepresentation*> getFaultTriangulatedSetRepSet() const;
 		std::vector<resqml2_0::TriangulatedSetRepresentation*> getFractureTriangulatedSetRepSet() const;
 		
@@ -119,7 +121,10 @@ namespace common
 		
 		std::vector<resqml2_0::IjkGridRepresentation*> getIjkGridRepresentationSet() const;
 		std::vector<resqml2_0::IjkGridRepresentation*> getIjkParametricGridRepresentationSet() const;
+
+		std::vector<resqml2_0::PolylineRepresentation*> getSeismicLinePolylineRepSet() const;
 		std::vector<resqml2_0::IjkGridRepresentation*> getIjkSeismicCubeGridRepresentationSet() const;
+		
 		std::vector<resqml2_0::UnstructuredGridRepresentation*> getUnstructuredGridRepresentationSet() const;
 		
 		void setExtendedCoreProperty(const std::string & key, const std::string & value);

@@ -211,6 +211,18 @@ public class ContinuousProperty : f2i.energisticsStandardsApi.resqml2_0.Abstract
     if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public double getMinimumValue() {
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_ContinuousProperty_getMinimumValue(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double getMaximumValue() {
+    double ret = f2i.energisticsStandardsApi.fesapiPINVOKE.resqml2_0_ContinuousProperty_getMaximumValue(swigCPtr);
+    if (f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Pending) throw f2i.energisticsStandardsApi.fesapiPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

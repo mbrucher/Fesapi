@@ -128,12 +128,22 @@ namespace resqml2_0
 		/**
 		* Indicates if the representaiton is a closed polyline or a non closed polyline.
 		*/
-		bool isclosed() const;
+		bool isClosed() const;
 
 		/**
 		* Indicates if the polyline is associated to a particular LineRole.
 		*/
 		bool hasALineRole() const;
+		
+		/**
+		* Indicates wether the instance corresponds to a seismic 2D line or not.
+		*/
+		bool isASeismicLine() const;
+
+		/**
+		* Indicates wether the instance corresponds to a facies 2d line or not.
+		*/
+		bool isAFaciesLine() const;
 
 		/**
 		* Get the role of this polyline.

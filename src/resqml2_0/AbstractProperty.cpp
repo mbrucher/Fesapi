@@ -113,7 +113,10 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 	{
 		resqml2__LocalPropertyKind* xmlLocalPropertyKind = static_cast<resqml2__LocalPropertyKind*>(prop->PropertyKind);
 		localPropertyKind = static_cast<PropertyKind*>(epcDoc->getResqmlAbstractObjectByUuid(xmlLocalPropertyKind->LocalPropertyKind->UUID));
-		localPropertyKind->addProperty(this);
+		if( localPropertyKind != nullptr ) // In case of partial transfer, it is possible the local property kind is not in the EPC document.
+		{
+			localPropertyKind->addProperty(this);
+		}
 	}
 }
 

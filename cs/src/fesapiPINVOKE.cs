@@ -950,6 +950,84 @@ class fesapiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_HorizonVector")]
   public static extern void delete_HorizonVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Clear")]
+  public static extern void FrontierVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Add")]
+  public static extern void FrontierVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_size")]
+  public static extern uint FrontierVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_capacity")]
+  public static extern uint FrontierVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_reserve")]
+  public static extern void FrontierVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_new_FrontierVector__SWIG_0")]
+  public static extern global::System.IntPtr new_FrontierVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_new_FrontierVector__SWIG_1")]
+  public static extern global::System.IntPtr new_FrontierVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_new_FrontierVector__SWIG_2")]
+  public static extern global::System.IntPtr new_FrontierVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_getitemcopy")]
+  public static extern global::System.IntPtr FrontierVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_getitem")]
+  public static extern global::System.IntPtr FrontierVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_setitem")]
+  public static extern void FrontierVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_AddRange")]
+  public static extern void FrontierVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_GetRange")]
+  public static extern global::System.IntPtr FrontierVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Insert")]
+  public static extern void FrontierVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_InsertRange")]
+  public static extern void FrontierVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_RemoveAt")]
+  public static extern void FrontierVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_RemoveRange")]
+  public static extern void FrontierVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Repeat")]
+  public static extern global::System.IntPtr FrontierVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Reverse__SWIG_0")]
+  public static extern void FrontierVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Reverse__SWIG_1")]
+  public static extern void FrontierVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_SetRange")]
+  public static extern void FrontierVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Contains")]
+  public static extern bool FrontierVector_Contains(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_IndexOf")]
+  public static extern int FrontierVector_IndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_LastIndexOf")]
+  public static extern int FrontierVector_LastIndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_FrontierVector_Remove")]
+  public static extern bool FrontierVector_Remove(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_FrontierVector")]
+  public static extern void delete_FrontierVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_StratigraphicUnitInterpretationVector_Clear")]
   public static extern void StratigraphicUnitInterpretationVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -3122,8 +3200,8 @@ class fesapiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_setGeometry")]
   public static extern void resqml2_0_PolylineRepresentation_setGeometry(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_isclosed")]
-  public static extern bool resqml2_0_PolylineRepresentation_isclosed(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_isClosed")]
+  public static extern bool resqml2_0_PolylineRepresentation_isClosed(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_PolylineRepresentation_hasALineRole")]
   public static extern bool resqml2_0_PolylineRepresentation_hasALineRole(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4010,6 +4088,12 @@ class fesapiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getFloatValuesOf3dPatch")]
   public static extern void resqml2_0_ContinuousProperty_getFloatValuesOf3dPatch(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, uint jarg8, uint jarg9);
 
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getMinimumValue")]
+  public static extern double resqml2_0_ContinuousProperty_getMinimumValue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_resqml2_0_ContinuousProperty_getMaximumValue")]
+  public static extern double resqml2_0_ContinuousProperty_getMaximumValue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_delete_resqml2_0_ContinuousProperty")]
   public static extern void delete_resqml2_0_ContinuousProperty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -4732,11 +4816,17 @@ class fesapiPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getFractureSet")]
   public static extern global::System.IntPtr common_EpcDocument_getFractureSet(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getFrontierSet")]
+  public static extern global::System.IntPtr common_EpcDocument_getFrontierSet(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getFaultPolylineSetRepSet")]
   public static extern global::System.IntPtr common_EpcDocument_getFaultPolylineSetRepSet(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getFracturePolylineSetRepSet")]
   public static extern global::System.IntPtr common_EpcDocument_getFracturePolylineSetRepSet(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getFrontierPolylineSetRepSet")]
+  public static extern global::System.IntPtr common_EpcDocument_getFrontierPolylineSetRepSet(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getFaultTriangulatedSetRepSet")]
   public static extern global::System.IntPtr common_EpcDocument_getFaultTriangulatedSetRepSet(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4785,6 +4875,9 @@ class fesapiPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getIjkParametricGridRepresentationSet")]
   public static extern global::System.IntPtr common_EpcDocument_getIjkParametricGridRepresentationSet(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getSeismicLinePolylineRepSet")]
+  public static extern global::System.IntPtr common_EpcDocument_getSeismicLinePolylineRepSet(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("F2iEnergisticsStandardsCppApi.dll", EntryPoint="CSharp_common_EpcDocument_getIjkSeismicCubeGridRepresentationSet")]
   public static extern global::System.IntPtr common_EpcDocument_getIjkSeismicCubeGridRepresentationSet(global::System.Runtime.InteropServices.HandleRef jarg1);

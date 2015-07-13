@@ -57,7 +57,8 @@ namespace resqml2_0
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		SeismicLineFeature(gsoap_resqml2_0::_resqml2__SeismicLineFeature* fromGsoap): AbstractTechnicalFeature(fromGsoap) {}
+		SeismicLineFeature(gsoap_resqml2_0::_resqml2__SeismicLineFeature* fromGsoap): 
+			AbstractTechnicalFeature(fromGsoap), seismicLineSet(NULL) {}
 
 		/**
 		* Destructor does nothing since the memory is manged by the gsoap context.
