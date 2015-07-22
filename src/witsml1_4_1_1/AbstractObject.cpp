@@ -97,11 +97,11 @@ vector<Relationship> AbstractObject::getAllEpcRelationships() const
 	return result;
 }
 
-gsoap_resqml2_0::eml__DataObjectReference* AbstractObject::newResqmlReference() const
+gsoap_resqml2_0_1::eml__DataObjectReference* AbstractObject::newResqmlReference() const
 {
 	ostringstream oss;
 
-	gsoap_resqml2_0::eml__DataObjectReference* result = gsoap_resqml2_0::soap_new_eml__DataObjectReference(collection->soap, 1);
+	gsoap_resqml2_0_1::eml__DataObjectReference* result = gsoap_resqml2_0_1::soap_new_eml__DataObjectReference(collection->soap, 1);
 	result->UUID = getUuid();
 	result->Title = getTitle();
 	result->ContentType = getContentType();

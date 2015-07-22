@@ -414,7 +414,7 @@ vector<Relationship> Well::getAllEpcRelationships() const
 	std::vector<Wellbore*> wellboreSet = getWellbores();
 	for (unsigned int j = 0; j < wellboreSet.size(); ++j)
 	{
-		resqml2_0::WellboreFeature* resqmlWellboreFeature = wellboreSet[j]->getResqmlWellboreFeature();
+		resqml2_0_1::WellboreFeature* resqmlWellboreFeature = wellboreSet[j]->getResqmlWellboreFeature();
 		if (resqmlWellboreFeature)
 		{
 			Relationship rel(resqmlWellboreFeature->getPartNameInEpcDocument(), "", resqmlWellboreFeature->getUuid());

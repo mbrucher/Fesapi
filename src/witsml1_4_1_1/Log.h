@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "witsml1_4_1_1/AbstractObject.h"
 
-#include "resqml2_0/WellboreFrameRepresentation.h"
+#include "resqml2_0_1/WellboreFrameRepresentation.h"
 
 namespace witsml1_4_1_1
 {
@@ -136,7 +136,7 @@ namespace witsml1_4_1_1
 
 		class Wellbore* getWellbore() {return wellbore;}
 
-		resqml2_0::WellboreFrameRepresentation* getResqmlWellboreFrameRepresentation() const {return resqmlWellboreFrameRepresentation;}
+		resqml2_0_1::WellboreFrameRepresentation* getResqmlWellboreFrameRepresentation() const {return resqmlWellboreFrameRepresentation;}
 
 		soap* getGSoapContext() const {return collection->soap;}
 
@@ -174,8 +174,8 @@ namespace witsml1_4_1_1
 		class Wellbore* wellbore;
 
 		// XML backwards relationship
-		resqml2_0::WellboreFrameRepresentation* resqmlWellboreFrameRepresentation;
+		resqml2_0_1::WellboreFrameRepresentation* resqmlWellboreFrameRepresentation;
 		
-		friend void resqml2_0::WellboreFrameRepresentation::setWitsmlLog(Log * witsmlLogToSet);
+		friend void resqml2_0_1::WellboreFrameRepresentation::setWitsmlLog(Log * witsmlLogToSet);
 	};
 }

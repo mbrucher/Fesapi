@@ -6,7 +6,7 @@ PROJECT (Fesapi_SRC)
 # Resqml/Witsqml proxies generation
 # ============================================================================
 
-SET (RESQML_PREFIX "resqml2_0")
+SET (RESQML_PREFIX "resqml2_0_1")
 SET (WITSML_PREFIX "witsml1_4_1_1")
 
 IF (PROXIES_GENERATION)
@@ -120,7 +120,7 @@ IF (PROXIES_GENERATION)
 	SET (FESAPI_PROXIES_HEADERS
 		${CMAKE_CURRENT_SOURCE_DIR}/proxies/envH.h
 		${CMAKE_CURRENT_SOURCE_DIR}/proxies/envStub.h
-		${CMAKE_CURRENT_SOURCE_DIR}/proxies/gsoap_resqml2_0H.h
+		${CMAKE_CURRENT_SOURCE_DIR}/proxies/gsoap_resqml2_0_1H.h
 		${CMAKE_CURRENT_SOURCE_DIR}/proxies/gsoap_resqml2_0Stub.h
 		${CMAKE_CURRENT_SOURCE_DIR}/proxies/gsoap_witsml1_4_1_1H.h
 		${CMAKE_CURRENT_SOURCE_DIR}/proxies/gsoap_witsml1_4_1_1Stub.h
@@ -166,25 +166,51 @@ SET (ALL_SOURCES_AND_HEADERS
 )
 
 IF (WITH_JAVA_WRAPPING)
-	find_package(JNI)
+	FIND_PACKAGE(JNI REQUIRED)
+	FIND_PACKAGE(SWIG REQUIRED)
 
-	if (JNI_FOUND)
-	    	SET (ALL_SOURCES_AND_HEADERS
-			${ALL_SOURCES_AND_HEADERS}
-			${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigGeneratedJavaWrapper.cpp
-		)
-		INCLUDE_DIRECTORIES (${JAVA_INCLUDE_PATH}
-			${JAVA_INCLUDE_PATH2}
-		)
-	endif(JNI_FOUND)
+	message("Generating SWIG files")
+	#Cleaning
+	IF (WIN32)
+		execute_process(COMMAND powershell "Remove-Item ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/* -recurse")
+	ENDIF (WIN32)
+	
+	# Filling
+	set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -java -package com.f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedJavaWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/ ${FESAPI_ROOT_DIR}/swig/swigModule.i")
+	execute_process(COMMAND powershell  ${EXECUTE_COMMAND})
+	message("SWIG files have been generated")
+	
+	SET (ALL_SOURCES_AND_HEADERS
+		${ALL_SOURCES_AND_HEADERS}
+		${FESAPI_ROOT_DIR}/swig/swigGeneratedJavaWrapper.cpp
+	)
+	INCLUDE_DIRECTORIES (${JAVA_INCLUDE_PATH}
+		${JAVA_INCLUDE_PATH2}
+	)
 
 ENDIF (WITH_JAVA_WRAPPING)
 
 IF (WITH_DOTNET_WRAPPING)
+	FIND_PACKAGE(SWIG REQUIRED)
+	
+	message("Generating SWIG files")
+	#Cleaning
+	execute_process(COMMAND powershell "Remove-Item ${FESAPI_ROOT_DIR}/cs/src/* -recurse")
+	
+	# Filling
+	set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -csharp -dllimport FesapiCpp.dll -namespace f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedCsWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/cs/src ${FESAPI_ROOT_DIR}/swig/swigModule.i")
+	execute_process(COMMAND powershell  ${EXECUTE_COMMAND})
+	message("SWIG files have been generated")
+
+	#Add the swig cpp file to the FesapiCpp
 	SET (ALL_SOURCES_AND_HEADERS
 		${ALL_SOURCES_AND_HEADERS}
-		${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigGeneratedCsWrapper.cpp
+		${FESAPI_ROOT_DIR}/swig/swigGeneratedCsWrapper.cpp
 	)
+	
+	# Create the Visual Studio project from a template file
+	FILE(TO_NATIVE_PATH "${FESAPI_ROOT_DIR}/cs/src" DOS_STYLE_SOURCE_DIR)
+	CONFIGURE_FILE(${FESAPI_ROOT_DIR}/cmake/fesapiCs.csproj.template ${FESAPI_ROOT_DIR}/cs/fesapiCs.csproj) # Overwrite if different
 ENDIF (WITH_DOTNET_WRAPPING)
 
 # organizing sources and headers in the Visual Studio Project
@@ -231,17 +257,16 @@ ENDIF (WIN32)
 ADD_LIBRARY (FesapiCpp ${LIB_TYPE} ${ALL_SOURCES_AND_HEADERS})
 
 IF (WIN32)
-	
 	IF (WITH_SZIP)
-		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIB} ${HDF5_LIBS} ${ZLIB_LIB} ${SZIP_LIB})
+		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIBRARY} ${HDF5_CXX_LIBRARIES} ${ZLIB_LIBRARIES} ${SZIP_LIBRARIES})
 	ELSE (WITH_SZIP)
-		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIB} ${HDF5_LIBS} ${ZLIB_LIB})
+		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIBRARY} ${HDF5_CXX_LIBRARIES} ${ZLIB_LIBRARIES})
 	ENDIF (WITH_SZIP)
 	SET_TARGET_PROPERTIES (FesapiCpp PROPERTIES LINK_FLAGS "/LTCG /INCREMENTAL:NO /OPT:REF")
 	SET_TARGET_PROPERTIES (FesapiCpp PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${FESAPI_BINARY_DIR})
 ELSEIF (UNIX)
 	IF (WITH_SZIP)
-		TARGET_LINK_LIBRARIES (FesapiCpp ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_CXX_LIBRARIES} ${ZLIB_LIBRARIES} ${UUID_LIBRARIES})
+		TARGET_LINK_LIBRARIES (FesapiCpp ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_CXX_LIBRARIES} ${ZLIB_LIBRARIES} ${SZIP_LIBRARIES} ${UUID_LIBRARIES})
 	ELSE (WITH_SZIP)
 		TARGET_LINK_LIBRARIES (FesapiCpp ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_CXX_LIBRARIES} ${ZLIB_LIBRARIES} ${UUID_LIBRARIES})
 	ENDIF (WITH_SZIP)

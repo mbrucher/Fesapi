@@ -45,7 +45,8 @@ namespace gsoap_witsml1_4_1_1
 #endif
 #ifdef SWIGCSHARP
 	%include "swigWitsml1_4_1_1CsInclude.i"
-
+#endif
+#if defined(SWIGJAVA) || defined(SWIGCSHARP)
 	%nspace witsml1_4_1_1::AbstractObject;
 	%nspace witsml1_4_1_1::CoordinateReferenceSystem;
 	%nspace witsml1_4_1_1::Well;
@@ -209,7 +210,7 @@ namespace witsml1_4_1_1
 			
 		Well* getWell();
 		
-		resqml2_0::WellboreFeature* getResqmlWellboreFeature();
+		resqml2_0_1::WellboreFeature* getResqmlWellboreFeature();
 		
 		const std::vector<Trajectory*>& getTrajectories() const;
 
@@ -311,7 +312,7 @@ namespace witsml1_4_1_1
 			
 		Wellbore* getWellbore();
 		
-		resqml2_0::WellboreTrajectoryRepresentation* getResqmlWellboreTrajectoryRepresentation() const;		
+		resqml2_0_1::WellboreTrajectoryRepresentation* getResqmlWellboreTrajectoryRepresentation() const;		
 	};
 	
 	class Log : public AbstractObject
@@ -358,13 +359,13 @@ namespace witsml1_4_1_1
 
 		Wellbore* getWellbore();
 		
-		resqml2_0::WellboreFrameRepresentation* getResqmlWellboreFrameRepresentation() const;
+		resqml2_0_1::WellboreFrameRepresentation* getResqmlWellboreFrameRepresentation() const;
 	};
 	
 	class FormationMarker : public AbstractObject
 	{
 	public:
 		Wellbore* getWellbore();
-		resqml2_0::WellboreMarkerFrameRepresentation* getResqmlWellboreMarkerFrameRepresentation() const;
+		resqml2_0_1::WellboreMarkerFrameRepresentation* getResqmlWellboreMarkerFrameRepresentation() const;
 	};
 }

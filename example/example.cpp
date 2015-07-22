@@ -43,49 +43,49 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "stdsoap2.h"
 
 #include "EpcDocument.h"
-#include "resqml2_0/LocalDepth3dCrs.h"
-#include "resqml2_0/LocalTime3dCrs.h"
-#include "resqml2_0/Horizon.h"
-#include "resqml2_0/Fault.h"
-#include "resqml2_0/GenericFeatureInterpretation.h"
-#include "resqml2_0/HorizonInterpretation.h"
-#include "resqml2_0/FaultInterpretation.h"
-#include "resqml2_0/TriangulatedSetRepresentation.h"
-#include "resqml2_0/PolylineSetRepresentation.h"
-#include "resqml2_0/PointSetRepresentation.h"
-#include "resqml2_0/HdfProxy.h"
-#include "resqml2_0/OrganizationFeature.h"
-#include "resqml2_0/EarthModelInterpretation.h"
-#include "resqml2_0/StructuralOrganizationInterpretation.h"
-#include "resqml2_0/Grid2dRepresentation.h"
-#include "resqml2_0/Grid2dSetRepresentation.h"
-#include "resqml2_0/SeismicLatticeFeature.h"
-#include "resqml2_0/SeismicLineSetFeature.h"
-#include "resqml2_0/WellboreFeature.h"
-#include "resqml2_0/WellboreInterpretation.h"
-#include "resqml2_0/WellboreTrajectoryRepresentation.h"
-#include "resqml2_0/MdDatum.h"
-#include "resqml2_0/PolylineRepresentation.h"
-#include "resqml2_0/PropertyKind.h"
-#include "resqml2_0/WellboreMarker.h"
-#include "resqml2_0/WellboreMarkerFrameRepresentation.h"
-#include "resqml2_0/ContinuousProperty.h"
-#include "resqml2_0/DiscreteProperty.h"
-#include "resqml2_0/CategoricalProperty.h"
-#include "resqml2_0/StringTableLookup.h"
-#include "resqml2_0/IjkGridRepresentation.h"
-#include "resqml2_0/UnstructuredGridRepresentation.h"
-#include "resqml2_0/SealedSurfaceFrameworkRepresentation.h"
-#include "resqml2_0/SubRepresentation.h"
+#include "resqml2_0_1/LocalDepth3dCrs.h"
+#include "resqml2_0_1/LocalTime3dCrs.h"
+#include "resqml2_0_1/Horizon.h"
+#include "resqml2_0_1/Fault.h"
+#include "resqml2_0_1/GenericFeatureInterpretation.h"
+#include "resqml2_0_1/HorizonInterpretation.h"
+#include "resqml2_0_1/FaultInterpretation.h"
+#include "resqml2_0_1/TriangulatedSetRepresentation.h"
+#include "resqml2_0_1/PolylineSetRepresentation.h"
+#include "resqml2_0_1/PointSetRepresentation.h"
+#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/OrganizationFeature.h"
+#include "resqml2_0_1/EarthModelInterpretation.h"
+#include "resqml2_0_1/StructuralOrganizationInterpretation.h"
+#include "resqml2_0_1/Grid2dRepresentation.h"
+#include "resqml2_0_1/Grid2dSetRepresentation.h"
+#include "resqml2_0_1/SeismicLatticeFeature.h"
+#include "resqml2_0_1/SeismicLineSetFeature.h"
+#include "resqml2_0_1/WellboreFeature.h"
+#include "resqml2_0_1/WellboreInterpretation.h"
+#include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
+#include "resqml2_0_1/MdDatum.h"
+#include "resqml2_0_1/PolylineRepresentation.h"
+#include "resqml2_0_1/PropertyKind.h"
+#include "resqml2_0_1/WellboreMarker.h"
+#include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
+#include "resqml2_0_1/ContinuousProperty.h"
+#include "resqml2_0_1/DiscreteProperty.h"
+#include "resqml2_0_1/CategoricalProperty.h"
+#include "resqml2_0_1/StringTableLookup.h"
+#include "resqml2_0_1/IjkGridRepresentation.h"
+#include "resqml2_0_1/UnstructuredGridRepresentation.h"
+#include "resqml2_0_1/SealedSurfaceFrameworkRepresentation.h"
+#include "resqml2_0_1/SubRepresentation.h"
 
-#include "resqml2_0/PropertyKindMapper.h"
+#include "resqml2_0_1/PropertyKindMapper.h"
 
 #include "witsml1_4_1_1/Well.h"
 #include "witsml1_4_1_1/CoordinateReferenceSystem.h"
 #include "witsml1_4_1_1/Trajectory.h"
 
 using namespace std;
-using namespace resqml2_0;
+using namespace resqml2_0_1;
 
 HorizonInterpretation* horizon1Interp1;
 HorizonInterpretation* horizon2Interp1;
@@ -157,7 +157,7 @@ void serializeWells(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	WellboreInterpretation* wellbore1Interp1 = pck->createWellboreInterpretation(wellbore1, "", "Wellbore1 Interp1", false);
 
 	// Representation
-	MdDatum* mdInfo = pck->createMdDatum("", "md Info", local3dCrs, gsoap_resqml2_0::resqml2__MdReference__mean_x0020sea_x0020level, 275, 75, 0);
+	MdDatum* mdInfo = pck->createMdDatum("", "md Info", local3dCrs, gsoap_resqml2_0_1::resqml2__MdReference__mean_x0020sea_x0020level, 275, 75, 0);
 
 	//Geometry	
 	w1i1TrajRep = pck->createWellboreTrajectoryRepresentation(wellbore1Interp1, "", "Wellbore1 Interp1 TrajRep", mdInfo);
@@ -173,10 +173,10 @@ void serializeWells(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	double logMds[5] = {0, 250, 500, 750, 1000};
 	w1i1FrameRep->setMdValuesAsArray1dOfExplicitValues(trajectoryMds, 5, hdfProxy);
 
-	PropertyKind * unitNumberPropType = pck->createPropertyKind("", "Unit number", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0::resqml2__ResqmlUom__Euc, gsoap_resqml2_0::resqml2__ResqmlPropertyKind__discrete);
+	PropertyKind * unitNumberPropType = pck->createPropertyKind("", "Unit number", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 
 	DiscreteProperty* discreteProp = pck->createDiscreteProperty(w1i1FrameRep,"","Wellbore1 Interp1 FrameRep IntervalIndex", 1,
-		gsoap_resqml2_0::resqml2__IndexableElements__intervals, unitNumberPropType);
+		gsoap_resqml2_0_1::resqml2__IndexableElements__intervals, unitNumberPropType);
 	long unitNumbers[4];
 	unitNumbers[0] = 0; 
 	unitNumbers[1] = 1; 
@@ -199,8 +199,8 @@ void serializeStratigraphicModel(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	WellboreMarkerFrameRepresentation* wmf = pck->createWellboreMarkerFrameRepresentation(stratiOccurence, "", "Wellbore Marker Frame", w1i1TrajRep);
 	double markerMdValues[2] = {350, 550};
 	wmf->setMdValuesAsArray1dOfExplicitValues(markerMdValues, 2, hdfProxy);
-	wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0::resqml2__GeologicBoundaryKind__horizon);
-	wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0::resqml2__GeologicBoundaryKind__fault);
+	wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);
+	wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
 
 	// WITSML MARKER
 	witsmlFormationMarker0 = witsmlWellbore->createFormationMarker("", "marker0", 0, gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom__m, 350);
@@ -359,15 +359,15 @@ void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
     //**************
     // Properties
     //**************
-    PropertyKind * propType1 = new PropertyKind(pck, "", "propType1", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0::resqml2__ResqmlUom__Euc, gsoap_resqml2_0::resqml2__ResqmlPropertyKind__continuous);
+    PropertyKind * propType1 = new PropertyKind(pck, "", "propType1", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
     ContinuousProperty* contProp1 = new ContinuousProperty(h1i1SingleGrid2dRep,"","Horizon1 Interp1 Grid2dRep Prop1", 2,
-        gsoap_resqml2_0::resqml2__IndexableElements__nodes, gsoap_resqml2_0::resqml2__ResqmlUom__m, propType1);
+        gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, propType1);
     double prop1Values[16] = {301,302, 301,302, 351,352, 351,352, 301,302, 301,302, 351,352, 351,352};
     contProp1->pushBackDoubleHdf5Array1dOfValues(prop1Values, 8, hdfProxy);
 
-    PropertyKind * propType2 = new PropertyKind(pck, "", "propType2", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0::resqml2__ResqmlUom__Euc, gsoap_resqml2_0::resqml2__ResqmlPropertyKind__continuous);
+    PropertyKind * propType2 = new PropertyKind(pck, "", "propType2", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
     ContinuousProperty* contProp2 = new ContinuousProperty(h1i1SingleGrid2dRep,"","Horizon1 Interp1 Grid2dRep Prop2", 1,
-        gsoap_resqml2_0::resqml2__IndexableElements__nodes, gsoap_resqml2_0::resqml2__ResqmlUom__ft, propType1);
+        gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__ft, propType1);
     double prop2Values[8] = {302, 302, 352, 352, 302, 302, 352, 352};
     contProp2->pushBackDoubleHdf5Array1dOfValues(prop2Values, 8, hdfProxy);
 #endif
@@ -379,7 +379,7 @@ void serializeGrid(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	IjkGridRepresentation* singleCellIjkgrid = pck->createIjkGridRepresentation(local3dCrs, "", "One unfaulted sugar cube", 1, 1, 1);
 	double singleCellIjkgridNodes[24] = {0,0,300, 700,0,350, 0,150,300, 700,150,350,
 		0,0,500, 700,0,550, 0,150,500, 700,150,550};
-	singleCellIjkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0::resqml2__PillarShape__vertical, gsoap_resqml2_0::resqml2__KDirection__down, false, singleCellIjkgridNodes, hdfProxy);
+	singleCellIjkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, singleCellIjkgridNodes, hdfProxy);
 
 	// TWO SUGARS
 	IjkGridRepresentation* ijkgrid = pck->createIjkGridRepresentation(local3dCrs, "", "Two faulted sugar cubes", 2, 1, 1);
@@ -388,15 +388,15 @@ void serializeGrid(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	unsigned int pillarOfCoordinateLine[2] = {1,4};
 	unsigned int splitCoordinateLineColumnCumulativeCount[2] = {1,2};
 	unsigned int splitCoordinateLineColumns[2] = {1,1};
-	ijkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0::resqml2__PillarShape__vertical, gsoap_resqml2_0::resqml2__KDirection__down, false, nodes, hdfProxy,
+	ijkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
 	//**************
 	// Properties
 	//**************
-	PropertyKind * propType1 = pck->createPropertyKind("", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0::resqml2__ResqmlUom__Euc, gsoap_resqml2_0::resqml2__ResqmlPropertyKind__discrete);
+	PropertyKind * propType1 = pck->createPropertyKind("", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 	DiscreteProperty* discreteProp1 = pck->createDiscreteProperty(ijkgrid, "", "Two faulted sugar cubes cellIndex", 1,
-		gsoap_resqml2_0::resqml2__IndexableElements__cells, propType1);
+		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
 	long prop1Values[8] = {0,1};
 	discreteProp1->pushBackLongHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
 
@@ -437,24 +437,24 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
     // Binary contact interpretation
 
     // Contact 0: fault1Interp1 HANGING_WALL_SIDE SPLITS horizon1Interp1 BOTH_SIDES
-    structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0::resqml2__ContactSide__hanging_x0020wall,
-            gsoap_resqml2_0::resqml2__ContactVerb__splits,
-            horizon1Interp1, gsoap_resqml2_0::resqml2__ContactSide__both);
+    structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0_1::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__hanging_x0020wall,
+            gsoap_resqml2_0_1::resqml2__ContactVerb__splits,
+            horizon1Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__both);
 
    // Contact 1: fault1Interp1 FOOT_WALL_SIDE SPLITS horizon2Interp1 BOTH_SIDES
-   structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0::resqml2__ContactSide__footwall,
-           gsoap_resqml2_0::resqml2__ContactVerb__splits,
-           horizon1Interp1, gsoap_resqml2_0::resqml2__ContactSide__both);
+   structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0_1::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__footwall,
+           gsoap_resqml2_0_1::resqml2__ContactVerb__splits,
+           horizon1Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__both);
 
     // Contact 2: fault1Interp1 HANGING_WALL_SIDE SPLITS horizon1Interp1 BOTH_SIDES
-    structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0::resqml2__ContactSide__hanging_x0020wall,
-            gsoap_resqml2_0::resqml2__ContactVerb__splits,
-            horizon2Interp1, gsoap_resqml2_0::resqml2__ContactSide__both);
+    structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0_1::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__hanging_x0020wall,
+            gsoap_resqml2_0_1::resqml2__ContactVerb__splits,
+            horizon2Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__both);
 
     // Contact 3: fault1Interp1 FOOT_WALL_SIDE SPLITS horizon1Interp1 BOTH_SIDES
-    structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0::resqml2__ContactSide__footwall,
-            gsoap_resqml2_0::resqml2__ContactVerb__splits,
-            horizon2Interp1, gsoap_resqml2_0::resqml2__ContactSide__both);
+    structuralOrganizationInterpretation->pushBackBinaryContact(gsoap_resqml2_0_1::resqml2__ContactRelationship__tectonic_x0020boundary_x0020to_x0020genetic_x0020boundary, fault1Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__footwall,
+            gsoap_resqml2_0_1::resqml2__ContactVerb__splits,
+            horizon2Interp1, gsoap_resqml2_0_1::resqml2__ContactSide__both);
 
     // =========================================================================
     // =========================================================================
@@ -490,8 +490,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
         1,1,1,
         2,2,2
     };
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 0 Patch 0
     int * indexSetContact0Patch0 = new int[3];
@@ -527,8 +527,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
             f1i1triRepSinglePatch, hdfProxy);
 
     // Contact 1
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 1 Patch 0
     int * indexSetContact1Patch0 = new int[3];
@@ -564,8 +564,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
             f1i1triRepSinglePatch, hdfProxy);
 
     // Contact 2
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 2 Patch 0
     int * indexSetContact2Patch0 = new int[3];
@@ -601,8 +601,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
             f1i1triRepSinglePatch, hdfProxy);
 
     // Contact 3
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 3 Patch 0
     int * indexSetContact3Patch0 = new int[3];
@@ -647,8 +647,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
 //        1,1,1,
 //        2,2,2
 //    };
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 0 Patch 0
     //int * indexSetContact0Patch0 = new int[3];
@@ -684,8 +684,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
             f1i1triRep, hdfProxy);
 
     // Contact 1
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 1 Patch 0
     //int * indexSetContact1Patch0 = new int[3];
@@ -721,8 +721,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
             f1i1triRep, hdfProxy);
 
     // Contact 2
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 2 Patch 0
     //int * indexSetContact2Patch0 = new int[3];
@@ -758,8 +758,8 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
             f1i1triRep, hdfProxy);
 
     // Contact 3
-    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
-    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0::resqml2__IdentityKind__colocation);
+    //sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml__IdentityKind__COLOCATION, 3, 3, contactIdenticalNodes, hdfProxy);
+    sealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 3 Patch 0
     //int * indexSetContact3Patch0 = new int[3];
@@ -812,11 +812,11 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
 //        2, 2,
 //    };
 //    sealedSurfaceFramework->pushBackContactIdentity(
-//            gsoap_resqml2_0::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
+//            gsoap_resqml2_0_1::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
 //            2, contact_0_1_contactRepresentations,
 //            3, contact_0_1_IdenticalNodes, hdfProxy);
     singlePatchFault1SealedSurfaceFramework->pushBackContactIdentity(
-            gsoap_resqml2_0::resqml2__IdentityKind__previous_x0020colocation,
+            gsoap_resqml2_0_1::resqml2__IdentityKind__previous_x0020colocation,
             2, contact_0_1_contactRepresentations,
             hdfProxy);
 
@@ -831,11 +831,11 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
 //        2, 2,
 //    };
 //    sealedSurfaceFramework->pushBackContactIdentity(
-//            gsoap_resqml2_0::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
+//            gsoap_resqml2_0_1::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
 //            2, contact_2_3_contactRepresentations,
 //            3, contact_2_3_IdenticalNodes, hdfProxy);
     singlePatchFault1SealedSurfaceFramework->pushBackContactIdentity(
-            gsoap_resqml2_0::resqml2__IdentityKind__previous_x0020colocation,
+            gsoap_resqml2_0_1::resqml2__IdentityKind__previous_x0020colocation,
             2, contact_2_3_contactRepresentations,
             hdfProxy);
 
@@ -853,11 +853,11 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
 //        2, 2,
 //    };
 //    sealedSurfaceFramework->pushBackContactIdentity(
-//            gsoap_resqml2_0::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
+//            gsoap_resqml2_0_1::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
 //            2, contact_0_1_contactRepresentations,
 //            3, contact_0_1_IdenticalNodes, hdfProxy);
     sealedSurfaceFramework->pushBackContactIdentity(
-            gsoap_resqml2_0::resqml2__IdentityKind__previous_x0020colocation,
+            gsoap_resqml2_0_1::resqml2__IdentityKind__previous_x0020colocation,
             2, contact_0_1_contactRepresentations,
             hdfProxy);
 
@@ -872,11 +872,11 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
 //        2, 2,
 //    };
 //    sealedSurfaceFramework->pushBackContactIdentity(
-//            gsoap_resqml2_0::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
+//            gsoap_resqml2_0_1::resqml__IdentityKind__PREVIOUS_USCORECOLOCATION,
 //            2, contact_2_3_contactRepresentations,
 //            3, contact_2_3_IdenticalNodes, hdfProxy);
     sealedSurfaceFramework->pushBackContactIdentity(
-            gsoap_resqml2_0::resqml2__IdentityKind__previous_x0020colocation,
+            gsoap_resqml2_0_1::resqml2__IdentityKind__previous_x0020colocation,
             2, contact_2_3_contactRepresentations,
             hdfProxy);
 }
@@ -890,10 +890,10 @@ void deserializePropertyKindMappingFiles(common::EpcDocument * pck)
 {
 	PropertyKindMapper* ptMapper = pck->getPropertyKindMapper();
 
-	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__azimuth, "Petrel") << endl;
-	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__gamma_x0020ray_x0020API_x0020unit, "Petrel") << endl;
-	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__gamma_x0020ray_x0020API_x0020unit, "Sismage") << endl;
-	cout << "Application property kind name for dip : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0::resqml2__ResqmlPropertyKind__dip, "myApplication") << endl;
+	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__azimuth, "Petrel") << endl;
+	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__gamma_x0020ray_x0020API_x0020unit, "Petrel") << endl;
+	cout << "Application property kind name for azimuth : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__gamma_x0020ray_x0020API_x0020unit, "Sismage") << endl;
+	cout << "Application property kind name for dip : " << ptMapper->getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__dip, "myApplication") << endl;
 
 	cout << "Standard property for Petrel \"Dip Azimuth\" : " << ptMapper->getResqmlStandardPropertyKindNameFromApplicationPropertyKindName("Dip Azimuth", "Petrel") << endl;
 	cout << "Standard property for Application property Absolute temperature : " << ptMapper->getResqmlStandardPropertyKindNameFromApplicationPropertyKindName("Absolute temperature", "myApplication") << endl;
@@ -912,8 +912,8 @@ void serialize(const string & filePath)
 	hdfProxy->openForWriting();
 
 	//CRS
-	local3dCrs = pck.createLocalDepth3dCrs("", "Default local CRS", .0, .0, .0, .0, gsoap_resqml2_0::eml__LengthUom__m, 23031, gsoap_resqml2_0::eml__LengthUom__m);
-	localTime3dCrs = pck.createLocalTime3dCrs("", "Default local time CRS", 1.0, 0.1, 15, .0, gsoap_resqml2_0::eml__LengthUom__m, 23031, gsoap_resqml2_0::eml__TimeUom__s, gsoap_resqml2_0::eml__LengthUom__m); // CRS translation is just for testing;
+	local3dCrs = pck.createLocalDepth3dCrs("", "Default local CRS", .0, .0, .0, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__LengthUom__m);
+	localTime3dCrs = pck.createLocalTime3dCrs("", "Default local time CRS", 1.0, 0.1, 15, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__TimeUom__s, gsoap_resqml2_0_1::eml__LengthUom__m); // CRS translation is just for testing;
 #if !defined(OFFICIAL)
     witsmlCrs = pck.createCoordinateReferenceSystem("","witsmlCrs","EPSG", "5715", "", -1, -1, "");
 #endif
@@ -1150,7 +1150,7 @@ void deserialize(const string & inputFile)
 		{
 			for (unsigned int k = 0; k < wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet().size(); k++)
 			{
-				if (wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
+				if (wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
 				{
 					WellboreMarkerFrameRepresentation* wmf = static_cast<WellboreMarkerFrameRepresentation*>(wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]);
 					vector<WellboreMarker*> marketSet = wmf->getWellboreMarkerSet();
@@ -1161,7 +1161,7 @@ void deserialize(const string & inputFile)
 
 					for (unsigned int l = 0; l < wmf->getPropertySet().size(); l++)
 					{
-						if (wmf->getPropertySet()[l]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_resqml2__obj_USCORECategoricalProperty)
+						if (wmf->getPropertySet()[l]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
 						{
 							CategoricalProperty* catVal = static_cast<CategoricalProperty*>(wmf->getPropertySet()[l]);
 							if (catVal->getValuesHdfDatatype() == AbstractValuesProperty::LONG)

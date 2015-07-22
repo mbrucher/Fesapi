@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "witsml1_4_1_1/Log.h"
 #include "witsml1_4_1_1/FormationMarker.h"
 
-#include "resqml2_0/WellboreFeature.h"
+#include "resqml2_0_1/WellboreFeature.h"
 
 namespace witsml1_4_1_1
 {
@@ -134,7 +134,7 @@ namespace witsml1_4_1_1
 
 		class Well* getWell() {return well;}
 
-		resqml2_0::WellboreFeature* getResqmlWellboreFeature() const {return resqmlWellboreFeature;}
+		resqml2_0_1::WellboreFeature* getResqmlWellboreFeature() const {return resqmlWellboreFeature;}
 
 		soap* getGSoapContext() const {return collection->soap;}
 
@@ -180,7 +180,7 @@ namespace witsml1_4_1_1
 		class Well* well;
 
 		// XML backwards relationship
-		resqml2_0::WellboreFeature* resqmlWellboreFeature;
+		resqml2_0_1::WellboreFeature* resqmlWellboreFeature;
 		std::vector<Trajectory*> trajectorySet;
 		std::vector<Log*> logSet;
 		std::vector<FormationMarker*> formationMarkerSet;
@@ -188,6 +188,6 @@ namespace witsml1_4_1_1
 		friend void Trajectory::setWellbore(Wellbore* witsmlWellbore);
 		friend void Log::setWellbore(Wellbore* witsmlWellbore);
 		friend void FormationMarker::setWellbore(Wellbore* witsmlWellbore);
-		friend void resqml2_0::WellboreFeature::setWitsmlWellbore(Wellbore * wellbore);
+		friend void resqml2_0_1::WellboreFeature::setWitsmlWellbore(Wellbore * wellbore);
 	};
 }

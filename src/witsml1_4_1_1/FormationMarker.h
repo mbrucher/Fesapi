@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "witsml1_4_1_1/AbstractObject.h"
 
-#include "resqml2_0/WellboreMarkerFrameRepresentation.h"
+#include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 
 namespace witsml1_4_1_1
 {
@@ -85,7 +85,7 @@ namespace witsml1_4_1_1
 
 		class Wellbore* getWellbore() {return wellbore;}
 
-		resqml2_0::WellboreMarkerFrameRepresentation* getResqmlWellboreMarkerFrameRepresentation() const {return resqmlWellboreMarkerFrameRepresentation;}
+		resqml2_0_1::WellboreMarkerFrameRepresentation* getResqmlWellboreMarkerFrameRepresentation() const {return resqmlWellboreMarkerFrameRepresentation;}
 
 		soap* getGSoapContext() const {return collection->soap;}
 
@@ -123,8 +123,8 @@ namespace witsml1_4_1_1
 		class Wellbore* wellbore;
 
 		// XML backwards relationship
-		resqml2_0::WellboreMarkerFrameRepresentation* resqmlWellboreMarkerFrameRepresentation;
+		resqml2_0_1::WellboreMarkerFrameRepresentation* resqmlWellboreMarkerFrameRepresentation;
 		
-		friend void resqml2_0::WellboreMarkerFrameRepresentation::setWitsmlFormationMarker(const unsigned int & resqmlMarkerIndex, FormationMarker * witsmlFormationMarker);
+		friend void resqml2_0_1::WellboreMarkerFrameRepresentation::setWitsmlFormationMarker(const unsigned int & resqmlMarkerIndex, FormationMarker * witsmlFormationMarker);
 	};
 }

@@ -131,7 +131,7 @@ namespace witsml1_4_1_1
 		*/
 		std::string getPartNameInEpcDocument() const;
 
-		gsoap_resqml2_0::eml__DataObjectReference* newResqmlReference() const;
+		gsoap_resqml2_0_1::eml__DataObjectReference* newResqmlReference() const;
 
 		void setCoordinateReferenceSystem(class CoordinateReferenceSystem* wellCrs);
 
