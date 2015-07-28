@@ -831,9 +831,9 @@ namespace resqml2_0_1
 	public:
 		bool hasAGeologicBoundaryKind();
 		gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind getGeologicBoundaryKind();
-		HorizonInterpretation* getHorizonInterpretation() const;
-		std::string getHorizonInterpretationUuid() const;
-		void setHorizonInterpretation(HorizonInterpretation* interp);
+		BoundaryFeatureInterpretation* getBoundaryFeatureInterpretation() const;
+		std::string getBoundaryFeatureInterpretationUuid() const;
+		void setBoundaryFeatureInterpretation(BoundaryFeatureInterpretation* interp);
 	};
 	
 	class WellboreMarkerFrameRepresentation : public WellboreFrameRepresentation

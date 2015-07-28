@@ -63,7 +63,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		WellboreMarker(gsoap_resqml2_0_1::resqml2__WellboreMarker* fromGsoap, class WellboreMarkerFrameRepresentation* wellboreMarkerFrame): AbstractResqmlDataObject(fromGsoap), horizonInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)  {}
+		WellboreMarker(gsoap_resqml2_0_1::resqml2__WellboreMarker* fromGsoap, class WellboreMarkerFrameRepresentation* wellboreMarkerFrame): AbstractResqmlDataObject(fromGsoap), boundaryFeatureInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)  {}
 
 		/**
 		* Destructor
@@ -84,20 +84,20 @@ namespace resqml2_0_1
 		class WellboreMarkerFrameRepresentation * getWellMarkerFrameRepresentation() {return wellboreMarkerFrameRepresentation;}
 
 		/**
-		* Get the horizon interpretation linked to this well marker.
+		* Get the boundary feature interpretation linked to this well marker.
 		*/
-		class HorizonInterpretation* getHorizonInterpretation() const {return horizonInterpretation;}
+		class BoundaryFeatureInterpretation* getBoundaryFeatureInterpretation() const {return boundaryFeatureInterpretation;}
 
 		/**
-		* Get the UUID of the horizon interpretation linked to this well marker.
+		* Get the UUID of the boundary feature interpretation linked to this well marker.
 		* Especially useful in partial transfer mode.
 		*/
-		std::string getHorizonInterpretationUuid() const;
+		std::string getBoundaryFeatureInterpretationUuid() const;
 
 		/**
-		* Set the horizon interpretation linked to this well marker.
+		* Set the boundary feature interpretation linked to this well marker.
 		*/
-		void setHorizonInterpretation(class HorizonInterpretation* interp);
+		void setBoundaryFeatureInterpretation(class BoundaryFeatureInterpretation* interp);
 
 		//******************************************************************
 		//******************** MANDATORY FOR GsoapWrapper ******************
@@ -111,7 +111,7 @@ namespace resqml2_0_1
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 	private:
-		class HorizonInterpretation* horizonInterpretation;
+		class BoundaryFeatureInterpretation* boundaryFeatureInterpretation;
 		class WellboreMarkerFrameRepresentation* wellboreMarkerFrameRepresentation;
 	};
 }

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -36,10 +36,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2_0_1/BoundaryFeature.h"
+#include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
+using namespace epc;
 
 const char* BoundaryFeatureInterpretation::XML_TAG = "BoundaryFeatureInterpretation";
 
@@ -60,3 +62,22 @@ BoundaryFeatureInterpretation::BoundaryFeatureInterpretation(BoundaryFeature * f
 		feature->getEpcDocument()->addGsoapProxy(this);
 }
 
+vector<Relationship> BoundaryFeatureInterpretation::getAllEpcRelationships() const
+{
+	vector<Relationship> result = AbstractFeatureInterpretation::getAllEpcRelationships();
+
+	vector<WellboreMarkerFrameRepresentation*> tmp;
+	for (unsigned int i = 0; i < wellboreMarkerSet.size(); ++i)
+	{
+		bool alreadyInserted = (std::find(tmp.begin(), tmp.end(), wellboreMarkerSet[i]->getWellMarkerFrameRepresentation()) != tmp.end());
+		if (!alreadyInserted)
+		{
+			Relationship rel(wellboreMarkerSet[i]->getWellMarkerFrameRepresentation()->getPartNameInEpcDocument(), "", wellboreMarkerSet[i]->getWellMarkerFrameRepresentation()->getUuid());
+			rel.setSourceObjectType();
+			result.push_back(rel);
+			tmp.push_back(wellboreMarkerSet[i]->getWellMarkerFrameRepresentation());
+		}
+	}
+        
+	return result;
+}

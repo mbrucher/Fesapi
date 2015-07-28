@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -173,11 +173,11 @@ vector<Relationship> WellboreMarkerFrameRepresentation::getAllEpcRelationships()
 	// XML forward relationship
 	for (unsigned int i = 0; i < markerSet.size(); ++i)
 	{
-		if (markerSet[i]->getHorizonInterpretation())
+		if (markerSet[i]->getBoundaryFeatureInterpretation())
 		{
-			Relationship relHorizon(markerSet[i]->getHorizonInterpretation()->getPartNameInEpcDocument(), "", markerSet[i]->getHorizonInterpretation()->getUuid());
-			relHorizon.setDestinationObjectType();
-			result.push_back(relHorizon);
+			Relationship relBoundaryFeature(markerSet[i]->getBoundaryFeatureInterpretation()->getPartNameInEpcDocument(), "", markerSet[i]->getBoundaryFeatureInterpretation()->getUuid());
+			relBoundaryFeature.setDestinationObjectType();
+			result.push_back(relBoundaryFeature);
 		}
 	}
 

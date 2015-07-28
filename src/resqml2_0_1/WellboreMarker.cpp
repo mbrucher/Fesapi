@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -36,7 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
-#include "resqml2_0_1/HorizonInterpretation.h"
+#include "resqml2_0_1/BoundaryFeatureInterpretation.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -46,7 +46,7 @@ using namespace epc;
 const char* WellboreMarker::XML_TAG = "WellboreMarker";
 
 WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarkerFrame, const std::string & guid, const std::string & title):
-	horizonInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
+	boundaryFeatureInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
 {
 	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getGsoapProxy()->soap, 1);
 
@@ -55,7 +55,7 @@ WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarker
 }
 
 WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarkerFrame, const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind & geologicBoundaryKind):
-	horizonInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
+	boundaryFeatureInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
 {
 	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getGsoapProxy()->soap, 1);	
 	resqml2__WellboreMarker* marker = static_cast<resqml2__WellboreMarker*>(gsoapProxy);
@@ -80,15 +80,18 @@ resqml2__GeologicBoundaryKind WellboreMarker::getGeologicBoundaryKind()
 	return *(static_cast<resqml2__WellboreMarker*>(gsoapProxy)->GeologicBoundaryKind);
 }
 
-std::string WellboreMarker::getHorizonInterpretationUuid() const
+std::string WellboreMarker::getBoundaryFeatureInterpretationUuid() const
 {
-	return static_cast<resqml2__WellboreMarker*>(gsoapProxy)->Interpretation->UUID;
+	if (static_cast<resqml2__WellboreMarker*>(gsoapProxy)->Interpretation != nullptr)
+		return static_cast<resqml2__WellboreMarker*>(gsoapProxy)->Interpretation->UUID;
+
+	return "";
 }
 
-void WellboreMarker::setHorizonInterpretation(HorizonInterpretation* interp)
+void WellboreMarker::setBoundaryFeatureInterpretation(BoundaryFeatureInterpretation* interp)
 {
 	// EPC
-	horizonInterpretation = interp;
+	boundaryFeatureInterpretation = interp;
 	interp->wellboreMarkerSet.push_back(this);
 
     // XML
@@ -107,7 +110,7 @@ void WellboreMarker::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 
 	if (marker->Interpretation)
 	{
-		setHorizonInterpretation(static_cast<HorizonInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(marker->Interpretation->UUID)));
+		setBoundaryFeatureInterpretation(static_cast<BoundaryFeatureInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(marker->Interpretation->UUID)));
 	}
 
 	updateXml = true;

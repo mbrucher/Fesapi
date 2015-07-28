@@ -199,8 +199,10 @@ void serializeStratigraphicModel(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	WellboreMarkerFrameRepresentation* wmf = pck->createWellboreMarkerFrameRepresentation(stratiOccurence, "", "Wellbore Marker Frame", w1i1TrajRep);
 	double markerMdValues[2] = {350, 550};
 	wmf->setMdValuesAsArray1dOfExplicitValues(markerMdValues, 2, hdfProxy);
-	wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);
-	wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
+	auto marker0 = wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);
+	marker0->setBoundaryFeatureInterpretation(horizon1Interp1);
+	auto marker1 = wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
+	marker1->setBoundaryFeatureInterpretation(fault1Interp1);
 
 	// WITSML MARKER
 	witsmlFormationMarker0 = witsmlWellbore->createFormationMarker("", "marker0", 0, gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom__m, 350);
@@ -919,13 +921,13 @@ void serialize(const string & filePath)
 #endif
 
 	// Comment or uncomment below domains/lines you want wether to test or not
+	serializeBoundaries(&pck, hdfProxy);
+	serializeStructualModel(pck, hdfProxy);
+	serializeGrid(&pck, hdfProxy);
 #if !defined(OFFICIAL)
 	serializeWells(&pck, hdfProxy);
 	serializeStratigraphicModel(&pck, hdfProxy);
 #endif
-	serializeBoundaries(&pck, hdfProxy);
-	serializeStructualModel(pck, hdfProxy);
-	serializeGrid(&pck, hdfProxy);
 
 	// Add an extended core property before to serialize
 	pck.setExtendedCoreProperty("F2I-ExtendedCoreProp", "TestingVersion");
@@ -1157,6 +1159,7 @@ void deserialize(const string & inputFile)
 					for (unsigned int markerIndex = 0; markerIndex < marketSet.size(); ++markerIndex)
 					{
 						std::cout << "marker : " << marketSet[i]->getTitle() << std::endl;
+						std::cout << "marker boundary feature : " << marketSet[i]->getBoundaryFeatureInterpretation()->getTitle() << std::endl;
 					}
 
 					for (unsigned int l = 0; l < wmf->getPropertySet().size(); l++)

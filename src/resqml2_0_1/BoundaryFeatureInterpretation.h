@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2_0_1/WellboreMarker.h"
 
 namespace resqml2_0_1
 {
@@ -59,5 +60,13 @@ namespace resqml2_0_1
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
+
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
+
+	private:
+		
+        std::vector<WellboreMarker*> wellboreMarkerSet;
+
+		friend void WellboreMarker::setBoundaryFeatureInterpretation(BoundaryFeatureInterpretation* interp);
 	};
 }

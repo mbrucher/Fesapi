@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -36,7 +36,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/BoundaryFeatureInterpretation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 #include "resqml2_0_1/StratigraphicColumnRankInterpretation.h"
-#include "resqml2_0_1/WellboreMarker.h"
 
 namespace resqml2_0_1
 {
@@ -70,10 +69,8 @@ namespace resqml2_0_1
         // backward relationships
         std::vector<class StructuralOrganizationInterpretation*> structuralOrganizationInterpretationSet;
         std::vector<class StratigraphicColumnRankInterpretation*> stratigraphicColumnRankInterpretationSet;
-        std::vector<WellboreMarker*> wellboreMarkerSet;
 
 		friend void StructuralOrganizationInterpretation::pushBackHorizonInterpretation(HorizonInterpretation * horizonInterpretation, const int & stratigraphicRank);
 		friend void StratigraphicColumnRankInterpretation::setHorizonOfLastContact(HorizonInterpretation * partOf);
-		friend void WellboreMarker::setHorizonInterpretation(HorizonInterpretation* interp);
 	};
 }
