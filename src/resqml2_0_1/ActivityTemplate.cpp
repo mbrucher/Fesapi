@@ -35,6 +35,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -172,7 +176,7 @@ vector<Relationship> ActivityTemplate::getAllEpcRelationships() const
 {
 	vector<Relationship> result;
 
-	for (auto i = 0; i < activitySet.size(); ++i)
+	for (unsigned int i = 0; i < activitySet.size(); ++i)
 	{
 		Relationship rel(activitySet[i]->getPartNameInEpcDocument(), "", activitySet[i]->getUuid());
 		rel.setSourceObjectType();

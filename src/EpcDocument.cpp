@@ -100,6 +100,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "witsml1_4_1_1/CoordinateReferenceSystem.h"
 #include "witsml1_4_1_1/Well.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace epc;
 using namespace gsoap_resqml2_0_1;

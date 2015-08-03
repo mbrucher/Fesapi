@@ -35,6 +35,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractResqmlDataObject.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)
+#include "nullptr_emulation.h"
+#endif
+
 namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT Activity : public AbstractResqmlDataObject

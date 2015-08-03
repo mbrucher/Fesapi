@@ -40,6 +40,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/HdfProxy.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace epc;
 using namespace resqml2_0_1;

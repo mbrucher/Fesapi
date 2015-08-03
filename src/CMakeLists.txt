@@ -171,13 +171,20 @@ IF (WITH_JAVA_WRAPPING)
 
 	message("Generating SWIG files")
 	#Cleaning
-	IF (WIN32)
-		execute_process(COMMAND powershell "Remove-Item ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/* -recurse")
-	ENDIF (WIN32)
-	
+	FILE (GLOB TO_DELETE ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/*.java)
+	FILE (REMOVE ${TO_DELETE})
+	FILE (REMOVE_RECURSE ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/common)
+	FILE (REMOVE_RECURSE ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/resqml2_0_1)
+	FILE (REMOVE_RECURSE ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/witsml1_4_1_1)
+
 	# Filling
-	set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -java -package com.f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedJavaWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/ ${FESAPI_ROOT_DIR}/swig/swigModule.i")
-	execute_process(COMMAND powershell  ${EXECUTE_COMMAND})
+	IF (WIN32)
+		set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -java -package com.f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedJavaWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/ ${FESAPI_ROOT_DIR}/swig/swigModule.i")
+		execute_process(COMMAND powershell  ${EXECUTE_COMMAND})
+	ELSEIF (UNIX)
+		set ( EXECUTE_COMMAND ${SWIG_EXECUTABLE} -c++ -java -package com.f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedJavaWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/java/src/com/f2i/energisticsStandardsApi/ ${FESAPI_ROOT_DIR}/swig/swigModule.i)
+		execute_process(COMMAND ${EXECUTE_COMMAND})
+	ENDIF (WIN32)
 	message("SWIG files have been generated")
 	
 	SET (ALL_SOURCES_AND_HEADERS

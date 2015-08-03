@@ -199,9 +199,9 @@ void serializeStratigraphicModel(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	WellboreMarkerFrameRepresentation* wmf = pck->createWellboreMarkerFrameRepresentation(stratiOccurence, "", "Wellbore Marker Frame", w1i1TrajRep);
 	double markerMdValues[2] = {350, 550};
 	wmf->setMdValuesAsArray1dOfExplicitValues(markerMdValues, 2, hdfProxy);
-	auto marker0 = wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);
+	WellboreMarker* marker0 = wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);
 	marker0->setBoundaryFeatureInterpretation(horizon1Interp1);
-	auto marker1 = wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
+	WellboreMarker* marker1 = wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
 	marker1->setBoundaryFeatureInterpretation(fault1Interp1);
 
 	// WITSML MARKER
@@ -971,7 +971,7 @@ void deserialize(const string & inputFile)
 
 	std::cout << "CRS" << endl;
 	std::vector<LocalDepth3dCrs*> depthCrsSet = pck.getLocalDepth3dCrsSet();
-	for (auto i = 0; i < depthCrsSet.size(); i++)
+	for (unsigned int i = 0; i < depthCrsSet.size(); i++)
 	{
 		std::cout << "Title is : " << depthCrsSet[i]->getTitle() << std::endl;
 		if (depthCrsSet[i]->isProjectedCrsDefinedWithEpsg())
@@ -980,7 +980,7 @@ void deserialize(const string & inputFile)
 			std::cout << "Projected : Unknown." << "Reason is:" << depthCrsSet[i]->getProjectedCrsUnknownReason() << std::endl;
 	}
 	std::vector<LocalTime3dCrs*> timeCrsSet = pck.getLocalTime3dCrsSet();
-	for (auto i = 0; i < timeCrsSet.size(); i++)
+	for (unsigned int i = 0; i < timeCrsSet.size(); i++)
 	{
 		std::cout << "Title is : " << timeCrsSet[i]->getTitle() << std::endl;
 		if (timeCrsSet[i]->isVerticalCrsDefinedWithEpsg())

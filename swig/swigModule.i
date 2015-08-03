@@ -66,7 +66,7 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %include "swigResqml2_0_1Include.i"
 %include "swigWitsml1_4_1_1Include.i"
 
-#ifdef SWIGCSHARP
+#if defined(SWIGJAVA) || defined(SWIGCSHARP)
 	%nspace common::EpcDocument;
 #endif
 

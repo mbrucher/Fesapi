@@ -73,7 +73,7 @@ namespace resqml2_0_1 {
 	class Fault;
 	class Fracture;
 	class Horizon;
-    class FrontierFeature;
+	class FrontierFeature;
 	class StratigraphicUnitInterpretation;
 	class HorizonInterpretation;
 	class StratigraphicOccurrenceInterpretation;
