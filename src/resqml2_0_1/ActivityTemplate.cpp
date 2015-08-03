@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
 #endif
 
