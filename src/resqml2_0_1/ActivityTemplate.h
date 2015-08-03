@@ -74,8 +74,8 @@ namespace resqml2_0_1
 		const std::vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & getParameterAllowedKinds(const unsigned int & index) const;
 		const bool & getParameterIsInput(const unsigned int & index) const;
 		const bool & getParameterIsOutput(const unsigned int & index) const;
-		const unsigned int & getParameterMinOccurences(const unsigned int & index) const;
-		const unsigned int & getParameterMaxOccurences(const unsigned int & index) const;
+		const unsigned int getParameterMinOccurences(const unsigned int & index) const;
+		const unsigned int getParameterMaxOccurences(const unsigned int & index) const;
 
 		const std::vector<Activity*> & getActivitySet() const {return activitySet;}
 

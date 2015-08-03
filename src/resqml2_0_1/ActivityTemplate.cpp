@@ -128,7 +128,7 @@ const bool & ActivityTemplate::getParameterIsOutput(const unsigned int & index) 
 	return activityTemplate->Parameter[index]->IsOutput;
 }
 
-const unsigned int & ActivityTemplate::getParameterMinOccurences(const unsigned int & index) const
+const unsigned int ActivityTemplate::getParameterMinOccurences(const unsigned int & index) const
 {
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
 
@@ -141,7 +141,7 @@ const unsigned int & ActivityTemplate::getParameterMinOccurences(const unsigned 
 		return *activityTemplate->Parameter[index]->MinOccurs;
 }
 
-const unsigned int & ActivityTemplate::getParameterMaxOccurences(const unsigned int & index) const
+const unsigned int ActivityTemplate::getParameterMaxOccurences(const unsigned int & index) const
 {
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
 
