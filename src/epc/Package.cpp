@@ -388,7 +388,7 @@ void Package::writePackage(bool useZip64)
 		oss << "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">" << endl;
 
 		// content
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		for (std::unordered_map< std::string, std::string >::iterator it = extendedCoreProperties.begin();  it != extendedCoreProperties.end(); ++it)
 		{
 			oss << "\t<" << it->first << ">" + it->second + "</" + it->first + ">" << endl;
@@ -498,7 +498,7 @@ string Package::extractFile(const string & filename, const string & password)
 		return "";
 
 #ifdef CACHE_FILE_DESCRIPTOR
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	std::unordered_map< std::string, unz64_s >::const_iterator it = name2file.find(filename.c_str());
 #else
 	std::tr1::unordered_map< std::string, unz64_s >::const_iterator it = name2file.find(filename.c_str());

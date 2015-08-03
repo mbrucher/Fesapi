@@ -93,13 +93,55 @@ bool AbstractLocal3dCrs::isDepthOriented() const
 	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ZIncreasingDownward;
 }
 
+bool AbstractLocal3dCrs::isProjectedCrsDefinedWithEpsg() const
+{
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__ProjectedCrsEpsgCode;
+}
+
+bool AbstractLocal3dCrs::isProjectedCrsUnknown() const
+{
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__ProjectedUnknownCrs;
+}
+
+const std::string & AbstractLocal3dCrs::getProjectedCrsUnknownReason() const
+{
+	if (isProjectedCrsUnknown() == false)
+		throw invalid_argument("The associated projected Crs is not unknown.");
+
+	return static_cast<eml__ProjectedUnknownCrs*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs)->Unknown;
+}
+
 unsigned long long AbstractLocal3dCrs::getProjectedCrsEpsgCode() const
 {
+	if (isProjectedCrsDefinedWithEpsg() == false)
+		throw invalid_argument("The associated projected Crs is not an EPSG one.");
+
 	return static_cast<eml__ProjectedCrsEpsgCode*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs)->EpsgCode;
+}
+
+bool AbstractLocal3dCrs::isVerticalCrsDefinedWithEpsg() const
+{
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__VerticalCrsEpsgCode;
+}
+
+bool AbstractLocal3dCrs::isVerticalCrsUnknown() const
+{
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__VerticalUnknownCrs;
+}
+
+const std::string & AbstractLocal3dCrs::getVerticalCrsUnknownReason() const
+{
+	if (isVerticalCrsUnknown() == false)
+		throw invalid_argument("The associated vertical Crs is not unknown.");
+
+	return static_cast<eml__VerticalUnknownCrs*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs)->Unknown;
 }
 		
 unsigned long long AbstractLocal3dCrs::getVerticalCrsEpsgCode() const
 {
+	if (isVerticalCrsDefinedWithEpsg() == false)
+		throw invalid_argument("The associated vertical Crs is not an EPSG one.");
+
 	return static_cast<eml__VerticalCrsEpsgCode*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs)->EpsgCode;
 }
 

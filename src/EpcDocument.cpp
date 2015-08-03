@@ -91,6 +91,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/IjkGridRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 
+#include "resqml2_0_1/Activity.h"
+#include "resqml2_0_1/ActivityTemplate.h"
+#include "resqml2_0_1/ContinuousPropertySeries.h"
+#include "resqml2_0_1/CategoricalPropertySeries.h"
+#include "resqml2_0_1/DiscretePropertySeries.h"
+
 #include "witsml1_4_1_1/CoordinateReferenceSystem.h"
 #include "witsml1_4_1_1/Well.h"
 
@@ -160,7 +166,7 @@ bool EpcDocument::open(const std::string & fileName)
 
 void EpcDocument::close()
 {
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #else
 	for (std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
@@ -170,7 +176,7 @@ void EpcDocument::close()
 	}
 	resqmlAbstractObjectSet.clear();
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600)|| defined(__APPLE__)
 	for (std::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.begin(); it != witsmlAbstractObjectSet.end(); ++it)
 #else
 	for (std::tr1::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.begin(); it != witsmlAbstractObjectSet.end(); ++it)
@@ -300,7 +306,7 @@ void EpcDocument::addGsoapProxy(witsml1_4_1_1::AbstractObject* proxy)
 void EpcDocument::serialize(bool useZip64)
 {
 	package->openForWriting(filePath);
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #else
 	for (std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
@@ -318,7 +324,7 @@ void EpcDocument::serialize(bool useZip64)
 	}
 
 	
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	for (std::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.begin(); it != witsmlAbstractObjectSet.end(); ++it)
 #else
 	for (std::tr1::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.begin(); it != witsmlAbstractObjectSet.end(); ++it)
@@ -346,7 +352,8 @@ string EpcDocument::deserialize()
 	FileContentType::ContentTypeMap contentTypes = package->getFileContentType().getAllContentType();
 	for(FileContentType::ContentTypeMap::const_iterator it=contentTypes.begin(); it != contentTypes.end(); ++it)
 	{
-		if (it->second.getContentTypeString().find("application/x-resqml+xml;version=2.0;type=") == 0)
+		if (it->second.getContentTypeString().find("application/x-resqml+xml;version=2.0;type=") == 0 ||
+			it->second.getContentTypeString().find("application/x-resqml+xml;version=2.0.1;type=") == 0)
 		{
 			istringstream iss(package->extractFile(it->second.getExtensionOrPartName().substr(1)));
 			s->is = &iss;
@@ -358,6 +365,18 @@ string EpcDocument::deserialize()
 				gsoap_resqml2_0_1::_resqml2__MdDatum* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREMdDatum(s, 1);
 				soap_read_resqml2__obj_USCOREMdDatum(s, read);
 				wrapper = new MdDatum(read);
+			}
+			else if (resqmlContentType.compare(Activity::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__Activity* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREActivity(s, 1);
+				soap_read_resqml2__obj_USCOREActivity(s, read);
+				wrapper = new Activity(read);
+			}
+			else if (resqmlContentType.compare(ActivityTemplate::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__ActivityTemplate* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREActivityTemplate(s, 1);
+				soap_read_resqml2__obj_USCOREActivityTemplate(s, read);
+				wrapper = new ActivityTemplate(read);
 			}
 			else if (resqmlContentType.compare(SeismicLatticeFeature::XML_TAG) == 0)
 			{
@@ -566,17 +585,35 @@ string EpcDocument::deserialize()
 				soap_read_resqml2__obj_USCOREContinuousProperty(s, read);
 				wrapper = new ContinuousProperty(read);
 			}
+			else if (resqmlContentType.compare(ContinuousPropertySeries::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__ContinuousPropertySeries* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREContinuousPropertySeries(s, 1);
+				soap_read_resqml2__obj_USCOREContinuousPropertySeries(s, read);
+				wrapper = new ContinuousPropertySeries(read);
+			}
 			else if (resqmlContentType.compare(CategoricalProperty::XML_TAG) == 0)
 			{
 				gsoap_resqml2_0_1::_resqml2__CategoricalProperty* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORECategoricalProperty(s, 1);
 				soap_read_resqml2__obj_USCORECategoricalProperty(s, read);
 				wrapper = new CategoricalProperty(read);
 			}
+			else if (resqmlContentType.compare(CategoricalPropertySeries::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__CategoricalPropertySeries* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORECategoricalPropertySeries(s, 1);
+				soap_read_resqml2__obj_USCORECategoricalPropertySeries(s, read);
+				wrapper = new CategoricalPropertySeries(read);
+			}
 			else if (resqmlContentType.compare(DiscreteProperty::XML_TAG) == 0)
 			{
 				gsoap_resqml2_0_1::_resqml2__DiscreteProperty* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREDiscreteProperty(s, 1);
 				soap_read_resqml2__obj_USCOREDiscreteProperty(s, read);
 				wrapper = new DiscreteProperty(read);
+			}
+			else if (resqmlContentType.compare(DiscretePropertySeries::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__DiscretePropertySeries* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREDiscretePropertySeries(s, 1);
+				soap_read_resqml2__obj_USCOREDiscretePropertySeries(s, read);
+				wrapper = new DiscretePropertySeries(read);
 			}
 			else if (resqmlContentType.compare(CommentProperty::XML_TAG) == 0)
 			{
@@ -739,7 +776,7 @@ string EpcDocument::deserialize()
 
 resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const string & uuid) const
 {
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
 #else
 	std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
@@ -757,7 +794,7 @@ resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const st
 witsml1_4_1_1::AbstractObject* EpcDocument::getWitsmlAbstractObjectByUuid(const string & uuid) const
 {
 	
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	std::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.find(uuid);
 #else
 	std::tr1::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.find(uuid);
@@ -1117,7 +1154,7 @@ string EpcDocument::getName() const
 
 void EpcDocument::updateAllRelationships()
 {
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #else
 	for (std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
@@ -1127,7 +1164,7 @@ void EpcDocument::updateAllRelationships()
 	}
 
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	for (std::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.begin(); it != witsmlAbstractObjectSet.end(); ++it)
 #else
 	for (std::tr1::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.begin(); it != witsmlAbstractObjectSet.end(); ++it)
@@ -1170,13 +1207,56 @@ LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, co
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented, const unsigned int & epsgCode)
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
 	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedEpsgCode,
-			verticalUom, isUpOriented, epsgCode);
+			verticalUom, verticalEpsgCode, isUpOriented);
+}
+
+resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
+	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+			projectedUom, projectedUnknownReason,
+			verticalUom, verticalUnknownReason, isUpOriented);
+}
+
+resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
+	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+			projectedUom, projectedEpsgCode,
+			verticalUom, verticalUnknownReason, isUpOriented);
+}
+
+resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
+	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+			projectedUom, projectedUnknownReason,
+			verticalUom, verticalEpsgCode, isUpOriented);
 }
 
 LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
@@ -1184,13 +1264,63 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented, const unsigned int & epsgCode)
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
 	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
-			projectedUom, projectedEpsgCode, timeUom,
-			verticalUom, isUpOriented, epsgCode);
+			projectedUom, projectedEpsgCode,
+			timeUom,
+			verticalUom, verticalEpsgCode, isUpOriented);
+}
+
+LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
+	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+			projectedUom, projectedUnknownReason,
+			timeUom,
+			verticalUom, verticalUnknownReason, isUpOriented);
+}
+
+LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
+	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+			projectedUom, projectedEpsgCode,
+			timeUom,
+			verticalUom, verticalUnknownReason, isUpOriented);
+}
+
+LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
+
+	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+			projectedUom, projectedUnknownReason,
+			timeUom,
+			verticalUom, verticalEpsgCode, isUpOriented);
 }
 
 MdDatum* EpcDocument::createMdDatum(const std::string & guid, const std::string & title,

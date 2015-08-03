@@ -152,14 +152,53 @@ namespace common
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented = false, const unsigned int & epsgCode = 0);
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
+
+		resqml2_0_1::LocalDepth3dCrs* createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		resqml2_0_1::LocalDepth3dCrs* createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		resqml2_0_1::LocalDepth3dCrs* createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
 	
 		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented = false, const unsigned int & epsgCode = 0);
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
+
+		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
 			
 		resqml2_0_1::MdDatum* createMdDatum(const std::string & guid, const std::string & title,
 			resqml2_0_1::AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,

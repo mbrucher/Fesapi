@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -74,7 +74,7 @@ namespace resqml2_0_1
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
-		~DiscreteProperty() {}
+		virtual ~DiscreteProperty() {}
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

@@ -334,7 +334,15 @@ namespace resqml2_0_1
 		double getOriginDepthOrElevation() const;
 		double getArealRotation() const;
 		bool isDepthOriented() const;
+		
+		bool isProjectedCrsDefinedWithEpsg() const;
+		bool isProjectedCrsUnknown() const;
+		const std::string & getProjectedCrsUnknownReason() const;
 		unsigned long long getProjectedCrsEpsgCode() const;
+		
+		bool isVerticalCrsDefinedWithEpsg() const;
+		bool isVerticalCrsUnknown() const;
+		const std::string & getVerticalCrsUnknownReason() const;
 		unsigned long long getVerticalCrsEpsgCode() const;
 
 		gsoap_resqml2_0_1::eml__LengthUom getProjectedCrsUnit() const;

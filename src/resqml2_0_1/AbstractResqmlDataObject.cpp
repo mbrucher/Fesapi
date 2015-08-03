@@ -23,7 +23,7 @@ void AbstractResqmlDataObject::addOrSetExtraMetadata(const std::string & key, co
 	static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy)->ExtraMetadata.push_back(stringPair);
 }
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 std::unordered_map< std::string, std::string > AbstractResqmlDataObject::getExtraMetadataSet() const
 {
 	std::unordered_map< std::string, std::string > result;

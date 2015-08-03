@@ -41,6 +41,9 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT CategoricalProperty : public AbstractValuesProperty
 	{
 	public:
+
+		CategoricalProperty(StringTableLookup* strLookup): stringLookup(strLookup) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param rep						The representation which supports these property values.
@@ -77,7 +80,7 @@ namespace resqml2_0_1
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
-		~CategoricalProperty() {}
+		virtual ~CategoricalProperty() {}
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
@@ -87,7 +90,7 @@ namespace resqml2_0_1
 		/**
 		* Instantiate the link with the string lookup
 		*/
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		/**
 		* Add a 1d array of explicit integer values to the property values.

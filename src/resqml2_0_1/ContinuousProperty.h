@@ -79,7 +79,7 @@ namespace resqml2_0_1
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
-		~ContinuousProperty() {}
+		virtual ~ContinuousProperty() {}
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

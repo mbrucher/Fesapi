@@ -42,12 +42,12 @@ using namespace epc;
 
 const char* LocalTime3dCrs::XML_TAG = "LocalTime3dCrs";
 
-LocalTime3dCrs::LocalTime3dCrs(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+void LocalTime3dCrs::init(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
-			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom,
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented, const unsigned int & verticalEpsgCode)
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented)
 {
 	if (!epcDoc)
 		throw invalid_argument("The EPC document where the local CRS will be stored cannot be null.");
@@ -65,38 +65,94 @@ LocalTime3dCrs::LocalTime3dCrs(common::EpcDocument* epcDoc, const std::string & 
 	local3dCrs->VerticalUom = verticalUom;
 	local3dCrs->TimeUom = timeUom;
 
-	// Projected CRS
-	if (projectedEpsgCode != 0)
-	{
-		eml__ProjectedCrsEpsgCode* projCrs = soap_new_eml__ProjectedCrsEpsgCode(gsoapProxy->soap, 1);
-		local3dCrs->ProjectedCrs = projCrs;
-		projCrs->EpsgCode = projectedEpsgCode;
-	}
-	else
-	{
-		eml__ProjectedUnknownCrs* projCrs = soap_new_eml__ProjectedUnknownCrs(gsoapProxy->soap, 1);
-		local3dCrs->ProjectedCrs = projCrs;
-		projCrs->Unknown = "Unknown";
-	}
-
-	// Vertical CRS
-	if (verticalEpsgCode != 0)
-	{
-		eml__VerticalCrsEpsgCode* vertCrs = soap_new_eml__VerticalCrsEpsgCode(gsoapProxy->soap, 1);
-		local3dCrs->VerticalCrs = vertCrs;
-		vertCrs->EpsgCode = verticalEpsgCode;
-	}
-	else
-	{
-		eml__VerticalUnknownCrs* vertCrs = soap_new_eml__VerticalUnknownCrs(gsoapProxy->soap, 1);
-		local3dCrs->VerticalCrs = vertCrs;
-		vertCrs->Unknown = "Unknown";
-	}
-
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	epcDoc->addGsoapProxy(this);
+}
+
+LocalTime3dCrs::LocalTime3dCrs(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
+{
+	init(epcDoc, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, timeUom, verticalUom, isUpOriented);
+	_resqml2__LocalTime3dCrs* local3dCrs = static_cast<_resqml2__LocalTime3dCrs*>(gsoapProxy);
+
+	// Projected CRS
+	eml__ProjectedCrsEpsgCode* projCrs = soap_new_eml__ProjectedCrsEpsgCode(gsoapProxy->soap, 1);
+	local3dCrs->ProjectedCrs = projCrs;
+	projCrs->EpsgCode = projectedEpsgCode;
+
+	// Vertical CRS
+	eml__VerticalCrsEpsgCode* vertCrs = soap_new_eml__VerticalCrsEpsgCode(gsoapProxy->soap, 1);
+	local3dCrs->VerticalCrs = vertCrs;
+	vertCrs->EpsgCode = verticalEpsgCode;
+}
+
+LocalTime3dCrs::LocalTime3dCrs(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
+{
+	init(epcDoc, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, timeUom, verticalUom, isUpOriented);
+	_resqml2__LocalTime3dCrs* local3dCrs = static_cast<_resqml2__LocalTime3dCrs*>(gsoapProxy);
+
+	// Projected CRS
+	eml__ProjectedUnknownCrs* projCrs = soap_new_eml__ProjectedUnknownCrs(gsoapProxy->soap, 1);
+	local3dCrs->ProjectedCrs = projCrs;
+	projCrs->Unknown = projectedUnknownReason;
+
+	// Vertical CRS
+	eml__VerticalUnknownCrs* vertCrs = soap_new_eml__VerticalUnknownCrs(gsoapProxy->soap, 1);
+	local3dCrs->VerticalCrs = vertCrs;
+	vertCrs->Unknown = verticalUnknownReason;
+}
+
+LocalTime3dCrs::LocalTime3dCrs(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
+{
+	init(epcDoc, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, timeUom, verticalUom, isUpOriented);
+	_resqml2__LocalTime3dCrs* local3dCrs = static_cast<_resqml2__LocalTime3dCrs*>(gsoapProxy);
+
+	// Projected CRS
+	eml__ProjectedCrsEpsgCode* projCrs = soap_new_eml__ProjectedCrsEpsgCode(gsoapProxy->soap, 1);
+	local3dCrs->ProjectedCrs = projCrs;
+	projCrs->EpsgCode = projectedEpsgCode;
+
+	// Vertical CRS
+	eml__VerticalUnknownCrs* vertCrs = soap_new_eml__VerticalUnknownCrs(gsoapProxy->soap, 1);
+	local3dCrs->VerticalCrs = vertCrs;
+	vertCrs->Unknown = verticalUnknownReason;
+}
+
+LocalTime3dCrs::LocalTime3dCrs(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
+{
+	init(epcDoc, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, timeUom, verticalUom, isUpOriented);
+	_resqml2__LocalTime3dCrs* local3dCrs = static_cast<_resqml2__LocalTime3dCrs*>(gsoapProxy);
+
+	// Projected CRS
+	eml__ProjectedUnknownCrs* projCrs = soap_new_eml__ProjectedUnknownCrs(gsoapProxy->soap, 1);
+	local3dCrs->ProjectedCrs = projCrs;
+	projCrs->Unknown = projectedUnknownReason;
+
+	// Vertical CRS
+	eml__VerticalCrsEpsgCode* vertCrs = soap_new_eml__VerticalCrsEpsgCode(gsoapProxy->soap, 1);
+	local3dCrs->VerticalCrs = vertCrs;
+	vertCrs->EpsgCode = verticalEpsgCode;
 }
 
 gsoap_resqml2_0_1::eml__TimeUom LocalTime3dCrs::getUnit() const

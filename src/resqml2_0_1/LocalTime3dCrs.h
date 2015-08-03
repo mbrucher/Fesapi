@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -39,23 +39,106 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT LocalTime3dCrs : public AbstractLocal3dCrs
 	{
+	private:
+		void init(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented);
+
 	public:
 		/**
-		* Creates an instance of this class in a gsoap context.
-		* @param soap			A gsoap context which will manage the memory and the serialization/deserialization of this instance.
-		* @param guid			The guid to set to the local 3d crs. If empty then a new guid will be generated.
-		* @param title			A title for the instance to create.
-		* @param originOrdinal1	The offset of the global 2d crs on its first axis.
-		* @param originOrdinal2	The offset of the global 2d crs on its second axis.
-		* @param originOrdinal3	The offset of the global depth.
-		* @param arealRotation	The areal rotation in radians regarding the global 2d crs.
+		* Creates a local depth 3d CRS which is fully identified by means of EPSG code.
+		* @param epcDoc				The Epc document which is going to contain the created instance.
+		* @param guid				The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title				A title for the instance to create.
+		* @param originOrdinal1		The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2		The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3		The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation		The areal rotation in radians regarding the projected crs.
+		* @param projectedUom		The unit of measure of the projected axis of this instance.
+		* @param projectedEpsgCode	The epsg code of the associated projected CRS.
+		* @param timeUom			The unit of measure of the Z offset of this instance.
+		* @param verticalUom		The unit of measure of the vertical axis of this instance.
+		* @param verticalEpsgCode	The epsg code of the associated vertical CRS.
+		* @param isUpOriented		If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
 		*/
 		LocalTime3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented = false, const unsigned int & verticalEpsgCode = 0);
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which is fully unknown.
+		* @param epcDoc					The Epc document which is going to contain the created instance.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param projectedUnknownReason	Indicates why the projected CRS cannot be provided using EPSG or GML.
+		* @param timeUom				The unit of measure of the Z offset of this instance.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		*/
+		LocalTime3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which is identified by an EPSG code for its projected part and which is unkown for its vertial part.
+		* @param epcDoc					The Epc document which is going to contain the created instance.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param timeUom				The unit of measure of the Z offset of this instance.
+		* @param projectedEpsgCode		The epsg code of the associated projected CRS.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		*/
+		LocalTime3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which unkown for its projected part and which is identified by an EPSG code for its vertical part.
+		* @param epcDoc					The Epc document which is going to contain the created instance.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param projectedUnknownReason	Indicates why the projected CRS cannot be provided using EPSG or GML.
+		* @param timeUom				The unit of measure of the Z offset of this instance.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalEpsgCode		The epsg code of the associated vertical CRS.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		*/
+		LocalTime3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

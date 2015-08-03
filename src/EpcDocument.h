@@ -226,7 +226,7 @@ namespace common
 		/**
 		* Get all the resqml gsoap wrappers from the epc document
 		*/
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		const std::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const {return resqmlAbstractObjectSet;}
 #else
 		const std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const {return resqmlAbstractObjectSet;}
@@ -399,7 +399,7 @@ namespace common
 		*/
 		void updateAllRelationships();
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return package->getExtendedCoreProperty();}
 #else
 		std::tr1::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return package->getExtendedCoreProperty();}
@@ -429,20 +429,172 @@ namespace common
 		//************************************
 
 		/**
-		 * Create a local depth 3d crs within this EPC document
-		 */
+		* Creates a local depth 3d CRS which is fully identified by means of EPSG code.
+		* @param guid				The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title				A title for the instance to create.
+		* @param originOrdinal1		The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2		The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3		The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation		The areal rotation in radians regarding the projected crs.
+		* @param projectedUom		The unit of measure of the projected axis of this instance.
+		* @param projectedEpsgCode	The epsg code of the associated projected CRS.
+		* @param verticalUom		The unit of measure of the vertical axis of this instance.
+		* @param verticalEpsgCode	The epsg code of the associated vertical CRS.
+		* @param isUpOriented		If true, indicates that this depth CRS is actually an elevation CRS.
+		*/
 		resqml2_0_1::LocalDepth3dCrs* createLocalDepth3dCrs(const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented = false, const unsigned int & epsgCode = 0);
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
+		
+		/**
+		* Creates a local depth 3d CRS which is fully unknown.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param projectedUnknownReason	Indicates why the projected CRS cannot be provided using EPSG or GML.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
+		* @param isUpOriented			If true, indicates that this depth CRS is actually an elevation CRS.
+		*/
+		resqml2_0_1::LocalDepth3dCrs* createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which is identified by an EPSG code for its projected part and which is unkown for its vertial part.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param projectedEpsgCode		The epsg code of the associated projected CRS.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
+		* @param isUpOriented			If true, indicates that this depth CRS is actually an elevation CRS.
+		*/
+		resqml2_0_1::LocalDepth3dCrs* createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which unkown for its projected part and which is identified by an EPSG code for its vertical part.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param projectedUnknownReason	Indicates why the projected CRS cannot be provided using EPSG or GML.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalEpsgCode		The epsg code of the associated vertical CRS.
+		* @param isUpOriented			If true, indicates that this depth CRS is actually an elevation CRS.
+		*/
+		resqml2_0_1::LocalDepth3dCrs* createLocalDepth3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
 	
+		/**
+		* Creates a local depth 3d CRS which is fully identified by means of EPSG code.
+		* @param guid				The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title				A title for the instance to create.
+		* @param originOrdinal1		The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2		The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3		The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation		The areal rotation in radians regarding the projected crs.
+		* @param projectedUom		The unit of measure of the projected axis of this instance.
+		* @param projectedEpsgCode	The epsg code of the associated projected CRS.
+		* @param timeUom			The unit of measure of the Z offset of this instance.
+		* @param verticalUom		The unit of measure of the vertical axis of this instance.
+		* @param verticalEpsgCode	The epsg code of the associated vertical CRS.
+		* @param isUpOriented		If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		*/
 		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
-			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented = false, const unsigned int & epsgCode = 0);
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which is fully unknown.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param projectedUnknownReason	Indicates why the projected CRS cannot be provided using EPSG or GML.
+		* @param timeUom				The unit of measure of the Z offset of this instance.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		*/
+		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which is identified by an EPSG code for its projected part and which is unkown for its vertial part.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param timeUom				The unit of measure of the Z offset of this instance.
+		* @param projectedEpsgCode		The epsg code of the associated projected CRS.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		*/
+		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented);
+
+		/**
+		* Creates a local depth 3d CRS which unkown for its projected part and which is identified by an EPSG code for its vertical part.
+		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
+		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
+		* @param originOrdinal2			The offset of the global 2d crs on its second axis.
+		* @param originOrdinal3			The offset in depth of the local CRS regarding the depth origin of the vertical CRS.
+		* @param arealRotation			The areal rotation in radians regarding the projected crs.
+		* @param projectedUom			The unit of measure of the projected axis of this instance.
+		* @param projectedUnknownReason	Indicates why the projected CRS cannot be provided using EPSG or GML.
+		* @param timeUom				The unit of measure of the Z offset of this instance.
+		* @param verticalUom			The unit of measure of the vertical axis of this instance.
+		* @param verticalEpsgCode		The epsg code of the associated vertical CRS.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		*/
+		resqml2_0_1::LocalTime3dCrs* createLocalTime3dCrs(const std::string & guid, const std::string & title,
+			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
+			const double & arealRotation,
+			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
+			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
+			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented);
 
 		resqml2_0_1::MdDatum* createMdDatum(const std::string & guid, const std::string & title,
 			resqml2_0_1::AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,
@@ -679,12 +831,12 @@ namespace common
 		static const char * DOCUMENT_EXTENSION;
 
 		epc::Package* package;
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, resqml2_0_1::AbstractObject* > resqmlAbstractObjectSet;
 #else
 		std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > resqmlAbstractObjectSet;
 #endif
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, witsml1_4_1_1::AbstractObject* > witsmlAbstractObjectSet;
 #else
 		std::tr1::unordered_map< std::string, witsml1_4_1_1::AbstractObject* > witsmlAbstractObjectSet;

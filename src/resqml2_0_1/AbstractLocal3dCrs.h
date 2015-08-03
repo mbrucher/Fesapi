@@ -105,6 +105,21 @@ namespace resqml2_0_1
 		bool isDepthOriented() const;
 
 		/**
+		* Indicates either the associated projected Crs is identified by means of EPSG or not.
+		*/
+		bool isProjectedCrsDefinedWithEpsg() const;
+
+		/**
+		* Indicates either the associated projected Crs is unknown.
+		*/
+		bool isProjectedCrsUnknown() const;
+
+		/**
+		* Get the reason why the projected Crs is unknown.
+		*/
+		const std::string & getProjectedCrsUnknownReason() const;
+
+		/**
 		* Get the EPSG code of the projected CRS
 		*/
 		unsigned long long getProjectedCrsEpsgCode() const;
@@ -118,6 +133,21 @@ namespace resqml2_0_1
 		 * Get the projected crs unit as a string
 		 */
 		std::string getProjectedCrsUnitAsString() const;
+
+		/**
+		* Indicates either the associated vertical Crs is identified by means of EPSG or not.
+		*/
+		bool isVerticalCrsDefinedWithEpsg() const;
+
+		/**
+		* Indicates either the associated vertical Crs is unknown.
+		*/
+		bool isVerticalCrsUnknown() const;
+
+		/**
+		* Get the reason why the vertical Crs is unknown.
+		*/
+		const std::string & getVerticalCrsUnknownReason() const;
 
 		/**
 		* Get the EPSG code of the vertical CRS

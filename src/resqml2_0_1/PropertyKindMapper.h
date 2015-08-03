@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 #include <unordered_map>
 #else
 #include <tr1/unordered_map>
@@ -109,7 +109,7 @@ namespace resqml2_0_1
 		common::EpcDocument * epcDocument;
 
 
-#if defined(_WIN32)
+#if (defined(_WIN32) && _MSC_VER >= 1600)
 		std::unordered_map<gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind, gsoap_resqml2_0_1::ptm__standardEnergisticsPropertyType*> resqmlStandardPropertyKindNameToApplicationPropertyKindName;
 		std::unordered_map<std::string, std::unordered_map<std::string, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind> > applicationPropertyKindNameToResqmlStandardPropertyKindName; // First key string is the application name Second key string is the application property kind name.
 

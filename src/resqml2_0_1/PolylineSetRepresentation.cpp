@@ -405,7 +405,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			char* tmp = new char[polylineCount];
 			hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](char i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else
@@ -418,7 +418,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			unsigned char* tmp = new unsigned char[polylineCount];
 			hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](unsigned char i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else
@@ -431,7 +431,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			short* tmp = new short[polylineCount];
 			hdfProxy->readArrayNdOfShortValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](short i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else
@@ -444,7 +444,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			unsigned short* tmp = new unsigned short[polylineCount];
 			hdfProxy->readArrayNdOfUShortValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](unsigned short i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else
@@ -457,7 +457,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			int* tmp = new int[polylineCount];
 			hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](int i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else
@@ -470,7 +470,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			unsigned int* tmp = new unsigned int[polylineCount];
 			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](unsigned int i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else
@@ -483,7 +483,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			long* tmp = new long[polylineCount];
 			hdfProxy->readArrayNdOfLongValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](long i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else
@@ -496,7 +496,7 @@ bool PolylineSetRepresentation::areAllPolylinesNonClosedOfPatch(const unsigned i
 		{
 			unsigned long* tmp = new unsigned long[polylineCount];
 			hdfProxy->readArrayNdOfULongValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
-#if defined(_WIN32) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || (__GNUC__ > 4 && __GNUC_MINOR__ > 4)
 			if (find_if(tmp, tmp + polylineCount, [](unsigned long i){return i != 0;}) != tmp + polylineCount)
 				result = false;
 #else

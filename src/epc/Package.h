@@ -42,7 +42,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 *	Copyright (c) 2014 F2I-CONSULTING. All rights reserved.
 */
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 #include <unordered_map>
 #else
 #include <tr1/unordered_map>
@@ -141,7 +141,7 @@ namespace epc
 	{
     public:
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		typedef std::unordered_map<std::string, class FilePart*> PartMap;
 #else
 		typedef std::tr1::unordered_map<std::string, class FilePart*> PartMap;
@@ -152,7 +152,7 @@ namespace epc
 		FileContentType fileContentType;											/// ContentTypes file
 		FileRelationship filePrincipalRelationship;									/// Relationships file
 		PartMap allFileParts;									/// Set of parts file
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, std::string > extendedCoreProperties;		/// Set of non standard (extended) core properties
 #else
 		std::tr1::unordered_map< std::string, std::string > extendedCoreProperties;	/// Set of non standard (extended) core properties
@@ -160,7 +160,7 @@ namespace epc
 		std::string pathName;														/// Pathname of package
 		unzFile				unzipped;
 #ifdef CACHE_FILE_DESCRIPTOR
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, unz64_s > name2file;
 #else
 		std::tr1::unordered_map< std::string, unz64_s > name2file;
@@ -242,7 +242,7 @@ namespace epc
 		* Get in read/write access all the non standard core properties of this package
 		* All added non standard core properties will be stored in a single part which will be linked to the standard core properties part.
 		*/
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return extendedCoreProperties;}
 #else
 		std::tr1::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return extendedCoreProperties;}

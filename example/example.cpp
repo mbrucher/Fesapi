@@ -914,8 +914,8 @@ void serialize(const string & filePath)
 	hdfProxy->openForWriting();
 
 	//CRS
-	local3dCrs = pck.createLocalDepth3dCrs("", "Default local CRS", .0, .0, .0, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__LengthUom__m);
-	localTime3dCrs = pck.createLocalTime3dCrs("", "Default local time CRS", 1.0, 0.1, 15, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__TimeUom__s, gsoap_resqml2_0_1::eml__LengthUom__m); // CRS translation is just for testing;
+	local3dCrs = pck.createLocalDepth3dCrs("", "Default local CRS", .0, .0, .0, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__LengthUom__m, "Unknown", false);
+	localTime3dCrs = pck.createLocalTime3dCrs("", "Default local time CRS", 1.0, 0.1, 15, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__TimeUom__s, gsoap_resqml2_0_1::eml__LengthUom__m, "Unknown", false); // CRS translation is just for testing;
 #if !defined(OFFICIAL)
     witsmlCrs = pck.createCoordinateReferenceSystem("","witsmlCrs","EPSG", "5715", "", -1, -1, "");
 #endif
@@ -955,7 +955,7 @@ void deserialize(const string & inputFile)
 
 	std::cout << "EXTENDED CORE PROPERTIES" << endl;
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER < 1600) || defined(__APPLE__)
 	std::unordered_map<std::string, std::string> extendedCoreProperty = pck.getExtendedCoreProperty();
 	for (std::unordered_map<std::string, std::string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
 	{
@@ -968,6 +968,27 @@ void deserialize(const string & inputFile)
 		std::cout << it->first.c_str() << " " << it->second.c_str() << endl;
 	}
 #endif
+
+	std::cout << "CRS" << endl;
+	std::vector<LocalDepth3dCrs*> depthCrsSet = pck.getLocalDepth3dCrsSet();
+	for (auto i = 0; i < depthCrsSet.size(); i++)
+	{
+		std::cout << "Title is : " << depthCrsSet[i]->getTitle() << std::endl;
+		if (depthCrsSet[i]->isProjectedCrsDefinedWithEpsg())
+			std::cout << "Projected : EPSG one" << std::endl;
+		else if (depthCrsSet[i]->isProjectedCrsUnknown())
+			std::cout << "Projected : Unknown." << "Reason is:" << depthCrsSet[i]->getProjectedCrsUnknownReason() << std::endl;
+	}
+	std::vector<LocalTime3dCrs*> timeCrsSet = pck.getLocalTime3dCrsSet();
+	for (auto i = 0; i < timeCrsSet.size(); i++)
+	{
+		std::cout << "Title is : " << timeCrsSet[i]->getTitle() << std::endl;
+		if (timeCrsSet[i]->isVerticalCrsDefinedWithEpsg())
+			std::cout << "Vertical : EPSG one" << std::endl;
+		else if (timeCrsSet[i]->isVerticalCrsUnknown())
+			std::cout << "Vertical : Unknown." << "Reason is:" << timeCrsSet[i]->getVerticalCrsUnknownReason() << std::endl;
+	}
+	std::cout << std::endl;
 
 	std::vector<Fault*> faultSet = pck.getFaultSet();
 	std::vector<PolylineSetRepresentation*> faultPolyRep = pck.getFaultPolylineSetRepSet();

@@ -375,9 +375,14 @@ gsoap_resqml2_0_1::resqml2__ContactElementReference* AbstractObject::newResqmlCo
 	return result;
 }
 
+std::string AbstractObject::getResqmlVersion() const
+{
+	return "2.0";
+}
+
 string AbstractObject::getContentType() const
 {
-	return "application/x-resqml+xml;version=2.0;type=obj_" + getXmlTag();
+	return "application/x-resqml+xml;version=" + getResqmlVersion() + ";type=obj_" + getXmlTag();
 }
 
 std::string AbstractObject::getPartNameInEpcDocument() const

@@ -132,6 +132,11 @@ namespace resqml2_0_1
 		virtual std::string getXmlTag() const = 0;
 
 		/**
+		* Get the XML tag for the XML serialization of this instance
+		*/
+		virtual std::string getResqmlVersion() const;
+
+		/**
 		* Get the content type of the instance according to EPC recommendation
 		*/
 		std::string getContentType() const;
