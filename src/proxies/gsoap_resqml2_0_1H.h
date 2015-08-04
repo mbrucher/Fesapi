@@ -135,7 +135,7 @@ SOAP_FMAC3 LONG64 * SOAP_FMAC4 soap_get_LONG64(struct soap*, LONG64 *, const cha
 /* _gco__Real is a typedef element/attribute synonym for double */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__Real
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Real (1349)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Real (1348)
 #endif
 
 #define soap_default__gco__Real(soap, a) soap_default_double(soap, a)
@@ -156,7 +156,7 @@ SOAP_FMAC3 LONG64 * SOAP_FMAC4 soap_get_LONG64(struct soap*, LONG64 *, const cha
 /* _gml__maximumValue is a typedef element/attribute synonym for double */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__maximumValue
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__maximumValue (1297)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__maximumValue (1296)
 #endif
 
 #define soap_default__gml__maximumValue(soap, a) soap_default_double(soap, a)
@@ -177,7 +177,7 @@ SOAP_FMAC3 LONG64 * SOAP_FMAC4 soap_get_LONG64(struct soap*, LONG64 *, const cha
 /* _gml__minimumValue is a typedef element/attribute synonym for double */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__minimumValue
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__minimumValue (1296)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__minimumValue (1295)
 #endif
 
 #define soap_default__gml__minimumValue(soap, a) soap_default_double(soap, a)
@@ -324,7 +324,7 @@ SOAP_FMAC3 ULONG64 * SOAP_FMAC4 soap_get_unsignedLONG64(struct soap*, ULONG64 *,
 /* _gco__DateTime is a typedef element/attribute synonym for time */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__DateTime
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__DateTime (1351)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__DateTime (1350)
 #endif
 
 #define soap_default__gco__DateTime(soap, a) soap_default_time(soap, a)
@@ -365,7 +365,7 @@ SOAP_FMAC3 time_t * SOAP_FMAC4 soap_get_time(struct soap*, time_t *, const char*
 /* _gco__Boolean is a typedef element/attribute synonym for bool */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__Boolean
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Boolean (1348)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Boolean (1347)
 #endif
 
 #define soap_default__gco__Boolean(soap, a) soap_default_bool(soap, a)
@@ -384,7 +384,7 @@ SOAP_FMAC3 time_t * SOAP_FMAC4 soap_get_time(struct soap*, time_t *, const char*
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__RelatedTimeType_relativePosition
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__RelatedTimeType_relativePosition (1026)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__RelatedTimeType_relativePosition (1025)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default__gml__RelatedTimeType_relativePosition(struct soap*, enum _gml__RelatedTimeType_relativePosition *);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out__gml__RelatedTimeType_relativePosition(struct soap*, const char*, int, const enum _gml__RelatedTimeType_relativePosition *, const char*);
@@ -5786,7 +5786,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _ptm__standardEnergisticsPropertyTypeSet is a typedef element/attribute synonym for ptm__standardEnergisticsPropertyTypeSet */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__ptm__standardEnergisticsPropertyTypeSet
-#define SOAP_TYPE_gsoap_resqml2_0_1__ptm__standardEnergisticsPropertyTypeSet (1353)
+#define SOAP_TYPE_gsoap_resqml2_0_1__ptm__standardEnergisticsPropertyTypeSet (1352)
 #endif
 
 #define soap_default__ptm__standardEnergisticsPropertyTypeSet(soap, a) (a)->ptm__standardEnergisticsPropertyTypeSet::soap_default(soap)
@@ -5815,7 +5815,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gco__nilReason is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__nilReason
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__nilReason (1352)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__nilReason (1351)
 #endif
 
 #define soap_default__gco__nilReason(soap, a) soap_default_std__string(soap, a)
@@ -5844,7 +5844,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gco__Date is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__Date
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Date (1350)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Date (1349)
 #endif
 
 #define soap_default__gco__Date(soap, a) soap_default_std__string(soap, a)
@@ -5873,7 +5873,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gco__CharacterString is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__CharacterString
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__CharacterString (1347)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__CharacterString (1346)
 #endif
 
 #define soap_default__gco__CharacterString(soap, a) soap_default_std__string(soap, a)
@@ -5902,7 +5902,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__DQ_USCOREEvaluationMethodTypeCode is a typedef element/attribute synonym for gco__CodeListValue_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__DQ_USCOREEvaluationMethodTypeCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__DQ_USCOREEvaluationMethodTypeCode (1346)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__DQ_USCOREEvaluationMethodTypeCode (1345)
 #endif
 
 #define soap_default__gmd__DQ_USCOREEvaluationMethodTypeCode(soap, a) (a)->gco__CodeListValue_USCOREType::soap_default(soap)
@@ -5931,7 +5931,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCORESeries is a typedef element/attribute synonym for gmd__CI_USCORESeries_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORESeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORESeries (1345)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORESeries (1344)
 #endif
 
 #define soap_default__gmd__CI_USCORESeries(soap, a) (a)->gmd__CI_USCORESeries_USCOREType::soap_default(soap)
@@ -5960,7 +5960,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREPresentationFormCode is a typedef element/attribute synonym for gco__CodeListValue_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREPresentationFormCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREPresentationFormCode (1344)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREPresentationFormCode (1343)
 #endif
 
 #define soap_default__gmd__CI_USCOREPresentationFormCode(soap, a) (a)->gco__CodeListValue_USCOREType::soap_default(soap)
@@ -5989,7 +5989,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCORERoleCode is a typedef element/attribute synonym for gco__CodeListValue_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORERoleCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORERoleCode (1343)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORERoleCode (1342)
 #endif
 
 #define soap_default__gmd__CI_USCORERoleCode(soap, a) (a)->gco__CodeListValue_USCOREType::soap_default(soap)
@@ -6018,7 +6018,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREOnLineFunctionCode is a typedef element/attribute synonym for gco__CodeListValue_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnLineFunctionCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnLineFunctionCode (1342)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnLineFunctionCode (1341)
 #endif
 
 #define soap_default__gmd__CI_USCOREOnLineFunctionCode(soap, a) (a)->gco__CodeListValue_USCOREType::soap_default(soap)
@@ -6047,7 +6047,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__URL is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__URL
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__URL (1341)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__URL (1340)
 #endif
 
 #define soap_default__gmd__URL(soap, a) soap_default_std__string(soap, a)
@@ -6076,7 +6076,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREOnlineResource is a typedef element/attribute synonym for gmd__CI_USCOREOnlineResource_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnlineResource
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnlineResource (1340)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnlineResource (1339)
 #endif
 
 #define soap_default__gmd__CI_USCOREOnlineResource(soap, a) (a)->gmd__CI_USCOREOnlineResource_USCOREType::soap_default(soap)
@@ -6105,7 +6105,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREAddress is a typedef element/attribute synonym for gmd__CI_USCOREAddress_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREAddress
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREAddress (1339)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREAddress (1338)
 #endif
 
 #define soap_default__gmd__CI_USCOREAddress(soap, a) (a)->gmd__CI_USCOREAddress_USCOREType::soap_default(soap)
@@ -6134,7 +6134,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCORETelephone is a typedef element/attribute synonym for gmd__CI_USCORETelephone_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORETelephone
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORETelephone (1338)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORETelephone (1337)
 #endif
 
 #define soap_default__gmd__CI_USCORETelephone(soap, a) (a)->gmd__CI_USCORETelephone_USCOREType::soap_default(soap)
@@ -6163,7 +6163,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREContact is a typedef element/attribute synonym for gmd__CI_USCOREContact_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREContact
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREContact (1337)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREContact (1336)
 #endif
 
 #define soap_default__gmd__CI_USCOREContact(soap, a) (a)->gmd__CI_USCOREContact_USCOREType::soap_default(soap)
@@ -6192,7 +6192,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREResponsibleParty is a typedef element/attribute synonym for gmd__CI_USCOREResponsibleParty_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREResponsibleParty
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREResponsibleParty (1336)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREResponsibleParty (1335)
 #endif
 
 #define soap_default__gmd__CI_USCOREResponsibleParty(soap, a) (a)->gmd__CI_USCOREResponsibleParty_USCOREType::soap_default(soap)
@@ -6221,7 +6221,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREDateTypeCode is a typedef element/attribute synonym for gco__CodeListValue_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDateTypeCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDateTypeCode (1335)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDateTypeCode (1334)
 #endif
 
 #define soap_default__gmd__CI_USCOREDateTypeCode(soap, a) (a)->gco__CodeListValue_USCOREType::soap_default(soap)
@@ -6250,7 +6250,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCOREDate is a typedef element/attribute synonym for gmd__CI_USCOREDate_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDate
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDate (1334)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDate (1333)
 #endif
 
 #define soap_default__gmd__CI_USCOREDate(soap, a) (a)->gmd__CI_USCOREDate_USCOREType::soap_default(soap)
@@ -6279,7 +6279,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__CI_USCORECitation is a typedef element/attribute synonym for gmd__CI_USCORECitation_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORECitation
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORECitation (1333)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORECitation (1332)
 #endif
 
 #define soap_default__gmd__CI_USCORECitation(soap, a) (a)->gmd__CI_USCORECitation_USCOREType::soap_default(soap)
@@ -6308,7 +6308,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__MD_USCOREIdentifier is a typedef element/attribute synonym for gmd__MD_USCOREIdentifier_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__MD_USCOREIdentifier
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__MD_USCOREIdentifier (1332)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__MD_USCOREIdentifier (1331)
 #endif
 
 #define soap_default__gmd__MD_USCOREIdentifier(soap, a) (a)->gmd__MD_USCOREIdentifier_USCOREType::soap_default(soap)
@@ -6337,7 +6337,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__EX_USCOREVerticalExtent is a typedef element/attribute synonym for gmd__EX_USCOREVerticalExtent_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREVerticalExtent
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREVerticalExtent (1331)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREVerticalExtent (1330)
 #endif
 
 #define soap_default__gmd__EX_USCOREVerticalExtent(soap, a) (a)->gmd__EX_USCOREVerticalExtent_USCOREType::soap_default(soap)
@@ -6366,7 +6366,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__EX_USCORETemporalExtent is a typedef element/attribute synonym for gmd__EX_USCORETemporalExtent_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCORETemporalExtent
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCORETemporalExtent (1330)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCORETemporalExtent (1329)
 #endif
 
 #define soap_default__gmd__EX_USCORETemporalExtent(soap, a) (a)->gmd__EX_USCORETemporalExtent_USCOREType::soap_default(soap)
@@ -6395,7 +6395,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gmd__EX_USCOREExtent is a typedef element/attribute synonym for gmd__EX_USCOREExtent_USCOREType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREExtent
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREExtent (1329)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREExtent (1328)
 #endif
 
 #define soap_default__gmd__EX_USCOREExtent(soap, a) (a)->gmd__EX_USCOREExtent_USCOREType::soap_default(soap)
@@ -6424,7 +6424,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _xlink__title is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__title
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__title (1328)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__title (1327)
 #endif
 
 #define soap_default__xlink__title(soap, a) soap_default_std__string(soap, a)
@@ -6453,7 +6453,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _xlink__arcrole is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__arcrole
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__arcrole (1327)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__arcrole (1326)
 #endif
 
 #define soap_default__xlink__arcrole(soap, a) soap_default_std__string(soap, a)
@@ -6482,7 +6482,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _xlink__role is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__role
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__role (1326)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__role (1325)
 #endif
 
 #define soap_default__xlink__role(soap, a) soap_default_std__string(soap, a)
@@ -6511,7 +6511,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _xlink__href is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__href
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__href (1325)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__href (1324)
 #endif
 
 #define soap_default__xlink__href(soap, a) soap_default_std__string(soap, a)
@@ -6540,7 +6540,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__id is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__id
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__id (1324)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__id (1323)
 #endif
 
 #define soap_default__gml__id(soap, a) soap_default_std__string(soap, a)
@@ -6569,7 +6569,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__VerticalDatum is a typedef element/attribute synonym for gml__VerticalDatumType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalDatum (1323)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalDatum (1322)
 #endif
 
 #define soap_default__gml__VerticalDatum(soap, a) (a)->gml__VerticalDatumType::soap_default(soap)
@@ -6598,7 +6598,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__verticalDatum is a typedef element/attribute synonym for gml__VerticalDatumPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalDatum (1322)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalDatum (1321)
 #endif
 
 #define soap_default__gml__verticalDatum(soap, a) (a)->gml__VerticalDatumPropertyType::soap_default(soap)
@@ -6627,7 +6627,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__VerticalCS is a typedef element/attribute synonym for gml__VerticalCSType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCS (1321)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCS (1320)
 #endif
 
 #define soap_default__gml__VerticalCS(soap, a) (a)->gml__VerticalCSType::soap_default(soap)
@@ -6656,7 +6656,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__verticalCS is a typedef element/attribute synonym for gml__VerticalCSPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalCS (1320)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalCS (1319)
 #endif
 
 #define soap_default__gml__verticalCS(soap, a) (a)->gml__VerticalCSPropertyType::soap_default(soap)
@@ -6685,7 +6685,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__VerticalCRS is a typedef element/attribute synonym for gml__VerticalCRSType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCRS (1319)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCRS (1318)
 #endif
 
 #define soap_default__gml__VerticalCRS(soap, a) (a)->gml__VerticalCRSType::soap_default(soap)
@@ -6714,7 +6714,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__baseGeodeticCRS is a typedef element/attribute synonym for gml__GeodeticCRSPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__baseGeodeticCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__baseGeodeticCRS (1318)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__baseGeodeticCRS (1317)
 #endif
 
 #define soap_default__gml__baseGeodeticCRS(soap, a) (a)->gml__GeodeticCRSPropertyType::soap_default(soap)
@@ -6743,7 +6743,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__targetCRS is a typedef element/attribute synonym for gml__CRSPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__targetCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__targetCRS (1317)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__targetCRS (1316)
 #endif
 
 #define soap_default__gml__targetCRS(soap, a) (a)->gml__CRSPropertyType::soap_default(soap)
@@ -6772,7 +6772,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__sourceCRS is a typedef element/attribute synonym for gml__CRSPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__sourceCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sourceCRS (1316)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sourceCRS (1315)
 #endif
 
 #define soap_default__gml__sourceCRS(soap, a) (a)->gml__CRSPropertyType::soap_default(soap)
@@ -6801,7 +6801,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__operationVersion is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__operationVersion
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__operationVersion (1315)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__operationVersion (1314)
 #endif
 
 #define soap_default__gml__operationVersion(soap, a) soap_default_std__string(soap, a)
@@ -6830,7 +6830,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__conversion is a typedef element/attribute synonym for gml__GeneralConversionPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__conversion
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__conversion (1314)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__conversion (1313)
 #endif
 
 #define soap_default__gml__conversion(soap, a) (a)->gml__GeneralConversionPropertyType::soap_default(soap)
@@ -6859,7 +6859,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__ProjectedCRS is a typedef element/attribute synonym for gml__ProjectedCRSType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__ProjectedCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ProjectedCRS (1313)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ProjectedCRS (1312)
 #endif
 
 #define soap_default__gml__ProjectedCRS(soap, a) (a)->gml__ProjectedCRSType::soap_default(soap)
@@ -6888,7 +6888,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__semiMajorAxis is a typedef element/attribute synonym for gml__MeasureType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__semiMajorAxis
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__semiMajorAxis (1312)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__semiMajorAxis (1311)
 #endif
 
 #define soap_default__gml__semiMajorAxis(soap, a) (a)->gml__MeasureType::soap_default(soap)
@@ -6917,7 +6917,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__Ellipsoid is a typedef element/attribute synonym for gml__EllipsoidType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__Ellipsoid
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Ellipsoid (1311)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Ellipsoid (1310)
 #endif
 
 #define soap_default__gml__Ellipsoid(soap, a) (a)->gml__EllipsoidType::soap_default(soap)
@@ -6946,7 +6946,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__ellipsoid is a typedef element/attribute synonym for gml__EllipsoidPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoid
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoid (1310)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoid (1309)
 #endif
 
 #define soap_default__gml__ellipsoid(soap, a) (a)->gml__EllipsoidPropertyType::soap_default(soap)
@@ -6975,7 +6975,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__greenwichLongitude is a typedef element/attribute synonym for gml__AngleType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__greenwichLongitude
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__greenwichLongitude (1309)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__greenwichLongitude (1308)
 #endif
 
 #define soap_default__gml__greenwichLongitude(soap, a) (a)->gml__AngleType::soap_default(soap)
@@ -7004,7 +7004,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__PrimeMeridian is a typedef element/attribute synonym for gml__PrimeMeridianType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__PrimeMeridian
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__PrimeMeridian (1308)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__PrimeMeridian (1307)
 #endif
 
 #define soap_default__gml__PrimeMeridian(soap, a) (a)->gml__PrimeMeridianType::soap_default(soap)
@@ -7033,7 +7033,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__primeMeridian is a typedef element/attribute synonym for gml__PrimeMeridianPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__primeMeridian
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__primeMeridian (1307)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__primeMeridian (1306)
 #endif
 
 #define soap_default__gml__primeMeridian(soap, a) (a)->gml__PrimeMeridianPropertyType::soap_default(soap)
@@ -7062,7 +7062,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__realizationEpoch is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__realizationEpoch
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__realizationEpoch (1306)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__realizationEpoch (1305)
 #endif
 
 #define soap_default__gml__realizationEpoch(soap, a) soap_default_std__string(soap, a)
@@ -7091,7 +7091,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__anchorDefinition is a typedef element/attribute synonym for gml__CodeType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__anchorDefinition
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__anchorDefinition (1305)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__anchorDefinition (1304)
 #endif
 
 #define soap_default__gml__anchorDefinition(soap, a) (a)->gml__CodeType::soap_default(soap)
@@ -7120,7 +7120,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__GeodeticDatum is a typedef element/attribute synonym for gml__GeodeticDatumType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticDatum (1304)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticDatum (1303)
 #endif
 
 #define soap_default__gml__GeodeticDatum(soap, a) (a)->gml__GeodeticDatumType::soap_default(soap)
@@ -7149,7 +7149,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__geodeticDatum is a typedef element/attribute synonym for gml__GeodeticDatumPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__geodeticDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__geodeticDatum (1303)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__geodeticDatum (1302)
 #endif
 
 #define soap_default__gml__geodeticDatum(soap, a) (a)->gml__GeodeticDatumPropertyType::soap_default(soap)
@@ -7178,7 +7178,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__SphericalCS is a typedef element/attribute synonym for gml__SphericalCSType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__SphericalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__SphericalCS (1302)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__SphericalCS (1301)
 #endif
 
 #define soap_default__gml__SphericalCS(soap, a) (a)->gml__SphericalCSType::soap_default(soap)
@@ -7207,7 +7207,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__sphericalCS is a typedef element/attribute synonym for gml__SphericalCSPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__sphericalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sphericalCS (1301)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sphericalCS (1300)
 #endif
 
 #define soap_default__gml__sphericalCS(soap, a) (a)->gml__SphericalCSPropertyType::soap_default(soap)
@@ -7236,7 +7236,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__CartesianCS is a typedef element/attribute synonym for gml__CartesianCSType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__CartesianCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CartesianCS (1300)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CartesianCS (1299)
 #endif
 
 #define soap_default__gml__CartesianCS(soap, a) (a)->gml__CartesianCSType::soap_default(soap)
@@ -7265,7 +7265,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__cartesianCS is a typedef element/attribute synonym for gml__CartesianCSPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__cartesianCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__cartesianCS (1299)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__cartesianCS (1298)
 #endif
 
 #define soap_default__gml__cartesianCS(soap, a) (a)->gml__CartesianCSPropertyType::soap_default(soap)
@@ -7294,7 +7294,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__rangeMeaning is a typedef element/attribute synonym for gml__CodeWithAuthorityType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__rangeMeaning
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__rangeMeaning (1298)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__rangeMeaning (1297)
 #endif
 
 #define soap_default__gml__rangeMeaning(soap, a) (a)->gml__CodeWithAuthorityType::soap_default(soap)
@@ -7323,7 +7323,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__axisDirection is a typedef element/attribute synonym for gml__CodeWithAuthorityType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__axisDirection
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisDirection (1295)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisDirection (1294)
 #endif
 
 #define soap_default__gml__axisDirection(soap, a) (a)->gml__CodeWithAuthorityType::soap_default(soap)
@@ -7352,7 +7352,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__axisAbbrev is a typedef element/attribute synonym for gml__CodeType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__axisAbbrev
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisAbbrev (1294)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisAbbrev (1293)
 #endif
 
 #define soap_default__gml__axisAbbrev(soap, a) (a)->gml__CodeType::soap_default(soap)
@@ -7381,7 +7381,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__CoordinateSystemAxis is a typedef element/attribute synonym for gml__CoordinateSystemAxisType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__CoordinateSystemAxis
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CoordinateSystemAxis (1293)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CoordinateSystemAxis (1292)
 #endif
 
 #define soap_default__gml__CoordinateSystemAxis(soap, a) (a)->gml__CoordinateSystemAxisType::soap_default(soap)
@@ -7410,7 +7410,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__axis is a typedef element/attribute synonym for gml__CoordinateSystemAxisPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__axis
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axis (1292)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axis (1291)
 #endif
 
 #define soap_default__gml__axis(soap, a) (a)->gml__CoordinateSystemAxisPropertyType::soap_default(soap)
@@ -7439,7 +7439,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__EllipsoidalCS is a typedef element/attribute synonym for gml__EllipsoidalCSType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__EllipsoidalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__EllipsoidalCS (1291)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__EllipsoidalCS (1290)
 #endif
 
 #define soap_default__gml__EllipsoidalCS(soap, a) (a)->gml__EllipsoidalCSType::soap_default(soap)
@@ -7468,7 +7468,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__ellipsoidalCS is a typedef element/attribute synonym for gml__EllipsoidalCSPropertyType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoidalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoidalCS (1290)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoidalCS (1289)
 #endif
 
 #define soap_default__gml__ellipsoidalCS(soap, a) (a)->gml__EllipsoidalCSPropertyType::soap_default(soap)
@@ -7497,7 +7497,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__scope is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__scope
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__scope (1289)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__scope (1288)
 #endif
 
 #define soap_default__gml__scope(soap, a) soap_default_std__string(soap, a)
@@ -7526,7 +7526,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__Definition is a typedef element/attribute synonym for gml__DefinitionType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__Definition
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Definition (1288)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Definition (1287)
 #endif
 
 #define soap_default__gml__Definition(soap, a) (a)->gml__DefinitionType::soap_default(soap)
@@ -7555,7 +7555,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__remarks is a typedef element/attribute synonym for std__string */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__remarks
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__remarks (1287)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__remarks (1286)
 #endif
 
 #define soap_default__gml__remarks(soap, a) soap_default_std__string(soap, a)
@@ -7584,7 +7584,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__name is a typedef element/attribute synonym for gml__CodeType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__name
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__name (1286)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__name (1285)
 #endif
 
 #define soap_default__gml__name(soap, a) (a)->gml__CodeType::soap_default(soap)
@@ -7613,7 +7613,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__identifier is a typedef element/attribute synonym for gml__CodeWithAuthorityType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__identifier
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__identifier (1285)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__identifier (1284)
 #endif
 
 #define soap_default__gml__identifier(soap, a) (a)->gml__CodeWithAuthorityType::soap_default(soap)
@@ -7642,7 +7642,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__descriptionReference is a typedef element/attribute synonym for gml__ReferenceType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__descriptionReference
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__descriptionReference (1284)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__descriptionReference (1283)
 #endif
 
 #define soap_default__gml__descriptionReference(soap, a) (a)->gml__ReferenceType::soap_default(soap)
@@ -7671,7 +7671,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__description is a typedef element/attribute synonym for gml__StringOrRefType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__description
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__description (1283)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__description (1282)
 #endif
 
 #define soap_default__gml__description(soap, a) (a)->gml__StringOrRefType::soap_default(soap)
@@ -7700,7 +7700,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _gml__GeodeticCRS is a typedef element/attribute synonym for gml__GeodeticCRSType */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticCRS (1282)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticCRS (1281)
 #endif
 
 #define soap_default__gml__GeodeticCRS(soap, a) (a)->gml__GeodeticCRSType::soap_default(soap)
@@ -7729,7 +7729,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _eml__AbstractContextualObject is a typedef element/attribute synonym for eml__AbstractObject */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractContextualObject
-#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractContextualObject (1281)
+#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractContextualObject (1280)
 #endif
 
 #define soap_default__eml__AbstractContextualObject(soap, a) (a)->eml__AbstractObject::soap_default(soap)
@@ -7758,7 +7758,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _eml__AbstractDataObject is a typedef element/attribute synonym for eml__AbstractObject */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractDataObject
-#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractDataObject (1280)
+#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractDataObject (1279)
 #endif
 
 #define soap_default__eml__AbstractDataObject(soap, a) (a)->eml__AbstractObject::soap_default(soap)
@@ -7787,7 +7787,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _eml__EpcExternalPartReference is a typedef element/attribute synonym for eml__obj_USCOREEpcExternalPartReference */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__eml__EpcExternalPartReference
-#define SOAP_TYPE_gsoap_resqml2_0_1__eml__EpcExternalPartReference (1279)
+#define SOAP_TYPE_gsoap_resqml2_0_1__eml__EpcExternalPartReference (1278)
 #endif
 
 #define soap_default__eml__EpcExternalPartReference(soap, a) (a)->eml__obj_USCOREEpcExternalPartReference::soap_default(soap)
@@ -7816,7 +7816,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StringTableLookup is a typedef element/attribute synonym for resqml2__obj_USCOREStringTableLookup */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StringTableLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StringTableLookup (1278)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StringTableLookup (1277)
 #endif
 
 #define soap_default__resqml2__StringTableLookup(soap, a) (a)->resqml2__obj_USCOREStringTableLookup::soap_default(soap)
@@ -7845,7 +7845,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__PropertySet is a typedef element/attribute synonym for resqml2__obj_USCOREPropertySet */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertySet
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertySet (1277)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertySet (1276)
 #endif
 
 #define soap_default__resqml2__PropertySet(soap, a) (a)->resqml2__obj_USCOREPropertySet::soap_default(soap)
@@ -7874,7 +7874,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__PropertyKind is a typedef element/attribute synonym for resqml2__obj_USCOREPropertyKind */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertyKind
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertyKind (1276)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertyKind (1275)
 #endif
 
 #define soap_default__resqml2__PropertyKind(soap, a) (a)->resqml2__obj_USCOREPropertyKind::soap_default(soap)
@@ -7903,7 +7903,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__PointsProperty is a typedef element/attribute synonym for resqml2__obj_USCOREPointsProperty */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointsProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointsProperty (1275)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointsProperty (1274)
 #endif
 
 #define soap_default__resqml2__PointsProperty(soap, a) (a)->resqml2__obj_USCOREPointsProperty::soap_default(soap)
@@ -7932,7 +7932,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__DoubleTableLookup is a typedef element/attribute synonym for resqml2__obj_USCOREDoubleTableLookup */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DoubleTableLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DoubleTableLookup (1274)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DoubleTableLookup (1273)
 #endif
 
 #define soap_default__resqml2__DoubleTableLookup(soap, a) (a)->resqml2__obj_USCOREDoubleTableLookup::soap_default(soap)
@@ -7961,7 +7961,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__DiscreteProperty is a typedef element/attribute synonym for resqml2__obj_USCOREDiscreteProperty */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscreteProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscreteProperty (1273)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscreteProperty (1272)
 #endif
 
 #define soap_default__resqml2__DiscreteProperty(soap, a) (a)->resqml2__obj_USCOREDiscreteProperty::soap_default(soap)
@@ -7990,7 +7990,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__ContinuousProperty is a typedef element/attribute synonym for resqml2__obj_USCOREContinuousProperty */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousProperty (1272)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousProperty (1271)
 #endif
 
 #define soap_default__resqml2__ContinuousProperty(soap, a) (a)->resqml2__obj_USCOREContinuousProperty::soap_default(soap)
@@ -8019,7 +8019,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__CommentProperty is a typedef element/attribute synonym for resqml2__obj_USCORECommentProperty */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentProperty (1271)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentProperty (1270)
 #endif
 
 #define soap_default__resqml2__CommentProperty(soap, a) (a)->resqml2__obj_USCORECommentProperty::soap_default(soap)
@@ -8048,7 +8048,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__CategoricalProperty is a typedef element/attribute synonym for resqml2__obj_USCORECategoricalProperty */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalProperty (1270)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalProperty (1269)
 #endif
 
 #define soap_default__resqml2__CategoricalProperty(soap, a) (a)->resqml2__obj_USCORECategoricalProperty::soap_default(soap)
@@ -8077,7 +8077,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__WellboreTrajectoryRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREWellboreTrajectoryRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreTrajectoryRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreTrajectoryRepresentation (1269)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreTrajectoryRepresentation (1268)
 #endif
 
 #define soap_default__resqml2__WellboreTrajectoryRepresentation(soap, a) (a)->resqml2__obj_USCOREWellboreTrajectoryRepresentation::soap_default(soap)
@@ -8106,7 +8106,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__WellboreMarkerFrameRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREWellboreMarkerFrameRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreMarkerFrameRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreMarkerFrameRepresentation (1268)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreMarkerFrameRepresentation (1267)
 #endif
 
 #define soap_default__resqml2__WellboreMarkerFrameRepresentation(soap, a) (a)->resqml2__obj_USCOREWellboreMarkerFrameRepresentation::soap_default(soap)
@@ -8135,7 +8135,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__WellboreFrameRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREWellboreFrameRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFrameRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFrameRepresentation (1267)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFrameRepresentation (1266)
 #endif
 
 #define soap_default__resqml2__WellboreFrameRepresentation(soap, a) (a)->resqml2__obj_USCOREWellboreFrameRepresentation::soap_default(soap)
@@ -8164,7 +8164,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__MdDatum is a typedef element/attribute synonym for resqml2__obj_USCOREMdDatum */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__MdDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__MdDatum (1266)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__MdDatum (1265)
 #endif
 
 #define soap_default__resqml2__MdDatum(soap, a) (a)->resqml2__obj_USCOREMdDatum::soap_default(soap)
@@ -8193,7 +8193,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__DeviationSurveyRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREDeviationSurveyRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DeviationSurveyRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DeviationSurveyRepresentation (1265)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DeviationSurveyRepresentation (1264)
 #endif
 
 #define soap_default__resqml2__DeviationSurveyRepresentation(soap, a) (a)->resqml2__obj_USCOREDeviationSurveyRepresentation::soap_default(soap)
@@ -8222,7 +8222,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__BlockedWellboreRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREBlockedWellboreRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BlockedWellboreRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BlockedWellboreRepresentation (1264)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BlockedWellboreRepresentation (1263)
 #endif
 
 #define soap_default__resqml2__BlockedWellboreRepresentation(soap, a) (a)->resqml2__obj_USCOREBlockedWellboreRepresentation::soap_default(soap)
@@ -8251,7 +8251,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__TriangulatedSetRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORETriangulatedSetRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TriangulatedSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TriangulatedSetRepresentation (1263)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TriangulatedSetRepresentation (1262)
 #endif
 
 #define soap_default__resqml2__TriangulatedSetRepresentation(soap, a) (a)->resqml2__obj_USCORETriangulatedSetRepresentation::soap_default(soap)
@@ -8280,7 +8280,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__SealedVolumeFrameworkRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORESealedVolumeFrameworkRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedVolumeFrameworkRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedVolumeFrameworkRepresentation (1262)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedVolumeFrameworkRepresentation (1261)
 #endif
 
 #define soap_default__resqml2__SealedVolumeFrameworkRepresentation(soap, a) (a)->resqml2__obj_USCORESealedVolumeFrameworkRepresentation::soap_default(soap)
@@ -8309,7 +8309,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__SealedSurfaceFrameworkRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORESealedSurfaceFrameworkRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedSurfaceFrameworkRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedSurfaceFrameworkRepresentation (1261)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedSurfaceFrameworkRepresentation (1260)
 #endif
 
 #define soap_default__resqml2__SealedSurfaceFrameworkRepresentation(soap, a) (a)->resqml2__obj_USCORESealedSurfaceFrameworkRepresentation::soap_default(soap)
@@ -8338,7 +8338,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__PolylineSetRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREPolylineSetRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineSetRepresentation (1260)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineSetRepresentation (1259)
 #endif
 
 #define soap_default__resqml2__PolylineSetRepresentation(soap, a) (a)->resqml2__obj_USCOREPolylineSetRepresentation::soap_default(soap)
@@ -8367,7 +8367,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__PolylineRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREPolylineRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineRepresentation (1259)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineRepresentation (1258)
 #endif
 
 #define soap_default__resqml2__PolylineRepresentation(soap, a) (a)->resqml2__obj_USCOREPolylineRepresentation::soap_default(soap)
@@ -8396,7 +8396,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__PointSetRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREPointSetRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointSetRepresentation (1258)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointSetRepresentation (1257)
 #endif
 
 #define soap_default__resqml2__PointSetRepresentation(soap, a) (a)->resqml2__obj_USCOREPointSetRepresentation::soap_default(soap)
@@ -8425,7 +8425,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__PlaneSetRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREPlaneSetRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PlaneSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PlaneSetRepresentation (1257)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PlaneSetRepresentation (1256)
 #endif
 
 #define soap_default__resqml2__PlaneSetRepresentation(soap, a) (a)->resqml2__obj_USCOREPlaneSetRepresentation::soap_default(soap)
@@ -8454,7 +8454,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__NonSealedSurfaceFrameworkRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__NonSealedSurfaceFrameworkRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__NonSealedSurfaceFrameworkRepresentation (1256)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__NonSealedSurfaceFrameworkRepresentation (1255)
 #endif
 
 #define soap_default__resqml2__NonSealedSurfaceFrameworkRepresentation(soap, a) (a)->resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation::soap_default(soap)
@@ -8483,7 +8483,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__Grid2dSetRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREGrid2dSetRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dSetRepresentation (1255)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dSetRepresentation (1254)
 #endif
 
 #define soap_default__resqml2__Grid2dSetRepresentation(soap, a) (a)->resqml2__obj_USCOREGrid2dSetRepresentation::soap_default(soap)
@@ -8512,7 +8512,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__Grid2dRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREGrid2dRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dRepresentation (1254)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dRepresentation (1253)
 #endif
 
 #define soap_default__resqml2__Grid2dRepresentation(soap, a) (a)->resqml2__obj_USCOREGrid2dRepresentation::soap_default(soap)
@@ -8541,7 +8541,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__UnstructuredGridRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREUnstructuredGridRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredGridRepresentation (1253)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredGridRepresentation (1252)
 #endif
 
 #define soap_default__resqml2__UnstructuredGridRepresentation(soap, a) (a)->resqml2__obj_USCOREUnstructuredGridRepresentation::soap_default(soap)
@@ -8570,7 +8570,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__UnstructuredColumnLayerGridRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREUnstructuredColumnLayerGridRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredColumnLayerGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredColumnLayerGridRepresentation (1252)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredColumnLayerGridRepresentation (1251)
 #endif
 
 #define soap_default__resqml2__UnstructuredColumnLayerGridRepresentation(soap, a) (a)->resqml2__obj_USCOREUnstructuredColumnLayerGridRepresentation::soap_default(soap)
@@ -8599,7 +8599,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__TruncatedUnstructuredColumnLayerGridRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORETruncatedUnstructuredColumnLayerGridRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedUnstructuredColumnLayerGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedUnstructuredColumnLayerGridRepresentation (1251)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedUnstructuredColumnLayerGridRepresentation (1250)
 #endif
 
 #define soap_default__resqml2__TruncatedUnstructuredColumnLayerGridRepresentation(soap, a) (a)->resqml2__obj_USCORETruncatedUnstructuredColumnLayerGridRepresentation::soap_default(soap)
@@ -8628,7 +8628,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__TruncatedIjkGridRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORETruncatedIjkGridRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedIjkGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedIjkGridRepresentation (1250)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedIjkGridRepresentation (1249)
 #endif
 
 #define soap_default__resqml2__TruncatedIjkGridRepresentation(soap, a) (a)->resqml2__obj_USCORETruncatedIjkGridRepresentation::soap_default(soap)
@@ -8657,7 +8657,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__LocalGridSet is a typedef element/attribute synonym for resqml2__obj_USCORELocalGridSet */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalGridSet
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalGridSet (1249)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalGridSet (1248)
 #endif
 
 #define soap_default__resqml2__LocalGridSet(soap, a) (a)->resqml2__obj_USCORELocalGridSet::soap_default(soap)
@@ -8686,7 +8686,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__IjkGridRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREIjkGridRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__IjkGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__IjkGridRepresentation (1248)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__IjkGridRepresentation (1247)
 #endif
 
 #define soap_default__resqml2__IjkGridRepresentation(soap, a) (a)->resqml2__obj_USCOREIjkGridRepresentation::soap_default(soap)
@@ -8715,7 +8715,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GridConnectionSetRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREGridConnectionSetRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GridConnectionSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GridConnectionSetRepresentation (1247)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GridConnectionSetRepresentation (1246)
 #endif
 
 #define soap_default__resqml2__GridConnectionSetRepresentation(soap, a) (a)->resqml2__obj_USCOREGridConnectionSetRepresentation::soap_default(soap)
@@ -8744,7 +8744,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GpGridRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREGpGridRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GpGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GpGridRepresentation (1246)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GpGridRepresentation (1245)
 #endif
 
 #define soap_default__resqml2__GpGridRepresentation(soap, a) (a)->resqml2__obj_USCOREGpGridRepresentation::soap_default(soap)
@@ -8773,7 +8773,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__SubRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORESubRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SubRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SubRepresentation (1245)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SubRepresentation (1244)
 #endif
 
 #define soap_default__resqml2__SubRepresentation(soap, a) (a)->resqml2__obj_USCORESubRepresentation::soap_default(soap)
@@ -8802,7 +8802,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__RepresentationSetRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORERepresentationSetRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationSetRepresentation (1244)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationSetRepresentation (1243)
 #endif
 
 #define soap_default__resqml2__RepresentationSetRepresentation(soap, a) (a)->resqml2__obj_USCORERepresentationSetRepresentation::soap_default(soap)
@@ -8831,7 +8831,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__RepresentationIdentitySet is a typedef element/attribute synonym for resqml2__obj_USCORERepresentationIdentitySet */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationIdentitySet
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationIdentitySet (1243)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationIdentitySet (1242)
 #endif
 
 #define soap_default__resqml2__RepresentationIdentitySet(soap, a) (a)->resqml2__obj_USCORERepresentationIdentitySet::soap_default(soap)
@@ -8860,7 +8860,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__RedefinedGeometryRepresentation is a typedef element/attribute synonym for resqml2__obj_USCORERedefinedGeometryRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RedefinedGeometryRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RedefinedGeometryRepresentation (1242)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RedefinedGeometryRepresentation (1241)
 #endif
 
 #define soap_default__resqml2__RedefinedGeometryRepresentation(soap, a) (a)->resqml2__obj_USCORERedefinedGeometryRepresentation::soap_default(soap)
@@ -8889,7 +8889,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StratigraphicUnitInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREStratigraphicUnitInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitInterpretation (1241)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitInterpretation (1240)
 #endif
 
 #define soap_default__resqml2__StratigraphicUnitInterpretation(soap, a) (a)->resqml2__obj_USCOREStratigraphicUnitInterpretation::soap_default(soap)
@@ -8918,7 +8918,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__RockFluidOrganizationInterpretation is a typedef element/attribute synonym for resqml2__obj_USCORERockFluidOrganizationInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidOrganizationInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidOrganizationInterpretation (1240)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidOrganizationInterpretation (1239)
 #endif
 
 #define soap_default__resqml2__RockFluidOrganizationInterpretation(soap, a) (a)->resqml2__obj_USCORERockFluidOrganizationInterpretation::soap_default(soap)
@@ -8947,7 +8947,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__HorizonInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREHorizonInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__HorizonInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__HorizonInterpretation (1239)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__HorizonInterpretation (1238)
 #endif
 
 #define soap_default__resqml2__HorizonInterpretation(soap, a) (a)->resqml2__obj_USCOREHorizonInterpretation::soap_default(soap)
@@ -8976,7 +8976,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__RockFluidUnitInterpretation is a typedef element/attribute synonym for resqml2__obj_USCORERockFluidUnitInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitInterpretation (1238)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitInterpretation (1237)
 #endif
 
 #define soap_default__resqml2__RockFluidUnitInterpretation(soap, a) (a)->resqml2__obj_USCORERockFluidUnitInterpretation::soap_default(soap)
@@ -9005,7 +9005,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GeobodyInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREGeobodyInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyInterpretation (1237)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyInterpretation (1236)
 #endif
 
 #define soap_default__resqml2__GeobodyInterpretation(soap, a) (a)->resqml2__obj_USCOREGeobodyInterpretation::soap_default(soap)
@@ -9034,7 +9034,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GeobodyBoundaryInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREGeobodyBoundaryInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyBoundaryInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyBoundaryInterpretation (1236)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyBoundaryInterpretation (1235)
 #endif
 
 #define soap_default__resqml2__GeobodyBoundaryInterpretation(soap, a) (a)->resqml2__obj_USCOREGeobodyBoundaryInterpretation::soap_default(soap)
@@ -9063,7 +9063,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__FaultInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREFaultInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FaultInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FaultInterpretation (1235)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FaultInterpretation (1234)
 #endif
 
 #define soap_default__resqml2__FaultInterpretation(soap, a) (a)->resqml2__obj_USCOREFaultInterpretation::soap_default(soap)
@@ -9092,7 +9092,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__EarthModelInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREEarthModelInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__EarthModelInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__EarthModelInterpretation (1234)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__EarthModelInterpretation (1233)
 #endif
 
 #define soap_default__resqml2__EarthModelInterpretation(soap, a) (a)->resqml2__obj_USCOREEarthModelInterpretation::soap_default(soap)
@@ -9121,7 +9121,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__WellboreInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREWellboreInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreInterpretation (1233)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreInterpretation (1232)
 #endif
 
 #define soap_default__resqml2__WellboreInterpretation(soap, a) (a)->resqml2__obj_USCOREWellboreInterpretation::soap_default(soap)
@@ -9150,7 +9150,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StructuralOrganizationInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREStructuralOrganizationInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StructuralOrganizationInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StructuralOrganizationInterpretation (1232)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StructuralOrganizationInterpretation (1231)
 #endif
 
 #define soap_default__resqml2__StructuralOrganizationInterpretation(soap, a) (a)->resqml2__obj_USCOREStructuralOrganizationInterpretation::soap_default(soap)
@@ -9179,7 +9179,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StratigraphicOccurrenceInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREStratigraphicOccurrenceInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicOccurrenceInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicOccurrenceInterpretation (1231)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicOccurrenceInterpretation (1230)
 #endif
 
 #define soap_default__resqml2__StratigraphicOccurrenceInterpretation(soap, a) (a)->resqml2__obj_USCOREStratigraphicOccurrenceInterpretation::soap_default(soap)
@@ -9208,7 +9208,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StratigraphicColumnRankInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREStratigraphicColumnRankInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumnRankInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumnRankInterpretation (1230)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumnRankInterpretation (1229)
 #endif
 
 #define soap_default__resqml2__StratigraphicColumnRankInterpretation(soap, a) (a)->resqml2__obj_USCOREStratigraphicColumnRankInterpretation::soap_default(soap)
@@ -9237,7 +9237,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StratigraphicColumn is a typedef element/attribute synonym for resqml2__obj_USCOREStratigraphicColumn */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumn
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumn (1229)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumn (1228)
 #endif
 
 #define soap_default__resqml2__StratigraphicColumn(soap, a) (a)->resqml2__obj_USCOREStratigraphicColumn::soap_default(soap)
@@ -9266,7 +9266,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GeologicUnitInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREGeologicUnitInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitInterpretation (1228)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitInterpretation (1227)
 #endif
 
 #define soap_default__resqml2__GeologicUnitInterpretation(soap, a) (a)->resqml2__obj_USCOREGeologicUnitInterpretation::soap_default(soap)
@@ -9295,7 +9295,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GenericFeatureInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREGenericFeatureInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GenericFeatureInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GenericFeatureInterpretation (1227)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GenericFeatureInterpretation (1226)
 #endif
 
 #define soap_default__resqml2__GenericFeatureInterpretation(soap, a) (a)->resqml2__obj_USCOREGenericFeatureInterpretation::soap_default(soap)
@@ -9324,7 +9324,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__BoundaryFeatureInterpretation is a typedef element/attribute synonym for resqml2__obj_USCOREBoundaryFeatureInterpretation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeatureInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeatureInterpretation (1226)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeatureInterpretation (1225)
 #endif
 
 #define soap_default__resqml2__BoundaryFeatureInterpretation(soap, a) (a)->resqml2__obj_USCOREBoundaryFeatureInterpretation::soap_default(soap)
@@ -9353,7 +9353,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__WellboreFeature is a typedef element/attribute synonym for resqml2__obj_USCOREWellboreFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFeature (1225)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFeature (1224)
 #endif
 
 #define soap_default__resqml2__WellboreFeature(soap, a) (a)->resqml2__obj_USCOREWellboreFeature::soap_default(soap)
@@ -9382,7 +9382,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__SeismicLineSetFeature is a typedef element/attribute synonym for resqml2__obj_USCORESeismicLineSetFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineSetFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineSetFeature (1224)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineSetFeature (1223)
 #endif
 
 #define soap_default__resqml2__SeismicLineSetFeature(soap, a) (a)->resqml2__obj_USCORESeismicLineSetFeature::soap_default(soap)
@@ -9411,7 +9411,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__SeismicLineFeature is a typedef element/attribute synonym for resqml2__obj_USCORESeismicLineFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineFeature (1223)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineFeature (1222)
 #endif
 
 #define soap_default__resqml2__SeismicLineFeature(soap, a) (a)->resqml2__obj_USCORESeismicLineFeature::soap_default(soap)
@@ -9440,7 +9440,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__SeismicLatticeFeature is a typedef element/attribute synonym for resqml2__obj_USCORESeismicLatticeFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLatticeFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLatticeFeature (1222)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLatticeFeature (1221)
 #endif
 
 #define soap_default__resqml2__SeismicLatticeFeature(soap, a) (a)->resqml2__obj_USCORESeismicLatticeFeature::soap_default(soap)
@@ -9469,7 +9469,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__FrontierFeature is a typedef element/attribute synonym for resqml2__obj_USCOREFrontierFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FrontierFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FrontierFeature (1221)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FrontierFeature (1220)
 #endif
 
 #define soap_default__resqml2__FrontierFeature(soap, a) (a)->resqml2__obj_USCOREFrontierFeature::soap_default(soap)
@@ -9498,7 +9498,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__OrganizationFeature is a typedef element/attribute synonym for resqml2__obj_USCOREOrganizationFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__OrganizationFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__OrganizationFeature (1220)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__OrganizationFeature (1219)
 #endif
 
 #define soap_default__resqml2__OrganizationFeature(soap, a) (a)->resqml2__obj_USCOREOrganizationFeature::soap_default(soap)
@@ -9527,7 +9527,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GeologicUnitFeature is a typedef element/attribute synonym for resqml2__obj_USCOREGeologicUnitFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitFeature (1219)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitFeature (1218)
 #endif
 
 #define soap_default__resqml2__GeologicUnitFeature(soap, a) (a)->resqml2__obj_USCOREGeologicUnitFeature::soap_default(soap)
@@ -9556,7 +9556,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__BoundaryFeature is a typedef element/attribute synonym for resqml2__obj_USCOREBoundaryFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeature (1218)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeature (1217)
 #endif
 
 #define soap_default__resqml2__BoundaryFeature(soap, a) (a)->resqml2__obj_USCOREBoundaryFeature::soap_default(soap)
@@ -9585,7 +9585,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__TectonicBoundaryFeature is a typedef element/attribute synonym for resqml2__obj_USCORETectonicBoundaryFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TectonicBoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TectonicBoundaryFeature (1217)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TectonicBoundaryFeature (1216)
 #endif
 
 #define soap_default__resqml2__TectonicBoundaryFeature(soap, a) (a)->resqml2__obj_USCORETectonicBoundaryFeature::soap_default(soap)
@@ -9614,7 +9614,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StratigraphicUnitFeature is a typedef element/attribute synonym for resqml2__obj_USCOREStratigraphicUnitFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitFeature (1216)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitFeature (1215)
 #endif
 
 #define soap_default__resqml2__StratigraphicUnitFeature(soap, a) (a)->resqml2__obj_USCOREStratigraphicUnitFeature::soap_default(soap)
@@ -9643,7 +9643,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__RockFluidUnitFeature is a typedef element/attribute synonym for resqml2__obj_USCORERockFluidUnitFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitFeature (1215)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitFeature (1214)
 #endif
 
 #define soap_default__resqml2__RockFluidUnitFeature(soap, a) (a)->resqml2__obj_USCORERockFluidUnitFeature::soap_default(soap)
@@ -9672,7 +9672,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GlobalChronostratigraphicColumn is a typedef element/attribute synonym for resqml2__obj_USCOREGlobalChronostratigraphicColumn */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GlobalChronostratigraphicColumn
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GlobalChronostratigraphicColumn (1214)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GlobalChronostratigraphicColumn (1213)
 #endif
 
 #define soap_default__resqml2__GlobalChronostratigraphicColumn(soap, a) (a)->resqml2__obj_USCOREGlobalChronostratigraphicColumn::soap_default(soap)
@@ -9701,7 +9701,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GeobodyFeature is a typedef element/attribute synonym for resqml2__obj_USCOREGeobodyFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyFeature (1213)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyFeature (1212)
 #endif
 
 #define soap_default__resqml2__GeobodyFeature(soap, a) (a)->resqml2__obj_USCOREGeobodyFeature::soap_default(soap)
@@ -9730,7 +9730,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__GeneticBoundaryFeature is a typedef element/attribute synonym for resqml2__obj_USCOREGeneticBoundaryFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeneticBoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeneticBoundaryFeature (1212)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeneticBoundaryFeature (1211)
 #endif
 
 #define soap_default__resqml2__GeneticBoundaryFeature(soap, a) (a)->resqml2__obj_USCOREGeneticBoundaryFeature::soap_default(soap)
@@ -9759,7 +9759,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__FluidBoundaryFeature is a typedef element/attribute synonym for resqml2__obj_USCOREFluidBoundaryFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FluidBoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FluidBoundaryFeature (1211)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FluidBoundaryFeature (1210)
 #endif
 
 #define soap_default__resqml2__FluidBoundaryFeature(soap, a) (a)->resqml2__obj_USCOREFluidBoundaryFeature::soap_default(soap)
@@ -9788,7 +9788,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__TimeSeries is a typedef element/attribute synonym for resqml2__obj_USCORETimeSeries */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TimeSeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TimeSeries (1210)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TimeSeries (1209)
 #endif
 
 #define soap_default__resqml2__TimeSeries(soap, a) (a)->resqml2__obj_USCORETimeSeries::soap_default(soap)
@@ -9817,7 +9817,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__LocalTime3dCrs is a typedef element/attribute synonym for resqml2__obj_USCORELocalTime3dCrs */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalTime3dCrs
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalTime3dCrs (1209)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalTime3dCrs (1208)
 #endif
 
 #define soap_default__resqml2__LocalTime3dCrs(soap, a) (a)->resqml2__obj_USCORELocalTime3dCrs::soap_default(soap)
@@ -9846,7 +9846,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__LocalDepth3dCrs is a typedef element/attribute synonym for resqml2__obj_USCORELocalDepth3dCrs */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalDepth3dCrs
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalDepth3dCrs (1208)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalDepth3dCrs (1207)
 #endif
 
 #define soap_default__resqml2__LocalDepth3dCrs(soap, a) (a)->resqml2__obj_USCORELocalDepth3dCrs::soap_default(soap)
@@ -9875,7 +9875,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StreamlinesRepresentation is a typedef element/attribute synonym for resqml2__obj_USCOREStreamlinesRepresentation */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesRepresentation (1207)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesRepresentation (1206)
 #endif
 
 #define soap_default__resqml2__StreamlinesRepresentation(soap, a) (a)->resqml2__obj_USCOREStreamlinesRepresentation::soap_default(soap)
@@ -9904,7 +9904,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__StreamlinesFeature is a typedef element/attribute synonym for resqml2__obj_USCOREStreamlinesFeature */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesFeature (1206)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesFeature (1205)
 #endif
 
 #define soap_default__resqml2__StreamlinesFeature(soap, a) (a)->resqml2__obj_USCOREStreamlinesFeature::soap_default(soap)
@@ -9933,7 +9933,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__DiscretePropertySeries is a typedef element/attribute synonym for resqml2__obj_USCOREDiscretePropertySeries */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscretePropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscretePropertySeries (1205)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscretePropertySeries (1204)
 #endif
 
 #define soap_default__resqml2__DiscretePropertySeries(soap, a) (a)->resqml2__obj_USCOREDiscretePropertySeries::soap_default(soap)
@@ -9962,7 +9962,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__ContinuousPropertySeries is a typedef element/attribute synonym for resqml2__obj_USCOREContinuousPropertySeries */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousPropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousPropertySeries (1204)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousPropertySeries (1203)
 #endif
 
 #define soap_default__resqml2__ContinuousPropertySeries(soap, a) (a)->resqml2__obj_USCOREContinuousPropertySeries::soap_default(soap)
@@ -9991,7 +9991,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__CommentPropertySeries is a typedef element/attribute synonym for resqml2__obj_USCORECommentPropertySeries */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentPropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentPropertySeries (1203)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentPropertySeries (1202)
 #endif
 
 #define soap_default__resqml2__CommentPropertySeries(soap, a) (a)->resqml2__obj_USCORECommentPropertySeries::soap_default(soap)
@@ -10020,7 +10020,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__CategoricalPropertySeries is a typedef element/attribute synonym for resqml2__obj_USCORECategoricalPropertySeries */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalPropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalPropertySeries (1202)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalPropertySeries (1201)
 #endif
 
 #define soap_default__resqml2__CategoricalPropertySeries(soap, a) (a)->resqml2__obj_USCORECategoricalPropertySeries::soap_default(soap)
@@ -10049,7 +10049,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__ActivityTemplate is a typedef element/attribute synonym for resqml2__obj_USCOREActivityTemplate */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ActivityTemplate
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ActivityTemplate (1201)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ActivityTemplate (1200)
 #endif
 
 #define soap_default__resqml2__ActivityTemplate(soap, a) (a)->resqml2__obj_USCOREActivityTemplate::soap_default(soap)
@@ -10078,7 +10078,7 @@ SOAP_FMAC3 enum resqml2__TimeSetKind * SOAP_FMAC4 soap_get_resqml2__TimeSetKind(
 /* _resqml2__Activity is a typedef element/attribute synonym for resqml2__obj_USCOREActivity */
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Activity
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Activity (1200)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Activity (1199)
 #endif
 
 #define soap_default__resqml2__Activity(soap, a) (a)->resqml2__obj_USCOREActivity::soap_default(soap)
@@ -20782,9 +20782,9 @@ SOAP_FMAC1 resqml2__ObjectParameterKey * SOAP_FMAC2 soap_instantiate_resqml2__Ob
 
 inline resqml2__ObjectParameterKey * soap_new_resqml2__ObjectParameterKey(struct soap *soap, int n = -1) { return soap_instantiate_resqml2__ObjectParameterKey(soap, n, NULL, NULL, NULL); }
 
-inline resqml2__ObjectParameterKey * soap_new_req_resqml2__ObjectParameterKey(struct soap *soap, resqml2__AbstractResqmlDataObject *DataObject) { resqml2__ObjectParameterKey *_p = soap_instantiate_resqml2__ObjectParameterKey(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__ObjectParameterKey::DataObject = DataObject; } return _p; }
+inline resqml2__ObjectParameterKey * soap_new_req_resqml2__ObjectParameterKey(struct soap *soap, eml__DataObjectReference *DataObject) { resqml2__ObjectParameterKey *_p = soap_instantiate_resqml2__ObjectParameterKey(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__ObjectParameterKey::DataObject = DataObject; } return _p; }
 
-inline resqml2__ObjectParameterKey * soap_new_set_resqml2__ObjectParameterKey(struct soap *soap, resqml2__AbstractResqmlDataObject *DataObject) { resqml2__ObjectParameterKey *_p = soap_instantiate_resqml2__ObjectParameterKey(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__ObjectParameterKey::DataObject = DataObject; } return _p; }
+inline resqml2__ObjectParameterKey * soap_new_set_resqml2__ObjectParameterKey(struct soap *soap, eml__DataObjectReference *DataObject) { resqml2__ObjectParameterKey *_p = soap_instantiate_resqml2__ObjectParameterKey(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__ObjectParameterKey::DataObject = DataObject; } return _p; }
 
 inline void soap_delete_resqml2__ObjectParameterKey(struct soap *soap, resqml2__ObjectParameterKey *p) { soap_delete(soap, p); }
 
@@ -20811,9 +20811,9 @@ SOAP_FMAC1 resqml2__DataObjectParameter * SOAP_FMAC2 soap_instantiate_resqml2__D
 
 inline resqml2__DataObjectParameter * soap_new_resqml2__DataObjectParameter(struct soap *soap, int n = -1) { return soap_instantiate_resqml2__DataObjectParameter(soap, n, NULL, NULL, NULL); }
 
-inline resqml2__DataObjectParameter * soap_new_req_resqml2__DataObjectParameter(struct soap *soap, resqml2__AbstractResqmlDataObject *DataObject, std::string& Title1) { resqml2__DataObjectParameter *_p = soap_instantiate_resqml2__DataObjectParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__DataObjectParameter::DataObject = DataObject; _p->resqml2__AbstractActivityParameter::Title = Title1; } return _p; }
+inline resqml2__DataObjectParameter * soap_new_req_resqml2__DataObjectParameter(struct soap *soap, eml__DataObjectReference *DataObject, std::string& Title1) { resqml2__DataObjectParameter *_p = soap_instantiate_resqml2__DataObjectParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__DataObjectParameter::DataObject = DataObject; _p->resqml2__AbstractActivityParameter::Title = Title1; } return _p; }
 
-inline resqml2__DataObjectParameter * soap_new_set_resqml2__DataObjectParameter(struct soap *soap, resqml2__AbstractResqmlDataObject *DataObject, std::string& Title1, LONG64 *Index1, std::string *Selection1, std::vector<resqml2__AbstractParameterKey * >& Key1) { resqml2__DataObjectParameter *_p = soap_instantiate_resqml2__DataObjectParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__DataObjectParameter::DataObject = DataObject; _p->resqml2__AbstractActivityParameter::Title = Title1; _p->resqml2__AbstractActivityParameter::Index = Index1; _p->resqml2__AbstractActivityParameter::Selection = Selection1; _p->resqml2__AbstractActivityParameter::Key = Key1; } return _p; }
+inline resqml2__DataObjectParameter * soap_new_set_resqml2__DataObjectParameter(struct soap *soap, eml__DataObjectReference *DataObject, std::string& Title1, LONG64 *Index1, std::string *Selection1, std::vector<resqml2__AbstractParameterKey * >& Key1) { resqml2__DataObjectParameter *_p = soap_instantiate_resqml2__DataObjectParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__DataObjectParameter::DataObject = DataObject; _p->resqml2__AbstractActivityParameter::Title = Title1; _p->resqml2__AbstractActivityParameter::Index = Index1; _p->resqml2__AbstractActivityParameter::Selection = Selection1; _p->resqml2__AbstractActivityParameter::Key = Key1; } return _p; }
 
 inline void soap_delete_resqml2__DataObjectParameter(struct soap *soap, resqml2__DataObjectParameter *p) { soap_delete(soap, p); }
 
@@ -27492,7 +27492,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__string(struct soap*, int, int, void*, 
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault (1361)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault (1360)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Fault(struct soap*, struct SOAP_ENV__Fault *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Fault(struct soap*, const struct SOAP_ENV__Fault *);
@@ -27528,7 +27528,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Fault(struct soap*, int, int, voi
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason (1360)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason (1359)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Reason(struct soap*, const struct SOAP_ENV__Reason *);
@@ -27564,7 +27564,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Reason(struct soap*, int, int, vo
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail (1357)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail (1356)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Detail(struct soap*, const struct SOAP_ENV__Detail *);
@@ -27600,7 +27600,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Detail(struct soap*, int, int, vo
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code (1355)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code (1354)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Code(struct soap*, const struct SOAP_ENV__Code *);
@@ -27636,7 +27636,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Code(struct soap*, int, int, void
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header (1354)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header (1353)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Header(struct soap*, struct SOAP_ENV__Header *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Header(struct soap*, const struct SOAP_ENV__Header *);
@@ -27670,14 +27670,14 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Header(struct soap*, int, int, vo
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__union_ProjectedCRSType
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_ProjectedCRSType (1199)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_ProjectedCRSType (1198)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize__gml__union_ProjectedCRSType(struct soap*, int, const union _gml__union_ProjectedCRSType *);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out__gml__union_ProjectedCRSType(struct soap*, int, const union _gml__union_ProjectedCRSType *);
 SOAP_FMAC3 union _gml__union_ProjectedCRSType * SOAP_FMAC4 soap_in__gml__union_ProjectedCRSType(struct soap*, int*, union _gml__union_ProjectedCRSType *);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__union_GeodeticCRSType
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_GeodeticCRSType (1181)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_GeodeticCRSType (1180)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize__gml__union_GeodeticCRSType(struct soap*, int, const union _gml__union_GeodeticCRSType *);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out__gml__union_GeodeticCRSType(struct soap*, int, const union _gml__union_GeodeticCRSType *);
@@ -27763,7 +27763,7 @@ SOAP_FMAC3 union _gml__union_TimePrimitivePropertyType * SOAP_FMAC4 soap_in__gml
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Reason
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Reason (1363)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Reason (1362)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Reason(struct soap*, const char *, int, struct SOAP_ENV__Reason *const*, const char *);
@@ -27786,7 +27786,7 @@ SOAP_FMAC3 struct SOAP_ENV__Reason ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Rea
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Detail
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Detail (1362)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Detail (1361)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Detail(struct soap*, const char *, int, struct SOAP_ENV__Detail *const*, const char *);
@@ -27809,7 +27809,7 @@ SOAP_FMAC3 struct SOAP_ENV__Detail ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Det
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Code
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Code (1356)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToSOAP_ENV__Code (1355)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Code(struct soap*, const char *, int, struct SOAP_ENV__Code *const*, const char *);
@@ -27830,7 +27830,7 @@ SOAP_FMAC3 struct SOAP_ENV__Code ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Code(
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeodeticCRSPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeodeticCRSPropertyType (1198)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeodeticCRSPropertyType (1197)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__GeodeticCRSPropertyType(struct soap*, gml__GeodeticCRSPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__GeodeticCRSPropertyType(struct soap*, const char *, int, gml__GeodeticCRSPropertyType *const*, const char *);
@@ -27849,7 +27849,7 @@ SOAP_FMAC3 gml__GeodeticCRSPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__Geo
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TimeIndices
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TimeIndices (1197)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TimeIndices (1196)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__TimeIndices(struct soap*, resqml2__TimeIndices *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__TimeIndices(struct soap*, const char *, int, resqml2__TimeIndices *const*, const char *);
@@ -27868,7 +27868,7 @@ SOAP_FMAC3 resqml2__TimeIndices ** SOAP_FMAC4 soap_get_PointerToresqml2__TimeInd
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SeismicLatticeSetFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SeismicLatticeSetFeature (1196)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SeismicLatticeSetFeature (1195)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__SeismicLatticeSetFeature(struct soap*, resqml2__SeismicLatticeSetFeature *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__SeismicLatticeSetFeature(struct soap*, const char *, int, resqml2__SeismicLatticeSetFeature *const*, const char *);
@@ -27887,7 +27887,7 @@ SOAP_FMAC3 resqml2__SeismicLatticeSetFeature ** SOAP_FMAC4 soap_get_PointerTores
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SealedContactRepresentationPart
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SealedContactRepresentationPart (1194)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SealedContactRepresentationPart (1193)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__SealedContactRepresentationPart(struct soap*, resqml2__SealedContactRepresentationPart *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__SealedContactRepresentationPart(struct soap*, const char *, int, resqml2__SealedContactRepresentationPart *const*, const char *);
@@ -27906,7 +27906,7 @@ SOAP_FMAC3 resqml2__SealedContactRepresentationPart ** SOAP_FMAC4 soap_get_Point
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractContactRepresentationPart
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractContactRepresentationPart (1192)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractContactRepresentationPart (1191)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AbstractContactRepresentationPart(struct soap*, resqml2__AbstractContactRepresentationPart *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AbstractContactRepresentationPart(struct soap*, const char *, int, resqml2__AbstractContactRepresentationPart *const*, const char *);
@@ -27925,7 +27925,7 @@ SOAP_FMAC3 resqml2__AbstractContactRepresentationPart ** SOAP_FMAC4 soap_get_Poi
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitInterpretationIndex
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitInterpretationIndex (1190)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitInterpretationIndex (1189)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__GeologicUnitInterpretationIndex(struct soap*, resqml2__GeologicUnitInterpretationIndex *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__GeologicUnitInterpretationIndex(struct soap*, const char *, int, resqml2__GeologicUnitInterpretationIndex *const*, const char *);
@@ -27944,7 +27944,7 @@ SOAP_FMAC3 resqml2__GeologicUnitInterpretationIndex ** SOAP_FMAC4 soap_get_Point
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StratigraphicUnitInterpretationIndex
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StratigraphicUnitInterpretationIndex (1188)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StratigraphicUnitInterpretationIndex (1187)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__StratigraphicUnitInterpretationIndex(struct soap*, resqml2__StratigraphicUnitInterpretationIndex *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__StratigraphicUnitInterpretationIndex(struct soap*, const char *, int, resqml2__StratigraphicUnitInterpretationIndex *const*, const char *);
@@ -27963,7 +27963,7 @@ SOAP_FMAC3 resqml2__StratigraphicUnitInterpretationIndex ** SOAP_FMAC4 soap_get_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalDatumPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalDatumPropertyType (1187)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalDatumPropertyType (1186)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__VerticalDatumPropertyType(struct soap*, gml__VerticalDatumPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__VerticalDatumPropertyType(struct soap*, const char *, int, gml__VerticalDatumPropertyType *const*, const char *);
@@ -27982,7 +27982,7 @@ SOAP_FMAC3 gml__VerticalDatumPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__V
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalCSPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalCSPropertyType (1186)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalCSPropertyType (1185)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__VerticalCSPropertyType(struct soap*, gml__VerticalCSPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__VerticalCSPropertyType(struct soap*, const char *, int, gml__VerticalCSPropertyType *const*, const char *);
@@ -28001,7 +28001,7 @@ SOAP_FMAC3 gml__VerticalCSPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__Vert
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeneralConversionPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeneralConversionPropertyType (1185)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeneralConversionPropertyType (1184)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__GeneralConversionPropertyType(struct soap*, gml__GeneralConversionPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__GeneralConversionPropertyType(struct soap*, const char *, int, gml__GeneralConversionPropertyType *const*, const char *);
@@ -28020,7 +28020,7 @@ SOAP_FMAC3 gml__GeneralConversionPropertyType ** SOAP_FMAC4 soap_get_PointerTogm
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__EllipsoidPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__EllipsoidPropertyType (1184)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__EllipsoidPropertyType (1183)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__EllipsoidPropertyType(struct soap*, gml__EllipsoidPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__EllipsoidPropertyType(struct soap*, const char *, int, gml__EllipsoidPropertyType *const*, const char *);
@@ -28039,7 +28039,7 @@ SOAP_FMAC3 gml__EllipsoidPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__Ellip
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__PrimeMeridianPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__PrimeMeridianPropertyType (1183)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__PrimeMeridianPropertyType (1182)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__PrimeMeridianPropertyType(struct soap*, gml__PrimeMeridianPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__PrimeMeridianPropertyType(struct soap*, const char *, int, gml__PrimeMeridianPropertyType *const*, const char *);
@@ -28058,7 +28058,7 @@ SOAP_FMAC3 gml__PrimeMeridianPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__P
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeodeticDatumPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeodeticDatumPropertyType (1182)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__GeodeticDatumPropertyType (1181)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__GeodeticDatumPropertyType(struct soap*, gml__GeodeticDatumPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__GeodeticDatumPropertyType(struct soap*, const char *, int, gml__GeodeticDatumPropertyType *const*, const char *);
@@ -28077,7 +28077,7 @@ SOAP_FMAC3 gml__GeodeticDatumPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__G
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__SphericalCSPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__SphericalCSPropertyType (1180)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__SphericalCSPropertyType (1179)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__SphericalCSPropertyType(struct soap*, gml__SphericalCSPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__SphericalCSPropertyType(struct soap*, const char *, int, gml__SphericalCSPropertyType *const*, const char *);
@@ -28096,7 +28096,7 @@ SOAP_FMAC3 gml__SphericalCSPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__Sph
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CartesianCSPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CartesianCSPropertyType (1179)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CartesianCSPropertyType (1178)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__CartesianCSPropertyType(struct soap*, gml__CartesianCSPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__CartesianCSPropertyType(struct soap*, const char *, int, gml__CartesianCSPropertyType *const*, const char *);
@@ -28115,7 +28115,7 @@ SOAP_FMAC3 gml__CartesianCSPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__Car
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__EllipsoidalCSPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__EllipsoidalCSPropertyType (1178)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__EllipsoidalCSPropertyType (1177)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__EllipsoidalCSPropertyType(struct soap*, gml__EllipsoidalCSPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__EllipsoidalCSPropertyType(struct soap*, const char *, int, gml__EllipsoidalCSPropertyType *const*, const char *);
@@ -28134,7 +28134,7 @@ SOAP_FMAC3 gml__EllipsoidalCSPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__E
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WitsmlWellboreReference
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WitsmlWellboreReference (1177)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WitsmlWellboreReference (1176)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__WitsmlWellboreReference(struct soap*, resqml2__WitsmlWellboreReference *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__WitsmlWellboreReference(struct soap*, const char *, int, resqml2__WitsmlWellboreReference *const*, const char *);
@@ -28153,7 +28153,7 @@ SOAP_FMAC3 resqml2__WitsmlWellboreReference ** SOAP_FMAC4 soap_get_PointerToresq
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Grid2dPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Grid2dPatch (1175)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Grid2dPatch (1174)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__Grid2dPatch(struct soap*, resqml2__Grid2dPatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__Grid2dPatch(struct soap*, const char *, int, resqml2__Grid2dPatch *const*, const char *);
@@ -28172,7 +28172,7 @@ SOAP_FMAC3 resqml2__Grid2dPatch ** SOAP_FMAC4 soap_get_PointerToresqml2__Grid2dP
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__VolumeRegion
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__VolumeRegion (1173)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__VolumeRegion (1172)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__VolumeRegion(struct soap*, resqml2__VolumeRegion *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__VolumeRegion(struct soap*, const char *, int, resqml2__VolumeRegion *const*, const char *);
@@ -28191,7 +28191,7 @@ SOAP_FMAC3 resqml2__VolumeRegion ** SOAP_FMAC4 soap_get_PointerToresqml2__Volume
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ContactIdentity
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ContactIdentity (1171)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ContactIdentity (1170)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ContactIdentity(struct soap*, resqml2__ContactIdentity *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ContactIdentity(struct soap*, const char *, int, resqml2__ContactIdentity *const*, const char *);
@@ -28210,7 +28210,7 @@ SOAP_FMAC3 resqml2__ContactIdentity ** SOAP_FMAC4 soap_get_PointerToresqml2__Con
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractPlaneGeometry
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractPlaneGeometry (1169)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractPlaneGeometry (1168)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AbstractPlaneGeometry(struct soap*, resqml2__AbstractPlaneGeometry *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AbstractPlaneGeometry(struct soap*, const char *, int, resqml2__AbstractPlaneGeometry *const*, const char *);
@@ -28229,7 +28229,7 @@ SOAP_FMAC3 resqml2__AbstractPlaneGeometry ** SOAP_FMAC4 soap_get_PointerToresqml
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TrianglePatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TrianglePatch (1167)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TrianglePatch (1166)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__TrianglePatch(struct soap*, resqml2__TrianglePatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__TrianglePatch(struct soap*, const char *, int, resqml2__TrianglePatch *const*, const char *);
@@ -28248,7 +28248,7 @@ SOAP_FMAC3 resqml2__TrianglePatch ** SOAP_FMAC4 soap_get_PointerToresqml2__Trian
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WellboreMarker
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WellboreMarker (1165)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WellboreMarker (1164)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__WellboreMarker(struct soap*, resqml2__WellboreMarker *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__WellboreMarker(struct soap*, const char *, int, resqml2__WellboreMarker *const*, const char *);
@@ -28267,7 +28267,7 @@ SOAP_FMAC3 resqml2__WellboreMarker ** SOAP_FMAC4 soap_get_PointerToresqml2__Well
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DepositionMode
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DepositionMode (1164)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DepositionMode (1163)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__DepositionMode(struct soap*, enum resqml2__DepositionMode *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__DepositionMode(struct soap*, const char *, int, enum resqml2__DepositionMode *const*, const char *);
@@ -28286,7 +28286,7 @@ SOAP_FMAC3 enum resqml2__DepositionMode ** SOAP_FMAC4 soap_get_PointerToresqml2_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SequenceStratigraphySurface
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SequenceStratigraphySurface (1163)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SequenceStratigraphySurface (1162)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__SequenceStratigraphySurface(struct soap*, enum resqml2__SequenceStratigraphySurface *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__SequenceStratigraphySurface(struct soap*, const char *, int, enum resqml2__SequenceStratigraphySurface *const*, const char *);
@@ -28305,7 +28305,7 @@ SOAP_FMAC3 enum resqml2__SequenceStratigraphySurface ** SOAP_FMAC4 soap_get_Poin
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Geobody3dShape
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Geobody3dShape (1162)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Geobody3dShape (1161)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__Geobody3dShape(struct soap*, enum resqml2__Geobody3dShape *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__Geobody3dShape(struct soap*, const char *, int, enum resqml2__Geobody3dShape *const*, const char *);
@@ -28324,7 +28324,7 @@ SOAP_FMAC3 enum resqml2__Geobody3dShape ** SOAP_FMAC4 soap_get_PointerToresqml2_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FaultThrow
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FaultThrow (1160)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FaultThrow (1159)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__FaultThrow(struct soap*, resqml2__FaultThrow *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__FaultThrow(struct soap*, const char *, int, resqml2__FaultThrow *const*, const char *);
@@ -28343,7 +28343,7 @@ SOAP_FMAC3 resqml2__FaultThrow ** SOAP_FMAC4 soap_get_PointerToresqml2__FaultThr
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__LengthMeasure
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__LengthMeasure (1159)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__LengthMeasure (1158)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToeml__LengthMeasure(struct soap*, eml__LengthMeasure *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToeml__LengthMeasure(struct soap*, const char *, int, eml__LengthMeasure *const*, const char *);
@@ -28362,7 +28362,7 @@ SOAP_FMAC3 eml__LengthMeasure ** SOAP_FMAC4 soap_get_PointerToeml__LengthMeasure
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__HorizonInterpretationIndex
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__HorizonInterpretationIndex (1157)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__HorizonInterpretationIndex (1156)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__HorizonInterpretationIndex(struct soap*, resqml2__HorizonInterpretationIndex *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__HorizonInterpretationIndex(struct soap*, const char *, int, resqml2__HorizonInterpretationIndex *const*, const char *);
@@ -28381,7 +28381,7 @@ SOAP_FMAC3 resqml2__HorizonInterpretationIndex ** SOAP_FMAC4 soap_get_PointerTor
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Phase
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Phase (1155)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Phase (1154)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__Phase(struct soap*, enum resqml2__Phase *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__Phase(struct soap*, const char *, int, enum resqml2__Phase *const*, const char *);
@@ -28400,7 +28400,7 @@ SOAP_FMAC3 enum resqml2__Phase ** SOAP_FMAC4 soap_get_PointerToresqml2__Phase(st
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__RockFluidUnitInterpretationIndex
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__RockFluidUnitInterpretationIndex (1154)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__RockFluidUnitInterpretationIndex (1153)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__RockFluidUnitInterpretationIndex(struct soap*, resqml2__RockFluidUnitInterpretationIndex *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__RockFluidUnitInterpretationIndex(struct soap*, const char *, int, resqml2__RockFluidUnitInterpretationIndex *const*, const char *);
@@ -28419,7 +28419,7 @@ SOAP_FMAC3 resqml2__RockFluidUnitInterpretationIndex ** SOAP_FMAC4 soap_get_Poin
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GpGridUnstructuredGridPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GpGridUnstructuredGridPatch (1152)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GpGridUnstructuredGridPatch (1151)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__GpGridUnstructuredGridPatch(struct soap*, resqml2__GpGridUnstructuredGridPatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__GpGridUnstructuredGridPatch(struct soap*, const char *, int, resqml2__GpGridUnstructuredGridPatch *const*, const char *);
@@ -28438,7 +28438,7 @@ SOAP_FMAC3 resqml2__GpGridUnstructuredGridPatch ** SOAP_FMAC4 soap_get_PointerTo
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GpGridColumnLayerGrid
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GpGridColumnLayerGrid (1150)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GpGridColumnLayerGrid (1149)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__GpGridColumnLayerGrid(struct soap*, resqml2__GpGridColumnLayerGrid *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__GpGridColumnLayerGrid(struct soap*, const char *, int, resqml2__GpGridColumnLayerGrid *const*, const char *);
@@ -28457,7 +28457,7 @@ SOAP_FMAC3 resqml2__GpGridColumnLayerGrid ** SOAP_FMAC4 soap_get_PointerToresqml
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CRSPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CRSPropertyType (1147)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CRSPropertyType (1146)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__CRSPropertyType(struct soap*, gml__CRSPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__CRSPropertyType(struct soap*, const char *, int, gml__CRSPropertyType *const*, const char *);
@@ -28476,7 +28476,7 @@ SOAP_FMAC3 gml__CRSPropertyType ** SOAP_FMAC4 soap_get_PointerTogml__CRSProperty
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__coordinateOperationAccuracy
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__coordinateOperationAccuracy (1145)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__coordinateOperationAccuracy (1144)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_gml__coordinateOperationAccuracy(struct soap*, _gml__coordinateOperationAccuracy *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_gml__coordinateOperationAccuracy(struct soap*, const char *, int, _gml__coordinateOperationAccuracy *const*, const char *);
@@ -28495,7 +28495,7 @@ SOAP_FMAC3 _gml__coordinateOperationAccuracy ** SOAP_FMAC4 soap_get_PointerTo_gm
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__secondDefiningParameter
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__secondDefiningParameter (1144)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__secondDefiningParameter (1143)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_gml__secondDefiningParameter(struct soap*, _gml__secondDefiningParameter *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_gml__secondDefiningParameter(struct soap*, const char *, int, _gml__secondDefiningParameter *const*, const char *);
@@ -28514,7 +28514,7 @@ SOAP_FMAC3 _gml__secondDefiningParameter ** SOAP_FMAC4 soap_get_PointerTo_gml__s
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__AngleType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__AngleType (1143)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__AngleType (1142)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__AngleType(struct soap*, gml__AngleType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__AngleType(struct soap*, const char *, int, gml__AngleType *const*, const char *);
@@ -28533,7 +28533,7 @@ SOAP_FMAC3 gml__AngleType ** SOAP_FMAC4 soap_get_PointerTogml__AngleType(struct 
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToxsd__date
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToxsd__date (1142)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToxsd__date (1141)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToxsd__date(struct soap*, std::string *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToxsd__date(struct soap*, const char *, int, std::string *const*, const char *);
@@ -28552,7 +28552,7 @@ SOAP_FMAC3 std::string ** SOAP_FMAC4 soap_get_PointerToxsd__date(struct soap*, s
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTodouble
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTodouble (1141)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTodouble (1140)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTodouble(struct soap*, double *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTodouble(struct soap*, const char *, int, double *const*, const char *);
@@ -28571,7 +28571,7 @@ SOAP_FMAC3 double ** SOAP_FMAC4 soap_get_PointerTodouble(struct soap*, double **
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__AggregationType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__AggregationType (1140)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__AggregationType (1139)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__AggregationType(struct soap*, enum gml__AggregationType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__AggregationType(struct soap*, const char *, int, enum gml__AggregationType *const*, const char *);
@@ -28590,7 +28590,7 @@ SOAP_FMAC3 enum gml__AggregationType ** SOAP_FMAC4 soap_get_PointerTogml__Aggreg
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CoordinateSystemAxisPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CoordinateSystemAxisPropertyType (1138)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__CoordinateSystemAxisPropertyType (1137)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__CoordinateSystemAxisPropertyType(struct soap*, gml__CoordinateSystemAxisPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__CoordinateSystemAxisPropertyType(struct soap*, const char *, int, gml__CoordinateSystemAxisPropertyType *const*, const char *);
@@ -28609,7 +28609,7 @@ SOAP_FMAC3 gml__CoordinateSystemAxisPropertyType ** SOAP_FMAC4 soap_get_PointerT
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__domainOfValidity
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__domainOfValidity (1136)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__domainOfValidity (1135)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_gml__domainOfValidity(struct soap*, _gml__domainOfValidity *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_gml__domainOfValidity(struct soap*, const char *, int, _gml__domainOfValidity *const*, const char *);
@@ -28628,7 +28628,7 @@ SOAP_FMAC3 _gml__domainOfValidity ** SOAP_FMAC4 soap_get_PointerTo_gml__domainOf
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StreamlinePolylineSetPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StreamlinePolylineSetPatch (1135)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StreamlinePolylineSetPatch (1134)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__StreamlinePolylineSetPatch(struct soap*, resqml2__StreamlinePolylineSetPatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__StreamlinePolylineSetPatch(struct soap*, const char *, int, resqml2__StreamlinePolylineSetPatch *const*, const char *);
@@ -28647,7 +28647,7 @@ SOAP_FMAC3 resqml2__StreamlinePolylineSetPatch ** SOAP_FMAC4 soap_get_PointerTor
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StreamlineWellbores
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StreamlineWellbores (1134)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StreamlineWellbores (1133)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__StreamlineWellbores(struct soap*, resqml2__StreamlineWellbores *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__StreamlineWellbores(struct soap*, const char *, int, resqml2__StreamlineWellbores *const*, const char *);
@@ -28666,7 +28666,7 @@ SOAP_FMAC3 resqml2__StreamlineWellbores ** SOAP_FMAC4 soap_get_PointerToresqml2_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchBoundaries
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchBoundaries (1132)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchBoundaries (1131)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__PatchBoundaries(struct soap*, resqml2__PatchBoundaries *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__PatchBoundaries(struct soap*, const char *, int, resqml2__PatchBoundaries *const*, const char *);
@@ -28685,7 +28685,7 @@ SOAP_FMAC3 resqml2__PatchBoundaries ** SOAP_FMAC4 soap_get_PointerToresqml2__Pat
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PolylineSetPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PolylineSetPatch (1130)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PolylineSetPatch (1129)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__PolylineSetPatch(struct soap*, resqml2__PolylineSetPatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__PolylineSetPatch(struct soap*, const char *, int, resqml2__PolylineSetPatch *const*, const char *);
@@ -28704,7 +28704,7 @@ SOAP_FMAC3 resqml2__PolylineSetPatch ** SOAP_FMAC4 soap_get_PointerToresqml2__Po
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__LineRole
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__LineRole (1129)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__LineRole (1128)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__LineRole(struct soap*, enum resqml2__LineRole *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__LineRole(struct soap*, const char *, int, enum resqml2__LineRole *const*, const char *);
@@ -28723,7 +28723,7 @@ SOAP_FMAC3 enum resqml2__LineRole ** SOAP_FMAC4 soap_get_PointerToresqml2__LineR
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__NodePatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__NodePatch (1127)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__NodePatch (1126)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__NodePatch(struct soap*, resqml2__NodePatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__NodePatch(struct soap*, const char *, int, resqml2__NodePatch *const*, const char *);
@@ -28742,7 +28742,7 @@ SOAP_FMAC3 resqml2__NodePatch ** SOAP_FMAC4 soap_get_PointerToresqml2__NodePatch
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WellboreTrajectoryParentIntersection
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WellboreTrajectoryParentIntersection (1126)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__WellboreTrajectoryParentIntersection (1125)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__WellboreTrajectoryParentIntersection(struct soap*, resqml2__WellboreTrajectoryParentIntersection *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__WellboreTrajectoryParentIntersection(struct soap*, const char *, int, resqml2__WellboreTrajectoryParentIntersection *const*, const char *);
@@ -28761,7 +28761,7 @@ SOAP_FMAC3 resqml2__WellboreTrajectoryParentIntersection ** SOAP_FMAC4 soap_get_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractParametricLineGeometry
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractParametricLineGeometry (1125)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractParametricLineGeometry (1124)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AbstractParametricLineGeometry(struct soap*, resqml2__AbstractParametricLineGeometry *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AbstractParametricLineGeometry(struct soap*, const char *, int, resqml2__AbstractParametricLineGeometry *const*, const char *);
@@ -28780,7 +28780,7 @@ SOAP_FMAC3 resqml2__AbstractParametricLineGeometry ** SOAP_FMAC4 soap_get_Pointe
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__MdDomain
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__MdDomain (1124)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__MdDomain (1123)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__MdDomain(struct soap*, enum resqml2__MdDomain *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__MdDomain(struct soap*, const char *, int, enum resqml2__MdDomain *const*, const char *);
@@ -28799,7 +28799,7 @@ SOAP_FMAC3 enum resqml2__MdDomain ** SOAP_FMAC4 soap_get_PointerToresqml2__MdDom
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntervalStratigraphicUnits
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntervalStratigraphicUnits (1123)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntervalStratigraphicUnits (1122)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__IntervalStratigraphicUnits(struct soap*, resqml2__IntervalStratigraphicUnits *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__IntervalStratigraphicUnits(struct soap*, const char *, int, resqml2__IntervalStratigraphicUnits *const*, const char *);
@@ -28818,7 +28818,7 @@ SOAP_FMAC3 resqml2__IntervalStratigraphicUnits ** SOAP_FMAC4 soap_get_PointerTor
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitMaterialImplacement
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitMaterialImplacement (1122)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitMaterialImplacement (1121)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__GeologicUnitMaterialImplacement(struct soap*, enum resqml2__GeologicUnitMaterialImplacement *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__GeologicUnitMaterialImplacement(struct soap*, const char *, int, enum resqml2__GeologicUnitMaterialImplacement *const*, const char *);
@@ -28837,7 +28837,7 @@ SOAP_FMAC3 enum resqml2__GeologicUnitMaterialImplacement ** SOAP_FMAC4 soap_get_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitComposition
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitComposition (1121)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicUnitComposition (1120)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__GeologicUnitComposition(struct soap*, enum resqml2__GeologicUnitComposition *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__GeologicUnitComposition(struct soap*, const char *, int, enum resqml2__GeologicUnitComposition *const*, const char *);
@@ -28856,7 +28856,7 @@ SOAP_FMAC3 enum resqml2__GeologicUnitComposition ** SOAP_FMAC4 soap_get_PointerT
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractContactInterpretationPart
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractContactInterpretationPart (1119)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractContactInterpretationPart (1118)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AbstractContactInterpretationPart(struct soap*, resqml2__AbstractContactInterpretationPart *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AbstractContactInterpretationPart(struct soap*, const char *, int, resqml2__AbstractContactInterpretationPart *const*, const char *);
@@ -28875,7 +28875,7 @@ SOAP_FMAC3 resqml2__AbstractContactInterpretationPart ** SOAP_FMAC4 soap_get_Poi
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ConnectionInterpretations
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ConnectionInterpretations (1118)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ConnectionInterpretations (1117)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ConnectionInterpretations(struct soap*, resqml2__ConnectionInterpretations *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ConnectionInterpretations(struct soap*, const char *, int, resqml2__ConnectionInterpretations *const*, const char *);
@@ -28894,7 +28894,7 @@ SOAP_FMAC3 resqml2__ConnectionInterpretations ** SOAP_FMAC4 soap_get_PointerTore
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IjGaps
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IjGaps (1117)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IjGaps (1116)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__IjGaps(struct soap*, resqml2__IjGaps *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__IjGaps(struct soap*, const char *, int, resqml2__IjGaps *const*, const char *);
@@ -28913,7 +28913,7 @@ SOAP_FMAC3 resqml2__IjGaps ** SOAP_FMAC4 soap_get_PointerToresqml2__IjGaps(struc
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__CellStratigraphicUnits
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__CellStratigraphicUnits (1116)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__CellStratigraphicUnits (1115)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__CellStratigraphicUnits(struct soap*, resqml2__CellStratigraphicUnits *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__CellStratigraphicUnits(struct soap*, const char *, int, resqml2__CellStratigraphicUnits *const*, const char *);
@@ -28932,7 +28932,7 @@ SOAP_FMAC3 resqml2__CellStratigraphicUnits ** SOAP_FMAC4 soap_get_PointerToresqm
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractParentWindow
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractParentWindow (1115)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractParentWindow (1114)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AbstractParentWindow(struct soap*, resqml2__AbstractParentWindow *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AbstractParentWindow(struct soap*, const char *, int, resqml2__AbstractParentWindow *const*, const char *);
@@ -28951,7 +28951,7 @@ SOAP_FMAC3 resqml2__AbstractParentWindow ** SOAP_FMAC4 soap_get_PointerToresqml2
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__CellFluidPhaseUnits
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__CellFluidPhaseUnits (1114)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__CellFluidPhaseUnits (1113)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__CellFluidPhaseUnits(struct soap*, resqml2__CellFluidPhaseUnits *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__CellFluidPhaseUnits(struct soap*, const char *, int, resqml2__CellFluidPhaseUnits *const*, const char *);
@@ -28970,7 +28970,7 @@ SOAP_FMAC3 resqml2__CellFluidPhaseUnits ** SOAP_FMAC4 soap_get_PointerToresqml2_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SubRepresentationPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SubRepresentationPatch (1112)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__SubRepresentationPatch (1111)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__SubRepresentationPatch(struct soap*, resqml2__SubRepresentationPatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__SubRepresentationPatch(struct soap*, const char *, int, resqml2__SubRepresentationPatch *const*, const char *);
@@ -28989,7 +28989,7 @@ SOAP_FMAC3 resqml2__SubRepresentationPatch ** SOAP_FMAC4 soap_get_PointerToresqm
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfGeometry
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfGeometry (1110)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfGeometry (1109)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__PatchOfGeometry(struct soap*, resqml2__PatchOfGeometry *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__PatchOfGeometry(struct soap*, const char *, int, resqml2__PatchOfGeometry *const*, const char *);
@@ -29008,7 +29008,7 @@ SOAP_FMAC3 resqml2__PatchOfGeometry ** SOAP_FMAC4 soap_get_PointerToresqml2__Pat
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PropertyKindFacet
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PropertyKindFacet (1108)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PropertyKindFacet (1107)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__PropertyKindFacet(struct soap*, resqml2__PropertyKindFacet *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__PropertyKindFacet(struct soap*, const char *, int, resqml2__PropertyKindFacet *const*, const char *);
@@ -29027,7 +29027,7 @@ SOAP_FMAC3 resqml2__PropertyKindFacet ** SOAP_FMAC4 soap_get_PointerToresqml2__P
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfValues
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfValues (1106)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfValues (1105)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__PatchOfValues(struct soap*, resqml2__PatchOfValues *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__PatchOfValues(struct soap*, const char *, int, resqml2__PatchOfValues *const*, const char *);
@@ -29046,7 +29046,7 @@ SOAP_FMAC3 resqml2__PatchOfValues ** SOAP_FMAC4 soap_get_PointerToresqml2__Patch
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StringLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StringLookup (1104)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__StringLookup (1103)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__StringLookup(struct soap*, resqml2__StringLookup *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__StringLookup(struct soap*, const char *, int, resqml2__StringLookup *const*, const char *);
@@ -29065,7 +29065,7 @@ SOAP_FMAC3 resqml2__StringLookup ** SOAP_FMAC4 soap_get_PointerToresqml2__String
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfPoints
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfPoints (1102)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__PatchOfPoints (1101)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__PatchOfPoints(struct soap*, resqml2__PatchOfPoints *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__PatchOfPoints(struct soap*, const char *, int, resqml2__PatchOfPoints *const*, const char *);
@@ -29084,7 +29084,7 @@ SOAP_FMAC3 resqml2__PatchOfPoints ** SOAP_FMAC4 soap_get_PointerToresqml2__Patch
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DoubleLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DoubleLookup (1100)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DoubleLookup (1099)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__DoubleLookup(struct soap*, resqml2__DoubleLookup *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__DoubleLookup(struct soap*, const char *, int, resqml2__DoubleLookup *const*, const char *);
@@ -29103,7 +29103,7 @@ SOAP_FMAC3 resqml2__DoubleLookup ** SOAP_FMAC4 soap_get_PointerToresqml2__Double
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ParameterTemplate
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ParameterTemplate (1098)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ParameterTemplate (1097)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ParameterTemplate(struct soap*, resqml2__ParameterTemplate *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ParameterTemplate(struct soap*, const char *, int, resqml2__ParameterTemplate *const*, const char *);
@@ -29122,7 +29122,7 @@ SOAP_FMAC3 resqml2__ParameterTemplate ** SOAP_FMAC4 soap_get_PointerToresqml2__P
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicBoundaryKind
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicBoundaryKind (1097)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__GeologicBoundaryKind (1096)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__GeologicBoundaryKind(struct soap*, enum resqml2__GeologicBoundaryKind *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__GeologicBoundaryKind(struct soap*, const char *, int, enum resqml2__GeologicBoundaryKind *const*, const char *);
@@ -29141,7 +29141,7 @@ SOAP_FMAC3 enum resqml2__GeologicBoundaryKind ** SOAP_FMAC4 soap_get_PointerTore
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FluidMarker
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FluidMarker (1096)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FluidMarker (1095)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__FluidMarker(struct soap*, enum resqml2__FluidMarker *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__FluidMarker(struct soap*, const char *, int, enum resqml2__FluidMarker *const*, const char *);
@@ -29160,7 +29160,7 @@ SOAP_FMAC3 enum resqml2__FluidMarker ** SOAP_FMAC4 soap_get_PointerToresqml2__Fl
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FluidContact
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FluidContact (1095)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__FluidContact (1094)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__FluidContact(struct soap*, enum resqml2__FluidContact *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__FluidContact(struct soap*, const char *, int, enum resqml2__FluidContact *const*, const char *);
@@ -29179,7 +29179,7 @@ SOAP_FMAC3 enum resqml2__FluidContact ** SOAP_FMAC4 soap_get_PointerToresqml2__F
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TimeSeriesParentage
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TimeSeriesParentage (1094)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__TimeSeriesParentage (1093)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__TimeSeriesParentage(struct soap*, resqml2__TimeSeriesParentage *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__TimeSeriesParentage(struct soap*, const char *, int, resqml2__TimeSeriesParentage *const*, const char *);
@@ -29198,7 +29198,7 @@ SOAP_FMAC3 resqml2__TimeSeriesParentage ** SOAP_FMAC4 soap_get_PointerToresqml2_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Timestamp
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Timestamp (1092)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Timestamp (1091)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__Timestamp(struct soap*, resqml2__Timestamp *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__Timestamp(struct soap*, const char *, int, resqml2__Timestamp *const*, const char *);
@@ -29217,7 +29217,7 @@ SOAP_FMAC3 resqml2__Timestamp ** SOAP_FMAC4 soap_get_PointerToresqml2__Timestamp
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__PlaneAngleMeasure
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__PlaneAngleMeasure (1091)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__PlaneAngleMeasure (1090)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToeml__PlaneAngleMeasure(struct soap*, eml__PlaneAngleMeasure *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToeml__PlaneAngleMeasure(struct soap*, const char *, int, eml__PlaneAngleMeasure *const*, const char *);
@@ -29236,7 +29236,7 @@ SOAP_FMAC3 eml__PlaneAngleMeasure ** SOAP_FMAC4 soap_get_PointerToeml__PlaneAngl
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ChronostratigraphicRank
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ChronostratigraphicRank (1089)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ChronostratigraphicRank (1088)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ChronostratigraphicRank(struct soap*, resqml2__ChronostratigraphicRank *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ChronostratigraphicRank(struct soap*, const char *, int, resqml2__ChronostratigraphicRank *const*, const char *);
@@ -29255,7 +29255,7 @@ SOAP_FMAC3 resqml2__ChronostratigraphicRank ** SOAP_FMAC4 soap_get_PointerToresq
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ColumnLayerSplitCoordinateLines
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ColumnLayerSplitCoordinateLines (1088)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ColumnLayerSplitCoordinateLines (1087)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ColumnLayerSplitCoordinateLines(struct soap*, resqml2__ColumnLayerSplitCoordinateLines *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ColumnLayerSplitCoordinateLines(struct soap*, const char *, int, resqml2__ColumnLayerSplitCoordinateLines *const*, const char *);
@@ -29274,7 +29274,7 @@ SOAP_FMAC3 resqml2__ColumnLayerSplitCoordinateLines ** SOAP_FMAC4 soap_get_Point
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__UnstructuredGridHingeNodeFaces
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__UnstructuredGridHingeNodeFaces (1087)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__UnstructuredGridHingeNodeFaces (1086)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__UnstructuredGridHingeNodeFaces(struct soap*, resqml2__UnstructuredGridHingeNodeFaces *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__UnstructuredGridHingeNodeFaces(struct soap*, const char *, int, resqml2__UnstructuredGridHingeNodeFaces *const*, const char *);
@@ -29293,7 +29293,7 @@ SOAP_FMAC3 resqml2__UnstructuredGridHingeNodeFaces ** SOAP_FMAC4 soap_get_Pointe
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Activation
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Activation (1086)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__Activation (1085)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__Activation(struct soap*, resqml2__Activation *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__Activation(struct soap*, const char *, int, resqml2__Activation *const*, const char *);
@@ -29312,7 +29312,7 @@ SOAP_FMAC3 resqml2__Activation ** SOAP_FMAC4 soap_get_PointerToresqml2__Activati
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__RepresentationIdentity
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__RepresentationIdentity (1084)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__RepresentationIdentity (1083)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__RepresentationIdentity(struct soap*, resqml2__RepresentationIdentity *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__RepresentationIdentity(struct soap*, const char *, int, resqml2__RepresentationIdentity *const*, const char *);
@@ -29331,7 +29331,7 @@ SOAP_FMAC3 resqml2__RepresentationIdentity ** SOAP_FMAC4 soap_get_PointerToresqm
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractPropertyKind
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractPropertyKind (1083)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractPropertyKind (1082)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AbstractPropertyKind(struct soap*, resqml2__AbstractPropertyKind *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AbstractPropertyKind(struct soap*, const char *, int, resqml2__AbstractPropertyKind *const*, const char *);
@@ -29350,7 +29350,7 @@ SOAP_FMAC3 resqml2__AbstractPropertyKind ** SOAP_FMAC4 soap_get_PointerToresqml2
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__RelatedTimeType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__RelatedTimeType (1081)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__RelatedTimeType (1080)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__RelatedTimeType(struct soap*, gml__RelatedTimeType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__RelatedTimeType(struct soap*, const char *, int, gml__RelatedTimeType *const*, const char *);
@@ -29369,7 +29369,7 @@ SOAP_FMAC3 gml__RelatedTimeType ** SOAP_FMAC4 soap_get_PointerTogml__RelatedTime
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__AbstractVerticalCrs
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__AbstractVerticalCrs (1080)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__AbstractVerticalCrs (1079)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToeml__AbstractVerticalCrs(struct soap*, eml__AbstractVerticalCrs *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToeml__AbstractVerticalCrs(struct soap*, const char *, int, eml__AbstractVerticalCrs *const*, const char *);
@@ -29388,7 +29388,7 @@ SOAP_FMAC3 eml__AbstractVerticalCrs ** SOAP_FMAC4 soap_get_PointerToeml__Abstrac
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__LengthUom
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__LengthUom (1079)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__LengthUom (1078)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToeml__LengthUom(struct soap*, enum eml__LengthUom *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToeml__LengthUom(struct soap*, const char *, int, enum eml__LengthUom *const*, const char *);
@@ -29407,7 +29407,7 @@ SOAP_FMAC3 enum eml__LengthUom ** SOAP_FMAC4 soap_get_PointerToeml__LengthUom(st
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__AbstractProjectedCrs
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__AbstractProjectedCrs (1078)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToeml__AbstractProjectedCrs (1077)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToeml__AbstractProjectedCrs(struct soap*, eml__AbstractProjectedCrs *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToeml__AbstractProjectedCrs(struct soap*, const char *, int, eml__AbstractProjectedCrs *const*, const char *);
@@ -29426,7 +29426,7 @@ SOAP_FMAC3 eml__AbstractProjectedCrs ** SOAP_FMAC4 soap_get_PointerToeml__Abstra
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__EdgePatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__EdgePatch (1076)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__EdgePatch (1075)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__EdgePatch(struct soap*, resqml2__EdgePatch *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__EdgePatch(struct soap*, const char *, int, resqml2__EdgePatch *const*, const char *);
@@ -29445,7 +29445,7 @@ SOAP_FMAC3 resqml2__EdgePatch ** SOAP_FMAC4 soap_get_PointerToresqml2__EdgePatch
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__NameValuePair
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__NameValuePair (1074)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__NameValuePair (1073)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__NameValuePair(struct soap*, resqml2__NameValuePair *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__NameValuePair(struct soap*, const char *, int, resqml2__NameValuePair *const*, const char *);
@@ -29464,7 +29464,7 @@ SOAP_FMAC3 resqml2__NameValuePair ** SOAP_FMAC4 soap_get_PointerToresqml2__NameV
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AdditionalGridPoints
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AdditionalGridPoints (1072)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AdditionalGridPoints (1071)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AdditionalGridPoints(struct soap*, resqml2__AdditionalGridPoints *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AdditionalGridPoints(struct soap*, const char *, int, resqml2__AdditionalGridPoints *const*, const char *);
@@ -29483,7 +29483,7 @@ SOAP_FMAC3 resqml2__AdditionalGridPoints ** SOAP_FMAC4 soap_get_PointerToresqml2
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ElementIndices
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ElementIndices (1070)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ElementIndices (1069)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ElementIndices(struct soap*, resqml2__ElementIndices *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ElementIndices(struct soap*, const char *, int, resqml2__ElementIndices *const*, const char *);
@@ -29502,7 +29502,7 @@ SOAP_FMAC3 resqml2__ElementIndices ** SOAP_FMAC4 soap_get_PointerToresqml2__Elem
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ThreePoint3d
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ThreePoint3d (1068)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ThreePoint3d (1067)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ThreePoint3d(struct soap*, resqml2__ThreePoint3d *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ThreePoint3d(struct soap*, const char *, int, resqml2__ThreePoint3d *const*, const char *);
@@ -29521,7 +29521,7 @@ SOAP_FMAC3 resqml2__ThreePoint3d ** SOAP_FMAC4 soap_get_PointerToresqml2__ThreeP
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntegerConstantArray
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntegerConstantArray (1066)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntegerConstantArray (1065)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__IntegerConstantArray(struct soap*, resqml2__IntegerConstantArray *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__IntegerConstantArray(struct soap*, const char *, int, resqml2__IntegerConstantArray *const*, const char *);
@@ -29540,7 +29540,7 @@ SOAP_FMAC3 resqml2__IntegerConstantArray ** SOAP_FMAC4 soap_get_PointerToresqml2
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DoubleConstantArray
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DoubleConstantArray (1064)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__DoubleConstantArray (1063)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__DoubleConstantArray(struct soap*, resqml2__DoubleConstantArray *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__DoubleConstantArray(struct soap*, const char *, int, resqml2__DoubleConstantArray *const*, const char *);
@@ -29559,7 +29559,7 @@ SOAP_FMAC3 resqml2__DoubleConstantArray ** SOAP_FMAC4 soap_get_PointerToresqml2_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType (1063)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType (1062)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType(struct soap*, gmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType *const*, const char *);
@@ -29578,7 +29578,7 @@ SOAP_FMAC3 gmd__CI_USCOREOnLineFunctionCode_USCOREPropertyType ** SOAP_FMAC4 soa
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__URL_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__URL_USCOREPropertyType (1062)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__URL_USCOREPropertyType (1061)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__URL_USCOREPropertyType(struct soap*, gmd__URL_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__URL_USCOREPropertyType(struct soap*, const char *, int, gmd__URL_USCOREPropertyType *const*, const char *);
@@ -29597,7 +29597,7 @@ SOAP_FMAC3 gmd__URL_USCOREPropertyType ** SOAP_FMAC4 soap_get_PointerTogmd__URL_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREOnlineResource_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREOnlineResource_USCOREPropertyType (1061)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREOnlineResource_USCOREPropertyType (1060)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREOnlineResource_USCOREPropertyType(struct soap*, gmd__CI_USCOREOnlineResource_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREOnlineResource_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREOnlineResource_USCOREPropertyType *const*, const char *);
@@ -29616,7 +29616,7 @@ SOAP_FMAC3 gmd__CI_USCOREOnlineResource_USCOREPropertyType ** SOAP_FMAC4 soap_ge
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREAddress_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREAddress_USCOREPropertyType (1060)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREAddress_USCOREPropertyType (1059)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREAddress_USCOREPropertyType(struct soap*, gmd__CI_USCOREAddress_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREAddress_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREAddress_USCOREPropertyType *const*, const char *);
@@ -29635,7 +29635,7 @@ SOAP_FMAC3 gmd__CI_USCOREAddress_USCOREPropertyType ** SOAP_FMAC4 soap_get_Point
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORETelephone_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORETelephone_USCOREPropertyType (1059)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORETelephone_USCOREPropertyType (1058)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCORETelephone_USCOREPropertyType(struct soap*, gmd__CI_USCORETelephone_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCORETelephone_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCORETelephone_USCOREPropertyType *const*, const char *);
@@ -29654,7 +29654,7 @@ SOAP_FMAC3 gmd__CI_USCORETelephone_USCOREPropertyType ** SOAP_FMAC4 soap_get_Poi
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORERoleCode_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORERoleCode_USCOREPropertyType (1058)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORERoleCode_USCOREPropertyType (1057)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCORERoleCode_USCOREPropertyType(struct soap*, gmd__CI_USCORERoleCode_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCORERoleCode_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCORERoleCode_USCOREPropertyType *const*, const char *);
@@ -29673,7 +29673,7 @@ SOAP_FMAC3 gmd__CI_USCORERoleCode_USCOREPropertyType ** SOAP_FMAC4 soap_get_Poin
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREContact_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREContact_USCOREPropertyType (1057)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREContact_USCOREPropertyType (1056)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREContact_USCOREPropertyType(struct soap*, gmd__CI_USCOREContact_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREContact_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREContact_USCOREPropertyType *const*, const char *);
@@ -29692,7 +29692,7 @@ SOAP_FMAC3 gmd__CI_USCOREContact_USCOREPropertyType ** SOAP_FMAC4 soap_get_Point
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREDateTypeCode_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREDateTypeCode_USCOREPropertyType (1056)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREDateTypeCode_USCOREPropertyType (1055)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREDateTypeCode_USCOREPropertyType(struct soap*, gmd__CI_USCOREDateTypeCode_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREDateTypeCode_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREDateTypeCode_USCOREPropertyType *const*, const char *);
@@ -29711,7 +29711,7 @@ SOAP_FMAC3 gmd__CI_USCOREDateTypeCode_USCOREPropertyType ** SOAP_FMAC4 soap_get_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORESeries_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORESeries_USCOREPropertyType (1055)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORESeries_USCOREPropertyType (1054)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCORESeries_USCOREPropertyType(struct soap*, gmd__CI_USCORESeries_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCORESeries_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCORESeries_USCOREPropertyType *const*, const char *);
@@ -29730,7 +29730,7 @@ SOAP_FMAC3 gmd__CI_USCORESeries_USCOREPropertyType ** SOAP_FMAC4 soap_get_Pointe
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType (1053)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType (1052)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType(struct soap*, gmd__CI_USCOREPresentationFormCode_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREPresentationFormCode_USCOREPropertyType *const*, const char *);
@@ -29749,7 +29749,7 @@ SOAP_FMAC3 gmd__CI_USCOREPresentationFormCode_USCOREPropertyType ** SOAP_FMAC4 s
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType (1051)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType (1050)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType(struct soap*, gmd__CI_USCOREResponsibleParty_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREResponsibleParty_USCOREPropertyType *const*, const char *);
@@ -29768,7 +29768,7 @@ SOAP_FMAC3 gmd__CI_USCOREResponsibleParty_USCOREPropertyType ** SOAP_FMAC4 soap_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Date_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Date_USCOREPropertyType (1049)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Date_USCOREPropertyType (1048)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogco__Date_USCOREPropertyType(struct soap*, gco__Date_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogco__Date_USCOREPropertyType(struct soap*, const char *, int, gco__Date_USCOREPropertyType *const*, const char *);
@@ -29787,7 +29787,7 @@ SOAP_FMAC3 gco__Date_USCOREPropertyType ** SOAP_FMAC4 soap_get_PointerTogco__Dat
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREDate_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREDate_USCOREPropertyType (1047)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCOREDate_USCOREPropertyType (1046)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCOREDate_USCOREPropertyType(struct soap*, gmd__CI_USCOREDate_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCOREDate_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCOREDate_USCOREPropertyType *const*, const char *);
@@ -29806,7 +29806,7 @@ SOAP_FMAC3 gmd__CI_USCOREDate_USCOREPropertyType ** SOAP_FMAC4 soap_get_PointerT
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__DQ_USCOREResult_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__DQ_USCOREResult_USCOREPropertyType (1045)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__DQ_USCOREResult_USCOREPropertyType (1044)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__DQ_USCOREResult_USCOREPropertyType(struct soap*, gmd__DQ_USCOREResult_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__DQ_USCOREResult_USCOREPropertyType(struct soap*, const char *, int, gmd__DQ_USCOREResult_USCOREPropertyType *const*, const char *);
@@ -29825,7 +29825,7 @@ SOAP_FMAC3 gmd__DQ_USCOREResult_USCOREPropertyType ** SOAP_FMAC4 soap_get_Pointe
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__DateTime_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__DateTime_USCOREPropertyType (1043)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__DateTime_USCOREPropertyType (1042)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogco__DateTime_USCOREPropertyType(struct soap*, gco__DateTime_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogco__DateTime_USCOREPropertyType(struct soap*, const char *, int, gco__DateTime_USCOREPropertyType *const*, const char *);
@@ -29844,7 +29844,7 @@ SOAP_FMAC3 gco__DateTime_USCOREPropertyType ** SOAP_FMAC4 soap_get_PointerTogco_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORECitation_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORECitation_USCOREPropertyType (1042)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__CI_USCORECitation_USCOREPropertyType (1041)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__CI_USCORECitation_USCOREPropertyType(struct soap*, gmd__CI_USCORECitation_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__CI_USCORECitation_USCOREPropertyType(struct soap*, const char *, int, gmd__CI_USCORECitation_USCOREPropertyType *const*, const char *);
@@ -29863,7 +29863,7 @@ SOAP_FMAC3 gmd__CI_USCORECitation_USCOREPropertyType ** SOAP_FMAC4 soap_get_Poin
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType (1041)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType (1040)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType(struct soap*, gmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType(struct soap*, const char *, int, gmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType *const*, const char *);
@@ -29882,7 +29882,7 @@ SOAP_FMAC3 gmd__DQ_USCOREEvaluationMethodTypeCode_USCOREPropertyType ** SOAP_FMA
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__MD_USCOREIdentifier_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__MD_USCOREIdentifier_USCOREPropertyType (1040)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__MD_USCOREIdentifier_USCOREPropertyType (1039)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__MD_USCOREIdentifier_USCOREPropertyType(struct soap*, gmd__MD_USCOREIdentifier_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__MD_USCOREIdentifier_USCOREPropertyType(struct soap*, const char *, int, gmd__MD_USCOREIdentifier_USCOREPropertyType *const*, const char *);
@@ -29901,7 +29901,7 @@ SOAP_FMAC3 gmd__MD_USCOREIdentifier_USCOREPropertyType ** SOAP_FMAC4 soap_get_Po
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogsr__SC_USCORECRS_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogsr__SC_USCORECRS_USCOREPropertyType (1038)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogsr__SC_USCORECRS_USCOREPropertyType (1037)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogsr__SC_USCORECRS_USCOREPropertyType(struct soap*, gsr__SC_USCORECRS_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogsr__SC_USCORECRS_USCOREPropertyType(struct soap*, const char *, int, gsr__SC_USCORECRS_USCOREPropertyType *const*, const char *);
@@ -29920,7 +29920,7 @@ SOAP_FMAC3 gsr__SC_USCORECRS_USCOREPropertyType ** SOAP_FMAC4 soap_get_PointerTo
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Real_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Real_USCOREPropertyType (1037)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Real_USCOREPropertyType (1036)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogco__Real_USCOREPropertyType(struct soap*, gco__Real_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogco__Real_USCOREPropertyType(struct soap*, const char *, int, gco__Real_USCOREPropertyType *const*, const char *);
@@ -29939,7 +29939,7 @@ SOAP_FMAC3 gco__Real_USCOREPropertyType ** SOAP_FMAC4 soap_get_PointerTogco__Rea
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogts__TM_USCOREPrimitive_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogts__TM_USCOREPrimitive_USCOREPropertyType (1036)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogts__TM_USCOREPrimitive_USCOREPropertyType (1035)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogts__TM_USCOREPrimitive_USCOREPropertyType(struct soap*, gts__TM_USCOREPrimitive_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogts__TM_USCOREPrimitive_USCOREPropertyType(struct soap*, const char *, int, gts__TM_USCOREPrimitive_USCOREPropertyType *const*, const char *);
@@ -29958,7 +29958,7 @@ SOAP_FMAC3 gts__TM_USCOREPrimitive_USCOREPropertyType ** SOAP_FMAC4 soap_get_Poi
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Boolean_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Boolean_USCOREPropertyType (1035)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__Boolean_USCOREPropertyType (1034)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogco__Boolean_USCOREPropertyType(struct soap*, gco__Boolean_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogco__Boolean_USCOREPropertyType(struct soap*, const char *, int, gco__Boolean_USCOREPropertyType *const*, const char *);
@@ -29977,7 +29977,7 @@ SOAP_FMAC3 gco__Boolean_USCOREPropertyType ** SOAP_FMAC4 soap_get_PointerTogco__
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType (1033)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType (1032)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType(struct soap*, gmd__EX_USCOREVerticalExtent_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType(struct soap*, const char *, int, gmd__EX_USCOREVerticalExtent_USCOREPropertyType *const*, const char *);
@@ -29996,7 +29996,7 @@ SOAP_FMAC3 gmd__EX_USCOREVerticalExtent_USCOREPropertyType ** SOAP_FMAC4 soap_ge
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType (1031)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType (1030)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType(struct soap*, gmd__EX_USCORETemporalExtent_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType(struct soap*, const char *, int, gmd__EX_USCORETemporalExtent_USCOREPropertyType *const*, const char *);
@@ -30015,7 +30015,7 @@ SOAP_FMAC3 gmd__EX_USCORETemporalExtent_USCOREPropertyType ** SOAP_FMAC4 soap_ge
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType (1029)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType (1028)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType(struct soap*, gmd__EX_USCOREGeographicExtent_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType(struct soap*, const char *, int, gmd__EX_USCOREGeographicExtent_USCOREPropertyType *const*, const char *);
@@ -30034,7 +30034,7 @@ SOAP_FMAC3 gmd__EX_USCOREGeographicExtent_USCOREPropertyType ** SOAP_FMAC4 soap_
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__CharacterString_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__CharacterString_USCOREPropertyType (1028)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogco__CharacterString_USCOREPropertyType (1027)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogco__CharacterString_USCOREPropertyType(struct soap*, gco__CharacterString_USCOREPropertyType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogco__CharacterString_USCOREPropertyType(struct soap*, const char *, int, gco__CharacterString_USCOREPropertyType *const*, const char *);
@@ -30053,7 +30053,7 @@ SOAP_FMAC3 gco__CharacterString_USCOREPropertyType ** SOAP_FMAC4 soap_get_Pointe
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__RelatedTimeType_relativePosition
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__RelatedTimeType_relativePosition (1027)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTo_gml__RelatedTimeType_relativePosition (1026)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_gml__RelatedTimeType_relativePosition(struct soap*, enum _gml__RelatedTimeType_relativePosition *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_gml__RelatedTimeType_relativePosition(struct soap*, const char *, int, enum _gml__RelatedTimeType_relativePosition *const*, const char *);
@@ -30072,7 +30072,7 @@ SOAP_FMAC3 enum _gml__RelatedTimeType_relativePosition ** SOAP_FMAC4 soap_get_Po
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__ProjectedCRSType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__ProjectedCRSType (1025)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__ProjectedCRSType (1024)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__ProjectedCRSType(struct soap*, gml__ProjectedCRSType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__ProjectedCRSType(struct soap*, const char *, int, gml__ProjectedCRSType *const*, const char *);
@@ -30091,7 +30091,7 @@ SOAP_FMAC3 gml__ProjectedCRSType ** SOAP_FMAC4 soap_get_PointerTogml__ProjectedC
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalCRSType
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalCRSType (1024)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerTogml__VerticalCRSType (1023)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTogml__VerticalCRSType(struct soap*, gml__VerticalCRSType *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTogml__VerticalCRSType(struct soap*, const char *, int, gml__VerticalCRSType *const*, const char *);
@@ -30110,7 +30110,7 @@ SOAP_FMAC3 gml__VerticalCRSType ** SOAP_FMAC4 soap_get_PointerTogml__VerticalCRS
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntervalGridCells
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntervalGridCells (1023)
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__IntervalGridCells (1022)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__IntervalGridCells(struct soap*, resqml2__IntervalGridCells *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__IntervalGridCells(struct soap*, const char *, int, resqml2__IntervalGridCells *const*, const char *);
@@ -30125,25 +30125,6 @@ SOAP_FMAC3 resqml2__IntervalGridCells ** SOAP_FMAC4 soap_get_PointerToresqml2__I
 
 #ifndef soap_read_PointerToresqml2__IntervalGridCells
 #define soap_read_PointerToresqml2__IntervalGridCells(soap, data) ( soap_begin_recv(soap) || !gsoap_resqml2_0_1::soap_get_PointerToresqml2__IntervalGridCells(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
-#endif
-
-
-#ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractResqmlDataObject
-#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__AbstractResqmlDataObject (1022)
-#endif
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__AbstractResqmlDataObject(struct soap*, resqml2__AbstractResqmlDataObject *const*);
-SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__AbstractResqmlDataObject(struct soap*, const char *, int, resqml2__AbstractResqmlDataObject *const*, const char *);
-SOAP_FMAC3 resqml2__AbstractResqmlDataObject ** SOAP_FMAC4 soap_in_PointerToresqml2__AbstractResqmlDataObject(struct soap*, const char*, resqml2__AbstractResqmlDataObject **, const char*);
-SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToresqml2__AbstractResqmlDataObject(struct soap*, resqml2__AbstractResqmlDataObject *const*, const char*, const char*);
-
-#ifndef soap_write_PointerToresqml2__AbstractResqmlDataObject
-#define soap_write_PointerToresqml2__AbstractResqmlDataObject(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (gsoap_resqml2_0_1::soap_serialize_PointerToresqml2__AbstractResqmlDataObject(soap, data), 0) || gsoap_resqml2_0_1::soap_put_PointerToresqml2__AbstractResqmlDataObject(soap, data, "resqml2:AbstractResqmlDataObject", NULL) || soap_end_send(soap), (soap)->error )
-#endif
-
-SOAP_FMAC3 resqml2__AbstractResqmlDataObject ** SOAP_FMAC4 soap_get_PointerToresqml2__AbstractResqmlDataObject(struct soap*, resqml2__AbstractResqmlDataObject **, const char*, const char*);
-
-#ifndef soap_read_PointerToresqml2__AbstractResqmlDataObject
-#define soap_read_PointerToresqml2__AbstractResqmlDataObject(soap, data) ( soap_begin_recv(soap) || !gsoap_resqml2_0_1::soap_get_PointerToresqml2__AbstractResqmlDataObject(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
 #endif
 
 
@@ -32945,7 +32926,7 @@ SOAP_FMAC3 char ** SOAP_FMAC4 soap_get_string(struct soap*, char **, const char*
 
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__SealedContactRepresentationPart
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__SealedContactRepresentationPart (1195)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__SealedContactRepresentationPart (1194)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__SealedContactRepresentationPart(struct soap*, std::vector<resqml2__SealedContactRepresentationPart * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__SealedContactRepresentationPart(struct soap*, const std::vector<resqml2__SealedContactRepresentationPart * >*);
@@ -32960,7 +32941,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__SealedContactRepr
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__SealedContactRepresentationPart(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractContactRepresentationPart
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractContactRepresentationPart (1193)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractContactRepresentationPart (1192)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__AbstractContactRepresentationPart(struct soap*, std::vector<resqml2__AbstractContactRepresentationPart * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__AbstractContactRepresentationPart(struct soap*, const std::vector<resqml2__AbstractContactRepresentationPart * >*);
@@ -32975,7 +32956,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__AbstractContactRe
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__AbstractContactRepresentationPart(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GeologicUnitInterpretationIndex
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GeologicUnitInterpretationIndex (1191)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GeologicUnitInterpretationIndex (1190)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__GeologicUnitInterpretationIndex(struct soap*, std::vector<resqml2__GeologicUnitInterpretationIndex * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__GeologicUnitInterpretationIndex(struct soap*, const std::vector<resqml2__GeologicUnitInterpretationIndex * >*);
@@ -32990,7 +32971,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__GeologicUnitInter
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__GeologicUnitInterpretationIndex(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__StratigraphicUnitInterpretationIndex
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__StratigraphicUnitInterpretationIndex (1189)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__StratigraphicUnitInterpretationIndex (1188)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__StratigraphicUnitInterpretationIndex(struct soap*, std::vector<resqml2__StratigraphicUnitInterpretationIndex * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__StratigraphicUnitInterpretationIndex(struct soap*, const std::vector<resqml2__StratigraphicUnitInterpretationIndex * >*);
@@ -33005,7 +32986,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__StratigraphicUnit
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__StratigraphicUnitInterpretationIndex(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__Grid2dPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__Grid2dPatch (1176)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__Grid2dPatch (1175)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__Grid2dPatch(struct soap*, std::vector<resqml2__Grid2dPatch * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__Grid2dPatch(struct soap*, const std::vector<resqml2__Grid2dPatch * >*);
@@ -33020,7 +33001,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__Grid2dPatch(struc
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__Grid2dPatch(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__VolumeRegion
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__VolumeRegion (1174)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__VolumeRegion (1173)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__VolumeRegion(struct soap*, std::vector<resqml2__VolumeRegion * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__VolumeRegion(struct soap*, const std::vector<resqml2__VolumeRegion * >*);
@@ -33035,7 +33016,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__VolumeRegion(stru
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__VolumeRegion(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ContactIdentity
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ContactIdentity (1172)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ContactIdentity (1171)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__ContactIdentity(struct soap*, std::vector<resqml2__ContactIdentity * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__ContactIdentity(struct soap*, const std::vector<resqml2__ContactIdentity * >*);
@@ -33050,7 +33031,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__ContactIdentity(s
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__ContactIdentity(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractPlaneGeometry
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractPlaneGeometry (1170)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractPlaneGeometry (1169)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__AbstractPlaneGeometry(struct soap*, std::vector<resqml2__AbstractPlaneGeometry * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__AbstractPlaneGeometry(struct soap*, const std::vector<resqml2__AbstractPlaneGeometry * >*);
@@ -33065,7 +33046,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__AbstractPlaneGeom
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__AbstractPlaneGeometry(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__TrianglePatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__TrianglePatch (1168)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__TrianglePatch (1167)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__TrianglePatch(struct soap*, std::vector<resqml2__TrianglePatch * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__TrianglePatch(struct soap*, const std::vector<resqml2__TrianglePatch * >*);
@@ -33080,7 +33061,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__TrianglePatch(str
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__TrianglePatch(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__WellboreMarker
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__WellboreMarker (1166)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__WellboreMarker (1165)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__WellboreMarker(struct soap*, std::vector<resqml2__WellboreMarker * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__WellboreMarker(struct soap*, const std::vector<resqml2__WellboreMarker * >*);
@@ -33095,7 +33076,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__WellboreMarker(st
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__WellboreMarker(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__FaultThrow
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__FaultThrow (1161)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__FaultThrow (1160)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__FaultThrow(struct soap*, std::vector<resqml2__FaultThrow * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__FaultThrow(struct soap*, const std::vector<resqml2__FaultThrow * >*);
@@ -33110,7 +33091,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__FaultThrow(struct
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__FaultThrow(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__HorizonInterpretationIndex
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__HorizonInterpretationIndex (1158)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__HorizonInterpretationIndex (1157)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__HorizonInterpretationIndex(struct soap*, std::vector<resqml2__HorizonInterpretationIndex * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__HorizonInterpretationIndex(struct soap*, const std::vector<resqml2__HorizonInterpretationIndex * >*);
@@ -33125,7 +33106,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__HorizonInterpreta
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__HorizonInterpretationIndex(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfresqml2__BoundaryRelation
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfresqml2__BoundaryRelation (1156)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfresqml2__BoundaryRelation (1155)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfresqml2__BoundaryRelation(struct soap*, std::vector<enum resqml2__BoundaryRelation >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfresqml2__BoundaryRelation(struct soap*, const std::vector<enum resqml2__BoundaryRelation >*);
@@ -33140,7 +33121,7 @@ inline void soap_delete_std__vectorTemplateOfresqml2__BoundaryRelation(struct so
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfresqml2__BoundaryRelation(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GpGridUnstructuredGridPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GpGridUnstructuredGridPatch (1153)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GpGridUnstructuredGridPatch (1152)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__GpGridUnstructuredGridPatch(struct soap*, std::vector<resqml2__GpGridUnstructuredGridPatch * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__GpGridUnstructuredGridPatch(struct soap*, const std::vector<resqml2__GpGridUnstructuredGridPatch * >*);
@@ -33155,7 +33136,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__GpGridUnstructure
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__GpGridUnstructuredGridPatch(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GpGridColumnLayerGrid
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GpGridColumnLayerGrid (1151)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__GpGridColumnLayerGrid (1150)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__GpGridColumnLayerGrid(struct soap*, std::vector<resqml2__GpGridColumnLayerGrid * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__GpGridColumnLayerGrid(struct soap*, const std::vector<resqml2__GpGridColumnLayerGrid * >*);
@@ -33170,7 +33151,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__GpGridColumnLayer
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__GpGridColumnLayerGrid(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfxsd__integer
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfxsd__integer (1149)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfxsd__integer (1148)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfxsd__integer(struct soap*, std::vector<LONG64 >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfxsd__integer(struct soap*, const std::vector<LONG64 >*);
@@ -33185,7 +33166,7 @@ inline void soap_delete_std__vectorTemplateOfxsd__integer(struct soap *soap, std
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfxsd__integer(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfdouble
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfdouble (1148)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfdouble (1147)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfdouble(struct soap*, std::vector<double >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfdouble(struct soap*, const std::vector<double >*);
@@ -33200,7 +33181,7 @@ inline void soap_delete_std__vectorTemplateOfdouble(struct soap *soap, std::vect
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfdouble(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTo_gml__coordinateOperationAccuracy
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTo_gml__coordinateOperationAccuracy (1146)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTo_gml__coordinateOperationAccuracy (1145)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTo_gml__coordinateOperationAccuracy(struct soap*, std::vector<_gml__coordinateOperationAccuracy * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTo_gml__coordinateOperationAccuracy(struct soap*, const std::vector<_gml__coordinateOperationAccuracy * >*);
@@ -33215,7 +33196,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTo_gml__coordinateOperationA
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTo_gml__coordinateOperationAccuracy(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogml__CoordinateSystemAxisPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogml__CoordinateSystemAxisPropertyType (1139)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogml__CoordinateSystemAxisPropertyType (1138)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogml__CoordinateSystemAxisPropertyType(struct soap*, std::vector<gml__CoordinateSystemAxisPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogml__CoordinateSystemAxisPropertyType(struct soap*, const std::vector<gml__CoordinateSystemAxisPropertyType * >*);
@@ -33230,7 +33211,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogml__CoordinateSystemAxisP
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogml__CoordinateSystemAxisPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTo_gml__domainOfValidity
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTo_gml__domainOfValidity (1137)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTo_gml__domainOfValidity (1136)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTo_gml__domainOfValidity(struct soap*, std::vector<_gml__domainOfValidity * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTo_gml__domainOfValidity(struct soap*, const std::vector<_gml__domainOfValidity * >*);
@@ -33245,7 +33226,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTo_gml__domainOfValidity(str
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTo_gml__domainOfValidity(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchBoundaries
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchBoundaries (1133)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchBoundaries (1132)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__PatchBoundaries(struct soap*, std::vector<resqml2__PatchBoundaries * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__PatchBoundaries(struct soap*, const std::vector<resqml2__PatchBoundaries * >*);
@@ -33260,7 +33241,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__PatchBoundaries(s
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__PatchBoundaries(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PolylineSetPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PolylineSetPatch (1131)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PolylineSetPatch (1130)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__PolylineSetPatch(struct soap*, std::vector<resqml2__PolylineSetPatch * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__PolylineSetPatch(struct soap*, const std::vector<resqml2__PolylineSetPatch * >*);
@@ -33275,7 +33256,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__PolylineSetPatch(
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__PolylineSetPatch(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__NodePatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__NodePatch (1128)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__NodePatch (1127)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__NodePatch(struct soap*, std::vector<resqml2__NodePatch * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__NodePatch(struct soap*, const std::vector<resqml2__NodePatch * >*);
@@ -33290,7 +33271,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__NodePatch(struct 
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__NodePatch(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractContactInterpretationPart
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractContactInterpretationPart (1120)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AbstractContactInterpretationPart (1119)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__AbstractContactInterpretationPart(struct soap*, std::vector<resqml2__AbstractContactInterpretationPart * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__AbstractContactInterpretationPart(struct soap*, const std::vector<resqml2__AbstractContactInterpretationPart * >*);
@@ -33305,7 +33286,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__AbstractContactIn
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__AbstractContactInterpretationPart(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__SubRepresentationPatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__SubRepresentationPatch (1113)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__SubRepresentationPatch (1112)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__SubRepresentationPatch(struct soap*, std::vector<resqml2__SubRepresentationPatch * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__SubRepresentationPatch(struct soap*, const std::vector<resqml2__SubRepresentationPatch * >*);
@@ -33320,7 +33301,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__SubRepresentation
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__SubRepresentationPatch(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfGeometry
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfGeometry (1111)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfGeometry (1110)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__PatchOfGeometry(struct soap*, std::vector<resqml2__PatchOfGeometry * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__PatchOfGeometry(struct soap*, const std::vector<resqml2__PatchOfGeometry * >*);
@@ -33335,7 +33316,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__PatchOfGeometry(s
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__PatchOfGeometry(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PropertyKindFacet
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PropertyKindFacet (1109)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PropertyKindFacet (1108)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__PropertyKindFacet(struct soap*, std::vector<resqml2__PropertyKindFacet * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__PropertyKindFacet(struct soap*, const std::vector<resqml2__PropertyKindFacet * >*);
@@ -33350,7 +33331,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__PropertyKindFacet
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__PropertyKindFacet(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfValues
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfValues (1107)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfValues (1106)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__PatchOfValues(struct soap*, std::vector<resqml2__PatchOfValues * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__PatchOfValues(struct soap*, const std::vector<resqml2__PatchOfValues * >*);
@@ -33365,7 +33346,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__PatchOfValues(str
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__PatchOfValues(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__StringLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__StringLookup (1105)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__StringLookup (1104)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__StringLookup(struct soap*, std::vector<resqml2__StringLookup * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__StringLookup(struct soap*, const std::vector<resqml2__StringLookup * >*);
@@ -33380,7 +33361,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__StringLookup(stru
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__StringLookup(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfPoints
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfPoints (1103)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__PatchOfPoints (1102)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__PatchOfPoints(struct soap*, std::vector<resqml2__PatchOfPoints * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__PatchOfPoints(struct soap*, const std::vector<resqml2__PatchOfPoints * >*);
@@ -33395,7 +33376,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__PatchOfPoints(str
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__PatchOfPoints(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__DoubleLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__DoubleLookup (1101)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__DoubleLookup (1100)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__DoubleLookup(struct soap*, std::vector<resqml2__DoubleLookup * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__DoubleLookup(struct soap*, const std::vector<resqml2__DoubleLookup * >*);
@@ -33410,7 +33391,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__DoubleLookup(stru
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__DoubleLookup(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ParameterTemplate
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ParameterTemplate (1099)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ParameterTemplate (1098)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__ParameterTemplate(struct soap*, std::vector<resqml2__ParameterTemplate * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__ParameterTemplate(struct soap*, const std::vector<resqml2__ParameterTemplate * >*);
@@ -33425,7 +33406,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__ParameterTemplate
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__ParameterTemplate(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__Timestamp
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__Timestamp (1093)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__Timestamp (1092)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__Timestamp(struct soap*, std::vector<resqml2__Timestamp * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__Timestamp(struct soap*, const std::vector<resqml2__Timestamp * >*);
@@ -33440,7 +33421,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__Timestamp(struct 
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__Timestamp(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ChronostratigraphicRank
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ChronostratigraphicRank (1090)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ChronostratigraphicRank (1089)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__ChronostratigraphicRank(struct soap*, std::vector<resqml2__ChronostratigraphicRank * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__ChronostratigraphicRank(struct soap*, const std::vector<resqml2__ChronostratigraphicRank * >*);
@@ -33455,7 +33436,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__Chronostratigraph
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__ChronostratigraphicRank(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__RepresentationIdentity
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__RepresentationIdentity (1085)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__RepresentationIdentity (1084)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__RepresentationIdentity(struct soap*, std::vector<resqml2__RepresentationIdentity * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__RepresentationIdentity(struct soap*, const std::vector<resqml2__RepresentationIdentity * >*);
@@ -33470,7 +33451,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__RepresentationIde
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__RepresentationIdentity(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogml__RelatedTimeType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogml__RelatedTimeType (1082)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogml__RelatedTimeType (1081)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogml__RelatedTimeType(struct soap*, std::vector<gml__RelatedTimeType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogml__RelatedTimeType(struct soap*, const std::vector<gml__RelatedTimeType * >*);
@@ -33485,7 +33466,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogml__RelatedTimeType(struc
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogml__RelatedTimeType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__EdgePatch
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__EdgePatch (1077)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__EdgePatch (1076)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__EdgePatch(struct soap*, std::vector<resqml2__EdgePatch * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__EdgePatch(struct soap*, const std::vector<resqml2__EdgePatch * >*);
@@ -33500,7 +33481,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__EdgePatch(struct 
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__EdgePatch(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__NameValuePair
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__NameValuePair (1075)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__NameValuePair (1074)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__NameValuePair(struct soap*, std::vector<resqml2__NameValuePair * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__NameValuePair(struct soap*, const std::vector<resqml2__NameValuePair * >*);
@@ -33515,7 +33496,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__NameValuePair(str
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__NameValuePair(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AdditionalGridPoints
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AdditionalGridPoints (1073)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__AdditionalGridPoints (1072)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__AdditionalGridPoints(struct soap*, std::vector<resqml2__AdditionalGridPoints * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__AdditionalGridPoints(struct soap*, const std::vector<resqml2__AdditionalGridPoints * >*);
@@ -33530,7 +33511,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__AdditionalGridPoi
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__AdditionalGridPoints(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ElementIndices
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ElementIndices (1071)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ElementIndices (1070)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__ElementIndices(struct soap*, std::vector<resqml2__ElementIndices * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__ElementIndices(struct soap*, const std::vector<resqml2__ElementIndices * >*);
@@ -33545,7 +33526,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__ElementIndices(st
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__ElementIndices(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ThreePoint3d
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ThreePoint3d (1069)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__ThreePoint3d (1068)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__ThreePoint3d(struct soap*, std::vector<resqml2__ThreePoint3d * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__ThreePoint3d(struct soap*, const std::vector<resqml2__ThreePoint3d * >*);
@@ -33560,7 +33541,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__ThreePoint3d(stru
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__ThreePoint3d(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__IntegerConstantArray
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__IntegerConstantArray (1067)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__IntegerConstantArray (1066)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__IntegerConstantArray(struct soap*, std::vector<resqml2__IntegerConstantArray * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__IntegerConstantArray(struct soap*, const std::vector<resqml2__IntegerConstantArray * >*);
@@ -33575,7 +33556,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__IntegerConstantAr
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__IntegerConstantArray(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__DoubleConstantArray
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__DoubleConstantArray (1065)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerToresqml2__DoubleConstantArray (1064)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToresqml2__DoubleConstantArray(struct soap*, std::vector<resqml2__DoubleConstantArray * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToresqml2__DoubleConstantArray(struct soap*, const std::vector<resqml2__DoubleConstantArray * >*);
@@ -33590,7 +33571,7 @@ inline void soap_delete_std__vectorTemplateOfPointerToresqml2__DoubleConstantArr
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerToresqml2__DoubleConstantArray(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType (1054)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType (1053)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType(struct soap*, std::vector<gmd__CI_USCOREPresentationFormCode_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType(struct soap*, const std::vector<gmd__CI_USCOREPresentationFormCode_USCOREPropertyType * >*);
@@ -33605,7 +33586,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogmd__CI_USCOREPresentation
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogmd__CI_USCOREPresentationFormCode_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType (1052)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType (1051)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType(struct soap*, std::vector<gmd__CI_USCOREResponsibleParty_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType(struct soap*, const std::vector<gmd__CI_USCOREResponsibleParty_USCOREPropertyType * >*);
@@ -33620,7 +33601,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogmd__CI_USCOREResponsibleP
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogmd__CI_USCOREResponsibleParty_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__MD_USCOREIdentifier_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__MD_USCOREIdentifier_USCOREPropertyType (1050)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__MD_USCOREIdentifier_USCOREPropertyType (1049)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__MD_USCOREIdentifier_USCOREPropertyType(struct soap*, std::vector<gmd__MD_USCOREIdentifier_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__MD_USCOREIdentifier_USCOREPropertyType(struct soap*, const std::vector<gmd__MD_USCOREIdentifier_USCOREPropertyType * >*);
@@ -33635,7 +33616,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogmd__MD_USCOREIdentifier_U
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogmd__MD_USCOREIdentifier_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREDate_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREDate_USCOREPropertyType (1048)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__CI_USCOREDate_USCOREPropertyType (1047)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__CI_USCOREDate_USCOREPropertyType(struct soap*, std::vector<gmd__CI_USCOREDate_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__CI_USCOREDate_USCOREPropertyType(struct soap*, const std::vector<gmd__CI_USCOREDate_USCOREPropertyType * >*);
@@ -33650,7 +33631,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogmd__CI_USCOREDate_USCOREP
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogmd__CI_USCOREDate_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__DQ_USCOREResult_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__DQ_USCOREResult_USCOREPropertyType (1046)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__DQ_USCOREResult_USCOREPropertyType (1045)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__DQ_USCOREResult_USCOREPropertyType(struct soap*, std::vector<gmd__DQ_USCOREResult_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__DQ_USCOREResult_USCOREPropertyType(struct soap*, const std::vector<gmd__DQ_USCOREResult_USCOREPropertyType * >*);
@@ -33665,7 +33646,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogmd__DQ_USCOREResult_USCOR
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogmd__DQ_USCOREResult_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogco__DateTime_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogco__DateTime_USCOREPropertyType (1044)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogco__DateTime_USCOREPropertyType (1043)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogco__DateTime_USCOREPropertyType(struct soap*, std::vector<gco__DateTime_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogco__DateTime_USCOREPropertyType(struct soap*, const std::vector<gco__DateTime_USCOREPropertyType * >*);
@@ -33680,7 +33661,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogco__DateTime_USCOREProper
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogco__DateTime_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogco__CharacterString_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogco__CharacterString_USCOREPropertyType (1039)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogco__CharacterString_USCOREPropertyType (1038)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogco__CharacterString_USCOREPropertyType(struct soap*, std::vector<gco__CharacterString_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogco__CharacterString_USCOREPropertyType(struct soap*, const std::vector<gco__CharacterString_USCOREPropertyType * >*);
@@ -33695,7 +33676,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogco__CharacterString_USCOR
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogco__CharacterString_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType (1034)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType (1033)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType(struct soap*, std::vector<gmd__EX_USCOREVerticalExtent_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType(struct soap*, const std::vector<gmd__EX_USCOREVerticalExtent_USCOREPropertyType * >*);
@@ -33710,7 +33691,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogmd__EX_USCOREVerticalExte
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogmd__EX_USCOREVerticalExtent_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType (1032)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType (1031)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType(struct soap*, std::vector<gmd__EX_USCORETemporalExtent_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType(struct soap*, const std::vector<gmd__EX_USCORETemporalExtent_USCOREPropertyType * >*);
@@ -33725,7 +33706,7 @@ inline void soap_delete_std__vectorTemplateOfPointerTogmd__EX_USCORETemporalExte
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__vectorTemplateOfPointerTogmd__EX_USCORETemporalExtent_USCOREPropertyType(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType
-#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType (1030)
+#define SOAP_TYPE_gsoap_resqml2_0_1_std__vectorTemplateOfPointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType (1029)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType(struct soap*, std::vector<gmd__EX_USCOREGeographicExtent_USCOREPropertyType * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerTogmd__EX_USCOREGeographicExtent_USCOREPropertyType(struct soap*, const std::vector<gmd__EX_USCOREGeographicExtent_USCOREPropertyType * >*);

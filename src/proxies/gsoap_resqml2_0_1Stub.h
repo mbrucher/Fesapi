@@ -1375,7 +1375,7 @@ enum eml__DigitalStorageUom { eml__DigitalStorageUom__bit = 0, eml__DigitalStora
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__RelatedTimeType_relativePosition
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__RelatedTimeType_relativePosition (1026)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__RelatedTimeType_relativePosition (1025)
 /* gml:RelatedTimeType-relativePosition */
 enum _gml__RelatedTimeType_relativePosition { _gml__RelatedTimeType_relativePosition__Before = 0, _gml__RelatedTimeType_relativePosition__After = 1, _gml__RelatedTimeType_relativePosition__Begins = 2, _gml__RelatedTimeType_relativePosition__Ends = 3, _gml__RelatedTimeType_relativePosition__During = 4, _gml__RelatedTimeType_relativePosition__Equals = 5, _gml__RelatedTimeType_relativePosition__Contains = 6, _gml__RelatedTimeType_relativePosition__Overlaps = 7, _gml__RelatedTimeType_relativePosition__Meets = 8, _gml__RelatedTimeType_relativePosition__OverlappedBy = 9, _gml__RelatedTimeType_relativePosition__MetBy = 10, _gml__RelatedTimeType_relativePosition__BegunBy = 11, _gml__RelatedTimeType_relativePosition__EndedBy = 12 };
 #endif
@@ -6394,7 +6394,7 @@ public:
 class SOAP_CMAC resqml2__DataObjectParameter : public resqml2__AbstractActivityParameter
 {
 public:
-	class resqml2__AbstractResqmlDataObject *DataObject;	/* required element of type resqml2:AbstractResqmlDataObject */
+	eml__DataObjectReference *DataObject;	/* required element of type eml:DataObjectReference */
 public:
 	virtual int soap_type() const { return 245; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DataObjectParameter */
 	virtual void soap_default(struct soap*);
@@ -6414,7 +6414,7 @@ public:
 class SOAP_CMAC resqml2__ObjectParameterKey : public resqml2__AbstractParameterKey
 {
 public:
-	resqml2__AbstractResqmlDataObject *DataObject;	/* required element of type resqml2:AbstractResqmlDataObject */
+	eml__DataObjectReference *DataObject;	/* required element of type eml:DataObjectReference */
 public:
 	virtual int soap_type() const { return 246; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ObjectParameterKey */
 	virtual void soap_default(struct soap*);
@@ -13653,7 +13653,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__union_GeodeticCRSType
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_GeodeticCRSType (1181)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_GeodeticCRSType (1180)
 /* xsd:choice */
 union _gml__union_GeodeticCRSType
 {
@@ -14331,7 +14331,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__union_ProjectedCRSType
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_ProjectedCRSType (1199)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__union_ProjectedCRSType (1198)
 /* xsd:choice */
 union _gml__union_ProjectedCRSType
 {
@@ -14365,12 +14365,12 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header (1354)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header (1353)
 /* SOAP Header: */
 struct SOAP_ENV__Header
 {
 public:
-	int soap_type() const { return 1354; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header */
+	int soap_type() const { return 1353; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Header */
 };
 #endif
 
@@ -14379,7 +14379,7 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code (1355)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code (1354)
 /* SOAP Fault Code: */
 struct SOAP_ENV__Code
 {
@@ -14387,7 +14387,7 @@ public:
 	char *SOAP_ENV__Value;	/* optional element of type xsd:QName */
 	struct SOAP_ENV__Code *SOAP_ENV__Subcode;	/* optional element of type SOAP-ENV:Code */
 public:
-	int soap_type() const { return 1355; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code */
+	int soap_type() const { return 1354; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Code */
 };
 #endif
 
@@ -14396,7 +14396,7 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail (1357)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail (1356)
 /* SOAP-ENV:Detail */
 struct SOAP_ENV__Detail
 {
@@ -14405,7 +14405,7 @@ public:
 	int __type;	/* any type of element <fault> (defined below) */
 	void *fault;	/* transient */
 public:
-	int soap_type() const { return 1357; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail */
+	int soap_type() const { return 1356; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Detail */
 };
 #endif
 
@@ -14414,14 +14414,14 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason (1360)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason (1359)
 /* SOAP-ENV:Reason */
 struct SOAP_ENV__Reason
 {
 public:
 	char *SOAP_ENV__Text;	/* optional element of type xsd:string */
 public:
-	int soap_type() const { return 1360; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason */
+	int soap_type() const { return 1359; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Reason */
 };
 #endif
 
@@ -14430,7 +14430,7 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault
-#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault (1361)
+#define SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault (1360)
 /* SOAP Fault: */
 struct SOAP_ENV__Fault
 {
@@ -14445,7 +14445,7 @@ public:
 	char *SOAP_ENV__Role;	/* optional element of type xsd:string */
 	struct SOAP_ENV__Detail *SOAP_ENV__Detail;	/* optional element of type SOAP-ENV:Detail */
 public:
-	int soap_type() const { return 1361; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault */
+	int soap_type() const { return 1360; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_SOAP_ENV__Fault */
 };
 #endif
 
@@ -14578,772 +14578,772 @@ typedef std::string eml__CommentString;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Activity
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Activity (1200)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Activity (1199)
 typedef resqml2__obj_USCOREActivity _resqml2__Activity;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ActivityTemplate
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ActivityTemplate (1201)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ActivityTemplate (1200)
 typedef resqml2__obj_USCOREActivityTemplate _resqml2__ActivityTemplate;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalPropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalPropertySeries (1202)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalPropertySeries (1201)
 typedef resqml2__obj_USCORECategoricalPropertySeries _resqml2__CategoricalPropertySeries;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentPropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentPropertySeries (1203)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentPropertySeries (1202)
 typedef resqml2__obj_USCORECommentPropertySeries _resqml2__CommentPropertySeries;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousPropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousPropertySeries (1204)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousPropertySeries (1203)
 typedef resqml2__obj_USCOREContinuousPropertySeries _resqml2__ContinuousPropertySeries;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscretePropertySeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscretePropertySeries (1205)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscretePropertySeries (1204)
 typedef resqml2__obj_USCOREDiscretePropertySeries _resqml2__DiscretePropertySeries;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesFeature (1206)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesFeature (1205)
 typedef resqml2__obj_USCOREStreamlinesFeature _resqml2__StreamlinesFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesRepresentation (1207)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StreamlinesRepresentation (1206)
 typedef resqml2__obj_USCOREStreamlinesRepresentation _resqml2__StreamlinesRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalDepth3dCrs
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalDepth3dCrs (1208)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalDepth3dCrs (1207)
 typedef resqml2__obj_USCORELocalDepth3dCrs _resqml2__LocalDepth3dCrs;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalTime3dCrs
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalTime3dCrs (1209)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalTime3dCrs (1208)
 typedef resqml2__obj_USCORELocalTime3dCrs _resqml2__LocalTime3dCrs;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TimeSeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TimeSeries (1210)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TimeSeries (1209)
 typedef resqml2__obj_USCORETimeSeries _resqml2__TimeSeries;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FluidBoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FluidBoundaryFeature (1211)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FluidBoundaryFeature (1210)
 typedef resqml2__obj_USCOREFluidBoundaryFeature _resqml2__FluidBoundaryFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeneticBoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeneticBoundaryFeature (1212)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeneticBoundaryFeature (1211)
 typedef resqml2__obj_USCOREGeneticBoundaryFeature _resqml2__GeneticBoundaryFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyFeature (1213)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyFeature (1212)
 typedef resqml2__obj_USCOREGeobodyFeature _resqml2__GeobodyFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GlobalChronostratigraphicColumn
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GlobalChronostratigraphicColumn (1214)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GlobalChronostratigraphicColumn (1213)
 typedef resqml2__obj_USCOREGlobalChronostratigraphicColumn _resqml2__GlobalChronostratigraphicColumn;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitFeature (1215)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitFeature (1214)
 typedef resqml2__obj_USCORERockFluidUnitFeature _resqml2__RockFluidUnitFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitFeature (1216)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitFeature (1215)
 typedef resqml2__obj_USCOREStratigraphicUnitFeature _resqml2__StratigraphicUnitFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TectonicBoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TectonicBoundaryFeature (1217)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TectonicBoundaryFeature (1216)
 typedef resqml2__obj_USCORETectonicBoundaryFeature _resqml2__TectonicBoundaryFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeature (1218)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeature (1217)
 typedef resqml2__obj_USCOREBoundaryFeature _resqml2__BoundaryFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitFeature (1219)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitFeature (1218)
 typedef resqml2__obj_USCOREGeologicUnitFeature _resqml2__GeologicUnitFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__OrganizationFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__OrganizationFeature (1220)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__OrganizationFeature (1219)
 typedef resqml2__obj_USCOREOrganizationFeature _resqml2__OrganizationFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FrontierFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FrontierFeature (1221)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FrontierFeature (1220)
 typedef resqml2__obj_USCOREFrontierFeature _resqml2__FrontierFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLatticeFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLatticeFeature (1222)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLatticeFeature (1221)
 typedef resqml2__obj_USCORESeismicLatticeFeature _resqml2__SeismicLatticeFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineFeature (1223)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineFeature (1222)
 typedef resqml2__obj_USCORESeismicLineFeature _resqml2__SeismicLineFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineSetFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineSetFeature (1224)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SeismicLineSetFeature (1223)
 typedef resqml2__obj_USCORESeismicLineSetFeature _resqml2__SeismicLineSetFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFeature
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFeature (1225)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFeature (1224)
 typedef resqml2__obj_USCOREWellboreFeature _resqml2__WellboreFeature;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeatureInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeatureInterpretation (1226)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BoundaryFeatureInterpretation (1225)
 typedef resqml2__obj_USCOREBoundaryFeatureInterpretation _resqml2__BoundaryFeatureInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GenericFeatureInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GenericFeatureInterpretation (1227)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GenericFeatureInterpretation (1226)
 typedef resqml2__obj_USCOREGenericFeatureInterpretation _resqml2__GenericFeatureInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitInterpretation (1228)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeologicUnitInterpretation (1227)
 typedef resqml2__obj_USCOREGeologicUnitInterpretation _resqml2__GeologicUnitInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumn
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumn (1229)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumn (1228)
 typedef resqml2__obj_USCOREStratigraphicColumn _resqml2__StratigraphicColumn;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumnRankInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumnRankInterpretation (1230)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicColumnRankInterpretation (1229)
 typedef resqml2__obj_USCOREStratigraphicColumnRankInterpretation _resqml2__StratigraphicColumnRankInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicOccurrenceInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicOccurrenceInterpretation (1231)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicOccurrenceInterpretation (1230)
 typedef resqml2__obj_USCOREStratigraphicOccurrenceInterpretation _resqml2__StratigraphicOccurrenceInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StructuralOrganizationInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StructuralOrganizationInterpretation (1232)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StructuralOrganizationInterpretation (1231)
 typedef resqml2__obj_USCOREStructuralOrganizationInterpretation _resqml2__StructuralOrganizationInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreInterpretation (1233)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreInterpretation (1232)
 typedef resqml2__obj_USCOREWellboreInterpretation _resqml2__WellboreInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__EarthModelInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__EarthModelInterpretation (1234)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__EarthModelInterpretation (1233)
 typedef resqml2__obj_USCOREEarthModelInterpretation _resqml2__EarthModelInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FaultInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FaultInterpretation (1235)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__FaultInterpretation (1234)
 typedef resqml2__obj_USCOREFaultInterpretation _resqml2__FaultInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyBoundaryInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyBoundaryInterpretation (1236)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyBoundaryInterpretation (1235)
 typedef resqml2__obj_USCOREGeobodyBoundaryInterpretation _resqml2__GeobodyBoundaryInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyInterpretation (1237)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GeobodyInterpretation (1236)
 typedef resqml2__obj_USCOREGeobodyInterpretation _resqml2__GeobodyInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitInterpretation (1238)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidUnitInterpretation (1237)
 typedef resqml2__obj_USCORERockFluidUnitInterpretation _resqml2__RockFluidUnitInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__HorizonInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__HorizonInterpretation (1239)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__HorizonInterpretation (1238)
 typedef resqml2__obj_USCOREHorizonInterpretation _resqml2__HorizonInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidOrganizationInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidOrganizationInterpretation (1240)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RockFluidOrganizationInterpretation (1239)
 typedef resqml2__obj_USCORERockFluidOrganizationInterpretation _resqml2__RockFluidOrganizationInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitInterpretation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitInterpretation (1241)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StratigraphicUnitInterpretation (1240)
 typedef resqml2__obj_USCOREStratigraphicUnitInterpretation _resqml2__StratigraphicUnitInterpretation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RedefinedGeometryRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RedefinedGeometryRepresentation (1242)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RedefinedGeometryRepresentation (1241)
 typedef resqml2__obj_USCORERedefinedGeometryRepresentation _resqml2__RedefinedGeometryRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationIdentitySet
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationIdentitySet (1243)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationIdentitySet (1242)
 typedef resqml2__obj_USCORERepresentationIdentitySet _resqml2__RepresentationIdentitySet;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationSetRepresentation (1244)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__RepresentationSetRepresentation (1243)
 typedef resqml2__obj_USCORERepresentationSetRepresentation _resqml2__RepresentationSetRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SubRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SubRepresentation (1245)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SubRepresentation (1244)
 typedef resqml2__obj_USCORESubRepresentation _resqml2__SubRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GpGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GpGridRepresentation (1246)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GpGridRepresentation (1245)
 typedef resqml2__obj_USCOREGpGridRepresentation _resqml2__GpGridRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GridConnectionSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GridConnectionSetRepresentation (1247)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__GridConnectionSetRepresentation (1246)
 typedef resqml2__obj_USCOREGridConnectionSetRepresentation _resqml2__GridConnectionSetRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__IjkGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__IjkGridRepresentation (1248)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__IjkGridRepresentation (1247)
 typedef resqml2__obj_USCOREIjkGridRepresentation _resqml2__IjkGridRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalGridSet
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalGridSet (1249)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__LocalGridSet (1248)
 typedef resqml2__obj_USCORELocalGridSet _resqml2__LocalGridSet;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedIjkGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedIjkGridRepresentation (1250)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedIjkGridRepresentation (1249)
 typedef resqml2__obj_USCORETruncatedIjkGridRepresentation _resqml2__TruncatedIjkGridRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedUnstructuredColumnLayerGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedUnstructuredColumnLayerGridRepresentation (1251)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TruncatedUnstructuredColumnLayerGridRepresentation (1250)
 typedef resqml2__obj_USCORETruncatedUnstructuredColumnLayerGridRepresentation _resqml2__TruncatedUnstructuredColumnLayerGridRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredColumnLayerGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredColumnLayerGridRepresentation (1252)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredColumnLayerGridRepresentation (1251)
 typedef resqml2__obj_USCOREUnstructuredColumnLayerGridRepresentation _resqml2__UnstructuredColumnLayerGridRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredGridRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredGridRepresentation (1253)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__UnstructuredGridRepresentation (1252)
 typedef resqml2__obj_USCOREUnstructuredGridRepresentation _resqml2__UnstructuredGridRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dRepresentation (1254)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dRepresentation (1253)
 typedef resqml2__obj_USCOREGrid2dRepresentation _resqml2__Grid2dRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dSetRepresentation (1255)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__Grid2dSetRepresentation (1254)
 typedef resqml2__obj_USCOREGrid2dSetRepresentation _resqml2__Grid2dSetRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__NonSealedSurfaceFrameworkRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__NonSealedSurfaceFrameworkRepresentation (1256)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__NonSealedSurfaceFrameworkRepresentation (1255)
 typedef resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation _resqml2__NonSealedSurfaceFrameworkRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PlaneSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PlaneSetRepresentation (1257)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PlaneSetRepresentation (1256)
 typedef resqml2__obj_USCOREPlaneSetRepresentation _resqml2__PlaneSetRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointSetRepresentation (1258)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointSetRepresentation (1257)
 typedef resqml2__obj_USCOREPointSetRepresentation _resqml2__PointSetRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineRepresentation (1259)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineRepresentation (1258)
 typedef resqml2__obj_USCOREPolylineRepresentation _resqml2__PolylineRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineSetRepresentation (1260)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PolylineSetRepresentation (1259)
 typedef resqml2__obj_USCOREPolylineSetRepresentation _resqml2__PolylineSetRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedSurfaceFrameworkRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedSurfaceFrameworkRepresentation (1261)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedSurfaceFrameworkRepresentation (1260)
 typedef resqml2__obj_USCORESealedSurfaceFrameworkRepresentation _resqml2__SealedSurfaceFrameworkRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedVolumeFrameworkRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedVolumeFrameworkRepresentation (1262)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__SealedVolumeFrameworkRepresentation (1261)
 typedef resqml2__obj_USCORESealedVolumeFrameworkRepresentation _resqml2__SealedVolumeFrameworkRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TriangulatedSetRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TriangulatedSetRepresentation (1263)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__TriangulatedSetRepresentation (1262)
 typedef resqml2__obj_USCORETriangulatedSetRepresentation _resqml2__TriangulatedSetRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BlockedWellboreRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BlockedWellboreRepresentation (1264)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__BlockedWellboreRepresentation (1263)
 typedef resqml2__obj_USCOREBlockedWellboreRepresentation _resqml2__BlockedWellboreRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DeviationSurveyRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DeviationSurveyRepresentation (1265)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DeviationSurveyRepresentation (1264)
 typedef resqml2__obj_USCOREDeviationSurveyRepresentation _resqml2__DeviationSurveyRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__MdDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__MdDatum (1266)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__MdDatum (1265)
 typedef resqml2__obj_USCOREMdDatum _resqml2__MdDatum;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFrameRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFrameRepresentation (1267)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreFrameRepresentation (1266)
 typedef resqml2__obj_USCOREWellboreFrameRepresentation _resqml2__WellboreFrameRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreMarkerFrameRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreMarkerFrameRepresentation (1268)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreMarkerFrameRepresentation (1267)
 typedef resqml2__obj_USCOREWellboreMarkerFrameRepresentation _resqml2__WellboreMarkerFrameRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreTrajectoryRepresentation
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreTrajectoryRepresentation (1269)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__WellboreTrajectoryRepresentation (1268)
 typedef resqml2__obj_USCOREWellboreTrajectoryRepresentation _resqml2__WellboreTrajectoryRepresentation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalProperty (1270)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CategoricalProperty (1269)
 typedef resqml2__obj_USCORECategoricalProperty _resqml2__CategoricalProperty;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentProperty (1271)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__CommentProperty (1270)
 typedef resqml2__obj_USCORECommentProperty _resqml2__CommentProperty;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousProperty (1272)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__ContinuousProperty (1271)
 typedef resqml2__obj_USCOREContinuousProperty _resqml2__ContinuousProperty;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscreteProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscreteProperty (1273)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DiscreteProperty (1272)
 typedef resqml2__obj_USCOREDiscreteProperty _resqml2__DiscreteProperty;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DoubleTableLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DoubleTableLookup (1274)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__DoubleTableLookup (1273)
 typedef resqml2__obj_USCOREDoubleTableLookup _resqml2__DoubleTableLookup;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointsProperty
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointsProperty (1275)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PointsProperty (1274)
 typedef resqml2__obj_USCOREPointsProperty _resqml2__PointsProperty;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertyKind
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertyKind (1276)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertyKind (1275)
 typedef resqml2__obj_USCOREPropertyKind _resqml2__PropertyKind;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertySet
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertySet (1277)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__PropertySet (1276)
 typedef resqml2__obj_USCOREPropertySet _resqml2__PropertySet;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StringTableLookup
-#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StringTableLookup (1278)
+#define SOAP_TYPE_gsoap_resqml2_0_1__resqml2__StringTableLookup (1277)
 typedef resqml2__obj_USCOREStringTableLookup _resqml2__StringTableLookup;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__eml__EpcExternalPartReference
-#define SOAP_TYPE_gsoap_resqml2_0_1__eml__EpcExternalPartReference (1279)
+#define SOAP_TYPE_gsoap_resqml2_0_1__eml__EpcExternalPartReference (1278)
 typedef eml__obj_USCOREEpcExternalPartReference _eml__EpcExternalPartReference;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractDataObject
-#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractDataObject (1280)
+#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractDataObject (1279)
 typedef eml__AbstractObject _eml__AbstractDataObject;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractContextualObject
-#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractContextualObject (1281)
+#define SOAP_TYPE_gsoap_resqml2_0_1__eml__AbstractContextualObject (1280)
 typedef eml__AbstractObject _eml__AbstractContextualObject;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticCRS (1282)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticCRS (1281)
 typedef gml__GeodeticCRSType _gml__GeodeticCRS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__description
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__description (1283)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__description (1282)
 typedef gml__StringOrRefType _gml__description;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__descriptionReference
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__descriptionReference (1284)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__descriptionReference (1283)
 typedef gml__ReferenceType _gml__descriptionReference;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__identifier
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__identifier (1285)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__identifier (1284)
 typedef gml__CodeWithAuthorityType _gml__identifier;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__name
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__name (1286)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__name (1285)
 typedef gml__CodeType _gml__name;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__remarks
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__remarks (1287)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__remarks (1286)
 typedef std::string _gml__remarks;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__Definition
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Definition (1288)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Definition (1287)
 typedef gml__DefinitionType _gml__Definition;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__scope
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__scope (1289)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__scope (1288)
 typedef std::string _gml__scope;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoidalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoidalCS (1290)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoidalCS (1289)
 typedef gml__EllipsoidalCSPropertyType _gml__ellipsoidalCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__EllipsoidalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__EllipsoidalCS (1291)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__EllipsoidalCS (1290)
 typedef gml__EllipsoidalCSType _gml__EllipsoidalCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__axis
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axis (1292)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axis (1291)
 typedef gml__CoordinateSystemAxisPropertyType _gml__axis;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__CoordinateSystemAxis
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CoordinateSystemAxis (1293)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CoordinateSystemAxis (1292)
 typedef gml__CoordinateSystemAxisType _gml__CoordinateSystemAxis;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__axisAbbrev
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisAbbrev (1294)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisAbbrev (1293)
 typedef gml__CodeType _gml__axisAbbrev;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__axisDirection
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisDirection (1295)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__axisDirection (1294)
 typedef gml__CodeWithAuthorityType _gml__axisDirection;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__minimumValue
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__minimumValue (1296)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__minimumValue (1295)
 typedef double _gml__minimumValue;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__maximumValue
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__maximumValue (1297)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__maximumValue (1296)
 typedef double _gml__maximumValue;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__rangeMeaning
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__rangeMeaning (1298)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__rangeMeaning (1297)
 typedef gml__CodeWithAuthorityType _gml__rangeMeaning;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__cartesianCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__cartesianCS (1299)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__cartesianCS (1298)
 typedef gml__CartesianCSPropertyType _gml__cartesianCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__CartesianCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CartesianCS (1300)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__CartesianCS (1299)
 typedef gml__CartesianCSType _gml__CartesianCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__sphericalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sphericalCS (1301)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sphericalCS (1300)
 typedef gml__SphericalCSPropertyType _gml__sphericalCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__SphericalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__SphericalCS (1302)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__SphericalCS (1301)
 typedef gml__SphericalCSType _gml__SphericalCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__geodeticDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__geodeticDatum (1303)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__geodeticDatum (1302)
 typedef gml__GeodeticDatumPropertyType _gml__geodeticDatum;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticDatum (1304)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__GeodeticDatum (1303)
 typedef gml__GeodeticDatumType _gml__GeodeticDatum;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__anchorDefinition
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__anchorDefinition (1305)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__anchorDefinition (1304)
 typedef gml__CodeType _gml__anchorDefinition;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__realizationEpoch
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__realizationEpoch (1306)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__realizationEpoch (1305)
 typedef std::string _gml__realizationEpoch;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__primeMeridian
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__primeMeridian (1307)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__primeMeridian (1306)
 typedef gml__PrimeMeridianPropertyType _gml__primeMeridian;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__PrimeMeridian
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__PrimeMeridian (1308)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__PrimeMeridian (1307)
 typedef gml__PrimeMeridianType _gml__PrimeMeridian;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__greenwichLongitude
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__greenwichLongitude (1309)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__greenwichLongitude (1308)
 typedef gml__AngleType _gml__greenwichLongitude;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoid
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoid (1310)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ellipsoid (1309)
 typedef gml__EllipsoidPropertyType _gml__ellipsoid;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__Ellipsoid
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Ellipsoid (1311)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__Ellipsoid (1310)
 typedef gml__EllipsoidType _gml__Ellipsoid;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__semiMajorAxis
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__semiMajorAxis (1312)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__semiMajorAxis (1311)
 typedef gml__MeasureType _gml__semiMajorAxis;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__ProjectedCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ProjectedCRS (1313)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__ProjectedCRS (1312)
 typedef gml__ProjectedCRSType _gml__ProjectedCRS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__conversion
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__conversion (1314)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__conversion (1313)
 typedef gml__GeneralConversionPropertyType _gml__conversion;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__operationVersion
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__operationVersion (1315)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__operationVersion (1314)
 typedef std::string _gml__operationVersion;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__sourceCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sourceCRS (1316)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__sourceCRS (1315)
 typedef gml__CRSPropertyType _gml__sourceCRS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__targetCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__targetCRS (1317)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__targetCRS (1316)
 typedef gml__CRSPropertyType _gml__targetCRS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__baseGeodeticCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__baseGeodeticCRS (1318)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__baseGeodeticCRS (1317)
 typedef gml__GeodeticCRSPropertyType _gml__baseGeodeticCRS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCRS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCRS (1319)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCRS (1318)
 typedef gml__VerticalCRSType _gml__VerticalCRS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalCS (1320)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalCS (1319)
 typedef gml__VerticalCSPropertyType _gml__verticalCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCS
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCS (1321)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalCS (1320)
 typedef gml__VerticalCSType _gml__VerticalCS;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalDatum (1322)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__verticalDatum (1321)
 typedef gml__VerticalDatumPropertyType _gml__verticalDatum;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalDatum
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalDatum (1323)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__VerticalDatum (1322)
 typedef gml__VerticalDatumType _gml__VerticalDatum;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gml__id
-#define SOAP_TYPE_gsoap_resqml2_0_1__gml__id (1324)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gml__id (1323)
 typedef std::string _gml__id;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__href
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__href (1325)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__href (1324)
 typedef std::string _xlink__href;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__role
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__role (1326)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__role (1325)
 typedef std::string _xlink__role;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__arcrole
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__arcrole (1327)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__arcrole (1326)
 typedef std::string _xlink__arcrole;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__xlink__title
-#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__title (1328)
+#define SOAP_TYPE_gsoap_resqml2_0_1__xlink__title (1327)
 typedef std::string _xlink__title;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREExtent
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREExtent (1329)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREExtent (1328)
 typedef gmd__EX_USCOREExtent_USCOREType _gmd__EX_USCOREExtent;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCORETemporalExtent
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCORETemporalExtent (1330)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCORETemporalExtent (1329)
 typedef gmd__EX_USCORETemporalExtent_USCOREType _gmd__EX_USCORETemporalExtent;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREVerticalExtent
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREVerticalExtent (1331)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__EX_USCOREVerticalExtent (1330)
 typedef gmd__EX_USCOREVerticalExtent_USCOREType _gmd__EX_USCOREVerticalExtent;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__MD_USCOREIdentifier
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__MD_USCOREIdentifier (1332)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__MD_USCOREIdentifier (1331)
 typedef gmd__MD_USCOREIdentifier_USCOREType _gmd__MD_USCOREIdentifier;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORECitation
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORECitation (1333)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORECitation (1332)
 typedef gmd__CI_USCORECitation_USCOREType _gmd__CI_USCORECitation;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDate
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDate (1334)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDate (1333)
 typedef gmd__CI_USCOREDate_USCOREType _gmd__CI_USCOREDate;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDateTypeCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDateTypeCode (1335)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREDateTypeCode (1334)
 typedef gco__CodeListValue_USCOREType _gmd__CI_USCOREDateTypeCode;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREResponsibleParty
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREResponsibleParty (1336)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREResponsibleParty (1335)
 typedef gmd__CI_USCOREResponsibleParty_USCOREType _gmd__CI_USCOREResponsibleParty;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREContact
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREContact (1337)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREContact (1336)
 typedef gmd__CI_USCOREContact_USCOREType _gmd__CI_USCOREContact;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORETelephone
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORETelephone (1338)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORETelephone (1337)
 typedef gmd__CI_USCORETelephone_USCOREType _gmd__CI_USCORETelephone;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREAddress
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREAddress (1339)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREAddress (1338)
 typedef gmd__CI_USCOREAddress_USCOREType _gmd__CI_USCOREAddress;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnlineResource
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnlineResource (1340)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnlineResource (1339)
 typedef gmd__CI_USCOREOnlineResource_USCOREType _gmd__CI_USCOREOnlineResource;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__URL
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__URL (1341)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__URL (1340)
 typedef std::string _gmd__URL;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnLineFunctionCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnLineFunctionCode (1342)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREOnLineFunctionCode (1341)
 typedef gco__CodeListValue_USCOREType _gmd__CI_USCOREOnLineFunctionCode;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORERoleCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORERoleCode (1343)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORERoleCode (1342)
 typedef gco__CodeListValue_USCOREType _gmd__CI_USCORERoleCode;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREPresentationFormCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREPresentationFormCode (1344)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCOREPresentationFormCode (1343)
 typedef gco__CodeListValue_USCOREType _gmd__CI_USCOREPresentationFormCode;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORESeries
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORESeries (1345)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__CI_USCORESeries (1344)
 typedef gmd__CI_USCORESeries_USCOREType _gmd__CI_USCORESeries;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gmd__DQ_USCOREEvaluationMethodTypeCode
-#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__DQ_USCOREEvaluationMethodTypeCode (1346)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gmd__DQ_USCOREEvaluationMethodTypeCode (1345)
 typedef gco__CodeListValue_USCOREType _gmd__DQ_USCOREEvaluationMethodTypeCode;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__CharacterString
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__CharacterString (1347)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__CharacterString (1346)
 typedef std::string _gco__CharacterString;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__Boolean
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Boolean (1348)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Boolean (1347)
 typedef bool _gco__Boolean;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__Real
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Real (1349)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Real (1348)
 typedef double _gco__Real;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__Date
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Date (1350)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__Date (1349)
 typedef std::string _gco__Date;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__DateTime
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__DateTime (1351)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__DateTime (1350)
 typedef time_t _gco__DateTime;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__gco__nilReason
-#define SOAP_TYPE_gsoap_resqml2_0_1__gco__nilReason (1352)
+#define SOAP_TYPE_gsoap_resqml2_0_1__gco__nilReason (1351)
 typedef std::string _gco__nilReason;
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1__ptm__standardEnergisticsPropertyTypeSet
-#define SOAP_TYPE_gsoap_resqml2_0_1__ptm__standardEnergisticsPropertyTypeSet (1353)
+#define SOAP_TYPE_gsoap_resqml2_0_1__ptm__standardEnergisticsPropertyTypeSet (1352)
 typedef ptm__standardEnergisticsPropertyTypeSet _ptm__standardEnergisticsPropertyTypeSet;
 #endif
 

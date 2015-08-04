@@ -65,10 +65,16 @@ namespace resqml2_0_1
 		* Push back a parameter in the activity template instance.
 		* This parameter must be of a data object kind.
 		*/
-		void pushBackDataObjectParameter(const std::string title,
+		void pushBackResqmlObjectParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
 			const unsigned int & minOccurs, const unsigned int & maxOccurs,
-			const std::string & dataObjetContentType);
+			const std::string & resqmlObjectContentType);
+
+		/**
+		* Check if the instance contains a parameter with a particular title
+		* @param paramTitle	The title of the parameter we are looking for into the instance
+		*/
+		bool isAnExistingParameter(const std::string & paramTitle) const;
 
 		const std::string & getParameterTitle(const unsigned int & index) const;
 		const std::vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & getParameterAllowedKinds(const unsigned int & index) const;

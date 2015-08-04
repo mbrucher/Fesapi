@@ -44,6 +44,7 @@ namespace resqml2_0_1
 		
 		gsoap_resqml2_0_1::eml__AbstractCitedDataObject* gsoapProxy;
 		common::EpcDocument* epcDocument;
+		std::vector<class Activity*> activitySet;
 
 		bool updateXml; /// Indicate wether methods update the XML (Gsoap) or only the C++ classes of the API.
 
@@ -56,6 +57,7 @@ namespace resqml2_0_1
 		void addNewGuid(const std::string & newGuid);
 
 		friend void common::EpcDocument::addGsoapProxy(AbstractObject* proxy);
+		friend class Activity; // necessary cause of cyclic include if we try : friend class Activity::pushBackResqmlObjectParameter(const std::string title, AbstractObject* resqmlObject);
 
 		void initMandatoryMetadata();
 
@@ -181,5 +183,10 @@ namespace resqml2_0_1
 		* Get the alias title at a particular index in the aliases set.
 		*/
 		std::string getAliasTitleAtIndex(const unsigned int & index) const;
+
+		/**
+		* Get all the activities where the instance is involved.
+		*/
+		const std::vector<class Activity*> & getActivitySet() const {return activitySet;}
 	};
 }

@@ -56,6 +56,34 @@ namespace resqml2_0_1
 		virtual ~Activity() {}
 
 		/**
+		* Push back a double parameter in the instance.
+		* This parameter must exist in the associated activity template.
+		*/
+		void pushBackParameter(const std::string title,
+			const double & value, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc);
+
+		/**
+		* Push back a string parameter in the instance.
+		* This parameter must exist in the associated activity template.
+		*/
+		void pushBackParameter(const std::string title,
+			const std::string & value);
+
+		/**
+		* Push back an integer parameter in the instance.
+		* This parameter must exist in the associated activity template.
+		*/
+		void pushBackParameter(const std::string title,
+			const long long & value);
+
+		/**
+		* Push back a resqml object parameter in the instance.
+		* This parameter must exist in the associated activity template.
+		*/
+		void pushBackResqmlObjectParameter(const std::string title,
+			AbstractObject* resqmlObject);
+
+		/**
 		* Set the activity template of the activity
 		**/
 		void setActivityTemplate(class ActivityTemplate* activityTemplate);
@@ -80,5 +108,6 @@ namespace resqml2_0_1
 	private:
 		
         class ActivityTemplate* activityTemplate;
+		std::vector<AbstractObject*> resqmlObjectSet;
 	};
 }

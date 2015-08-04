@@ -76,17 +76,30 @@ void ActivityTemplate::pushBackParameter(const std::string title,
 	activityTemplate->Parameter.push_back(param);
 }
 
-void ActivityTemplate::pushBackDataObjectParameter(const std::string title,
+void ActivityTemplate::pushBackResqmlObjectParameter(const std::string title,
 	const bool & isInput, const bool isOutput,
 	const unsigned int & minOccurs, const unsigned int & maxOccurs,
-	const std::string & dataObjetContentType)
+	const std::string & resqmlObjectContentType)
 {
 	pushBackParameter(title, resqml2__ParameterKind__dataObject, isInput, isOutput, minOccurs, maxOccurs);
 
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
 	activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->DataObjectContentType = soap_new_std__string(gsoapProxy->soap, 1);
-	activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->DataObjectContentType->assign(dataObjetContentType); 
-} 
+	activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->DataObjectContentType->assign(resqmlObjectContentType); 
+}
+
+bool ActivityTemplate::isAnExistingParameter(const std::string & paramTitle) const
+{
+	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
+
+	for (unsigned int i = 0; i < activityTemplate->Parameter.size(); ++i)
+	{
+		if (activityTemplate->Parameter[i]->Title == paramTitle)
+			return true;
+	}
+
+	return false;
+}
 
 const std::string & ActivityTemplate::getParameterTitle(const unsigned int & index) const
 {

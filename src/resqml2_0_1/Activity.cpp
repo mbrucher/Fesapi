@@ -35,7 +35,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/ActivityTemplate.h"
 
+#include <algorithm>
 #include <stdexcept>
+
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -56,6 +61,80 @@ Activity::Activity(ActivityTemplate* activityTemplate, const string & guid, cons
 
 	if (activityTemplate->getEpcDocument() != nullptr)
 		activityTemplate->getEpcDocument()->addGsoapProxy(this);
+}
+
+void Activity::pushBackParameter(const std::string title,
+			const double & value, const resqml2__ResqmlUom & uom)
+{
+	if (activityTemplate->isAnExistingParameter(title) == false)
+		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
+
+	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
+
+	resqml2__DoubleQuantityParameter* dqp = soap_new_resqml2__DoubleQuantityParameter(activity->soap, 1);
+	dqp->Title = title;
+	dqp->Value = value;
+	dqp->Uom = uom;
+	activity->Parameter.push_back(dqp);
+	
+}
+
+void Activity::pushBackParameter(const std::string title, const std::string & value)
+{
+	if (activityTemplate->isAnExistingParameter(title) == false)
+		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
+
+	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
+
+	resqml2__StringParameter* sp = soap_new_resqml2__StringParameter(activity->soap, 1);
+	sp->Title = title;
+	sp->Value = value;
+	activity->Parameter.push_back(sp);
+}
+
+void Activity::pushBackParameter(const std::string title, const long long & value)
+{
+	if (activityTemplate->isAnExistingParameter(title) == false)
+		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
+
+	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
+
+	resqml2__IntegerQuantityParameter* iqp = soap_new_resqml2__IntegerQuantityParameter(activity->soap, 1);
+	iqp->Title = title;
+	iqp->Value = value;
+	activity->Parameter.push_back(iqp);
+}
+
+void Activity::pushBackResqmlObjectParameter(const std::string title,
+			AbstractObject* resqmlObject)
+{
+	if (resqmlObject == nullptr)
+		throw invalid_argument("The resqml object must be non null.");
+	if (activityTemplate->isAnExistingParameter(title) == false)
+		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
+
+	//EPC
+	bool alreadyInserted = (std::find(resqmlObjectSet.begin(), resqmlObjectSet.end(), resqmlObject) != resqmlObjectSet.end()); // In case the resqml object is both input and output of the activity
+	if (!alreadyInserted)
+	{		
+		resqmlObjectSet.push_back(resqmlObject);
+	}
+	alreadyInserted = (std::find(resqmlObject->activitySet.begin(), resqmlObject->activitySet.end(), this) != resqmlObject->activitySet.end()); // In case the resqml object is both input and output of the activity
+	if (!alreadyInserted)
+	{
+		resqmlObject->activitySet.push_back(this);
+	}
+
+	// XML
+	if (updateXml)
+	{
+		_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
+
+		resqml2__DataObjectParameter* dop = soap_new_resqml2__DataObjectParameter(activity->soap, 1);
+		dop->Title = title;
+		dop->DataObject = resqmlObject->newResqmlReference();
+		activity->Parameter.push_back(dop);
+	}
 }
 
 void Activity::setActivityTemplate(ActivityTemplate * activityTemplate)
@@ -94,6 +173,18 @@ vector<Relationship> Activity::getAllEpcRelationships() const
 	else
 		throw domain_error("The activity template associated to the activity cannot be NULL.");
 
+	for (unsigned int i = 0; i < resqmlObjectSet.size(); ++i)
+	{
+		if (resqmlObjectSet[i])
+		{
+			Relationship relResqmlObject(resqmlObjectSet[i]->getPartNameInEpcDocument(), "", resqmlObjectSet[i]->getUuid());
+			relResqmlObject.setDestinationObjectType();
+			result.push_back(relResqmlObject);
+		}
+		else
+			throw domain_error("The resqml Object associated to the activity cannot be NULL.");
+	}
+
 	return result;
 }
 
@@ -109,4 +200,18 @@ void Activity::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 	}
 	else
 		throw domain_error("The activity template associated to the activity cannot be NULL.");
+
+	for (unsigned int i = 0; i < activity->Parameter.size(); ++i)
+	{
+		if (activity->Parameter[i]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DataObjectParameter)
+		{
+			resqml2__DataObjectParameter* dop = static_cast<resqml2__DataObjectParameter*>(activity->Parameter[i]);
+			if (dop->DataObject == NULL)
+				throw domain_error("The resqml object of a data object parameter cannot be null.");
+
+			updateXml = false;
+			pushBackResqmlObjectParameter(dop->Title, epcDoc->getResqmlAbstractObjectByUuid(dop->DataObject->UUID));
+			updateXml = true;
+		}
+	}
 }
