@@ -70,7 +70,7 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 	struct dirent* currentFile = readdir(rep); // first file
 	do
 	{
-		string fileName = directory + "/" + currentFile->d_name;
+		string fileName = currentFile->d_name;
 #endif
 		unsigned int pos = fileName.find_last_of('.');
 		if (pos < fileName.size())
@@ -142,7 +142,7 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 						}
 					}
 					else
-						throw domain_error("One of the property type config file cannot be opened.");
+						throw domain_error("The property type config file " + directory + "/" + fileName + " cannot be opened.");
 
 				}
 			}

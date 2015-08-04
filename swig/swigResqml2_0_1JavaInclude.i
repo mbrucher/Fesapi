@@ -250,19 +250,19 @@ namespace resqml2_0_1
 {	
 	%typemap(javaout) AbstractObject*, AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*, AbstractValuesProperty*  {
 		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) energisticsApiJNI.resqml2_0_1_instantiateConcreteObject(cPtr, $owner);
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteObject(cPtr, $owner);
 		return ret;
 	}
 	
 	%typemap(javaout) WellboreFrameRepresentation*  {
 		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) energisticsApiJNI.resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, $owner);
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, $owner);
 		return ret;
 	}
 	
 	%typemap(javaout) AbstractLocal3dCrs*  {
 		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) energisticsApiJNI.resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, $owner);
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, $owner);
 		return ret;
 	}
 

@@ -44,7 +44,7 @@ namespace witsml1_4_1_1
 {	
 	%typemap(javaout) AbstractObject*  {
 		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) energisticsApiJNI.witsml1_4_1_1_instantiateConcreteObject(cPtr, $owner);
+		$javaclassname ret = ($javaclassname) fesapiJNI.witsml1_4_1_1_instantiateConcreteObject(cPtr, $owner);
 		return ret;
 	}
 }
