@@ -969,7 +969,7 @@ void deserializeActivity(AbstractObject* resqmlObject)
 			string paramTitle = activity->getActivityTemplate()->getParameterTitle(j);
 			cout << "Parameter : " << paramTitle << endl;
 			cout << "Parameter min occurs : " << activity->getActivityTemplate()->getParameterMinOccurences(paramTitle) << endl;
-			cout << "Parameter max occurs : " << activity->getActivityTemplate()->getParameterMinOccurences(paramTitle) << endl;
+			cout << "Parameter max occurs : " << activity->getActivityTemplate()->getParameterMaxOccurences(paramTitle) << endl;
 			cout << "Parameter is input : " << activity->getActivityTemplate()->getParameterIsInput(paramTitle) << endl;
 			cout << "Parameter is output : " << activity->getActivityTemplate()->getParameterIsOutput(paramTitle) << endl;
 			if (activity->getParameterCount(paramTitle) > 0)

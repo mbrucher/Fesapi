@@ -94,8 +94,8 @@ namespace resqml2_0_1
 		const bool & getParameterIsOutput(const std::string & paramTitle) const;
 		const unsigned int getParameterMinOccurences(const unsigned int & index) const;
 		const unsigned int getParameterMinOccurences(const std::string & paramTitle) const;
-		const unsigned int getParameterMaxOccurences(const unsigned int & index) const;
-		const unsigned int getParameterMaxOccurences(const std::string & paramTitle) const;
+		const long long getParameterMaxOccurences(const unsigned int & index) const;
+		const long long getParameterMaxOccurences(const std::string & paramTitle) const;
 
 		const std::vector<Activity*> & getActivitySet() const {return activitySet;}
 
