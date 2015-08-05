@@ -82,6 +82,40 @@ namespace resqml2_0_1
 		*/
 		void pushBackResqmlObjectParameter(const std::string title,
 			AbstractObject* resqmlObject);
+		
+		/**
+		* Get the count of all the parameters
+		*/
+		unsigned int getParameterCount() const;
+
+		/**
+		* Get the count of all the parameters which have got the same title.
+		*/
+		unsigned int getParameterCount(const std::string & paramTitle) const;
+		const std::string & getParameterTitle(const unsigned int & index) const;
+		std::vector<unsigned int> getParameterIndexOfTitle(const std::string & paramTitle) const;
+
+		bool isADoubleQuantityParameter(const std::string & paramTitle) const;
+		bool isADoubleQuantityParameter(const unsigned int & index) const;
+		std::vector<double> getDoubleQuantityParameterValue(const std::string & paramTitle) const;
+		double getDoubleQuantityParameterValue(const unsigned int & index) const;
+		std::vector<gsoap_resqml2_0_1::resqml2__ResqmlUom> getDoubleQuantityParameterUom(const std::string & paramTitle) const;
+		gsoap_resqml2_0_1::resqml2__ResqmlUom getDoubleQuantityParameterUom(const unsigned int & index) const;
+
+		bool isAnIntegerQuantityParameter(const std::string & paramTitle) const;
+		bool isAnIntegerQuantityParameter(const unsigned int & index) const;
+		std::vector<long long> getIntegerQuantityParameterValue(const std::string & paramTitle) const;
+		long long getIntegerQuantityParameterValue(const unsigned int & index) const;
+
+		bool isAStringParameter(const std::string & paramTitle) const;
+		bool isAStringParameter(const unsigned int & index) const;
+		std::vector<std::string> getStringParameterValue(const std::string & paramTitle) const;
+		const std::string & getStringParameterValue(const unsigned int & index) const;
+
+		bool isAResqmlObjectParameter(const std::string & paramTitle) const;
+		bool isAResqmlObjectParameter(const unsigned int & index) const;
+		std::vector<AbstractObject*> getResqmlObjectParameterValue(const std::string & paramTitle) const;
+		AbstractObject* getResqmlObjectParameterValue(const unsigned int & index) const;
 
 		/**
 		* Set the activity template of the activity
@@ -106,6 +140,8 @@ namespace resqml2_0_1
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 	private:
+
+		std::vector<gsoap_resqml2_0_1::resqml2__AbstractActivityParameter*> getParameterFromTitle(const std::string & paramTitle) const;
 		
         class ActivityTemplate* activityTemplate;
 		std::vector<AbstractObject*> resqmlObjectSet;

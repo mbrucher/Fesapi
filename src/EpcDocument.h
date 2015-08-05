@@ -55,6 +55,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
+	class Activity;
+	class ActivityTemplate;
 	class PropertyKindMapper;
 	class LocalDepth3dCrs;
 	class LocalTime3dCrs;
@@ -786,6 +788,14 @@ namespace common
 		resqml2_0_1::CategoricalProperty* createCategoricalProperty(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			resqml2_0_1::StringTableLookup* strLookup, resqml2_0_1::PropertyKind * localPropType);
+
+		//************************************
+		//************* ACTIVITIES ***********
+		//************************************
+
+		resqml2_0_1::ActivityTemplate* createActivityTemplate(const std::string & guid, const std::string & title);
+		
+		resqml2_0_1::Activity* createActivity(resqml2_0_1::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
 		
 		//************************************
 		//*************** WITSML *************

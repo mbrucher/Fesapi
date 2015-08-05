@@ -80,6 +80,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/PropertyKindMapper.h"
 
+#include "resqml2_0_1/Activity.h"
+#include "resqml2_0_1/ActivityTemplate.h"
+
 #include "witsml1_4_1_1/Well.h"
 #include "witsml1_4_1_1/CoordinateReferenceSystem.h"
 #include "witsml1_4_1_1/Trajectory.h"
@@ -87,9 +90,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 using namespace std;
 using namespace resqml2_0_1;
 
+Horizon* horizon1;
+Horizon* horizon2;
+Fault* fault1;
 HorizonInterpretation* horizon1Interp1;
 HorizonInterpretation* horizon2Interp1;
 FaultInterpretation* fault1Interp1;
+Grid2dRepresentation* h1i1SingleGrid2dRep;
+PolylineSetRepresentation* f1i1PolyLineRep;
 TriangulatedSetRepresentation* f1i1triRepSinglePatch;
 TriangulatedSetRepresentation* f1i1triRep;
 TriangulatedSetRepresentation* h1i1triRep;
@@ -235,9 +243,9 @@ void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
 
     // Features
 	//BoundaryFeature* bf = pck->createBoundaryFeature("", "testingBoundaryFeature");
-    Horizon* horizon1 = pck->createHorizon("", "Horizon1");
-    Horizon* horizon2 = pck->createHorizon("", "Horizon2");
-    Fault* fault1 = pck->createFault("", "Fault1");
+    horizon1 = pck->createHorizon("", "Horizon1");
+    horizon2 = pck->createHorizon("", "Horizon2");
+    fault1 = pck->createFault("", "Fault1");
     fault1->setMetadata("1424bcc2-3d9d-4f30-b1f9-69dcb897e33b", "", "philippe", 148526020, "philippe", "", 148526100, "F2I", "");
 
     // Interpretations
@@ -256,11 +264,11 @@ void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
     //h1i1SinglePolylineRep->pushBackSeismic2dCoordinatesPatch(seismicLineAbscissa, 4, seismicLineRep, hdfProxy);
 
 #if defined(OFFICIAL)
-    Grid2dRepresentation* h1i1SingleGrid2dRep = pck->createGrid2dRepresentation(horizon1Interp1, local3dCrs, "", "Horizon1 Interp1 Grid2dRep");
+    h1i1SingleGrid2dRep = pck->createGrid2dRepresentation(horizon1Interp1, local3dCrs, "", "Horizon1 Interp1 Grid2dRep");
     double zValues [8] = {300, 300, 350, 350, 300, 300, 350, 350};
     h1i1SingleGrid2dRep->setGeometryAsArray2dOfExplicitZ(zValues, 4, 2, hdfProxy, seismicLatticeRep);
 #else
-    Grid2dRepresentation* h1i1SingleGrid2dRep = pck->createGrid2dRepresentation(horizon1Interp1, localTime3dCrs, "", "Horizon1 Interp1 Grid2dRep");
+    h1i1SingleGrid2dRep = pck->createGrid2dRepresentation(horizon1Interp1, localTime3dCrs, "", "Horizon1 Interp1 Grid2dRep");
     double zValues [8] = {300, 300, 350, 350, 300, 300, 350, 350};
     h1i1SingleGrid2dRep->setGeometryAsArray2dOfExplicitZ(zValues, 4, 2, hdfProxy, seismicLatticeRep);
 #endif
@@ -346,7 +354,7 @@ void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
     f1i1triRep->pushBackTrianglePatch(6, explicitPointsFault1Patch4, 4, triangleNodeIndexFaultPatch4, hdfProxy);
 
     // Fault polyline rep
-    PolylineSetRepresentation* f1i1PolyLineRep = pck->createPolylineSetRepresentation(
+    f1i1PolyLineRep = pck->createPolylineSetRepresentation(
         fault1Interp1, local3dCrs,
         "",
         "Fault1 Interp1 PolylineRep");
@@ -418,12 +426,14 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
     // =========================================================================
     // Organization features
     OrganizationFeature * structOrg1 = pck.createStructuralModel("", "StructuralOrg1");
+	structOrg1->setOriginator("Geosiris");
 
     // =========================================================================
     // =========================================================================
     // Organization interpretations
     StructuralOrganizationInterpretation * structuralOrganizationInterpretation = pck.createStructuralOrganizationInterpretationInApparentDepth(structOrg1, "", "StructuralOrg1 Interp1");
-    structuralOrganizationInterpretation->pushBackFaultInterpretation(fault1Interp1);
+	structuralOrganizationInterpretation->setOriginator("Geosiris");
+	structuralOrganizationInterpretation->pushBackFaultInterpretation(fault1Interp1);
     structuralOrganizationInterpretation->pushBackHorizonInterpretation(horizon1Interp1, 1);
     structuralOrganizationInterpretation->pushBackHorizonInterpretation(horizon2Interp1, 1);
 
@@ -431,7 +441,9 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
     // =========================================================================
     // EarthModel
     OrganizationFeature * earthModelOrg = pck.createEarthModel("", "EarthModelOrg");
-    EarthModelInterpretation * earthModel = pck.createEarthModelInterpretation(earthModelOrg,"", "EarthModel");
+    earthModelOrg->setOriginator("Geosiris");
+	EarthModelInterpretation * earthModel = pck.createEarthModelInterpretation(earthModelOrg,"", "EarthModel");
+    earthModel->setOriginator("Geosiris");
     earthModel->setStructuralOrganizationInterpretation(structuralOrganizationInterpretation);
 
     // =========================================================================
@@ -468,13 +480,15 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
 
     // Single Patch Fault 1
     SealedSurfaceFrameworkRepresentation* singlePatchFault1SealedSurfaceFramework = pck.createSealedSurfaceFrameworkRepresentation(structuralOrganizationInterpretation, local3dCrs, "", "Single Patch Fault1 StructuralOrg1 Interp1 Interp1 SealedSurfFrmwk");
-    f1i1triRepSinglePatch->pushBackIntoRepresentationSet(singlePatchFault1SealedSurfaceFramework);
+    singlePatchFault1SealedSurfaceFramework->setOriginator("Geosiris");
+	f1i1triRepSinglePatch->pushBackIntoRepresentationSet(singlePatchFault1SealedSurfaceFramework);
     h1i1triRep->pushBackIntoRepresentationSet(singlePatchFault1SealedSurfaceFramework);
     h2i1triRep->pushBackIntoRepresentationSet(singlePatchFault1SealedSurfaceFramework);
 
     // Multipatch Fault 1
     SealedSurfaceFrameworkRepresentation* sealedSurfaceFramework = pck.createSealedSurfaceFrameworkRepresentation(structuralOrganizationInterpretation, local3dCrs, "", "StructuralOrg1 Interp1 Interp1 SealedSurfFrmwk");
-    f1i1triRep->pushBackIntoRepresentationSet(sealedSurfaceFramework);
+    sealedSurfaceFramework->setOriginator("Geosiris");
+	f1i1triRep->pushBackIntoRepresentationSet(sealedSurfaceFramework);
     h1i1triRep->pushBackIntoRepresentationSet(sealedSurfaceFramework);
     h2i1triRep->pushBackIntoRepresentationSet(sealedSurfaceFramework);
 
@@ -883,6 +897,41 @@ void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
             hdfProxy);
 }
 
+void serializeActivities(common::EpcDocument * epcDoc)
+{
+	/********************
+	* Activity Template
+	********************/
+
+	ActivityTemplate* genericCreationActivityTemplate = epcDoc->createActivityTemplate("a41c63bf-78cb-454b-8018-c9df060c5cf3", "GenericCreationActivity");
+	genericCreationActivityTemplate->pushBackUntypedParameter("CreationInput", true, false, 0, -1);
+	genericCreationActivityTemplate->pushBackResqmlObjectParameter("CreationOutput", false, true, 1, -1);
+
+	/********************
+	* Activities
+	********************/
+	Activity* pickingActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Seismic picking");
+	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", horizon1);
+	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", horizon1Interp1);
+	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", h1i1SingleGrid2dRep);
+	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", fault1);
+	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", fault1Interp1);
+	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", f1i1PolyLineRep);
+	
+	Activity* h1triangulationActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
+	h1triangulationActivity->pushBackResqmlObjectParameter("CreationInput", h1i1SingleGrid2dRep);
+	h1triangulationActivity->pushBackResqmlObjectParameter("CreationOutput", h1i1triRep);
+	
+	Activity* f1TriangulationActivity1 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
+	f1TriangulationActivity1->pushBackResqmlObjectParameter("CreationInput", f1i1PolyLineRep);
+	f1TriangulationActivity1->pushBackResqmlObjectParameter("CreationOutput", f1i1triRepSinglePatch);
+	
+	Activity* f1TriangulationActivity2 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
+	f1TriangulationActivity2->pushBackResqmlObjectParameter("CreationInput", f1i1PolyLineRep);
+	f1TriangulationActivity2->pushBackResqmlObjectParameter("CreationOutput", f1i1triRep);
+
+}
+
 void serializePropertyKindMappingFiles(common::EpcDocument * pck)
 {
 
@@ -906,6 +955,80 @@ void deserializePropertyKindMappingFiles(common::EpcDocument * pck)
 	ptMapper->addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName("Elevation depth", "Petrel");
 }
 
+void deserializeActivity(AbstractObject* resqmlObject)
+{
+	if (resqmlObject->getActivitySet().size())
+		cout << "Activities for object " << resqmlObject->getTitle() << endl;
+	for (unsigned int i = 0; i < resqmlObject->getActivitySet().size(); ++i)
+	{
+		Activity* activity = resqmlObject->getActivitySet()[i];
+		cout << "Activity : " << activity->getTitle() << endl;
+		cout << "Activity Template : " << activity->getActivityTemplate()->getTitle() << endl;
+		for (unsigned int j = 0; j < activity->getActivityTemplate()->getParameterCount(); ++j)
+		{
+			string paramTitle = activity->getActivityTemplate()->getParameterTitle(j);
+			cout << "Parameter : " << paramTitle << endl;
+			cout << "Parameter min occurs : " << activity->getActivityTemplate()->getParameterMinOccurences(paramTitle) << endl;
+			cout << "Parameter max occurs : " << activity->getActivityTemplate()->getParameterMinOccurences(paramTitle) << endl;
+			cout << "Parameter is input : " << activity->getActivityTemplate()->getParameterIsInput(paramTitle) << endl;
+			cout << "Parameter is output : " << activity->getActivityTemplate()->getParameterIsOutput(paramTitle) << endl;
+			if (activity->getParameterCount(paramTitle) > 0)
+			{
+				if (activity->isADoubleQuantityParameter(paramTitle) == true)
+				{
+					vector<double> vals = activity->getDoubleQuantityParameterValue(paramTitle);
+					for (unsigned int k = 0; k < vals.size(); ++k)
+					{
+						cout << "Double value : " << vals[k] << endl;
+					}
+				}
+				else if (activity->isAnIntegerQuantityParameter(paramTitle) == true)
+				{
+					vector<long long> vals = activity->getIntegerQuantityParameterValue(paramTitle);
+					for (unsigned int k = 0; k < vals.size(); ++k)
+					{
+						cout << "Integer value : " << vals[k] << endl;
+					}
+				}
+				else if (activity->isAStringParameter(paramTitle) == true)
+				{
+					vector<string> vals = activity->getStringParameterValue(paramTitle);
+					for (unsigned int k = 0; k < vals.size(); ++k)
+					{
+						cout << "String value : " << vals[k] << endl;
+					}
+				}
+				else if (activity->isAResqmlObjectParameter(paramTitle) == true)
+				{
+					vector<AbstractObject*> vals = activity->getResqmlObjectParameterValue(paramTitle);
+					for (unsigned int k = 0; k < vals.size(); ++k)
+					{
+						cout << "Object title : " << vals[k] ->getTitle()<< endl;
+					}
+				}
+				else
+				{
+					vector<unsigned int> paramIndex = activity->getParameterIndexOfTitle(paramTitle);
+					for (unsigned int k = 0; k < paramIndex.size(); ++k)
+					{
+						if (activity->isADoubleQuantityParameter(paramIndex[k]))
+							cout << "Double value : " << activity->getDoubleQuantityParameterValue(paramIndex[k]);
+						else if (activity->isAnIntegerQuantityParameter(paramIndex[k]))
+							cout << "Integer value : " << activity->getIntegerQuantityParameterValue(paramIndex[k]);
+						else if (activity->isAStringParameter(paramIndex[k]))
+							cout << "String value : " << activity->getStringParameterValue(paramIndex[k]);
+						else if (activity->isAResqmlObjectParameter(paramIndex[k]))
+							cout << "Object title : " << activity->getResqmlObjectParameterValue(paramIndex[k])->getTitle();
+					}
+				}
+			}
+			else
+				cout << "No provided parameter in the activity." << endl;
+		}
+		cout << endl;
+	}
+}
+
 void serialize(const string & filePath)
 {
 	common::EpcDocument pck(filePath);
@@ -927,6 +1050,7 @@ void serialize(const string & filePath)
 #if !defined(OFFICIAL)
 	serializeWells(&pck, hdfProxy);
 	serializeStratigraphicModel(&pck, hdfProxy);
+	serializeActivities(&pck);
 #endif
 
 	// Add an extended core property before to serialize
@@ -971,7 +1095,7 @@ void deserialize(const string & inputFile)
 
 	std::cout << "CRS" << endl;
 	std::vector<LocalDepth3dCrs*> depthCrsSet = pck.getLocalDepth3dCrsSet();
-	for (unsigned int i = 0; i < depthCrsSet.size(); i++)
+	for (unsigned int i = 0; i < depthCrsSet.size(); ++i)
 	{
 		std::cout << "Title is : " << depthCrsSet[i]->getTitle() << std::endl;
 		if (depthCrsSet[i]->isProjectedCrsDefinedWithEpsg())
@@ -980,7 +1104,7 @@ void deserialize(const string & inputFile)
 			std::cout << "Projected : Unknown." << "Reason is:" << depthCrsSet[i]->getProjectedCrsUnknownReason() << std::endl;
 	}
 	std::vector<LocalTime3dCrs*> timeCrsSet = pck.getLocalTime3dCrsSet();
-	for (unsigned int i = 0; i < timeCrsSet.size(); i++)
+	for (unsigned int i = 0; i < timeCrsSet.size(); ++i)
 	{
 		std::cout << "Title is : " << timeCrsSet[i]->getTitle() << std::endl;
 		if (timeCrsSet[i]->isVerticalCrsDefinedWithEpsg())
@@ -1003,7 +1127,7 @@ void deserialize(const string & inputFile)
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
 
 	std::cout << "FAULTS" << endl;
-	for (unsigned int i = 0; i < faultSet.size(); i++)
+	for (unsigned int i = 0; i < faultSet.size(); ++i)
 	{
 		std::cout << "Title is : " << faultSet[i]->getTitle() << std::endl;
 		std::cout << "Guid is : " << faultSet[i]->getUuid() << std::endl;
@@ -1011,7 +1135,7 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << faultPolyRep.size() << " FAULT POLYLINE REP" << endl;
-	for (unsigned int i = 0; i < faultPolyRep.size(); i++)
+	for (unsigned int i = 0; i < faultPolyRep.size(); ++i)
 	{
 		std::cout << "Title is : " << faultPolyRep[i]->getTitle() << std::endl;
 		std::cout << "Guid is : " << faultPolyRep[i]->getUuid() << std::endl;
@@ -1024,6 +1148,7 @@ void deserialize(const string & inputFile)
 			std::cout << allXyzPoints[nodeIndex] << " " << allXyzPoints[nodeIndex+1] << " " << allXyzPoints[nodeIndex+2] << endl;
 		}
 		delete [] allXyzPoints;
+		deserializeActivity(faultPolyRep[i]);
 /*
 		std::cout << "\tSEISMIC INFO" << endl;
 		double* inlines = new double[nodeCount];
@@ -1066,6 +1191,7 @@ void deserialize(const string & inputFile)
 			std::cout << "\ttriangleIndices : " << triangleIndices[j] << std::endl;
 			std::cout << "\t--------------------------------------------------" << std::endl;
 		}
+		deserializeActivity(faultTriRepSet[i]);
 
 		delete [] xyzPoints;
 		delete [] triangleIndices;
@@ -1105,6 +1231,7 @@ void deserialize(const string & inputFile)
 			//std::cout << "\tDatatype is : " << propertyValuesSet[j]->getValuesHdfDatatype() << std::endl;
 			std::cout << "\t--------------------------------------------------" << std::endl;
 		}
+		deserializeActivity(horizonGrid2dSet[i]);
 	}
 
 	std::cout << "HORIZONS TRI REP" << endl;
@@ -1133,6 +1260,7 @@ void deserialize(const string & inputFile)
 
 		delete [] xyzPoints;
 		delete [] triangleIndices;
+		deserializeActivity(horizonTriRepSet[i]);
 	}
 
 	std::cout << "HORIZONS SINGLE POLYLINE REP" << endl;

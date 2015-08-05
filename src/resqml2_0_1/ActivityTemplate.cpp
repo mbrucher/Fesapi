@@ -46,10 +46,9 @@ using namespace epc;
 
 const char* ActivityTemplate::XML_TAG = "ActivityTemplate";
 
-void ActivityTemplate::pushBackParameter(const std::string title,
-			const resqml2__ParameterKind & kind,
+void ActivityTemplate::pushBackUntypedParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
-			const unsigned int & minOccurs, const unsigned int & maxOccurs)
+			const unsigned int & minOccurs, const int & maxOccurs)
 {
 	// Preconditions
 	if (minOccurs > maxOccurs)
@@ -59,7 +58,6 @@ void ActivityTemplate::pushBackParameter(const std::string title,
 
 	resqml2__ParameterTemplate* param =soap_new_resqml2__ParameterTemplate(gsoapProxy->soap, 1);
 	param->Title = title;
-	param->AllowedKind.push_back(kind);
 	param->IsInput = isInput;
 	param->IsOutput = isOutput;
 	if (minOccurs != 1)
@@ -76,16 +74,30 @@ void ActivityTemplate::pushBackParameter(const std::string title,
 	activityTemplate->Parameter.push_back(param);
 }
 
+void ActivityTemplate::pushBackParameter(const std::string title,
+			const resqml2__ParameterKind & kind,
+			const bool & isInput, const bool isOutput,
+			const unsigned int & minOccurs, const int & maxOccurs)
+{
+	pushBackUntypedParameter(title, isInput, isOutput, minOccurs, maxOccurs);
+
+	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
+	activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->AllowedKind.push_back(kind);
+}
+
 void ActivityTemplate::pushBackResqmlObjectParameter(const std::string title,
 	const bool & isInput, const bool isOutput,
-	const unsigned int & minOccurs, const unsigned int & maxOccurs,
+	const unsigned int & minOccurs, const int & maxOccurs,
 	const std::string & resqmlObjectContentType)
 {
 	pushBackParameter(title, resqml2__ParameterKind__dataObject, isInput, isOutput, minOccurs, maxOccurs);
 
-	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
-	activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->DataObjectContentType = soap_new_std__string(gsoapProxy->soap, 1);
-	activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->DataObjectContentType->assign(resqmlObjectContentType); 
+	if (resqmlObjectContentType.size() > 0)
+	{
+		_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
+		activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->DataObjectContentType = soap_new_std__string(gsoapProxy->soap, 1);
+		activityTemplate->Parameter[activityTemplate->Parameter.size()-1]->DataObjectContentType->assign(resqmlObjectContentType);
+	}
 }
 
 bool ActivityTemplate::isAnExistingParameter(const std::string & paramTitle) const
@@ -101,6 +113,11 @@ bool ActivityTemplate::isAnExistingParameter(const std::string & paramTitle) con
 	return false;
 }
 
+const unsigned int ActivityTemplate::getParameterCount() const
+{
+	return static_cast<_resqml2__ActivityTemplate*>(gsoapProxy)->Parameter.size();
+}
+
 const std::string & ActivityTemplate::getParameterTitle(const unsigned int & index) const
 {
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
@@ -111,7 +128,7 @@ const std::string & ActivityTemplate::getParameterTitle(const unsigned int & ind
 	return activityTemplate->Parameter[index]->Title;
 }
 
-const vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & ActivityTemplate::getParameterAllowedKinds(const unsigned int & index) const
+const vector<resqml2__ParameterKind> & ActivityTemplate::getParameterAllowedKinds(const unsigned int & index) const
 {
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
 
@@ -119,6 +136,16 @@ const vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & ActivityTemplate::getP
 		throw range_error("The parameter template index is not in the parameter range.");
 
 	return activityTemplate->Parameter[index]->AllowedKind;
+}
+
+const vector<resqml2__ParameterKind> & ActivityTemplate::getParameterAllowedKinds(const std::string & paramTitle) const
+{
+	resqml2__ParameterTemplate* param = getParameterFromTitle(paramTitle);
+
+	if (param == nullptr)
+		throw range_error("The parameter template title is not in the parameter template range.");
+
+	return param->AllowedKind;
 }
 
 const bool & ActivityTemplate::getParameterIsInput(const unsigned int & index) const
@@ -131,6 +158,16 @@ const bool & ActivityTemplate::getParameterIsInput(const unsigned int & index) c
 	return activityTemplate->Parameter[index]->IsInput;
 }
 
+const bool & ActivityTemplate::getParameterIsInput(const std::string & paramTitle) const
+{
+	resqml2__ParameterTemplate* param = getParameterFromTitle(paramTitle);
+
+	if (param == nullptr)
+		throw range_error("The parameter template title is not in the parameter template range.");
+
+	return param->IsInput;
+}
+
 const bool & ActivityTemplate::getParameterIsOutput(const unsigned int & index) const
 {
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
@@ -139,6 +176,16 @@ const bool & ActivityTemplate::getParameterIsOutput(const unsigned int & index) 
 		throw range_error("The parameter template index is not in the parameter range.");
 
 	return activityTemplate->Parameter[index]->IsOutput;
+}
+
+const bool & ActivityTemplate::getParameterIsOutput(const std::string & paramTitle) const
+{
+	resqml2__ParameterTemplate* param = getParameterFromTitle(paramTitle);
+
+	if (param == nullptr)
+		throw range_error("The parameter template title is not in the parameter template range.");
+
+	return param->IsOutput;
 }
 
 const unsigned int ActivityTemplate::getParameterMinOccurences(const unsigned int & index) const
@@ -154,6 +201,19 @@ const unsigned int ActivityTemplate::getParameterMinOccurences(const unsigned in
 		return *activityTemplate->Parameter[index]->MinOccurs;
 }
 
+const unsigned int ActivityTemplate::getParameterMinOccurences(const std::string & paramTitle) const
+{
+	resqml2__ParameterTemplate* param = getParameterFromTitle(paramTitle);
+
+	if (param == nullptr)
+		throw range_error("The parameter template title is not in the parameter template range.");
+
+	if (param->MinOccurs == nullptr)
+		return 1;
+	else
+		return *param->MaxOccurs;
+}
+
 const unsigned int ActivityTemplate::getParameterMaxOccurences(const unsigned int & index) const
 {
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
@@ -165,6 +225,19 @@ const unsigned int ActivityTemplate::getParameterMaxOccurences(const unsigned in
 		return 1;
 	else
 		return *activityTemplate->Parameter[index]->MaxOccurs;
+}
+
+const unsigned int ActivityTemplate::getParameterMaxOccurences(const std::string & paramTitle) const
+{
+	resqml2__ParameterTemplate* param = getParameterFromTitle(paramTitle);
+
+	if (param == nullptr)
+		throw range_error("The parameter template title is not in the parameter template range.");
+
+	if (param->MaxOccurs == nullptr)
+		return 1;
+	else
+		return *param->MaxOccurs;
 }
 
 std::string ActivityTemplate::getResqmlVersion() const
@@ -183,6 +256,23 @@ ActivityTemplate::ActivityTemplate(common::EpcDocument* epcDoc, const string & g
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	epcDoc->addGsoapProxy(this);
+}
+
+resqml2__ParameterTemplate* ActivityTemplate::getParameterFromTitle(const std::string & paramTitle) const
+{
+	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
+
+	resqml2__ParameterTemplate* param = nullptr;
+	for (unsigned int i = 0; i < activityTemplate->Parameter.size(); ++i)
+	{
+		if (activityTemplate->Parameter[i]->Title == paramTitle)
+		{
+			param = activityTemplate->Parameter[i];
+			break;
+		}
+	}
+
+	return param;
 }
 
 vector<Relationship> ActivityTemplate::getAllEpcRelationships() const

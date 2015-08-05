@@ -362,8 +362,8 @@ string EpcDocument::deserialize()
 			istringstream iss(package->extractFile(it->second.getExtensionOrPartName().substr(1)));
 			s->is = &iss;
 			resqml2_0_1::AbstractObject* wrapper = NULL;
-			string resqmlContentType = "";
-			resqmlContentType = it->second.getContentTypeString().substr(46);
+			size_t lastEqualCharPos = it->second.getContentTypeString().find_last_of('_'); // The XML tag is after "obj_"
+			string resqmlContentType = it->second.getContentTypeString().substr(lastEqualCharPos+1);
 			if (resqmlContentType.compare(MdDatum::XML_TAG) == 0)
 			{
 				gsoap_resqml2_0_1::_resqml2__MdDatum* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREMdDatum(s, 1);
@@ -1859,6 +1859,28 @@ CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentati
 		return NULL;
 	return new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, localPropType);
 }
+
+//************************************
+//************* ACTIVITIES ***********
+//************************************
+
+ActivityTemplate* EpcDocument::createActivityTemplate(const std::string & guid, const std::string & title)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new ActivityTemplate(this, guid, title);
+}
+		
+Activity* EpcDocument::createActivity(ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new Activity(activityTemplate, guid, title);
+}
+		
+//************************************
+//*************** WITSML *************
+//************************************
 
 Well* EpcDocument::createWell(
 			const std::string & guid,

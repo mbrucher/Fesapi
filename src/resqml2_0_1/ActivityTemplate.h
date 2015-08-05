@@ -54,12 +54,20 @@ namespace resqml2_0_1
 		
 		/**
 		* Push back a parameter in the activity template instance.
+		* This parameter has an unconstrained type.
+		*/
+		void pushBackUntypedParameter(const std::string title,
+			const bool & isInput, const bool isOutput,
+			const unsigned int & minOccurs, const int & maxOccurs);
+
+		/**
+		* Push back a parameter in the activity template instance.
 		* This parameter must not be of a data object kind.
 		*/
 		void pushBackParameter(const std::string title,
 			const gsoap_resqml2_0_1::resqml2__ParameterKind & kind,
 			const bool & isInput, const bool isOutput,
-			const unsigned int & minOccurs, const unsigned int & maxOccurs);
+			const unsigned int & minOccurs, const int & maxOccurs);
 
 		/**
 		* Push back a parameter in the activity template instance.
@@ -67,8 +75,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackResqmlObjectParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
-			const unsigned int & minOccurs, const unsigned int & maxOccurs,
-			const std::string & resqmlObjectContentType);
+			const unsigned int & minOccurs, const int & maxOccurs,
+			const std::string & resqmlObjectContentType = "");
 
 		/**
 		* Check if the instance contains a parameter with a particular title
@@ -76,12 +84,18 @@ namespace resqml2_0_1
 		*/
 		bool isAnExistingParameter(const std::string & paramTitle) const;
 
+		const unsigned int getParameterCount() const;
 		const std::string & getParameterTitle(const unsigned int & index) const;
 		const std::vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & getParameterAllowedKinds(const unsigned int & index) const;
+		const std::vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & getParameterAllowedKinds(const std::string & paramTitle) const;
 		const bool & getParameterIsInput(const unsigned int & index) const;
+		const bool & getParameterIsInput(const std::string & paramTitle) const;
 		const bool & getParameterIsOutput(const unsigned int & index) const;
+		const bool & getParameterIsOutput(const std::string & paramTitle) const;
 		const unsigned int getParameterMinOccurences(const unsigned int & index) const;
+		const unsigned int getParameterMinOccurences(const std::string & paramTitle) const;
 		const unsigned int getParameterMaxOccurences(const unsigned int & index) const;
+		const unsigned int getParameterMaxOccurences(const std::string & paramTitle) const;
 
 		const std::vector<Activity*> & getActivitySet() const {return activitySet;}
 
@@ -98,6 +112,8 @@ namespace resqml2_0_1
 		void importRelationshipSetFromEpc(common::EpcDocument * epcDoc) {}
 
 	private:
+
+		gsoap_resqml2_0_1::resqml2__ParameterTemplate* getParameterFromTitle(const std::string & paramTitle) const;
 		
         std::vector<Activity*> activitySet;
 
