@@ -42,7 +42,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 *	Copyright (c) 2014 F2I-CONSULTING. All rights reserved.
 */
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 #include <unordered_map>
 #else
 #include <tr1/unordered_map>
@@ -148,17 +148,19 @@ namespace epc
 #endif
 
 	private :
-		FileCoreProperties fileCoreProperties;										/// Core Properties file
-		FileContentType fileContentType;											/// ContentTypes file
-		FileRelationship filePrincipalRelationship;									/// Relationships file
-		PartMap allFileParts;									/// Set of parts file
+		FileCoreProperties	fileCoreProperties;											/// Core Properties file
+		FileContentType		fileContentType;											/// ContentTypes file
+		FileRelationship	filePrincipalRelationship;									/// Relationships file
+		PartMap				allFileParts;												/// Set of parts file
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		std::unordered_map< std::string, std::string > extendedCoreProperties;		/// Set of non standard (extended) core properties
+		std::unordered_map< std::string, std::string >		extendedCoreProperties;		/// Set of non standard (extended) core properties
 #else
-		std::tr1::unordered_map< std::string, std::string > extendedCoreProperties;	/// Set of non standard (extended) core properties
+		std::tr1::unordered_map< std::string, std::string >	extendedCoreProperties;		/// Set of non standard (extended) core properties
 #endif
-		std::string pathName;														/// Pathname of package
+		std::string			pathName;													/// Pathname of package
 		unzFile				unzipped;
+        zipFile             zf;
+        bool                isZip64;
 #ifdef CACHE_FILE_DESCRIPTOR
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, unz64_s > name2file;
@@ -171,7 +173,7 @@ namespace epc
 		* This method allows to write a string content to a non existing part of the package.
 		* This method does not create any new FilePart in 'allFileParts' class member.
 		*/
-		void writeStringIntoNewPart(const std::string &input, zipFile & zf, const std::string & partPath, bool useZip64);
+		void writeStringIntoNewPart(const std::string &input, const std::string & partPath);
 		
 		static const char* CORE_PROP_REL_TYPE;
 		static const char* EXTENDED_CORE_PROP_REL_TYPE;
@@ -195,7 +197,7 @@ namespace epc
 		/**
 		* Open the package for writing purpose
 		*/
-		void openForWriting(const std::string & pkgPathName);
+		void openForWriting(const std::string & pkgPathName, bool useZip64 = false);
 
 		/**
 		* Open the package for reading purpose
@@ -230,11 +232,11 @@ namespace epc
 		/**
 		* Get a const string reference on the name of the package.
 		*/
-		const std::string& getPathname() const;
+		const std::string & getPathname() const;
 
 		/**
 		* @brief set the CoreProperties file.
-		* @param CoreProperties file.
+		* @param pkgFileCP CoreProperties file.
 		*/
 		void setFileFileCoreProperties(const FileCoreProperties & pkgFileCP);
 
@@ -250,33 +252,40 @@ namespace epc
 
 		/**
 		* @brief add a Property in the CoreProperties file of package.
-		* @param a Property.
+		* @param pkgTypeProperty	The type of the property to add.
+		* @param pkgPropertyValue	The value of the property to add.
 		*/
 		void addProperty(const CoreProperty::TypeProperty & pkgTypeProperty, const std::string & pkgPropertyValue);
 
 		/**
 		* @brief set the ContentTypes file.
-		* @param ContentType file.
+		* @param pkgFileCT	The ContentType file.
 		*/
 		void setFileContentType(const FileContentType & pkgFileCT);
 
 		/**
 		* @brief add a ContentType in the ContentTypes file of package.
-		* @param a ContentType.
+		* @param contentType The ContentType to add.
 		*/
 		void addContentType(const ContentType & contentType);
 
 		/**
 		* @brief set the Relationships file.
-		* @param Relationship file.
+		* @param pkgFileRS Relationship file.
 		*/
 		void setPrincipalRelationship(const FileRelationship & pkgFileRS);
 
 		/**
 		* @brief add a Relationship in the Relationships file of package.
-		* @param Relationship file.
+		* @param relationship Relationship file.
 		*/
 		void addRelationship(const Relationship & relationship);
+
+		/**
+		* @brief set all Parts file.
+		* @param pkgFilePart	a vector of Part file.
+		*/
+		void setAllFilePart(const std::vector<class FilePart*> & pkgFilePart);
 
 		/**
 		* @brief Creates a part in the package and returns it. This part will be automatically destroy with the package.
@@ -299,6 +308,6 @@ namespace epc
          */
 		std::string extractFile(const std::string & filename, const std::string & password = "");
 
-		void writePackage(bool useZip64 = false);
+		void writePackage();
 	};
 }

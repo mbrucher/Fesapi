@@ -31,8 +31,7 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#ifndef EPC_FILEPART
-#define EPC_FILEPART
+#pragma once
 
 #include "FileRelationship.h"
 
@@ -42,7 +41,7 @@ namespace epc
 	class FilePart
 	{
 	private:
-		std::string content;				/// The content of the file to write
+
 		std::string finalPathName;			/// The path of the part in the package.
 		FileRelationship fileRelationship;	/// The associated rel file to the part
 
@@ -52,16 +51,14 @@ namespace epc
 		* @param inputContent		The content which will be included into a part of the package
 		* @param outputPartPath		The path of the part within the package.
 		*/
-		FilePart(const std::string & inputContent, const std::string & outputPartPath);
+		FilePart(const std::string & outputPartPath);
 		~FilePart() {}
 
 		// ACCESSORS
-		std::string getContent() const;
-		std::string getFinalPathName() const;
-		FileRelationship getFileRelationship() const;
+		const std::string & getFinalPathName() const;
+		const FileRelationship & getFileRelationship() const;
 		Relationship getIndexRelationship(const int & index) const;
 
-		void setContent(const std::string & inputContent);
 		void setFinalPathName(const std::string & finalPath);
 
 		/**
@@ -75,6 +72,3 @@ namespace epc
 		void createRelationship(const std::string & rsTarget, const std::string & rsType,const std::string & rsId, const bool & internalTarget = true);
 	};
 }
-
-#endif
-

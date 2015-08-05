@@ -57,25 +57,25 @@ knowledge of the CeCILL-B license and that you accept its terms.
 using namespace std; // in order not to prefix by "std::" for each class in the "std" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
 using namespace epc; // in order not to prefix by "epc::" for each class in the "epc" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
 
-Package::Package() : unzipped(NULL)
+Package::Package() : unzipped(NULL), zf(NULL), isZip64(false)
 {
 }
 
 Package::Package(const FileCoreProperties & pkgFileCP, const FileContentType & pkgFileCT, const FileRelationship & pkgFileRS, const PartMap & pkgFileP, const string & pkgPathName):
-	fileCoreProperties(pkgFileCP),fileContentType(pkgFileCT),filePrincipalRelationship(pkgFileRS),allFileParts(pkgFileP),pathName(pkgPathName), unzipped(NULL)
+	fileCoreProperties(pkgFileCP),fileContentType(pkgFileCT),filePrincipalRelationship(pkgFileRS),allFileParts(pkgFileP),pathName(pkgPathName), unzipped(NULL), zf(NULL), isZip64(false)
 {
 }
 
 Package::~Package()
 {
-	for (PartMap::const_iterator i=allFileParts.begin(); i!=allFileParts.end(); i++)
+	for (PartMap::const_iterator i=allFileParts.begin(); i!=allFileParts.end(); ++i)
 	{
 		delete i->second;
     }
 	close();
 }
 
-void Package::openForWriting(const std::string & pkgPathName)
+void Package::openForWriting(const std::string & pkgPathName, bool useZip64)
 {
 	pathName.assign(pkgPathName);
 
@@ -91,6 +91,12 @@ void Package::openForWriting(const std::string & pkgPathName)
 
 	Relationship relToCoreProp("docProps/core.xml", CORE_PROP_REL_TYPE,"CoreProperties");
 	addRelationship(relToCoreProp);
+
+    isZip64 = useZip64;
+    if( useZip64 )
+        zf = zipOpen64( pathName.c_str(), 0 );
+    else
+        zf = zipOpen( pathName.c_str(), 0 );
 }
 
 void Package::openForReading(const std::string & pkgPathName)
@@ -200,7 +206,7 @@ const Package::PartMap& Package::getAllFilePart() const
 	return allFileParts;
 }
 
-const string& Package::getPathname() const
+const string & Package::getPathname() const
 {
 	return pathName;
 }
@@ -284,9 +290,16 @@ void Package::addRelationship(const Relationship & relationship)
 
 FilePart* Package::createPart(const std::string & inputContent, const std::string & outputPartPath)
 {
-	FilePart* fp = new FilePart(inputContent, outputPartPath);
+	FilePart* fp = new FilePart(outputPartPath);
 	allFileParts[outputPartPath] = fp;
+    writeStringIntoNewPart( inputContent, outputPartPath );
 	return fp;
+}
+
+FilePart* Package::findPart(const std::string & outputPartPath) const
+{
+    PartMap::const_iterator it = allFileParts.find(outputPartPath);
+    return it==allFileParts.end() ? NULL : it->second;
 }
 
 uLong buildTimeInfo(const char *filename, tm_zip *tmzip, uLong *dostime)
@@ -332,7 +345,7 @@ uLong buildTimeInfo(const char *filename, tm_zip *tmzip, uLong *dostime)
     return ret;
 }
 
-void Package::writeStringIntoNewPart(const std::string &input, zipFile & zf, const std::string & partPath, bool useZip64)
+void Package::writeStringIntoNewPart(const std::string &input, const std::string & partPath)
 {
 	// Initialize the parameters for the creation of a file in the zip archive
 	zip_fileinfo zi;
@@ -350,7 +363,7 @@ void Package::writeStringIntoNewPart(const std::string &input, zipFile & zf, con
 		NULL,0,NULL,0,NULL /* comment*/,
 		Z_DEFLATED,						// method
 		Z_DEFAULT_COMPRESSION,				// level
-		useZip64);								// Zip64
+		isZip64);								// Zip64
 	if (err != ZIP_OK)
 		cerr << "error in opening " << partPath << " in zipfile" << endl;
 
@@ -367,18 +380,10 @@ void Package::writeStringIntoNewPart(const std::string &input, zipFile & zf, con
 		cerr << "error in closing " << partPath << " in the zipfile" << endl;
 }
 
-
-void Package::writePackage(bool useZip64) 
+void Package::writePackage() 
 {
-	// Create a zip archive
-	zipFile zf = NULL;
-	if (useZip64)
-		zf = zipOpen64(pathName.c_str(), 0);
-	else
-		zf = zipOpen(pathName.c_str(), 0);
-
 	fileCoreProperties.initDefaultCoreProperties();
-	writeStringIntoNewPart(fileCoreProperties.toString(), zf, "docProps/core.xml", useZip64);
+	writeStringIntoNewPart(fileCoreProperties.toString(), "docProps/core.xml");
 	if (!extendedCoreProperties.empty())
 	{
 		// XML def + namespaces def
@@ -403,7 +408,7 @@ void Package::writePackage(bool useZip64)
 		// end tag
 		oss << "</extendedCoreProperties>" << endl;
 		
-		writeStringIntoNewPart(oss.str(), zf, "docProps/extendedCore.xml", useZip64);
+		writeStringIntoNewPart(oss.str(), "docProps/extendedCore.xml");
 		
 		// Add the content type for extended core properties part
 		ContentType contentTypeExtendedCoreProp(false, "application/x-extended-core-properties+xml", "docProps/extendedCore.xml");
@@ -413,29 +418,26 @@ void Package::writePackage(bool useZip64)
 		Relationship relToExtCoreProp("docProps/extendedCore.xml", EXTENDED_CORE_PROP_REL_TYPE, "ExtendedCoreProperties");
 		FileRelationship fileExtCorePropRep(relToExtCoreProp);
 		fileExtCorePropRep.setPathName("docProps/_rels/core.xml.rels");
-		writeStringIntoNewPart(fileExtCorePropRep.toString(), zf, fileExtCorePropRep.getPathName(), useZip64);
+		writeStringIntoNewPart(fileExtCorePropRep.toString(), fileExtCorePropRep.getPathName());
 	}
 
-	writeStringIntoNewPart(fileContentType.toString(), zf, "[Content_Types].xml", useZip64);
+	writeStringIntoNewPart(fileContentType.toString(), "[Content_Types].xml");
 	
 	// write Principal Relationships file.
 	if (!filePrincipalRelationship.isEmpty())
-		writeStringIntoNewPart(filePrincipalRelationship.toString(), zf, "_rels/.rels", useZip64);
+		writeStringIntoNewPart(filePrincipalRelationship.toString(), "_rels/.rels");
 	
-	// Write all the parts and their relationships
+	// Write all the part relationships
 	for (PartMap::iterator i=allFileParts.begin(); i!=allFileParts.end(); i++){
         FilePart* part = i->second;
-		// write Part file.
-		writeStringIntoNewPart(part->getContent(), zf, part->getFinalPathName(), useZip64);
-
 		if (!part->getFileRelationship().isEmpty())
 		{
-			writeStringIntoNewPart(part->getFileRelationship().toString(), zf, part->getFileRelationship().getPathName(), useZip64);
+			writeStringIntoNewPart(part->getFileRelationship().toString(), part->getFileRelationship().getPathName());
 		}
 	}
 
 	// Close the zip archive
-	int err = zipClose(zf,NULL, useZip64);
+	int err = zipClose(zf,NULL, isZip64);
 	if (err != ZIP_OK)
 		cerr << "error in closing " << pathName.substr(0, pathName.size() - 4).c_str() << endl;
 }
@@ -492,6 +494,14 @@ string do_extract_currentfile(unzFile uf,
     return oss.str();
 }
 
+bool Package::fileExists(const string & filename) const
+{
+    if (unzipped == NULL){
+        return false;
+    }
+    return unzLocateFile(unzipped,filename.c_str(),CASESENSITIVITY) == UNZ_OK;
+}
+
 string Package::extractFile(const string & filename, const string & password)
 {
 	if (unzipped == NULL)
@@ -503,13 +513,16 @@ string Package::extractFile(const string & filename, const string & password)
 #else
 	std::tr1::unordered_map< std::string, unz64_s >::const_iterator it = name2file.find(filename.c_str());
 #endif
-	if(it==name2file.end()){
+	if(it==name2file.end())
+	{
 		if (unzLocateFile(unzipped,filename.c_str(),CASESENSITIVITY) != UNZ_OK)
 		{
 			return "";
 		}
 		name2file[filename.c_str()]=*(unz64_s*)unzipped;
-	}else{
+	}
+	else
+	{
 		*(unz64_s*)unzipped = it->second;
 	}
 #else

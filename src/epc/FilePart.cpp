@@ -36,11 +36,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <iostream>
 #include <iterator>
 
-using namespace std; // in order not to prefix by "std::" for each class in the "std" namespace. Never use "using namespace" in *.h file but only in*.cpp file!!!
-using namespace epc; // in order not to prefix by "epc::" for each class in the "epc" namespace. Never use "using namespace" in *.h file but only in*.cpp file!!!
+using namespace std;
+using namespace epc;
 
-FilePart::FilePart(const string & inputContent, const string & outputPartPath):
-	content(inputContent), finalPathName(outputPartPath)
+FilePart::FilePart(const string & outputPartPath):
+	finalPathName(outputPartPath)
 {
 	string directoryOfPart(outputPartPath);
 
@@ -60,17 +60,12 @@ FilePart::FilePart(const string & inputContent, const string & outputPartPath):
 	fileRelationship.setPathName(wkRelsPathname);
 }
 
-string FilePart::getContent() const
-{
-	return content;
-}
-
-string FilePart::getFinalPathName() const
+const string & FilePart::getFinalPathName() const
 {
 	return finalPathName;
 }
 
-FileRelationship FilePart::getFileRelationship() const
+const FileRelationship & FilePart::getFileRelationship() const
 {
 	return fileRelationship;
 }
@@ -78,11 +73,6 @@ FileRelationship FilePart::getFileRelationship() const
 Relationship FilePart::getIndexRelationship(const int & index) const
 {
 	return fileRelationship.getIndexRelationship(index);
-}
-
-void FilePart::setContent(const string & inputContent)
-{
-	content = inputContent;
 }
 
 void FilePart::setFinalPathName(const string & finalPath)
