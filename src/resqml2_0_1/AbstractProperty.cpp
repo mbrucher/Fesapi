@@ -171,10 +171,41 @@ void AbstractProperty::setTimeSeries(TimeSeries * ts)
 	// XML
 	if (updateXml)
 	{
-		if (static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex)
-			static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex->TimeSeries = ts->newResqmlReference();
+		if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalPropertySeries)
+		{
+			if (static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy)->SeriesTimeIndices != nullptr)
+				static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy)->SeriesTimeIndices->TimeSeries = ts->newResqmlReference();
+			else
+				throw invalid_argument("The time series cannot be set on a property without time indices.");
+		}
+		else if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECommentPropertySeries)
+		{
+			if (static_cast<_resqml2__CommentPropertySeries*>(gsoapProxy)->SeriesTimeIndices != nullptr)
+				static_cast<_resqml2__CommentPropertySeries*>(gsoapProxy)->SeriesTimeIndices->TimeSeries = ts->newResqmlReference();
+			else
+				throw invalid_argument("The time series cannot be set on a property without time indices.");
+		}
+		else if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousPropertySeries)
+		{
+			if (static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy)->SeriesTimeIndices != nullptr)
+				static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy)->SeriesTimeIndices->TimeSeries = ts->newResqmlReference();
+			else
+				throw invalid_argument("The time series cannot be set on a property without time indices.");
+		}
+		else if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDiscretePropertySeries)
+		{
+			if (static_cast<_resqml2__DiscretePropertySeries*>(gsoapProxy)->SeriesTimeIndices != nullptr)
+				static_cast<_resqml2__DiscretePropertySeries*>(gsoapProxy)->SeriesTimeIndices->TimeSeries = ts->newResqmlReference();
+			else
+				throw invalid_argument("The time series cannot be set on a property without time indices.");
+		}
 		else
-			throw invalid_argument("The time series cannot be set on a property without time index.");
+		{
+			if (static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex)
+				static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex->TimeSeries = ts->newResqmlReference();
+			else
+				throw invalid_argument("The time series cannot be set on a property without time index.");
+		}
 	}
 }
 

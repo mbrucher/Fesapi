@@ -170,14 +170,17 @@ namespace resqml2_0_1
 		*/
 		gsoap_resqml2_0_1::resqml2__IndexableElements getAttachmentKind() const;
 
+		/**
+		* Set the Hdf Proxy where the numerical values are stored.
+		*/
 		void setHdfProxy(class HdfProxy * proxy);
 
 	protected:
 
-		class AbstractRepresentation *	representation;
-		class PropertyKind *			localPropertyKind;
-		class TimeSeries *				timeSeries;
-		class AbstractLocal3dCrs *				local3dCrs;
-		class HdfProxy *				hdfProxy;
+		class AbstractRepresentation *	representation;		/// The reresentation which contains this property.
+		class PropertyKind *			localPropertyKind;	/// The local property kind of this property which defines this property.
+		class TimeSeries *				timeSeries;			/// The time series where this property occur.
+		class AbstractLocal3dCrs *		local3dCrs;			/// The used local 3D CRS in case the property values need one. 
+		class HdfProxy *				hdfProxy;			/// The HDF proxy where the umerical values of this property are stored.
 	};
 }

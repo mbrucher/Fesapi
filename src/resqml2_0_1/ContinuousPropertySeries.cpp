@@ -35,13 +35,91 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
+#include "resqml2_0_1/TimeSeries.h"
+#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2_0_1/PropertyKind.h"
+
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 using namespace epc;
 
+const char* ContinuousPropertySeries::XML_TAG = "ContinuousPropertySeries";
 
-std::string ContinuousPropertySeries::getResqmlVersion() const
+ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
+			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
 {
-	return "2.0.1";
+	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapProxy()->soap, 1);	
+	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
+	prop->IndexableElement = attachmentKind;
+	prop->Count = dimension;
+	prop->UOM = uom;
+
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy->soap, 1);
+	xmlStandardPropKind->Kind = energisticsPropertyKind;
+	prop->PropertyKind = xmlStandardPropKind;
+
+	setRepresentation(rep);
+
+	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
+	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->UseInterval = useInterval;
+	setTimeSeries(ts);
+
+	initMandatoryMetadata();
+	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+
+	if (rep->getEpcDocument())
+		rep->getEpcDocument()->addGsoapProxy(this);
+}
+
+ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropKind,
+			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+{
+	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapProxy()->soap, 1);	
+	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
+	prop->IndexableElement = attachmentKind;
+	prop->Count = dimension;
+	prop->UOM = uom;
+
+	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy->soap, 1);
+	xmlLocalPropKind->LocalPropertyKind = localPropKind->newResqmlReference();
+	prop->PropertyKind = xmlLocalPropKind;
+
+	setRepresentation(rep);
+
+	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
+	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->UseInterval = useInterval;
+	setTimeSeries(ts);
+
+	localPropertyKind = localPropKind;
+	localPropKind->addProperty(this);
+
+	initMandatoryMetadata();
+	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+
+	if (rep->getEpcDocument())
+		rep->getEpcDocument()->addGsoapProxy(this);
+}
+
+void ContinuousPropertySeries::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
+{
+	ContinuousProperty:: importRelationshipSetFromEpc(epcDoc);
+
+	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
+	if (prop->SeriesTimeIndices != nullptr)
+	{
+		updateXml = false;
+		setTimeSeries(static_cast<TimeSeries*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SeriesTimeIndices->TimeSeries->UUID)));
+		updateXml = true;
+	}
 }

@@ -6,6 +6,11 @@
       return ret;
     }
 	
+	ret = resqml2_0_1_instantiateConcreteProperty(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+	
     ret = resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, owner);
     if (ret != null) {
 		return ret;
@@ -24,22 +29,6 @@
     else if (type.equals("BoundaryFeatureInterpretation"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeatureInterpretation(cPtr, owner);
-    }
-    else if (type.equals("CategoricalProperty"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.CategoricalProperty(cPtr, owner);
-    }
-    else if (type.equals("CommentProperty"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.CommentProperty(cPtr, owner);
-    }
-    else if (type.equals("ContinuousProperty"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.ContinuousProperty(cPtr, owner);
-    }
-    else if (type.equals("DiscreteProperty"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.DiscreteProperty(cPtr, owner);
     }
     else if (type.equals("EarthModelInterpretation"))
     {
@@ -208,6 +197,44 @@
     return ret;
   }
   
+  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateConcreteProperty(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) {
+      return null;
+    }
+    String type = resqml2_0_1_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject(cPtr, false));
+	if (type.equals("CategoricalProperty"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.CategoricalProperty(cPtr, owner);
+    }
+	else if (type.equals("CategoricalPropertySeries"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.CategoricalPropertySeries(cPtr, owner);
+    }
+    else if (type.equals("CommentProperty"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.CommentProperty(cPtr, owner);
+    }
+    else if (type.equals("ContinuousProperty"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.ContinuousProperty(cPtr, owner);
+    }
+    else if (type.equals("ContinuousPropertySeries"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.ContinuousPropertySeries(cPtr, owner);
+    }
+    else if (type.equals("DiscreteProperty"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.DiscreteProperty(cPtr, owner);
+    }
+	else if (type.equals("DiscretePropertySeries"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.DiscretePropertySeries(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
   public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateWellboreFrameRepresentationObject(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
@@ -263,6 +290,12 @@ namespace resqml2_0_1
 	%typemap(javaout) AbstractLocal3dCrs*  {
 		long cPtr = $jnicall;
 		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractProperty*, AbstractValuesProperty*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteProperty(cPtr, $owner);
 		return ret;
 	}
 

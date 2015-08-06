@@ -45,6 +45,9 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT ContinuousProperty : public AbstractValuesProperty
 	{
 	public:
+
+		ContinuousProperty() {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param rep						The representation which supports these property values.

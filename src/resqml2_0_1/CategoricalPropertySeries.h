@@ -66,14 +66,14 @@ namespace resqml2_0_1
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which support each value.
 		* @param strLookup					The string lookup which defines the possible string values and their keys.
-		* @param localPropType				The property type of these property values which must be defined in the EPC document as a local property type.
+		* @param localPropKind				The property type of these property values which must be defined in the EPC document as a local property type.
 		* @param timeIndexCount				The count of time index in the time series.
 		* @param ts							The associated time series.
 		* @param useInterval				Indicates wether the property values will be attached to the time index or to the interval between consecutive time index. 
 		*/
 		CategoricalPropertySeries(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			class StringTableLookup* strLookup, class PropertyKind * localPropType,
+			class StringTableLookup* strLookup, class PropertyKind * localPropKind,
 			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval = false);
 
 		/**
@@ -89,7 +89,7 @@ namespace resqml2_0_1
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
-		std::string getResqmlVersion() const;
+		std::string getResqmlVersion() const {return "2.0.1";}
 
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 	};

@@ -49,9 +49,12 @@
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/StringTableLookup.h"
 #include "resqml2_0_1/DiscreteProperty.h"
+#include "resqml2_0_1/DiscretePropertySeries.h"
 #include "resqml2_0_1/CategoricalProperty.h"
+#include "resqml2_0_1/CategoricalPropertySeries.h"
 #include "resqml2_0_1/CommentProperty.h"
 #include "resqml2_0_1/ContinuousProperty.h"
+#include "resqml2_0_1/ContinuousPropertySeries.h"
 
 #include "resqml2_0_1/HdfProxy.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
@@ -242,8 +245,11 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::AbstractValuesProperty;
 	%nspace resqml2_0_1::CommentProperty;
 	%nspace resqml2_0_1::ContinuousProperty;
+	%nspace resqml2_0_1::ContinuousPropertySeries;
 	%nspace resqml2_0_1::DiscreteProperty;
+	%nspace resqml2_0_1::DiscretePropertySeries;
 	%nspace resqml2_0_1::CategoricalProperty;
+	%nspace resqml2_0_1::CategoricalPropertySeries;
 	%nspace resqml2_0_1::PropertyKindMapper;
 	%nspace resqml2_0_1::FrontierFeature;
 	%nspace resqml2_0_1::PlaneSetRepresentation;
@@ -1225,6 +1231,11 @@ namespace resqml2_0_1
 		
 	};
 	
+	class ContinuousPropertySeries : public ContinuousProperty
+	{
+	public:
+	};
+	
 	class DiscreteProperty : public AbstractValuesProperty
 	{
 	public:
@@ -1238,6 +1249,11 @@ namespace resqml2_0_1
 		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class HdfProxy * proxy, const long & nullValue);
 	};
 	
+	class DiscretePropertySeries : public DiscreteProperty
+	{
+	public:
+	};
+	
 	class CategoricalProperty : public AbstractValuesProperty
 	{
 	public:
@@ -1248,6 +1264,11 @@ namespace resqml2_0_1
 		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
 		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class HdfProxy * proxy, const long & nullValue);
+	};
+	
+	class CategoricalPropertySeries : public CategoricalProperty
+	{
+	public:
 	};
 	
 	class PropertyKindMapper

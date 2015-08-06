@@ -33,10 +33,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/CategoricalPropertySeries.h"
 
-#include "resqml2_0_1/TimeSeries.h"
-
 #include <stdexcept>
 
+#include "resqml2_0_1/TimeSeries.h"
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/StringTableLookup.h"
@@ -73,6 +72,11 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 
 	setRepresentation(rep);
 
+	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
+	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->UseInterval = useInterval;
+	setTimeSeries(ts);
+
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
@@ -82,7 +86,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 
 CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			StringTableLookup* strLookup, PropertyKind * localPropType,
+			StringTableLookup* strLookup, PropertyKind * localPropKind,
 			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
 	:CategoricalProperty(strLookup)
 {
@@ -92,7 +96,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 	prop->Count = dimension;
 
 	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy->soap, 1);
-	xmlLocalPropKind->LocalPropertyKind = localPropType->newResqmlReference();
+	xmlLocalPropKind->LocalPropertyKind = localPropKind->newResqmlReference();
 	prop->PropertyKind = xmlLocalPropKind;
 
 	stringLookup->addCategoricalPropertyValues(this);
@@ -100,8 +104,13 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 
 	setRepresentation(rep);
 
-	localPropertyKind = localPropType;
-	localPropType->addProperty(this);
+	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
+	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->UseInterval = useInterval;
+	setTimeSeries(ts);
+
+	localPropertyKind = localPropKind;
+	localPropKind->addProperty(this);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -121,9 +130,4 @@ void CategoricalPropertySeries::importRelationshipSetFromEpc(common::EpcDocument
 		setTimeSeries(static_cast<TimeSeries*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SeriesTimeIndices->TimeSeries->UUID)));
 		updateXml = true;
 	}
-}
-
-std::string CategoricalPropertySeries::getResqmlVersion() const
-{
-	return "2.0.1";
 }

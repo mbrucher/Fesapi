@@ -374,7 +374,15 @@ namespace common
 			resqml2_0_1::StringTableLookup* strLookup, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
 	
 		resqml2_0_1::CategoricalProperty* createCategoricalProperty(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title, const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			resqml2_0_1::StringTableLookup* strLookup, resqml2_0_1::PropertyKind * localPropType);	
+			resqml2_0_1::StringTableLookup* strLookup, resqml2_0_1::PropertyKind * localPropType);
+
+		//************************************
+		//************* ACTIVITIES ***********
+		//************************************
+
+		resqml2_0_1::ActivityTemplate* createActivityTemplate(const std::string & guid, const std::string & title);
+		
+		resqml2_0_1::Activity* createActivity(resqml2_0_1::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
 			
 
 		//************************************

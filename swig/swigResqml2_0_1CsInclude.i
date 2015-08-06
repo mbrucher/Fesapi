@@ -1,6 +1,6 @@
 /**********************************************************************
 This file add special SWIG management of the C++ polymorphic datatype.
-Basically this file add a method resqml2_0_instantiateConcreteObject which will create the right C# instance according to what it is exactly.
+Basically this file add methods resqml2_0_instantiate* which will create the right C# instance according to what it is exactly.
 **********************************************************************/
 
 %pragma(csharp) imclasscode=%{
@@ -10,6 +10,11 @@ Basically this file add a method resqml2_0_instantiateConcreteObject which will 
     if (cPtr == global::System.IntPtr.Zero) {
       return ret;
     }
+	
+	ret = resqml2_0_1_instantiateConcreteProperty(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
 	
 	ret = resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, owner);
 	if (ret != null) {
@@ -29,22 +34,6 @@ Basically this file add a method resqml2_0_instantiateConcreteObject which will 
     else if (type == "BoundaryFeatureInterpretation")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeatureInterpretation(cPtr, owner);
-    }
-    else if (type == "CategoricalProperty")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.CategoricalProperty(cPtr, owner);
-    }
-    else if (type == "CommentProperty")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.CommentProperty(cPtr, owner);
-    }
-    else if (type == "ContinuousProperty")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.ContinuousProperty(cPtr, owner);
-    }
-    else if (type == "DiscreteProperty")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.DiscreteProperty(cPtr, owner);
     }
     else if (type == "EarthModelInterpretation")
     {
@@ -218,6 +207,44 @@ Basically this file add a method resqml2_0_instantiateConcreteObject which will 
 	return ret;
   }
   
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateConcreteProperty(global::System.IntPtr cPtr, bool owner)
+  {
+    if (cPtr == global::System.IntPtr.Zero) {
+      return null;
+    }
+    string type = $modulePINVOKE.resqml2_0_1_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+	if (type == "CategoricalProperty")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.CategoricalProperty(cPtr, owner);
+    }
+	else if (type == "CategoricalPropertySeries")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.CategoricalPropertySeries(cPtr, owner);
+    }
+    else if (type == "CommentProperty")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.CommentProperty(cPtr, owner);
+    }
+    else if (type == "ContinuousProperty")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.ContinuousProperty(cPtr, owner);
+    }
+    else if (type == "ContinuousPropertySeries")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.ContinuousPropertySeries(cPtr, owner);
+    }
+    else if (type == "DiscreteProperty")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.DiscreteProperty(cPtr, owner);
+    }
+	else if (type == "DiscretePropertySeries")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.DiscretePropertySeries(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
   public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateWellboreFrameRepresentationObject(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
@@ -258,7 +285,7 @@ Basically this file add a method resqml2_0_instantiateConcreteObject which will 
 
 namespace resqml2_0_1
 {	
-	%typemap(csout, excode=SWIGEXCODE) AbstractObject*, AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*, AbstractValuesProperty*  {
+	%typemap(csout, excode=SWIGEXCODE) AbstractObject*, AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*  {
 		global::System.IntPtr cPtr = $imcall;
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteObject(cPtr, $owner);$excode
 		return ret;
@@ -273,6 +300,12 @@ namespace resqml2_0_1
 	%typemap(csout, excode=SWIGEXCODE) AbstractLocal3dCrs*  {
 		global::System.IntPtr cPtr = $imcall;
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, $owner);$excode
+		return ret;
+	}
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractProperty*, AbstractValuesProperty*   {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteProperty(cPtr, $owner);$excode
 		return ret;
 	}
 }

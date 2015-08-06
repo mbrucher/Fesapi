@@ -42,6 +42,9 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT DiscreteProperty : public AbstractValuesProperty
 	{
 	public:
+
+		DiscreteProperty() {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param rep			The representation which supports these property values.
