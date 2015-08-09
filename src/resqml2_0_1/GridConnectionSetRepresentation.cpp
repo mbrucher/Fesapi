@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -139,14 +139,14 @@ unsigned int GridConnectionSetRepresentation::getCellIndexPairCountFromFaultInde
 	{
 		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
-			unsigned int faceIndicesCount = hdfProxy->getElementCount(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile);
-			unsigned int * faceIndices = new unsigned int[faceIndicesCount];
+			unsigned int faultIndexCount = hdfProxy->getElementCount(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile);
+			unsigned int * faultIndices = new unsigned int[faultIndexCount];
 
-			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faceIndices);
-			for (unsigned int i = 0; i < faceIndicesCount; ++i)
-				if (faceIndices[i] == faultIndex) result++;
+			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faultIndices);
+			for (unsigned int i = 0; i < faultIndexCount; ++i)
+				if (faultIndices[i] == faultIndex) result++;
 
-			delete [] faceIndices;
+			delete [] faultIndices;
 		}
 		else
 			throw std::logic_error("Not yet implemented");
@@ -170,12 +170,12 @@ void GridConnectionSetRepresentation::getCellIndexPairFromFaultIndex(unsigned in
 
 	if (rep->ConnectionInterpretations)
 	{
-		unsigned int * faceIndices = NULL;
+		unsigned int * faultIndices = NULL;
 		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
-			unsigned int faceIndicesCount = hdfProxy->getElementCount(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile);
-			faceIndices = new unsigned int[faceIndicesCount];
-			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faceIndices);
+			unsigned int faultIndexCount = hdfProxy->getElementCount(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile);
+			faultIndices = new unsigned int[faultIndexCount];
+			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faultIndices);
 		}
 		else
 		{
@@ -192,7 +192,7 @@ void GridConnectionSetRepresentation::getCellIndexPairFromFaultIndex(unsigned in
 		else
 		{
 			delete [] totalCellIndexPair;
-			delete [] faceIndices;
+			delete [] faultIndices;
 			throw std::logic_error("Not yet implemented");
 		}
 
@@ -202,7 +202,7 @@ void GridConnectionSetRepresentation::getCellIndexPairFromFaultIndex(unsigned in
 		{
 			for (; j < cumulativeCount[i]; ++j)
 			{
-				if (faceIndices[j] == faultIndex)
+				if (faultIndices[j] == faultIndex)
 				{
 					cellIndexPair[cellIndexPairIndex*2] = totalCellIndexPair[i*2];
 					cellIndexPair[cellIndexPairIndex*2+1] = totalCellIndexPair[i*2+1];
@@ -212,7 +212,7 @@ void GridConnectionSetRepresentation::getCellIndexPairFromFaultIndex(unsigned in
 			}
 		}
 
-		delete [] faceIndices;
+		delete [] faultIndices;
 		delete [] cumulativeCount;
 	}
 	else
@@ -230,8 +230,21 @@ std::string GridConnectionSetRepresentation::getFaultInterpretationUuidFromFault
 
 	if (rep->ConnectionInterpretations)
 	{
-		//return rep->ConnectionInterpretations->getFaultInterpretation(faultIndex)->getUuid();
-		return "";
+		if (rep->ConnectionInterpretations->FeatureInterpretation.size() > faultIndex)
+		{
+			if (rep->ConnectionInterpretations->FeatureInterpretation[faultIndex]->ContentType.find("FaultInterpretation") != string::npos)
+			{
+				return rep->ConnectionInterpretations->FeatureInterpretation[faultIndex]->UUID;
+			}
+			else
+			{
+				throw invalid_argument("The associated feature interpretation is not a fault one. Legal but not yet implemented.");
+			}
+		}
+		else
+		{
+			throw range_error("The fault index is out of range in this grid connection context.");
+		}
 	}
 	else
 	{
@@ -245,8 +258,22 @@ FaultInterpretation* GridConnectionSetRepresentation::getFaultInterpretationFrom
 
 	if (rep->ConnectionInterpretations)
 	{
-		//return structuralOrganizationInterp->getFaultInterpretation(faultIndex);
-		return NULL;
+		if (rep->ConnectionInterpretations->FeatureInterpretation.size() > faultIndex)
+		{
+			AbstractObject* result = epcDocument->getResqmlAbstractObjectByUuid(rep->ConnectionInterpretations->FeatureInterpretation[faultIndex]->UUID);
+			if (result->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFaultInterpretation)
+			{
+				return static_cast<FaultInterpretation*>(result);
+			}
+			else
+			{
+				throw invalid_argument("The associated feature interpretation is not a fault one. Legal but not yet implemented.");
+			}
+		}
+		else
+		{
+			throw range_error("The fault index is out of range in this grid connection context.");
+		}
 	}
 	else
 	{
@@ -260,12 +287,11 @@ unsigned int GridConnectionSetRepresentation::getFaultInterpretationCount() cons
 
 	if (rep->ConnectionInterpretations)
 	{
-		//return structuralOrganizationInterp->getFaultInterpretationCount();
-		return 0;
+		return rep->ConnectionInterpretations->FeatureInterpretation.size();
 	}
 	else
 	{
-		throw invalid_argument("The grid connection does not contain any fault association.");
+		return 0;
 	}
 }
 

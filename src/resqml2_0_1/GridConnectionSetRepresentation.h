@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -76,14 +76,33 @@ namespace resqml2_0_1
 		*/
 		void getCellIndexPair(unsigned int * cellIndexPair) const;
 
+		/**
+		* Get the cell index pairs count which correspond to a particular fault interpretation.
+		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		*/
 		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
 
+		/**
+		* Get the cell index pairs which correspond to a particular fault interpretation.
+		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		*/
 		void getCellIndexPairFromFaultIndex(unsigned int * cellIndexPair, const unsigned int & faultIndex) const;
 
+		/**
+		* Get the UUID of a particular fault interpretation of this grid connection set.
+		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		*/
 		std::string getFaultInterpretationUuidFromFaultIndex(const unsigned int & faultIndex) const;
 
+		/**
+		* Get a particular fault interpretation of this grid connection set.
+		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		*/
 		class FaultInterpretation* getFaultInterpretationFromFaultIndex(const unsigned int & faultIndex) const;
 
+		/**
+		* Get the count of fault interpretations in this grid connection set.
+		*/
 		unsigned int getFaultInterpretationCount() const;
 
 		/**

@@ -1393,7 +1393,19 @@ void deserialize(const string & inputFile)
 			std::cout << "Fault Subrep is : " << ijkGridRepSet[i]->getFaultSubRepresentation(subRepIndex)->getTitle() << std::endl;
 		}
 
-		std::cout << "Grid Connection Count is : " << ijkGridRepSet[i]->getGridConnectionSetRepresentationCount() << std::endl;
+		unsigned int gridConnectionSetCount =ijkGridRepSet[i]->getGridConnectionSetRepresentationCount();
+		std::cout << "Grid Connection Count is : " << gridConnectionSetCount << std::endl;
+		if (gridConnectionSetCount > 0)
+		{
+			GridConnectionSetRepresentation* gridConnectionSet = ijkGridRepSet[i]->getGridConnectionSetRepresentation(0);
+			unsigned int faultInterpOfGridConnCount = gridConnectionSet->getFaultInterpretationCount();
+			std::cout << "Fault interpretation Count of this grid connection set is : " << faultInterpOfGridConnCount << endl;
+			if (faultInterpOfGridConnCount > 0)
+			{
+				FaultInterpretation* faultInterpOfGridConn = gridConnectionSet->getFaultInterpretationFromFaultIndex(0);
+				std::cout << "Fault interpretation of this grid connection set is : " << faultInterpOfGridConn->getTitle()  << " With UUID " << faultInterpOfGridConn->getUuid() << endl;
+			}
+		}
 
 		std::cout << "Title is : " << ijkGridRepSet[i]->getTitle() << std::endl;
 		std::cout << "Guid is : " << ijkGridRepSet[i]->getUuid() << std::endl;
