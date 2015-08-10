@@ -329,7 +329,7 @@ INSTALL (
 IF (WITH_PROPERTY_MAPPING)
 	# PropertyTypeMapping.xml
 	INSTALL (
-		FILES ${FESAPI_ROOT_DIR}/resources/PropertyTypeMapping.xml
+		FILES ${FESAPI_ROOT_DIR}/resources/PropertyKindMapping.xml
 		DESTINATION resources/
 	)
 ENDIF (WITH_PROPERTY_MAPPING)
