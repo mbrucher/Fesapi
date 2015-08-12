@@ -1825,6 +1825,24 @@ ContinuousProperty* EpcDocument::createContinuousProperty(AbstractRepresentation
 		return NULL;
 	return new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, localPropType);
 }
+
+ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
+	const unsigned int & timeIndexCount, TimeSeries * ts, const bool & useInterval)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind, timeIndexCount, ts, useInterval);
+}
+
+ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropType,
+	const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, localPropType, timeIndexCount, ts, useInterval);
+}
 	
 DiscreteProperty* EpcDocument::createDiscreteProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
@@ -1842,6 +1860,24 @@ DiscreteProperty* EpcDocument::createDiscreteProperty(AbstractRepresentation * r
 	return new DiscreteProperty(rep, guid, title, dimension, attachmentKind, localPropType);
 }
 	
+DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
+	const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind, timeIndexCount, ts, useInterval);
+}
+
+DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType,
+	const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, localPropType, timeIndexCount, ts, useInterval);
+}
+
 CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
@@ -1858,6 +1894,26 @@ CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentati
 	if (getResqmlAbstractObjectByUuid(guid) != NULL)
 		return NULL;
 	return new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, localPropType);
+}
+
+CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
+	const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind, timeIndexCount, ts, useInterval);
+}
+
+CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	StringTableLookup* strLookup, PropertyKind * localPropType,
+	const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, localPropType, timeIndexCount, ts, useInterval);
 }
 
 //************************************

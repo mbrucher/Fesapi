@@ -74,7 +74,7 @@ namespace resqml2_0_1
 
 		/**
 		 * @apram	application						The name of the application
-		 * @return	The abstract Resqml root proerty name if no resql standard property name have been found for this particuar application property kind name.
+		 * @return	The abstract Resqml root property name if no resqml standard property name have been found for this particular application property kind name.
 		 */
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getResqmlStandardPropertyKindNameFromApplicationPropertyKindName(const std::string & applicationPropertyKindName, const std::string & application) const;
 
