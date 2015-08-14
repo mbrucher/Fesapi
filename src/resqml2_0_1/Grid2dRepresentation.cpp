@@ -245,10 +245,13 @@ double Grid2dRepresentation::getXJOffset() const
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
 	if (arrayLatticeOfPoints3d)
-		return arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1;
+	{
+		return arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 * getJSpacing()/
+			sqrt(arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2);
+	}
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getXJOffset();
+		return supportingRepresentation->getXJOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(0);
 	}
 	else
 		return std::numeric_limits<double>::signaling_NaN();
@@ -259,10 +262,13 @@ double Grid2dRepresentation::getYJOffset() const
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
 	if (arrayLatticeOfPoints3d)
-		return arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2;
+	{
+		return arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2 * getJSpacing()/
+			sqrt(arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2);
+	}
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getYJOffset();
+		return supportingRepresentation->getYJOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(0);
 	}
 	else
 		return std::numeric_limits<double>::signaling_NaN();
@@ -289,10 +295,11 @@ double Grid2dRepresentation::getXIOffset() const
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
 	if (arrayLatticeOfPoints3d)
-		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1;
+		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 * getISpacing()/
+			sqrt(arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2);
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getXIOffset();
+		return supportingRepresentation->getXIOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(1);
 	}
 	else
 		return std::numeric_limits<double>::signaling_NaN();
@@ -303,10 +310,11 @@ double Grid2dRepresentation::getYIOffset() const
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
 	if (arrayLatticeOfPoints3d)
-		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2;
+		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2 * getISpacing()/
+			sqrt(arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2);
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getYIOffset();
+		return supportingRepresentation->getYIOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(1);
 	}
 	else
 		return std::numeric_limits<double>::signaling_NaN();

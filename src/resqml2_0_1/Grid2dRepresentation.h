@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -134,56 +134,56 @@ namespace resqml2_0_1
 		double getYOriginInGlobalCrs() const;
 
 		/**
-		* Get the X j offset of this geometry.
+		* Get the X (in local crs) offset between two consecutive nodes lying on the J axis.
 		* X coordinate is given in the local CRS.
 		* @return				A double.NAN coordinate if something's wrong. The X offset point otherwise.
 		*/
 		double getXJOffset() const;
 
 		/**
-		* Get the Y j offset of this geometry.
+		* Get the Y (in local crs) offset between two consecutive nodes lying on the J axis.
 		* Y coordinate is given in the local CRS.
 		* @return				A double.NAN coordinate if something's wrong. The Y offset point otherwise.
 		*/
 		double getYJOffset() const;
 
 		/**
-		* Get the X j offset of this geometry.
+		* Get the X (in global crs) offset between two consecutive nodes lying on the J axis.
 		* X coordinate is given in the global CRS.
 		* @return				A double.NAN coordinate if something's wrong. The X offset point otherwise.
 		*/
 		double getXJOffsetInGlobalCrs() const;
 
 		/**
-		* Get the Y j offset of this geometry.
+		* Get the Y  (in global crs) offset between two consecutive nodes lying on the J axis.
 		* Y coordinate is given in the global CRS.
 		* @return				A double.NAN coordinate if something's wrong. The Y offset point otherwise.
 		*/
 		double getYJOffsetInGlobalCrs() const;
 
 		/**
-		* Get the X i offset of this geometry.
+		* Get the X (in local crs) offset between two consecutive nodes lying on the I axis.
 		* X coordinate is given in the local CRS.
 		* @return				A double.NAN coordinate if something's wrong. The X offset point otherwise.
 		*/
 		double getXIOffset() const;
 
 		/**
-		* Get the Y i offset of this geometry.
+		* Get the Y (in local crs) offset between two consecutive nodes lying on the I axis.
 		* Y coordinate is given in the local CRS.
 		* @return				A double.NAN coordinate if something's wrong. The Y offset point otherwise.
 		*/
 		double getYIOffset() const;
 
 		/**
-		* Get the X i offset of this geometry.
+		* Get the X (in global crs) offset between two consecutive nodes lying on the I axis.
 		* X coordinate is given in the global CRS.
 		* @return				A double.NAN coordinate if something's wrong. The X offset point otherwise.
 		*/
 		double getXIOffsetInGlobalCrs() const;
 
 		/**
-		* Get the Y i offset of this geometry.
+		* Get the Y (in global crs) offset between two consecutive nodes lying on the I axis.
 		* Y coordinate is given in the global CRS.
 		* @return				A double.NAN coordinate if something's wrong. The Y offset point otherwise.
 		*/
