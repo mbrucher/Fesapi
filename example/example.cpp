@@ -73,7 +73,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/DiscreteProperty.h"
 #include "resqml2_0_1/CategoricalProperty.h"
 #include "resqml2_0_1/StringTableLookup.h"
-#include "resqml2_0_1/IjkGridRepresentation.h"
+#include "resqml2_0_1/IjkGridExplicitRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/SealedSurfaceFrameworkRepresentation.h"
 #include "resqml2_0_1/SubRepresentation.h"
@@ -386,13 +386,13 @@ void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
 void serializeGrid(common::EpcDocument * pck, HdfProxy* hdfProxy)
 {
 	// ONE SUGAR
-	IjkGridRepresentation* singleCellIjkgrid = pck->createIjkGridRepresentation(local3dCrs, "", "One unfaulted sugar cube", 1, 1, 1);
+	IjkGridExplicitRepresentation* singleCellIjkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "One unfaulted sugar cube", 1, 1, 1);
 	double singleCellIjkgridNodes[24] = {0,0,300, 700,0,350, 0,150,300, 700,150,350,
 		0,0,500, 700,0,550, 0,150,500, 700,150,550};
 	singleCellIjkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, singleCellIjkgridNodes, hdfProxy);
 
 	// TWO SUGARS
-	IjkGridRepresentation* ijkgrid = pck->createIjkGridRepresentation(local3dCrs, "", "Two faulted sugar cubes", 2, 1, 1);
+	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "Two faulted sugar cubes", 2, 1, 1);
 	double nodes[48] = {0,0,300, 375,0,300, 700,0,350, 0,150,300, 375,150,300, 700,150,350, /* SPLIT*/ 375,0,350, 375,150,350,
 		0,0,500, 375,0,500, 700,0,550, 0,150,500, 375,150,500, 700,150,550, /* SPLIT*/ 375,0,550, 375,150,550};
 	unsigned int pillarOfCoordinateLine[2] = {1,4};
@@ -1123,7 +1123,7 @@ void deserialize(const string & inputFile)
 	std::vector<PolylineRepresentation*> horizonSinglePolylineRepSet = pck.getHorizonPolylineRepSet();
 	std::vector<WellboreFeature*> wellboreSet = pck.getWellboreSet();
 	std::vector<WellboreTrajectoryRepresentation*> wellboreCubicTrajSet = pck.getWellboreCubicParamLineTrajRepSet();
-	std::vector<IjkGridRepresentation*> ijkGridRepSet = pck.getIjkGridRepresentationSet();
+	std::vector<IjkGridExplicitRepresentation*> ijkGridRepSet = pck.getIjkGridExplicitRepresentationSet();
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
 
 	std::cout << "FAULTS" << endl;

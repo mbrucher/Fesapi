@@ -36,12 +36,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
-unsigned int AbstractColumnLayerGridRepresentation::getKCount() const
+unsigned int AbstractColumnLayerGridRepresentation::getKCellCount() const
 {
 	return static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy)->Nk;
 }
 
-void AbstractColumnLayerGridRepresentation::setKCount(const unsigned int & kCount)
+void AbstractColumnLayerGridRepresentation::setKCellCount(const unsigned int & kCount)
 {
 	static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy)->Nk = kCount;
 }

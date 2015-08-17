@@ -39,7 +39,10 @@
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 #include "resqml2_0_1/NonSealedSurfaceFrameworkRepresentation.h"
 #include "resqml2_0_1/SealedSurfaceFrameworkRepresentation.h"
-#include "resqml2_0_1/IjkGridRepresentation.h"
+
+#include "resqml2_0_1/IjkGridExplicitRepresentation.h"
+#include "resqml2_0_1/IjkGridParametricRepresentation.h"
+#include "resqml2_0_1/IjkGridLatticeRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/SubRepresentation.h"
 #include "resqml2_0_1/GridConnectionSetRepresentation.h"
@@ -91,7 +94,6 @@ namespace resqml2_0_1 {
 	class WellboreTrajectoryRepresentation;
 	class WellboreMarkerFrameRepresentation;
 	class HdfProxy;
-	class IjkGridRepresentation;
 	class UnstructuredGridRepresentation;
 	class WellboreMarker;
 }
@@ -121,7 +123,6 @@ namespace std {
    %template(WellboreTrajectoryRepresentationVector) vector<resqml2_0_1::WellboreTrajectoryRepresentation*>;
    %template(WellboreMarkerFrameRepresentationVector) vector<resqml2_0_1::WellboreMarkerFrameRepresentation*>;
    %template(HdfProxyVector) vector<resqml2_0_1::HdfProxy*>;
-   %template(IjkGridRepresentationVector) vector<resqml2_0_1::IjkGridRepresentation*>;
    %template(UnstructuredGridRepresentationVector) vector<resqml2_0_1::UnstructuredGridRepresentation*>;
    %template(StringVector) vector<std::string>;
    %template(WellboreMarkerVector) vector<resqml2_0_1::WellboreMarker*>;
@@ -235,7 +236,6 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::SealedSurfaceFrameworkRepresentation;
 	%nspace resqml2_0_1::AbstractGridRepresentation;
 	%nspace resqml2_0_1::AbstractColumnLayerGridRepresentation;
-	%nspace resqml2_0_1::IjkGridRepresentation;
 	%nspace resqml2_0_1::UnstructuredGridRepresentation;
 	%nspace resqml2_0_1::GridConnectionSetRepresentation;
 	%nspace resqml2_0_1::TimeSeries;
@@ -254,6 +254,10 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::FrontierFeature;
 	%nspace resqml2_0_1::PlaneSetRepresentation;
 	%nspace resqml2_0_1::FluidBoundaryFeature;
+	%nspace resqml2_0_1::AbstractIjkGridRepresentation;
+	%nspace resqml2_0_1::IjkGridExplicitRepresentation;
+	%nspace resqml2_0_1::IjkGridLatticeRepresentation;
+	%nspace resqml2_0_1::IjkGridParametricRepresentation;
 #endif
 
 namespace resqml2_0_1
@@ -884,70 +888,65 @@ namespace resqml2_0_1
 	public:
 		unsigned int getGridConnectionSetRepresentationCount() const;
 		GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
+		virtual unsigned int getCellCount() const = 0;
 	};
 
 	class AbstractColumnLayerGridRepresentation : public AbstractGridRepresentation
 	{
 	public:
-		unsigned int getKCount() const;
-		void setKCount(const unsigned int & kCount);
+		unsigned int getKCellCount() const;
+		void setKCellCount(const unsigned int & kCount);
 	};
 
-	class IjkGridRepresentation : public AbstractColumnLayerGridRepresentation
+	class UnstructuredGridRepresentation : public AbstractGridRepresentation
 	{
 	public:
-		bool isRightHanded() const;
+		unsigned int getFaceCount() const;
+		void getFacesOfCells(unsigned int * faceIndices) const;
+		void getFaceCountOfCells(unsigned int * faceCountPerCell) const;
+		void getNodesOfFaces(unsigned int * nodeIndices) const;
+		void getNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
+		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, HdfProxy * proxy,
+				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
+				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
+				const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
+		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class HdfProxy * proxy,
+						unsigned int * faceIndicesPerCell, unsigned int * nodeIndicesPerFace);
+	};
+	
+	class AbstractIjkGridRepresentation : public AbstractColumnLayerGridRepresentation
+	{
+	public:
+		enum geometryKind { EXPLICIT = 0, PARAMETRIC = 1, LATTICE = 2 };
+	
+		unsigned int getICellCount() const;
+		void setICellCount(const unsigned int & iCount);
+		unsigned int getJCellCount() const;
+		void setJCellCount(const unsigned int & jCount);
 		
-		unsigned int getICount() const;
-		void setICount(const unsigned int & iCount);
-		unsigned int getJCount() const;
-		void setJCount(const unsigned int & jCount);
-		unsigned long getSplitCoordinateLineCount() const;
-		void getPillarsOfSplitCoordinateLines(unsigned int * pillarIndices, bool reverseIAxis = false, bool reverseJAxis= false) const;
+		unsigned int getCellCount() const {return getICellCount() * getJCellCount() * getKCellCount();}
+		unsigned int getColumnCount() const {return getICellCount() * getJCellCount();}
+		unsigned int getPillarCount() const {return (getICellCount()+1) * (getJCellCount()+1);}
+
+		bool isRightHanded() const;
+
+		void getPillarsOfSplitCoordinateLines(unsigned int * pillarIndices, bool reverseIAxis = false, bool reverseJAxis = false) const;
 		void getColumnsOfSplitCoordinateLines(unsigned int * columnIndices, bool reverseIAxis = false, bool reverseJAxis = false) const;
 		void getColumnCountOfSplitCoordinateLines(unsigned int * columnIndexCountPerSplitCoordinateLine) const;
+		unsigned long getSplitCoordinateLineCount() const;
 		
-		unsigned int getControlPointMaxCountPerPillar() const;
-		void getControlPoints(double * controlPoints, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis = false) const;
-		bool hasControlPointParameters() const;
-		void getControlPointParameters(double * controlPointParameters, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis = false) const;
-		void getParametricLineKind(short * pillarKind, bool reverseIAxis = false, bool reverseJAxis= false) const;
-		void getParametersOfNodes(double * parameters, bool reverseIAxis = false, bool reverseJAxis = false, bool reverseKAxis = false) const;
-		
-		void getCellGeometryIsDefined(bool * cellGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
 		void getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis = false) const;
+		void getCellGeometryIsDefined(bool * cellGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
 		
-		void setGeometryAsCoordinateLineNodes(	const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-												double * points, class HdfProxy * proxy,
-												const unsigned long & splitCoordinateLineCount = 0, unsigned int * pillarOfCoordinateLine = NULL,
-												unsigned int * splitCoordinateLineColumnCumulativeCount = NULL, unsigned int * splitCoordinateLineColumns = NULL);
+		virtual geometryKind getGeometryKind() const = 0;
+	};
+	
+	class IjkGridLatticeRepresentation : public AbstractIjkGridRepresentation
+	{
+	public:
+		bool isASeismicCube() const;
+		bool isAFaciesCube() const;
 		
-		void setGeometryAsParametricNonSplittedPillarNodes(
-			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
-			unsigned char* cellGeomIsDefined = NULL);
-			
-		void setGeometryAsParametricSplittedPillarNodes(
-			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
-			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
-			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns,
-			unsigned char* cellGeomIsDefined = NULL);
-
-		// SEISMIC BELOW
-		void setGeometryAsCoordinateLineNodes(	const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry,
-												const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind,
-												const bool & isRightHanded,
-												const double & originX, const double & originY, const double & originZ,
-												const double & directionIX, const double & directionIY, const double & directionIZ, const double & spacingI,
-												const double & directionJX, const double & directionJY, const double & directionJZ, const double & spacingJ,
-												const double & directionKX, const double & directionKY, const double & directionKZ, const double & spacingK);	
-		void addSeismic3dCoordinatesToPatch(
-						const unsigned int patchIndex,
-						const double & startInline, const double & incrInline, const unsigned int & countInline,
-						const double & startCrossline, const double & incrCrossline, const unsigned int & countCrossline,
-			            const unsigned int & countSample, AbstractRepresentation * seismicSupport);
-												
 		double getXOrigin() const;
 		double getYOrigin() const;
 		double getZOrigin() const;
@@ -974,24 +973,52 @@ namespace resqml2_0_1
         int getCrosslineIOffset() const;
         int getCrosslineJOffset() const;
         int getCrosslineKOffset() const;
-		
-	};
 
-	class UnstructuredGridRepresentation : public AbstractGridRepresentation
+		void setGeometryAsCoordinateLineNodes(const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry,
+						const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind,
+						const bool & isRightHanded,
+						const double & originX, const double & originY, const double & originZ,
+						const double & directionIX, const double & directionIY, const double & directionIZ, const double & spacingI,
+						const double & directionJX, const double & directionJY, const double & directionJZ, const double & spacingJ,
+						const double & directionKX, const double & directionKY, const double & directionKZ, const double & spacingK);
+
+		void addSeismic3dCoordinatesToPatch(
+						const unsigned int patchIndex,
+						const double & startInline, const double & incrInline, const unsigned int & countInline,
+						const double & startCrossline, const double & incrCrossline, const unsigned int & countCrossline,
+			            const unsigned int & countSample, AbstractRepresentation * seismicSupport);
+	};
+	
+	class IjkGridExplicitRepresentation : public AbstractIjkGridRepresentation
 	{
 	public:
-		unsigned long getCellCount() const;
-		unsigned long getFaceCount() const;
-		void getFacesOfCells(unsigned int * faceIndices) const;
-		void getFaceCountOfCells(unsigned int * faceCountPerCell) const;
-		void getNodesOfFaces(unsigned int * nodeIndices) const;
-		void getNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
-		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, HdfProxy * proxy,
-				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
-				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
-				const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
-		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class HdfProxy * proxy,
-						unsigned int * faceIndicesPerCell, unsigned int * nodeIndicesPerFace);
+		void setGeometryAsCoordinateLineNodes(
+			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			double * points, class HdfProxy * proxy,
+			const unsigned long & splitCoordinateLineCount = 0, unsigned int * pillarOfCoordinateLine = NULL,
+			unsigned int * splitCoordinateLineColumnCumulativeCount = NULL, unsigned int * splitCoordinateLineColumns = NULL);
+	};
+	
+	class IjkGridParametricRepresentation : public AbstractIjkGridRepresentation
+	{
+	public:
+		unsigned int getControlPointMaxCountPerPillar() const;
+		void getControlPoints(double * controlPoints, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+		bool hasControlPointParameters() const;
+		void getControlPointParameters(double * controlPointParameters, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+		void getParametricLineKind(short * pillarKind, bool reverseIAxis = false, bool reverseJAxis= false) const;
+		void getParametersOfNodes(double * parameters, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+
+		void setGeometryAsParametricNonSplittedPillarNodes(
+			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
+			unsigned char* cellGeomIsDefined = NULL);
+		void setGeometryAsParametricSplittedPillarNodes(
+			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
+			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
+			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns,
+			unsigned char* cellGeomIsDefined = NULL);
 	};
 	
 	class GridConnectionSetRepresentation : public AbstractRepresentation

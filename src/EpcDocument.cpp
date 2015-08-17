@@ -88,7 +88,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/StratigraphicColumnRankInterpretation.h"
 #include "resqml2_0_1/StratigraphicOccurrenceInterpretation.h"
 
-#include "resqml2_0_1/IjkGridRepresentation.h"
+#include "resqml2_0_1/IjkGridExplicitRepresentation.h"
+#include "resqml2_0_1/IjkGridParametricRepresentation.h"
+#include "resqml2_0_1/IjkGridLatticeRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 
 #include "resqml2_0_1/Activity.h"
@@ -277,7 +279,7 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation :
 		polylineRepresentationSet.push_back(static_cast<PolylineRepresentation*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREIjkGridRepresentation :
-		ijkGridRepresentationSet.push_back(static_cast<IjkGridRepresentation*>(proxy)); break;
+		ijkGridRepresentationSet.push_back(static_cast<AbstractIjkGridRepresentation*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREUnstructuredGridRepresentation :
 		unstructuredGridRepresentationSet.push_back(static_cast<UnstructuredGridRepresentation*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs :
@@ -565,11 +567,20 @@ string EpcDocument::deserialize()
 				soap_read_resqml2__obj_USCORETriangulatedSetRepresentation(s, read);
 				wrapper = new TriangulatedSetRepresentation(read);
 			}
-			else if (resqmlContentType.compare(IjkGridRepresentation::XML_TAG) == 0)
+			else if (resqmlContentType.compare(AbstractIjkGridRepresentation::XML_TAG) == 0)
 			{
 				gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREIjkGridRepresentation(s, 1);
 				soap_read_resqml2__obj_USCOREIjkGridRepresentation(s, read);
-				wrapper = new IjkGridRepresentation(read);
+				
+				switch (read->Geometry->Points->soap_type())
+				{
+				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array :
+					wrapper = new IjkGridExplicitRepresentation(read); break;
+				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray :
+					wrapper = new IjkGridParametricRepresentation(read); break;
+				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray :
+					wrapper = new IjkGridLatticeRepresentation(read); break;
+				}
 			}
 			else if (resqmlContentType.compare(UnstructuredGridRepresentation::XML_TAG) == 0)
 			{
@@ -1093,15 +1104,37 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 	return result;
 }
 
-vector<IjkGridRepresentation*> EpcDocument::getIjkParametricGridRepresentationSet() const
+vector<IjkGridParametricRepresentation*> EpcDocument::getIjkGridParametricRepresentationSet() const
 {
-	vector<IjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
-	vector<IjkGridRepresentation*> result;
+	vector<AbstractIjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
+	vector<IjkGridParametricRepresentation*> result;
 	
 	for (unsigned int i = 0; i < allgrids.size(); ++i)
 	{
-		if (allgrids[i]->hasParametricGeometry())
-			result.push_back(allgrids[i]);
+		for (unsigned int i = 0; i < allgrids.size(); ++i)
+		{
+			IjkGridParametricRepresentation* ijkGridParamRep = dynamic_cast<IjkGridParametricRepresentation*>(allgrids[i]);
+			if (ijkGridParamRep != nullptr)
+				result.push_back(ijkGridParamRep);
+		}
+	}
+	
+	return result;
+}
+
+vector<IjkGridExplicitRepresentation*> EpcDocument::getIjkGridExplicitRepresentationSet() const
+{
+	vector<AbstractIjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
+	vector<IjkGridExplicitRepresentation*> result;
+	
+	for (unsigned int i = 0; i < allgrids.size(); ++i)
+	{
+		for (unsigned int i = 0; i < allgrids.size(); ++i)
+		{
+			IjkGridExplicitRepresentation* ijkGridParamRep = dynamic_cast<IjkGridExplicitRepresentation*>(allgrids[i]);
+			if (ijkGridParamRep != nullptr)
+				result.push_back(ijkGridParamRep);
+		}
 	}
 	
 	return result;
@@ -1121,15 +1154,16 @@ std::vector<PolylineRepresentation*> EpcDocument::getSeismicLinePolylineRepSet()
 	return result;
 }
 
-vector<IjkGridRepresentation*> EpcDocument::getIjkSeismicCubeGridRepresentationSet() const
+vector<IjkGridLatticeRepresentation*> EpcDocument::getIjkSeismicCubeGridRepresentationSet() const
 {
-	vector<IjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
-	vector<IjkGridRepresentation*> result;
+	vector<AbstractIjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
+	vector<IjkGridLatticeRepresentation*> result;
 	
 	for (unsigned int i = 0; i < allgrids.size(); ++i)
 	{
-		if (allgrids[i]->isASeismicCube() || allgrids[i]->isAFaciesCube())
-			result.push_back(allgrids[i]);
+		IjkGridLatticeRepresentation* ijkGridLatticeRep = dynamic_cast<IjkGridLatticeRepresentation*>(allgrids[i]);
+		if (ijkGridLatticeRep != nullptr && (ijkGridLatticeRep->isASeismicCube() || ijkGridLatticeRep->isAFaciesCube()))
+			result.push_back(ijkGridLatticeRep);
 	}
 	
 	return result;
@@ -1708,22 +1742,58 @@ SealedSurfaceFrameworkRepresentation* EpcDocument::createSealedSurfaceFrameworkR
     return new SealedSurfaceFrameworkRepresentation(interp, crs, guid, title);
 }
 
-IjkGridRepresentation* EpcDocument::createIjkGridRepresentation(AbstractLocal3dCrs * crs,
+IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != NULL)
 		return NULL;
-	return new IjkGridRepresentation(this, crs, guid, title, iCount, jCount, kCount);
+	return new IjkGridExplicitRepresentation(this, crs, guid, title, iCount, jCount, kCount);
 }
 
-IjkGridRepresentation* EpcDocument::createIjkGridRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != NULL)
 		return NULL;
-	return new IjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+	return new IjkGridExplicitRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+}
+
+IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(AbstractLocal3dCrs * crs,
+		const std::string & guid, const std::string & title,
+		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new IjkGridParametricRepresentation(this, crs, guid, title, iCount, jCount, kCount);
+}
+
+IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+		const std::string & guid, const std::string & title,
+		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new IjkGridParametricRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+}
+
+IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(AbstractLocal3dCrs * crs,
+		const std::string & guid, const std::string & title,
+		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new IjkGridLatticeRepresentation(this, crs, guid, title, iCount, jCount, kCount);
+}
+
+IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+		const std::string & guid, const std::string & title,
+		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
+{
+	if (getResqmlAbstractObjectByUuid(guid) != NULL)
+		return NULL;
+	return new IjkGridLatticeRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
 }
 
 UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentation(AbstractLocal3dCrs * crs,

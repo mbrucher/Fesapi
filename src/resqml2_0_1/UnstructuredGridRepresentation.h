@@ -82,17 +82,17 @@ namespace resqml2_0_1
 		/**
 		 * Get the cell count
 		 */
-		unsigned long getCellCount() const;
+		unsigned int getCellCount() const;
 
 		/**
 		 * Get the face count
 		 */
-		unsigned long getFaceCount() const;
+		unsigned int getFaceCount() const;
 
 		/**
 		 * Get the node count
 		 */
-		unsigned long getNodeCount() const;
+		unsigned int getNodeCount() const;
 
 		/**
 		 * Set the geometry

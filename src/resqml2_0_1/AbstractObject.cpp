@@ -231,7 +231,7 @@ void AbstractObject::initMandatoryMetadata()
 
 	addNewGuid("");
 
-	gsoapProxy->schemaVersion = "2.0";
+	gsoapProxy->schemaVersion = getResqmlVersion();
 
 	gsoapProxy->Citation = soap_new_eml__Citation(gsoapProxy->soap, 1);
 

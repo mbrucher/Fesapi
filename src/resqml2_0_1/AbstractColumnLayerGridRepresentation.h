@@ -58,11 +58,11 @@ namespace resqml2_0_1
 		/**
 		* Get the K layer count of the grid
 		*/
-		unsigned int getKCount() const;
+		unsigned int getKCellCount() const;
 
 		/**
 		* Set the K layer count of the grid
 		*/
-		void setKCount(const unsigned int & kCount);
+		void setKCellCount(const unsigned int & kCount);
 	};
 }

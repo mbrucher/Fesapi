@@ -74,7 +74,10 @@ namespace resqml2_0_1
 	class Grid2dSetRepresentation;
 	class Grid2dRepresentation;
 	class WellboreTrajectoryRepresentation;
-	class IjkGridRepresentation;
+	class AbstractIjkGridRepresentation;
+	class IjkGridExplicitRepresentation;
+	class IjkGridParametricRepresentation;
+	class IjkGridLatticeRepresentation;
 	class UnstructuredGridRepresentation;
 	class HdfProxy;
 	class BoundaryFeature;
@@ -362,17 +365,22 @@ namespace common
 		/**
 		* Get all the ijk grid contained into the EPC document.
 		*/
-		std::vector<resqml2_0_1::IjkGridRepresentation*> getIjkGridRepresentationSet() const {return ijkGridRepresentationSet;}
+		std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> getIjkGridRepresentationSet() const {return ijkGridRepresentationSet;}
 
 		/**
 		* Get all the ijk grid contained into the EPC document which have a parametric geometry.
 		*/
-		std::vector<resqml2_0_1::IjkGridRepresentation*> getIjkParametricGridRepresentationSet() const;
+		std::vector<resqml2_0_1::IjkGridParametricRepresentation*> getIjkGridParametricRepresentationSet() const;
+
+		/**
+		* Get all the ijk grid contained into the EPC document which have an explicit geometry.
+		*/
+		std::vector<resqml2_0_1::IjkGridExplicitRepresentation*> getIjkGridExplicitRepresentationSet() const;
 
 		/**
 		* Get all the ijk grid contained into the EPC document which correspond to a seismic cube.
 		*/
-		std::vector<resqml2_0_1::IjkGridRepresentation*> getIjkSeismicCubeGridRepresentationSet() const;
+		std::vector<resqml2_0_1::IjkGridLatticeRepresentation*> getIjkSeismicCubeGridRepresentationSet() const;
 
 		/**
 		* Get all the unstructured grid contained into the EPC document
@@ -728,11 +736,27 @@ namespace common
                 const std::string & guid,
                 const std::string & title);
 
-		resqml2_0_1::IjkGridRepresentation* createIjkGridRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
+		resqml2_0_1::IjkGridExplicitRepresentation* createIjkGridExplicitRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
-		resqml2_0_1::IjkGridRepresentation* createIjkGridRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+		resqml2_0_1::IjkGridExplicitRepresentation* createIjkGridExplicitRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridParametricRepresentation* createIjkGridParametricRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridParametricRepresentation* createIjkGridParametricRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridLatticeRepresentation* createIjkGridLatticeRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridLatticeRepresentation* createIjkGridLatticeRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
@@ -885,21 +909,21 @@ namespace common
 
 		// Better for performance reason to have set of important objects instead of having a global vector of GsoapWrapper
 		// Even if redundant with resqmlAbstractObjectSet
-		std::vector<resqml2_0_1::LocalDepth3dCrs*>				localDepth3dCrsSet;
+		std::vector<resqml2_0_1::LocalDepth3dCrs*>					localDepth3dCrsSet;
 		std::vector<resqml2_0_1::LocalTime3dCrs*>					localTime3dCrsSet;
 		std::vector<resqml2_0_1::Fault*>							faultSet;
-		std::vector<resqml2_0_1::Fracture*>						fractureSet;
-		std::vector<resqml2_0_1::Horizon*>						horizonSet;
+		std::vector<resqml2_0_1::Fracture*>							fractureSet;
+		std::vector<resqml2_0_1::Horizon*>							horizonSet;
 		std::vector<resqml2_0_1::SeismicLineFeature*>				seismicLineSet;
-		std::vector<resqml2_0_1::HdfProxy*>						hdfProxySet;
-		std::vector<resqml2_0_1::WellboreFeature*>				wellboreSet;
-		std::vector<witsml1_4_1_1::Trajectory*>					witsmlTrajectorySet;
+		std::vector<resqml2_0_1::HdfProxy*>							hdfProxySet;
+		std::vector<resqml2_0_1::WellboreFeature*>					wellboreSet;
+		std::vector<witsml1_4_1_1::Trajectory*>						witsmlTrajectorySet;
 		std::vector<resqml2_0_1::TriangulatedSetRepresentation*>	triangulatedSetRepresentationSet;
 		std::vector<resqml2_0_1::PolylineRepresentation*>			polylineRepresentationSet;
-		std::vector<resqml2_0_1::IjkGridRepresentation*>			ijkGridRepresentationSet;
+		std::vector<resqml2_0_1::AbstractIjkGridRepresentation*>	ijkGridRepresentationSet;
 		std::vector<resqml2_0_1::UnstructuredGridRepresentation*>	unstructuredGridRepresentationSet;
-		std::vector<resqml2_0_1::StratigraphicColumn*>			stratigraphicColumnSet;
-		std::vector<resqml2_0_1::FrontierFeature*>				frontierSet;
+		std::vector<resqml2_0_1::StratigraphicColumn*>				stratigraphicColumnSet;
+		std::vector<resqml2_0_1::FrontierFeature*>					frontierSet;
 
 		resqml2_0_1::PropertyKindMapper* propertyKindMapper;
 	};

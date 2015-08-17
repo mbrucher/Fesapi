@@ -124,11 +124,11 @@ namespace common
 		
 		std::vector<resqml2_0_1::HdfProxy*> getHdfProxySet() const;
 		
-		std::vector<resqml2_0_1::IjkGridRepresentation*> getIjkGridRepresentationSet() const;
-		std::vector<resqml2_0_1::IjkGridRepresentation*> getIjkParametricGridRepresentationSet() const;
+		std::vector<resqml2_0_1::IjkGridExplicitRepresentation*> getIjkGridExplicitRepresentationSet() const;
+		std::vector<resqml2_0_1::IjkGridParametricRepresentation*> getIjkGridParametricRepresentationSet() const;
 
 		std::vector<resqml2_0_1::PolylineRepresentation*> getSeismicLinePolylineRepSet() const;
-		std::vector<resqml2_0_1::IjkGridRepresentation*> getIjkSeismicCubeGridRepresentationSet() const;
+		std::vector<resqml2_0_1::IjkGridLatticeRepresentation*> getIjkSeismicCubeGridRepresentationSet() const;
 		
 		std::vector<resqml2_0_1::UnstructuredGridRepresentation*> getUnstructuredGridRepresentationSet() const;
 		
@@ -317,11 +317,28 @@ namespace common
 		        const std::string & guid,
 		        const std::string & title);
     	        
-		resqml2_0_1::IjkGridRepresentation* createIjkGridRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
+		resqml2_0_1::IjkGridExplicitRepresentation* createIjkGridExplicitRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
-			
-		resqml2_0_1::IjkGridRepresentation* createIjkGridRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs, const std::string & guid, const std::string & title,
+
+		resqml2_0_1::IjkGridExplicitRepresentation* createIjkGridExplicitRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridParametricRepresentation* createIjkGridParametricRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridParametricRepresentation* createIjkGridParametricRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridLatticeRepresentation* createIjkGridLatticeRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridLatticeRepresentation* createIjkGridLatticeRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
 		resqml2_0_1::UnstructuredGridRepresentation* createUnstructuredGridRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,

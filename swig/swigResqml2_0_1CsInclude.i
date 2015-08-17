@@ -85,7 +85,13 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
     else if (type == "IjkGridRepresentation")
     {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridRepresentation(cPtr, owner);
+		f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation tmp = new f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
+		if (tmp.getGeometryKind() == f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.EXPLICIT)
+			ret = new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridExplicitRepresentation(cPtr, owner);
+		else if (tmp.getGeometryKind() == f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.PARAMETRIC)
+			ret = new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridParametricRepresentation(cPtr, owner);
+		else if (tmp.getGeometryKind() == f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.LATTICE)
+			ret = new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridLatticeRepresentation(cPtr, owner);
     }
     else if (type == "MdDatum")
     {

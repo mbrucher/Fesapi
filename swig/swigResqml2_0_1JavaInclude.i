@@ -76,7 +76,13 @@
     }
     else if (type.equals("IjkGridRepresentation"))
     {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridRepresentation(cPtr, owner);
+		com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation tmp = new com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
+		if (tmp.getGeometryKind() == AbstractIjkGridRepresentation.geometryKind.EXPLICIT)
+			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridExplicitRepresentation(cPtr, owner);
+		else if (tmp.getGeometryKind() == AbstractIjkGridRepresentation.geometryKind.PARAMETRIC)
+			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridParametricRepresentation(cPtr, owner);
+		else if (tmp.getGeometryKind() == AbstractIjkGridRepresentation.geometryKind.LATTICE)
+			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridLatticeRepresentation(cPtr, owner);	
     }
     else if (type.equals("MdDatum"))
     {

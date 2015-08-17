@@ -84,12 +84,12 @@ string UnstructuredGridRepresentation::getHdfProxyUuid() const
 	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
 }
 
-unsigned long UnstructuredGridRepresentation::getCellCount() const
+unsigned int UnstructuredGridRepresentation::getCellCount() const
 {
 	return static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy)->CellCount;
 }
 
-unsigned long UnstructuredGridRepresentation::getFaceCount() const
+unsigned int UnstructuredGridRepresentation::getFaceCount() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
 	if (grid->Geometry)
@@ -98,7 +98,7 @@ unsigned long UnstructuredGridRepresentation::getFaceCount() const
 		return 0;
 }
 
-unsigned long UnstructuredGridRepresentation::getNodeCount() const
+unsigned int UnstructuredGridRepresentation::getNodeCount() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
 	if (grid->Geometry)

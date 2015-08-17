@@ -72,6 +72,11 @@ namespace resqml2_0_1
 		 */
 		class GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
 
+		/**
+		* Get the count of (volumic) cells in the grid.
+		*/
+		virtual unsigned int getCellCount() const = 0;
+
 	private:
 
 		std::vector<GridConnectionSetRepresentation*> gridConnectionSetRepresentationSet;
