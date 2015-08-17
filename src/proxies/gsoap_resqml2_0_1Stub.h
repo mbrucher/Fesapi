@@ -2983,7 +2983,6 @@ public:
 class SOAP_CMAC resqml2__ParameterTemplate
 {
 public:
-	std::vector<std::string >XmlConstraint;	/* optional element of type xsd:string */
 	std::vector<std::string >KeyConstraint;	/* optional element of type xsd:string */
 	bool IsInput;	/* required element of type xsd:boolean */
 	std::vector<enum resqml2__ParameterKind >AllowedKind;	/* optional element of type resqml2:ParameterKind */
