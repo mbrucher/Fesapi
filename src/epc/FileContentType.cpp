@@ -87,12 +87,12 @@ void FileContentType::readFromString(const string & textInput)
 	contentTypeMap.clear();
 
 	// Default extension
-	size_t pos = textInput.find("<Default ");
+	size_t pos = textInput.find("Default");
 	while (pos != string::npos)
 	{
-		size_t end = textInput.find("/>", pos);
+		size_t end = textInput.find("/>", pos + 7);
 		if (end == string::npos)
-			end = textInput.find("</Default>", pos);
+			end = textInput.find("Default>", pos + 7);
 		
 		// Extension
 		string extension = "";
@@ -119,16 +119,16 @@ void FileContentType::readFromString(const string & textInput)
 		ContentType entry(true, contentType, extension);
 		addContentType(entry);
 
-		pos = textInput.find("<Default ", pos + 8);
+		pos = textInput.find("Default", end + 1);
 	}
 
 	// Override partname
-	pos = textInput.find("<Override ");
+	pos = textInput.find("Override");
 	while (pos != string::npos)
 	{
-		size_t end = textInput.find("/>", pos);
+		size_t end = textInput.find("/>", pos + 8);
 		if (end == string::npos)
-			end = textInput.find("</Override>", pos);
+			end = textInput.find("Override>", pos + 8);
 		
 		// Extension
 		string partName = "";
@@ -155,7 +155,7 @@ void FileContentType::readFromString(const string & textInput)
 		ContentType entry(false, contentType, partName);
 		addContentType(entry);
 
-		pos = textInput.find("<Override ", pos + 10);
+		pos = textInput.find("Override", end + 1);
 	}
 }
 

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -110,12 +110,14 @@ void FileRelationship::readFromString(const string & textInput)
 {
 	relationship.clear();
 
-	size_t pos = textInput.find("<Relationship ");
+	size_t pos = textInput.find("Relationship ");
+	if (pos == string::npos)
+		pos = textInput.find("Relationship>");
 	while (pos != string::npos)
 	{
-		size_t end = textInput.find("/>", pos);
+		size_t end = textInput.find("/>", pos + 12);
 		if (end == string::npos)
-			end = textInput.find("</Relationship>", pos);
+			end = textInput.find("Relationship>", pos + 12); // closing tag : </Relationship>
 		
 		//ID
 		string id = "";
@@ -168,7 +170,9 @@ void FileRelationship::readFromString(const string & textInput)
 		Relationship rel(target, type, id, internalTarget);
 		addRelationship(rel);
 
-		pos = textInput.find("<Relationship ", pos + 14);
+		pos = textInput.find("Relationship ", end + 1);
+		if (pos == string::npos)
+			pos = textInput.find("Relationship>", end + 1);
 	}
 }
 

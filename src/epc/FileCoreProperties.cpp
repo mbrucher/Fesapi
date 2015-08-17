@@ -250,6 +250,8 @@ void FileCoreProperties::readFromString(const string & textInput)
 		properties[i].setTypeProperty(CoreProperty::undefinedCoreProperty);
 
 	size_t start = textInput.find("<coreProperties ");
+	if (start != string::npos)
+			start = textInput.find("<coreProperties>");
 	size_t end = textInput.find("</coreProperties>", start);
 		
 	//identifier
