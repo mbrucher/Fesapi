@@ -292,6 +292,8 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 		triangulatedSetRepresentationSet.push_back(static_cast<TriangulatedSetRepresentation*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFrontierFeature :
 		frontierSet.push_back(static_cast<FrontierFeature*>(proxy)); break;
+	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREOrganizationFeature :
+		organizationSet.push_back(static_cast<OrganizationFeature*>(proxy)); break;
 	}
 	resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
 	proxy->epcDocument = this;
@@ -1168,7 +1170,6 @@ vector<IjkGridLatticeRepresentation*> EpcDocument::getIjkSeismicCubeGridRepresen
 	
 	return result;
 }
-
 
 string EpcDocument::getStorageDirectory() const
 {
