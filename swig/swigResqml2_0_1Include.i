@@ -126,6 +126,9 @@ namespace std {
    %template(UnstructuredGridRepresentationVector) vector<resqml2_0_1::UnstructuredGridRepresentation*>;
    %template(StringVector) vector<std::string>;
    %template(WellboreMarkerVector) vector<resqml2_0_1::WellboreMarker*>;
+   %template(IjkGridExplicitRepresentationVector) vector<resqml2_0_1::IjkGridExplicitRepresentation*>;
+   %template(IjkGridParametricRepresentationVector) vector<resqml2_0_1::IjkGridParametricRepresentation*>;
+   %template(IjkGridLatticeRepresentationVector) vector<resqml2_0_1::IjkGridLatticeRepresentation*>;
 }
 
 namespace gsoap_resqml2_0_1
