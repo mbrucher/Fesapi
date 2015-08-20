@@ -55,7 +55,7 @@ const char* CategoricalPropertySeries::XML_TAG = "CategoricalPropertySeries";
 CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+			TimeSeries * ts, const bool & useInterval)
 		: CategoricalProperty(strLookup)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapProxy()->soap, 1);	
@@ -73,7 +73,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 	setRepresentation(rep);
 
 	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
-	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->TimeIndexCount = ts->getTimestampCount();
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
 
@@ -87,7 +87,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			StringTableLookup* strLookup, PropertyKind * localPropKind,
-			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+			class TimeSeries * ts, const bool & useInterval)
 	:CategoricalProperty(strLookup)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapProxy()->soap, 1);	
@@ -105,7 +105,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 	setRepresentation(rep);
 
 	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
-	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->TimeIndexCount = ts->getTimestampCount();
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
 

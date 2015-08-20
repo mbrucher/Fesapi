@@ -49,14 +49,13 @@ namespace resqml2_0_1
 		* @param attachmentKind				The topological orbit which support each value.
 		* @apram uom						The uom of the values
 		* @param energisticsPropertyKind	The property type of these property values which must be defined in the standard energistics property kind catalog.
-		* @param timeIndexCount				The count of time index in the time series.
 		* @param ts							The associated time series.
 		* @param useInterval				Indicates wether the property values will be attached to the time index or to the interval between consecutive time index. 
 		*/
 		ContinuousPropertySeries(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval = false);
+			class TimeSeries * ts, const bool & useInterval = false);
 
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -67,14 +66,13 @@ namespace resqml2_0_1
 		* @param attachmentKind				The topological orbit which support each value.
 		* @apram uom						The uom of the values
 		* @param localPropKind				The property type of these property values which must be defined in the EPC document as a local property kind.
-		* @param timeIndexCount				The count of time index in the time series.
 		* @param ts							The associated time series.
 		* @param useInterval				Indicates wether the property values will be attached to the time index or to the interval between consecutive time index.
 		*/
 		ContinuousPropertySeries(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, class PropertyKind * localPropKind,
-			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval = false);
+			class TimeSeries * ts, const bool & useInterval = false);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

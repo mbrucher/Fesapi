@@ -53,7 +53,7 @@ const char* ContinuousPropertySeries::XML_TAG = "ContinuousPropertySeries";
 ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+			class TimeSeries * ts, const bool & useInterval)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapProxy()->soap, 1);	
 	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
@@ -68,7 +68,7 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 	setRepresentation(rep);
 
 	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
-	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->TimeIndexCount = ts->getTimestampCount();
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
 
@@ -82,7 +82,7 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropKind,
-			const unsigned int & timeIndexCount, class TimeSeries * ts, const bool & useInterval)
+			class TimeSeries * ts, const bool & useInterval)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapProxy()->soap, 1);	
 	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
@@ -97,7 +97,7 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 	setRepresentation(rep);
 
 	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
-	prop->SeriesTimeIndices->TimeIndexCount = timeIndexCount;
+	prop->SeriesTimeIndices->TimeIndexCount = ts->getTimestampCount();
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
 

@@ -809,11 +809,11 @@ namespace common
 
 		resqml2_0_1::ContinuousPropertySeries* createContinuousPropertySeries(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			const unsigned int & timeIndexCount, resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
+			resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
 
 		resqml2_0_1::ContinuousPropertySeries* createContinuousPropertySeries(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2_0_1::PropertyKind * localPropType,
-			const unsigned int & timeIndexCount, resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
+			resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
 	
 		resqml2_0_1::DiscreteProperty* createDiscreteProperty(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
@@ -823,11 +823,11 @@ namespace common
 	
 		resqml2_0_1::DiscretePropertySeries* createDiscretePropertySeries(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			const unsigned int & timeIndexCount, resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
+			resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
 
 		resqml2_0_1::DiscretePropertySeries* createDiscretePropertySeries(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2_0_1::PropertyKind * localPropType,
-			const unsigned int & timeIndexCount, resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
+			resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
 
 		resqml2_0_1::CategoricalProperty* createCategoricalProperty(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
@@ -840,12 +840,12 @@ namespace common
 		resqml2_0_1::CategoricalPropertySeries* createCategoricalPropertySeries(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			resqml2_0_1::StringTableLookup* strLookup, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			const unsigned int & timeIndexCount, resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
+			resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
 
 		resqml2_0_1::CategoricalPropertySeries* createCategoricalPropertySeries(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			resqml2_0_1::StringTableLookup* strLookup, resqml2_0_1::PropertyKind * localPropType,
-			const unsigned int & timeIndexCount, resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
+			resqml2_0_1::TimeSeries * ts, const bool & useInterval = false);
 
 		//************************************
 		//************* ACTIVITIES ***********
