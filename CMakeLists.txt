@@ -118,7 +118,7 @@ ENDIF (BUILD_SHARED_LIBS)
 # ============================================================================
 
 IF (WIN32)
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GL /MP")
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
 ENDIF (WIN32)
 
 # ============================================================================

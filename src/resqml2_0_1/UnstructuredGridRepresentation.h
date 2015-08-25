@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014)
+Copyright F2I-CONSULTING, (2014-2015)
 
 philippe.verney@f2i-consulting.com
 
@@ -40,11 +40,19 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT UnstructuredGridRepresentation : public AbstractGridRepresentation
 	{
 	private :
+		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+				const std::string & guid, const std::string & title,
+				const unsigned int & cellCount);
+
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
 
 	public:
 
 		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & cellCount);
+
+		UnstructuredGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & cellCount);
 

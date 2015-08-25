@@ -411,6 +411,8 @@ void serializeGrid(common::EpcDocument * pck, HdfProxy* hdfProxy)
 	discreteProp1->pushBackLongHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
 
 #if !defined(OFFICIAL)
+	ijkgrid->cloneToUnstructuredGridRepresentation("42e6c090-33b2-4572-a64c-3b119f6a1f41", "Two faulted sugar cubes (unstructured)");
+
 	// Tetra grid
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "", "One tetrahedron grid", 1);
 	double tetraGridPoints[12] = {0,0,300, 700,0,350, 0,150,300, 0,0,500};
@@ -1470,7 +1472,7 @@ int main(int argc, char **argv)
 {
 	string filePath("../../testingPackageCpp.epc");
 	serialize(filePath);
-	//string filePath("/home/philippe/data/resqml/ttt.epc");
+	//string filePath("C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/testingPackageCppReExport.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;

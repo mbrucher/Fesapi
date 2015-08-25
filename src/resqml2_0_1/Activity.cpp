@@ -551,8 +551,8 @@ void Activity::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 		setActivityTemplate(static_cast<ActivityTemplate*>(epcDoc->getResqmlAbstractObjectByUuid(activity->ActivityDescriptor->UUID)));
 		updateXml = true;
 	}
-	else
-		throw domain_error("The activity template associated to the activity cannot be NULL.");
+	if (activityTemplate == nullptr)
+		throw domain_error("The activity template associated to the activity " + activity->uuid + " cannot be NULL.");
 
 	for (unsigned int i = 0; i < activity->Parameter.size(); ++i)
 	{

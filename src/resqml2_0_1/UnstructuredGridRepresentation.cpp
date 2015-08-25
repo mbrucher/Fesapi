@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014)
+Copyright F2I-CONSULTING, (2014-2015)
 
 philippe.verney@f2i-consulting.com
 
@@ -35,9 +35,13 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
+#include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/HdfProxy.h"
-//#include "Vector3d.h"
+
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
@@ -45,10 +49,10 @@ using namespace resqml2_0_1;
 
 const char* UnstructuredGridRepresentation::XML_TAG = "UnstructuredGridRepresentation";
 
-UnstructuredGridRepresentation::UnstructuredGridRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+
+void UnstructuredGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & cellCount):
-	AbstractGridRepresentation(NULL, crs)
+			const unsigned int & cellCount)
 {
 	if (!epcDoc)
 		throw invalid_argument("The EPC document where the unstructured grid will be stored cannot be null.");
@@ -69,6 +73,28 @@ UnstructuredGridRepresentation::UnstructuredGridRepresentation(common::EpcDocume
 	// relationhsips
 	localCrs = crs;
 	localCrs->addRepresentation(this);
+}
+
+UnstructuredGridRepresentation::UnstructuredGridRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & cellCount):
+	AbstractGridRepresentation(nullptr, crs)
+{
+	init(epcDoc, crs, guid, title, cellCount);
+}
+
+UnstructuredGridRepresentation::UnstructuredGridRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+		const std::string & guid, const std::string & title,
+		const unsigned int & cellCount):
+	AbstractGridRepresentation(interp, crs)
+{
+	if (interp == nullptr)
+		throw invalid_argument("The interpretation of the unstructured grid cannot be null.");
+
+	init(interp->getEpcDocument(), crs, guid, title, cellCount);
+
+	// relationhsips
+	setInterpretation(interp);
 }
 
 gsoap_resqml2_0_1::resqml2__PointGeometry* UnstructuredGridRepresentation::getPointGeometry(const unsigned int & patchIndex) const

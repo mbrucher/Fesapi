@@ -47,6 +47,8 @@ namespace resqml2_0_1
 	protected :
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
 
+		std::vector< std::pair< unsigned int, std::vector<unsigned int> > >* splitInformation;
+
 	public:
 
 		enum geometryKind { EXPLICIT = 0, PARAMETRIC = 1, LATTICE = 2 };
@@ -104,6 +106,42 @@ namespace resqml2_0_1
 		*/
 		unsigned int getPillarCount() const {return (getICellCount()+1) * (getJCellCount()+1);}
 
+		/**
+		* Get the count of faces in the grid
+		* This method requires your have already loaded the split information.
+		*/
+		unsigned int getFaceCount() const;
+
+		/**
+		* Get the I coordinate of a pillar from its global index in the grid.
+		*/
+		unsigned int getIPillarFromGlobalIndex(const unsigned int & globalIndex) const;
+
+		/**
+		* Get the J coordinate of a pillar from its global index in the grid.
+		*/
+		unsigned int getJPillarFromGlobalIndex(const unsigned int & globalIndex) const;
+
+		/**
+		* Get the global index of a pillar from it I and J indices in the grid.
+		*/
+		unsigned int getGlobalIndexPillarFromIjIndex(const unsigned int & iPillar, const unsigned int & jPillar) const;
+
+		/**
+		* Get the I coordinate of a column from its global index in the grid.
+		*/
+		unsigned int getIColumnFromGlobalIndex(const unsigned int & globalIndex) const;
+
+		/**
+		* Get the J coordinate of a column from its global index in the grid.
+		*/
+		unsigned int getJColumnFromGlobalIndex(const unsigned int & globalIndex) const;
+
+		/**
+		* Get the global index of a column from it I and J indices in the grid.
+		*/
+		unsigned int getGlobalIndexColumnFromIjIndex(const unsigned int & iColumn, const unsigned int & jColumn) const;
+
 		bool isRightHanded() const;
 
 		/**
@@ -128,6 +166,50 @@ namespace resqml2_0_1
 		void getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis = false) const;
 
 		void getCellGeometryIsDefined(bool * cellGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+
+		/**
+		* Load the split information into memory to speed up processes.
+		* Be aware that you must unload by yourself this memory.
+		*/
+		void loadSplitInformation();
+
+		/**
+		* Unload the split information from memory.
+		*/
+		void unloadSplitInformation();
+
+		/**
+		* Check either a column edge is splitted or not.
+		* This method requires your have already loaded the split information.
+		* @param iColumn	The I index of the column
+		* @param jColumn	The J index of the column
+		* @param edge		0 for edge from i to i+1, lower j
+		*					1 for edge from j to j+1, upper i
+		*					2 for edge from i+1 to i, upper j
+		*					3 for edge from j+1 to j, lower i
+		*/
+		bool isColumnEdgeSplitted(const unsigned int & iColumn, const unsigned int & jColumn, const unsigned int & edge) const;
+
+		/**
+		* Get the XYZ point index in the HDF dataset from the corner of a cell.
+		* This method requires your have already loaded the split information.
+		* @param iCell	The I index of the cell
+		* @param jCell	The J index of the cell
+		* @param corner	0 for (0,0,0)
+		*				1 for (1,0,0)
+		*				2 for (1,1,0)
+		*				3 for (0,1,0)
+		*				4 for (0,0,1)
+		*				5 for (1,0,1)
+		*				6 for (1,1,1)
+		*				7 for (0,1,1)
+		*/
+		unsigned int getXyzPointIndexFromCellCorner(const unsigned int & iCell, const unsigned int & jCell, const unsigned int & kCell, const unsigned int & corner) const;
+
+		/**
+		* Create a new unstructured grid representation which has the same geoemtry and indexing that this IJK grid.
+		*/
+		class UnstructuredGridRepresentation* cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
 
 		virtual geometryKind getGeometryKind() const = 0;
 

@@ -60,16 +60,8 @@ void ActivityTemplate::pushBackUntypedParameter(const std::string title,
 	param->Title = title;
 	param->IsInput = isInput;
 	param->IsOutput = isOutput;
-	if (minOccurs != 1)
-	{
-		param->MinOccurs = static_cast<LONG64*>(soap_malloc(gsoapProxy->soap, sizeof(LONG64)));
-		*(param->MinOccurs) = minOccurs;
-	}
-	if (maxOccurs != 1)
-	{
-		param->MaxOccurs = static_cast<LONG64*>(soap_malloc(gsoapProxy->soap, sizeof(LONG64)));
-		*(param->MaxOccurs )= maxOccurs;
-	}
+	param->MinOccurs = minOccurs;
+	param->MaxOccurs = maxOccurs;
 
 	activityTemplate->Parameter.push_back(param);
 }
@@ -195,10 +187,7 @@ const unsigned int ActivityTemplate::getParameterMinOccurences(const unsigned in
 	if (activityTemplate->Parameter.size() <= index)
 		throw range_error("The parameter template index is not in the parameter range.");
 
-	if (activityTemplate->Parameter[index]->MinOccurs == nullptr)
-		return 1;
-	else
-		return *activityTemplate->Parameter[index]->MinOccurs;
+	return activityTemplate->Parameter[index]->MinOccurs;
 }
 
 const unsigned int ActivityTemplate::getParameterMinOccurences(const std::string & paramTitle) const
@@ -208,10 +197,7 @@ const unsigned int ActivityTemplate::getParameterMinOccurences(const std::string
 	if (param == nullptr)
 		throw range_error("The parameter template title is not in the parameter template range.");
 
-	if (param->MinOccurs == nullptr)
-		return 1;
-	else
-		return *param->MinOccurs;
+	return param->MinOccurs;
 }
 
 const long long ActivityTemplate::getParameterMaxOccurences(const unsigned int & index) const
@@ -221,10 +207,7 @@ const long long ActivityTemplate::getParameterMaxOccurences(const unsigned int &
 	if (activityTemplate->Parameter.size() <= index)
 		throw range_error("The parameter template index is not in the parameter range.");
 
-	if (activityTemplate->Parameter[index]->MaxOccurs == nullptr)
-		return 1;
-	else
-		return *activityTemplate->Parameter[index]->MaxOccurs;
+	return activityTemplate->Parameter[index]->MaxOccurs;
 }
 
 const long long ActivityTemplate::getParameterMaxOccurences(const std::string & paramTitle) const
@@ -234,10 +217,7 @@ const long long ActivityTemplate::getParameterMaxOccurences(const std::string & 
 	if (param == nullptr)
 		throw range_error("The parameter template title is not in the parameter template range.");
 
-	if (param->MaxOccurs == nullptr)
-		return 1;
-	else
-		return *param->MaxOccurs;
+	return param->MaxOccurs;
 }
 
 std::string ActivityTemplate::getResqmlVersion() const

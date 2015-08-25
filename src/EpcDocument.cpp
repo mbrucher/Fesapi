@@ -1149,7 +1149,7 @@ std::vector<PolylineRepresentation*> EpcDocument::getSeismicLinePolylineRepSet()
 
 	for (unsigned int i = 0; i < polylineRepSet.size(); ++i)
 	{
-		if (polylineRepSet[i]->isASeismicLine())
+		if (polylineRepSet[i]->isASeismicLine() || polylineRepSet[i]->isAFaciesLine())
 			result.push_back(polylineRepSet[i]);
 	}
 
