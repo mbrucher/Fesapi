@@ -78,14 +78,46 @@ namespace resqml2_0_1
 		 * @param faces 			It must be pre allocated.
 		 */
 		void getFacesOfCells(unsigned int * faceIndices) const;
+
+		/**
+		* Get the face count par cell.
+		* Count of this array is equal to getCellCount()
+		* A single face count should be at least 4.
+		*/
 		void getFaceCountOfCells(unsigned int * faceCountPerCell) const;
+
+		/**
+		* Detect if the face count per cell is constant in the grid.
+		*/
+		bool isFaceCountOfCellsContant() const;
+
+		/*
+		* Get the constant face count per cell in the grid.
+		*/
+		unsigned int getConstantFaceCountOfCells() const;
 
 		/**
 		 * Get all the nodes of all the cells.
 		 * @param nodes 			It must be pre allocated.
 		 */
 		void getNodesOfFaces(unsigned int * nodeIndices) const;
-		void getNodeCountOfFaces(unsigned int * NodeCountPerFace) const;
+
+		/**
+		* Get the face count par cell.
+		* Count of this array is equal to getFaceCount()
+		* A single node count should be at least 3.
+		*/
+		void getNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
+
+		/**
+		* Detect if the node count per face is constant in the grid.
+		*/
+		bool isNodeCountOfFacesContant() const;
+
+		/*
+		* Get the constant node count per face in the grid.
+		*/
+		unsigned int getConstantNodeCountOfFaces() const;
 
 		/**
 		 * Get the cell count

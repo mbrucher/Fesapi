@@ -155,12 +155,60 @@ void UnstructuredGridRepresentation::getFacesOfCells(unsigned int * faceIndices)
 void UnstructuredGridRepresentation::getFaceCountOfCells(unsigned int * faceCountPerCell) const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
-		if (grid->Geometry == NULL)
-			throw invalid_argument("There is no geometry in this grid.");
+	if (grid->Geometry == NULL)
+		throw invalid_argument("There is no geometry in this grid.");
 	if (grid->Geometry->FacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
 		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(grid->Geometry->FacesPerCell->CumulativeLength)->Values->PathInHdfFile, faceCountPerCell);
 	}
+	else if (grid->Geometry->FacesPerCell->CumulativeLength->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+	{
+		faceCountPerCell[0] = static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->FacesPerCell->CumulativeLength)->StartValue;
+		for (unsigned int faceCountPerCellIndex = 1; faceCountPerCellIndex < getCellCount(); ++faceCountPerCellIndex)
+		{
+			faceCountPerCell[faceCountPerCellIndex] = static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->FacesPerCell->CumulativeLength)->Offset[0]->Value;
+		}
+	}
+}
+
+bool UnstructuredGridRepresentation::isFaceCountOfCellsContant() const
+{
+	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
+	if (grid->Geometry == NULL)
+		throw invalid_argument("There is no geometry in this grid.");
+	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	{
+		return true;
+	}
+	else if (grid->Geometry->FacesPerCell->CumulativeLength->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+	{
+		if (static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->FacesPerCell->CumulativeLength)->StartValue == static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->FacesPerCell->CumulativeLength)->Offset[0]->Value)
+			return true;
+	}
+
+	return false;
+}
+
+unsigned int UnstructuredGridRepresentation::getConstantFaceCountOfCells() const
+{
+	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
+	if (isFaceCountOfCellsContant() == false)
+		throw invalid_argument("The face count per cell is not constant.");
+
+	if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__hexahedral)
+	{
+		return 6;
+	}
+	else if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	{
+		return 4;
+	}
+	else if (grid->Geometry->FacesPerCell->CumulativeLength->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+	{
+		return static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->FacesPerCell->CumulativeLength)->StartValue;
+	}
+	else
+		return 0;
 }
 
 void UnstructuredGridRepresentation::getNodesOfFaces(unsigned int * nodeIndices) const
@@ -174,15 +222,63 @@ void UnstructuredGridRepresentation::getNodesOfFaces(unsigned int * nodeIndices)
 	}
 }
 
-void UnstructuredGridRepresentation::getNodeCountOfFaces(unsigned int * NodeCountPerFace) const
+void UnstructuredGridRepresentation::getNodeCountOfFaces(unsigned int * nodeCountPerFace) const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
 		if (grid->Geometry == NULL)
 			throw invalid_argument("There is no geometry in this grid.");
 	if (grid->Geometry->NodesPerFace->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
-		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(grid->Geometry->NodesPerFace->CumulativeLength)->Values->PathInHdfFile, NodeCountPerFace);
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(grid->Geometry->NodesPerFace->CumulativeLength)->Values->PathInHdfFile, nodeCountPerFace);
 	}
+	else if (grid->Geometry->NodesPerFace->CumulativeLength->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+	{
+		nodeCountPerFace[0] = static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->NodesPerFace->CumulativeLength)->StartValue;
+		for (unsigned int nodeCountPerFaceIndex = 1; nodeCountPerFaceIndex < getFaceCount(); ++nodeCountPerFaceIndex)
+		{
+			nodeCountPerFace[nodeCountPerFaceIndex] = static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->NodesPerFace->CumulativeLength)->Offset[0]->Value;
+		}
+	}
+}
+
+bool UnstructuredGridRepresentation::isNodeCountOfFacesContant() const
+{
+	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
+	if (grid->Geometry == NULL)
+		throw invalid_argument("There is no geometry in this grid.");
+	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	{
+		return true;
+	}
+	else if (grid->Geometry->NodesPerFace->CumulativeLength->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+	{
+		if (static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->NodesPerFace->CumulativeLength)->StartValue == static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->NodesPerFace->CumulativeLength)->Offset[0]->Value)
+			return true;
+	}
+
+	return false;
+}
+
+unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
+{
+	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
+	if (isNodeCountOfFacesContant() == false)
+		throw invalid_argument("The node count per cell is not constant.");
+
+	if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__hexahedral)
+	{
+		return 4;
+	}
+	else if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	{
+		return 3;
+	}
+	else if (grid->Geometry->NodesPerFace->CumulativeLength->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+	{
+		return static_cast<resqml2__IntegerLatticeArray*>(grid->Geometry->NodesPerFace->CumulativeLength)->StartValue;
+	}
+	else
+		return 0;
 }
 
 void UnstructuredGridRepresentation::setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, HdfProxy * proxy,
