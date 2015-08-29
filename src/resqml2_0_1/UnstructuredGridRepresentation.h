@@ -137,7 +137,7 @@ namespace resqml2_0_1
 		/**
 		 * Set the geometry
 		 */
-		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, class HdfProxy * proxy,
+		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, class AbstractHdfProxy * proxy,
 				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
 				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
 				const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
@@ -145,7 +145,7 @@ namespace resqml2_0_1
 		/**
 		 * Set a geometry which is only defined using tetrahedra.
 		 */
-		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class HdfProxy * proxy,
+		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class AbstractHdfProxy * proxy,
 						unsigned int * faceIndicesPerCell, unsigned int * nodeIndicesPerFace);
 
 		static const char* XML_TAG;

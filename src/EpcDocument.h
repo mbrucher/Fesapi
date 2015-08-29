@@ -37,11 +37,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <vector>
 #include <limits>
 
-#include "stdsoap2.h"
-#include "gsoap_resqml2_0_1H.h"
-#include "gsoap_witsml1_4_1_1H.h"
+#include "proxies/stdsoap2.h"
+#include "proxies/gsoap_resqml2_0_1H.h"
+#include "proxies/gsoap_witsml1_4_1_1H.h"
 
-#include "Package.h"
+#include "epc/Package.h"
 
 #if defined(_WIN32) && defined(DLL)
 	#ifdef DLL_EXPORTS
@@ -79,7 +79,7 @@ namespace resqml2_0_1
 	class IjkGridParametricRepresentation;
 	class IjkGridLatticeRepresentation;
 	class UnstructuredGridRepresentation;
-	class HdfProxy;
+	class AbstractHdfProxy;
 	class BoundaryFeature;
 	class BoundaryFeatureInterpretation;
 	class TectonicBoundaryFeature;
@@ -400,7 +400,9 @@ namespace common
 		/**
 		* Get all the Hdf proxies used with this EPC document
 		*/
-		std::vector<resqml2_0_1::HdfProxy*> getHdfProxySet() const {return hdfProxySet;}
+		std::vector<resqml2_0_1::AbstractHdfProxy*> getHdfProxySet() const {return hdfProxySet;}
+		unsigned int getHdfProxyCount() const {return hdfProxySet.size();}
+		resqml2_0_1::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
 
 		/**
 		* Get the absolute path of the directory where the epc document is stored.
@@ -440,7 +442,7 @@ namespace common
 		//************ HDF *******************
 		//************************************
 
-		resqml2_0_1::HdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		resqml2_0_1::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		//************************************
 		//************ CRS *******************
@@ -920,7 +922,7 @@ namespace common
 		std::vector<resqml2_0_1::Fracture*>							fractureSet;
 		std::vector<resqml2_0_1::Horizon*>							horizonSet;
 		std::vector<resqml2_0_1::SeismicLineFeature*>				seismicLineSet;
-		std::vector<resqml2_0_1::HdfProxy*>							hdfProxySet;
+		std::vector<resqml2_0_1::AbstractHdfProxy*>					hdfProxySet;
 		std::vector<resqml2_0_1::WellboreFeature*>					wellboreSet;
 		std::vector<witsml1_4_1_1::Trajectory*>						witsmlTrajectorySet;
 		std::vector<resqml2_0_1::TriangulatedSetRepresentation*>	triangulatedSetRepresentationSet;

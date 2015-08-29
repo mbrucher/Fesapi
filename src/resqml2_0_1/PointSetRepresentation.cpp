@@ -35,6 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -65,7 +66,7 @@ PointSetRepresentation::PointSetRepresentation(AbstractFeatureInterpretation* in
 
 void PointSetRepresentation::pushBackGeometryPatch(
 				const unsigned int & xyzPointCount, double * xyzPoints,
-				HdfProxy * proxy)
+				AbstractHdfProxy * proxy)
 {
 	resqml2__NodePatch* patch = soap_new_resqml2__NodePatch(gsoapProxy->soap, 1);
 	patch->PatchIndex = static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.size();

@@ -90,8 +90,8 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, HdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const long & nullValue);
 
 		/**
 		* Add a 2d array of explicit long values to the property values.
@@ -102,8 +102,8 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue);
 
 		/**
 		* Add a 3d array of explicit long values to the property values.
@@ -115,8 +115,8 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue);
 
 		/**
 		* Add an array (potentially multi dimensions) of explicit values to the property values.
@@ -127,7 +127,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class HdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
 	};
 }

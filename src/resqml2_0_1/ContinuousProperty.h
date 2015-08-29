@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractValuesProperty.h"
 #include "H5public.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #include <stdexcept>
 #include <sstream>      // std::ostringstream
@@ -105,7 +105,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5Array1dOfValues(double * values, const unsigned int & valueCount, HdfProxy * proxy,
+		void pushBackDoubleHdf5Array1dOfValues(double * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -117,7 +117,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5Array2dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackDoubleHdf5Array2dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -130,7 +130,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5Array3dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackDoubleHdf5Array3dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -142,7 +142,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5ArrayOfValues(double * values, hsize_t * numValues, const unsigned int & numArrayDimensions, HdfProxy * proxy,
+		void pushBackDoubleHdf5ArrayOfValues(double * values, hsize_t * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
 			double * minimumValue = NULL, double * maximumValue = NULL);
 
 		/**
@@ -153,7 +153,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, HdfProxy * proxy,
+		void pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -165,7 +165,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5Array2dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackFloatHdf5Array2dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -178,7 +178,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5Array3dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackFloatHdf5Array3dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -190,7 +190,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, HdfProxy * proxy,
+		void pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
 			double * minimumValue = NULL, double * maximumValue = NULL);
 
 		/**
@@ -202,7 +202,7 @@ namespace resqml2_0_1
 		void createFloatHdf5ArrayOfValues(
 			hsize_t* numValues, 
 			const unsigned int& numArrayDimensions, 
-			HdfProxy* proxy
+			class AbstractHdfProxy* proxy
 		);
 
 		/**
@@ -216,7 +216,7 @@ namespace resqml2_0_1
 			const unsigned int& valueCountInFastestDim, 
 			const unsigned int& valueCountInMiddleDim, 
 			const unsigned int& valueCountInSlowestDim, 
-			HdfProxy * proxy
+			class AbstractHdfProxy * proxy
 		);
 
 		/**
@@ -238,7 +238,7 @@ namespace resqml2_0_1
 			const unsigned int& offsetInFastestDim, 
 			const unsigned int& offsetInMiddleDim, 
 			const unsigned int& offsetInSlowestDim, 
-			HdfProxy* proxy
+			class AbstractHdfProxy* proxy
 		);
 
 		/**
@@ -255,7 +255,7 @@ namespace resqml2_0_1
 			hsize_t * numValues, 
 			hsize_t * offsetValues, 
 			const unsigned int & numArrayDimensions, 
-			HdfProxy * proxy
+			class AbstractHdfProxy * proxy
 		);
 
 		/**
@@ -376,7 +376,7 @@ namespace resqml2_0_1
 		}
 
 		template <class valueType>
-		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, hsize_t * numValues, const unsigned int & numValueDimensions, HdfProxy * proxy,
+		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, hsize_t * numValues, const unsigned int & numValueDimensions, AbstractHdfProxy * proxy,
 			double * minimumValue = NULL, double * maximumValue = NULL)
 		{
 			setHdfProxy(proxy);

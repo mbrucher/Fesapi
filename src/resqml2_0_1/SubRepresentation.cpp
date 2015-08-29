@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -113,7 +113,7 @@ bool SubRepresentation::isElementPairBased(const unsigned int & patchIndex) cons
 		throw invalid_argument("The patch does not exist at this index.");
 }
 
-void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, HdfProxy * proxy)
+void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy)
 {
 	_resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
 
@@ -141,13 +141,13 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 
 	// ************ HDF ************		
 	hsize_t numValues[] = {elementCount};
-	hdfProxy->writeArrayNd(rep->uuid, ossForHdf.str(), H5::PredType::NATIVE_UINT, elementIndices, numValues, 1);
+	hdfProxy->writeArrayNd(rep->uuid, ossForHdf.str(), H5T_NATIVE_UINT, elementIndices, numValues, 1);
 }
 
 void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 			const unsigned int & elementCount,
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
-			HdfProxy * proxy)
+			AbstractHdfProxy * proxy)
 {
 	pushBackSubRepresentationPatch(elementKind0, elementCount, elementIndices0, proxy);
 
@@ -172,7 +172,7 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 
 	// ************ HDF ************		
 	hsize_t numValues[] = {elementCount};
-	hdfProxy->writeArrayNd(rep->uuid, ossForHdf.str(), H5::PredType::NATIVE_UINT, elementIndices1, numValues, 1);
+	hdfProxy->writeArrayNd(rep->uuid, ossForHdf.str(), H5T_NATIVE_UINT, elementIndices1, numValues, 1);
 }
 
 string SubRepresentation::getHdfProxyUuid() const

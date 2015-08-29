@@ -37,7 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -281,7 +281,7 @@ unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
 		return 0;
 }
 
-void UnstructuredGridRepresentation::setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, HdfProxy * proxy,
+void UnstructuredGridRepresentation::setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy,
 				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
 				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
 				const gsoap_resqml2_0_1::resqml2__CellShape & cellShape)
@@ -370,7 +370,7 @@ void UnstructuredGridRepresentation::setGeometry(const bool & isRightHanded, dou
 	delete [] numValues;
 }
 
-void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, HdfProxy * proxy,
+void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, AbstractHdfProxy * proxy,
 						unsigned int * faceIndicesPerCell, unsigned int * nodeIndicesPerFace)
 {
 	if (!proxy)
@@ -430,7 +430,7 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(const bool & isRi
 	hsize_t * numValues = new hsize_t[2];
 	numValues[0] = cellCount;
 	numValues[1] = 4;
-	hdfProxy->writeArrayNd(gsoapProxy->uuid, "FacesPerCell", H5::PredType::NATIVE_UINT, faceIndicesPerCell, numValues, 2);
+	hdfProxy->writeArrayNd(gsoapProxy->uuid, "FacesPerCell", H5T_NATIVE_UINT, faceIndicesPerCell, numValues, 2);
 	delete [] numValues;
 
 	// Node indices
@@ -454,7 +454,7 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(const bool & isRi
 	numValues = new hsize_t[2];
 	numValues[0] = faceCount;
 	numValues[1] = 3;
-	hdfProxy->writeArrayNd(gsoapProxy->uuid, "NodesPerFace", H5::PredType::NATIVE_UINT, nodeIndicesPerFace, numValues, 2);
+	hdfProxy->writeArrayNd(gsoapProxy->uuid, "NodesPerFace", H5T_NATIVE_UINT, nodeIndicesPerFace, numValues, 2);
 	delete [] numValues;
 
 	// XML points

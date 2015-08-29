@@ -78,7 +78,7 @@ namespace resqml2_0_1
 		*								The three following values define the 3 vertices of the second triangle and so on...
 		* @param proxy					The HDF proxy which defines where the nodes and triangle indices will be stored.
 		*/
-		void pushBackTrianglePatch(const unsigned int & nodeCount, double * nodes, const unsigned int & triangleCount, unsigned int * triangleNodeIndices, HdfProxy * proxy);
+		void pushBackTrianglePatch(const unsigned int & nodeCount, double * nodes, const unsigned int & triangleCount, unsigned int * triangleNodeIndices, class AbstractHdfProxy * proxy);
 
 		/**
 		* Get the xyz point count in a given patch.

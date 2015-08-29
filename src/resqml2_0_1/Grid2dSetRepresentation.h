@@ -109,7 +109,7 @@ namespace resqml2_0_1
 		*/
 		void pushBackGeometryPatch(
 				double * zValues,
-				const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+				const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
 				Grid2dRepresentation * supportingGrid2dRepresentation,
 				const unsigned int & startIndexI = 0, const unsigned int & startIndexJ = 0,
 				const int & indexIncrementI = 1, const int & indexIncrementJ = 1);

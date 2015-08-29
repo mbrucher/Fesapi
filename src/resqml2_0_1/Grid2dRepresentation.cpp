@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/SeismicLatticeFeature.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 
 using namespace std;
@@ -396,7 +396,7 @@ void Grid2dRepresentation::setGeometryAsArray2dOfLatticePoints3d(
 
 void Grid2dRepresentation::setGeometryAsArray2dOfExplicitZ(
 		double * zValues,
-		const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+		const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
 		Grid2dRepresentation * supportingGrid2dRepresentation,
 		const unsigned int & startIndexI, const unsigned int & startIndexJ,
 		const int & indexIncrementI, const int & indexIncrementJ)
@@ -420,7 +420,7 @@ void Grid2dRepresentation::setGeometryAsArray2dOfExplicitZ(
 
 void Grid2dRepresentation::setGeometryAsArray2dOfExplicitZ(
 				double * zValues,
-				const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+				const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
 				const double & originX, const double & originY, const double & originZ,
 				const double & offsetIX, const double & offsetIY, const double & offsetIZ, const double & spacingI,
 				const double & offsetJX, const double & offsetJY, const double & offsetJZ, const double & spacingJ)

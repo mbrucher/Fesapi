@@ -37,6 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractFeature.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #include <stdexcept>
 
@@ -121,7 +122,7 @@ unsigned int PolylineRepresentation::getXyzPointCountOfPatch(const unsigned int 
 		return 0;
 }
 
-void PolylineRepresentation::setGeometry(double * points, const unsigned int & pointCount, HdfProxy * proxy)
+void PolylineRepresentation::setGeometry(double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy)
 {
 	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy);
 	polylineRep->NodePatch = soap_new_resqml2__NodePatch(gsoapProxy->soap, 1);

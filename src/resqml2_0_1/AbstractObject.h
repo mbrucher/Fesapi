@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "gsoap_resqml2_0_1H.h"
+#include "proxies/gsoap_resqml2_0_1H.h"
 #include "EpcDocument.h"
 
 namespace resqml2_0_1

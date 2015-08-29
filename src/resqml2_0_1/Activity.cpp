@@ -74,16 +74,16 @@ void Activity::pushBackParameter(const std::string title,
 	if (maxOccurs > -1 && maxOccurs <= getParameterCount(title))
 		throw invalid_argument("The max number of occurences has already been reached for parameter " + title);
 	vector<resqml2__ParameterKind> allowedKinds = activityTemplate->getParameterAllowedKinds(title);
-	if (allowedKinds.size() > 0 && find(allowedKinds.begin(), allowedKinds.end(), resqml2__ParameterKind__double_) == allowedKinds.end())
+	if (allowedKinds.size() > 0 && find(allowedKinds.begin(), allowedKinds.end(), resqml2__ParameterKind__floatingPoint) == allowedKinds.end())
 		throw invalid_argument("The parameter template " + title + " does not allow a double datatype.");
 
 	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
 
-	resqml2__DoubleQuantityParameter* dqp = soap_new_resqml2__DoubleQuantityParameter(activity->soap, 1);
-	dqp->Title = title;
-	dqp->Value = value;
-	dqp->Uom = uom;
-	activity->Parameter.push_back(dqp);
+	resqml2__FloatingPointQuantityParameter* fpqp = soap_new_resqml2__FloatingPointQuantityParameter(activity->soap, 1);
+	fpqp->Title = title;
+	fpqp->Value = value;
+	fpqp->Uom = uom;
+	activity->Parameter.push_back(fpqp);
 }
 
 void Activity::pushBackParameter(const std::string title, const std::string & value)
@@ -217,7 +217,7 @@ std::vector<resqml2__AbstractActivityParameter*> Activity::getParameterFromTitle
 /*****************************
 ********** DOUBLE ************
 *****************************/
-bool Activity::isADoubleQuantityParameter(const std::string & paramTitle) const
+bool Activity::isAFloatingPointQuantityParameter(const std::string & paramTitle) const
 {
 	vector<resqml2__AbstractActivityParameter*> param = getParameterFromTitle(paramTitle);
 
@@ -226,24 +226,24 @@ bool Activity::isADoubleQuantityParameter(const std::string & paramTitle) const
 
 	for (unsigned int i = 0; i < param.size(); ++i)
 	{
-		if (param[i]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter)
+		if (param[i]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter)
 			return false;
 	}
 
 	return true;
 }
 
-bool Activity::isADoubleQuantityParameter(const unsigned int & index) const
+bool Activity::isAFloatingPointQuantityParameter(const unsigned int & index) const
 {
 	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
 
 	if (activity->Parameter.size() <= index)
 		throw range_error("The parameter index is not in the parameter range.");
 
-	return activity->Parameter[index]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter;
+	return activity->Parameter[index]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter;
 }
 
-vector<double> Activity::getDoubleQuantityParameterValue(const std::string & paramTitle) const
+vector<double> Activity::getFloatingPointQuantityParameterValue(const std::string & paramTitle) const
 {
 	vector<resqml2__AbstractActivityParameter*> param = getParameterFromTitle(paramTitle);
 
@@ -253,29 +253,29 @@ vector<double> Activity::getDoubleQuantityParameterValue(const std::string & par
 	vector<double> result;
 	for (unsigned int i = 0; i < param.size(); ++i)
 	{
-		if (param[i]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter)
+		if (param[i]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter)
 			throw invalid_argument("The parameter " + paramTitle + " contains some non double values.");
 		else
-			result.push_back(static_cast<resqml2__DoubleQuantityParameter*>(param[i])->Value);
+			result.push_back(static_cast<resqml2__FloatingPointQuantityParameter*>(param[i])->Value);
 	}
 
 	return result;
 }
 
-double Activity::getDoubleQuantityParameterValue(const unsigned int & index) const
+double Activity::getFloatingPointQuantityParameterValue(const unsigned int & index) const
 {
 	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
 
 	if (activity->Parameter.size() <= index)
 		throw range_error("The parameter index is not in the parameter range.");
 
-	if (activity->Parameter[index]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter)
+	if (activity->Parameter[index]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter)
 		throw invalid_argument("The parameter index is not in the parameter range.");
 
-	return static_cast<resqml2__DoubleQuantityParameter*>(activity->Parameter[index])->Value;
+	return static_cast<resqml2__FloatingPointQuantityParameter*>(activity->Parameter[index])->Value;
 }
 
-vector<resqml2__ResqmlUom> Activity::getDoubleQuantityParameterUom(const std::string & paramTitle) const
+vector<resqml2__ResqmlUom> Activity::getFloatingPointQuantityParameterUom(const std::string & paramTitle) const
 {
 	vector<resqml2__AbstractActivityParameter*> param = getParameterFromTitle(paramTitle);
 
@@ -285,26 +285,26 @@ vector<resqml2__ResqmlUom> Activity::getDoubleQuantityParameterUom(const std::st
 	vector<resqml2__ResqmlUom> result;
 	for (unsigned int i = 0; i < param.size(); ++i)
 	{
-		if (param[i]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter)
+		if (param[i]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter)
 			throw invalid_argument("The parameter " + paramTitle + " contains some non double values.");
 		else
-			result.push_back(static_cast<resqml2__DoubleQuantityParameter*>(param[i])->Uom);
+			result.push_back(static_cast<resqml2__FloatingPointQuantityParameter*>(param[i])->Uom);
 	}
 
 	return result;
 }
 
-gsoap_resqml2_0_1::resqml2__ResqmlUom Activity::getDoubleQuantityParameterUom(const unsigned int & index) const
+gsoap_resqml2_0_1::resqml2__ResqmlUom Activity::getFloatingPointQuantityParameterUom(const unsigned int & index) const
 {
 	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
 
 	if (activity->Parameter.size() <= index)
 		throw range_error("The parameter index is not in the parameter range.");
 
-	if (activity->Parameter[index]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter)
+	if (activity->Parameter[index]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter)
 		throw invalid_argument("The parameter index is not in the parameter range.");
 
-	return static_cast<resqml2__DoubleQuantityParameter*>(activity->Parameter[index])->Uom;
+	return static_cast<resqml2__FloatingPointQuantityParameter*>(activity->Parameter[index])->Uom;
 }
 
 /*****************************

@@ -35,8 +35,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <sstream>
 
-#include "Relationship.h"
-#include "FilePart.h"
+#include "epc/Relationship.h"
+#include "epc/FilePart.h"
 
 #include "resqml2_0_1/PropertyKindMapper.h"
 
@@ -273,7 +273,7 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLineFeature :
 		seismicLineSet.push_back(static_cast<SeismicLineFeature*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_1_eml__obj_USCOREEpcExternalPartReference :
-		hdfProxySet.push_back(static_cast<HdfProxy*>(proxy)); break;
+		hdfProxySet.push_back(static_cast<AbstractHdfProxy*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreFeature :
 		wellboreSet.push_back(static_cast<WellboreFeature*>(proxy)); break;
 	case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation :
@@ -1171,6 +1171,14 @@ vector<IjkGridLatticeRepresentation*> EpcDocument::getIjkSeismicCubeGridRepresen
 	return result;
 }
 
+resqml2_0_1::AbstractHdfProxy* EpcDocument::getHdfProxy(const unsigned int & index) const
+{
+	if (index >= hdfProxySet.size())
+		throw range_error("The index of the requested hdf proxy is out of range");
+
+	return hdfProxySet[index];
+}
+
 string EpcDocument::getStorageDirectory() const
 {
 	size_t slashPos = filePath.find_last_of("/\\");
@@ -1231,7 +1239,7 @@ std::string EpcDocument::getExtendedCoreProperty(const std::string & key)
 //************ HDF *******************
 //************************************
 
-HdfProxy* EpcDocument::createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+AbstractHdfProxy* EpcDocument::createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != NULL)
 		return NULL;

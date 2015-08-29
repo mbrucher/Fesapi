@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractFeature.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -447,7 +447,7 @@ unsigned int IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsi
 
 void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			unsigned char* cellGeomIsDefined)
 {
 	setGeometryAsParametricSplittedPillarNodes(mostComplexPillarGeometry, kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, pillarKind, proxy,
@@ -456,7 +456,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNo
 
 void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns,
 			unsigned char* cellGeomIsDefined)
@@ -497,7 +497,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 	hsize_t * pillarGeometryIsDefinedCount = new hsize_t[2];
 	pillarGeometryIsDefinedCount[0] = getJCellCount() + 1;
 	pillarGeometryIsDefinedCount[1] = getICellCount() + 1;
-	hdfProxy->writeArrayNd(gsoapProxy->uuid, "PillarGeometryIsDefined", H5::PredType::NATIVE_UCHAR, definedPillars, pillarGeometryIsDefinedCount, 2);
+	hdfProxy->writeArrayNd(gsoapProxy->uuid, "PillarGeometryIsDefined", H5T_NATIVE_UCHAR, definedPillars, pillarGeometryIsDefinedCount, 2);
 	delete [] pillarGeometryIsDefinedCount;
 	delete [] definedPillars;
 
@@ -545,7 +545,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 		// HDF
 		numValues = new hsize_t[1];
 		numValues[0] = splitCoordinateLineCount;
-		hdfProxy->writeArrayNd(gsoapProxy->uuid, "PillarIndices", H5::PredType::NATIVE_UINT, pillarOfCoordinateLine, numValues, 1);
+		hdfProxy->writeArrayNd(gsoapProxy->uuid, "PillarIndices", H5T_NATIVE_UINT, pillarOfCoordinateLine, numValues, 1);
 		delete [] numValues;
 
 		//XML
@@ -588,7 +588,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 	hsize_t * lineKindCount = new hsize_t[2];
 	lineKindCount[0] = getJCellCount() + 1;
 	lineKindCount[1] = getICellCount() + 1;
-	hdfProxy->writeArrayNd(gsoapProxy->uuid, "LineKindIndices", H5::PredType::NATIVE_SHORT, pillarKind, lineKindCount, 2);
+	hdfProxy->writeArrayNd(gsoapProxy->uuid, "LineKindIndices", H5T_NATIVE_SHORT, pillarKind, lineKindCount, 2);
 	delete [] lineKindCount;
 
 	// XML control points
@@ -604,7 +604,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 	controlPointCount[1] = getJCellCount() + 1;
 	controlPointCount[2] = getICellCount() + 1;
 	controlPointCount[3] = 3; // 3 for X, Y and Z
-	hdfProxy->writeArrayNd(gsoapProxy->uuid, "ControlPoints", H5::PredType::NATIVE_DOUBLE, controlPoints, controlPointCount, 4);
+	hdfProxy->writeArrayNd(gsoapProxy->uuid, "ControlPoints", H5T_NATIVE_DOUBLE, controlPoints, controlPointCount, 4);
 	delete [] controlPointCount;
 
 	// *********************************
@@ -624,7 +624,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 		controlPointParamCount[0] = controlPointMaxCountPerPillar;
 		controlPointParamCount[1] = getJCellCount() + 1;
 		controlPointParamCount[2] = getICellCount() + 1;
-		hdfProxy->writeArrayNd(gsoapProxy->uuid, "controlPointParameters", H5::PredType::NATIVE_DOUBLE, controlPointParameters, controlPointParamCount, 3);
+		hdfProxy->writeArrayNd(gsoapProxy->uuid, "controlPointParameters", H5T_NATIVE_DOUBLE, controlPointParameters, controlPointParamCount, 3);
 		delete [] controlPointParamCount;
 	}
 
@@ -645,7 +645,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 		cellGeometryIsDefinedCount[0] = getKCellCount();
 		cellGeometryIsDefinedCount[1] = getJCellCount();
 		cellGeometryIsDefinedCount[2] = getICellCount();
-		hdfProxy->writeArrayNd(gsoapProxy->uuid, "CellGeometryIsDefined", H5::PredType::NATIVE_UCHAR, cellGeomIsDefined, cellGeometryIsDefinedCount, 3);
+		hdfProxy->writeArrayNd(gsoapProxy->uuid, "CellGeometryIsDefined", H5T_NATIVE_UCHAR, cellGeomIsDefined, cellGeometryIsDefinedCount, 3);
 		delete [] cellGeometryIsDefinedCount;
 	}
 }

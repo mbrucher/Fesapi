@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/MdDatum.h"
 #include "resqml2_0_1/WellboreFrameRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #include "witsml1_4_1_1/Trajectory.h"
 
@@ -75,7 +75,7 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 }
 
 void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
-			HdfProxy * proxy)
+			AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
 
@@ -116,7 +116,7 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, doubl
 
 void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
 			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
-			HdfProxy * proxy)
+			AbstractHdfProxy * proxy)
 {
 	setGeometry(controlPoints, controlPointParameters, controlPointCount, proxy);
 
@@ -247,7 +247,7 @@ unsigned int WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const uns
 
 void WellboreTrajectoryRepresentation::getMdValues(double * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return;
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
@@ -257,7 +257,7 @@ void WellboreTrajectoryRepresentation::getMdValues(double * values)
 
 void WellboreTrajectoryRepresentation::getTangentVectors(double* tangentVectors)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return;
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);

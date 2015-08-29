@@ -86,6 +86,6 @@ namespace resqml2_0_1
 		*/
 		void pushBackGeometryPatch(
 				const unsigned int & xyzPointCount, double * xyzPoints,
-				HdfProxy * proxy);
+				class AbstractHdfProxy * proxy);
 	};
 }

@@ -38,6 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -91,7 +92,7 @@ CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & gu
 }
 
 void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values,
-													   HdfProxy * proxy)
+													   AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
     _resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy);
@@ -138,7 +139,7 @@ void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::str
     // HDF
     hdfProxy->writeArrayNd(prop->uuid,
                     ossForHdf.str(),
-                    H5::PredType::NATIVE_UCHAR,
+                    H5T_NATIVE_UCHAR,
                     cTab,
                     nbValPerDim,   // 0 = number of strings, 1 = length of the longest string 
 					nbDimensions); // 2
@@ -153,7 +154,7 @@ std::vector<std::string> CommentProperty::getStringValuesOfPatch(const unsigned 
 	std::list<std::string> shpLabels; // use list because of the push_front method (performance reason)
 	std::vector<std::string> result;
 
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return result;
 
 	if (!hdfProxy->isOpened())

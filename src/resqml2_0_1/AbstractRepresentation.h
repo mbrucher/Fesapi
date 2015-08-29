@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	{
 	protected:
 
-		//AbstractRepresentation(): interpretation(NULL), hdfProxy(NULL), localCrs(NULL) {}
+		//AbstractRepresentation(): interpretation(NULL), AbstractHdfProxy(NULL), localCrs(NULL) {}
 
 		// Set the domain of the interpretation according to the local CRS
 		// Does not set relationship with interp and crs because the gsoap proxy is not allocated yet. This must be done at concrete class level.
@@ -61,7 +61,7 @@ namespace resqml2_0_1
 		* @param numDimensionsInArray	The number of dimensions in the array to write.
 		* @param proxy					The HDF proxy where to write the points. It must be already opened for writing and won't be closed in this method.
 		*/
-		gsoap_resqml2_0_1::resqml2__PointGeometry* createPointGeometryPatch(const unsigned int & patchIndex, double * points, hsize_t * numPoints, const unsigned int & numDimensionsInArray, HdfProxy * proxy);
+		gsoap_resqml2_0_1::resqml2__PointGeometry* createPointGeometryPatch(const unsigned int & patchIndex, double * points, hsize_t * numPoints, const unsigned int & numDimensionsInArray, AbstractHdfProxy * proxy);
 		
 		/**
 		 * Get the point geometry of a specific patch of the representation.
@@ -105,7 +105,7 @@ namespace resqml2_0_1
 		/**
 		* Getter (read/write access) for the hdf Proxy
 		*/
-		class HdfProxy * getHdfProxy()
+		class AbstractHdfProxy * getHdfProxy()
 		{
 			return hdfProxy;
 		}
@@ -257,7 +257,7 @@ namespace resqml2_0_1
 		* The index this patch will be located must be consistent with the index of the geometry patch it is related to.
 		*/
 		void addSeismic3dCoordinatesToPatch(const unsigned int patchIndex, double * inlines, double * crosslines, const unsigned int & pointCount,
-			AbstractRepresentation * seismicSupport, HdfProxy * proxy);
+			AbstractRepresentation * seismicSupport, AbstractHdfProxy * proxy);
 
 		void addSeismic3dCoordinatesToPatch(const unsigned int patchIndex, const double & startInline, const double & incrInline, const unsigned int & countInline,
 			const double & startCrossline, const double & incrCrossline, const unsigned int & countCrossline,
@@ -281,7 +281,7 @@ namespace resqml2_0_1
 		* @param The index of the geometry patch which receives these seismic coordinates
 		*/
 		void addSeismic2dCoordinatesToPatch(const unsigned int patchIndex, double * lineAbscissa, const unsigned int & pointCount,
-			AbstractRepresentation * seismicSupport, HdfProxy * proxy);
+			AbstractRepresentation * seismicSupport, AbstractHdfProxy * proxy);
 
 		/**
 		* Get all the abscissa of the points of a specific patch related to seismic line 2d.
@@ -312,12 +312,12 @@ namespace resqml2_0_1
 
 		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
-		void setHdfProxy(class HdfProxy * proxy);
+		void setHdfProxy(class AbstractHdfProxy * proxy);
 
 	protected:
 		// XML forward relationships
 		class AbstractFeatureInterpretation*				interpretation;
-		class HdfProxy * 									hdfProxy;
+		class AbstractHdfProxy * 							hdfProxy;
 		class AbstractLocal3dCrs *							localCrs;
 		std::vector<AbstractRepresentation*> 				seismicSupportSet;
 

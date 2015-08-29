@@ -86,7 +86,7 @@ namespace resqml2_0_1
 		*										It must be already opened for writing and won't be closed.
 		*/
 		void setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
-			class HdfProxy * proxy);
+			class AbstractHdfProxy * proxy);
 
 		/*
 		*  Set the geometry of the representation by means of one cubic parametric line.
@@ -99,7 +99,7 @@ namespace resqml2_0_1
 		*/
 		void setGeometry(double * controlPoints,
 			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
-			class HdfProxy * proxy);
+			class AbstractHdfProxy * proxy);
 
 		/**
 		* Getter of the md information associated to this WellboreFeature trajectory representation.

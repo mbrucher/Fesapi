@@ -95,12 +95,12 @@ namespace resqml2_0_1
 		const std::string & getParameterTitle(const unsigned int & index) const;
 		std::vector<unsigned int> getParameterIndexOfTitle(const std::string & paramTitle) const;
 
-		bool isADoubleQuantityParameter(const std::string & paramTitle) const;
-		bool isADoubleQuantityParameter(const unsigned int & index) const;
-		std::vector<double> getDoubleQuantityParameterValue(const std::string & paramTitle) const;
-		double getDoubleQuantityParameterValue(const unsigned int & index) const;
-		std::vector<gsoap_resqml2_0_1::resqml2__ResqmlUom> getDoubleQuantityParameterUom(const std::string & paramTitle) const;
-		gsoap_resqml2_0_1::resqml2__ResqmlUom getDoubleQuantityParameterUom(const unsigned int & index) const;
+		bool isAFloatingPointQuantityParameter(const std::string & paramTitle) const;
+		bool isAFloatingPointQuantityParameter(const unsigned int & index) const;
+		std::vector<double> getFloatingPointQuantityParameterValue(const std::string & paramTitle) const;
+		double getFloatingPointQuantityParameterValue(const unsigned int & index) const;
+		std::vector<gsoap_resqml2_0_1::resqml2__ResqmlUom> getFloatingPointQuantityParameterUom(const std::string & paramTitle) const;
+		gsoap_resqml2_0_1::resqml2__ResqmlUom getFloatingPointQuantityParameterUom(const unsigned int & index) const;
 
 		bool isAnIntegerQuantityParameter(const std::string & paramTitle) const;
 		bool isAnIntegerQuantityParameter(const unsigned int & index) const;

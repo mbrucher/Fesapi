@@ -13,7 +13,7 @@ Genivia's license for commercial use.
 
 #include "envH.h"
 
-SOAP_SOURCE_STAMP("@(#) envC.cpp ver 2.8.23 2015-08-25 09:38:21 GMT")
+SOAP_SOURCE_STAMP("@(#) envC.cpp ver 2.8.23 2015-08-28 07:32:22 GMT")
 
 
 #ifndef WITH_NOGLOBAL

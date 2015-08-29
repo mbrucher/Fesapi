@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "AbstractRepresentation.h"
+#include "resqml2_0_1/AbstractRepresentation.h"
 
 namespace resqml2_0_1
 {
@@ -127,7 +127,7 @@ namespace resqml2_0_1
 		void pushBackGeometryPatch(
 				unsigned int * NodeCountPerPolyline, double * nodes,
 				const unsigned int & polylineCount, const bool & allPolylinesClosedFlag,
-				HdfProxy * proxy);
+				class AbstractHdfProxy * proxy);
 
 		/**
 		* Push back a new patch of polylines
@@ -140,7 +140,7 @@ namespace resqml2_0_1
 		void pushBackGeometryPatch(
 				unsigned int * NodeCountPerPolyline, double * nodes,
 				const unsigned int & polylineCount, bool * polylineClosedFlags,
-				HdfProxy * proxy);
+				class AbstractHdfProxy * proxy);
 
 		/**
 		* Check if all polylines contained in a single patch are closed or not.

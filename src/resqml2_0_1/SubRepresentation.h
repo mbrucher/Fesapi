@@ -106,12 +106,12 @@ namespace resqml2_0_1
         * @param elementIndices		The indices of the elements of the instance in the supporting representation.
         * @param proxy				The HDF proxy where the numerical values (indices) are stored.
 		*/
-		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, HdfProxy * proxy);
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, class AbstractHdfProxy * proxy);
 
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 			const unsigned int & elementCount,
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
-			HdfProxy * proxy);
+			class AbstractHdfProxy * proxy);
 
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 

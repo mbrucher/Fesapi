@@ -74,7 +74,7 @@ namespace resqml2_0_1
 		* @param numMdValues	The MD values count.
 		* @param proxy			The HDF proxy where to write the MD values. It must be already opened for writing and won't be closed in this method.
 		*/
-		void setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, class HdfProxy * proxy);
+		void setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, class AbstractHdfProxy * proxy);
 
 		/**
 		* Get the number of Md values in this WellboreFeature frame.

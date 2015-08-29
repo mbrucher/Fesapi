@@ -66,7 +66,7 @@ namespace resqml2_0_1
 		/**
 		 * Pushes back a contact representation in the structural framework
 		 */
-		void pushBackNonSealedContactRepresentation(const unsigned int & pointCount, double * points, class AbstractLocal3dCrs* crs, class HdfProxy * proxy);
+		void pushBackNonSealedContactRepresentation(const unsigned int & pointCount, double * points, class AbstractLocal3dCrs* crs, class AbstractHdfProxy * proxy);
                 
         /**
 		* Pushes back a contact patch in a particular contact representation of the structural framework.
@@ -81,7 +81,7 @@ namespace resqml2_0_1
         		const unsigned int & contactIndex,
                 int * nodeIndicesOnSupportingRepresentation, const unsigned int & NodeCount,
                 class AbstractRepresentation * supportingRepresentation,
-                class HdfProxy * proxy);
+                class AbstractHdfProxy * proxy);
                 */
 
         static const char* XML_TAG;

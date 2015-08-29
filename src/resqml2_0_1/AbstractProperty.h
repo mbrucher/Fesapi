@@ -149,7 +149,7 @@ namespace resqml2_0_1
 		/**
 		* Getter for the hdf proxy which stores this instance values.
 		*/
-		class HdfProxy* getHdfProxy() {return hdfProxy;}
+		class AbstractHdfProxy* getHdfProxy() {return hdfProxy;}
 
 		/*
 		 * Getter for the uuid of the hdf proxy which is used for storing the numerical values of this property.
@@ -173,7 +173,7 @@ namespace resqml2_0_1
 		/**
 		* Set the Hdf Proxy where the numerical values are stored.
 		*/
-		void setHdfProxy(class HdfProxy * proxy);
+		void setHdfProxy(class AbstractHdfProxy * proxy);
 
 	protected:
 
@@ -181,6 +181,6 @@ namespace resqml2_0_1
 		class PropertyKind *			localPropertyKind;	/// The local property kind of this property which defines this property.
 		class TimeSeries *				timeSeries;			/// The time series where this property occur.
 		class AbstractLocal3dCrs *		local3dCrs;			/// The used local 3D CRS in case the property values need one. 
-		class HdfProxy *				hdfProxy;			/// The HDF proxy where the umerical values of this property are stored.
+		class AbstractHdfProxy *		hdfProxy;	/// The HDF proxy where the umerical values of this property are stored.
 	};
 }

@@ -34,7 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractProperty.h"
-#include "H5public.h"
+#include "hdf5.h"
 
 namespace resqml2_0_1
 {
@@ -163,7 +163,7 @@ namespace resqml2_0_1
 		void createLongHdf5ArrayOfValues(
 			hsize_t* numValues, 
 			const unsigned int& numArrayDimensions, 
-			HdfProxy* proxy
+			class AbstractHdfProxy* proxy
 		);
 
 		/**
@@ -177,7 +177,7 @@ namespace resqml2_0_1
 			const unsigned int& valueCountInFastestDim, 
 			const unsigned int& valueCountInMiddleDim, 
 			const unsigned int& valueCountInSlowestDim, 
-			HdfProxy * proxy
+			class AbstractHdfProxy * proxy
 		);
 
 		/**
@@ -199,7 +199,7 @@ namespace resqml2_0_1
 			const unsigned int& offsetInFastestDim, 
 			const unsigned int& offsetInMiddleDim, 
 			const unsigned int& offsetInSlowestDim, 
-			HdfProxy* proxy
+			class AbstractHdfProxy* proxy
 		);
 
 		/**
@@ -216,7 +216,7 @@ namespace resqml2_0_1
 			hsize_t * numValues, 
 			hsize_t * offsetValues, 
 			const unsigned int & numArrayDimensions, 
-			HdfProxy * proxy
+			class AbstractHdfProxy * proxy
 		);
 
 		/**

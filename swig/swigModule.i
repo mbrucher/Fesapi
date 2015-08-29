@@ -122,7 +122,8 @@ namespace common
 		std::vector<resqml2_0_1::WellboreFeature*> getWellboreSet() const;
 		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreCubicParamLineTrajRepSet() const;
 		
-		std::vector<resqml2_0_1::HdfProxy*> getHdfProxySet() const;
+		unsigned int getHdfProxyCount() const;
+		resqml2_0_1::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
 		
 		std::vector<resqml2_0_1::IjkGridExplicitRepresentation*> getIjkGridExplicitRepresentationSet() const;
 		std::vector<resqml2_0_1::IjkGridParametricRepresentation*> getIjkGridParametricRepresentationSet() const;
@@ -142,7 +143,7 @@ namespace common
 		//************ HDF *******************
 		//************************************
 
-		resqml2_0_1::HdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		resqml2_0_1::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		//************************************
 		//************ CRS *******************

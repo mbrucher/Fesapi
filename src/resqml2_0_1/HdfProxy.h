@@ -33,18 +33,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/EpcExternalPartReference.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
-#include "resqml2_0_1/AbstractProperty.h"
-
-#include "H5Cpp.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #define CUMULATIVE_LENGTH_DS_NAME "cumulativeLength"
 #define ELEMENTS_DS_NAME "elements"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT HdfProxy : public EpcExternalPartReference
+	class DLL_IMPORT_OR_EXPORT HdfProxy : public AbstractHdfProxy
 	{
 	public:
 		/**
@@ -52,10 +48,11 @@ namespace resqml2_0_1
 		* @packageDirAbsolutePath	The directory where the EPC document is stored. Must end with a slash or back-slash
 		* @relativeFilePath			The relative file path of the associated HDF file. It is relative to the location of the package
 		*/
-		HdfProxy(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		HdfProxy(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath):
+			AbstractHdfProxy(epcDoc, guid, title, packageDirAbsolutePath, externalFilePath), hdfFile(-1), compressionLevel(0) {}
 
 		HdfProxy(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath):
-		  EpcExternalPartReference(fromGsoap, packageDirAbsolutePath, externalFilePath), hdfFile(NULL), compressionLevel(0) {}
+		  AbstractHdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath), hdfFile(-1), compressionLevel(0) {}
 
 		/**
 		* Destructor.
@@ -76,7 +73,7 @@ namespace resqml2_0_1
 		/**
 		* Check if the Hdf file is open or not
 		*/
-		bool isOpened() {return hdfFile != NULL;}
+		bool isOpened() {return hdfFile != -1;}
 
 		/**
 		* Close the file
@@ -84,9 +81,10 @@ namespace resqml2_0_1
 		void close();
 
 		/*
-		* Get the used datatype in a dataset
+		* Get the used (native) datatype in a dataset
+		* To compare with H5T_NATIVE_INT, H5T_NATIVE_UINT, H5T_NATIVE_FLOAT, etc...
 		*/
-		H5::DataType getHdfDatatypeInDataset(const std::string & groupName);
+		hid_t getHdfDatatypeInDataset(const std::string & groupName);
 		
 		/**
 		* Write an itemized list of list into the HDF file by means of a single group containing 2 datasets.
@@ -171,7 +169,7 @@ namespace resqml2_0_1
 		*/
 		void writeArrayNd(const std::string & groupName,
 			const std::string & name,
-			const H5::DataType & datatype,
+			const hid_t & datatype,
 			void * values,
 			hsize_t * numValuesInEachDimension,
 			const unsigned int & numDimensions);
@@ -188,7 +186,7 @@ namespace resqml2_0_1
 		void createArrayNd(
 			const std::string& groupName,
 			const std::string& name,
-			const H5::DataType& datatype,
+			const hid_t & datatype,
 			hsize_t* numValuesInEachDimension,
 			const unsigned int& numDimensions
 		);
@@ -323,20 +321,19 @@ namespace resqml2_0_1
 		/**
 		* Check if a hdf group named "RESQML" exists as a child of the root of the HDF file.
 		* If it exists, it returns the latter. If not, it creates this group and then returns it.
+		* Please close the group after having called and used this group.
 		*/
-		H5::Group getOrCreateHdfResqmlGroup();
+		hid_t openOrCreateHdfResqmlGroup();
 
 		/**
 		* Check if an hdf group named as groupName exists in the "RESQML" group.
 		* If it exists, it returns the latter. If not, it creates this group and then returns it.
+		* Please close the group after having called and used this group.
 		*/
-		H5::Group getOrCreateGroupInResqmlGroup(const std::string & groupName);
+		hid_t openOrCreateGroupInResqmlGroup(const std::string & groupName);
 
-		H5::H5File* hdfFile;
+		hid_t hdfFile;
 
 		unsigned int compressionLevel;
-
-		friend void AbstractRepresentation::setHdfProxy(HdfProxy * proxy);
-		friend void AbstractProperty::setHdfProxy(HdfProxy * proxy);
 	};
 }

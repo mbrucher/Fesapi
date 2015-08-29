@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractFeature.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -90,7 +90,7 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 	const resqml2__PillarShape & mostComplexPillarGeometry,
 	const resqml2__KDirection & kDirectionKind,
 	const bool & isRightHanded,
-	double * points, HdfProxy * proxy,
+	double * points, AbstractHdfProxy * proxy,
 	const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 	unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {
@@ -160,7 +160,7 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 		// HDF
 		numValues = new hsize_t[1];
 		numValues[0] = splitCoordinateLineCount;
-		hdfProxy->writeArrayNd(gsoapProxy->uuid, "PillarIndices", H5::PredType::NATIVE_UINT, pillarOfCoordinateLine, numValues, 1);
+		hdfProxy->writeArrayNd(gsoapProxy->uuid, "PillarIndices", H5T_NATIVE_UINT, pillarOfCoordinateLine, numValues, 1);
 		delete [] numValues;
 
 		//XML

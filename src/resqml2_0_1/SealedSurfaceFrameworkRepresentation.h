@@ -91,7 +91,7 @@ namespace resqml2_0_1
 				const unsigned int & patchCount,
 				const unsigned int & identicalNodesCount,
 				int * identicalNodes,
-				HdfProxy * proxy);
+				class AbstractHdfProxy * proxy);
 
 		/**
 		 * Pushes back a contact patch in a particular sealed contact representation of the structural framework.
@@ -104,7 +104,7 @@ namespace resqml2_0_1
 				 const unsigned int & contactIndex,
 				 int * nodeIndicesOnSupportingRepresentation, const unsigned int & NodeCount,
 				 class AbstractRepresentation * supportingRepresentation,
-				 HdfProxy * proxy);
+				 class AbstractHdfProxy * proxy);
 
 		 /**
 		  * Push back a contact identity in the structural framework with implicit identical nodes
@@ -116,7 +116,7 @@ namespace resqml2_0_1
 		 void pushBackContactIdentity(
 				 const gsoap_resqml2_0_1::resqml2__IdentityKind & kind,
 				 const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
-				 class HdfProxy * proxy);
+				 class AbstractHdfProxy * proxy);
 
 		 /**
 		  * Push back a contact identity in the structural framework
@@ -131,7 +131,7 @@ namespace resqml2_0_1
 				 const gsoap_resqml2_0_1::resqml2__IdentityKind & kind,
 				 const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
 				 const unsigned int & identicalNodesCount, int * identicalNodesIndexes,
-				 class HdfProxy * proxy);
+				 class AbstractHdfProxy * proxy);
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

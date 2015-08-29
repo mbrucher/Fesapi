@@ -110,7 +110,7 @@ witsml1_4_1_1::Wellbore* witsmlWellbore = NULL;
 
 witsml1_4_1_1::CoordinateReferenceSystem* witsmlCrs;
 
-void serializeWells(common::EpcDocument * pck, HdfProxy* hdfProxy)
+void serializeWells(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 {
 	witsml1_4_1_1::Trajectory* witsmlTraj = NULL;
 	witsml1_4_1_1::Log* witsmlLog = NULL;
@@ -195,7 +195,7 @@ void serializeWells(common::EpcDocument * pck, HdfProxy* hdfProxy)
 		w1i1FrameRep->setWitsmlLog(witsmlLog);
 }
 
-void serializeStratigraphicModel(common::EpcDocument * pck, HdfProxy* hdfProxy)
+void serializeStratigraphicModel(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 {
 	witsml1_4_1_1::FormationMarker* witsmlFormationMarker0 = NULL;
 	witsml1_4_1_1::FormationMarker* witsmlFormationMarker1 = NULL;
@@ -222,7 +222,7 @@ void serializeStratigraphicModel(common::EpcDocument * pck, HdfProxy* hdfProxy)
 		wmf->setWitsmlFormationMarker(1, witsmlFormationMarker1);
 }
 
-void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
+void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 {
 	// Seismic Lattice
     SeismicLatticeFeature* seismicLattice = pck->createSeismicLattice("", "Seismic lattice", 2, 2, 150, 152, 4, 2);
@@ -383,7 +383,7 @@ void serializeBoundaries(common::EpcDocument * pck, HdfProxy* hdfProxy)
 #endif
 }
 
-void serializeGrid(common::EpcDocument * pck, HdfProxy* hdfProxy)
+void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 {
 	// ONE SUGAR
 	IjkGridExplicitRepresentation* singleCellIjkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "One unfaulted sugar cube", 1, 1, 1);
@@ -422,7 +422,7 @@ void serializeGrid(common::EpcDocument * pck, HdfProxy* hdfProxy)
 #endif
 }
 
-void serializeStructualModel(common::EpcDocument & pck, HdfProxy* hdfProxy)
+void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfProxy)
 {
     // =========================================================================
     // =========================================================================
@@ -976,9 +976,9 @@ void deserializeActivity(AbstractObject* resqmlObject)
 			cout << "Parameter is output : " << activity->getActivityTemplate()->getParameterIsOutput(paramTitle) << endl;
 			if (activity->getParameterCount(paramTitle) > 0)
 			{
-				if (activity->isADoubleQuantityParameter(paramTitle) == true)
+				if (activity->isAFloatingPointQuantityParameter(paramTitle) == true)
 				{
-					vector<double> vals = activity->getDoubleQuantityParameterValue(paramTitle);
+					vector<double> vals = activity->getFloatingPointQuantityParameterValue(paramTitle);
 					for (unsigned int k = 0; k < vals.size(); ++k)
 					{
 						cout << "Double value : " << vals[k] << endl;
@@ -1013,8 +1013,8 @@ void deserializeActivity(AbstractObject* resqmlObject)
 					vector<unsigned int> paramIndex = activity->getParameterIndexOfTitle(paramTitle);
 					for (unsigned int k = 0; k < paramIndex.size(); ++k)
 					{
-						if (activity->isADoubleQuantityParameter(paramIndex[k]))
-							cout << "Double value : " << activity->getDoubleQuantityParameterValue(paramIndex[k]);
+						if (activity->isAFloatingPointQuantityParameter(paramIndex[k]))
+							cout << "Floating Point value : " << activity->getFloatingPointQuantityParameterValue(paramIndex[k]);
 						else if (activity->isAnIntegerQuantityParameter(paramIndex[k]))
 							cout << "Integer value : " << activity->getIntegerQuantityParameterValue(paramIndex[k]);
 						else if (activity->isAStringParameter(paramIndex[k]))
@@ -1035,7 +1035,7 @@ void serialize(const string & filePath)
 {
 	common::EpcDocument pck(filePath);
 
-	HdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
+	AbstractHdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
 	hdfProxy->openForWriting();
 
 	//CRS
@@ -1448,7 +1448,7 @@ int main(int argc, char **argv)
 	string filePath("../../testingPackageCpp.epc");
 	common::EpcDocument pck(filePath);
 
-	HdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
+	AbstractHdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
 	hdfProxy->openForWriting();
 	
 	hsize_t dims[3] = {151, 1, 1};

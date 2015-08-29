@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "AbstractSurfaceRepresentation.h"
+#include "resqml2_0_1/AbstractSurfaceRepresentation.h"
 
 namespace resqml2_0_1
 {
@@ -120,7 +120,7 @@ namespace resqml2_0_1
 		 * @param pointCount	The count of points in the polyline. Must be three times the count of the array of doubles "points".
 		 * @param proxy			The HDf proxy defining the HDF file where the double array will be stored.
 		 */
-		void setGeometry(double * points, const unsigned int & pointCount, HdfProxy * proxy);
+		void setGeometry(double * points, const unsigned int & pointCount, class AbstractHdfProxy * proxy);
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

@@ -4,6 +4,8 @@ From Scott Meyers C++ book
 
 #pragma once
 
+#if __cplusplus < 201103L
+
 const // It is a const object...
 class nullptr_t
 {
@@ -20,3 +22,5 @@ class nullptr_t
     void operator&() const;  // Can't take address of nullptr
 
 } nullptr = {};
+
+#endif

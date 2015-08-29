@@ -267,7 +267,7 @@ enum resqml2__LineRole { resqml2__LineRole__fault_x0020center_x0020line = 0, res
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParameterKind
 #define SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParameterKind (598)
 /* resqml2:ParameterKind */
-enum resqml2__ParameterKind { resqml2__ParameterKind__dataObject = 0, resqml2__ParameterKind__double_ = 1, resqml2__ParameterKind__integer = 2, resqml2__ParameterKind__string = 3, resqml2__ParameterKind__timestamp = 4, resqml2__ParameterKind__subActivity = 5 };
+enum resqml2__ParameterKind { resqml2__ParameterKind__dataObject = 0, resqml2__ParameterKind__floatingPoint = 1, resqml2__ParameterKind__integer = 2, resqml2__ParameterKind__string = 3, resqml2__ParameterKind__timestamp = 4, resqml2__ParameterKind__subActivity = 5 };
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StreamlineFlux
@@ -6487,24 +6487,24 @@ public:
 };
 #endif
 
-#ifndef SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter
-#define SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter (252)
-/* resqml2:DoubleQuantityParameter */
-class SOAP_CMAC resqml2__DoubleQuantityParameter : public resqml2__AbstractActivityParameter
+#ifndef SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter
+#define SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter (252)
+/* resqml2:FloatingPointQuantityParameter */
+class SOAP_CMAC resqml2__FloatingPointQuantityParameter : public resqml2__AbstractActivityParameter
 {
 public:
 	double Value;	/* required element of type xsd:double */
 	enum resqml2__ResqmlUom Uom;	/* required element of type resqml2:ResqmlUom */
 public:
-	virtual int soap_type() const { return 252; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter */
+	virtual int soap_type() const { return 252; } /* = unique type id SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
 	virtual int soap_out(struct soap*, const char*, int, const char*) const;
 	virtual void *soap_get(struct soap*, const char*, const char*);
 	virtual void *soap_in(struct soap*, const char*, const char*);
-	         resqml2__DoubleQuantityParameter() { resqml2__DoubleQuantityParameter::soap_default(NULL); }
-	virtual ~resqml2__DoubleQuantityParameter() { }
+	         resqml2__FloatingPointQuantityParameter() { resqml2__FloatingPointQuantityParameter::soap_default(NULL); }
+	virtual ~resqml2__FloatingPointQuantityParameter() { }
 };
 #endif
 

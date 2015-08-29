@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 #include "witsml1_4_1_1/Log.h"
 
@@ -107,7 +107,7 @@ void WellboreFrameRepresentation::importRelationshipSetFromEpc(common::EpcDocume
 	int valuesType = rep->NodeMd->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
-		setHdfProxy(static_cast<HdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(static_cast<resqml2__DoubleHdf5Array*>(rep->NodeMd)->Values->HdfProxy->UUID)));
+		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(static_cast<resqml2__DoubleHdf5Array*>(rep->NodeMd)->Values->HdfProxy->UUID)));
 	}
 
 	if (rep->WitsmlLogReference)
@@ -122,7 +122,7 @@ void WellboreFrameRepresentation::importRelationshipSetFromEpc(common::EpcDocume
 	}
 }
 
-void WellboreFrameRepresentation::setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, HdfProxy * proxy)
+void WellboreFrameRepresentation::setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
 
@@ -142,14 +142,14 @@ void WellboreFrameRepresentation::setMdValuesAsArray1dOfExplicitValues(double * 
 	hsize_t dim[] = {numMdValues};
 	hdfProxy->writeArrayNd(frame->uuid,
 			"mdValues",
-			H5::PredType::NATIVE_DOUBLE,
+			H5T_NATIVE_DOUBLE,
 			mdValues,
 			dim, 1);
 }
 
 unsigned int WellboreFrameRepresentation::getMdValuesCount() const
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return 0;
 
 	if (!hdfProxy->isOpened())
@@ -167,7 +167,7 @@ unsigned int WellboreFrameRepresentation::getMdValuesCount() const
 
 AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDatatype() const
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return AbstractValuesProperty::UNKNOWN;
 
 	if (!hdfProxy->isOpened())
@@ -176,26 +176,26 @@ AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDat
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
-		H5::DataType dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile);
-		if (dt == H5::PredType::NATIVE_DOUBLE)
+		hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile);
+		if (dt == H5T_NATIVE_DOUBLE)
 			return AbstractValuesProperty::DOUBLE;
-		else if (dt == H5::PredType::NATIVE_FLOAT)
+		else if (dt == H5T_NATIVE_FLOAT)
 			return AbstractValuesProperty::FLOAT;
-		else if (dt == H5::PredType::NATIVE_LONG)
+		else if (dt == H5T_NATIVE_LONG)
 			return AbstractValuesProperty::LONG;
-		else if (dt == H5::PredType::NATIVE_ULONG)
+		else if (dt == H5T_NATIVE_ULONG)
 			return AbstractValuesProperty::ULONG;
-		else if (dt == H5::PredType::NATIVE_INT)
+		else if (dt == H5T_NATIVE_INT)
 			return AbstractValuesProperty::INT;
-		else if (dt == H5::PredType::NATIVE_UINT)
+		else if (dt == H5T_NATIVE_UINT)
 			return AbstractValuesProperty::UINT;
-		else if (dt == H5::PredType::NATIVE_SHORT)
+		else if (dt == H5T_NATIVE_SHORT)
 			return AbstractValuesProperty::SHORT;
-		else if (dt == H5::PredType::NATIVE_USHORT)
+		else if (dt == H5T_NATIVE_USHORT)
 			return AbstractValuesProperty::USHORT;
-		else if (dt == H5::PredType::NATIVE_CHAR)
+		else if (dt == H5T_NATIVE_CHAR)
 			return AbstractValuesProperty::CHAR;
-		else if (dt == H5::PredType::NATIVE_UCHAR)
+		else if (dt == H5T_NATIVE_UCHAR)
 			return AbstractValuesProperty::UCHAR;
 	}
 
@@ -204,7 +204,7 @@ AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDat
 
 void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return;
 
 	if (!hdfProxy->isOpened())
@@ -220,7 +220,7 @@ void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)
 
 void WellboreFrameRepresentation::getMdAsFloatValues(float *  values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return;
 
 	if (!hdfProxy->isOpened())

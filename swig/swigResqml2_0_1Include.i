@@ -93,7 +93,6 @@ namespace resqml2_0_1 {
 	class WellboreFeature;
 	class WellboreTrajectoryRepresentation;
 	class WellboreMarkerFrameRepresentation;
-	class HdfProxy;
 	class UnstructuredGridRepresentation;
 	class WellboreMarker;
 }
@@ -122,7 +121,6 @@ namespace std {
    %template(WellboreFeatureVector) vector<resqml2_0_1::WellboreFeature*>;
    %template(WellboreTrajectoryRepresentationVector) vector<resqml2_0_1::WellboreTrajectoryRepresentation*>;
    %template(WellboreMarkerFrameRepresentationVector) vector<resqml2_0_1::WellboreMarkerFrameRepresentation*>;
-   %template(HdfProxyVector) vector<resqml2_0_1::HdfProxy*>;
    %template(UnstructuredGridRepresentationVector) vector<resqml2_0_1::UnstructuredGridRepresentation*>;
    %template(StringVector) vector<std::string>;
    %template(WellboreMarkerVector) vector<resqml2_0_1::WellboreMarker*>;
@@ -187,6 +185,7 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::AbstractObject;
 	%nspace resqml2_0_1::AbstractResqmlDataObject;
 	%nspace resqml2_0_1::EpcExternalPartReference;
+	%nspace resqml2_0_1::AbstractHdfProxy;
 	%nspace resqml2_0_1::HdfProxy;
 	%nspace resqml2_0_1::AbstractLocal3dCrs;
 	%nspace resqml2_0_1::LocalDepth3dCrs;
@@ -325,13 +324,17 @@ namespace resqml2_0_1
 	class EpcExternalPartReference : public AbstractObject
 	{
 	};
-
-	class HdfProxy : public EpcExternalPartReference
+	
+	class AbstractHdfProxy : public EpcExternalPartReference
 	{
 	public:
-		bool isOpened();
-		void close();
-		
+		virtual bool isOpened() = 0;
+		virtual void close() = 0;
+	};
+	
+	class HdfProxy : public AbstractHdfProxy
+	{
+	public:
 		void setCompressionLevel(const unsigned int & newCompressionLevel);
 	};
 
@@ -610,7 +613,7 @@ namespace resqml2_0_1
 		std::string getInterpretationUuid() const;
 		AbstractLocal3dCrs * getLocalCrs();
 		std::string getLocalCrsUuid() const;
-		HdfProxy * getHdfProxy();
+		AbstractHdfProxy * getHdfProxy();
 		std::string getHdfProxyUuid() const;
 		unsigned int getValuesPropertyCount() const;
 		AbstractValuesProperty* getValuesProperty(const unsigned int & index) const;
@@ -631,9 +634,9 @@ namespace resqml2_0_1
 		AbstractRepresentation* getSeismicSupportOfPatch(const unsigned int & patchIndex);
 		void getSeismicLineAbscissaOfPointsOfPatch(const unsigned int & patchIndex, double* values);
 		void addSeismic2dCoordinatesToPatch(const unsigned int patchIndex, double * lineAbscissa, const unsigned int & pointCount,
-			AbstractRepresentation * seismicSupport, HdfProxy * proxy);
+			AbstractRepresentation * seismicSupport, AbstractHdfProxy * proxy);
 		void addSeismic3dCoordinatesToPatch(const unsigned int patchIndex, double * inlines, double * crosslines, const unsigned int & pointCount,
-			AbstractRepresentation * seismicSupport, HdfProxy * proxy);
+			AbstractRepresentation * seismicSupport, AbstractHdfProxy * proxy);
 		void addSeismic3dCoordinatesToPatch(const unsigned int patchIndex, const double & startInline, const double & incrInline, const unsigned int & countInline,
 			const double & startCrossline, const double & incrCrossline, const unsigned int & countCrossline,
 			AbstractRepresentation * seismicSupport);
@@ -644,11 +647,11 @@ namespace resqml2_0_1
 	class SubRepresentation : public AbstractRepresentation
 	{
 	public:
-		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, HdfProxy * proxy);
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy);
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 			const unsigned int & elementCount,
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
-			HdfProxy * proxy);
+			AbstractHdfProxy * proxy);
 		
 		bool isElementPairBased(const unsigned int & patchIndex) const;
 		
@@ -667,11 +670,11 @@ namespace resqml2_0_1
 		void pushBackGeometryPatch(
 				unsigned int * NodeCountPerPolyline, double * nodes,
 				const unsigned int & polylineCount, const bool & allPolylinesClosedFlag,
-				HdfProxy * proxy);
+				AbstractHdfProxy * proxy);
 		void pushBackGeometryPatch(
 				unsigned int * NodeCountPerPolyline, double * nodes,
 				const unsigned int & polylineCount, bool * polylineClosedFlags,
-				HdfProxy * proxy);
+				AbstractHdfProxy * proxy);
 				
 		bool areAllPolylinesClosedOfPatch(const unsigned int & patchIndex) const;
 		bool areAllPolylinesClosedOfAllPatches() const;
@@ -689,7 +692,7 @@ namespace resqml2_0_1
 	public:
 		void pushBackGeometryPatch(
 			const unsigned int & xyzPointCount, double * xyzPoints,
-			HdfProxy * proxy);
+			AbstractHdfProxy * proxy);
 	};
 	
 	class PlaneSetRepresentation : public AbstractRepresentation
@@ -704,7 +707,7 @@ namespace resqml2_0_1
 	class PolylineRepresentation : public AbstractRepresentation
 	{
 	public:
-		void setGeometry(double * points, const unsigned int & pointCount, HdfProxy * proxy);
+		void setGeometry(double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy);
 		bool isClosed() const;
 		bool hasALineRole() const;
 		gsoap_resqml2_0_1::resqml2__LineRole getLineRole() const;
@@ -757,14 +760,14 @@ namespace resqml2_0_1
 
 		void setGeometryAsArray2dOfExplicitZ(
 			double * zValues,
-			const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+			const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
 			Grid2dRepresentation * supportingGrid2dRepresentation,
 			const unsigned int & startIndexI = 0, const unsigned int & startIndexJ = 0,
 			const int & indexIncrementI = 1, const int & indexIncrementJ = 1);
 			
 		void setGeometryAsArray2dOfExplicitZ(
 			double * zValues,
-			const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+			const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
 			const double & originX, const double & originY, const double & originZ,
 			const double & offsetIX, const double & offsetIY, const double & offsetIZ, const double & spacingI,
 			const double & offsetJX, const double & offsetJY, const double & offsetJZ, const double & spacingJ);
@@ -783,7 +786,7 @@ namespace resqml2_0_1
 		void getZValuesOfPatchInGlobalCrs(const unsigned int & patchIndex, double* values) const;
 		void pushBackGeometryPatch(
 				double * zValues,
-				const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+				const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
 				Grid2dRepresentation * supportingGrid2dRepresentation,
 				const unsigned int & startIndexI = 0, const unsigned int & startIndexJ = 0,
 				const int & indexIncrementI = 1, const int & indexIncrementJ = 1);
@@ -802,7 +805,7 @@ namespace resqml2_0_1
 		unsigned int getTriangleCountOfAllPatches() const;
 		void getTriangleNodeIndicesOfPatch(const unsigned int & patchIndex, unsigned int * triangleNodeIndices) const;
 		void getTriangleNodeIndicesOfAllPatches(unsigned int * triangleNodeIndices) const;
-		void pushBackTrianglePatch(const unsigned int & NodeCount, double * nodes, const unsigned int & triangleCount, unsigned int * triangleNodeIndices, HdfProxy * proxy);
+		void pushBackTrianglePatch(const unsigned int & NodeCount, double * nodes, const unsigned int & triangleCount, unsigned int * triangleNodeIndices, AbstractHdfProxy * proxy);
 	};
 	
 	class WellboreFrameRepresentation;
@@ -817,10 +820,10 @@ namespace resqml2_0_1
 		
 		void setGeometry(double * controlPoints,
 			double* controlPointParameters, const unsigned int & controlPointCount,
-			HdfProxy * proxy);
+			AbstractHdfProxy * proxy);
 		void setGeometry(double * controlPoints,
 			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
-			HdfProxy * proxy);
+			AbstractHdfProxy * proxy);
 			
 		void addParentTrajectory(const double & kickoffMd, const double & parentMd, WellboreTrajectoryRepresentation* parentTrajRep);
 		
@@ -834,7 +837,7 @@ namespace resqml2_0_1
 	class WellboreFrameRepresentation : public AbstractRepresentation
 	{
 	public:
-		void setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, class HdfProxy * proxy);
+		void setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, class AbstractHdfProxy * proxy);
 		unsigned int getMdValuesCount() const;
 		AbstractValuesProperty::hdfDatatypeEnum getMdHdfDatatype() const;
 		void getMdAsDoubleValues(double * values);
@@ -877,7 +880,7 @@ namespace resqml2_0_1
 	class NonSealedSurfaceFrameworkRepresentation : public RepresentationSetRepresentation
 	{
 	public:
-		void pushBackNonSealedContactRepresentation(const unsigned int & pointCount, double * points, class AbstractLocal3dCrs* localCrs, class HdfProxy * proxy);
+		void pushBackNonSealedContactRepresentation(const unsigned int & pointCount, double * points, class AbstractLocal3dCrs* localCrs, class AbstractHdfProxy * proxy);
 	};
 	
 	class SealedSurfaceFrameworkRepresentation : public RepresentationSetRepresentation
@@ -909,11 +912,11 @@ namespace resqml2_0_1
 		void getFaceCountOfCells(unsigned int * faceCountPerCell) const;
 		void getNodesOfFaces(unsigned int * nodeIndices) const;
 		void getNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
-		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, HdfProxy * proxy,
+		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy,
 				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
 				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
 				const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
-		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class HdfProxy * proxy,
+		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class AbstractHdfProxy * proxy,
 						unsigned int * faceIndicesPerCell, unsigned int * nodeIndicesPerFace);
 	};
 	
@@ -997,7 +1000,7 @@ namespace resqml2_0_1
 	public:
 		void setGeometryAsCoordinateLineNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * points, class HdfProxy * proxy,
+			double * points, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount = 0, unsigned int * pillarOfCoordinateLine = NULL,
 			unsigned int * splitCoordinateLineColumnCumulativeCount = NULL, unsigned int * splitCoordinateLineColumns = NULL);
 	};
@@ -1014,11 +1017,11 @@ namespace resqml2_0_1
 
 		void setGeometryAsParametricNonSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			unsigned char* cellGeomIsDefined = NULL);
 		void setGeometryAsParametricSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class HdfProxy * proxy,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns,
 			unsigned char* cellGeomIsDefined = NULL);
@@ -1033,9 +1036,9 @@ namespace resqml2_0_1
 		void getCellIndexPair(unsigned int * cellIndexPair) const;
 		void getCellIndexPairFromFaultIndex(unsigned int * cellIndexPair, const unsigned int & faultIndex) const;
 		
-		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, HdfProxy * proxy);
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, HdfProxy * proxy);
-		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, HdfProxy * proxy);
+		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 		
 		std::string getFaultInterpretationUuidFromFaultIndex(const unsigned int & faultIndex) const;
 		FaultInterpretation* getFaultInterpretationFromFaultIndex(const unsigned int & faultIndex) const;
@@ -1087,7 +1090,7 @@ namespace resqml2_0_1
 		AbstractRepresentation* getRepresentation();
 		
 		std::string getHdfProxyUuid() const;
-		HdfProxy* getHdfProxy();
+		AbstractHdfProxy* getHdfProxy();
 		
 		std::string getPropertyKindUomAsString() const;	
 		std::string getPropertyKindDescription() const;
@@ -1132,13 +1135,13 @@ namespace resqml2_0_1
 		void createLongHdf5ArrayOfValues(
 			hsize_t* numValues, 
 			const unsigned int& numArrayDimensions, 
-			HdfProxy* proxy
+			AbstractHdfProxy* proxy
 		);
 		void createLongHdf5Array3dOfValues(
 			const unsigned int& valueCountInFastestDim, 
 			const unsigned int& valueCountInMiddleDim, 
 			const unsigned int& valueCountInSlowestDim, 
-			HdfProxy * proxy
+			AbstractHdfProxy * proxy
 		);
 		void pushBackLongHdf5SlabArray3dOfValues(
 			long* values, 
@@ -1148,14 +1151,14 @@ namespace resqml2_0_1
 			const unsigned int& offsetInFastestDim, 
 			const unsigned int& offsetInMiddleDim, 
 			const unsigned int& offsetInSlowestDim, 
-			HdfProxy* proxy
+			AbstractHdfProxy* proxy
 		);
 		void pushBackLongHdf5SlabArrayOfValues(
 			long * values, 
 			hsize_t * numValues, 
 			hsize_t * offsetValues, 
 			const unsigned int & numArrayDimensions, 
-			HdfProxy * proxy
+			AbstractHdfProxy * proxy
 		);
 		void getLongValuesOfPatch(
 			const unsigned int& patchIndex, 
@@ -1180,7 +1183,7 @@ namespace resqml2_0_1
 	class CommentProperty : public AbstractValuesProperty
 	{
 	public:
-		void pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values, HdfProxy * proxy);
+		void pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values, AbstractHdfProxy * proxy);
 		std::vector<std::string> getStringValuesOfPatch(const unsigned int & patchIndex);
 	};
 	
@@ -1191,21 +1194,21 @@ namespace resqml2_0_1
 		const gsoap_resqml2_0_1::resqml2__ResqmlUom & getUom() const;
 		std::string getUomAsString() const;
 		
-		void pushBackDoubleHdf5Array1dOfValues(double * values, const unsigned int & valueCount, HdfProxy * proxy,
+		void pushBackDoubleHdf5Array1dOfValues(double * values, const unsigned int & valueCount, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackDoubleHdf5Array2dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackDoubleHdf5Array2dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackDoubleHdf5Array3dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackDoubleHdf5Array3dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackDoubleHdf5ArrayOfValues(double * values, hsize_t * numValues, const unsigned int & numArrayDimensions, HdfProxy * proxy,
+		void pushBackDoubleHdf5ArrayOfValues(double * values, hsize_t * numValues, const unsigned int & numArrayDimensions, AbstractHdfProxy * proxy,
 			double * minimumValue = NULL, double * maximumValue = NULL);
-		void pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, HdfProxy * proxy,
+		void pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackFloatHdf5Array2dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackFloatHdf5Array2dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackFloatHdf5Array3dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy,
+		void pushBackFloatHdf5Array3dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, HdfProxy * proxy,
+		void pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, AbstractHdfProxy * proxy,
 			double * minimumValue = NULL, double * maximumValue = NULL);
 		void getDoubleValuesOfPatch(const unsigned int & patchIndex, double * values);
 		void getFloatValuesOfPatch(const unsigned int & patchIndex, float * values);
@@ -1213,13 +1216,13 @@ namespace resqml2_0_1
 		void createFloatHdf5ArrayOfValues(
 			hsize_t* numValues, 
 			const unsigned int& numArrayDimensions, 
-			HdfProxy* proxy
+			AbstractHdfProxy* proxy
 		);
 		void createFloatHdf5Array3dOfValues(
 			const unsigned int& valueCountInFastestDim, 
 			const unsigned int& valueCountInMiddleDim, 
 			const unsigned int& valueCountInSlowestDim, 
-			HdfProxy * proxy
+			AbstractHdfProxy * proxy
 		);
 		void pushBackFloatHdf5SlabArray3dOfValues(
 			float* values, 
@@ -1229,14 +1232,14 @@ namespace resqml2_0_1
 			const unsigned int& offsetInFastestDim, 
 			const unsigned int& offsetInMiddleDim, 
 			const unsigned int& offsetInSlowestDim, 
-			HdfProxy* proxy
+			AbstractHdfProxy* proxy
 		);
 		void pushBackFloatHdf5SlabArrayOfValues(
 			float * values, 
 			hsize_t * numValues, 
 			hsize_t * offsetValues, 
 			const unsigned int & numArrayDimensions, 
-			HdfProxy * proxy
+			AbstractHdfProxy * proxy
 		);
 		void getFloatValuesOfPatch(
 			const unsigned int& patchIndex, 
@@ -1269,14 +1272,14 @@ namespace resqml2_0_1
 	class DiscreteProperty : public AbstractValuesProperty
 	{
 	public:
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, HdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class HdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class HdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
 	};
 	
 	class DiscretePropertySeries : public DiscreteProperty
@@ -1290,10 +1293,10 @@ namespace resqml2_0_1
 		std::string getStringLookupUuid() const;
 		StringTableLookup* getStringLookup();
 		
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, HdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, HdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class HdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
 	};
 	
 	class CategoricalPropertySeries : public CategoricalProperty

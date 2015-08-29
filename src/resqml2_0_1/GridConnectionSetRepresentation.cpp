@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/FaultInterpretation.h"
 #include "resqml2_0_1/AbstractGridRepresentation.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
@@ -70,7 +70,7 @@ GridConnectionSetRepresentation::GridConnectionSetRepresentation(AbstractFeature
 		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
-void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, HdfProxy * proxy)
+void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 	rep->Count = cellIndexPairCount;
@@ -88,10 +88,10 @@ void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cel
 
 	// ************ HDF ************		
 	hsize_t numValues[] = {cellIndexPairCount,2};
-	hdfProxy->writeArrayNd(rep->uuid, "CellIndexPairs", H5::PredType::NATIVE_UINT, cellIndexPair, numValues, 2);
+	hdfProxy->writeArrayNd(rep->uuid, "CellIndexPairs", H5T_NATIVE_UINT, cellIndexPair, numValues, 2);
 }
 
-void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, HdfProxy * proxy)
+void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 
@@ -108,7 +108,7 @@ void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsign
 
 	// ************ HDF ************		
 	hsize_t numValues[] = {cellIndexPairCount,2};
-	hdfProxy->writeArrayNd(rep->uuid, "LocalFacePerCellIndexPairs", H5::PredType::NATIVE_UINT, LocalFacePerCellIndexPair, numValues, 2);
+	hdfProxy->writeArrayNd(rep->uuid, "LocalFacePerCellIndexPairs", H5T_NATIVE_UINT, LocalFacePerCellIndexPair, numValues, 2);
 }
 
 string GridConnectionSetRepresentation::getHdfProxyUuid() const
@@ -339,7 +339,7 @@ std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid
 	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Grid[0]->UUID;
 }
 
-void GridConnectionSetRepresentation::setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, HdfProxy * proxy)
+void GridConnectionSetRepresentation::setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 	rep->ConnectionInterpretations = soap_new_resqml2__ConnectionInterpretations(gsoapProxy->soap, 1);

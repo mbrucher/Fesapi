@@ -111,11 +111,11 @@ namespace resqml2_0_1
         * @param cellIndexPair		All the cell index pair in a 1d Array where the cell indices go faster than the pair.
         * @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
 		*/
-		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, HdfProxy * proxy);
+		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, class AbstractHdfProxy * proxy);
 
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, HdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, class AbstractHdfProxy * proxy);
 
-		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, HdfProxy * proxy);
+		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, class AbstractHdfProxy * proxy);
 	
 		/**
 		 * Set the grid representation which is the support of this representation.

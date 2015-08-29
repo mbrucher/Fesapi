@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -58,29 +58,29 @@ void AbstractValuesProperty::importRelationshipSetFromEpc(common::EpcDocument* e
 	
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
-		setHdfProxy(static_cast<HdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
 			static_cast<resqml2__BooleanHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
-		setHdfProxy(static_cast<HdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
 				static_cast<resqml2__DoubleHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
-		setHdfProxy(static_cast<HdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
 				static_cast<resqml2__IntegerHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
 	{
-		setHdfProxy(static_cast<HdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
 				static_cast<resqml2__StringHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 }
 
 AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfDatatype() const
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		return AbstractValuesProperty::UNKNOWN;
 
 	if (!hdfProxy->isOpened())
@@ -90,7 +90,7 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 
 	resqml2__PatchOfValues* firstPatch = prop->PatchOfValues[0];
 	int valuesType = firstPatch->Values->soap_type();
-	H5::DataType dt = H5::PredType::NATIVE_DOUBLE;
+	hid_t dt = -1;
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
 		dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(firstPatch->Values)->Values->PathInHdfFile);
@@ -110,25 +110,25 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 	else
 		return AbstractValuesProperty::UNKNOWN;
 
-	if (dt == H5::PredType::NATIVE_DOUBLE)
+	if (dt == H5T_NATIVE_DOUBLE)
 		return AbstractValuesProperty::DOUBLE;
-	else if (dt == H5::PredType::NATIVE_FLOAT)
+	else if (dt == H5T_NATIVE_FLOAT)
 		return AbstractValuesProperty::FLOAT;
-	else if (dt == H5::PredType::NATIVE_LONG)
+	else if (dt == H5T_NATIVE_LONG)
 		return AbstractValuesProperty::LONG;
-	else if (dt == H5::PredType::NATIVE_ULONG)
+	else if (dt == H5T_NATIVE_ULONG)
 		return AbstractValuesProperty::ULONG;
-	else if (dt == H5::PredType::NATIVE_INT)
+	else if (dt == H5T_NATIVE_INT)
 		return AbstractValuesProperty::INT;
-	else if (dt == H5::PredType::NATIVE_UINT)
+	else if (dt == H5T_NATIVE_UINT)
 		return AbstractValuesProperty::UINT;
-	else if (dt == H5::PredType::NATIVE_SHORT)
+	else if (dt == H5T_NATIVE_SHORT)
 		return AbstractValuesProperty::SHORT;
-	else if (dt == H5::PredType::NATIVE_USHORT)
+	else if (dt == H5T_NATIVE_USHORT)
 		return AbstractValuesProperty::USHORT;
-	else if (dt == H5::PredType::NATIVE_CHAR)
+	else if (dt == H5T_NATIVE_CHAR)
 		return AbstractValuesProperty::CHAR;
-	else if (dt == H5::PredType::NATIVE_UCHAR)
+	else if (dt == H5T_NATIVE_UCHAR)
 		return AbstractValuesProperty::UCHAR;
 
 	return AbstractValuesProperty::UNKNOWN; // unknwown datatype...
@@ -136,7 +136,7 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 
 long AbstractValuesProperty::getLongValuesOfPatch(const unsigned int & patchIndex, long * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -160,7 +160,7 @@ long AbstractValuesProperty::getNullValueOfPatch(const unsigned int & patchIndex
 
 unsigned long AbstractValuesProperty::getULongValuesOfPatch(const unsigned int & patchIndex, unsigned long * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -175,7 +175,7 @@ unsigned long AbstractValuesProperty::getULongValuesOfPatch(const unsigned int &
 
 int AbstractValuesProperty::getIntValuesOfPatch(const unsigned int & patchIndex, int * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -190,7 +190,7 @@ int AbstractValuesProperty::getIntValuesOfPatch(const unsigned int & patchIndex,
 
 unsigned int AbstractValuesProperty::getUIntValuesOfPatch(const unsigned int & patchIndex, unsigned int * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -205,7 +205,7 @@ unsigned int AbstractValuesProperty::getUIntValuesOfPatch(const unsigned int & p
 
 short AbstractValuesProperty::getShortValuesOfPatch(const unsigned int & patchIndex, short * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -220,7 +220,7 @@ short AbstractValuesProperty::getShortValuesOfPatch(const unsigned int & patchIn
 
 unsigned short AbstractValuesProperty::getUShortValuesOfPatch(const unsigned int & patchIndex, unsigned short * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -235,7 +235,7 @@ unsigned short AbstractValuesProperty::getUShortValuesOfPatch(const unsigned int
 
 char AbstractValuesProperty::getCharValuesOfPatch(const unsigned int & patchIndex, char * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -250,7 +250,7 @@ char AbstractValuesProperty::getCharValuesOfPatch(const unsigned int & patchInde
 
 unsigned char AbstractValuesProperty::getUCharValuesOfPatch(const unsigned int & patchIndex, unsigned char * values)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -265,7 +265,7 @@ unsigned char AbstractValuesProperty::getUCharValuesOfPatch(const unsigned int &
 
 unsigned int AbstractValuesProperty::getValuesCountOfDimensionOfPatch(const unsigned int & dimIndex, const unsigned int & patchIndex)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -294,7 +294,7 @@ unsigned int AbstractValuesProperty::getValuesCountOfDimensionOfPatch(const unsi
 
 unsigned int AbstractValuesProperty::getDimensionsCountOfPatch(const unsigned int & patchIndex)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -319,7 +319,7 @@ unsigned int AbstractValuesProperty::getDimensionsCountOfPatch(const unsigned in
 
 unsigned int AbstractValuesProperty::getValuesCountOfPatch (const unsigned int & patchIndex)
 {
-	if (hdfProxy == NULL)
+	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	if (!hdfProxy->isOpened())
@@ -346,7 +346,7 @@ void AbstractValuesProperty::createLongHdf5Array3dOfValues(
 	const unsigned int& valueCountInFastestDim, 
 	const unsigned int& valueCountInMiddleDim, 
 	const unsigned int& valueCountInSlowestDim, 
-	HdfProxy* proxy)
+	AbstractHdfProxy* proxy)
 {
 	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
 	createLongHdf5ArrayOfValues(valueCountPerDimension, 3, proxy);
@@ -360,7 +360,7 @@ void AbstractValuesProperty::pushBackLongHdf5SlabArray3dOfValues(
 	const unsigned int& offsetInFastestDim, 
 	const unsigned int& offsetInMiddleDim, 
 	const unsigned int& offsetInSlowestDim,
-	HdfProxy * proxy)
+	AbstractHdfProxy * proxy)
 {
 	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
 	hsize_t offsetPerDimension[3] = {offsetInSlowestDim, offsetInMiddleDim, offsetInFastestDim};
@@ -376,7 +376,7 @@ void AbstractValuesProperty::pushBackLongHdf5SlabArray3dOfValues(
 void AbstractValuesProperty::createLongHdf5ArrayOfValues(
 	hsize_t* numValues, 
 	const unsigned int& numArrayDimensions, 
-	HdfProxy* proxy)
+	AbstractHdfProxy* proxy)
 {
 	setHdfProxy(proxy);
 	gsoap_resqml2_0_1::_resqml2__CategoricalProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__CategoricalProperty*>(gsoapProxy);
@@ -402,14 +402,14 @@ void AbstractValuesProperty::createLongHdf5ArrayOfValues(
 	// HDF
 	hdfProxy->createArrayNd(prop->uuid,
 		oss.str(),
-		H5::PredType::NATIVE_LONG,
+		H5T_NATIVE_LONG,
 		numValues, numArrayDimensions);
 }
 
 void AbstractValuesProperty::pushBackLongHdf5SlabArrayOfValues(
 	long* values, hsize_t* numValuesInEachDimension,
 	hsize_t* offsetInEachDimension, const unsigned int& numArrayDimensions, 
-	HdfProxy* proxy)
+	AbstractHdfProxy* proxy)
 {
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
 	ostringstream oss;
@@ -431,7 +431,7 @@ void AbstractValuesProperty::getLongValuesOfPatch(
 	hsize_t* offsetInEachDimension, 
 	const unsigned int& numArrayDimensions)
 {
-	if (hdfProxy == NULL) {
+	if (hdfProxy == nullptr) {
 		return;
 	}
 

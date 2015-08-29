@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace epc;
@@ -90,7 +90,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackSealedContactRepresentation(
         const unsigned int & patchCount,
         const unsigned int & identicalNodesCount,
         int * identicalNodes,
-        HdfProxy * proxy)
+        AbstractHdfProxy * proxy)
 {
     if (patchCount < 2)
         throw invalid_argument("Contact point count cannot be less than two.");
@@ -119,7 +119,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackSealedContactRepresentation(
     // ************ HDF *************
     hsize_t dim[2] = {identicalNodesCount, patchCount};
     proxy->writeArrayNd(gsoapProxy->uuid,
-        ossForHdf.str(), H5::PredType::NATIVE_UINT,
+        ossForHdf.str(), H5T_NATIVE_UINT,
         identicalNodes,
         dim, 2);
 }
@@ -128,7 +128,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
         const unsigned int & contactIndex,
         int * nodeIndicesOnSupportingRepresentation, const unsigned int & NodeCount,
         AbstractRepresentation * supportingRepresentation,
-        HdfProxy * proxy)
+        AbstractHdfProxy * proxy)
 {
     if (!nodeIndicesOnSupportingRepresentation)
         throw invalid_argument("The array of node indices cannot be null.");
@@ -172,7 +172,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
     // ************ HDF *************
     hsize_t dim[1] = {NodeCount};
     proxy->writeArrayNd(gsoapProxy->uuid,
-                        ossForHdf.str(), H5::PredType::NATIVE_UINT,
+                        ossForHdf.str(), H5T_NATIVE_UINT,
                         nodeIndicesOnSupportingRepresentation,
                         dim, 1);
 
@@ -183,7 +183,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
 void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
         const gsoap_resqml2_0_1::resqml2__IdentityKind & kind,
         const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
-        HdfProxy * proxy)
+        AbstractHdfProxy * proxy)
 {
     _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
 
@@ -202,7 +202,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
     // ************ HDF *************
     hsize_t dimContactRepresentations[1] = {sealedContactRepresentationsCount};
     proxy->writeArrayNd(gsoapProxy->uuid,
-        ossForHdfContactRepresentations.str(), H5::PredType::NATIVE_UINT,
+        ossForHdfContactRepresentations.str(), H5T_NATIVE_UINT,
         sealedContactRepresentationsIndexes,
         dimContactRepresentations, 1);
 
@@ -212,7 +212,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
 void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
         const gsoap_resqml2_0_1::resqml2__IdentityKind & kind,
         const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
-        const unsigned int & identicalNodesCount, int * identicalNodesIndexes, HdfProxy * proxy)
+        const unsigned int & identicalNodesCount, int * identicalNodesIndexes, AbstractHdfProxy * proxy)
 {
     _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
 
@@ -231,7 +231,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
     // ************ HDF *************
     hsize_t dimContactRepresentations[1] = {sealedContactRepresentationsCount};
     proxy->writeArrayNd(gsoapProxy->uuid,
-        ossForHdfContactRepresentations.str(), H5::PredType::NATIVE_UINT,
+        ossForHdfContactRepresentations.str(), H5T_NATIVE_UINT,
         sealedContactRepresentationsIndexes,
         dimContactRepresentations, 1);
 
@@ -247,7 +247,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
     // ************ HDF *************
     hsize_t dimIdenticalNodes[2] = {identicalNodesCount, sealedContactRepresentationsCount};
     proxy->writeArrayNd(gsoapProxy->uuid,
-        ossForHdfIdenticalNodes.str(), H5::PredType::NATIVE_UINT,
+        ossForHdfIdenticalNodes.str(), H5T_NATIVE_UINT,
         identicalNodesIndexes,
         dimIdenticalNodes, 2);
 

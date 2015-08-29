@@ -220,7 +220,7 @@ namespace resqml2_0_1
 		*/
 		void setGeometryAsArray2dOfExplicitZ(
 				double * zValues,
-				const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+				const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
 				Grid2dRepresentation * supportingGrid2dRepresentation,
 				const unsigned int & startIndexI = 0, const unsigned int & startIndexJ = 0,
 				const int & indexIncrementI = 1, const int & indexIncrementJ = 1);
@@ -231,7 +231,7 @@ namespace resqml2_0_1
 		*/
 		void setGeometryAsArray2dOfExplicitZ(
 				double * zValues,
-				const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+				const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
 				const double & originX, const double & originY, const double & originZ,
 				const double & offsetIX, const double & offsetIY, const double & offsetIZ, const double & spacingI,
 				const double & offsetJX, const double & offsetJY, const double & offsetJZ, const double & spacingJ);
@@ -280,7 +280,7 @@ namespace resqml2_0_1
 
 		friend void Grid2dSetRepresentation::pushBackGeometryPatch(
 				double * zValues,
-				const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+				const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
 				Grid2dRepresentation * supportingGrid2dRepresentation,
 				const unsigned int & startIndexI, const unsigned int & startIndexJ,
 				const int & indexIncrementI, const int & indexIncrementJ);

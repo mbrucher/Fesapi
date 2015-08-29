@@ -37,7 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
@@ -240,7 +240,7 @@ void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeom
 		unsigned int pillarCount = (getJCellCount() + 1) * (getICellCount() + 1);
 		if (grid->Geometry->PillarGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 		{
-			if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile) == H5::PredType::NATIVE_CHAR)
+			if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_CHAR)
 			{
 				char* tmp = new char[pillarCount];
 				hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile, tmp);
@@ -248,7 +248,7 @@ void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeom
 					if (tmp[i] == 0) pillarGeometryIsDefined[i] = false; else pillarGeometryIsDefined[i] = true;
 				delete [] tmp;
 			}
-			else if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile) == H5::PredType::NATIVE_UCHAR)
+			else if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_UCHAR)
 			{
 				unsigned char* tmp = new unsigned char[pillarCount];
 				hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile, tmp);
@@ -328,7 +328,7 @@ void AbstractIjkGridRepresentation::getCellGeometryIsDefined(bool * cellGeometry
 		unsigned int cellCount = getCellCount();
 		if (grid->Geometry->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 		{
-			if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile) == H5::PredType::NATIVE_CHAR)
+			if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_CHAR)
 			{
 				char* tmp = new char[cellCount];
 				hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
@@ -336,7 +336,7 @@ void AbstractIjkGridRepresentation::getCellGeometryIsDefined(bool * cellGeometry
 					if (tmp[i] == 0) cellGeometryIsDefined[i] = false; else cellGeometryIsDefined[i] = true;
 				delete [] tmp;
 			}
-			else if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile) == H5::PredType::NATIVE_UCHAR)
+			else if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_UCHAR)
 			{
 				unsigned char* tmp = new unsigned char[cellCount];
 				hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
@@ -873,7 +873,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	dim[2] = getICellCount();
 	dim[3] = 6; // 6 faces per cell
 	hdfProxy->writeArrayNd(result->getUuid(),
-		"CellFaceIsRightHanded", H5::PredType::NATIVE_CHAR,
+		"CellFaceIsRightHanded", H5T_NATIVE_CHAR,
 		cellFaceIsRightHanded,
 		dim, 4);
 	delete [] cellFaceIsRightHanded;
@@ -897,7 +897,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	elements->Values->PathInHdfFile = "/RESQML/" + result->getUuid() + "/FacesPerCell";
 	// HDF
 	hdfProxy->writeArrayNd(result->getUuid(),
-		"FacesPerCell", H5::PredType::NATIVE_UINT,
+		"FacesPerCell", H5T_NATIVE_UINT,
 		faceIndicesPerCell,
 		dim, 4);
 	delete [] dim;
@@ -925,7 +925,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	dim[0] = geom->FaceCount;
 	dim[1] = 4; // 4 nodes par face
 	hdfProxy->writeArrayNd(result->getUuid(),
-		"NodesPerFace", H5::PredType::NATIVE_UINT,
+		"NodesPerFace", H5T_NATIVE_UINT,
 		nodeIndicesPerFace,
 		dim, 2);
 	delete [] dim;

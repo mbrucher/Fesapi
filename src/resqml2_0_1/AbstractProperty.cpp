@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/TimeSeries.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
 
@@ -88,7 +88,7 @@ vector<Relationship> AbstractProperty::getAllEpcRelationships() const
 		result.push_back(relTs);
 	}
 
-	if (hdfProxy)
+	if (hdfProxy != nullptr)
 	{
 		Relationship relHdf(hdfProxy->getPartNameInEpcDocument(), "", hdfProxy->getUuid());
 		relHdf.setMlToExternalPartProxyType();
@@ -309,7 +309,7 @@ std::string AbstractProperty::getRepresentationUuid() const
 	return static_cast<resqml2__AbstractProperty*>(gsoapProxy)->SupportingRepresentation->UUID;
 }
 
-void AbstractProperty::setHdfProxy(HdfProxy * proxy)
+void AbstractProperty::setHdfProxy(AbstractHdfProxy * proxy)
 {
 	if (!hdfProxy)
 	{

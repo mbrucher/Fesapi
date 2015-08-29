@@ -20587,34 +20587,34 @@ inline void soap_delete_resqml2__AbstractParameterKey(struct soap *soap, resqml2
 
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_resqml2__AbstractParameterKey(struct soap*, int, int, void*, size_t, const void*, size_t);
 
-#ifndef SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter
-#define SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleQuantityParameter (252)
+#ifndef SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter
+#define SOAP_TYPE_gsoap_resqml2_0_1_resqml2__FloatingPointQuantityParameter (252)
 #endif
 
-SOAP_FMAC3 int SOAP_FMAC4 soap_out_resqml2__DoubleQuantityParameter(struct soap*, const char*, int, const resqml2__DoubleQuantityParameter *, const char*);
-SOAP_FMAC3 resqml2__DoubleQuantityParameter * SOAP_FMAC4 soap_in_resqml2__DoubleQuantityParameter(struct soap*, const char*, resqml2__DoubleQuantityParameter *, const char*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_resqml2__FloatingPointQuantityParameter(struct soap*, const char*, int, const resqml2__FloatingPointQuantityParameter *, const char*);
+SOAP_FMAC3 resqml2__FloatingPointQuantityParameter * SOAP_FMAC4 soap_in_resqml2__FloatingPointQuantityParameter(struct soap*, const char*, resqml2__FloatingPointQuantityParameter *, const char*);
 
-#ifndef soap_write_resqml2__DoubleQuantityParameter
-#define soap_write_resqml2__DoubleQuantityParameter(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || ((data)->soap_serialize(soap), 0) || (data)->soap_put(soap, "resqml2:DoubleQuantityParameter", NULL) || soap_end_send(soap), (soap)->error )
+#ifndef soap_write_resqml2__FloatingPointQuantityParameter
+#define soap_write_resqml2__FloatingPointQuantityParameter(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || ((data)->soap_serialize(soap), 0) || (data)->soap_put(soap, "resqml2:FloatingPointQuantityParameter", NULL) || soap_end_send(soap), (soap)->error )
 #endif
 
-SOAP_FMAC3 resqml2__DoubleQuantityParameter * SOAP_FMAC4 soap_get_resqml2__DoubleQuantityParameter(struct soap*, resqml2__DoubleQuantityParameter *, const char*, const char*);
+SOAP_FMAC3 resqml2__FloatingPointQuantityParameter * SOAP_FMAC4 soap_get_resqml2__FloatingPointQuantityParameter(struct soap*, resqml2__FloatingPointQuantityParameter *, const char*, const char*);
 
-#ifndef soap_read_resqml2__DoubleQuantityParameter
-#define soap_read_resqml2__DoubleQuantityParameter(soap, data) ( soap_begin_recv(soap) || !gsoap_resqml2_0_1::soap_get_resqml2__DoubleQuantityParameter(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#ifndef soap_read_resqml2__FloatingPointQuantityParameter
+#define soap_read_resqml2__FloatingPointQuantityParameter(soap, data) ( soap_begin_recv(soap) || !gsoap_resqml2_0_1::soap_get_resqml2__FloatingPointQuantityParameter(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
 #endif
 
-SOAP_FMAC1 resqml2__DoubleQuantityParameter * SOAP_FMAC2 soap_instantiate_resqml2__DoubleQuantityParameter(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC1 resqml2__FloatingPointQuantityParameter * SOAP_FMAC2 soap_instantiate_resqml2__FloatingPointQuantityParameter(struct soap*, int, const char*, const char*, size_t*);
 
-inline resqml2__DoubleQuantityParameter * soap_new_resqml2__DoubleQuantityParameter(struct soap *soap, int n = -1) { return soap_instantiate_resqml2__DoubleQuantityParameter(soap, n, NULL, NULL, NULL); }
+inline resqml2__FloatingPointQuantityParameter * soap_new_resqml2__FloatingPointQuantityParameter(struct soap *soap, int n = -1) { return soap_instantiate_resqml2__FloatingPointQuantityParameter(soap, n, NULL, NULL, NULL); }
 
-inline resqml2__DoubleQuantityParameter * soap_new_req_resqml2__DoubleQuantityParameter(struct soap *soap, double Value, enum resqml2__ResqmlUom Uom, const std::string& Title1) { resqml2__DoubleQuantityParameter *_p = soap_instantiate_resqml2__DoubleQuantityParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__DoubleQuantityParameter::Value = Value; _p->resqml2__DoubleQuantityParameter::Uom = Uom; _p->resqml2__AbstractActivityParameter::Title = Title1; } return _p; }
+inline resqml2__FloatingPointQuantityParameter * soap_new_req_resqml2__FloatingPointQuantityParameter(struct soap *soap, double Value, enum resqml2__ResqmlUom Uom, const std::string& Title1) { resqml2__FloatingPointQuantityParameter *_p = soap_instantiate_resqml2__FloatingPointQuantityParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__FloatingPointQuantityParameter::Value = Value; _p->resqml2__FloatingPointQuantityParameter::Uom = Uom; _p->resqml2__AbstractActivityParameter::Title = Title1; } return _p; }
 
-inline resqml2__DoubleQuantityParameter * soap_new_set_resqml2__DoubleQuantityParameter(struct soap *soap, double Value, enum resqml2__ResqmlUom Uom, const std::string& Title1, LONG64 *Index1, std::string *Selection1, const std::vector<resqml2__AbstractParameterKey * >& Key1) { resqml2__DoubleQuantityParameter *_p = soap_instantiate_resqml2__DoubleQuantityParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__DoubleQuantityParameter::Value = Value; _p->resqml2__DoubleQuantityParameter::Uom = Uom; _p->resqml2__AbstractActivityParameter::Title = Title1; _p->resqml2__AbstractActivityParameter::Index = Index1; _p->resqml2__AbstractActivityParameter::Selection = Selection1; _p->resqml2__AbstractActivityParameter::Key = Key1; } return _p; }
+inline resqml2__FloatingPointQuantityParameter * soap_new_set_resqml2__FloatingPointQuantityParameter(struct soap *soap, double Value, enum resqml2__ResqmlUom Uom, const std::string& Title1, LONG64 *Index1, std::string *Selection1, const std::vector<resqml2__AbstractParameterKey * >& Key1) { resqml2__FloatingPointQuantityParameter *_p = soap_instantiate_resqml2__FloatingPointQuantityParameter(soap, -1, NULL, NULL, NULL); if (_p) { _p->soap_default(soap); _p->resqml2__FloatingPointQuantityParameter::Value = Value; _p->resqml2__FloatingPointQuantityParameter::Uom = Uom; _p->resqml2__AbstractActivityParameter::Title = Title1; _p->resqml2__AbstractActivityParameter::Index = Index1; _p->resqml2__AbstractActivityParameter::Selection = Selection1; _p->resqml2__AbstractActivityParameter::Key = Key1; } return _p; }
 
-inline void soap_delete_resqml2__DoubleQuantityParameter(struct soap *soap, resqml2__DoubleQuantityParameter *p) { soap_delete(soap, p); }
+inline void soap_delete_resqml2__FloatingPointQuantityParameter(struct soap *soap, resqml2__FloatingPointQuantityParameter *p) { soap_delete(soap, p); }
 
-SOAP_FMAC3 void SOAP_FMAC4 soap_copy_resqml2__DoubleQuantityParameter(struct soap*, int, int, void*, size_t, const void*, size_t);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_resqml2__FloatingPointQuantityParameter(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_resqml2__TimeIndexParameterKey
 #define SOAP_TYPE_gsoap_resqml2_0_1_resqml2__TimeIndexParameterKey (251)

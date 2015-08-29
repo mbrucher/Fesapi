@@ -42,7 +42,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/RepresentationSetRepresentation.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
 #include "resqml2_0_1/SubRepresentation.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
@@ -146,7 +146,7 @@ void AbstractRepresentation::importRelationshipSetFromEpc(common::EpcDocument* e
 
 	if (getHdfProxyUuid().empty() == false)
 	{
-		setHdfProxy(static_cast<HdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(getHdfProxyUuid())));
+		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(getHdfProxyUuid())));
 	}
 
 	// Seismic support
@@ -262,7 +262,7 @@ std::string AbstractRepresentation::getInterpretationUuid() const
 		return "";
 }
 
-void AbstractRepresentation::setHdfProxy(HdfProxy * proxy)
+void AbstractRepresentation::setHdfProxy(AbstractHdfProxy * proxy)
 {
 	if (!hdfProxy)
 	{
@@ -472,7 +472,7 @@ void AbstractRepresentation::getXyzPointsOfAllPatchesInGlobalCrs(double * xyzPoi
 }
 
 resqml2__PointGeometry* AbstractRepresentation::createPointGeometryPatch(const unsigned int & patchIndex,
-	double * points, hsize_t * numPoints, const unsigned int & numDimensionsInArray, HdfProxy * proxy)
+	double * points, hsize_t * numPoints, const unsigned int & numDimensionsInArray, AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
 
@@ -504,7 +504,7 @@ resqml2__PointGeometry* AbstractRepresentation::createPointGeometryPatch(const u
 }
 
 void AbstractRepresentation::addSeismic3dCoordinatesToPatch(const unsigned int patchIndex, double * inlines, double * crosslines, const unsigned int & pointCount,
-	AbstractRepresentation * seismicSupport, HdfProxy * proxy)
+	AbstractRepresentation * seismicSupport, AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
 
@@ -584,7 +584,7 @@ void AbstractRepresentation::addSeismic3dCoordinatesToPatch(const unsigned int p
 }
 
 void AbstractRepresentation::addSeismic2dCoordinatesToPatch(const unsigned int patchIndex, double * lineAbscissa, const unsigned int & pointCount,
-			AbstractRepresentation * seismicSupport, HdfProxy * proxy)
+			AbstractRepresentation * seismicSupport, AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
 

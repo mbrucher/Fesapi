@@ -72,7 +72,7 @@ namespace resqml2_0_1
 		* @param	zValues							All the z values to add. It must be numI * numJ count.
 		* @param	numI							Number of z values in the first dimension of the array to add.
 		* @param	numJ							Number of z values in the second dimension of the array to add.
-		* @param	hdfProxy						The hdf proxy which indicates the hdf file where the values will be stored.
+		* @param	AbstractHdfProxy						The hdf proxy which indicates the hdf file where the values will be stored.
 		* @param	supportingRepresentation		The lattice grid representation these Z values use as a support.
 		* @param	startGlobalIndex				The first global (representation) index of the baseLatticeGridRepresentation where a z value will be stored.
 		* @param	indexIncrementI					The constant index increment between two consecutive nodes on the first dimension of the baseLatticeGridRepresentation where z values will be stored.
@@ -80,7 +80,7 @@ namespace resqml2_0_1
 		*/
 		gsoap_resqml2_0_1::resqml2__PointGeometry* createArray2dOfExplicitZ(
 			const unsigned int & patchIndex, double * zValues,
-			const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+			const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
 			class Grid2dRepresentation * supportingRepresentation,
 			const unsigned int & startGlobalIndex = 0,
 			const int & indexIncrementI = 1, const int & indexIncrementJ = 1);
@@ -90,11 +90,11 @@ namespace resqml2_0_1
 		* @param	zValues							All the z values to add. It must be numI * numJ count.
 		* @param	numI							Number of z values in the first dimension of the array to add.
 		* @param	numJ							Number of z values in the second dimension of the array to add.
-		* @param	hdfProxy						The hdf proxy which indicates the hdf file where the values will be stored.
+		* @param	AbstractHdfProxy						The hdf proxy which indicates the hdf file where the values will be stored.
 		*/
 		gsoap_resqml2_0_1::resqml2__PointGeometry* createArray2dOfExplicitZ(
 			const unsigned int & patchIndex, double * zValues,
-			const unsigned int & numI, const unsigned int & numJ, HdfProxy * proxy,
+			const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
 			const double & originX, const double & originY, const double & originZ,
 			const double & offsetIX, const double & offsetIY, const double & offsetIZ, const double & spacingI,
 			const double & offsetJX, const double & offsetJY, const double & offsetJZ, const double & spacingJ);
