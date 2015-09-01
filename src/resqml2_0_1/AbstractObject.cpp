@@ -44,25 +44,47 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <pwd.h>
 #endif
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 
+/**
+* Only for partial transfer
+*/
+AbstractObject::AbstractObject(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):
+	partial(true), gsoapProxy(nullptr)
+{
+	if (guid.empty() == true)
+		uuid = tools::GuidTools::generateUidAsString();
+	else
+		uuid = guid;
+
+	if (title.empty() == true)
+		this->title = "Unknown title";
+	else
+		this->title = title;
+
+	epcDoc->addGsoapProxy(this);
+}
 
 string AbstractObject::getUuid() const
 {
-	if (!gsoapProxy)
-		throw invalid_argument("The wrapped gsoap proxy must not be null");
-
-	return gsoapProxy->uuid;
+	if (!gsoapProxy) // partial transfer
+		return uuid;
+	else
+		return gsoapProxy->uuid;
 }
 
 string AbstractObject::getTitle() const
 {
-	if (!gsoapProxy)
-		throw invalid_argument("The wrapped gsoap proxy must not be null");
-
-	return gsoapProxy->Citation->Title;
+	if (!gsoapProxy) // partial transfer
+		return title;
+	else
+		return gsoapProxy->Citation->Title;
 }
 
 string AbstractObject::getEditor() const
@@ -218,7 +240,7 @@ void AbstractObject::addNewGuid(const string & newGuid)
 	if (!gsoapProxy)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	if (newGuid.empty())
+	if (newGuid.empty() == true)
 		gsoapProxy->uuid = tools::GuidTools::generateUidAsString();
 	else
 		gsoapProxy->uuid = newGuid;
@@ -335,21 +357,21 @@ void AbstractObject::serializeIntoStream(ostream * stream)
 
 eml__DataObjectReference* AbstractObject::newResqmlReference() const
 {
-	if (!gsoapProxy)
-		throw invalid_argument("The wrapped gsoap proxy must not be null");
-
 	ostringstream oss;
 
-	eml__DataObjectReference* result = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);
+	eml__DataObjectReference* result = soap_new_eml__DataObjectReference(getEpcDocument()->getGsoapContext(), 1);
 	result->UUID = getUuid();
-	result->VersionString = soap_new_std__string(gsoapProxy->soap, 1);
-	if (getLastUpdate() != -1)
-		oss << getLastUpdate();
-	else
-		oss << getCreation();
-	result->VersionString->assign(oss.str());
-	result->Title = gsoapProxy->Citation->Title;
+	result->Title = getTitle();
 	result->ContentType = getContentType();
+	if (gsoapProxy != nullptr) // Not partial transfer
+	{
+		result->VersionString = soap_new_std__string(gsoapProxy->soap, 1);
+		if (getLastUpdate() != -1)
+			oss << getLastUpdate();
+		else
+			oss << getCreation();
+		result->VersionString->assign(oss.str());
+	}
 
 	return result;
 }

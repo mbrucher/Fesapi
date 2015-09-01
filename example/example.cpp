@@ -407,11 +407,18 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	PropertyKind * propType1 = pck->createPropertyKind("", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 	DiscreteProperty* discreteProp1 = pck->createDiscreteProperty(ijkgrid, "", "Two faulted sugar cubes cellIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
-	long prop1Values[8] = {0,1};
+	long prop1Values[2] = {0,1};
 	discreteProp1->pushBackLongHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
 
 #if !defined(OFFICIAL)
 	ijkgrid->cloneToUnstructuredGridRepresentation("42e6c090-33b2-4572-a64c-3b119f6a1f41", "Two faulted sugar cubes (unstructured)");
+
+	// Partial transfer
+	UnstructuredGridRepresentation* partialGrid = pck->createPartialUnstructuredGridRepresentation("27290b9a-ff46-47b7-befd-cf6b7836045c", "Partial Grid");
+	ContinuousProperty* continuousProp1 = pck->createContinuousProperty(partialGrid, "cd627946-0f89-48fa-b99c-bdb35d8ac4aa", "Testing partial property", 1,
+		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
+	double continuousProp1Values[6] = {0,1,2,3,4,5};
+	continuousProp1->pushBackDoubleHdf5Array1dOfValues(continuousProp1Values, 6, hdfProxy);
 
 	// Tetra grid
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "", "One tetrahedron grid", 1);
@@ -1439,6 +1446,10 @@ void deserialize(const string & inputFile)
 		std::cout << "--------------------------------------------------" << std::endl;
 		delete [] gridPoints;
 	}
+
+	std::cout << endl << pck.getWarnings().size() << " WARNING(S)" << endl;
+	for (unsigned int i = 0; i < pck.getWarnings().size(); ++i)
+		std::cout << i << " - " << pck.getWarnings()[i] << endl;
 }
 
 /*

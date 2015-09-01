@@ -41,6 +41,11 @@ namespace resqml2_0_1
 	{
 	protected:
 
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractGridRepresentation(epcDoc, guid, title) {}
+
 		AbstractColumnLayerGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractGridRepresentation(interp, crs) {}
 
 		/**

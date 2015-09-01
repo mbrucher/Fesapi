@@ -45,7 +45,13 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT AbstractResqmlDataObject : public AbstractObject
 	{
-	public:
+	protected:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractResqmlDataObject(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractObject(epcDoc, guid, title) {}
+
 		/**
 		* Default constructor
 		* Set the gsoap proxy to NULL.
@@ -56,6 +62,8 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		AbstractResqmlDataObject(gsoap_resqml2_0_1::resqml2__AbstractResqmlDataObject* fromGsoap): AbstractObject(fromGsoap) {}
+
+	public:
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

@@ -40,6 +40,11 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT AbstractObject
 	{
+	private:
+		std::string uuid;	// only in case of partial trasfer
+		std::string title;	// only in case of partial trasfer
+		bool partial;
+
 	protected:
 		
 		gsoap_resqml2_0_1::eml__AbstractCitedDataObject* gsoapProxy;
@@ -48,7 +53,12 @@ namespace resqml2_0_1
 
 		bool updateXml; /// Indicate wether methods update the XML (Gsoap) or only the C++ classes of the API.
 
-		AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* proxy = NULL) : gsoapProxy(proxy), epcDocument (NULL), updateXml(true) {}
+		/**
+		* Constructor for partial transfer
+		*/
+		AbstractObject(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
+
+		AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* proxy = NULL) : partial(false), gsoapProxy(proxy), epcDocument (NULL), updateXml(true) {}
 
 		/**
 		* Create or set a new GUID for the resqml instance.
@@ -63,6 +73,13 @@ namespace resqml2_0_1
 
 	public:
 		virtual ~AbstractObject() {}
+
+		/**
+		* Indicate if the instance is actually a partial object.
+		* A partial object just contains a mime type, an uuid and a title as a minimum amount of information.
+		* A partial object is never explicit in an EPC document : it is not a file.
+		*/
+		bool isPartial() const {return partial;}
 
 		std::string getUuid() const;
 		std::string getTitle() const;

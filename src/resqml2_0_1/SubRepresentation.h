@@ -47,6 +47,11 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		SubRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractRepresentation(epcDoc, guid, title) {}
+
+		/**
 		* Creates an instance of this class in a gsoap context. This instance is not linked to any interpretation.
 		* @param epcDoc	The epc document which contains the instance.
 		* @param title A title for the instance to create.

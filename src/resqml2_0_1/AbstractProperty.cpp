@@ -35,7 +35,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2_0_1/UnstructuredGridRepresentation.h"
+#include "resqml2_0_1/IjkGridExplicitRepresentation.h"
+#include "resqml2_0_1/IjkGridParametricRepresentation.h"
+#include "resqml2_0_1/IjkGridLatticeRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
@@ -103,7 +106,16 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 	resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
 
 	updateXml = false;
-	setRepresentation(static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SupportingRepresentation->UUID)));
+	AbstractRepresentation* rep = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SupportingRepresentation->UUID));
+	if (rep == nullptr) // partial transfer
+	{
+		getEpcDocument()->addWarning("The referenced grid \"" + prop->SupportingRepresentation->Title + "\" (" + prop->SupportingRepresentation->UUID + ") is missing.");
+		if (prop->SupportingRepresentation->ContentType.find("UnstructuredGridRepresentation") != 0)
+			rep = new UnstructuredGridRepresentation(getEpcDocument(), prop->SupportingRepresentation->UUID, prop->SupportingRepresentation->Title);
+		else if (prop->SupportingRepresentation->ContentType.find("IjkGridRepresentation") != 0)
+			rep = new AbstractIjkGridRepresentation(getEpcDocument(), prop->SupportingRepresentation->UUID, prop->SupportingRepresentation->Title);
+	}
+	setRepresentation(rep);
 	updateXml = true;
 
 	if (prop->TimeIndex)

@@ -58,7 +58,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 			TimeSeries * ts, const bool & useInterval)
 		: CategoricalProperty(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__CategoricalPropertySeries* prop = static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -90,7 +90,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 			class TimeSeries * ts, const bool & useInterval)
 	:CategoricalProperty(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__CategoricalPropertySeries* prop = static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;

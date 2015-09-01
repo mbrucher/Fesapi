@@ -53,7 +53,7 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 			StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 		: stringLookup(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -79,7 +79,7 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 			StringTableLookup* strLookup, PropertyKind * localPropType)
 	:stringLookup(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;

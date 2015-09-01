@@ -37,21 +37,19 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
+	/**
+	* This class is semantically abstract.
+	* Technically speaking, it is not an abstract because it can be used in case of partial transfer where we don't know the geometry of the ijk grid.
+	*/
 	class DLL_IMPORT_OR_EXPORT AbstractIjkGridRepresentation : public AbstractColumnLayerGridRepresentation
 	{
 	private :
+
 		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
 	protected :
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
-
-		std::vector< std::pair< unsigned int, std::vector<unsigned int> > >* splitInformation;
-
-	public:
-
-		enum geometryKind { EXPLICIT = 0, PARAMETRIC = 1, LATTICE = 2 };
 
 		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
@@ -65,6 +63,19 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractColumnLayerGridRepresentation(fromGsoap) {}
+
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
+
+		std::vector< std::pair< unsigned int, std::vector<unsigned int> > >* splitInformation;
+
+	public:
+
+		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3 }; // UNKNOWN exists in case of partial transfer
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractColumnLayerGridRepresentation(epcDoc, guid, title) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -211,7 +222,9 @@ namespace resqml2_0_1
 		*/
 		class UnstructuredGridRepresentation* cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
 
-		virtual geometryKind getGeometryKind() const = 0;
+		virtual geometryKind getGeometryKind() const { return geometryKind::UNKNOWN; }
+		virtual std::string getHdfProxyUuid() const { return NULL; }
+		virtual unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const { return 0; }
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

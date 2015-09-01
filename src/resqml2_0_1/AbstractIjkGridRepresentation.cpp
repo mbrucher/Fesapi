@@ -39,6 +39,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
+#include "resqml2_0_1/DiscreteProperty.h"
+#include "resqml2_0_1/PropertyKind.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -721,6 +723,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	UnstructuredGridRepresentation* result = nullptr;
 	if (interpretation != nullptr) result = new UnstructuredGridRepresentation(interpretation, localCrs, guid, title, getCellCount());
 	else result = new UnstructuredGridRepresentation(getEpcDocument(), localCrs, guid, title, getCellCount());
+	result->addOrSetAlias("EpcDocument", ijkGrid->uuid);
 	
 	resqml2__UnstructuredGridGeometry* geom = soap_new_resqml2__UnstructuredGridGeometry(gsoapProxy->soap, 1);
 	static_cast<_resqml2__UnstructuredGridRepresentation*>(result->getGsoapProxy())->Geometry = geom;
@@ -933,6 +936,31 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 
 	// XML points
 	geom->Points = ijkGrid->Geometry->Points;
+
+	/**********************************
+	********** ACTNUM *****************
+	**********************************/
+
+	if (ijkGrid->Geometry->CellGeometryIsDefined != nullptr)
+	{
+		// Property kind
+		PropertyKind* kind = new PropertyKind(getEpcDocument(), "556b918e-fb78-43b9-b224-7d3ae7488f47", "ACTNUM", "F2I", resqml2__ResqmlUom__Euc, resqml2__ResqmlPropertyKind__discrete);
+
+		// Property
+		string uuidActnum = result->getUuid();
+		if (uuidActnum[35] == '0')
+			uuidActnum[35] = '1';
+		else
+			uuidActnum[35] = '0';
+		DiscreteProperty* actnum = new DiscreteProperty(result, uuidActnum, "ACTNUM for " + result->getTitle(), 1, resqml2__IndexableElements__cells, kind);
+
+		// Values
+		resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
+		patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+		*(patch->RepresentationPatchIndex) = 0;
+		patch->Values = ijkGrid->Geometry->CellGeometryIsDefined;
+		static_cast<_resqml2__DiscreteProperty*>(actnum->getGsoapProxy())->PatchOfValues.push_back(patch);
+	}
 
 	return result;
 }

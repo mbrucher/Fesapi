@@ -743,6 +743,8 @@ namespace common
                 const std::string & guid,
                 const std::string & title);
 
+		resqml2_0_1::AbstractIjkGridRepresentation* createPartialIjkGridRepresentation(const std::string & guid, const std::string & title);
+
 		resqml2_0_1::IjkGridExplicitRepresentation* createIjkGridExplicitRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
@@ -767,9 +769,13 @@ namespace common
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
+		resqml2_0_1::UnstructuredGridRepresentation* createPartialUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
+
 		resqml2_0_1::UnstructuredGridRepresentation* createUnstructuredGridRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & cellCount);
+
+		resqml2_0_1::SubRepresentation* createPartialSubRepresentation(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::SubRepresentation* createSubRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs, 
                 const std::string & guid, const std::string & title,
@@ -897,6 +903,13 @@ namespace common
 			const time_t & dTimLastChange,
 			const std::string & comments);
 
+		//************************************
+		//************* WARNINGS *************
+		//************************************
+
+		void addWarning(const std::string & warning) {warnings.push_back(warning);}
+		const std::vector<std::string> & getWarnings() const {return warnings;}
+
 	private :
 		static const char * DOCUMENT_EXTENSION;
 
@@ -934,6 +947,8 @@ namespace common
 		std::vector<resqml2_0_1::OrganizationFeature*> 				organizationSet;
 
 		resqml2_0_1::PropertyKindMapper* propertyKindMapper;
+
+		std::vector<std::string> warnings;
 	};
 }
 

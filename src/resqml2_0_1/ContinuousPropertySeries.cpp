@@ -55,7 +55,7 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
 			class TimeSeries * ts, const bool & useInterval)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -84,7 +84,7 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropKind,
 			class TimeSeries * ts, const bool & useInterval)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;

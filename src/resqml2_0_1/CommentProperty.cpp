@@ -49,7 +49,7 @@ const char* CommentProperty::XML_TAG = "CommentProperty";
 CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECommentProperty(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECommentProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -70,7 +70,7 @@ CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & gu
 CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECommentProperty(rep->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECommentProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
