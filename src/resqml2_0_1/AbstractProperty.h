@@ -127,6 +127,9 @@ namespace resqml2_0_1
 
 		/**
 		* Set the timestamp of this property by means of an index in a time series
+		*
+		* @param[in]	 timeIndex	The index of the timestamp of the property in the time series.
+		* @param[in]	 ts			The time series which contains the timestamp of this property.
 		*/
 		void setTimeIndex(const unsigned int & timeIndex, class TimeSeries * ts);
 

@@ -62,7 +62,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractColumnLayerGridRepresentation(fromGsoap) {}
+		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractColumnLayerGridRepresentation(fromGsoap), splitInformation(NULL) {}
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
 
@@ -75,7 +75,7 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractColumnLayerGridRepresentation(epcDoc, guid, title) {}
+		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractColumnLayerGridRepresentation(epcDoc, guid, title), splitInformation(NULL) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

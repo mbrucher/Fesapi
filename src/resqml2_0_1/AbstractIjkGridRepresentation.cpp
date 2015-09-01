@@ -494,7 +494,7 @@ void AbstractIjkGridRepresentation::loadSplitInformation()
 		unsigned int* splitColumnIndices = new unsigned int [columnIndexCumulativeCountPerSplitCoordinateLine[getSplitCoordinateLineCount() - 1]];
 		getColumnsOfSplitCoordinateLines(splitColumnIndices);
 
-		// Compute the split faces
+		// Rearrange the split information
 		std::pair< unsigned int, std::vector<unsigned int>> splittedColumns;
 		splittedColumns.first = 0;
 		for (unsigned int splitColumnIndex = 0;

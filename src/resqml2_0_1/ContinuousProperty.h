@@ -34,7 +34,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractValuesProperty.h"
-#include "H5public.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
 #include <stdexcept>

@@ -45,7 +45,7 @@ namespace resqml2_0_1
 		CategoricalProperty(StringTableLookup* strLookup): stringLookup(strLookup) {}
 
 		/**
-		* Creates an instance of this class in a gsoap context.
+		* Creates an instance of this class which is of a well known Energistics property kind.
 		* @param rep						The representation which supports these property values.
 		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.
 		* @param title						A title for the instance to create.
@@ -59,7 +59,7 @@ namespace resqml2_0_1
 			class StringTableLookup* strLookup, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
 
 		/**
-		* Creates an instance of this class in a gsoap context.
+		* Creates an instance of this class which is of a local property kind.
 		* @param rep						The representation which supports these property values.
 		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.
 		* @param title						A title for the instance to create.
