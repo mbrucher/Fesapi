@@ -1089,8 +1089,8 @@ void deserialize(const string & inputFile)
 	std::cout << "EXTENDED CORE PROPERTIES" << endl;
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || defined(__APPLE__)
-	std::unordered_map<std::string, std::string> extendedCoreProperty = pck.getExtendedCoreProperty();
-	for (std::unordered_map<std::string, std::string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
+	std::tr1::unordered_map<std::string, std::string> extendedCoreProperty = pck.getExtendedCoreProperty();
+	for (std::tr1::unordered_map<std::string, std::string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
 	{
 		std::cout << it->first.c_str() << " " << it->second.c_str() << endl;
 	}
