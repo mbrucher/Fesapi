@@ -1123,12 +1123,9 @@ vector<IjkGridParametricRepresentation*> EpcDocument::getIjkGridParametricRepres
 	
 	for (unsigned int i = 0; i < allgrids.size(); ++i)
 	{
-		for (unsigned int i = 0; i < allgrids.size(); ++i)
-		{
-			IjkGridParametricRepresentation* ijkGridParamRep = dynamic_cast<IjkGridParametricRepresentation*>(allgrids[i]);
-			if (ijkGridParamRep != nullptr)
-				result.push_back(ijkGridParamRep);
-		}
+		IjkGridParametricRepresentation* ijkGridParamRep = dynamic_cast<IjkGridParametricRepresentation*>(allgrids[i]);
+		if (ijkGridParamRep != nullptr)
+			result.push_back(ijkGridParamRep);
 	}
 	
 	return result;
@@ -1141,12 +1138,9 @@ vector<IjkGridExplicitRepresentation*> EpcDocument::getIjkGridExplicitRepresenta
 	
 	for (unsigned int i = 0; i < allgrids.size(); ++i)
 	{
-		for (unsigned int i = 0; i < allgrids.size(); ++i)
-		{
-			IjkGridExplicitRepresentation* ijkGridParamRep = dynamic_cast<IjkGridExplicitRepresentation*>(allgrids[i]);
-			if (ijkGridParamRep != nullptr)
-				result.push_back(ijkGridParamRep);
-		}
+		IjkGridExplicitRepresentation* ijkGridParamRep = dynamic_cast<IjkGridExplicitRepresentation*>(allgrids[i]);
+		if (ijkGridParamRep != nullptr)
+			result.push_back(ijkGridParamRep);
 	}
 	
 	return result;
