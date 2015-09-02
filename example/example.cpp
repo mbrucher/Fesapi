@@ -35,6 +35,15 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 //#define OFFICIAL
 
+#ifdef _WIN32
+// ************************
+// For memory leak
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+// ************************
+#endif
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -1428,6 +1437,7 @@ void deserialize(const string & inputFile)
 		{
 			AbstractValuesProperty* propVal = static_cast<AbstractValuesProperty*>(ijkGridRepSet[i]->getPropertySet()[l]);
 			std::cout << "Dimension count is : " << propVal->getDimensionsCountOfPatch(0) << std::endl;
+			std::cout << "Datatype is : " << propVal->getValuesHdfDatatype() << std::endl;
 			std::cout << "Values count in slowest dimension is : " << propVal->getValuesCountOfDimensionOfPatch(0, 0) << std::endl;
 			std::cout << "Values count in middle dimension is : " << propVal->getValuesCountOfDimensionOfPatch(1, 0) << std::endl;
 			std::cout << "Values count in fastest dimension is : " << propVal->getValuesCountOfDimensionOfPatch(2, 0) << std::endl;
@@ -1483,11 +1493,15 @@ int main(int argc, char **argv)
 {
 	string filePath("../../testingPackageCpp.epc");
 	serialize(filePath);
-	//string filePath("C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/testingPackageCppReExport.epc");
+	//string filePath("C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/jactaGrid.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;
 	cin.get();
+
+#ifdef _WIN32
+	_CrtDumpMemoryLeaks();
+#endif
 
 	return 0;
 }
