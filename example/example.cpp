@@ -528,10 +528,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
     singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 0 Patch 0
-    int * indexSetContact0Patch0 = new int[3];
-    indexSetContact0Patch0[0] = 3;
-    indexSetContact0Patch0[1] = 4;
-    indexSetContact0Patch0[2] = 5;
+	int indexSetContact0Patch0[3] = {3, 4, 5};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
                 0,
                 indexSetContact0Patch0,
@@ -539,10 +536,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
                 f1i1triRepSinglePatch, hdfProxy);
 
     // Contact 0 Patch 1
-    int * indexSetContact0Patch1 = new int[3];
-    indexSetContact0Patch1[0] = 0;
-    indexSetContact0Patch1[1] = 1;
-    indexSetContact0Patch1[2] = 2;
+	int indexSetContact0Patch1[3] = {0, 1, 2};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             0,
             indexSetContact0Patch1,
@@ -550,10 +544,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             h1i1triRep, hdfProxy);
 
     // Contact 0 Patch 2
-    int * indexSetContact0Patch2 = new int[3];
-    indexSetContact0Patch2[0] = 3;
-    indexSetContact0Patch2[1] = 4;
-    indexSetContact0Patch2[2] = 5;
+	int indexSetContact0Patch2[3] = {3, 4, 5};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             0,
             indexSetContact0Patch2,
@@ -565,10 +556,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
     singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 1 Patch 0
-    int * indexSetContact1Patch0 = new int[3];
-    indexSetContact1Patch0[0] = 6;
-    indexSetContact1Patch0[1] = 7;
-    indexSetContact1Patch0[2] = 8;
+	int indexSetContact1Patch0[3] = {6, 7, 8};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             1,
             indexSetContact1Patch0,
@@ -576,10 +564,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             f1i1triRepSinglePatch, hdfProxy);
 
     // Contact 1 Patch 1
-    int * indexSetContact1Patch1 = new int[3];
-    indexSetContact1Patch1[0] = 5;
-    indexSetContact1Patch1[1] = 6;
-    indexSetContact1Patch1[2] = 7;
+	int indexSetContact1Patch1[3] = {5, 6, 7};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             1,
             indexSetContact1Patch1,
@@ -587,10 +572,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             h1i1triRep, hdfProxy);
 
     // Contact 1 Patch 2
-    int * indexSetContact1Patch2 = new int[3];
-    indexSetContact1Patch2[0] = 6;
-    indexSetContact1Patch2[1] = 7;
-    indexSetContact1Patch2[2] = 8;
+	int indexSetContact1Patch2[3] = {6, 7, 8};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             1,
             indexSetContact1Patch2,
@@ -602,10 +584,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
     singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 2 Patch 0
-    int * indexSetContact2Patch0 = new int[3];
-    indexSetContact2Patch0[0] = 9;
-    indexSetContact2Patch0[1] = 10;
-    indexSetContact2Patch0[2] = 11;
+	int indexSetContact2Patch0[3] = {9, 10, 11};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             2,
             indexSetContact2Patch0,
@@ -613,10 +592,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             f1i1triRepSinglePatch, hdfProxy);
 
     // Contact 2 Patch 1
-    int * indexSetContact2Patch1 = new int[3];
-    indexSetContact2Patch1[0] = 0;
-    indexSetContact2Patch1[1] = 1;
-    indexSetContact2Patch1[2] = 2;
+	int indexSetContact2Patch1[3] = {0, 1, 2};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             2,
             indexSetContact2Patch1,
@@ -624,10 +600,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             h2i1triRep, hdfProxy);
 
     // Contact 2 Patch 2
-    int * indexSetContact2Patch2 = new int[3];
-    indexSetContact2Patch2[0] = 9;
-    indexSetContact2Patch2[1] = 10;
-    indexSetContact2Patch2[2] = 11;
+	int indexSetContact2Patch2[3] = {9, 10, 11};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             2,
             indexSetContact2Patch2,
@@ -639,10 +612,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
     singlePatchFault1SealedSurfaceFramework->pushBackSealedContactRepresentation(gsoap_resqml2_0_1::resqml2__IdentityKind__colocation);
 
     // Contact 3 Patch 0
-    int * indexSetContact3Patch0 = new int[3];
-    indexSetContact3Patch0[0] = 12;
-    indexSetContact3Patch0[1] = 13;
-    indexSetContact3Patch0[2] = 14;
+	int indexSetContact3Patch0[3] = {12, 13, 14};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             3,
             indexSetContact3Patch0,
@@ -650,10 +620,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             f1i1triRepSinglePatch, hdfProxy);
 
     // Contact 3 Patch 1
-    int * indexSetContact3Patch1 = new int[3];
-    indexSetContact3Patch1[0] = 5;
-    indexSetContact3Patch1[1] = 6;
-    indexSetContact3Patch1[2] = 7;
+	int indexSetContact3Patch1[3] = {5, 6, 7};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             3,
             indexSetContact3Patch1,
@@ -661,10 +628,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             h2i1triRep, hdfProxy);
 
     // Contact 3 Patch 2
-    int * indexSetContact3Patch2 = new int[3];
-    indexSetContact3Patch2[0] = 12;
-    indexSetContact3Patch2[1] = 13;
-    indexSetContact3Patch2[2] = 14;
+	int indexSetContact3Patch2[3] = {12, 13, 14};
     singlePatchFault1SealedSurfaceFramework->pushBackContactPatchInSealedContactRepresentation(
             3,
             indexSetContact3Patch2,
@@ -836,9 +800,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
     // Single Patch Fault 1
 
     // Contact 0 and 1 was previously colocated
-    int * contact_0_1_contactRepresentations = new int[2];
-    contact_0_1_contactRepresentations[0] = 0;
-    contact_0_1_contactRepresentations[1] = 1;
+	int contact_0_1_contactRepresentations[2] = {0, 1};
 //    int contact_0_1_IdenticalNodes[6] =
 //    {
 //        0, 0,
@@ -855,9 +817,7 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
             hdfProxy);
 
     // Contact 2 and 3 was previously colocated
-    int * contact_2_3_contactRepresentations = new int[2];
-    contact_2_3_contactRepresentations[0] = 2;
-    contact_2_3_contactRepresentations[1] = 3;
+	int contact_2_3_contactRepresentations[2] = {2, 3};
 //    int contact_2_3_IdenticalNodes[6] =
 //    {
 //        0, 0,
@@ -1489,11 +1449,12 @@ int main(int argc, char **argv)
 }
 */
 
+// filepath is defined in a macro to better check memory leak
+#define filePath "../../testingPackageCpp.epc"
+//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/jactaGrid.epc"
 int main(int argc, char **argv)
 {
-	string filePath("../../testingPackageCpp.epc");
 	serialize(filePath);
-	//string filePath("C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/jactaGrid.epc");
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;

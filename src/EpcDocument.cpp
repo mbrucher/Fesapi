@@ -201,6 +201,7 @@ void EpcDocument::close()
 	soap_destroy(s); // remove deserialized C++ objects
 	soap_end(s); // remove deserialized data
 	soap_done(s); // finalize last use of the context
+	soap_free(s); // Free the context
 	s = nullptr;
 
 	filePath = "";
