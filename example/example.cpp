@@ -86,6 +86,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/SealedSurfaceFrameworkRepresentation.h"
 #include "resqml2_0_1/SubRepresentation.h"
+#include "resqml2_0_1/TimeSeries.h"
 
 #include "resqml2_0_1/PropertyKindMapper.h"
 
@@ -418,6 +419,29 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
 	long prop1Values[2] = {0,1};
 	discreteProp1->pushBackLongHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
+
+	//**************
+	// Time Series
+	//**************
+	TimeSeries * timeSeries = pck->createTimeSeries("", "Testing time series");
+	timeSeries->pushBackTimestamp(1378217895);
+	timeSeries->pushBackTimestamp(1409753895);
+	timeSeries->pushBackTimestamp(1441289895);
+	ContinuousProperty* continuousPropTime0 = pck->createContinuousProperty(ijkgrid, "", "Time 0", 1,
+		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
+	continuousPropTime0->setTimeIndex(0, timeSeries);
+	double valuesTime0[2] = {0,1};
+	continuousPropTime0->pushBackDoubleHdf5Array1dOfValues(valuesTime0, 2, hdfProxy);
+	ContinuousProperty* continuousPropTime1 = pck->createContinuousProperty(ijkgrid, "", "Time 1", 1,
+		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
+	continuousPropTime1->setTimeIndex(1, timeSeries);
+	double valuesTime1[2] = {2,3};
+	continuousPropTime1->pushBackDoubleHdf5Array1dOfValues(valuesTime1, 2, hdfProxy);
+	ContinuousProperty* continuousPropTime2 = pck->createContinuousProperty(ijkgrid, "", "Time 2", 1,
+		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
+	continuousPropTime2->setTimeIndex(2, timeSeries);
+	double valuesTime2[2] = {3,4};
+	continuousPropTime2->pushBackDoubleHdf5Array1dOfValues(valuesTime2, 2, hdfProxy);
 
 #if !defined(OFFICIAL)
 	ijkgrid->cloneToUnstructuredGridRepresentation("42e6c090-33b2-4572-a64c-3b119f6a1f41", "Two faulted sugar cubes (unstructured)");
@@ -1049,7 +1073,10 @@ void deserialize(const string & inputFile)
     //common::EpcDocument pck(inputFile, "/home/philippe/dev/fesapi/resources");
 	string resqmlResult = pck.deserialize();
 	if (!resqmlResult.empty())
+	{
 		cerr << resqmlResult << endl;
+		return;
+	}
 
 #if !defined(OFFICIAL)
 	//deserializePropertyKindMappingFiles(&pck);
@@ -1103,6 +1130,7 @@ void deserialize(const string & inputFile)
 	std::vector<WellboreTrajectoryRepresentation*> wellboreCubicTrajSet = pck.getWellboreCubicParamLineTrajRepSet();
 	std::vector<IjkGridExplicitRepresentation*> ijkGridRepSet = pck.getIjkGridExplicitRepresentationSet();
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
+	std::vector<TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
 
 	std::cout << "FAULTS" << endl;
 	for (unsigned int i = 0; i < faultSet.size(); ++i)
@@ -1421,6 +1449,18 @@ void deserialize(const string & inputFile)
 		delete [] gridPoints;
 	}
 
+	std::cout << endl << "TIME SERIES" << endl;
+	for (unsigned int i = 0; i < timeSeriesSet.size(); ++i)
+	{
+		std::cout << "Title is : " << timeSeriesSet[i]->getTitle() << std::endl;
+		std::cout << "Guid is : " << timeSeriesSet[i]->getUuid() << std::endl;
+		for (unsigned int j = 0; j < timeSeriesSet[i]->getPropertySet().size(); ++j)
+		{
+			std::cout << "Property Title is : " << timeSeriesSet[i]->getPropertySet()[j]->getTitle() << std::endl;
+			std::cout << "Property Guid is : " << timeSeriesSet[i]->getPropertySet()[j]->getUuid() << std::endl;
+		}
+	}
+
 	std::cout << endl << pck.getWarnings().size() << " WARNING(S)" << endl;
 	for (unsigned int i = 0; i < pck.getWarnings().size(); ++i)
 		std::cout << i << " - " << pck.getWarnings()[i] << endl;
@@ -1455,7 +1495,8 @@ int main(int argc, char **argv)
 
 // filepath is defined in a macro to better check memory leak
 #define filePath "../../testingPackageCpp.epc"
-//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/jactaGrid.epc"
+//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
+//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/cvx/fully_unstructured_mesh/2014-08-22/house.epc"
 int main(int argc, char **argv)
 {
 	serialize(filePath);

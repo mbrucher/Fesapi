@@ -297,6 +297,8 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 			frontierSet.push_back(static_cast<FrontierFeature*>(proxy)); break;
 		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREOrganizationFeature :
 			organizationSet.push_back(static_cast<OrganizationFeature*>(proxy)); break;
+		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETimeSeries :
+			timeSeriesSet.push_back(static_cast<TimeSeries*>(proxy)); break;
 		}
 	}
 	resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
@@ -726,14 +728,11 @@ string EpcDocument::deserialize()
 			
 			if (wrapper)
 			{
+				addGsoapProxy(wrapper);
 				if (s->error != SOAP_OK) {
 					ostringstream oss;
 					soap_stream_fault(s, oss);
 					return oss.str() + " IN " + it->second.getExtensionOrPartName();
-				}
-				else
-				{
-					addGsoapProxy(wrapper);
 				}
 			}
 		}

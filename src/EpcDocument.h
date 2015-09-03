@@ -398,6 +398,11 @@ namespace common
 		const std::vector<resqml2_0_1::OrganizationFeature*> & getOrganizationSet() const {return organizationSet;}
 
 		/**
+		 * Get all the time series contained into the EPC document
+		 */
+		const std::vector<resqml2_0_1::TimeSeries*> & getTimeSeriesSet() const {return timeSeriesSet;}
+
+		/**
 		* Get all the Hdf proxies used with this EPC document
 		*/
 		std::vector<resqml2_0_1::AbstractHdfProxy*> getHdfProxySet() const {return hdfProxySet;}
@@ -945,6 +950,7 @@ namespace common
 		std::vector<resqml2_0_1::StratigraphicColumn*>				stratigraphicColumnSet;
 		std::vector<resqml2_0_1::FrontierFeature*>					frontierSet;
 		std::vector<resqml2_0_1::OrganizationFeature*> 				organizationSet;
+		std::vector<resqml2_0_1::TimeSeries*> 						timeSeriesSet;
 
 		resqml2_0_1::PropertyKindMapper* propertyKindMapper;
 

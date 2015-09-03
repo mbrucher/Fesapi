@@ -90,6 +90,11 @@ namespace resqml2_0_1
 		*/
 		time_t getTimestamp(const unsigned int & index) const;
 
+		/**
+		* Get all the properties which use this time series
+		*/
+		const std::vector<AbstractProperty*>& getPropertySet() const {return propertySet;}
+
 	protected:
 
 		// XML backward relationship
