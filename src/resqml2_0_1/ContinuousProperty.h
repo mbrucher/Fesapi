@@ -420,7 +420,7 @@ namespace resqml2_0_1
 				prop->MinimumValue.push_back(computedMinimumValue);
 				prop->MaximumValue.push_back(computedMaximumValue);
 			}
-			else if (minimumValue && maximumValue)
+			else if (minimumValue || maximumValue)
 			{
 				if (minimumValue)
 				{
@@ -430,7 +430,7 @@ namespace resqml2_0_1
 						prop->MinimumValue.push_back(minimumValue[i]);
 					}
 				}
-				if (minimumValue)
+				if (maximumValue)
 				{
 					prop->MaximumValue.clear();
 					for (unsigned int i = 0; i < prop->Count; i++)
