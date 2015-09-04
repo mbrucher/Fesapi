@@ -186,7 +186,7 @@ void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t * nu
 	unsigned int i = 0;
 	long minimumValue = nullValue;
 	long maximumValue = nullValue;
-	while (values[i] == nullValue) ++i;
+	while (values[i] == nullValue && i < numTotalValues) ++i;
 	if (i < numTotalValues)
 	{
 		minimumValue = values[i];

@@ -138,6 +138,44 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 	return AbstractValuesProperty::UNKNOWN; // unknwown datatype...
 }
 
+void AbstractValuesProperty::pushBackRefToExistingDataset(AbstractHdfProxy * hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset)
+{
+	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy);
+
+	gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
+
+	// XML
+	eml__Hdf5Dataset* datasetRef = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	datasetRef->HdfProxy = hdfProxy->newResqmlReference();
+	if (dataset.empty() == true)
+	{
+		std::ostringstream ossForHdf;
+		ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
+		datasetRef->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
+	}
+	else
+	{
+		datasetRef->PathInHdfFile = dataset;
+	}
+	if (isAnIntegerDataset == true)
+	{
+		gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+		xmlValues->Values = datasetRef;
+		xmlValues->NullValue = (std::numeric_limits<long>::max)();
+		patch->Values = xmlValues;
+	}
+	else
+	{
+		gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
+		xmlValues->Values = datasetRef;
+		patch->Values = xmlValues;
+	}
+			
+	prop->PatchOfValues.push_back(patch);
+}
+
 long AbstractValuesProperty::getLongValuesOfPatch(const unsigned int & patchIndex, long * values)
 {
 	if (hdfProxy == nullptr)

@@ -415,9 +415,10 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	// Properties
 	//**************
 	PropertyKind * propType1 = pck->createPropertyKind("", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
-	DiscreteProperty* discreteProp1 = pck->createDiscreteProperty(ijkgrid, "", "Two faulted sugar cubes cellIndex", 1,
+	DiscreteProperty* discreteProp1 = pck->createDiscreteProperty(ijkgrid, "ee0857fe-23ad-4dd9-8300-21fa2e9fb572", "Two faulted sugar cubes cellIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
 	long prop1Values[2] = {0,1};
+	//discreteProp1->pushBackRefToExistingDataset(hdfProxy, true);
 	discreteProp1->pushBackLongHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
 
 	//**************
@@ -1420,7 +1421,7 @@ void deserialize(const string & inputFile)
 		ijkGridRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
 		std::cout << "--------------------------------------------------" << std::endl;
 		delete [] gridPoints;
-
+		
 		for (unsigned int l = 0; l < ijkGridRepSet[i]->getPropertySet().size(); l++)
 		{
 			AbstractValuesProperty* propVal = static_cast<AbstractValuesProperty*>(ijkGridRepSet[i]->getPropertySet()[l]);

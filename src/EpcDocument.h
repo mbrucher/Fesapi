@@ -43,7 +43,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "epc/Package.h"
 
-#if defined(_WIN32) && defined(DLL)
+#if defined(_WIN32) && defined(FESAPI_DLL)
 	#ifdef DLL_EXPORTS
 		#define DLL_IMPORT_OR_EXPORT __declspec(dllexport)
 	#else
