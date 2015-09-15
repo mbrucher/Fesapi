@@ -88,20 +88,20 @@ namespace resqml2_0_1
 		std::string getPropertyKindParentAsString() const;
 
 		/**
-		* Indicates if the property type attached to this property is either from the standard catalog of Energistics or from a local property type.
+		* Indicates if the property kind attached to this property is either from the standard catalog of Energistics or from a local property kind.
 		*/
 		bool isAssociatedToOneStandardEnergisticsPropertyKind() const;
 
 		/**
-		* Getter for the energistics property type which is associated to this intance.
+		* Getter for the energistics property kind which is associated to this intance.
 		*/
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getEnergisticsPropertyKind() const;
 
 		std::string getLocalPropertyKindUuid() const;
 
 		/**
-		* Getter for the local property type which is associated to this instance.
-		* If NULL is returned then it means this instance is associated to an energistics standard property type.
+		* Getter for the local property kind which is associated to this instance.
+		* If NULL is returned then it means this instance is associated to an energistics standard property kind.
 		*/
 		class PropertyKind* getLocalPropertyKind() const {return localPropertyKind;}
 

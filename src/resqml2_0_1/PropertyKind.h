@@ -94,6 +94,24 @@ namespace resqml2_0_1
 		 */
 		std::string getParentAsString() const;
 
+		/**
+		* Indicates if the property kind which is the parent of this property kind is either from the standard catalog of Energistics or from another local property kind.
+		*/
+		bool isParentAnEnergisticsPropertyKind() const;
+
+		/**
+		* Getter for the energistics property kind which is associated to this intance.
+		*/
+		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getParentEnergisticsPropertyKind() const;
+
+		std::string getParentLocalPropertyKindUuid() const;
+
+		/**
+		* Getter for the local property kind which is the parent of this instance.
+		* If NULL is returned then it means this instance is associated to an energistics property kind.
+		*/
+		class PropertyKind* getParentLocalPropertyKind() const {return parentPropertyKind;}
+
 		//******************************************************************
 		//********** INHERITED FROM AbstractObjectWithDcMetadata ***********
 		//******************************************************************

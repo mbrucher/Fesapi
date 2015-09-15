@@ -289,26 +289,24 @@ bool AbstractProperty::isAssociatedToOneStandardEnergisticsPropertyKind() const
 
 resqml2__ResqmlPropertyKind AbstractProperty::getEnergisticsPropertyKind() const
 {
-	resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
-
 	if (isAssociatedToOneStandardEnergisticsPropertyKind())
 	{
+		resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
 		return static_cast<resqml2__StandardPropertyKind*>(prop->PropertyKind)->Kind;
 	}
 	else
-		throw invalid_argument("The property type of this property is not a standard one."); 
+		throw invalid_argument("The property kind of this property is not an Energistics one.");
 }
 
 std::string AbstractProperty::getLocalPropertyKindUuid() const
 {
-	resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
-
 	if (!isAssociatedToOneStandardEnergisticsPropertyKind())
 	{
+		resqml2__AbstractProperty* prop = static_cast<resqml2__AbstractProperty*>(gsoapProxy);
 		return static_cast<resqml2__LocalPropertyKind*>(prop->PropertyKind)->LocalPropertyKind->UUID;
 	}
 	else
-		throw invalid_argument("The property type of this property is not a local one."); 
+		throw invalid_argument("The property kind of this property is not a local one.");
 }
 
 unsigned int AbstractProperty::getElementCountPerValue() const

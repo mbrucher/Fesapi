@@ -379,15 +379,15 @@ void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
     //**************
     // Properties
     //**************
-    PropertyKind * propType1 = new PropertyKind(pck, "", "propType1", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
+    PropertyKind * propType1 = new PropertyKind(pck, "", "propType1", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
     ContinuousProperty* contProp1 = new ContinuousProperty(h1i1SingleGrid2dRep,"","Horizon1 Interp1 Grid2dRep Prop1", 2,
         gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, propType1);
     double prop1Values[16] = {301,302, 301,302, 351,352, 351,352, 301,302, 301,302, 351,352, 351,352};
     contProp1->pushBackDoubleHdf5Array1dOfValues(prop1Values, 8, hdfProxy);
 
-    PropertyKind * propType2 = new PropertyKind(pck, "", "propType2", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
+    PropertyKind * propType2 = new PropertyKind(pck, "", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
     ContinuousProperty* contProp2 = new ContinuousProperty(h1i1SingleGrid2dRep,"","Horizon1 Interp1 Grid2dRep Prop2", 1,
-        gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__ft, propType1);
+        gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__ft, propType2);
     double prop2Values[8] = {302, 302, 352, 352, 302, 302, 352, 352};
     contProp2->pushBackDoubleHdf5Array1dOfValues(prop2Values, 8, hdfProxy);
 #endif
@@ -1235,6 +1235,25 @@ void deserialize(const string & inputFile)
 		{
 			std::cout << "\tTitle is : " << propertyValuesSet[j]->getTitle() << std::endl;
 			std::cout << "\tGuid is : " << propertyValuesSet[j]->getUuid() << std::endl;
+				std::cout << "\tProperty kind is : " << propertyValuesSet[j]->getPropertyKindAsString() << std::endl;
+			if (propertyValuesSet[j]->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				std::cout << "\tProperty kind is an Energistics one" << std::endl;
+			}
+			else
+			{
+				std::cout << "\tProperty kind is not an Energistics one" << std::endl;
+				if (propertyValuesSet[j]->getLocalPropertyKind()->isParentAnEnergisticsPropertyKind() == true)
+				{
+					std::cout << "\t\tProperty kind parent is an Energistics one" << std::endl;
+					std::cout << "\t\tProperty kind parent is : " << propertyValuesSet[j]->getLocalPropertyKind()->getParentAsString() << std::endl;
+				}
+				else
+				{
+					std::cout << "\t\tProperty kind parent is not an Energistics one" << std::endl;
+					std::cout << "\t\tProperty kind parent is : " << propertyValuesSet[j]->getLocalPropertyKind()->getParentLocalPropertyKind()->getTitle() << std::endl;
+				}
+			}
 			//std::cout << "\tDatatype is : " << propertyValuesSet[j]->getValuesHdfDatatype() << std::endl;
 			std::cout << "\t--------------------------------------------------" << std::endl;
 		}
