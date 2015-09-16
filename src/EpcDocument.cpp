@@ -225,9 +225,32 @@ void EpcDocument::close()
 		delete propertyKindMapper;
 }
 
-std::string EpcDocument::getResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const
+std::string EpcDocument::getEnergisticsPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind) const
 {
-	return gsoap_resqml2_0_1::soap_resqml2__ResqmlPropertyKind2s(s, resqmlStandardPropertyKindName);
+	return gsoap_resqml2_0_1::soap_resqml2__ResqmlPropertyKind2s(s, energisticsPropertyKind);
+}
+
+gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind EpcDocument::getEnergisticsPropertyKind(const std::string & energisticsPropertyKindName) const
+{
+	gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind result;
+	if (soap_s2resqml2__ResqmlPropertyKind(s, energisticsPropertyKindName.c_str(), &result) == SOAP_OK)
+		return result;
+	else
+		return resqml2__ResqmlPropertyKind__RESQML_x0020root_x0020property;
+}
+
+std::string EpcDocument::getEnergisticsUnitOfMeasureName(const gsoap_resqml2_0_1::resqml2__ResqmlUom & energisticsUom) const
+{
+	return gsoap_resqml2_0_1::soap_resqml2__ResqmlUom2s(s, energisticsUom);
+}
+
+gsoap_resqml2_0_1::resqml2__ResqmlUom EpcDocument::getEnergisticsUnitOfMeasure(const std::string & energisticsUomName) const
+{
+	gsoap_resqml2_0_1::resqml2__ResqmlUom result;
+	if (soap_s2resqml2__ResqmlUom(s, energisticsUomName.c_str(), &result) == SOAP_OK)
+		return result;
+	else
+		return resqml2__ResqmlUom__Euc;
 }
 
 std::string EpcDocument::getWitsmlLengthUom(const gsoap_witsml1_4_1_1::witsml1__LengthUom & witsmlUom) const
@@ -248,15 +271,6 @@ std::string EpcDocument::getWitsmlMeasuredDepthUom(const gsoap_witsml1_4_1_1::wi
 std::string EpcDocument::getWitsmlPlaneAngleUom(const gsoap_witsml1_4_1_1::witsml1__PlaneAngleUom & witsmlUom) const
 {
 	return gsoap_witsml1_4_1_1::soap_witsml1__PlaneAngleUom2s(s, witsmlUom);
-}
-
-gsoap_resqml2_0_1::resqml2__ResqmlUom EpcDocument::getResqmlUnitOfMeasure(const std::string & uomName) const
-{
-	gsoap_resqml2_0_1::resqml2__ResqmlUom result;
-	if (soap_s2resqml2__ResqmlUom(s, uomName.c_str(), &result) == SOAP_OK)
-		return result;
-	else
-		return resqml2__ResqmlUom__Euc;
 }
 
 void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)

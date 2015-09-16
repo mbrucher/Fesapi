@@ -187,7 +187,7 @@ namespace resqml2_0_1
 		std::string getAliasTitle(const std::string & authority);
 
 		/**
-		* Get the count of extra metadata in the instance.
+		* Get the count of aliases in the instance.
 		*/
 		unsigned int getAliasCount() const;
 

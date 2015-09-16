@@ -262,7 +262,7 @@ std::string AbstractProperty::getPropertyKindDescription() const
 std::string AbstractProperty::getPropertyKindAsString() const
 {
 	if (isAssociatedToOneStandardEnergisticsPropertyKind()) {
-		return epcDocument->getResqmlStandardPropertyKindName(getEnergisticsPropertyKind());
+		return epcDocument->getEnergisticsPropertyKindName(getEnergisticsPropertyKind());
 	}
 	else {
 		return getLocalPropertyKind()->getTitle();

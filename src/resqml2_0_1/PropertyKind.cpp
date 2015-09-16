@@ -139,7 +139,7 @@ std::string PropertyKind::getParentAsString() const
 	else
 	{
 		_resqml2__PropertyKind* propType = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
-		return epcDocument->getResqmlStandardPropertyKindName(static_cast<resqml2__StandardPropertyKind*>(propType->ParentPropertyKind)->Kind);
+		return epcDocument->getEnergisticsPropertyKindName(static_cast<resqml2__StandardPropertyKind*>(propType->ParentPropertyKind)->Kind);
 	}
 }
 

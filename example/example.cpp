@@ -1083,6 +1083,10 @@ void deserialize(const string & inputFile)
 	//deserializePropertyKindMappingFiles(&pck);
 #endif
 
+	std::cout << "MAPPING ENUM VS STRING" << endl;
+	std::cout << "rock permeability == " << pck.getEnergisticsPropertyKindName(pck.getEnergisticsPropertyKind("rock permeability")) << std::endl;
+	std::cout << "m (meter) == " << pck.getEnergisticsUnitOfMeasureName(pck.getEnergisticsUnitOfMeasure("m")) << std::endl;
+
 	std::cout << "EXTENDED CORE PROPERTIES" << endl;
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || defined(__APPLE__)
