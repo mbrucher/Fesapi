@@ -115,14 +115,26 @@ using namespace witsml1_4_1_1;
 
 const char* EpcDocument::DOCUMENT_EXTENSION = ".epc";
 
+namespace // anonymous namespace. Use only in that file.
+{
+  resqml2_0_1::AbstractHdfProxy* default_builder(EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+  {
+    return new HdfProxy(epcDoc, guid, title, packageDirAbsolutePath, externalFilePath);
+  }
+  resqml2_0_1::AbstractHdfProxy* default_builder(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+  {
+    return new HdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath);
+  }
+}
+
 EpcDocument::EpcDocument(const string & fileName):
-		package(nullptr), s(nullptr), propertyKindMapper(nullptr)
+		package(nullptr), s(nullptr), propertyKindMapper(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
 {
 	open(fileName);
 }
 
 EpcDocument::EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory):
-	package(nullptr), s(nullptr)
+	package(nullptr), s(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
 {
 	open(fileName);
 
@@ -737,7 +749,7 @@ string EpcDocument::deserialize()
 				// Common initialization
 				gsoap_resqml2_0_1::_eml__EpcExternalPartReference* read = gsoap_resqml2_0_1::soap_new_eml__obj_USCOREEpcExternalPartReference(s, 1);
 				soap_read_eml__obj_USCOREEpcExternalPartReference(s, read);
-				wrapper = new HdfProxy(read, getStorageDirectory(), hdfRelativeFilePath);
+				wrapper = make_hdf_proxy_from_soap(read, getStorageDirectory(), hdfRelativeFilePath);
 			}
 			
 			if (wrapper)
@@ -1261,7 +1273,7 @@ AbstractHdfProxy* EpcDocument::createHdfProxy(const std::string & guid, const st
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-	return new HdfProxy(this, guid, title, packageDirAbsolutePath, externalFilePath);
+	return make_hdf_proxy(this, guid, title, packageDirAbsolutePath, externalFilePath);
 }
 
 //************************************
@@ -2099,4 +2111,14 @@ CoordinateReferenceSystem* EpcDocument::createCoordinateReferenceSystem(
 	if (getWitsmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
 	return new CoordinateReferenceSystem(this, guid, title, namingSystem, code, sourceName, dTimCreation, dTimLastChange, comments);
+}
+
+void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilder builder)
+{
+  make_hdf_proxy = builder;
+}
+
+void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilderFromSOAP builder)
+{
+  make_hdf_proxy_from_soap = builder;
 }

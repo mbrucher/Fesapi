@@ -147,6 +147,16 @@ namespace common
 
 		~EpcDocument();
 
+		// A function pointer definition which allows to build an abstract hdf proxy in writing mode of an epc document
+		typedef resqml2_0_1::AbstractHdfProxy* (HdfProxyBuilder)(EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		// A function pointer which allows to build an abstract hdf proxy in reading mode of an epc document
+		typedef resqml2_0_1::AbstractHdfProxy* (HdfProxyBuilderFromSOAP)(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+
+		// Allows a fesapi user to set a different builder of Hdf Proxy than the default one in writing mode of an epc document
+		// This is especially useful when the fesapi users wants to use its own builder for example.
+		void set_hdf_proxy_builder(HdfProxyBuilder builder);
+		void set_hdf_proxy_builder(HdfProxyBuilderFromSOAP builder);
+
 		/**
 		 * Open an epc document
 		 * @return	false if the epc document cannot be opened for example if it is already opened.
@@ -967,6 +977,9 @@ namespace common
 		resqml2_0_1::PropertyKindMapper* propertyKindMapper;
 
 		std::vector<std::string> warnings;
+
+		HdfProxyBuilder* make_hdf_proxy; // the builder for HDF proxy in writing mode of the epc document
+		HdfProxyBuilderFromSOAP* make_hdf_proxy_from_soap; // the builder for HDF proxy in reading mode of the epc document
 	};
 }
 
