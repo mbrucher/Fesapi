@@ -74,7 +74,7 @@ namespace resqml2_0_1
 		/**
 		* Get the cell index pair count of this grid connection representation
 		*/
-		void getCellIndexPair(unsigned int * cellIndexPair) const;
+		void getCellIndexPairs(unsigned int * cellIndexPairs) const;
 
 		/**
 		* Get the cell index pairs count which correspond to a particular fault interpretation.
@@ -83,10 +83,13 @@ namespace resqml2_0_1
 		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
 
 		/**
-		* Get the cell index pairs which correspond to a particular fault interpretation.
-		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		* Get the cell index pairs, the grid index pairs (optional) and the local face pairs (optional) which correspond to a particular fault interpretation.
+		* @param cellIndexPairs			Mandatory. Must be allocated with getCellIndexPairCountFromFaultIndex first.
+		* @param gridIndexPairs			Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromFaultIndex first.
+		* @param localFaceIndexPairs	Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromFaultIndex first.
+		* @param faultIndex				The index of the fault in the collection of feature interpretation of this grid connection set.
 		*/
-		void getCellIndexPairFromFaultIndex(unsigned int * cellIndexPair, const unsigned int & faultIndex) const;
+		void getGridConnectionSetInformationFromFaultIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & faultIndex) const;
 
 		/**
 		* Get the UUID of a particular fault interpretation of this grid connection set.
@@ -106,16 +109,38 @@ namespace resqml2_0_1
 		unsigned int getFaultInterpretationCount() const;
 
 		/**
-		* Set the cell index paris of the grid connections representation
+		* Indicates if the grid connection set representation contains information on the connected faces of the two cells.
+		*/
+		bool hasLocalFacePerCell() const;
+
+		/**
+		* Get the local face cell index pairs of this grid connection representation
+		* The count of localFacePerCellIndexPairs must be getCellIndexPairCount()*2.
+		*/
+		void getLocalFacePerCellIndexPairs(int * localFacePerCellIndexPairs) const;
+
+		/**
+		* Indicates if the grid connection set representation is based on several grids.
+		*/
+		bool isBasedOnMultiGrids() const;
+
+		/**
+		* Get the grid index pairs of this grid connection representation
+		* The count of gridIndexPairs must be getCellIndexPairCount()*2.
+		*/
+		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
+
+		/**
+		* Set the cell index pairs of the grid connections representation
         * @param cellIndexPairCount	The count of cell index pair. It is half of all the stored numerical values.
         * @param cellIndexPair		All the cell index pair in a 1d Array where the cell indices go faster than the pair.
         * @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
 		*/
-		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, class AbstractHdfProxy * proxy);
+		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, class AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 
-		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, class AbstractHdfProxy * proxy);
+		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 	
 		/**
 		 * Set the grid representation which is the support of this representation.

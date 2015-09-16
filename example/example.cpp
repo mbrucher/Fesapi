@@ -395,6 +395,9 @@ void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 
 void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 {
+	OrganizationFeature * earthModel = pck->createEarthModel("", "Grid");
+	EarthModelInterpretation * earthModelInterp = pck->createEarthModelInterpretation(earthModel, "", "Grid interp");
+
 	// ONE SUGAR
 	IjkGridExplicitRepresentation* singleCellIjkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "One unfaulted sugar cube", 1, 1, 1);
 	double singleCellIjkgridNodes[24] = {0,0,300, 700,0,350, 0,150,300, 700,150,350,
@@ -410,6 +413,15 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	unsigned int splitCoordinateLineColumns[2] = {1,1};
 	ijkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
+
+	//**************
+	// Grid Connection
+	//**************
+	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, local3dCrs, "", "GridConnectionSetRepresentation", ijkgrid);
+	unsigned int cellConn[2] = {0,1};
+	gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
+	//unsigned int faultIndices = 0;
+	//gridConnSet->setConnectionFaultNames(&faultIndices, 1, 9999, hdfProxy);
 
 	//**************
 	// Properties

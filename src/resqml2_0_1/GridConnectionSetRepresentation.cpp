@@ -143,8 +143,11 @@ unsigned int GridConnectionSetRepresentation::getCellIndexPairCountFromFaultInde
 			unsigned int * faultIndices = new unsigned int[faultIndexCount];
 
 			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faultIndices);
-			for (unsigned int i = 0; i < faultIndexCount; ++i)
-				if (faultIndices[i] == faultIndex) result++;
+			for (unsigned int i = 0; i < faultIndexCount; ++i) {
+				if (faultIndices[i] == faultIndex) {
+					result++;
+				}
+			}
 
 			delete [] faultIndices;
 		}
@@ -159,53 +162,82 @@ unsigned int GridConnectionSetRepresentation::getCellIndexPairCountFromFaultInde
 	return result;
 }
 
-void GridConnectionSetRepresentation::getCellIndexPairFromFaultIndex(unsigned int * cellIndexPair, const unsigned int & faultIndex) const
+void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & faultIndex) const
 {
 	unsigned int result = 0;
 
-	unsigned int * totalCellIndexPair = new unsigned int[getCellIndexPairCount()];
-	getCellIndexPair(totalCellIndexPair);
+	//load global information into memory
+	unsigned int totalCellIndexPairCount = getCellIndexPairCount();
+	unsigned int * totalCellIndexPairs = new unsigned int[totalCellIndexPairCount*2];
+	getCellIndexPairs(totalCellIndexPairs);
+	unsigned int * totalGridIndexPairs = NULL;
+	if (gridIndexPairs != NULL)
+	{
+		totalGridIndexPairs = new unsigned int[totalCellIndexPairCount*2];
+		getGridIndexPairs(totalGridIndexPairs);
+	}
+	int * totalLocalFaceIndexPairs = NULL;
+	if (localFaceIndexPairs != NULL)
+	{
+		totalLocalFaceIndexPairs = new int[totalCellIndexPairCount*2];
+		getLocalFacePerCellIndexPairs(totalLocalFaceIndexPairs);
+	}
 
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 
 	if (rep->ConnectionInterpretations)
 	{
-		unsigned int * faultIndices = NULL;
-		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-		{
-			unsigned int faultIndexCount = hdfProxy->getElementCount(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile);
-			faultIndices = new unsigned int[faultIndexCount];
-			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faultIndices);
-		}
-		else
-		{
-			delete [] totalCellIndexPair;
-			throw std::logic_error("Not yet implemented");
-		}
-
+		// Get the fault indices information
 		unsigned int * cumulativeCount = NULL;
 		if (rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
-			cumulativeCount = new unsigned int[getCellIndexPairCount()];
+			cumulativeCount = new unsigned int[totalCellIndexPairCount];
 			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength)->Values->PathInHdfFile, cumulativeCount);
 		}
 		else
 		{
-			delete [] totalCellIndexPair;
-			delete [] faultIndices;
+			if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
+			if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+			delete [] totalCellIndexPairs;
 			throw std::logic_error("Not yet implemented");
 		}
 
+		unsigned int * faultIndices = NULL;
+		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			faultIndices = new unsigned int[cumulativeCount[totalCellIndexPairCount-1]];
+			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faultIndices);
+		}
+		else
+		{
+			delete [] cumulativeCount;
+			if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
+			if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+			delete [] totalCellIndexPairs;
+			throw std::logic_error("Not yet implemented");
+		}
+
+		// Based on the fault indices information, construct the required subset of information
 		unsigned int cellIndexPairIndex = 0;
 		unsigned int j = 0;
-		for (unsigned int i = 0; i < getCellIndexPairCount(); ++i)
+		for (unsigned int i = 0; i < totalCellIndexPairCount; ++i)
 		{
 			for (; j < cumulativeCount[i]; ++j)
 			{
 				if (faultIndices[j] == faultIndex)
 				{
-					cellIndexPair[cellIndexPairIndex*2] = totalCellIndexPair[i*2];
-					cellIndexPair[cellIndexPairIndex*2+1] = totalCellIndexPair[i*2+1];
+					cellIndexPairs[cellIndexPairIndex*2] = totalCellIndexPairs[i*2];
+					cellIndexPairs[cellIndexPairIndex*2+1] = totalCellIndexPairs[i*2+1];
+					if (gridIndexPairs != NULL)
+					{
+						gridIndexPairs[cellIndexPairIndex*2] = totalGridIndexPairs[i*2];
+						gridIndexPairs[cellIndexPairIndex*2+1] = totalGridIndexPairs[i*2+1];
+					}
+					if (localFaceIndexPairs != NULL)
+					{
+						localFaceIndexPairs[cellIndexPairIndex*2] = totalLocalFaceIndexPairs[i*2];
+						localFaceIndexPairs[cellIndexPairIndex*2+1] = totalLocalFaceIndexPairs[i*2+1];
+					}
 					++cellIndexPairIndex;
 					break;
 				}
@@ -217,11 +249,15 @@ void GridConnectionSetRepresentation::getCellIndexPairFromFaultIndex(unsigned in
 	}
 	else
 	{
-		delete [] totalCellIndexPair;
+		if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
+		if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+		delete [] totalCellIndexPairs;
 		throw invalid_argument("The grid connection does not contain any fault association."); 
 	}
 	
-	delete [] totalCellIndexPair;
+	if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
+	if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+	delete [] totalCellIndexPairs;
 }
 
 std::string GridConnectionSetRepresentation::getFaultInterpretationUuidFromFaultIndex(const unsigned int & faultIndex) const
@@ -295,13 +331,54 @@ unsigned int GridConnectionSetRepresentation::getFaultInterpretationCount() cons
 	}
 }
 
-void GridConnectionSetRepresentation::getCellIndexPair(unsigned int * cellIndexPair) const
+void GridConnectionSetRepresentation::getCellIndexPairs(unsigned int * cellIndexPairs) const
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 
 	if (rep->CellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
-		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->CellIndexPairs)->Values->PathInHdfFile, cellIndexPair);
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->CellIndexPairs)->Values->PathInHdfFile, cellIndexPairs);
+	}
+	else
+		throw std::logic_error("Not yet implemented");
+}
+
+bool GridConnectionSetRepresentation::isBasedOnMultiGrids() const 
+{
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->GridIndexPairs != NULL && 
+		static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Grid.size() > 1;
+}
+
+void GridConnectionSetRepresentation::getGridIndexPairs(unsigned int * gridIndexPairs) const
+{
+	if (isBasedOnMultiGrids() == false)
+		throw std::invalid_argument("This representation has no multiple grid support.");
+
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+
+	if (rep->GridIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->GridIndexPairs)->Values->PathInHdfFile, gridIndexPairs);
+	}
+	else
+		throw std::logic_error("Not yet implemented");
+}
+
+bool GridConnectionSetRepresentation::hasLocalFacePerCell() const
+{
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->LocalFacePerCellIndexPairs != NULL;
+}
+
+void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(int * localFaceCellIndexPairs) const
+{
+	if (hasLocalFacePerCell() == false)
+		throw std::invalid_argument("This representation has no local face per cell.");
+
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+
+	if (rep->LocalFacePerCellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->LocalFacePerCellIndexPairs)->Values->PathInHdfFile, localFaceCellIndexPairs);
 	}
 	else
 		throw std::logic_error("Not yet implemented");

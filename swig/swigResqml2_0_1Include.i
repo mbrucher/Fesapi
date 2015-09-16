@@ -1033,8 +1033,12 @@ namespace resqml2_0_1
 		unsigned int getCellIndexPairCount() const;
 		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
 		
-		void getCellIndexPair(unsigned int * cellIndexPair) const;
-		void getCellIndexPairFromFaultIndex(unsigned int * cellIndexPair, const unsigned int & faultIndex) const;
+		void getCellIndexPairs(unsigned int * cellIndexPairs) const;
+		void getGridConnectionSetInformationFromFaultIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & faultIndex) const;
+		bool hasLocalFacePerCell() const;
+		void getLocalFacePerCellIndexPairs(int * localFacePerCellIndexPairs) const;
+		bool isBasedOnMultiGrids() const;
+		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
 		
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
