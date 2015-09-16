@@ -85,11 +85,12 @@ namespace resqml2_0_1
 		void getFacesOfCells(unsigned int * faceIndices) const;
 
 		/**
-		* Get the face count par cell.
+		* Get the cumulative face count per cell. First value is the count of faces in the first cell.
+		* Second value is the count of faces in the first and in the second cell. Third value is the count of faces in the first and in the second and in the third cell. Etc...
 		* Count of this array is equal to getCellCount()
 		* A single face count should be at least 4.
 		*/
-		void getFaceCountOfCells(unsigned int * faceCountPerCell) const;
+		void getCumulativeFaceCountOfCells(unsigned int * faceCountPerCell) const;
 
 		/**
 		* Detect if the face count per cell is constant in the grid.
@@ -108,11 +109,12 @@ namespace resqml2_0_1
 		void getNodesOfFaces(unsigned int * nodeIndices) const;
 
 		/**
-		* Get the face count par cell.
+		* Get the cumulative node count per face. First value is the count of nodes in the first face.
+		* Second value is the count of nodes in the first and in the second face. Third value is the count of nodes in the first and in the second and in the third face. Etc...
 		* Count of this array is equal to getFaceCount()
 		* A single node count should be at least 3.
 		*/
-		void getNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
+		void getCumulativeNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
 
 		/**
 		* Detect if the node count per face is constant in the grid.

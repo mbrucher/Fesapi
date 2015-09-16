@@ -909,9 +909,9 @@ namespace resqml2_0_1
 	public:
 		unsigned int getFaceCount() const;
 		void getFacesOfCells(unsigned int * faceIndices) const;
-		void getFaceCountOfCells(unsigned int * faceCountPerCell) const;
+		void getCumulativeFaceCountOfCells(unsigned int * faceCountPerCell) const;
 		void getNodesOfFaces(unsigned int * nodeIndices) const;
-		void getNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
+		void getCumulativeNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
 		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy,
 				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
 				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
