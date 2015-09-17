@@ -86,17 +86,17 @@ string Grid2dRepresentation::getHdfProxyUuid() const
 	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
 }
 
-unsigned int Grid2dRepresentation::getNodeCountAlongIAxis() const
+ULONG64 Grid2dRepresentation::getNodeCountAlongIAxis() const
 {
 	return static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy)->Grid2dPatch->FastestAxisCount;
 }
 
-unsigned int Grid2dRepresentation::getNodeCountAlongJAxis() const
+ULONG64 Grid2dRepresentation::getNodeCountAlongJAxis() const
 {
 	return static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy)->Grid2dPatch->SlowestAxisCount;
 }
 
-unsigned int Grid2dRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 Grid2dRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 	{

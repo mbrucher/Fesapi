@@ -461,7 +461,7 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 	}
 }
 
-unsigned int GridConnectionSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 GridConnectionSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	throw logic_error("Not yet implemented.");
 }

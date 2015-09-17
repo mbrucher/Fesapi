@@ -74,7 +74,7 @@ namespace resqml2_0_1
         /**
 		* Get the xyz point count in a given patch.
 		*/
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const {return getNodeCountAlongIAxis(patchIndex) * getNodeCountAlongJAxis(patchIndex);}
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const {return getNodeCountAlongIAxis(patchIndex) * getNodeCountAlongJAxis(patchIndex);}
 
 		/**
 		 * Get the number of patches

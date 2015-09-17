@@ -113,7 +113,7 @@ namespace resqml2_0_1
 		/**
 		* Get the xyz point count in a given patch.
 		*/
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
 		 * @param points		The points which constitute the polyline. Ordered by XYZ and then points.

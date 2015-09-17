@@ -172,7 +172,7 @@ namespace resqml2_0_1
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
 
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
 		* Always return one since this representation does not contain patches.

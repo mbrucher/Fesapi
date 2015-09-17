@@ -76,7 +76,7 @@ namespace resqml2_0_1
 		/**
 		* Get the xyz point count in a given patch.
 		*/
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
 		 * Get all the faces of all the cells.
@@ -129,17 +129,17 @@ namespace resqml2_0_1
 		/**
 		 * Get the cell count
 		 */
-		unsigned int getCellCount() const;
+		ULONG64 getCellCount() const;
 
 		/**
 		 * Get the face count
 		 */
-		unsigned int getFaceCount() const;
+		ULONG64 getFaceCount() const;
 
 		/**
 		 * Get the node count
 		 */
-		unsigned int getNodeCount() const;
+		ULONG64 getNodeCount() const;
 
 		/**
 		 * Set the geometry

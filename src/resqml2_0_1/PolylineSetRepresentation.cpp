@@ -267,9 +267,9 @@ void PolylineSetRepresentation::getNodeCountPerPolylineOfAllPatches(unsigned int
 	}
 }
 
-unsigned int PolylineSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 PolylineSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	unsigned int NodeCount = 0;
+	ULONG64 NodeCount = 0;
 
 	unsigned int polylineCount = getPolylineCountOfPatch(patchIndex);
 	unsigned int* NodeCountPerPolyline = new unsigned int[polylineCount];

@@ -80,7 +80,7 @@ vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() c
 	return result;
 }
 
-unsigned int RepresentationSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 RepresentationSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	throw logic_error("Not yet implemented.");
 }

@@ -68,12 +68,12 @@ string IjkGridExplicitRepresentation::getHdfProxyUuid() const
 	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
 }
 
-unsigned int IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 	{
 		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
-		unsigned int result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
+		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
 
 		if (ijkGrid->Geometry->SplitCoordinateLines != NULL)
 		{

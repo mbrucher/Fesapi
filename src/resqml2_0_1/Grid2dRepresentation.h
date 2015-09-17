@@ -79,17 +79,17 @@ namespace resqml2_0_1
 		/**
 		* Get the number of nodes in the I direction of the lattice 2d grid
 		*/
-		unsigned int getNodeCountAlongIAxis() const;
+		ULONG64 getNodeCountAlongIAxis() const;
 
 		/**
 		* Get the number of nodes in the J direction of the lattice 2d grid
 		*/
-		unsigned int getNodeCountAlongJAxis() const;
+		ULONG64 getNodeCountAlongJAxis() const;
 
 		/**
 		* Get the xyz point count in a given patch.
 		*/
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
 		* Get all the z values of a patch located at a specific index of the geometry points.

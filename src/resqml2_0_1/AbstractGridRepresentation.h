@@ -80,7 +80,7 @@ namespace resqml2_0_1
 		/**
 		* Get the count of (volumic) cells in the grid.
 		*/
-		virtual unsigned int getCellCount() const = 0;
+		virtual ULONG64 getCellCount() const = 0;
 
 	private:
 

@@ -84,7 +84,7 @@ namespace resqml2_0_1
 		* Get the xyz point count in a given patch.
 		* @param patchIndex	The index of the patch of the representation.
 		*/
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
         /**
 		* Get the triangle count in a given patch

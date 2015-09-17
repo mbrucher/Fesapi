@@ -92,7 +92,7 @@ resqml2__PointGeometry* PointSetRepresentation::getPointGeometry(const unsigned 
 		return NULL;
 }
 
-unsigned int PointSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 PointSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (patchIndex < static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.size())
 		return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch[patchIndex]->Count;

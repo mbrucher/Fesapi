@@ -240,7 +240,7 @@ void WellboreTrajectoryRepresentation::addParentTrajectory(const double & kickof
 	rep->ParentIntersection->ParentTrajectory = parentTrajRep->newResqmlReference();
 }
 
-unsigned int WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (patchIndex != 0)
 		return 0;

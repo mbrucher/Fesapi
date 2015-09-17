@@ -100,7 +100,7 @@ void PlaneSetRepresentation::pushBackTiltedPlaneGeometryPatch(
 	static_cast<_resqml2__PlaneSetRepresentation*>(gsoapProxy)->Planes.push_back(patch);
 }
 
-unsigned int PlaneSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 PlaneSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	_resqml2__PlaneSetRepresentation* rep = static_cast<_resqml2__PlaneSetRepresentation*>(gsoapProxy);
 	if (rep->Planes[patchIndex]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__HorizontalPlaneGeometry)

@@ -207,7 +207,7 @@ gsoap_resqml2_0_1::resqml2__IndexableElements SubRepresentation::getElementKindO
 		throw invalid_argument("The patch does not exist at this index.");
 }
 
-unsigned int SubRepresentation::getElementCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 SubRepresentation::getElementCountOfPatch(const unsigned int & patchIndex) const
 {
 	_resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
 	if (rep->SubRepresentationPatch.size() > patchIndex)
@@ -260,7 +260,7 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 	}
 }
 
-unsigned int SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (getElementKindOfPatch(patchIndex, 0) == resqml2__IndexableElements__nodes)
 		return getElementCountOfPatch(patchIndex);

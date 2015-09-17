@@ -105,7 +105,7 @@ namespace resqml2_0_1
 		/**
 		* Get the count of cells in the grid
 		*/
-		unsigned int getCellCount() const {return getICellCount() * getJCellCount() * getKCellCount();}
+		ULONG64 getCellCount() const {return getICellCount() * getJCellCount() * getKCellCount();}
 
 		/**
 		* Get the count of columns in the grid
@@ -224,7 +224,7 @@ namespace resqml2_0_1
 
 		virtual geometryKind getGeometryKind() const { return geometryKind::UNKNOWN; }
 		virtual std::string getHdfProxyUuid() const { return NULL; }
-		virtual unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const { return 0; }
+		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const { return 0; }
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

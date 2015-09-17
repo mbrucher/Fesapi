@@ -209,12 +209,12 @@ namespace resqml2_0_1
 		/**
 		* Get the xyz point count in a given patch.
 		*/
-		virtual unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const = 0;
+		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const = 0;
 
         /**
 		* Get the xyz point count of all patches of this representation.
 		*/
-		unsigned int getXyzPointCountOfAllPatches() const;
+		ULONG64 getXyzPointCountOfAllPatches() const;
 
 		/**
 		* Get all the XYZ points of a particular patch of this representation.

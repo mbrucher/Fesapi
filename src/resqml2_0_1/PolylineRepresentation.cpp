@@ -112,7 +112,7 @@ resqml2__PointGeometry* PolylineRepresentation::getPointGeometry(const unsigned 
 		return NULL;
 }
 
-unsigned int PolylineRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 PolylineRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 	{

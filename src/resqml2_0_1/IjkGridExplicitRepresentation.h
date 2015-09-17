@@ -69,7 +69,7 @@ namespace resqml2_0_1
 		/**
 		* Get the xyz point count in a given patch.
 		*/
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
 		* Set the geometry of the IJK grid as explicit coordinate line nodes

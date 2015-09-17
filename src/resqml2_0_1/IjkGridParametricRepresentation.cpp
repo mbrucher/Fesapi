@@ -427,12 +427,12 @@ string IjkGridParametricRepresentation::getHdfProxyUuid() const
 		throw std::logic_error("Not yet implemented");
 }
 
-unsigned int IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 	{
 		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
-		unsigned int result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
+		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
 
 		if (ijkGrid->Geometry->SplitCoordinateLines != NULL)
 		{
@@ -658,7 +658,7 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & p
 		if (pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
 		{
 			resqml2__Point3dParametricArray* parametricPoint3d = static_cast<resqml2__Point3dParametricArray*>(pointGeom->Points);
-			unsigned int xyzPointCount = getXyzPointCountOfPatch(patchIndex);
+			ULONG64 xyzPointCount = getXyzPointCountOfPatch(patchIndex);
 
 			// parameters : ordered
 			double * parameters = new double[xyzPointCount];

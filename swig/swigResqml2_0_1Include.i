@@ -62,8 +62,8 @@
 #include "resqml2_0_1/HdfProxy.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
 %}
-
-typedef long long 		time_t;
+typedef long long					ULONG64; // Does not need unsigned value in managed language.
+typedef long long 				time_t;
 typedef unsigned long long 	hsize_t;
 
 
@@ -623,8 +623,8 @@ namespace resqml2_0_1
 		unsigned int getFaultSubRepresentationCount() const;
 		SubRepresentation* getFaultSubRepresentation(const unsigned int & index) const;
 
-		virtual unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const = 0;
-		unsigned int getXyzPointCountOfAllPatches() const;
+		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const = 0;
+		ULONG64 getXyzPointCountOfAllPatches() const;
 		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 		void getXyzPointsOfPatchInGlobalCrs(const unsigned int & patchIndex, double * xyzPoints) const;
 		void getXyzPointsOfAllPatches(double * xyzPoints) const;
@@ -656,7 +656,7 @@ namespace resqml2_0_1
 		bool isElementPairBased(const unsigned int & patchIndex) const;
 		
 		gsoap_resqml2_0_1::resqml2__IndexableElements getElementKindOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const;
-		unsigned int getElementCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getElementCountOfPatch(const unsigned int & patchIndex) const;
 		void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, unsigned int * elementIndices) const;
 	};
 
@@ -725,8 +725,8 @@ namespace resqml2_0_1
 	class Grid2dRepresentation : public AbstractSurfaceRepresentation
 	{
 	public:
-		unsigned int getNodeCountAlongIAxis() const;
-		unsigned int getNodeCountAlongJAxis() const;
+		ULONG64 getNodeCountAlongIAxis() const;
+		ULONG64 getNodeCountAlongJAxis() const;
 		
 		double getXOrigin() const;
 		double getYOrigin() const;
@@ -894,7 +894,7 @@ namespace resqml2_0_1
 	public:
 		unsigned int getGridConnectionSetRepresentationCount() const;
 		GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
-		virtual unsigned int getCellCount() const = 0;
+		virtual ULONG64 getCellCount() const = 0;
 	};
 
 	class AbstractColumnLayerGridRepresentation : public AbstractGridRepresentation
@@ -907,7 +907,7 @@ namespace resqml2_0_1
 	class UnstructuredGridRepresentation : public AbstractGridRepresentation
 	{
 	public:
-		unsigned int getFaceCount() const;
+		ULONG64 getFaceCount() const;
 		void getFacesOfCells(unsigned int * faceIndices) const;
 		void getCumulativeFaceCountOfCells(unsigned int * faceCountPerCell) const;
 		void getNodesOfFaces(unsigned int * nodeIndices) const;

@@ -114,7 +114,7 @@ namespace resqml2_0_1
 		/**
 		* Get the xyz point count in a given patch.
 		*/
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
 		* Getter of the md double values associated to each trajectory station of this WellboreFeature trajectory representation.

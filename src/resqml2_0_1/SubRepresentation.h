@@ -97,7 +97,7 @@ namespace resqml2_0_1
 		/**
 		* Get the count of the selected elements for a particular patch of this subrepresentation.
 		*/
-		unsigned int getElementCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getElementCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
 		* Get the indices of the selected elements in the supporting representation for a particular patch of this subrepresentation.
@@ -124,7 +124,7 @@ namespace resqml2_0_1
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
 
-		unsigned int getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		unsigned int getPatchCount() const;
 

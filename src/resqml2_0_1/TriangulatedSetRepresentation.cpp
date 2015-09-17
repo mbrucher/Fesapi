@@ -124,7 +124,7 @@ void TriangulatedSetRepresentation::pushBackTrianglePatch(
 		dim, 2);
 }
 
-unsigned int TriangulatedSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 TriangulatedSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	_resqml2__TriangulatedSetRepresentation* triRep = static_cast<_resqml2__TriangulatedSetRepresentation*>(gsoapProxy);
 	

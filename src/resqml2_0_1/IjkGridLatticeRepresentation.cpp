@@ -108,7 +108,7 @@ string IjkGridLatticeRepresentation::getHdfProxyUuid() const
 	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
 }
 
-unsigned int IjkGridLatticeRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+ULONG64 IjkGridLatticeRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 	{
