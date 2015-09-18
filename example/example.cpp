@@ -1163,7 +1163,7 @@ void deserialize(const string & inputFile)
 		std::cout << "Title is : " << faultPolyRep[i]->getTitle() << std::endl;
 		std::cout << "Guid is : " << faultPolyRep[i]->getUuid() << std::endl;
 		std::cout << "--------------------------------------------------" << std::endl;
-		unsigned int nodeCount = faultPolyRep[i]->getXyzPointCountOfAllPatches();
+		ULONG64 nodeCount = faultPolyRep[i]->getXyzPointCountOfAllPatches();
 		double* allXyzPoints = new double[nodeCount * 3];
 		faultPolyRep[i]->getXyzPointsOfAllPatchesInGlobalCrs(allXyzPoints);
 		for (unsigned int nodeIndex = 0; nodeIndex < nodeCount * 3; nodeIndex += 3)
@@ -1198,7 +1198,7 @@ void deserialize(const string & inputFile)
 		std::cout << "Guid is : " << faultTriRepSet[i]->getUuid() << std::endl;
 		std::cout << "--------------------------------------------------" << std::endl;
 
-		unsigned int pointCount = faultTriRepSet[i]->getXyzPointCountOfAllPatches();
+		ULONG64 pointCount = faultTriRepSet[i]->getXyzPointCountOfAllPatches();
 		unsigned int triangleCount = faultTriRepSet[i]->getTriangleCountOfAllPatches();
 		cout << "point Count " << pointCount << endl;
 		cout << "triangle Count " << triangleCount << endl;
@@ -1283,7 +1283,7 @@ void deserialize(const string & inputFile)
 		std::cout << "Guid is : " << horizonTriRepSet[i]->getUuid() << std::endl;
 		std::cout << "--------------------------------------------------" << std::endl;
 
-		unsigned int pointCount = horizonTriRepSet[i]->getXyzPointCountOfAllPatches();
+		ULONG64 pointCount = horizonTriRepSet[i]->getXyzPointCountOfAllPatches();
 		unsigned int triangleCount = horizonTriRepSet[i]->getTriangleCountOfAllPatches();
 		cout << "point Count " << pointCount << endl;
 		cout << "triangle Count " << triangleCount << endl;

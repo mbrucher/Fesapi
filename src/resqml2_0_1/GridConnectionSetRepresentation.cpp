@@ -125,7 +125,60 @@ string GridConnectionSetRepresentation::getHdfProxyUuid() const
 	return "";
 }
 
-unsigned int GridConnectionSetRepresentation::getCellIndexPairCount() const
+bool GridConnectionSetRepresentation::isAssociatedToFaults() const
+{
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->ConnectionInterpretations != NULL;
+}
+
+void GridConnectionSetRepresentation::getFaultIndexCumulativeCount(unsigned int * cumulativeCount) const
+{
+	if (isAssociatedToFaults() == true)
+	{		
+		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+		if (rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength)->Values->PathInHdfFile, cumulativeCount);
+		}
+		else
+			throw std::logic_error("Not yet implemented");
+	}
+	else
+		throw std::invalid_argument("There are no fault associated to the cell connections.");
+}
+
+void GridConnectionSetRepresentation::getFaultIndices(unsigned int * faultIndices) const 
+{
+	if (isAssociatedToFaults() == true)
+	{
+		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, faultIndices);
+		}
+		else
+			throw std::logic_error("Not yet implemented");
+	}
+	else
+		throw std::invalid_argument("There are no fault associated to the cell connections.");
+}
+
+LONG64 GridConnectionSetRepresentation::getFaultIndexNullValue() const
+{
+	if (isAssociatedToFaults() == true)
+	{
+		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			return static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->NullValue;
+		}
+		else
+			throw std::logic_error("Not yet implemented");
+	}
+	else
+		throw std::invalid_argument("There are no fault associated to the cell connections.");
+}
+
+ULONG64 GridConnectionSetRepresentation::getCellIndexPairCount() const
 {
 	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Count;
 }

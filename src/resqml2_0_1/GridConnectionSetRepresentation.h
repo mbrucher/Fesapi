@@ -69,7 +69,7 @@ namespace resqml2_0_1
 		/**
 		* Get the cell index pair count of this grid connection representation
 		*/
-		unsigned int getCellIndexPairCount() const;
+		ULONG64 getCellIndexPairCount() const;
 
 		/**
 		* Get the cell index pair count of this grid connection representation
@@ -81,6 +81,28 @@ namespace resqml2_0_1
 		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
 		*/
 		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
+
+		/**
+		* Indicates wether the cell connection are associated to faults or not.
+		*/
+		bool isAssociatedToFaults() const;
+
+		/**
+		* Get the fault index cumulative count of this grid connection representation
+		* The count of localFacePerCellIndexPairs must be getCellIndexPairCount().
+		*/
+		void getFaultIndexCumulativeCount(unsigned int * cumulativeCount) const;
+
+		/**
+		* Get the fault indices of this grid connection representation
+		* The count of faultIndices is the last value of the array returning by getFaultIndexCumulativeCount.
+		*/
+		void getFaultIndices(unsigned int * faultIndices) const;
+
+		/**
+		* Returns the null value for fault index.
+		*/
+		LONG64 getFaultIndexNullValue() const;
 
 		/**
 		* Get the cell index pairs, the grid index pairs (optional) and the local face pairs (optional) which correspond to a particular fault interpretation.

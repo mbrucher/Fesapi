@@ -62,7 +62,14 @@
 #include "resqml2_0_1/HdfProxy.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
 %}
-typedef long long					ULONG64; // Does not need unsigned value in managed language.
+typedef long long					LONG64;
+
+#ifdef SWIGJAVA
+typedef long long					ULONG64; // We don't want o use BigInteger in java.
+#else
+typedef unsigned long long	ULONG64;
+#endif
+
 typedef long long 				time_t;
 typedef unsigned long long 	hsize_t;
 
@@ -1030,7 +1037,12 @@ namespace resqml2_0_1
 	class GridConnectionSetRepresentation : public AbstractRepresentation
 	{
 	public:
-		unsigned int getCellIndexPairCount() const;
+		bool isAssociatedToFaults() const;
+		void getFaultIndexCumulativeCount(unsigned int * cumulativeCount) const;
+		void getFaultIndices(unsigned int * faultIndices) const;
+		LONG64 getFaultIndexNullValue() const;
+	
+		ULONG64 getCellIndexPairCount() const;
 		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
 		
 		void getCellIndexPairs(unsigned int * cellIndexPairs) const;
