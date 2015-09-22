@@ -276,16 +276,21 @@ void IjkGridParametricRepresentation::getParametricLineKind(short * pillarKind, 
 		if (paramLineArray->LineKindIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
 			hdfProxy->readArrayNdOfShortValues(static_cast<resqml2__IntegerHdf5Array*>(paramLineArray->LineKindIndices)->Values->PathInHdfFile, pillarKind);
-		} else if (paramLineArray->LineKindIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
+		}
+		else if (paramLineArray->LineKindIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
 		{
-			const unsigned int value = 
+			const LONG64 value =
 				static_cast<resqml2__IntegerConstantArray*>(paramLineArray->LineKindIndices)->Value;
-			const unsigned int lineKindCount = 
+			const ULONG64 lineKindCount =
 				static_cast<resqml2__IntegerConstantArray*>(paramLineArray->LineKindIndices)->Count;
-			if( lineKindCount != ((getICellCount() + 1) * (getJCellCount() + 1)) ) {
-				throw invalid_argument("3D Grid not initialized properly.");
+			if( lineKindCount != getPillarCount() )
+			{
+				throw invalid_argument("The parametric line kind count is inconsistent with the pillar count.");
 			}
-			std::fill(pillarKind, pillarKind+lineKindCount, value);
+			for (unsigned int i = 0; i < lineKindCount; ++i)
+			{
+				pillarKind[i] = (short)value;
+			}
 		}
 		else
 			throw std::logic_error("Not yet implemented");
@@ -447,19 +452,17 @@ ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned 
 
 void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
-			unsigned char* cellGeomIsDefined)
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy)
 {
 	setGeometryAsParametricSplittedPillarNodes(mostComplexPillarGeometry, kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, pillarKind, proxy,
-		0, NULL, NULL, NULL, cellGeomIsDefined);
+		0, NULL, NULL, NULL);
 }
 
 void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
-			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns,
-			unsigned char* cellGeomIsDefined)
+			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {
 	if (!proxy)
 		throw invalid_argument("The hdf proxy cannot be null.");
@@ -627,174 +630,180 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 		hdfProxy->writeArrayNd(gsoapProxy->uuid, "controlPointParameters", H5T_NATIVE_DOUBLE, controlPointParameters, controlPointParamCount, 3);
 		delete [] controlPointParamCount;
 	}
-
-	// *********************************
-	// Cell geometry is defined
-	// *********************************
-	if (cellGeomIsDefined)
-	{
-		resqml2__BooleanHdf5Array* boolArray = soap_new_resqml2__BooleanHdf5Array(gsoapProxy->soap, 1);
-		geom->CellGeometryIsDefined = boolArray;
-		
-		boolArray->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
-		boolArray->Values->HdfProxy = proxy->newResqmlReference();
-		boolArray->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/CellGeometryIsDefined";
-
-		// HDF
-		hsize_t * cellGeometryIsDefinedCount = new hsize_t[3];
-		cellGeometryIsDefinedCount[0] = getKCellCount();
-		cellGeometryIsDefinedCount[1] = getJCellCount();
-		cellGeometryIsDefinedCount[2] = getICellCount();
-		hdfProxy->writeArrayNd(gsoapProxy->uuid, "CellGeometryIsDefined", H5T_NATIVE_UCHAR, cellGeomIsDefined, cellGeometryIsDefinedCount, 3);
-		delete [] cellGeometryIsDefinedCount;
-	}
 }
 
 void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
 	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
-	if (pointGeom)
+	if (pointGeom && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
 	{
-		if (pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
+		resqml2__Point3dParametricArray* parametricPoint3d = static_cast<resqml2__Point3dParametricArray*>(pointGeom->Points);
+		ULONG64 xyzPointCount = getXyzPointCountOfPatch(patchIndex);
+
+		// parameters : ordered
+		double * parameters = new double[xyzPointCount];
+		if (parametricPoint3d->Parameters->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 		{
-			resqml2__Point3dParametricArray* parametricPoint3d = static_cast<resqml2__Point3dParametricArray*>(pointGeom->Points);
-			ULONG64 xyzPointCount = getXyzPointCountOfPatch(patchIndex);
-
-			// parameters : ordered
-			double * parameters = new double[xyzPointCount];
-			if (parametricPoint3d->Parameters->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
-			{
-				hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(parametricPoint3d->Parameters)->Values->PathInHdfFile, parameters);
-			}
-			else
-				throw logic_error("Not yet implemented");
-
-			if (parametricPoint3d->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
-			{
-				resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(parametricPoint3d->ParametricLines);
-				unsigned int maxControlPointCount = getControlPointMaxCountPerPillar();
-				unsigned int parametricLineCount = (getICellCount() + 1) * (getJCellCount() + 1);
-				unsigned int splitLineCount = getSplitCoordinateLineCount();
-				
-				// Control points
-				double * controlPoints = new double[parametricLineCount*maxControlPointCount*3];
-				getControlPoints(controlPoints);
-
-				// Control points parameters
-				double * controlPointParameters = NULL;
-				if (paramLineArray->ControlPointParameters)
-				{
-					controlPointParameters = new double[parametricLineCount*maxControlPointCount];
-					getControlPointParameters(controlPointParameters);
-				}
-
-				// Line kind indices
-				short * pillarKind = new short[parametricLineCount];
-				getParametricLineKind(pillarKind);
-
-				// Pillars of split line
-				unsigned int* pillarOfSplitCoordLines = new unsigned int [splitLineCount];
-				getPillarsOfSplitCoordinateLines(pillarOfSplitCoordLines);
-
-				//Mapping
-				unsigned int paramIndex = 0;
-				for (unsigned int kInterface = 0; kInterface < getKCellCount() + 1; ++kInterface)
-				{
-					for (unsigned int coordLineIndex = 0; coordLineIndex < parametricLineCount; ++coordLineIndex)
-					{
-						if (pillarKind[coordLineIndex] == -1) // not defined line
-						{
-							xyzPoints[paramIndex*3] = std::numeric_limits<double>::quiet_NaN();
-							xyzPoints[paramIndex*3+1] = std::numeric_limits<double>::quiet_NaN();
-							xyzPoints[paramIndex*3+2] = std::numeric_limits<double>::quiet_NaN();
-						}
-						else if (pillarKind[coordLineIndex] == 0) // vertical (parameter must be the Z value)
-						{
-							xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3];
-							xyzPoints[paramIndex*3+1] = controlPoints[coordLineIndex*3+1];
-							xyzPoints[paramIndex*3+2] = parameters[paramIndex];
-						}
-						else if (pillarKind[coordLineIndex] == 1) // linear interpolation
-						{
-							unsigned int controlPointCount = 0;
-							while (controlPointCount < maxControlPointCount &&
-								controlPoints[coordLineIndex*3 + controlPointCount*(parametricLineCount+splitLineCount)*3] == controlPoints[coordLineIndex*3 + controlPointCount*(parametricLineCount+splitLineCount)*3])
-							{
-								controlPointCount++;
-							}
-
-							// Control point count on this line
-							if (controlPointCount == 2) // straight
-							{
-								double ratioFromFirstControlPoint = (parameters[paramIndex] - controlPointParameters[coordLineIndex*3]) / (controlPointParameters[coordLineIndex + (parametricLineCount+splitLineCount)] - controlPointParameters[coordLineIndex]);
-								xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3] + ratioFromFirstControlPoint * (controlPoints[coordLineIndex + parametricLineCount+splitLineCount] - controlPoints[coordLineIndex]);
-								xyzPoints[paramIndex*3 + 1] = controlPoints[coordLineIndex*3 + 1] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount+splitLineCount)*3 + 1] - controlPoints[coordLineIndex*3 + 1]);
-								xyzPoints[paramIndex*3 + 2] = controlPoints[coordLineIndex*3 + 2] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount+splitLineCount)*3 + 2] - controlPoints[coordLineIndex*3 + 2]);
-							}
-							else // piecewise linear
-							{
-								throw logic_error("Not yet implemented");
-							}
-						}
-						else
-							throw logic_error("Not yet implemented");
-						paramIndex++;
-					}
-					for (unsigned int splitLineIndex = 0; splitLineIndex < splitLineCount; ++splitLineIndex)
-					{
-						unsigned int coordLineIndex = pillarOfSplitCoordLines[splitLineIndex];
-						if (pillarKind[pillarOfSplitCoordLines[coordLineIndex]] == -1) // not defined line
-						{
-							xyzPoints[paramIndex*3] = std::numeric_limits<double>::quiet_NaN();
-							xyzPoints[paramIndex*3+1] = std::numeric_limits<double>::quiet_NaN();
-							xyzPoints[paramIndex*3+2] = std::numeric_limits<double>::quiet_NaN();
-						}
-						else if (pillarKind[pillarOfSplitCoordLines[coordLineIndex]] == 0) // vertical (parameter must be the Z value)
-						{
-							xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3];
-							xyzPoints[paramIndex*3+1] = controlPoints[coordLineIndex*3+1];
-							xyzPoints[paramIndex*3+2] = parameters[paramIndex];
-						}
-						else if (pillarKind[coordLineIndex] == 1) // piecewiselinear
-						{
-							unsigned int controlPointCount = 0;
-							while (controlPointCount < maxControlPointCount &&
-								controlPoints[coordLineIndex*3 + controlPointCount*(parametricLineCount+splitLineCount)*3] == controlPoints[coordLineIndex*3 + controlPointCount*(parametricLineCount+splitLineCount)*3])
-							{
-								controlPointCount++;
-							}
-
-							// Control point count on this line
-							if (controlPointCount == 2) // straight
-							{
-								double ratioFromFirstControlPoint = (parameters[paramIndex] - controlPointParameters[coordLineIndex*3]) / (controlPointParameters[coordLineIndex + (parametricLineCount+splitLineCount)] - controlPointParameters[coordLineIndex]);
-								xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3] + ratioFromFirstControlPoint * (controlPoints[coordLineIndex + parametricLineCount+splitLineCount] - controlPoints[coordLineIndex]);
-								xyzPoints[paramIndex*3 + 1] = controlPoints[coordLineIndex*3 + 1] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount+splitLineCount)*3 + 1] - controlPoints[coordLineIndex*3 + 1]);
-								xyzPoints[paramIndex*3 + 2] = controlPoints[coordLineIndex*3 + 2] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount+splitLineCount)*3 + 2] - controlPoints[coordLineIndex*3 + 2]);
-							}
-							else // piecewise linear
-							{
-								throw logic_error("Not yet implemented");
-							}
-						}
-						else
-							throw logic_error("Not yet implemented");
-						paramIndex++;
-					}
-				}
-
-				// Cleaning
-				delete [] controlPoints;
-				delete [] pillarKind;
-				if (controlPointParameters)
-					delete [] controlPointParameters;
-			}
-			else
-				throw logic_error("Not yet implemented");
-
-			delete [] parameters;
+			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(parametricPoint3d->Parameters)->Values->PathInHdfFile, parameters);
 		}
+		else
+			throw logic_error("Not yet implemented");
+
+		if (parametricPoint3d->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
+		{
+			resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(parametricPoint3d->ParametricLines);
+			unsigned int maxControlPointCount = getControlPointMaxCountPerPillar();
+			unsigned int parametricLineCount = getPillarCount();
+			unsigned int splitLineCount = getSplitCoordinateLineCount();
+
+			// Control points
+			double * controlPoints = new double[parametricLineCount*maxControlPointCount*3];
+			getControlPoints(controlPoints);
+
+			// Control points parameters
+			double * controlPointParameters = nullptr;
+			if (paramLineArray->ControlPointParameters != nullptr)
+			{
+				controlPointParameters = new double[parametricLineCount*maxControlPointCount];
+				getControlPointParameters(controlPointParameters);
+			}
+
+			// Line kind indices
+			short * pillarKind = new short[parametricLineCount];
+			getParametricLineKind(pillarKind);
+
+			// Pillars of split line
+			unsigned int* pillarOfSplitCoordLines = new unsigned int [splitLineCount];
+			getPillarsOfSplitCoordinateLines(pillarOfSplitCoordLines);
+
+			//Mapping
+			unsigned int paramIndex = 0;
+			for (unsigned int kInterface = 0; kInterface < getKCellCount() + 1; ++kInterface)
+			{
+				for (unsigned int coordLineIndex = 0; coordLineIndex < parametricLineCount; ++coordLineIndex)
+				{
+					if (pillarKind[coordLineIndex] == -1) // not defined line
+					{
+						xyzPoints[paramIndex*3] = std::numeric_limits<double>::quiet_NaN();
+						xyzPoints[paramIndex*3+1] = std::numeric_limits<double>::quiet_NaN();
+						xyzPoints[paramIndex*3+2] = std::numeric_limits<double>::quiet_NaN();
+					}
+					else if (pillarKind[coordLineIndex] == 0) // vertical (parameter must be the Z value)
+					{
+						xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3];
+						xyzPoints[paramIndex*3+1] = controlPoints[coordLineIndex*3+1];
+						xyzPoints[paramIndex*3+2] = parameters[paramIndex];
+					}
+					else if (pillarKind[coordLineIndex] == 1) // linear interpolation
+					{
+						unsigned int controlPointCount = 0;
+						while (controlPointCount < maxControlPointCount &&
+							controlPoints[(coordLineIndex + controlPointCount*parametricLineCount)*3] == controlPoints[(coordLineIndex + controlPointCount*parametricLineCount)*3])
+						{
+							controlPointCount++;
+						}
+
+						// Control point count on this line
+						if (controlPointCount == 2) // straight
+						{
+							double ratioFromFirstControlPoint = .0;
+							double parameterDistance = .0;
+							if (controlPointParameters != nullptr)
+							{
+								parameterDistance = controlPointParameters[coordLineIndex + parametricLineCount] - controlPointParameters[coordLineIndex]; // Parameter distance from top to bottom.
+								if (parameterDistance != .0)
+									ratioFromFirstControlPoint = (parameters[paramIndex] - controlPointParameters[coordLineIndex]) / parameterDistance;
+							}
+							else // Should never occur by business rule. Assume the parameters are Z values for now (workaround for some softwares)....
+							{
+								parameterDistance = controlPoints[(coordLineIndex + parametricLineCount)*3+2] - controlPoints[coordLineIndex*3+2]; // Parameter distance from top to bottom.
+								if (parameterDistance != .0)
+									ratioFromFirstControlPoint = (parameters[paramIndex] - controlPoints[coordLineIndex*3+2]) / parameterDistance;
+							}
+							xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount)*3] - controlPoints[coordLineIndex*3]);
+							xyzPoints[paramIndex*3 + 1] = controlPoints[coordLineIndex*3 + 1] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount)*3 + 1] - controlPoints[coordLineIndex*3 + 1]);
+							xyzPoints[paramIndex*3 + 2] = controlPoints[coordLineIndex*3 + 2] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount)*3 + 2] - controlPoints[coordLineIndex*3 + 2]);
+						}
+						else // piecewise linear
+						{
+							throw logic_error("Piecewise linear pillars are not yet implemented");
+						}
+					}
+					else
+						throw logic_error("Not yet implemented");
+					++paramIndex;
+				}
+				for (unsigned int splitLineIndex = 0; splitLineIndex < splitLineCount; ++splitLineIndex)
+				{
+					unsigned int coordLineIndex = pillarOfSplitCoordLines[splitLineIndex];
+					if (pillarKind[coordLineIndex] == -1) // not defined line
+					{
+						xyzPoints[paramIndex*3] = std::numeric_limits<double>::quiet_NaN();
+						xyzPoints[paramIndex*3+1] = std::numeric_limits<double>::quiet_NaN();
+						xyzPoints[paramIndex*3+2] = std::numeric_limits<double>::quiet_NaN();
+					}
+					else if (pillarKind[coordLineIndex] == 0) // vertical (parameter must be the Z value)
+					{
+						xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3];
+						xyzPoints[paramIndex*3+1] = controlPoints[coordLineIndex*3+1];
+						xyzPoints[paramIndex*3+2] = parameters[paramIndex];
+					}
+					else if (pillarKind[coordLineIndex] == 1) // Linear interpolation
+					{
+						unsigned int controlPointCount = 0;
+						while (controlPointCount < maxControlPointCount &&
+							controlPoints[(coordLineIndex + controlPointCount*parametricLineCount)*3] == controlPoints[(coordLineIndex + controlPointCount*parametricLineCount)*3])
+						{
+							controlPointCount++;
+						}
+
+						// Control point count on this line
+						if (controlPointCount == 2) // straight
+						{
+							double ratioFromFirstControlPoint = .0;
+							double parameterDistance = .0;
+							if (controlPointParameters != nullptr)
+							{
+								parameterDistance = controlPointParameters[coordLineIndex + parametricLineCount] - controlPointParameters[coordLineIndex]; // Parameter distance from top to bottom.
+								if (parameterDistance != .0)
+									ratioFromFirstControlPoint = (parameters[paramIndex] - controlPointParameters[coordLineIndex]) / parameterDistance;
+							}
+							else // Should never occur by business rule. Assume the parameters are Z values for now (workaround for some softwares)....
+							{
+								parameterDistance = controlPoints[(coordLineIndex + parametricLineCount)*3+2] - controlPoints[coordLineIndex*3+2]; // Parameter distance from top to bottom.
+								if (parameterDistance != .0)
+									ratioFromFirstControlPoint = (parameters[paramIndex] - controlPoints[coordLineIndex*3+2]) / parameterDistance;
+							}
+
+							xyzPoints[paramIndex*3] = controlPoints[coordLineIndex*3] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount)*3] - controlPoints[coordLineIndex*3]);
+							xyzPoints[paramIndex*3 + 1] = controlPoints[coordLineIndex*3 + 1] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount)*3 + 1] - controlPoints[coordLineIndex*3 + 1]);
+							xyzPoints[paramIndex*3 + 2] = controlPoints[coordLineIndex*3 + 2] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount)*3 + 2] - controlPoints[coordLineIndex*3 + 2]);
+						}
+						else // piecewise linear
+						{
+							throw logic_error("Piecewise linear pillars are not yet implemented");
+						}
+					}
+					else
+						throw logic_error("Not yet implemented");
+					++paramIndex;
+				}
+			}
+
+			// Cleaning
+			delete [] controlPoints;
+			delete [] pillarKind;
+			delete [] pillarOfSplitCoordLines;
+			if (controlPointParameters != nullptr)
+				delete [] controlPointParameters;
+		}
+		else
+			throw logic_error("Not yet implemented");
+
+		delete [] parameters;
 	}
+	else
+		throw invalid_argument("The parametric geometry of the ijk grid does not exist.");
 }
 
 AbstractIjkGridRepresentation::geometryKind IjkGridParametricRepresentation::getGeometryKind() const

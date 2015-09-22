@@ -33,6 +33,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/PropertyKind.h"
 
+#include <stdexcept>
+
 #include "resqml2_0_1/AbstractValuesProperty.h"
 
 using namespace std;

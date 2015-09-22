@@ -74,7 +74,7 @@ void HdfProxy::close()
 	if (hdfFile != -1)
 	{
 		H5Fclose(hdfFile);
-		hdfFile = 0;
+		hdfFile = -1;
 	}
 }
 

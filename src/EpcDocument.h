@@ -388,6 +388,8 @@ namespace common
 		* Get all the ijk grid contained into the EPC document.
 		*/
 		std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> getIjkGridRepresentationSet() const {return ijkGridRepresentationSet;}
+		unsigned int getIjkGridRepresentationCount() const {return ijkGridRepresentationSet.size();}
+		resqml2_0_1::AbstractIjkGridRepresentation* getIjkGridRepresentation(const unsigned int & i) const {return ijkGridRepresentationSet[i];}
 
 		/**
 		* Get all the ijk grid contained into the EPC document which have a parametric geometry.

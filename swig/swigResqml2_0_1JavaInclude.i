@@ -11,7 +11,7 @@
 		return ret;
 	}
 	
-    ret = resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, owner);
+    ret = resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
     if (ret != null) {
 		return ret;
     }
@@ -76,13 +76,7 @@
     }
     else if (type.equals("IjkGridRepresentation"))
     {
-		com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation tmp = new com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
-		if (tmp.getGeometryKind() == com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.EXPLICIT)
-			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridExplicitRepresentation(cPtr, owner);
-		else if (tmp.getGeometryKind() == com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.PARAMETRIC)
-			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridParametricRepresentation(cPtr, owner);
-		else if (tmp.getGeometryKind() == com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.LATTICE)
-			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridLatticeRepresentation(cPtr, owner);	
+		ret = resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
     }
     else if (type.equals("MdDatum"))
     {
@@ -241,7 +235,7 @@
 		return null;
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateWellboreFrameRepresentationObject(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
@@ -276,7 +270,28 @@
     }
 	else
 		return null;
-	}
+  }
+  
+  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation resqml2_0_1_instantiateConcreteIjkGridRepresentation(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) { return null; }
+    com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind type = com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind
+        .swigToEnum(resqml2_0_1_AbstractIjkGridRepresentation_getGeometryKind(cPtr, new com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, false)));
+
+    if (type == com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.EXPLICIT) {
+      return new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridExplicitRepresentation(cPtr, owner);
+    }
+    else if (type == com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.PARAMETRIC) {
+      return new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridParametricRepresentation(cPtr, owner);
+    }
+    else if (type == com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.LATTICE) {
+      return new com.f2i.energisticsStandardsApi.resqml2_0_1.IjkGridLatticeRepresentation(cPtr, owner);
+    }
+    else // TODO : see if it is possible to return the object itself instead of a copy.
+    {
+      return new com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
+    }
+  }
 %}
 
 namespace resqml2_0_1
@@ -289,13 +304,19 @@ namespace resqml2_0_1
 	
 	%typemap(javaout) WellboreFrameRepresentation*  {
 		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, $owner);
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(cPtr, $owner);
 		return ret;
 	}
 	
 	%typemap(javaout) AbstractLocal3dCrs*  {
 		long cPtr = $jnicall;
 		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractIjkGridRepresentation*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, $owner);
 		return ret;
 	}
 	

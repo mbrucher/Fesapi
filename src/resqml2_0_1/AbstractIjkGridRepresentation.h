@@ -176,7 +176,24 @@ namespace resqml2_0_1
 		
 		void getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis = false) const;
 
-		void getCellGeometryIsDefined(bool * cellGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+		/**
+		 * Indicates if this grid contains information on enabled and disabled information.
+		 */
+		bool hasEnabledCellInformation() const;
+
+		/**
+		 * Get the information on the dead/invisible cells.
+		 * The enabledCells array must have a count of getCellCount() and must follow the index ordering i then j then k.
+		 * A zero value in enabledCells means that the corresponding cell is disabled. A non zero value means that the corresponding cell is enabled.
+		 */
+		void getEnabledCells(bool * enabledCells, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+
+		/**
+		 * Set the information on the dead/invisible cells. The geometry of the grid must have been defined yet.
+		 * The enabledCells array must have a count of getCellCount() and must follow the index ordering i then j then k.
+		 * A zero value in enabledCells means that the corresponding cell is disabled. A non zero value means that the corresponding cell is enabled.
+		 */
+		void setEnabledCells(unsigned char* enabledCells);
 
 		/**
 		* Load the split information into memory to speed up processes.

@@ -16,7 +16,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return ret;
 	}
 	
-	ret = resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, owner);
+	ret = resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
@@ -85,13 +85,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
     else if (type == "IjkGridRepresentation")
     {
-		f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation tmp = new f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
-		if (tmp.getGeometryKind() == f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.EXPLICIT)
-			ret = new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridExplicitRepresentation(cPtr, owner);
-		else if (tmp.getGeometryKind() == f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.PARAMETRIC)
-			ret = new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridParametricRepresentation(cPtr, owner);
-		else if (tmp.getGeometryKind() == f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.LATTICE)
-			ret = new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridLatticeRepresentation(cPtr, owner);
+		ret = resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
     }
     else if (type == "MdDatum")
     {
@@ -251,7 +245,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateWellboreFrameRepresentationObject(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
@@ -287,6 +281,31 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 	else
 		return null;
   }
+  
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation resqml2_0_1_instantiateConcreteIjkGridRepresentation(global::System.IntPtr cPtr, bool owner)
+  {
+    if (cPtr == global::System.IntPtr.Zero) {
+      return null;
+    }
+    geometryKind type = $modulePINVOKE.resqml2_0_1_AbstractIjkGridRepresentation_getGeometryKind(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+	
+    if (type == geometryKind.EXPLICIT)
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridExplicitRepresentation(cPtr, owner);
+    }
+    else if (type == geometryKind.PARAMETRIC)
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridParametricRepresentation(cPtr, owner);
+    }
+    else if (type == geometryKind.LATTICE)
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridLatticeRepresentation(cPtr, owner);
+    }
+    else // TODO : see if it is possible to return the object itself instead of a copy.
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
+    }
+  }
 %}
 
 namespace resqml2_0_1
@@ -299,13 +318,19 @@ namespace resqml2_0_1
 	
 	%typemap(csout, excode=SWIGEXCODE) WellboreFrameRepresentation*  {
 		global::System.IntPtr cPtr = $imcall;
-		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateWellboreFrameRepresentationObject(cPtr, $owner);$excode
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(cPtr, $owner);$excode
 		return ret;
 	}
 	
 	%typemap(csout, excode=SWIGEXCODE) AbstractLocal3dCrs*  {
 		global::System.IntPtr cPtr = $imcall;
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, $owner);$excode
+		return ret;
+	}
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractIjkGridRepresentation*  {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, $owner);$excode
 		return ret;
 	}
 	

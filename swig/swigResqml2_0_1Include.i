@@ -930,7 +930,7 @@ namespace resqml2_0_1
 	class AbstractIjkGridRepresentation : public AbstractColumnLayerGridRepresentation
 	{
 	public:
-		enum geometryKind { EXPLICIT = 0, PARAMETRIC = 1, LATTICE = 2 };
+		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3 };
 	
 		unsigned int getICellCount() const;
 		void setICellCount(const unsigned int & iCount);
@@ -949,9 +949,13 @@ namespace resqml2_0_1
 		unsigned long getSplitCoordinateLineCount() const;
 		
 		void getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis = false) const;
-		void getCellGeometryIsDefined(bool * cellGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+		bool hasEnabledCellInformation() const;
+		void getEnabledCells(bool * enabledCells, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
+		void setEnabledCells(unsigned char* enabledCells);
 		
 		virtual geometryKind getGeometryKind() const = 0;
+		
+		UnstructuredGridRepresentation* cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
 	};
 	
 	class IjkGridLatticeRepresentation : public AbstractIjkGridRepresentation
@@ -1024,14 +1028,12 @@ namespace resqml2_0_1
 
 		void setGeometryAsParametricNonSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
-			unsigned char* cellGeomIsDefined = NULL);
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy);
 		void setGeometryAsParametricSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
-			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns,
-			unsigned char* cellGeomIsDefined = NULL);
+			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns);
 	};
 	
 	class GridConnectionSetRepresentation : public AbstractRepresentation

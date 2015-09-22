@@ -321,48 +321,52 @@ void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeom
 	}
 }
 
-
-void AbstractIjkGridRepresentation::getCellGeometryIsDefined(bool * cellGeometryIsDefined, bool reverseIAxis, bool reverseJAxis, bool reverseKAxis) const
+bool AbstractIjkGridRepresentation::hasEnabledCellInformation() const
 {
 	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
-	if (grid->Geometry)
+	return grid->Geometry != nullptr && grid->Geometry->CellGeometryIsDefined != nullptr;
+}
+
+void AbstractIjkGridRepresentation::getEnabledCells(bool * enabledCells, bool reverseIAxis, bool reverseJAxis, bool reverseKAxis) const
+{
+	if (hasEnabledCellInformation() == false)
+		throw invalid_argument("The grid has no geometry or no information about enabled cells.");
+
+	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	unsigned int cellCount = getCellCount();
+	if (grid->Geometry->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
-		unsigned int cellCount = getCellCount();
-		if (grid->Geometry->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+		hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile);
+		if (H5Tequal(dt, H5T_NATIVE_CHAR) > 0)
 		{
-			if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_CHAR)
-			{
-				char* tmp = new char[cellCount];
-				hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
-				for (unsigned int i = 0; i < cellCount; i++)
-					if (tmp[i] == 0) cellGeometryIsDefined[i] = false; else cellGeometryIsDefined[i] = true;
-				delete [] tmp;
-			}
-			else if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_UCHAR)
-			{
-				unsigned char* tmp = new unsigned char[cellCount];
-				hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
-				for (unsigned int i = 0; i < cellCount; i++)
-					if (tmp[i] == 0) cellGeometryIsDefined[i] = false; else cellGeometryIsDefined[i] = true;
-				delete [] tmp;
-			}
-			else
-				throw std::logic_error("Not yet implemented");
+			char* tmp = new char[cellCount];
+			hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
+			for (unsigned int i = 0; i < cellCount; i++)
+				if (tmp[i] == 0) enabledCells[i] = false; else enabledCells[i] = true;
+			delete [] tmp;
 		}
-		else if (grid->Geometry->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanConstantArray)
+		else if (H5Tequal(dt, H5T_NATIVE_UCHAR) > 0)
 		{
-			if (static_cast<resqml2__BooleanConstantArray*>(grid->Geometry->CellGeometryIsDefined)->Value == true)
-				for (unsigned int i = 0; i < cellCount; i++)
-					cellGeometryIsDefined[i] = true;
-			else
-				for (unsigned int i = 0; i < cellCount; i++)
-					cellGeometryIsDefined[i] = false;
+			unsigned char* tmp = new unsigned char[cellCount];
+			hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
+			for (unsigned int i = 0; i < cellCount; i++)
+				if (tmp[i] == 0) enabledCells[i] = false; else enabledCells[i] = true;
+			delete [] tmp;
 		}
 		else
-			throw std::logic_error("Not yet implemented");
-		}
+			throw std::logic_error("Only CHAR and UCHAR are supported for now for storing cellGeometryIsDefined information.");
+	}
+	else if (grid->Geometry->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanConstantArray)
+	{
+		if (static_cast<resqml2__BooleanConstantArray*>(grid->Geometry->CellGeometryIsDefined)->Value == true)
+			for (unsigned int i = 0; i < cellCount; i++)
+				enabledCells[i] = true;
+		else
+			for (unsigned int i = 0; i < cellCount; i++)
+				enabledCells[i] = false;
+	}
 	else
-		throw invalid_argument("The grid has no geometry.");
+		throw std::logic_error("Not yet implemented");
 
 	// Copy in order not to modify the controlPoints pointer
 	if (reverseIAxis || reverseJAxis || reverseKAxis)
@@ -371,7 +375,7 @@ void AbstractIjkGridRepresentation::getCellGeometryIsDefined(bool * cellGeometry
 		bool * initialCellGeometryIsDefined = new bool [arrayCount];
 		for (unsigned int index = 0; index < arrayCount; ++index)
 		{
-			initialCellGeometryIsDefined[index] = cellGeometryIsDefined[index];
+			initialCellGeometryIsDefined[index] = enabledCells[index];
 		}
 
 		if (reverseIAxis)
@@ -383,7 +387,7 @@ void AbstractIjkGridRepresentation::getCellGeometryIsDefined(bool * cellGeometry
 				{
 					for (unsigned int i = 0; i < getICellCount(); ++i)
 					{
-						cellGeometryIsDefined[cellIndex] = initialCellGeometryIsDefined[getICellCount() - 1 - i + j*getICellCount() + k*getICellCount()*getJCellCount()];
+						enabledCells[cellIndex] = initialCellGeometryIsDefined[getICellCount() - 1 - i + j*getICellCount() + k*getICellCount()*getJCellCount()];
 						++cellIndex;
 					}
 				}
@@ -399,7 +403,7 @@ void AbstractIjkGridRepresentation::getCellGeometryIsDefined(bool * cellGeometry
 				{
 					for (unsigned int i = 0; i < getICellCount(); ++i)
 					{
-						cellGeometryIsDefined[cellIndex] = initialCellGeometryIsDefined[i + (getJCellCount() - 1 -j)*getICellCount() + k*getICellCount()*getJCellCount()];
+						enabledCells[cellIndex] = initialCellGeometryIsDefined[i + (getJCellCount() - 1 -j)*getICellCount() + k*getICellCount()*getJCellCount()];
 						++cellIndex;
 					}
 				}
@@ -415,7 +419,7 @@ void AbstractIjkGridRepresentation::getCellGeometryIsDefined(bool * cellGeometry
 				{
 					for (unsigned int i = 0; i < getICellCount(); ++i)
 					{
-						cellGeometryIsDefined[cellIndex] = initialCellGeometryIsDefined[i + j*getICellCount() + (getKCellCount() - 1 -k)*getICellCount()*getJCellCount()];
+						enabledCells[cellIndex] = initialCellGeometryIsDefined[i + j*getICellCount() + (getKCellCount() - 1 -k)*getICellCount()*getJCellCount()];
 						++cellIndex;
 					}
 				}
@@ -947,7 +951,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		PropertyKind* kind = new PropertyKind(getEpcDocument(), "556b918e-fb78-43b9-b224-7d3ae7488f47", "ACTNUM", "F2I", resqml2__ResqmlUom__Euc, resqml2__ResqmlPropertyKind__discrete);
 
 		// Property
-		string uuidActnum = result->getUuid();
+		string uuidActnum = result->getUuid(); // TODO : better deterministic uuid generation
 		if (uuidActnum[35] == '0')
 			uuidActnum[35] = '1';
 		else
@@ -963,4 +967,28 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	}
 
 	return result;
+}
+
+void AbstractIjkGridRepresentation::setEnabledCells(unsigned char* enabledCells)
+{
+	resqml2__IjkGridGeometry* geom = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Geometry;
+	if (geom == nullptr)
+	{
+		throw invalid_argument("The geometry of the ijk grid has not been defined yet.");
+	}
+
+	resqml2__BooleanHdf5Array* boolArray = soap_new_resqml2__BooleanHdf5Array(gsoapProxy->soap, 1);
+	geom->CellGeometryIsDefined = boolArray;
+
+	boolArray->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	boolArray->Values->HdfProxy = hdfProxy->newResqmlReference();
+	boolArray->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/CellGeometryIsDefined";
+
+	// HDF
+	hsize_t * cellGeometryIsDefinedCount = new hsize_t[3];
+	cellGeometryIsDefinedCount[0] = getKCellCount();
+	cellGeometryIsDefinedCount[1] = getJCellCount();
+	cellGeometryIsDefinedCount[2] = getICellCount();
+	hdfProxy->writeArrayNd(gsoapProxy->uuid, "CellGeometryIsDefined", H5T_NATIVE_UCHAR, enabledCells, cellGeometryIsDefinedCount, 3);
+	delete [] cellGeometryIsDefinedCount;
 }

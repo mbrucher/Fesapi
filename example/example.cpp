@@ -1145,7 +1145,6 @@ void deserialize(const string & inputFile)
 	std::vector<PolylineRepresentation*> horizonSinglePolylineRepSet = pck.getHorizonPolylineRepSet();
 	std::vector<WellboreFeature*> wellboreSet = pck.getWellboreSet();
 	std::vector<WellboreTrajectoryRepresentation*> wellboreCubicTrajSet = pck.getWellboreCubicParamLineTrajRepSet();
-	std::vector<IjkGridExplicitRepresentation*> ijkGridRepSet = pck.getIjkGridExplicitRepresentationSet();
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
 	std::vector<TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
 
@@ -1417,29 +1416,48 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << endl << "IJK GRID REP" << endl;
-	for (unsigned int i = 0; i < ijkGridRepSet.size(); ++i)
+	unsigned int ijkGridCount = pck.getIjkGridRepresentationCount();
+	for (unsigned int i = 0; i < ijkGridCount; ++i)
 	{
-		if (ijkGridRepSet[i]->getInterpretation())
+		AbstractIjkGridRepresentation* ijkGrid = pck.getIjkGridRepresentation(i);
+
+		std::cout << "Title is : " << ijkGrid->getTitle() << std::endl;
+		std::cout << "Guid is : " << ijkGrid->getUuid() << std::endl;
+		std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
+		double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
+		ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
+		std::cout << "--------------------------------------------------" << std::endl;
+		delete [] gridPoints;
+
+		if (ijkGrid->getInterpretation())
 		{
-			std::cout << "Interpretation is : " << ijkGridRepSet[i]->getInterpretation()->getTitle() << std::endl;
-			if (ijkGridRepSet[i]->getInterpretation()->getInterpretedFeature())
-				std::cout << "Feature is : " << ijkGridRepSet[i]->getInterpretation()->getInterpretedFeature()->getTitle() << std::endl;
+			std::cout << "Interpretation is : " << ijkGrid->getInterpretation()->getTitle() << std::endl;
+			if (ijkGrid->getInterpretation()->getInterpretedFeature())
+				std::cout << "Feature is : " << ijkGrid->getInterpretation()->getInterpretedFeature()->getTitle() << std::endl;
 			else
 				std::cout << " NO Feature" << std::endl;
 		}
 		else
 			std::cout << " NO interpretation" << std::endl;
 
-		for (unsigned int subRepIndex = 0 ; subRepIndex < ijkGridRepSet[i]->getFaultSubRepresentationCount(); ++subRepIndex)
+		for (unsigned int subRepIndex = 0 ; subRepIndex < ijkGrid->getFaultSubRepresentationCount(); ++subRepIndex)
 		{
-			std::cout << "Fault Subrep is : " << ijkGridRepSet[i]->getFaultSubRepresentation(subRepIndex)->getTitle() << std::endl;
+			std::cout << "Fault Subrep is : " << ijkGrid->getFaultSubRepresentation(subRepIndex)->getTitle() << std::endl;
 		}
 
-		unsigned int gridConnectionSetCount =ijkGridRepSet[i]->getGridConnectionSetRepresentationCount();
+		if (ijkGrid->hasEnabledCellInformation() == true)
+		{
+			std::cout << "Has enabled/disabled cell information" << std::endl;
+			bool * enabledCells = new bool [ijkGrid->getCellCount()];
+			ijkGrid->getEnabledCells(enabledCells);
+			delete [] enabledCells;
+		}
+
+		unsigned int gridConnectionSetCount = ijkGrid->getGridConnectionSetRepresentationCount();
 		std::cout << "Grid Connection Count is : " << gridConnectionSetCount << std::endl;
 		if (gridConnectionSetCount > 0)
 		{
-			GridConnectionSetRepresentation* gridConnectionSet = ijkGridRepSet[i]->getGridConnectionSetRepresentation(0);
+			GridConnectionSetRepresentation* gridConnectionSet = ijkGrid->getGridConnectionSetRepresentation(0);
 			unsigned int faultInterpOfGridConnCount = gridConnectionSet->getFaultInterpretationCount();
 			std::cout << "Fault interpretation Count of this grid connection set is : " << faultInterpOfGridConnCount << endl;
 			if (faultInterpOfGridConnCount > 0)
@@ -1449,17 +1467,9 @@ void deserialize(const string & inputFile)
 			}
 		}
 
-		std::cout << "Title is : " << ijkGridRepSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << ijkGridRepSet[i]->getUuid() << std::endl;
-		std::cout << "Node count is : " << ijkGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
-		double * gridPoints = new double[ijkGridRepSet[i]->getXyzPointCountOfPatch(0) * 3];
-		ijkGridRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
-		std::cout << "--------------------------------------------------" << std::endl;
-		delete [] gridPoints;
-		
-		for (unsigned int l = 0; l < ijkGridRepSet[i]->getPropertySet().size(); l++)
+		for (unsigned int l = 0; l < ijkGrid->getPropertySet().size(); l++)
 		{
-			AbstractValuesProperty* propVal = static_cast<AbstractValuesProperty*>(ijkGridRepSet[i]->getPropertySet()[l]);
+			AbstractValuesProperty* propVal = static_cast<AbstractValuesProperty*>(ijkGrid->getPropertySet()[l]);
 			std::cout << "Dimension count is : " << propVal->getDimensionsCountOfPatch(0) << std::endl;
 			std::cout << "Datatype is : " << propVal->getValuesHdfDatatype() << std::endl;
 			std::cout << "Values count in slowest dimension is : " << propVal->getValuesCountOfDimensionOfPatch(0, 0) << std::endl;

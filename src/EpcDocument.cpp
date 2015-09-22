@@ -184,6 +184,9 @@ bool EpcDocument::open(const std::string & fileName)
 
 void EpcDocument::close()
 {
+	if (propertyKindMapper)
+		delete propertyKindMapper;
+
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #else
@@ -232,9 +235,6 @@ void EpcDocument::close()
 	unstructuredGridRepresentationSet.clear();
 	stratigraphicColumnSet.clear();
 	frontierSet.clear();
-
-	if (propertyKindMapper)
-		delete propertyKindMapper;
 }
 
 std::string EpcDocument::getEnergisticsPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind) const
