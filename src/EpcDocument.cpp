@@ -184,8 +184,11 @@ bool EpcDocument::open(const std::string & fileName)
 
 void EpcDocument::close()
 {
-	if (propertyKindMapper)
+	if (propertyKindMapper != nullptr)
+	{
 		delete propertyKindMapper;
+		propertyKindMapper = nullptr;
+	}
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
