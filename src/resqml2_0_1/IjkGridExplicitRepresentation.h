@@ -80,8 +80,6 @@ namespace resqml2_0_1
 			const unsigned long & splitCoordinateLineCount = 0, unsigned int * pillarOfCoordinateLine = NULL,
 			unsigned int * splitCoordinateLineColumnCumulativeCount = NULL, unsigned int * splitCoordinateLineColumns = NULL);
 
-		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
-
 		geometryKind getGeometryKind() const;
 	};
 }

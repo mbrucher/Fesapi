@@ -95,6 +95,10 @@ AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* in
 	}
 }
 
+void AbstractRepresentation::getXyzPointsOfPatchFromParametricPoints(gsoap_resqml2_0_1::resqml2__Point3dParametricArray* parametricPoint3d, double * xyzPoints) const
+{
+	throw logic_error("This representation has not specialized implementation for reading parametric points.");
+}
 
 std::string AbstractRepresentation::getLocalCrsUuid() const
 {
@@ -374,7 +378,7 @@ void AbstractRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex
 		}
 		else if (pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
 		{
-			throw logic_error("Reading parametric points should be implemented in specialized classes");
+			getXyzPointsOfPatchFromParametricPoints(static_cast<resqml2__Point3dParametricArray*>(pointGeom->Points), xyzPoints);
 		}
 	}
 	else if (patchIndex == 0)

@@ -49,7 +49,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <sstream>
 #include <vector>
 
-#include "stdsoap2.h"
+#include "proxies/stdsoap2.h"
 
 #include "EpcDocument.h"
 #include "resqml2_0_1/LocalDepth3dCrs.h"

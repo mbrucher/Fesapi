@@ -39,6 +39,8 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT IjkGridParametricRepresentation : public AbstractIjkGridRepresentation
 	{
+	private:
+		void getXyzPointsOfPatchFromParametricPoints(gsoap_resqml2_0_1::resqml2__Point3dParametricArray* parametricPoint3d, double * xyzPoints) const;
 	public:
 
 		/**

@@ -185,18 +185,6 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 	}
 }
 
-void IjkGridExplicitRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
-{
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
-	if (pointGeom)
-	{
-		if (pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
-		{
-			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
-		}
-	}
-}
-
 AbstractIjkGridRepresentation::geometryKind IjkGridExplicitRepresentation::getGeometryKind() const
 {
 	return AbstractIjkGridRepresentation::geometryKind::EXPLICIT;

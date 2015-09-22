@@ -72,6 +72,8 @@ namespace resqml2_0_1
 		 */
 		virtual gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const = 0;
 
+		virtual void getXyzPointsOfPatchFromParametricPoints(gsoap_resqml2_0_1::resqml2__Point3dParametricArray* parametricPoint3d, double * xyzPoints) const;
+
 		std::string getHdfProxyUuidFromPointGeometryPatch(gsoap_resqml2_0_1::resqml2__PointGeometry* patch) const;
 
 		gsoap_resqml2_0_1::resqml2__Seismic2dCoordinates* getSeismic2dCoordinates(const unsigned int & patchIndex) const;
@@ -221,7 +223,7 @@ namespace resqml2_0_1
 		* XYZ points are given in the local CRS.
 		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
 		*/
-		virtual void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		/**
 		* Get all the XYZ points of a particular patch of this representation.

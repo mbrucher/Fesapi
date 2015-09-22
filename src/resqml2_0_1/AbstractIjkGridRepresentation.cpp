@@ -938,8 +938,50 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	delete [] dim;
 	delete [] nodeIndicesPerFace;
 
-	// XML points
-	geom->Points = ijkGrid->Geometry->Points;
+	// XYZ points are referenced in case of explicit geometry. They are transformed (and then copied) in case of parametric geometry.
+	if (ijkGrid->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+	{
+		geom->Points = ijkGrid->Geometry->Points;
+	}
+	else if (ijkGrid->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
+	{
+		double* points = new double[getXyzPointCountOfPatch(0)];
+		getXyzPointsOfPatch(0, points);
+
+		// XML coordinate lines
+		resqml2__Point3dHdf5Array* xmlPoints = soap_new_resqml2__Point3dHdf5Array(gsoapProxy->soap, 1);
+		geom->Points = xmlPoints;
+		xmlPoints->Coordinates = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+		xmlPoints->Coordinates->HdfProxy = hdfProxy->newResqmlReference();
+		xmlPoints->Coordinates->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/Points";
+
+		unsigned int splitCoordinateLineCount = getSplitCoordinateLineCount();
+		if (splitCoordinateLineCount == 0)
+		{
+			// HDF
+			hsize_t * numValues = new hsize_t[4];
+			numValues[0] = getKCellCount() + 1;
+			numValues[1] = getJCellCount() + 1;
+			numValues[2] = getICellCount() + 1;
+			numValues[3] = 3; // 3 for X, Y and Z
+
+			hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy->uuid, "Points", points, numValues, 4);
+			delete [] numValues;
+		}
+		else
+		{
+			// HDF
+			hsize_t * numValues = new hsize_t[3];
+			numValues[0] = getKCellCount() + 1;
+			numValues[1] = (getJCellCount() + 1) * (getICellCount() + 1) + splitCoordinateLineCount;
+			numValues[2] = 3; // 3 for X, Y and Z
+
+			hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy->uuid, "Points", points, numValues, 3);
+			delete [] numValues;
+		}
+
+		delete [] points;
+	}
 
 	/**********************************
 	********** ACTNUM *****************
