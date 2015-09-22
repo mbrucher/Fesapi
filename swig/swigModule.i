@@ -127,6 +127,8 @@ namespace common
 		unsigned int getHdfProxyCount() const;
 		resqml2_0_1::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
 		
+		unsigned int getIjkGridRepresentationCount() const;
+		resqml2_0_1::AbstractIjkGridRepresentation* getIjkGridRepresentation(const unsigned int & i) const;
 		std::vector<resqml2_0_1::IjkGridExplicitRepresentation*> getIjkGridExplicitRepresentationSet() const;
 		std::vector<resqml2_0_1::IjkGridParametricRepresentation*> getIjkGridParametricRepresentationSet() const;
 
