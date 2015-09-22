@@ -287,17 +287,17 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
     }
-    geometryKind type = $modulePINVOKE.resqml2_0_1_AbstractIjkGridRepresentation_getGeometryKind(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
-	
-    if (type == geometryKind.EXPLICIT)
+    int type = fesapiPINVOKE.resqml2_0_1_AbstractIjkGridRepresentation_getGeometryKind(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+
+    if (type == (int)f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.EXPLICIT)
     {
         return new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridExplicitRepresentation(cPtr, owner);
     }
-    else if (type == geometryKind.PARAMETRIC)
+    else if (type == (int)f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.PARAMETRIC)
     {
         return new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridParametricRepresentation(cPtr, owner);
     }
-    else if (type == geometryKind.LATTICE)
+    else if (type == (int)f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation.geometryKind.LATTICE)
     {
         return new f2i.energisticsStandardsApi.resqml2_0_1.IjkGridLatticeRepresentation(cPtr, owner);
     }

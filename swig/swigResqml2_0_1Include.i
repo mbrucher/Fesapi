@@ -937,7 +937,6 @@ namespace resqml2_0_1
 		unsigned int getJCellCount() const;
 		void setJCellCount(const unsigned int & jCount);
 		
-		unsigned int getCellCount() const {return getICellCount() * getJCellCount() * getKCellCount();}
 		unsigned int getColumnCount() const {return getICellCount() * getJCellCount();}
 		unsigned int getPillarCount() const {return (getICellCount()+1) * (getJCellCount()+1);}
 
