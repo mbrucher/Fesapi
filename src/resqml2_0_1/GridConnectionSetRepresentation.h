@@ -39,6 +39,11 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT GridConnectionSetRepresentation : public AbstractRepresentation
 	{
+	private:
+		void init(common::EpcDocument* epcDoc, class AbstractLocal3dCrs * crs,
+                const std::string & guid, const std::string & title,
+				class AbstractGridRepresentation * supportingGridRep);
+
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -50,6 +55,10 @@ namespace resqml2_0_1
 		GridConnectionSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs, 
                 const std::string & guid, const std::string & title,
 				class AbstractGridRepresentation * supportingGridRep);
+
+		GridConnectionSetRepresentation(common::EpcDocument* epcDoc, class AbstractLocal3dCrs * crs,
+		                const std::string & guid, const std::string & title,
+						class AbstractGridRepresentation * supportingGridRep);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

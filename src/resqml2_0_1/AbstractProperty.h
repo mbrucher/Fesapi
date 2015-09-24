@@ -140,6 +140,11 @@ namespace resqml2_0_1
 		time_t getTimestamp() const;
 
 		/**
+		* Get the time index of this property in its assocaited time series
+		*/
+		unsigned int getTimeIndex() const;
+
+		/**
 		* Set the timestep of this property
 		*/
 		void setTimeStep(const unsigned int & timeStep);

@@ -108,9 +108,6 @@ ULONG64 Grid2dRepresentation::getXyzPointCountOfPatch(const unsigned int & patch
 
 void Grid2dRepresentation::getZValues(double* values) const
 {
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	_resqml2__Grid2dRepresentation* rep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy);
 	resqml2__AbstractDoubleArray* zValues = static_cast<resqml2__Point3dZValueArray*>(rep->Grid2dPatch->Geometry->Points)->ZValues;
 	string datasetName = "";

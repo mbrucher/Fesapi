@@ -33,40 +33,44 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/HdfProxy.h"
 
+#include <stdexcept>
+
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
-void HdfProxy::openForWriting()
+void HdfProxy::open()
 {
 	if (hdfFile != -1)
 	{
 		close();
 	}
-	hdfFile = H5Fcreate( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
-
-	hid_t aid  = H5Screate(H5S_SCALAR);
-	hid_t atype = H5Tcopy(H5T_C_S1);
-	H5Tset_size(atype, getUuid().size() + 1);
-	H5Tset_strpad(atype,H5T_STR_NULLTERM);
-	hid_t attribute_id = H5Acreate2(hdfFile, "uuid", atype, aid, H5P_DEFAULT, H5P_DEFAULT);
-
-	/* Write the attribute data. */
-	int status = H5Awrite(attribute_id, atype, getUuid().c_str());
-	/* Close the attribute. */
-	status = H5Sclose(aid);
-	status = H5Tclose(atype);
-	status = H5Aclose(attribute_id);
-}
-
-void HdfProxy::openForReading()
-{
-	if (hdfFile != -1)
+	hdfFile = H5Fcreate( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_EXCL, H5P_DEFAULT, H5P_DEFAULT);
+	if (hdfFile < 0) // It generally means the file already exists
 	{
-		close();
+		htri_t isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath+relativeFilePath).c_str());
+		if (isHdf5 > 0)
+			hdfFile = H5Fopen( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+		else
+			throw invalid_argument("The indicated HDF5 file already exists and is not a valid HDF5 file.");
+	}
+	else // create an attribute at the file level to store the uuid of the corresponding resqml hdf proxy.
+	{
+		hid_t aid  = H5Screate(H5S_SCALAR);
+		hid_t atype = H5Tcopy(H5T_C_S1);
+		H5Tset_size(atype, getUuid().size() + 1);
+		H5Tset_strpad(atype, H5T_STR_NULLTERM);
+		hid_t attribute_id = H5Acreate2(hdfFile, "uuid", atype, aid, H5P_DEFAULT, H5P_DEFAULT);
+		int status = H5Awrite(attribute_id, atype, getUuid().c_str());
+
+		// Close the attribute.
+		status = H5Sclose(aid);
+		status = H5Tclose(atype);
+		status = H5Aclose(attribute_id);
 	}
 
-	hdfFile = H5Fopen( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
+	if (hdfFile < 0)
+		throw invalid_argument("The HDF5 file could not have been opened.");
 }
 
 void HdfProxy::close()
@@ -81,7 +85,7 @@ void HdfProxy::close()
 hid_t HdfProxy::getHdfDatatypeInDataset(const std::string & datasetName)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT); 
 	hid_t datatype = H5Dget_type(dataset); 
@@ -101,7 +105,7 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 			const hsize_t & elementsSize)
 {
 	if (!isOpened())
-		openForWriting();
+		open();
 
 	hid_t parentGrp = openOrCreateGroupInResqmlGroup(groupName.c_str());
 	hid_t grp = H5Gcreate(parentGrp, name.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
@@ -163,7 +167,7 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 unsigned int HdfProxy::getDimensionCount(const std::string & datasetName)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 
@@ -179,7 +183,7 @@ unsigned int HdfProxy::getDimensionCount(const std::string & datasetName)
 unsigned int HdfProxy::getElementCount(const std::string & datasetName)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
     hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	
@@ -227,7 +231,7 @@ void HdfProxy::writeArrayNd(const string & groupName,
 			const unsigned int & numDimensions)
 {
 	if (!isOpened())
-		openForWriting();
+		open();
 
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
 
@@ -266,7 +270,7 @@ void HdfProxy::createArrayNd(
 	const unsigned int& numDimensions
 ) {
 	if (!isOpened()) {
-		openForWriting();
+		open();
 	}
 
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
@@ -307,7 +311,7 @@ void HdfProxy::writeArrayNdSlab(
 	const unsigned int& numDimensions
 ) {
 	if (!isOpened()) {
-		openForWriting();
+		open();
 	}
 
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
@@ -336,7 +340,7 @@ void HdfProxy::writeArrayNdSlab(
 void HdfProxy::readArrayNdOfDoubleValues(const std::string & datasetName, double* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -346,7 +350,7 @@ void HdfProxy::readArrayNdOfDoubleValues(const std::string & datasetName, double
 void HdfProxy::readArrayNdOfFloatValues(const std::string & datasetName, float* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_FLOAT, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -360,7 +364,7 @@ void HdfProxy::readArrayNdOfFloatValues(
 	const unsigned int& numDimensions)
 {
 	if (!isOpened()) {
-		openForReading();
+		open();
 	}
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
@@ -385,7 +389,7 @@ void HdfProxy::readArrayNdOfFloatValues(
 void HdfProxy::readArrayNdOfLongValues(const std::string & datasetName, long* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_LONG, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -399,7 +403,7 @@ void HdfProxy::readArrayNdOfLongValues(
 	const unsigned int& numDimensions)
 {
 	if (!isOpened()) {
-		openForReading();
+		open();
 	}
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
@@ -424,7 +428,7 @@ void HdfProxy::readArrayNdOfLongValues(
 void HdfProxy::readArrayNdOfULongValues(const std::string & datasetName, unsigned long* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_ULONG, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -434,7 +438,7 @@ void HdfProxy::readArrayNdOfULongValues(const std::string & datasetName, unsigne
 void HdfProxy::readArrayNdOfIntValues(const std::string & datasetName, int* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_INT, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -444,7 +448,7 @@ void HdfProxy::readArrayNdOfIntValues(const std::string & datasetName, int* valu
 void HdfProxy::readArrayNdOfUIntValues(const std::string & datasetName, unsigned int* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_UINT, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -454,7 +458,7 @@ void HdfProxy::readArrayNdOfUIntValues(const std::string & datasetName, unsigned
  void HdfProxy::readArrayNdOfShortValues(const std::string & datasetName, short* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_SHORT, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -464,7 +468,7 @@ void HdfProxy::readArrayNdOfUIntValues(const std::string & datasetName, unsigned
 void HdfProxy::readArrayNdOfUShortValues(const std::string & datasetName, unsigned short* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_USHORT, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -474,7 +478,7 @@ void HdfProxy::readArrayNdOfUShortValues(const std::string & datasetName, unsign
 void HdfProxy::readArrayNdOfCharValues(const std::string & datasetName, char* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_CHAR, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -484,7 +488,7 @@ void HdfProxy::readArrayNdOfCharValues(const std::string & datasetName, char* va
 void HdfProxy::readArrayNdOfUCharValues(const std::string & datasetName, unsigned char* values)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	H5Dread (dataset, H5T_NATIVE_UCHAR, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
@@ -494,7 +498,7 @@ void HdfProxy::readArrayNdOfUCharValues(const std::string & datasetName, unsigne
 hid_t HdfProxy::openOrCreateHdfResqmlGroup()
 {
 	if (!isOpened())
-		openForWriting(); // TODO : is it always for writing?????
+		open();
 
 	H5O_info_t info;
 	herr_t status = H5Oget_info_by_name(hdfFile, "/RESQML", &info, H5P_DEFAULT);
@@ -529,7 +533,7 @@ hid_t HdfProxy::openOrCreateGroupInResqmlGroup(const string & groupName)
 std::vector<hsize_t> HdfProxy::readArrayDimensions(const std::string & datasetName)
 {
 	if (!isOpened())
-		openForReading();
+		open();
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 

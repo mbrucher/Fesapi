@@ -94,9 +94,6 @@ string Grid2dSetRepresentation::getHdfProxyUuid() const
 
 void Grid2dSetRepresentation::getZValuesOfPatch(const unsigned int & patchIndex, double* values) const
 {
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	_resqml2__Grid2dSetRepresentation* rep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
 	resqml2__AbstractDoubleArray* zValues = static_cast<resqml2__Point3dZValueArray*>(rep->Grid2dPatch[patchIndex]->Geometry->Points)->ZValues;
 	string datasetName = "";

@@ -161,9 +161,6 @@ std::vector<std::string> CommentProperty::getStringValuesOfPatch(const unsigned 
 	if (hdfProxy == nullptr)
 		return result;
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy);
 	resqml2__StringHdf5Array* hdfValues = static_cast<resqml2__StringHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
 	std::string datasetName = hdfValues->Values->PathInHdfFile;

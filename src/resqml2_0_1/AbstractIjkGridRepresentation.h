@@ -119,7 +119,7 @@ namespace resqml2_0_1
 
 		/**
 		* Get the count of faces in the grid
-		* This method requires your have already loaded the split information.
+		* This method requires you have already loaded the split information.
 		*/
 		unsigned int getFaceCount() const;
 

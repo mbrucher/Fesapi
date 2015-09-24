@@ -55,14 +55,10 @@ namespace resqml2_0_1
 
 
 		/**
-		 * Open the file for writing. Overwrite the file if it already exists
-		 */
-		virtual void openForWriting() = 0;
-
-		/**
-		 * Open the file for reading.
-		 */
-		virtual void openForReading() = 0;
+		* Open the file for reading and writing.
+		* Does never overwrite an existing file but append to it if it already exists.
+		*/
+		virtual void open() = 0;
 
 		/**
 		 * Check if the Hdf file is open or not

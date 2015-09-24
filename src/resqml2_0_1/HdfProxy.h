@@ -61,14 +61,10 @@ namespace resqml2_0_1
 		~HdfProxy() {close();}
 
 		/**
-		* Open the file for writing. Overwrite the file if it already exists
+		* Open the file for reading and writing.
+		* Does never overwrite an existing file but append to it if it already exists.
 		*/
-		void openForWriting();
-
-		/**
-		* Open the file for reading.
-		*/
-		void openForReading();
+		void open();
 
 		/**
 		* Check if the Hdf file is open or not

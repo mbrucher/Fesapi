@@ -156,9 +156,6 @@ unsigned int WellboreFrameRepresentation::getMdValuesCount() const
 	if (hdfProxy == nullptr)
 		return 0;
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
@@ -173,9 +170,6 @@ AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDat
 {
 	if (hdfProxy == nullptr)
 		return AbstractValuesProperty::UNKNOWN;
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
@@ -211,9 +205,6 @@ void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)
 	if (hdfProxy == nullptr)
 		return;
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
@@ -226,9 +217,6 @@ void WellboreFrameRepresentation::getMdAsFloatValues(float *  values)
 {
 	if (hdfProxy == nullptr)
 		return;
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)

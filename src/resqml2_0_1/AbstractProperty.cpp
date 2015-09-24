@@ -239,6 +239,16 @@ time_t AbstractProperty::getTimestamp() const
 		throw invalid_argument("This property does not have any timestamp.");
 }
 
+unsigned int AbstractProperty::getTimeIndex() const
+{
+	if (timeSeries && static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex)
+	{
+		return static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeIndex->Index;
+	}
+	else
+		throw invalid_argument("This property does not have any timestamp.");
+}
+
 void AbstractProperty::setTimeStep(const unsigned int & timeStep)
 {
 	if (static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep == NULL)

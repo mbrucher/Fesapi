@@ -467,7 +467,7 @@ unsigned int AbstractObject::getAliasCount() const
 	if (!gsoapProxy)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	return static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy)->ExtraMetadata.size();
+	return static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy)->Aliases.size();
 }
 
 std::string AbstractObject::getAliasAuthorityAtIndex(const unsigned int & index) const

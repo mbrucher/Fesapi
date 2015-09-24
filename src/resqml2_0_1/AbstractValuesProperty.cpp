@@ -87,9 +87,6 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 	if (hdfProxy == nullptr)
 		return AbstractValuesProperty::UNKNOWN;
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy);
 
 	resqml2__PatchOfValues* firstPatch = prop->PatchOfValues[0];
@@ -181,9 +178,6 @@ long AbstractValuesProperty::getLongValuesOfPatch(const unsigned int & patchInde
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
 	hdfProxy->readArrayNdOfLongValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
@@ -205,9 +199,6 @@ unsigned long AbstractValuesProperty::getULongValuesOfPatch(const unsigned int &
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
 	hdfProxy->readArrayNdOfULongValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
@@ -219,9 +210,6 @@ int AbstractValuesProperty::getIntValuesOfPatch(const unsigned int & patchIndex,
 {
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 	
@@ -235,9 +223,6 @@ unsigned int AbstractValuesProperty::getUIntValuesOfPatch(const unsigned int & p
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
 	hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
@@ -249,9 +234,6 @@ short AbstractValuesProperty::getShortValuesOfPatch(const unsigned int & patchIn
 {
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
@@ -265,9 +247,6 @@ unsigned short AbstractValuesProperty::getUShortValuesOfPatch(const unsigned int
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
 	hdfProxy->readArrayNdOfUShortValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
@@ -279,9 +258,6 @@ char AbstractValuesProperty::getCharValuesOfPatch(const unsigned int & patchInde
 {
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
@@ -295,9 +271,6 @@ unsigned char AbstractValuesProperty::getUCharValuesOfPatch(const unsigned int &
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
 	hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
@@ -309,9 +282,6 @@ unsigned int AbstractValuesProperty::getValuesCountOfDimensionOfPatch(const unsi
 {
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 	std::vector<hsize_t> dims;
@@ -339,9 +309,6 @@ unsigned int AbstractValuesProperty::getDimensionsCountOfPatch(const unsigned in
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -363,9 +330,6 @@ unsigned int AbstractValuesProperty::getValuesCountOfPatch (const unsigned int &
 {
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
@@ -475,10 +439,6 @@ void AbstractValuesProperty::getLongValuesOfPatch(
 {
 	if (hdfProxy == nullptr) {
 		return;
-	}
-
-	if (!hdfProxy->isOpened()) {
-		hdfProxy->openForReading();
 	}
 
 	_resqml2__CategoricalProperty* prop = 

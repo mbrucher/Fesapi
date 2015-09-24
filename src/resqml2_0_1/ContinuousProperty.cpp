@@ -338,9 +338,6 @@ void ContinuousProperty::getDoubleValuesOfPatch(const unsigned int & patchIndex,
 	if (hdfProxy == nullptr)
 		return;
 
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
-
 	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
 	resqml2__DoubleHdf5Array* hdfValues = static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
 
@@ -351,9 +348,6 @@ void ContinuousProperty::getFloatValuesOfPatch(const unsigned int & patchIndex, 
 {
 	if (hdfProxy == nullptr)
 		return;
-
-	if (!hdfProxy->isOpened())
-		hdfProxy->openForReading();
 
 	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
 	resqml2__DoubleHdf5Array* hdfValues = static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
@@ -370,10 +364,6 @@ void ContinuousProperty::getFloatValuesOfPatch(
 {
 	if (hdfProxy == NULL) {
 		return;
-	}
-
-	if (!hdfProxy->isOpened()) {
-		hdfProxy->openForReading();
 	}
 
 	_resqml2__ContinuousProperty* prop = 

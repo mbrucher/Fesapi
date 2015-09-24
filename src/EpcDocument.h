@@ -169,6 +169,12 @@ namespace common
 		void close();
 
 		/**
+		 * Set the file path which will be used for future serialization and deserialization
+		 * Will add the standard epc extension to the filePath is not already present.
+		 */
+		void setFilePath(const std::string & filePath);
+
+		/**
 		* Serialize the package by serializing all the gsoap wrappers and by zipping the package.
 		*/
 		void serialize(bool useZip64 = false);

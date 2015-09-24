@@ -43,6 +43,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace epc;
 using namespace resqml2_0_1;
@@ -50,24 +54,42 @@ using namespace gsoap_resqml2_0_1;
 
 const char* GridConnectionSetRepresentation::XML_TAG = "GridConnectionSetRepresentation";
 
+void GridConnectionSetRepresentation::init(common::EpcDocument* epcDoc, class AbstractLocal3dCrs * crs,
+        const std::string & guid, const std::string & title,
+		class AbstractGridRepresentation * supportingGridRep)
+{
+    gsoapProxy = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(epcDoc->getGsoapContext(), 1);
+    _resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+
+    initMandatoryMetadata();
+    setMetadata(guid, title, "", -1, "", "", -1, "", "");
+
+	// relationship
+	setSupportingGridRepresentation(supportingGridRep);
+
+	// epc document
+	epcDoc->addGsoapProxy(this);
+}
+
+GridConnectionSetRepresentation::GridConnectionSetRepresentation(common::EpcDocument* epcDoc, class AbstractLocal3dCrs * crs,
+		                const std::string & guid, const std::string & title,
+						class AbstractGridRepresentation * supportingGridRep):
+	AbstractRepresentation(nullptr, crs)
+{
+	init(epcDoc, crs, guid, title, supportingGridRep);
+}
+
 GridConnectionSetRepresentation::GridConnectionSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
         const string & guid, const string & title,
 		AbstractGridRepresentation * supportingGridRep):
 	AbstractRepresentation(interp, crs)
 {
-    gsoapProxy = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(interp->getGsoapProxy()->soap, 1);
-    _resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
-    
-    initMandatoryMetadata();
-    setMetadata(guid, title, "", -1, "", "", -1, "", "");
-    
-	// relationshsips
+	if (interp == nullptr)
+		throw invalid_argument("The interpretation of the IJK grid cannot be null.");
+
+	init(interp->getEpcDocument(), crs, guid, title, supportingGridRep);
+
 	setInterpretation(interp);
-	setSupportingGridRepresentation(supportingGridRep);
-	
-	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy)

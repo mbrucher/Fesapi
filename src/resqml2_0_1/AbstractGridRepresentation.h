@@ -82,7 +82,7 @@ namespace resqml2_0_1
 		*/
 		virtual ULONG64 getCellCount() const = 0;
 
-	private:
+	protected:
 
 		std::vector<GridConnectionSetRepresentation*> gridConnectionSetRepresentationSet;
 

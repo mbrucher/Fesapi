@@ -155,24 +155,10 @@ EpcDocument::~EpcDocument()
 
 bool EpcDocument::open(const std::string & fileName)
 {
-	if (s || package)
+	if (s != nullptr || package != nullptr)
 		return false;
 
-	filePath = fileName;
-
-	// Add .epc extension if it is not already done in parameter
-	size_t dotPos = filePath.find_last_of('.');
-	if (dotPos != string::npos)
-	{
-		if (filePath.substr(dotPos) != DOCUMENT_EXTENSION)
-		{
-			filePath += DOCUMENT_EXTENSION;
-		}
-	}
-	else
-	{
-		filePath += DOCUMENT_EXTENSION;
-	}
+	setFilePath(fileName);
 
 	//s = soap_new2(SOAP_XML_STRICT|SOAP_C_UTFSTRING, SOAP_XML_GRAPH|SOAP_XML_INDENT|SOAP_XML_CANONICAL); // new context with option
 	s = soap_new2(SOAP_XML_STRICT, SOAP_XML_GRAPH|SOAP_XML_INDENT|SOAP_XML_CANONICAL); // new context with option
@@ -238,6 +224,25 @@ void EpcDocument::close()
 	unstructuredGridRepresentationSet.clear();
 	stratigraphicColumnSet.clear();
 	frontierSet.clear();
+}
+
+void EpcDocument::setFilePath(const std::string & filePath)
+{
+	this->filePath = filePath;
+
+	// Add .epc extension if it is not already done in parameter
+	size_t dotPos = this->filePath.find_last_of('.');
+	if (dotPos != string::npos)
+	{
+		if (this->filePath.substr(dotPos) != DOCUMENT_EXTENSION)
+		{
+			this->filePath += DOCUMENT_EXTENSION;
+		}
+	}
+	else
+	{
+		this->filePath += DOCUMENT_EXTENSION;
+	}
 }
 
 std::string EpcDocument::getEnergisticsPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind) const

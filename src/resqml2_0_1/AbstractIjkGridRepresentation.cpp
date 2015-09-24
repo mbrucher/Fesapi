@@ -41,6 +41,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/DiscreteProperty.h"
 #include "resqml2_0_1/PropertyKind.h"
+#include "resqml2_0_1/GridConnectionSetRepresentation.h"
+#include "resqml2_0_1/CategoricalProperty.h"
+#include "resqml2_0_1/CommentProperty.h"
+#include "resqml2_0_1/ContinuousProperty.h"
+#include "resqml2_0_1/DiscretePropertySeries.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -755,11 +760,26 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		{
 			for (unsigned int iCell = 0; iCell < getICellCount(); ++iCell)
 			{
-				// 0 Top face : Cannot be splitted by hypothesis. Split nodes are not supported yet
-				cellFaceIsRightHanded[cellIndex*6] = 1;
+				// 0 Upper K face  : Cannot be splitted by hypothesis. Split nodes are not supported yet
+				faceIndicesPerCell[cellIndex*6] = nodeIndicesPerFaceIndex/4;
+				cellFaceIsRightHanded[cellIndex*6] = 0;
+				unsigned int previousKFace = previousKFaces[columnIndex];
+				previousKFaces[columnIndex] = nodeIndicesPerFaceIndex/4;
+
+				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 4);
+				++nodeIndicesPerFaceIndex;
+				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 5);
+				++nodeIndicesPerFaceIndex;
+				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 6);
+				++nodeIndicesPerFaceIndex;
+				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 7);
+				++nodeIndicesPerFaceIndex;
+
+				// 1 Lower K Face : Cannot be splitted by hypothesis. Split nodes are not supported yet
+				cellFaceIsRightHanded[cellIndex*6 + 1] = 1;
 				if (kCell == 0)
 				{
-					faceIndicesPerCell[cellIndex*6] = nodeIndicesPerFaceIndex/4;
+					faceIndicesPerCell[cellIndex*6 + 1] = nodeIndicesPerFaceIndex/4;
 
 					nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 0);
 					++nodeIndicesPerFaceIndex;
@@ -772,22 +792,8 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 				}
 				else // The face has already been created as the bottom of the previous loop.
 				{
-					faceIndicesPerCell[cellIndex*6] = previousKFaces[columnIndex];
+					faceIndicesPerCell[cellIndex*6 + 1] = previousKFace;
 				}
-
-				// 1 Bottom face  : Cannot be splitted by hypothesis. Split nodes are not supported yet
-				faceIndicesPerCell[cellIndex*6 + 1] = nodeIndicesPerFaceIndex/4;
-				cellFaceIsRightHanded[cellIndex*6 + 1] = 0;
-				previousKFaces[columnIndex] = nodeIndicesPerFaceIndex/4;
-
-				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 4);
-				++nodeIndicesPerFaceIndex;
-				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 5);
-				++nodeIndicesPerFaceIndex;
-				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 6);
-				++nodeIndicesPerFaceIndex;
-				nodeIndicesPerFace[nodeIndicesPerFaceIndex] = getXyzPointIndexFromCellCorner(iCell, jCell, kCell, 7);
-				++nodeIndicesPerFaceIndex;
 
 				// 2 Lower J face
 				cellFaceIsRightHanded[cellIndex*6 + 2] = 1;
@@ -938,6 +944,10 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	delete [] dim;
 	delete [] nodeIndicesPerFace;
 
+	/**********************************
+	*********** POINTS ****************
+	**********************************/
+
 	// XYZ points are referenced in case of explicit geometry. They are transformed (and then copied) in case of parametric geometry.
 	if (ijkGrid->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
 	{
@@ -945,7 +955,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	}
 	else if (ijkGrid->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
 	{
-		double* points = new double[getXyzPointCountOfPatch(0)];
+		double* points = new double[getXyzPointCountOfPatch(0) * 3];
 		getXyzPointsOfPatch(0, points);
 
 		// XML coordinate lines
@@ -953,7 +963,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		geom->Points = xmlPoints;
 		xmlPoints->Coordinates = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
 		xmlPoints->Coordinates->HdfProxy = hdfProxy->newResqmlReference();
-		xmlPoints->Coordinates->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/Points";
+		xmlPoints->Coordinates->PathInHdfFile = "/RESQML/" + result->getUuid() + "/Points";
 
 		unsigned int splitCoordinateLineCount = getSplitCoordinateLineCount();
 		if (splitCoordinateLineCount == 0)
@@ -965,7 +975,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 			numValues[2] = getICellCount() + 1;
 			numValues[3] = 3; // 3 for X, Y and Z
 
-			hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy->uuid, "Points", points, numValues, 4);
+			hdfProxy->writeArrayNdOfDoubleValues(result->getUuid(), "Points", points, numValues, 4);
 			delete [] numValues;
 		}
 		else
@@ -976,7 +986,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 			numValues[1] = (getJCellCount() + 1) * (getICellCount() + 1) + splitCoordinateLineCount;
 			numValues[2] = 3; // 3 for X, Y and Z
 
-			hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy->uuid, "Points", points, numValues, 3);
+			hdfProxy->writeArrayNdOfDoubleValues(result->getUuid(), "Points", points, numValues, 3);
 			delete [] numValues;
 		}
 
@@ -994,10 +1004,10 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 
 		// Property
 		string uuidActnum = result->getUuid(); // TODO : better deterministic uuid generation
-		if (uuidActnum[35] == '0')
-			uuidActnum[35] = '1';
+		if (uuidActnum[34] == '0')
+			uuidActnum[34] = '1';
 		else
-			uuidActnum[35] = '0';
+			uuidActnum[34] = '0';
 		DiscreteProperty* actnum = new DiscreteProperty(result, uuidActnum, "ACTNUM for " + result->getTitle(), 1, resqml2__IndexableElements__cells, kind);
 
 		// Values
@@ -1006,6 +1016,134 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		*(patch->RepresentationPatchIndex) = 0;
 		patch->Values = ijkGrid->Geometry->CellGeometryIsDefined;
 		static_cast<_resqml2__DiscreteProperty*>(actnum->getGsoapProxy())->PatchOfValues.push_back(patch);
+
+		actnum->setHdfProxy(hdfProxy);
+	}
+
+	/**********************************
+	******** CELL CONNECTIONS *********
+	**********************************/
+
+	for (unsigned int i = 0; i < gridConnectionSetRepresentationSet.size(); ++i)
+	{
+		GridConnectionSetRepresentation* gcsr = gridConnectionSetRepresentationSet[i];
+		string uuidGcsr = gcsr->getUuid(); // TODO : better deterministic uuid generation
+		if (uuidGcsr[35] == '0')
+			uuidGcsr[35] = '1';
+		else
+			uuidGcsr[35] = '0';
+		_resqml2__GridConnectionSetRepresentation* gcsrProxy= static_cast<_resqml2__GridConnectionSetRepresentation*>(gcsr->getGsoapProxy());
+		GridConnectionSetRepresentation* gcsrCopy = nullptr;
+		if (interpretation)
+		{
+			gcsrCopy = new GridConnectionSetRepresentation(interpretation, localCrs, uuidGcsr, "", result);
+		}
+		else
+		{
+			gcsrCopy = new GridConnectionSetRepresentation(getEpcDocument(), localCrs, uuidGcsr, "", result);
+		}
+		gcsrCopy->setHdfProxy(hdfProxy);
+		_resqml2__GridConnectionSetRepresentation* gcsrCopyProxy= static_cast<_resqml2__GridConnectionSetRepresentation*>(gcsrCopy->getGsoapProxy());
+		gcsrCopyProxy->Count = gcsrProxy->Count;
+		gcsrCopyProxy->CellIndexPairs = gcsrProxy->CellIndexPairs;
+		gcsrCopyProxy->GridIndexPairs = gcsrProxy->GridIndexPairs;
+		gcsrCopyProxy->LocalFacePerCellIndexPairs = gcsrProxy->LocalFacePerCellIndexPairs;
+		gcsrCopyProxy->ConnectionInterpretations = gcsrProxy->ConnectionInterpretations;
+		gcsrCopyProxy->Grid = gcsrProxy->Grid;
+		gcsrCopyProxy->ExtraMetadata = gcsrProxy->ExtraMetadata;
+		gcsrCopyProxy->Citation = gcsrProxy->Citation;
+		gcsrCopyProxy->Aliases = gcsrProxy->Aliases;
+		gcsrCopyProxy->CustomData = gcsrProxy->CustomData;
+	}
+
+	/**********************************
+	*********** PROPERTIES ************
+	**********************************/
+
+	for (unsigned int i = 0; i < propertySet.size(); ++i)
+	{
+		AbstractProperty* prop = propertySet[i];
+		string uuidProp = prop->getUuid(); // TODO : better deterministic uuid generation
+		if (uuidProp[35] == '0')
+			uuidProp[35] = '1';
+		else
+			uuidProp[35] = '0';
+
+		AbstractValuesProperty* propCopy = nullptr;
+		if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
+		{
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				propCopy = new CategoricalProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<CategoricalProperty*>(prop)->getStringLookup(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new CategoricalProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<CategoricalProperty*>(prop)->getStringLookup(), prop->getLocalPropertyKind());
+			}
+		}
+		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECommentProperty)
+		{
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				propCopy = new CommentProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new CommentProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getLocalPropertyKind());
+			}
+			static_cast<_resqml2__CommentProperty*>(propCopy->getGsoapProxy())->Language = static_cast<_resqml2__CommentProperty*>(prop->getGsoapProxy())->Language;
+		}
+		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
+		{
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				propCopy = new ContinuousProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<ContinuousProperty*>(prop)->getUom(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new ContinuousProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<ContinuousProperty*>(prop)->getUom(), prop->getLocalPropertyKind());
+			}
+			static_cast<_resqml2__ContinuousProperty*>(propCopy->getGsoapProxy())->MinimumValue = static_cast<_resqml2__ContinuousProperty*>(prop->getGsoapProxy())->MinimumValue;
+			static_cast<_resqml2__ContinuousProperty*>(propCopy->getGsoapProxy())->MaximumValue = static_cast<_resqml2__ContinuousProperty*>(prop->getGsoapProxy())->MaximumValue;
+		}
+		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDiscreteProperty)
+		{
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				propCopy = new DiscreteProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new DiscreteProperty(result, uuidProp, prop->getTitle() + "_unstructured", prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getLocalPropertyKind());
+			}
+			static_cast<_resqml2__DiscreteProperty*>(propCopy->getGsoapProxy())->MinimumValue = static_cast<_resqml2__DiscreteProperty*>(prop->getGsoapProxy())->MinimumValue;
+			static_cast<_resqml2__DiscreteProperty*>(propCopy->getGsoapProxy())->MaximumValue = static_cast<_resqml2__DiscreteProperty*>(prop->getGsoapProxy())->MaximumValue;
+		}
+
+		if (propCopy != nullptr)
+		{
+			propCopy->setHdfProxy(hdfProxy);
+			if (prop->getTimeSeries() != nullptr)
+			{
+				propCopy->setTimeIndex(prop->getTimeIndex(), prop->getTimeSeries());
+			}
+			resqml2__AbstractValuesProperty* propProxy= static_cast<resqml2__AbstractValuesProperty*>(prop->getGsoapProxy());
+			resqml2__AbstractValuesProperty* propCopyProxy= static_cast<resqml2__AbstractValuesProperty*>(propCopy->getGsoapProxy());
+			propCopyProxy->PatchOfValues = propProxy->PatchOfValues;
+			propCopyProxy->Facet = propProxy->Facet;
+			propCopyProxy->ExtraMetadata = propProxy->ExtraMetadata;
+			propCopyProxy->Citation = propProxy->Citation;
+			propCopyProxy->Aliases = propProxy->Aliases;
+			propCopyProxy->CustomData = propProxy->CustomData;
+		}
 	}
 
 	return result;
