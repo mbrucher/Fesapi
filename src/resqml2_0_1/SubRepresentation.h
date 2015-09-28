@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT SubRepresentation : public AbstractRepresentation
 	{
 	private :
-		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs, 
+		void init(common::EpcDocument * epcDoc,
                 const std::string & guid, const std::string & title,
 				class AbstractRepresentation * supportingRep);
 
@@ -56,7 +56,7 @@ namespace resqml2_0_1
 		* @param epcDoc	The epc document which contains the instance.
 		* @param title A title for the instance to create.
 		*/
-		SubRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs, 
+		SubRepresentation(common::EpcDocument * epcDoc,
                 const std::string & guid, const std::string & title,
 				class AbstractRepresentation * supportingRep);
 
@@ -65,7 +65,7 @@ namespace resqml2_0_1
 		* @param interp	The interpretation the instance represents.
 		* @param title A title for the instance to create.
 		*/
-		SubRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs, 
+		SubRepresentation(class AbstractFeatureInterpretation* interp,
                 const std::string & guid, const std::string & title,
 				class AbstractRepresentation * supportingRep);
 
@@ -106,18 +106,43 @@ namespace resqml2_0_1
 
 		/**
 		* Push back a new patch in the subrepresentation.
-		* @param elementKind		The kind of elements which constitutes the subrepresentation.
+		* @param elementKind		The kind of (indexable) elements which constitutes the subrepresentation.
         * @param elementCount		The count of elements which constitutes the subrepresentation.
         * @param elementIndices		The indices of the elements of the instance in the supporting representation.
         * @param proxy				The HDF proxy where the numerical values (indices) are stored.
 		*/
-		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, class AbstractHdfProxy * proxy);
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, class AbstractHdfProxy * proxy);
 
+		/**
+		* Push back a new patch in the subrepresentation which is constituted by means of pairwise elements.
+		* @param elementKind0		The kind of (indexable) elements which constitutes the first part of the pair of elements of the subrepresentation.
+		* @param elementKind1		The kind of (indexable) elements which constitutes the second part of the pair of elements of the subrepresentation.
+        * @param elementCount		The count of elements which constitutes the subrepresentation.
+        * @param elementIndices0	The indices of the first part of the element pair in the supporting representation.
+		* @param elementIndices1	The indices of the second part of the element pair in the supporting representation.
+        * @param proxy				The HDF proxy where the numerical values (indices) are stored.
+		*/
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
-			const unsigned int & elementCount,
+			const ULONG64 & elementCount,
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
 			class AbstractHdfProxy * proxy);
 
+		/**
+		* Push back a new patch (without pairwise elements) in the subrepresentation where the indice values have not to be written in the HDF file.
+		* The reason can be that the indice values already exist in an external file (only HDF5 for now) or that the writing of these indice values in the external file is defered in time.
+		* @param	elementKind			The kind of (indexable) elements which constitutes the subrepresentation.
+        * @param	elementCount		The count of elements which constitutes the subrepresentation.
+		* @param	dataset				If empty, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + subRep->uuid + "/subrepresentation_elementIndices0_patch" + patchIndex;
+		* @param	nullValue			The null value which has been chosen in the referenced hdf dataset.
+		* @param	hdfProxy			The HDF5 proxy where the values are already or will be stored.
+		*/
+		void pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
+			const LONG64 & nullValue, AbstractHdfProxy * proxy);
+
+		/**
+		* Get all the relationships of this intance.
+		* Mainly used in EPC context.
+		*/
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);

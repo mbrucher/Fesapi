@@ -69,7 +69,7 @@ namespace resqml2_0_1
 
 		/**
 		* Push back a new patch of values for this property where the values have not to be written in the HDF file.
-		* The reason can be that the values already exist in an external file (only HDF5 for now) or that the writing of the values inhte external file is defered in time.
+		* The reason can be that the values already exist in an external file (only HDF5 for now) or that the writing of the values in the external file is defered in time.
 		* @param	hdfProxy			The HDF5 proxy where the values are already or will be stored.
 		* @param	isAnIntegerDataset	If false, indicates that this dataset contains some floating point values. If true, this dataset contains some integer values.
 		* @param	dataset				If not provided during the method call, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + prop->uuid + "/values_patch" + patchIndex;

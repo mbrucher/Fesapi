@@ -727,6 +727,9 @@ unsigned int AbstractIjkGridRepresentation::getXyzPointIndexFromCellCorner(const
 
 UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title)
 {
+	if (epcDocument->getResqmlAbstractObjectByUuid(guid) != nullptr)
+		throw invalid_argument("Cannot create the unstructured grid because it already exists a resqml object with the same uuid in the EPC document.");
+
 	_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
 
 	UnstructuredGridRepresentation* result = nullptr;

@@ -54,9 +54,9 @@ using namespace resqml2_0_1;
 using namespace std;
 using namespace epc;
 
-AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs): interpretation(NULL), hdfProxy(NULL), localCrs(NULL)
+AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs): interpretation(nullptr), hdfProxy(nullptr), localCrs(nullptr)
 {
-	if (interp)
+	if (crs != nullptr && interp != nullptr)
 	{
 		if (interp->getRepresentationCount() == 0)
 		{
@@ -67,15 +67,14 @@ AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* in
 		}
 		else if (static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain != resqml2__Domain__mixed)
 		{
-			AbstractLocal3dCrs* local3dCrs = NULL;
 			unsigned int repIndex = 0;
-			local3dCrs = interp->getRepresentation(repIndex)->getLocalCrs();
-			while (local3dCrs == NULL && repIndex < interp->getRepresentationCount()-1)
+			AbstractLocal3dCrs* local3dCrs = interp->getRepresentation(repIndex)->getLocalCrs();
+			while (local3dCrs == nullptr && repIndex < interp->getRepresentationCount()-1)
 			{
 				++repIndex;
 				local3dCrs = interp->getRepresentation(repIndex)->getLocalCrs();
 			}
-			if (local3dCrs)
+			if (local3dCrs != nullptr)
 			{
 				if (interp->getRepresentation(repIndex)->getLocalCrs()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs &&
 					crs->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs)
@@ -108,7 +107,7 @@ std::string AbstractRepresentation::getLocalCrsUuid() const
 		return pointGeom->LocalCrs->UUID;
 	}
 	else
-		throw invalid_argument("No CRS is attached to this representation meaning that this representation has no geometry by itself.");
+		return "";
 }
 
 std::vector<SubRepresentation*> AbstractRepresentation::getFaultSubRepresentationSet() const
@@ -136,15 +135,12 @@ void AbstractRepresentation::importRelationshipSetFromEpc(common::EpcDocument* e
 	}
 
 	// Local CRS
-	try
+	string localCrsUid = getLocalCrsUuid();
+	if (localCrsUid.empty() == false)
 	{
-		localCrs = static_cast<AbstractLocal3dCrs*>(epcDoc->getResqmlAbstractObjectByUuid(getLocalCrsUuid()));
-		if (localCrs)
+		localCrs = static_cast<AbstractLocal3dCrs*>(epcDoc->getResqmlAbstractObjectByUuid(localCrsUid));
+		if (localCrs != nullptr)
 			localCrs->addRepresentation(this);
-	}
-	catch (const invalid_argument &) // No attached CRS
-	{
-		localCrs = NULL;
 	}
 
 
@@ -195,21 +191,21 @@ vector<Relationship> AbstractRepresentation::getAllEpcRelationships() const
 {
 	vector<Relationship> result;
 
-	if (interpretation)
+	if (interpretation != nullptr)
 	{
 		Relationship relInterp(interpretation->getPartNameInEpcDocument(), "", interpretation->getUuid());
 		relInterp.setDestinationObjectType();
 		result.push_back(relInterp);
 	}
 
-	if (localCrs)
+	if (localCrs != nullptr)
 	{
 		Relationship relCrs(localCrs->getPartNameInEpcDocument(), "", localCrs->getUuid());
 		relCrs.setDestinationObjectType();
 		result.push_back(relCrs);
 	}
 
-	if (hdfProxy)
+	if (hdfProxy != nullptr)
 	{
 		Relationship relHdf(hdfProxy->getPartNameInEpcDocument(), "", hdfProxy->getUuid());
 		relHdf.setMlToExternalPartProxyType();

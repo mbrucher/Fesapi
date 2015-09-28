@@ -1873,20 +1873,19 @@ resqml2_0_1::SubRepresentation* EpcDocument::createPartialSubRepresentation(cons
 	return new SubRepresentation(this, guid, title);
 }
 
-SubRepresentation* EpcDocument::createSubRepresentation(AbstractLocal3dCrs * crs,
-			const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
+SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-	return new SubRepresentation(this, crs, guid, title, supportingRep);
+	return new SubRepresentation(this, guid, title, supportingRep);
 }
 
-SubRepresentation* EpcDocument::createSubRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+SubRepresentation* EpcDocument::createSubRepresentation(AbstractFeatureInterpretation* interp,
 			const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-	return new SubRepresentation(interp, crs, guid, title, supportingRep);
+	return new SubRepresentation(interp, guid, title, supportingRep);
 }
 
 GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,  AbstractLocal3dCrs * crs, 

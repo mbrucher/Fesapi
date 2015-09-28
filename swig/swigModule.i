@@ -350,11 +350,11 @@ namespace common
 			const std::string & guid, const std::string & title,
 			const unsigned int & cellCount);
 			
-		resqml2_0_1::SubRepresentation* createSubRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs, 
+		resqml2_0_1::SubRepresentation* createSubRepresentation(
                 const std::string & guid, const std::string & title,
 				resqml2_0_1::AbstractRepresentation * supportingRep);
 			
-		resqml2_0_1::SubRepresentation* createSubRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs, 
+		resqml2_0_1::SubRepresentation* createSubRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp,
 			const std::string & guid, const std::string & title,
 			resqml2_0_1::AbstractRepresentation * supportingRep);
 		

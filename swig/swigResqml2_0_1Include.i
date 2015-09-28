@@ -654,9 +654,9 @@ namespace resqml2_0_1
 	class SubRepresentation : public AbstractRepresentation
 	{
 	public:
-		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy);
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy);
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
-			const unsigned int & elementCount,
+			const ULONG64 & elementCount,
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
 			AbstractHdfProxy * proxy);
 		

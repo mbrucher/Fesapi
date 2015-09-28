@@ -37,7 +37,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
@@ -51,14 +50,12 @@ using namespace gsoap_resqml2_0_1;
 
 const char* SubRepresentation::XML_TAG = "SubRepresentation";
 
-void SubRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+void SubRepresentation::init(common::EpcDocument* epcDoc,
         const string & guid, const string & title,
 		AbstractRepresentation * supportingRep)
 {
 	if (epcDoc == nullptr)
 		throw invalid_argument("The EPC document where the subrepresentation will be stored cannot be null.");
-	if (crs == nullptr)
-		throw invalid_argument("The local CRS of the subrepresentation cannot be null.");
 	if (supportingRep == nullptr)
 		throw invalid_argument("The supportng representation of the subrepresentation cannot be null.");
 
@@ -74,29 +71,25 @@ void SubRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs * c
 
 	// epc document
 	epcDoc->addGsoapProxy(this);
-
-	// relationhsips
-	localCrs = crs;
-	localCrs->addRepresentation(this);
 }
 
-SubRepresentation::SubRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+SubRepresentation::SubRepresentation(common::EpcDocument* epcDoc,
         const string & guid, const string & title,
 		AbstractRepresentation * supportingRep):
-	AbstractRepresentation(nullptr, crs)
+	AbstractRepresentation(nullptr, nullptr)
 {
-	init(epcDoc, crs, guid, title, supportingRep);
+	init(epcDoc, guid, title, supportingRep);
 }
 
-SubRepresentation::SubRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+SubRepresentation::SubRepresentation(AbstractFeatureInterpretation* interp,
         const string & guid, const string & title,
 		AbstractRepresentation * supportingRep):
-	AbstractRepresentation(interp, crs)
+	AbstractRepresentation(interp, nullptr)
 {
 	if (interp == nullptr)
 		throw invalid_argument("The interpretation of the subrepresentation cannot be null.");
 
-	init(interp->getEpcDocument(), crs, guid, title, supportingRep);
+	init(interp->getEpcDocument(), guid, title, supportingRep);
 
 	// relationhsips
 	setInterpretation(interp);
@@ -110,10 +103,10 @@ bool SubRepresentation::isElementPairBased(const unsigned int & patchIndex) cons
 		return rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() == 2;
 	}
 	else
-		throw invalid_argument("The patch does not exist at this index.");
+		throw range_error("The patch does not exist at this index.");
 }
 
-void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const unsigned int & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy)
+void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy)
 {
 	_resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
 
@@ -144,8 +137,43 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 	hdfProxy->writeArrayNd(rep->uuid, ossForHdf.str(), H5T_NATIVE_UINT, elementIndices, numValues, 1);
 }
 
+void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
+			const LONG64 & nullValue, AbstractHdfProxy * proxy)
+{
+	_resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
+	
+  setHdfProxy(proxy);
+  
+  resqml2__SubRepresentationPatch* patch = soap_new_resqml2__SubRepresentationPatch(gsoapProxy->soap, 1);
+
+  // XML
+  patch->PatchIndex = rep->SubRepresentationPatch.size();
+  rep->SubRepresentationPatch.push_back(patch);
+  patch->Count = elementCount;
+  resqml2__ElementIndices* elements = soap_new_resqml2__ElementIndices(gsoapProxy->soap, 1);
+  patch->ElementIndices.push_back(elements);
+  elements->IndexableElement = elementKind;
+
+  resqml2__IntegerHdf5Array * integerArray = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+  eml__Hdf5Dataset * resqmlHDF5dataset = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+  if (dataset.empty() == true)
+  {
+    ostringstream ossForHdf;
+    ossForHdf << "subrepresentation_elementIndices0_patch" << patch->PatchIndex;
+    resqmlHDF5dataset->HdfProxy = hdfProxy->newResqmlReference();
+    resqmlHDF5dataset->PathInHdfFile = "/RESQML/" + rep->uuid + "/" + ossForHdf.str();
+  }
+  else
+  {
+    resqmlHDF5dataset->PathInHdfFile = dataset;
+  }
+  integerArray->Values = resqmlHDF5dataset;
+  integerArray->NullValue = nullValue;
+  elements->Indices = integerArray;
+}
+
 void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
-			const unsigned int & elementCount,
+			const ULONG64 & elementCount,
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
 			AbstractHdfProxy * proxy)
 {
@@ -201,10 +229,10 @@ gsoap_resqml2_0_1::resqml2__IndexableElements SubRepresentation::getElementKindO
 		if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() > elementIndicesIndex)
 			return rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->IndexableElement;
 		else
-			throw invalid_argument("The elementIndices does not exist at this index.");
+			throw range_error("The elementIndices does not exist at this index.");
 	}
 	else
-		throw invalid_argument("The patch does not exist at this index.");
+		throw range_error("The patch does not exist at this index.");
 }
 
 ULONG64 SubRepresentation::getElementCountOfPatch(const unsigned int & patchIndex) const
@@ -215,7 +243,7 @@ ULONG64 SubRepresentation::getElementCountOfPatch(const unsigned int & patchInde
 		return rep->SubRepresentationPatch[patchIndex]->Count;
 	}
 	else
-		throw invalid_argument("The patch does not exist at this index.");
+		throw range_error("The patch does not exist at this index.");
 }
 
 void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, unsigned int * elementIndices) const
@@ -229,10 +257,10 @@ void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex
 				hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices)->Values->PathInHdfFile, elementIndices);
 		}
 		else
-			throw invalid_argument("The elementIndices does not exist at this index.");
+			throw range_error("The elementIndices does not exist at this index.");
 	}
 	else
-		throw invalid_argument("The patch does not exist at this index.");
+		throw range_error("The patch does not exist at this index.");
 }
 
 vector<Relationship> SubRepresentation::getAllEpcRelationships() const

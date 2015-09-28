@@ -415,6 +415,13 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
 	//**************
+	// Subrepresentations
+	//**************
+	SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "", "Fault Subrep In Grid", ijkgrid);
+	unsigned int faultPillar[2] = {1,4};
+	faultSubRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__pillars, 2, faultPillar, hdfProxy);
+
+	//**************
 	// Grid Connection
 	//**************
 	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, local3dCrs, "", "GridConnectionSetRepresentation", ijkgrid);
