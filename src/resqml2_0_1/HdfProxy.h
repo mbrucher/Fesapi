@@ -236,6 +236,16 @@ namespace resqml2_0_1
 		);
 
 		/**
+		* TODO : check all possible size of LONG64 on all different platforms
+		*/
+		void readArrayNdOfGSoapLong64Values(const std::string & datasetName, LONG64* values);
+	
+		/**
+		* TODO : check all possible size of ULONG64 on all different platforms
+		*/
+		void readArrayNdOfGSoapULong64Values(const std::string & datasetName, ULONG64* values);
+
+		/**
 		* Read an array Nd of long values stored in a specific dataset.
 		* @param datasetName	The absolute dataset name where to read the values
 		* @param values 		The values must be pre-allocated.

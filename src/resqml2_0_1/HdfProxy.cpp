@@ -386,6 +386,26 @@ void HdfProxy::readArrayNdOfFloatValues(
 	H5Dclose(dataset);
 }
 
+void HdfProxy::readArrayNdOfGSoapLong64Values(const std::string & datasetName, LONG64* values)
+{
+	if (!isOpened())
+		open();
+
+	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
+	H5Dread (dataset, H5T_NATIVE_LLONG, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
+	H5Dclose(dataset);
+}
+
+void HdfProxy::readArrayNdOfGSoapULong64Values(const std::string & datasetName, ULONG64* values)
+{
+	if (!isOpened())
+		open();
+
+	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
+	H5Dread (dataset, H5T_NATIVE_ULLONG, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
+	H5Dclose(dataset);
+}
+
 void HdfProxy::readArrayNdOfLongValues(const std::string & datasetName, long* values)
 {
 	if (!isOpened())

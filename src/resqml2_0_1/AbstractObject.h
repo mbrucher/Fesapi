@@ -176,15 +176,9 @@ namespace resqml2_0_1
 		std::string serializeIntoString();	
 
 		/**
-		* Add or set (if already exists) an alias for this object
+		* Add an alias for this object
 		*/
-		void addOrSetAlias(const std::string & authority, const std::string & title);
-
-		/**
-		* Get an alias according its authority.
-		* @return An empty string if the authority does not exist. Or the alias title if it exists
-		*/
-		std::string getAliasTitle(const std::string & authority);
+		void addAlias(const std::string & authority, const std::string & title);
 
 		/**
 		* Get the count of aliases in the instance.

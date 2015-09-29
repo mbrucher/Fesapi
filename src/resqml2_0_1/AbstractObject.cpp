@@ -421,45 +421,16 @@ string AbstractObject::serializeIntoString()
 	return oss.str();
 }
 
-void AbstractObject::addOrSetAlias(const std::string & authority, const std::string & title)
+void AbstractObject::addAlias(const std::string & authority, const std::string & title)
 {
 	if (!gsoapProxy)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
-
-	for (unsigned int i = 0; i < static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases.size(); i++)
-	{
-		if (static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases[i]->authority &&
-			static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases[i]->authority->compare(authority) == 0)
-		{
-			static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases[i]->Identifier = title;
-			return;
-		}
-	}
 
 	eml__ObjectAlias* alias = soap_new_eml__ObjectAlias(gsoapProxy->soap, 1);
 	alias->authority = soap_new_std__string(gsoapProxy->soap, 1);
 	alias->authority->assign(authority);
 	alias->Identifier = title;
 	static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy)->Aliases.push_back(alias);
-}
-
-string AbstractObject::getAliasTitle(const std::string & authority)
-{
-	if (!gsoapProxy)
-		throw invalid_argument("The wrapped gsoap proxy must not be null");
-
-	string result = "";
-
-	for (unsigned int i = 0; i < static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases.size(); i++)
-	{
-		if (static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases[i]->authority &&
-			static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases[i]->authority->compare(authority) == 0)
-		{
-			return static_cast<eml__AbstractCitedDataObject*>(gsoapProxy)->Aliases[i]->Identifier;
-		}
-	}
-
-	return result;
 }
 
 unsigned int AbstractObject::getAliasCount() const

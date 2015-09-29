@@ -735,7 +735,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	UnstructuredGridRepresentation* result = nullptr;
 	if (interpretation != nullptr) result = new UnstructuredGridRepresentation(interpretation, localCrs, guid, title, getCellCount());
 	else result = new UnstructuredGridRepresentation(getEpcDocument(), localCrs, guid, title, getCellCount());
-	result->addOrSetAlias("EpcDocument", ijkGrid->uuid);
+	result->addAlias("EpcDocument", ijkGrid->uuid);
 	
 	resqml2__UnstructuredGridGeometry* geom = soap_new_resqml2__UnstructuredGridGeometry(gsoapProxy->soap, 1);
 	static_cast<_resqml2__UnstructuredGridRepresentation*>(result->getGsoapProxy())->Geometry = geom;

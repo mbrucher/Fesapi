@@ -306,8 +306,7 @@ namespace resqml2_0_1
 				
 		std::string getXmlTag() const;
 		
-		void addOrSetAlias(const std::string & authority, const std::string & title);
-		std::string getAliasTitle(const std::string & authority);
+		void addAlias(const std::string & authority, const std::string & title);
 		unsigned int getAliasCount() const;
 		std::string getAliasAuthorityAtIndex(const unsigned int & index) const;
 		std::string getAliasTitleAtIndex(const unsigned int & index) const;
@@ -915,8 +914,8 @@ namespace resqml2_0_1
 	{
 	public:
 		ULONG64 getFaceCount() const;
-		void getFacesOfCells(unsigned int * faceIndices) const;
-		void getCumulativeFaceCountOfCells(unsigned int * faceCountPerCell) const;
+		void getFaceIndicesOfCells(ULONG64 * faceIndices) const;
+		void getCumulativeFaceCountOfCells(ULONG64 * faceCountPerCell) const;
 		void getNodesOfFaces(unsigned int * nodeIndices) const;
 		void getCumulativeNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
 		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy,

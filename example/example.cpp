@@ -1491,7 +1491,7 @@ void deserialize(const string & inputFile)
 		std::cout << "Title is : " << unstructuredGridRepSet[i]->getTitle() << std::endl;
 		std::cout << "Guid is : " << unstructuredGridRepSet[i]->getUuid() << std::endl;
 		std::cout << "Node count is : " << unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
-		unsigned int * faceCountOfCells = new unsigned int [unstructuredGridRepSet[i]->getCellCount()];
+		ULONG64 * faceCountOfCells = new ULONG64 [unstructuredGridRepSet[i]->getCellCount()];
 		unstructuredGridRepSet[i]->getCumulativeFaceCountOfCells(faceCountOfCells);
 		std::cout << "Face count of cell 0 is : " << faceCountOfCells[0] << std::endl;
 		std::cout << "Face count of cell 1 is : " << faceCountOfCells[1] - faceCountOfCells[0] << std::endl;

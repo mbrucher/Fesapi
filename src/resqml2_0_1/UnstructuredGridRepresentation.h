@@ -79,23 +79,32 @@ namespace resqml2_0_1
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
-		 * Get all the faces of all the cells.
-		 * @param faces 			It must be pre allocated.
+		 * Get all the face indices of all the cells.
+		 * @param faceIndices 			It must be pre allocated with the last value returned by getCumulativeFaceCountOfCells()
 		 */
-		void getFacesOfCells(unsigned int * faceIndices) const;
+		void getFaceIndicesOfCells(ULONG64 * faceIndices) const;
 
 		/**
 		* Get the cumulative face count per cell. First value is the count of faces in the first cell.
 		* Second value is the count of faces in the first and in the second cell. Third value is the count of faces in the first and in the second and in the third cell. Etc...
 		* Count of this array is equal to getCellCount()
 		* A single face count should be at least 4.
+		* @param cumulativeFaceCountPerCellIndex	It must be pre allocated with getCellCount()
 		*/
-		void getCumulativeFaceCountOfCells(unsigned int * faceCountPerCell) const;
+		void getCumulativeFaceCountOfCells(ULONG64 * cumulativeFaceCountPerCell) const;
+
+		/**
+		* Less efficient than getCumulativeFaceCountOfCells.
+		* Get the face count per cell. First value is the count of faces in the first cell.
+		* Second value is the count of faces in the second cell. etc...
+		* @param faceCountPerCell	It must be pre allocated with getCellCount()
+		*/
+		void getFaceCountOfCells(ULONG64 * faceCountPerCell) const;
 
 		/**
 		* Detect if the face count per cell is constant in the grid.
 		*/
-		bool isFaceCountOfCellsContant() const;
+		bool isFaceCountOfCellsConstant() const;
 
 		/*
 		* Get the constant face count per cell in the grid.
