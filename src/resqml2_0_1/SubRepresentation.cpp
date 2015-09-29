@@ -38,6 +38,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2_0_1/UnstructuredGridRepresentation.h"
+#include "resqml2_0_1/AbstractIjkGridRepresentation.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -348,14 +350,19 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 {
 	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
 
-	_resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
+	_resqml2__SubRepresentation* subRep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
 
-	// Base representation
-	if (rep->SupportingRepresentation->UUID.empty() == false)
+	// Supporting representation
+	supportingRepresentation = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(subRep->SupportingRepresentation->UUID));
+	if (supportingRepresentation == nullptr) // partial transfer
 	{
-		supportingRepresentation = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->SupportingRepresentation->UUID));
-		supportingRepresentation->addSubRepresentation(this);
+		getEpcDocument()->addWarning("The referenced grid \"" + subRep->SupportingRepresentation->Title + "\" (" + subRep->SupportingRepresentation->UUID + ") is missing.");
+		if (subRep->SupportingRepresentation->ContentType.find("UnstructuredGridRepresentation") != 0)
+			supportingRepresentation = new UnstructuredGridRepresentation(getEpcDocument(), subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
+		else if (subRep->SupportingRepresentation->ContentType.find("IjkGridRepresentation") != 0)
+			supportingRepresentation = new AbstractIjkGridRepresentation(getEpcDocument(), subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
 	}
+	supportingRepresentation->addSubRepresentation(this);
 }
 
 ULONG64 SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
