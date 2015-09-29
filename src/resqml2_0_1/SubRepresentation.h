@@ -105,6 +105,22 @@ namespace resqml2_0_1
 		void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, unsigned int * elementIndices) const;
 
 		/**
+		* Check if the element of a particular patch are pairwise or not.
+		*/
+		bool areElementPairwise(const unsigned int & patchIndex) const;
+
+		/**
+		* Check if the element indices of a particular patch are based on a lattice or not.
+		* @param elementIndicesIndex	In case of pairwise element, allow to select the first or second element indice of the pair.
+		*/
+		bool areElementIndicesBasedOnLattice(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+
+		LONG64 getLatticeElementIndicesStartValue(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+		unsigned int getLatticeElementIndicesDimensionCount(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+		LONG64 getLatticeElementIndicesOffsetValue(const unsigned int & latticeDimensionIndex, const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+		ULONG64 getLatticeElementIndicesOffsetCount(const unsigned int & latticeDimensionIndex, const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+
+		/**
 		* Push back a new patch in the subrepresentation.
 		* @param elementKind		The kind of (indexable) elements which constitutes the subrepresentation.
         * @param elementCount		The count of elements which constitutes the subrepresentation.

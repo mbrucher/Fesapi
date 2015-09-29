@@ -246,6 +246,74 @@ ULONG64 SubRepresentation::getElementCountOfPatch(const unsigned int & patchInde
 		throw range_error("The patch does not exist at this index.");
 }
 
+bool SubRepresentation::areElementPairwise(const unsigned int & patchIndex) const
+{
+	return static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices.size() > 1;
+}
+
+bool SubRepresentation::areElementIndicesBasedOnLattice(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const
+{
+	return static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray;
+}
+
+LONG64 SubRepresentation::getLatticeElementIndicesStartValue(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const
+{
+	if (areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex) == false)
+		throw invalid_argument("The element indices are not based on a lattice.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch.size() <= patchIndex)
+		throw range_error("The subrepresentation patch index is out of range.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex)
+		throw range_error("The element indices index is out of range.");
+
+	resqml2__IntegerLatticeArray* lattice = static_cast<resqml2__IntegerLatticeArray*>(static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices);
+	return lattice->StartValue;
+}
+
+unsigned int SubRepresentation::getLatticeElementIndicesDimensionCount(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const
+{
+	if (areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex) == false)
+		throw invalid_argument("The element indices are not based on a lattice.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch.size() <= patchIndex)
+		throw range_error("The subrepresentation patch index is out of range.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex)
+		throw range_error("The element indices index is out of range.");
+
+	resqml2__IntegerLatticeArray* lattice = static_cast<resqml2__IntegerLatticeArray*>(static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices);
+	return lattice->Offset.size();
+}
+
+LONG64 SubRepresentation::getLatticeElementIndicesOffsetValue(const unsigned int & latticeDimensionIndex, const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const
+{
+	if (areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex) == false)
+		throw invalid_argument("The element indices are not based on a lattice.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch.size() <= patchIndex)
+		throw range_error("The subrepresentation patch index is out of range.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex)
+		throw range_error("The element indices index is out of range.");
+
+	resqml2__IntegerLatticeArray* lattice = static_cast<resqml2__IntegerLatticeArray*>(static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices);
+	if (lattice->Offset.size() <= latticeDimensionIndex)
+		throw range_error("The lattice dimension index is out of range.");
+
+	return lattice->Offset[latticeDimensionIndex]->Value;
+}
+
+ULONG64 SubRepresentation::getLatticeElementIndicesOffsetCount(const unsigned int & latticeDimensionIndex, const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const
+{
+	if (areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex) == false)
+		throw invalid_argument("The element indices are not based on a lattice.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch.size() <= patchIndex)
+		throw range_error("The subrepresentation patch index is out of range.");
+	if (static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex)
+		throw range_error("The element indices index is out of range.");
+
+	resqml2__IntegerLatticeArray* lattice = static_cast<resqml2__IntegerLatticeArray*>(static_cast<_resqml2__SubRepresentation*>(gsoapProxy)->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices);
+	if (lattice->Offset.size() <= latticeDimensionIndex)
+		throw range_error("The lattice dimension index is out of range.");
+
+	return lattice->Offset[latticeDimensionIndex]->Count;
+}
+
 void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, unsigned int * elementIndices) const
 {
 	_resqml2__SubRepresentation* rep = static_cast<_resqml2__SubRepresentation*>(gsoapProxy);
@@ -255,6 +323,8 @@ void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex
 		{
 			if (rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 				hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices)->Values->PathInHdfFile, elementIndices);
+			else
+				throw logic_error("Not yet implemented");
 		}
 		else
 			throw range_error("The elementIndices does not exist at this index.");

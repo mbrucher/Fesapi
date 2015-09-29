@@ -1003,7 +1003,14 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	if (ijkGrid->Geometry->CellGeometryIsDefined != nullptr)
 	{
 		// Property kind
-		PropertyKind* kind = new PropertyKind(getEpcDocument(), "556b918e-fb78-43b9-b224-7d3ae7488f47", "ACTNUM", "F2I", resqml2__ResqmlUom__Euc, resqml2__ResqmlPropertyKind__discrete);
+		AbstractObject* actnumUuidObj = epcDocument->getResqmlAbstractObjectByUuid("556b918e-fb78-43b9-b224-7d3ae7488f47");
+		PropertyKind* kind = nullptr;
+		if (actnumUuidObj != nullptr && actnumUuidObj->getXmlTag() == PropertyKind::XML_TAG)
+			kind = static_cast<PropertyKind*>(actnumUuidObj);
+		else if (actnumUuidObj == nullptr)
+			kind = new PropertyKind(getEpcDocument(), "556b918e-fb78-43b9-b224-7d3ae7488f47", "ACTNUM", "F2I", resqml2__ResqmlUom__Euc, resqml2__ResqmlPropertyKind__discrete);
+		else
+			throw invalid_argument("Cannot create the actnum property kind because it already exists a resqml object with the same uuid in the EPC document.");
 
 		// Property
 		string uuidActnum = result->getUuid(); // TODO : better deterministic uuid generation
@@ -1026,7 +1033,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	/**********************************
 	******** CELL CONNECTIONS *********
 	**********************************/
-
+	/*
 	for (unsigned int i = 0; i < gridConnectionSetRepresentationSet.size(); ++i)
 	{
 		GridConnectionSetRepresentation* gcsr = gridConnectionSetRepresentationSet[i];
@@ -1059,9 +1066,9 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		gcsrCopyProxy->CustomData = gcsrProxy->CustomData;
 	}
 
-	/**********************************
-	*********** PROPERTIES ************
-	**********************************/
+	//**********************************
+	//*********** PROPERTIES ***********
+	//**********************************
 
 	for (unsigned int i = 0; i < propertySet.size(); ++i)
 	{
@@ -1148,7 +1155,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 			propCopyProxy->CustomData = propProxy->CustomData;
 		}
 	}
-
+	*/
 	return result;
 }
 
