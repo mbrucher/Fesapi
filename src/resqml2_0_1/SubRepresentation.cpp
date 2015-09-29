@@ -156,11 +156,11 @@ void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::re
 
   resqml2__IntegerHdf5Array * integerArray = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
   eml__Hdf5Dataset * resqmlHDF5dataset = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+  resqmlHDF5dataset->HdfProxy = hdfProxy->newResqmlReference();
   if (dataset.empty() == true)
   {
     ostringstream ossForHdf;
     ossForHdf << "subrepresentation_elementIndices0_patch" << patch->PatchIndex;
-    resqmlHDF5dataset->HdfProxy = hdfProxy->newResqmlReference();
     resqmlHDF5dataset->PathInHdfFile = "/RESQML/" + rep->uuid + "/" + ossForHdf.str();
   }
   else
