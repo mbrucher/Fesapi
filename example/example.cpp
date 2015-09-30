@@ -1509,6 +1509,7 @@ void deserialize(const string & inputFile)
 			std::cout << "(in memory) Face count of cell 1 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(1) << std::endl;	
 		std::cout << "(in memory) Node  count of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeCountOfFaceOfCell(0, 0) << std::endl;
 		std::cout << "(in memory) Node  indice 0 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[0] << std::endl;
+		std::cout << "(in memory) Node  indice 0 of face 1 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 1)[0] << std::endl;
 
 		unstructuredGridRepSet[i]->unloadGeometry();
 	}

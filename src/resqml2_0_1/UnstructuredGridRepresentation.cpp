@@ -643,16 +643,18 @@ ULONG64 * UnstructuredGridRepresentation::getNodeIndicesOfFaceOfCell(const ULONG
 		globalFaceIndex = faceIndicesOfCells[localFaceIndex];
 	else
 	{
-		if (constantNodeCountPerFace != 0)
-			globalFaceIndex = faceIndicesOfCells[constantNodeCountPerFace * cellIndex + localFaceIndex];
+		if (constantFaceCountPerCell != 0)
+			globalFaceIndex = faceIndicesOfCells[constantFaceCountPerCell * cellIndex + localFaceIndex];
 		else
 			globalFaceIndex = faceIndicesOfCells[cumulativeFaceCountPerCell[cellIndex-1] + localFaceIndex];
 	}
 
-	ULONG64 * result = nodeIndicesOfFaces;
 
 	if (globalFaceIndex == 0)
-		return result;
+		return nodeIndicesOfFaces;
 
-	return &(nodeIndicesOfFaces[cumulativeNodeCountPerFace[globalFaceIndex-1]]);
+	if (constantNodeCountPerFace != 0)
+		return &(nodeIndicesOfFaces[constantNodeCountPerFace * globalFaceIndex]);
+	else
+		return &(nodeIndicesOfFaces[cumulativeNodeCountPerFace[globalFaceIndex-1]]);
 }
