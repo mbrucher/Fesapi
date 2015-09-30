@@ -200,7 +200,7 @@ bool UnstructuredGridRepresentation::isFaceCountOfCellsConstant() const
 	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
 	if (grid->Geometry == NULL)
 		throw invalid_argument("There is no geometry in this grid.");
-	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
 	{
 		return true;
 	}
@@ -300,7 +300,7 @@ bool UnstructuredGridRepresentation::isNodeCountOfFacesContant() const
 	_resqml2__UnstructuredGridRepresentation* grid = static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy);
 	if (grid->Geometry == NULL)
 		throw invalid_argument("There is no geometry in this grid.");
-	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
 	{
 		return true;
 	}
@@ -648,7 +648,6 @@ ULONG64 * UnstructuredGridRepresentation::getNodeIndicesOfFaceOfCell(const ULONG
 		else
 			globalFaceIndex = faceIndicesOfCells[cumulativeFaceCountPerCell[cellIndex-1] + localFaceIndex];
 	}
-
 
 	if (globalFaceIndex == 0)
 		return nodeIndicesOfFaces;
