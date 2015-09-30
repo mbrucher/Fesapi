@@ -225,11 +225,11 @@ unsigned int UnstructuredGridRepresentation::getConstantFaceCountOfCells() const
 	if (isFaceCountOfCellsConstant() == false)
 		throw invalid_argument("The face count per cell is not constant.");
 
-	if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__hexahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral)
 	{
 		return 6;
 	}
-	else if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	else if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
 	{
 		return 4;
 	}
@@ -319,11 +319,11 @@ unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
 	if (isNodeCountOfFacesContant() == false)
 		throw invalid_argument("The node count per cell is not constant.");
 
-	if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__hexahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral)
 	{
 		return 4;
 	}
-	else if (grid->Geometry->CellShape != resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	else if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
 	{
 		return 3;
 	}
@@ -530,25 +530,31 @@ void UnstructuredGridRepresentation::loadGeometry()
 	unloadGeometry();
 
 	if (isNodeCountOfFacesContant() == true)
+	{
 		constantNodeCountPerFace = getConstantNodeCountOfFaces();
+		nodeIndicesOfFaces = new ULONG64[constantNodeCountPerFace * getFaceCount()];
+	}
 	else
 	{
 		cumulativeNodeCountPerFace = new ULONG64[getFaceCount()];
 		getCumulativeNodeCountPerFace(cumulativeNodeCountPerFace);
+		nodeIndicesOfFaces = new ULONG64[cumulativeNodeCountPerFace[getFaceCount() - 1]];
 	}
 
 	if (isFaceCountOfCellsConstant() == true)
+	{
 		constantFaceCountPerCell = getConstantFaceCountOfCells();
+		faceIndicesOfCells = new ULONG64[constantFaceCountPerCell * getCellCount()];
+	}
 	else
 	{
 		cumulativeFaceCountPerCell = new ULONG64[getCellCount()];
 		getCumulativeFaceCountPerCell(cumulativeFaceCountPerCell);
+		faceIndicesOfCells = new ULONG64[cumulativeFaceCountPerCell[getCellCount() - 1]];
 	}
 
-	nodeIndicesOfFaces = new ULONG64[cumulativeNodeCountPerFace[getFaceCount() - 1]];
 	getNodeIndicesOfFaces(nodeIndicesOfFaces);
 
-	faceIndicesOfCells = new ULONG64[cumulativeFaceCountPerCell[getCellCount() - 1]];
 	getFaceIndicesOfCells(faceIndicesOfCells);
 }
 
