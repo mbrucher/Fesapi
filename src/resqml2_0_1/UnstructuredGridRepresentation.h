@@ -46,6 +46,13 @@ namespace resqml2_0_1
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
 
+		unsigned int constantNodeCountPerFace;
+		unsigned int constantFaceCountPerCell;
+		ULONG64 * cumulativeNodeCountPerFace;
+		ULONG64 * cumulativeFaceCountPerCell;
+		ULONG64 * nodeIndicesOfFaces;
+		ULONG64 * faceIndicesOfCells;
+
 	public:
 
 		/**
@@ -64,7 +71,9 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		UnstructuredGridRepresentation(gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* fromGsoap): AbstractGridRepresentation(fromGsoap) {}
+		UnstructuredGridRepresentation(gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* fromGsoap): AbstractGridRepresentation(fromGsoap), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+				cumulativeNodeCountPerFace(NULL), cumulativeFaceCountPerCell(NULL),
+				nodeIndicesOfFaces(NULL), faceIndicesOfCells(NULL) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -80,7 +89,7 @@ namespace resqml2_0_1
 
 		/**
 		 * Get all the face indices of all the cells.
-		 * @param faceIndices 			It must be pre allocated with the last value returned by getCumulativeFaceCountOfCells()
+		 * @param faceIndices 			It must be pre allocated with the last value returned by getCumulativeFaceCountOfCells() == getFaceCount()
 		 */
 		void getFaceIndicesOfCells(ULONG64 * faceIndices) const;
 
@@ -91,7 +100,7 @@ namespace resqml2_0_1
 		* A single face count should be at least 4.
 		* @param cumulativeFaceCountPerCellIndex	It must be pre allocated with getCellCount()
 		*/
-		void getCumulativeFaceCountOfCells(ULONG64 * cumulativeFaceCountPerCell) const;
+		void getCumulativeFaceCountPerCell(ULONG64 * cumulativeFaceCountPerCell) const;
 
 		/**
 		* Less efficient than getCumulativeFaceCountOfCells.
@@ -99,7 +108,7 @@ namespace resqml2_0_1
 		* Second value is the count of faces in the second cell. etc...
 		* @param faceCountPerCell	It must be pre allocated with getCellCount()
 		*/
-		void getFaceCountOfCells(ULONG64 * faceCountPerCell) const;
+		void getFaceCountPerCell(ULONG64 * faceCountPerCell) const;
 
 		/**
 		* Detect if the face count per cell is constant in the grid.
@@ -112,18 +121,27 @@ namespace resqml2_0_1
 		unsigned int getConstantFaceCountOfCells() const;
 
 		/**
-		 * Get all the nodes of all the cells.
-		 * @param nodes 			It must be pre allocated.
+		 * Get all the node indices of all the faces.
+		 * @param nodeIndices 			It must be pre allocated with the last value returned by getCumulativeNodeCountOfFaces().
 		 */
-		void getNodesOfFaces(unsigned int * nodeIndices) const;
+		void getNodeIndicesOfFaces(ULONG64 * nodeIndices) const;
 
 		/**
 		* Get the cumulative node count per face. First value is the count of nodes in the first face.
 		* Second value is the count of nodes in the first and in the second face. Third value is the count of nodes in the first and in the second and in the third face. Etc...
 		* Count of this array is equal to getFaceCount()
 		* A single node count should be at least 3.
+		* @param nodeCountPerFace	It must be pre allocated with getFaceCount() == last value of getCumulativeFaceCountOfCells()
 		*/
-		void getCumulativeNodeCountOfFaces(unsigned int * nodeCountPerFace) const;
+		void getCumulativeNodeCountPerFace(ULONG64 * nodeCountPerFace) const;
+
+		/**
+		* Less efficient than getCumulativeNodeCountPerFace.
+		* Get the node count per face. First value is the count of nodes in the first face.
+		* Second value is the count of nodes in the second face. etc...
+		* @param nodeCountPerFace	It must be pre allocated with getFaceCount() == last value of getCumulativeFaceCountOfCells()
+		*/
+		void getNodeCountPerFace(ULONG64 * nodeCountPerFace) const;
 
 		/**
 		* Detect if the node count per face is constant in the grid.
@@ -134,6 +152,35 @@ namespace resqml2_0_1
 		* Get the constant node count per face in the grid.
 		*/
 		unsigned int getConstantNodeCountOfFaces() const;
+
+		/**
+		* Load the geoemtry into memory in order to ease access.
+		* Be aware that you must unload by yourself this memory.
+		*/
+		void loadGeometry();
+
+		/**
+		* Unload the split information from memory.
+		*/
+		void unloadGeometry();
+
+		/**
+		* This method requires your have already loaded the geometry.
+		* @return The count of faces in a particular cell.
+		*/
+		unsigned int getFaceCountOfCell(const ULONG64 & cellIndex) const;
+	
+		/**
+		* This method requires your have already loaded the geometry.
+		* @return The count of nodes in a particular face of a particular cell.
+		*/
+		unsigned int getNodeCountOfFaceOfCell(const ULONG64 & cellIndex, const unsigned int & localFaceIndex) const;
+
+		/**
+		* This method requires your have already loaded the geometry.
+		* It gets all the node indices of a particular face of a particular cell
+		*/
+		ULONG64 * getNodeIndicesOfFaceOfCell(const ULONG64 & cellIndex, const unsigned int & localFaceIndex) const;
 
 		/**
 		 * Get the cell count
