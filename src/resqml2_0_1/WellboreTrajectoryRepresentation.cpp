@@ -81,6 +81,15 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
 			AbstractHdfProxy * proxy)
 {
+	if (controlPoints == nullptr)
+		throw invalid_argument("The control points are missing.");
+	if (controlPointParameters == nullptr)
+		throw invalid_argument("The control points parameters are missing.");
+	if (controlPointCount == 0)
+		throw invalid_argument("The control point count cannot be 0.");
+	if (proxy == nullptr)
+		throw invalid_argument("The HDF proxy is missing.");
+
 	setHdfProxy(proxy);
 
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
@@ -242,8 +251,8 @@ void WellboreTrajectoryRepresentation::addParentTrajectory(const double & kickof
 
 ULONG64 WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex != 0)
-		return 0;
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index patch is not in the allowed range of patch.");
 
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->KnotCount;
@@ -252,7 +261,7 @@ ULONG64 WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const unsigned
 void WellboreTrajectoryRepresentation::getMdValues(double * values)
 {
 	if (hdfProxy == nullptr)
-		return;
+		throw invalid_argument("The HDF proxy is missing.");
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	resqml2__DoubleHdf5Array* xmlControlPointParameters = static_cast<resqml2__DoubleHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters);
@@ -262,7 +271,7 @@ void WellboreTrajectoryRepresentation::getMdValues(double * values)
 void WellboreTrajectoryRepresentation::getTangentVectors(double* tangentVectors)
 {
 	if (hdfProxy == nullptr)
-		return;
+		throw invalid_argument("The HDF proxy is missing.");
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	resqml2__Point3dHdf5Array* xmlTangentVectors = static_cast<resqml2__Point3dHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->TangentVectors);

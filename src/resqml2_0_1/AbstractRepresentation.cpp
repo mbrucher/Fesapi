@@ -146,7 +146,11 @@ void AbstractRepresentation::importRelationshipSetFromEpc(common::EpcDocument* e
 
 	if (getHdfProxyUuid().empty() == false)
 	{
-		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(getHdfProxyUuid())));
+		AbstractHdfProxy* hdfProxy = static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(getHdfProxyUuid()));
+		if (hdfProxy != nullptr)
+			setHdfProxy(hdfProxy);
+		else
+			getEpcDocument()->addWarning("The HDF proxy of the representation " + getUuid() + " is missing");
 	}
 
 	// Seismic support

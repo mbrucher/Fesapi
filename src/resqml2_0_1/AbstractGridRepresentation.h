@@ -45,7 +45,7 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractRepresentation(epcDoc, guid, title) {}
+		AbstractGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractRepresentation(epcDoc, guid, title)  {}
 
 		AbstractGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs) {}
 
@@ -82,7 +82,32 @@ namespace resqml2_0_1
 		*/
 		virtual ULONG64 getCellCount() const = 0;
 
+		/**
+		* Get the parent grid of this grid.
+		* @return	NULL if the grid is not a child grid (not a LGR)
+		*/
+		AbstractGridRepresentation* getParentGrid() const;
+
+		/**
+		* Return the count of child grid in this grid.
+		*/
+		unsigned int getChildGridCount() const {return childGridSet.size();}
+
+		/**
+		* Return the count of child grid in this grid.
+		*/
+		AbstractGridRepresentation* getChildGrid(const unsigned int & index) const {return childGridSet[index];}
+
+		/**
+		* Indicates that this grid takes place into another grid.
+		*/
+		void setCellParentWindow(ULONG64 * cellIndices, const ULONG64 & cellIndexCount, AbstractGridRepresentation* parentGrid);
+
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
 	protected:
+
+		std::vector<AbstractGridRepresentation*> childGridSet;
 
 		std::vector<GridConnectionSetRepresentation*> gridConnectionSetRepresentationSet;
 

@@ -143,13 +143,28 @@ namespace resqml2_0_1
 		* @param groupName						The name of the group where to create the array of int values.
 		*										This name must not contain '/' character and must be directly contained in RESQML group.
 		* @param name							The name of the array of int values hdf dataset. It must not already exist.
-		* @param dblValues						1d array of int values ordered firstly by fastest direction.
+		* @param intValues						1d array of int values ordered firstly by fastest direction.
 		* @param numValuesInEachDimension		Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
 		* @param numDimensions					The number of the dimensions of the array to write
 		*/
 		void writeArrayNdOfIntValues(const std::string & groupName,
 			const std::string & name,
 			int * intValues,
+			hsize_t * numValuesInEachDimension,
+			const unsigned int & numDimensions);
+
+		/**
+		* Write an array (potentially with multi dimensions) of gSoap unsigned long 64 values into the HDF file by means of a single dataset.
+		* @param groupName						The name of the group where to create the array of int values.
+		*										This name must not contain '/' character and must be directly contained in RESQML group.
+		* @param name							The name of the array of gSoap unsigned long 64 values hdf dataset. It must not already exist.
+		* @param ulong64Values					1d array of gSoap unsigned long 64 values ordered firstly by fastest direction.
+		* @param numValuesInEachDimension		Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
+		* @param numDimensions					The number of the dimensions of the array to write
+		*/
+		void writeArrayNdOfGSoapULong64Values(const std::string & groupName,
+			const std::string & name,
+			ULONG64 * ulong64Values,
 			hsize_t * numValuesInEachDimension,
 			const unsigned int & numDimensions);
 

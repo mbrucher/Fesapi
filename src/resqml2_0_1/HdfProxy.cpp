@@ -223,6 +223,15 @@ void HdfProxy::writeArrayNdOfIntValues(const string & groupName,
 	writeArrayNd(groupName, name, H5T_NATIVE_INT, intValues, numValuesInEachDimension, numDimensions);
 }
 
+void HdfProxy::writeArrayNdOfGSoapULong64Values(const std::string & groupName,
+			const std::string & name,
+			ULONG64 * ulong64Values,
+			hsize_t * numValuesInEachDimension,
+			const unsigned int & numDimensions)
+{
+	writeArrayNd(groupName, name, H5T_NATIVE_ULLONG, ulong64Values, numValuesInEachDimension, numDimensions);
+}
+
 void HdfProxy::writeArrayNd(const string & groupName,
 			const string & name,
 			const hid_t & datatype,
