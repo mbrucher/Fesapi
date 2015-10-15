@@ -55,7 +55,7 @@ namespace resqml2_0_1
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which support each value.
 		* @apram uom						The uom of the values
-		* @param energisticsPropertyKind	The property type of these property values which must be defined in the standard energistics property type dictionary.
+		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
 		ContinuousProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
@@ -68,10 +68,10 @@ namespace resqml2_0_1
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which support each value.
 		* @apram uom						The uom of the values
-		* @param localPropType				The property type of these property values which must be defined in the EPC document as a local property type.
+		* @param localPropType				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
 		ContinuousProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, class PropertyKind * localPropType);
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, class PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

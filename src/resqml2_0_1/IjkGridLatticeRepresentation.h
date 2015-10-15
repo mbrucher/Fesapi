@@ -43,11 +43,6 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::resqml2__Point3dLatticeArray* getArrayLatticeOfPoints3d() const;
 	public:
 
-		/**
-		* Only to be used in partial transfer context
-		*/
-		IjkGridLatticeRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractIjkGridRepresentation(epcDoc, guid, title) {}
-
 		IjkGridLatticeRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);

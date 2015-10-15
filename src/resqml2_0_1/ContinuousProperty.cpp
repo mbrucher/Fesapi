@@ -71,7 +71,7 @@ ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const strin
 }
 
 ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropType)
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropKind)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
@@ -79,14 +79,9 @@ ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const strin
 	prop->Count = dimension;
 	prop->UOM = uom;
 
-	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy->soap, 1);
-	xmlLocalPropKind->LocalPropertyKind = localPropType->newResqmlReference();
-	prop->PropertyKind = xmlLocalPropKind;
-
 	setRepresentation(rep);
 
-	localPropertyKind = localPropType;
-	localPropType->addProperty(this);
+	setLocalPropertyKind(localPropKind);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

@@ -45,7 +45,7 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractRepresentation(epcDoc, guid, title)  {}
+		AbstractGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractRepresentation(epcDoc, partialObject)  {}
 
 		AbstractGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs) {}
 

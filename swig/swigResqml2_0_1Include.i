@@ -1124,7 +1124,7 @@ namespace resqml2_0_1
 		
 		void setTimeIndex(const unsigned int & timeIndex, TimeSeries * ts);
 		void setTimeStep(const unsigned int & timeStep);
-		TimeSeries* getTimeSeries();
+		TimeSeries* getTimeSeries() const;
 		time_t getTimestamp() const;
 	};
 	

@@ -67,7 +67,7 @@ void AbstractIjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLo
 		throw invalid_argument("The local CRS of the IJK Grid cannot be null.");
 
 	gsoapProxy = soap_new_resqml2__obj_USCOREIjkGridRepresentation(epcDoc->getGsoapContext(), 1);
-	_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
 
 	ijkGrid->Ni = iCount;
 	ijkGrid->Nj = jCount;
@@ -106,45 +106,53 @@ AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(AbstractFeatureInte
 	setInterpretation(interp);
 }
 
+_resqml2__IjkGridRepresentation* AbstractIjkGridRepresentation::getSpecializedGsoapProxy() const
+{
+	if (isPartial() == true)
+		throw logic_error("Partial object");
+
+	return static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+}
+
 gsoap_resqml2_0_1::resqml2__PointGeometry* AbstractIjkGridRepresentation::getPointGeometry(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
-		return static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Geometry;
+		return getSpecializedGsoapProxy()->Geometry;
 	else
 		return NULL;
 }
 
 unsigned int AbstractIjkGridRepresentation::getICellCount() const
 {
-	return (int)static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Ni;
+	return getSpecializedGsoapProxy()->Ni;
 }
 
 void AbstractIjkGridRepresentation::setICellCount(const unsigned int & iCount)
 {
-	static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Ni = iCount;
+	getSpecializedGsoapProxy()->Ni = iCount;
 }
 
 unsigned int AbstractIjkGridRepresentation::getJCellCount() const
 {
-	return (int)static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Nj;
+	return (int)getSpecializedGsoapProxy()->Nj;
 }
 
 void AbstractIjkGridRepresentation::setJCellCount(const unsigned int & jCount)
 {
-	static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Nj = jCount;
+	getSpecializedGsoapProxy()->Nj = jCount;
 }
 
 bool AbstractIjkGridRepresentation::isRightHanded() const
 {
-	if (static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Geometry)
-		return static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Geometry->GridIsRighthanded;
+	if (getSpecializedGsoapProxy()->Geometry)
+		return getSpecializedGsoapProxy()->Geometry->GridIsRighthanded;
 	else
 		throw invalid_argument("The grid has no geometry.");
 }
 
 void AbstractIjkGridRepresentation::getPillarsOfSplitCoordinateLines(unsigned int * pillarIndices, bool reverseIAxis, bool reverseJAxis) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry->SplitCoordinateLines == NULL)
 		throw invalid_argument("There is no split coordinate line in this grid.");
 	if (grid->Geometry->SplitCoordinateLines->PillarIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
@@ -181,7 +189,7 @@ void AbstractIjkGridRepresentation::getPillarsOfSplitCoordinateLines(unsigned in
 
 void AbstractIjkGridRepresentation::getColumnsOfSplitCoordinateLines(unsigned int * columnIndices, bool reverseIAxis, bool reverseJAxis) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry->SplitCoordinateLines == NULL)
 		throw invalid_argument("There is no split coordinate line in this grid.");
 	if (grid->Geometry->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
@@ -217,7 +225,7 @@ void AbstractIjkGridRepresentation::getColumnsOfSplitCoordinateLines(unsigned in
 
 void AbstractIjkGridRepresentation::getColumnCountOfSplitCoordinateLines(unsigned int * columnIndexCountPerSplitCoordinateLine) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry->SplitCoordinateLines == NULL)
 		throw invalid_argument("There is no split coordinate line in this grid.");
 	if (grid->Geometry->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
@@ -230,7 +238,7 @@ void AbstractIjkGridRepresentation::getColumnCountOfSplitCoordinateLines(unsigne
 
 unsigned long AbstractIjkGridRepresentation::getSplitCoordinateLineCount() const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry->SplitCoordinateLines)
 	{
 		return grid->Geometry->SplitCoordinateLines->Count;
@@ -241,7 +249,7 @@ unsigned long AbstractIjkGridRepresentation::getSplitCoordinateLineCount() const
 
 void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis, bool reverseJAxis) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry)
 	{
 		unsigned int pillarCount = (getJCellCount() + 1) * (getICellCount() + 1);
@@ -328,7 +336,7 @@ void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeom
 
 bool AbstractIjkGridRepresentation::hasEnabledCellInformation() const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
 	return grid->Geometry != nullptr && grid->Geometry->CellGeometryIsDefined != nullptr;
 }
 
@@ -337,7 +345,7 @@ void AbstractIjkGridRepresentation::getEnabledCells(bool * enabledCells, bool re
 	if (hasEnabledCellInformation() == false)
 		throw invalid_argument("The grid has no geometry or no information about enabled cells.");
 
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
 	unsigned int cellCount = getCellCount();
 	if (grid->Geometry->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
@@ -492,7 +500,7 @@ void AbstractIjkGridRepresentation::loadSplitInformation()
 	unloadSplitInformation();
 	splitInformation = new std::vector< std::pair< unsigned int, std::vector<unsigned int> > >[(getICellCount()+1) * (getJCellCount()+1)];
 
-	_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
 	if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
 	{
 		// Read the split information
@@ -547,7 +555,7 @@ unsigned int AbstractIjkGridRepresentation::getFaceCount() const
 	faceCount += getICellCount() * (getJCellCount() + 1) * getKCellCount(); // non splitted J faces
 	faceCount += (getICellCount() + 1) * getJCellCount() * getKCellCount(); // non splitted I faces
 
-	_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
 	if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
 	{
 		// i split
@@ -730,7 +738,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	if (epcDocument->getResqmlAbstractObjectByUuid(guid) != nullptr)
 		throw invalid_argument("Cannot create the unstructured grid because it already exists a resqml object with the same uuid in the EPC document.");
 
-	_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
 
 	UnstructuredGridRepresentation* result = nullptr;
 	if (interpretation != nullptr) result = new UnstructuredGridRepresentation(interpretation, localCrs, guid, title, getCellCount());
@@ -1161,7 +1169,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 
 void AbstractIjkGridRepresentation::setEnabledCells(unsigned char* enabledCells)
 {
-	resqml2__IjkGridGeometry* geom = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy)->Geometry;
+	resqml2__IjkGridGeometry* geom = getSpecializedGsoapProxy()->Geometry;
 	if (geom == nullptr)
 	{
 		throw invalid_argument("The geometry of the ijk grid has not been defined yet.");

@@ -33,13 +33,22 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2_0_1/AbstractProperty.h"
 
 namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT PropertyKind : public AbstractResqmlDataObject
 	{
 	public:
+		/**
+		* Only to be used in partial transfer context
+		*/
+		PropertyKind(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractResqmlDataObject(epcDoc, partialObject)
+		{
+				epcDoc->addGsoapProxy(this);
+		}
+
 		/**
 		* Creates a local property type which derives from a standard Energistics property type.
 		* @param epcDoc							the epc document where this intance will be stored.
@@ -133,6 +142,8 @@ namespace resqml2_0_1
 		void addProperty(class AbstractProperty* repVal) {propertySet.push_back(repVal);}
 
 	protected:
+		
+		gsoap_resqml2_0_1::_resqml2__PropertyKind* getSpecializedGsoapProxy() const;
 
 		// XML forward relationship
 		PropertyKind* parentPropertyKind;
@@ -140,6 +151,8 @@ namespace resqml2_0_1
 		// XML backward relationship
 		std::vector<class AbstractProperty*> propertySet;
 		std::vector<PropertyKind*> childPropertyKind;
+
+		friend void AbstractProperty::setLocalPropertyKind(PropertyKind* propKind);
 	};
 }
 

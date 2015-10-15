@@ -90,10 +90,6 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 	prop->Count = dimension;
 	prop->UOM = uom;
 
-	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy->soap, 1);
-	xmlLocalPropKind->LocalPropertyKind = localPropKind->newResqmlReference();
-	prop->PropertyKind = xmlLocalPropKind;
-
 	setRepresentation(rep);
 
 	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
@@ -101,8 +97,7 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
 
-	localPropertyKind = localPropKind;
-	localPropKind->addProperty(this);
+	setLocalPropertyKind(localPropKind);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

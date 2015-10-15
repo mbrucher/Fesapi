@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -37,6 +37,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractValuesProperty.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -47,41 +51,53 @@ const char* TimeSeries::XML_TAG = "TimeSeries";
 TimeSeries::TimeSeries(common::EpcDocument* epcDoc, const string & guid, const string & title)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCORETimeSeries(epcDoc->getGsoapContext(), 1);
-	_resqml2__TimeSeries* timeSeries = static_cast<_resqml2__TimeSeries*>(gsoapProxy);
+	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
 	
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
-	if (epcDoc)
+	if (epcDoc != nullptr)
 		epcDoc->addGsoapProxy(this);
+}
+
+_resqml2__TimeSeries* TimeSeries::getSpecializedGsoapProxy() const
+{
+	if (isPartial() == true)
+		throw logic_error("Partial object");
+
+	return static_cast<_resqml2__TimeSeries*>(gsoapProxy);
 }
 
 void TimeSeries::pushBackTimestamp(const time_t & timestamp)
 {
 	resqml2__Timestamp* ts = soap_new_resqml2__Timestamp(gsoapProxy->soap, 1);
 	ts->DateTime = timestamp;
-	static_cast<_resqml2__TimeSeries*>(gsoapProxy)->Time.push_back(ts);
+	getSpecializedGsoapProxy()->Time.push_back(ts);
 }
 
 unsigned int TimeSeries::getTimestampIndex(const time_t & timestamp) const
 {
-	for (unsigned int result = 0; result < static_cast<_resqml2__TimeSeries*>(gsoapProxy)->Time.size(); ++result)
+	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
+
+	for (unsigned int result = 0; result < timeSeries->Time.size(); ++result)
 	{
-		if (static_cast<_resqml2__TimeSeries*>(gsoapProxy)->Time[result]->DateTime == timestamp)
+		if (timeSeries->Time[result]->DateTime == timestamp)
 			return result;
 	}
-	return (numeric_limits<unsigned int>::max)();
+	throw out_of_range("The timestamp has not been found in the allowed range.");
 }
 
 unsigned int TimeSeries::getTimestampCount() const
 {
-	return static_cast<_resqml2__TimeSeries*>(gsoapProxy)->Time.size();
+	return getSpecializedGsoapProxy()->Time.size();
 }
 
 time_t TimeSeries::getTimestamp(const unsigned int & index) const
 {
-	if (static_cast<_resqml2__TimeSeries*>(gsoapProxy)->Time.size() > index)
-		return static_cast<_resqml2__TimeSeries*>(gsoapProxy)->Time[index]->DateTime;
+	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
+
+	if (timeSeries->Time.size() > index)
+		return timeSeries->Time[index]->DateTime;
 	else
 		throw out_of_range("The index is out of range");
 }

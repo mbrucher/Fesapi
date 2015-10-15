@@ -52,7 +52,7 @@ namespace resqml2_0_1
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which support each value.
 		* @param strLookup					The string lookup which defines the possible string values and their keys.
-		* @param energisticsPropertyKind	The property type of these property values which must be defined in the standard energistics property type dictionary.
+		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
 		CategoricalProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
@@ -66,11 +66,11 @@ namespace resqml2_0_1
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which support each value.
 		* @param strLookup					The string lookup which defines the possible string values and their keys.
-		* @param localPropType				The property type of these property values which must be defined in the EPC document as a local property type.
+		* @param localPropKind				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
 		CategoricalProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			class StringTableLookup* strLookup, class PropertyKind * localPropType);
+			class StringTableLookup* strLookup, class PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

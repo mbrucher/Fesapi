@@ -45,12 +45,12 @@ namespace resqml2_0_1
 		* Default constructor
 		* Set the relationship with an AbstractRepresentation and a local property type.
 		*/
-		AbstractProperty(): representation(NULL), localPropertyKind(NULL), timeSeries(NULL), local3dCrs(NULL), hdfProxy(NULL) {}
+		AbstractProperty(): representation(NULL), local3dCrs(NULL), hdfProxy(NULL) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractProperty(gsoap_resqml2_0_1::resqml2__AbstractProperty* fromGsoap): AbstractResqmlDataObject(fromGsoap), representation(NULL), localPropertyKind(NULL), timeSeries(NULL), local3dCrs(NULL), hdfProxy(NULL) {}
+		AbstractProperty(gsoap_resqml2_0_1::resqml2__AbstractProperty* fromGsoap): AbstractResqmlDataObject(fromGsoap), representation(NULL), local3dCrs(NULL), hdfProxy(NULL) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -97,13 +97,21 @@ namespace resqml2_0_1
 		*/
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getEnergisticsPropertyKind() const;
 
+		/**
+		 * Set the property kind of the property to a local one.
+		 */
+		void setLocalPropertyKind(class PropertyKind* propKind);
+
+		/**
+		* Get the uuid of the localproeprty kind which is associated to this property.
+		*/
 		std::string getLocalPropertyKindUuid() const;
 
 		/**
 		* Getter for the local property kind which is associated to this instance.
 		* If NULL is returned then it means this instance is associated to an energistics standard property kind.
 		*/
-		class PropertyKind* getLocalPropertyKind() const {return localPropertyKind;}
+		class PropertyKind* getLocalPropertyKind() const;
 
 		/**
 		 * Set the representation which is associated to the current property.
@@ -123,7 +131,7 @@ namespace resqml2_0_1
 		/**
 		* Getter for the representation which supports this instance values.
 		*/
-		class TimeSeries* getTimeSeries() {return timeSeries;}
+		class TimeSeries* getTimeSeries() const;
 
 		/**
 		* Set the timestamp of this property by means of an index in a time series
@@ -186,8 +194,6 @@ namespace resqml2_0_1
 	protected:
 
 		class AbstractRepresentation *	representation;		/// The reresentation which contains this property.
-		class PropertyKind *			localPropertyKind;	/// The local property kind of this property which defines this property.
-		class TimeSeries *				timeSeries;			/// The time series where this property occur.
 		class AbstractLocal3dCrs *		local3dCrs;			/// The used local 3D CRS in case the property values need one. 
 		class AbstractHdfProxy *		hdfProxy;	/// The HDF proxy where the umerical values of this property are stored.
 	};

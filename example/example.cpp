@@ -1490,28 +1490,31 @@ void deserialize(const string & inputFile)
 	{
 		std::cout << "Title is : " << unstructuredGridRepSet[i]->getTitle() << std::endl;
 		std::cout << "Guid is : " << unstructuredGridRepSet[i]->getUuid() << std::endl;
-		std::cout << "Node count is : " << unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
-		ULONG64 * faceCountOfCells = new ULONG64 [unstructuredGridRepSet[i]->getCellCount()];
-		unstructuredGridRepSet[i]->getCumulativeFaceCountPerCell(faceCountOfCells);
-		std::cout << "Face count of cell 0 is : " << faceCountOfCells[0] << std::endl;
-		if (unstructuredGridRepSet[i]->getCellCount() > 1)
-			std::cout << "Face count of cell 1 is : " << faceCountOfCells[1] - faceCountOfCells[0] << std::endl;
-		delete [] faceCountOfCells;
-		double * gridPoints = new double[unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) * 3];
-		unstructuredGridRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
-		std::cout << "--------------------------------------------------" << std::endl;
-		delete [] gridPoints;
+		if (unstructuredGridRepSet[i]->isPartial() == false)
+		{
+			std::cout << "Node count is : " << unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
+			ULONG64 * faceCountOfCells = new ULONG64 [unstructuredGridRepSet[i]->getCellCount()];
+			unstructuredGridRepSet[i]->getCumulativeFaceCountPerCell(faceCountOfCells);
+			std::cout << "Face count of cell 0 is : " << faceCountOfCells[0] << std::endl;
+			if (unstructuredGridRepSet[i]->getCellCount() > 1)
+				std::cout << "Face count of cell 1 is : " << faceCountOfCells[1] - faceCountOfCells[0] << std::endl;
+			delete [] faceCountOfCells;
+			double * gridPoints = new double[unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) * 3];
+			unstructuredGridRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
+			std::cout << "--------------------------------------------------" << std::endl;
+			delete [] gridPoints;
 
-		unstructuredGridRepSet[i]->loadGeometry();
+			unstructuredGridRepSet[i]->loadGeometry();
 
-		std::cout << "(in memory) Face count of cell 0 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(0) << std::endl;
-		if (unstructuredGridRepSet[i]->getCellCount() > 1)
-			std::cout << "(in memory) Face count of cell 1 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(1) << std::endl;	
-		std::cout << "(in memory) Node  count of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeCountOfFaceOfCell(0, 0) << std::endl;
-		std::cout << "(in memory) Node  indice 0 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[0] << std::endl;
-		std::cout << "(in memory) Node  indice 0 of face 1 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 1)[0] << std::endl;
+			std::cout << "(in memory) Face count of cell 0 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(0) << std::endl;
+			if (unstructuredGridRepSet[i]->getCellCount() > 1)
+				std::cout << "(in memory) Face count of cell 1 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(1) << std::endl;	
+			std::cout << "(in memory) Node  count of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeCountOfFaceOfCell(0, 0) << std::endl;
+			std::cout << "(in memory) Node  indice 0 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[0] << std::endl;
+			std::cout << "(in memory) Node  indice 0 of face 1 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 1)[0] << std::endl;
 
-		unstructuredGridRepSet[i]->unloadGeometry();
+			unstructuredGridRepSet[i]->unloadGeometry();
+		}
 	}
 
 	std::cout << endl << "TIME SERIES" << endl;

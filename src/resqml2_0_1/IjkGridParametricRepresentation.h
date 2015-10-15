@@ -43,11 +43,6 @@ namespace resqml2_0_1
 		void getXyzPointsOfPatchFromParametricPoints(gsoap_resqml2_0_1::resqml2__Point3dParametricArray* parametricPoint3d, double * xyzPoints) const;
 	public:
 
-		/**
-		* Only to be used in partial transfer context
-		*/
-		IjkGridParametricRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractIjkGridRepresentation(epcDoc, guid, title) {}
-
 		IjkGridParametricRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);

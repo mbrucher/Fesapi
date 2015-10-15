@@ -43,6 +43,8 @@ namespace resqml2_0_1
 		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const unsigned int & cellCount);
+		
+		gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* getSpecializedGsoapProxy() const;
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
 
@@ -58,7 +60,13 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractGridRepresentation(epcDoc, guid, title) {}
+		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractGridRepresentation(epcDoc, partialObject), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+			cumulativeNodeCountPerFace(NULL), cumulativeFaceCountPerCell(NULL),
+			nodeIndicesOfFaces(NULL), faceIndicesOfCells(NULL)
+		{
+				epcDoc->addGsoapProxy(this);
+		}
 
 		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
@@ -71,9 +79,10 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		UnstructuredGridRepresentation(gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* fromGsoap): AbstractGridRepresentation(fromGsoap), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
-				cumulativeNodeCountPerFace(NULL), cumulativeFaceCountPerCell(NULL),
-				nodeIndicesOfFaces(NULL), faceIndicesOfCells(NULL) {}
+		UnstructuredGridRepresentation(gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* fromGsoap):
+			AbstractGridRepresentation(fromGsoap), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+			cumulativeNodeCountPerFace(NULL), cumulativeFaceCountPerCell(NULL),
+			nodeIndicesOfFaces(NULL), faceIndicesOfCells(NULL) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

@@ -44,12 +44,18 @@ namespace resqml2_0_1
                 const std::string & guid, const std::string & title,
 				class AbstractRepresentation * supportingRep);
 
+		gsoap_resqml2_0_1::_resqml2__SubRepresentation* getSpecializedGsoapProxy() const;
+
 	public:
 
 		/**
 		* Only to be used in partial transfer context
 		*/
-		SubRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractRepresentation(epcDoc, guid, title) {}
+		SubRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractRepresentation(epcDoc, partialObject)
+		{
+			epcDoc->addGsoapProxy(this);
+		}
 
 		/**
 		* Creates an instance of this class in a gsoap context. This instance is not linked to any interpretation.

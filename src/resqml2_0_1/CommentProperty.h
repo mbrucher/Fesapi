@@ -47,7 +47,7 @@ namespace resqml2_0_1
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which support each value.
-		* @param energisticsPropertyKind	The property type of these property values which must be defined in the standard energistics property type dictionary.
+		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
 		CommentProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
@@ -59,10 +59,10 @@ namespace resqml2_0_1
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which support each value.
-		* @param localPropType				The property type of these property values which must be defined in the EPC document as a local property type.
+		* @param localPropKind				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
 		CommentProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, class PropertyKind * localPropType);
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, class PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

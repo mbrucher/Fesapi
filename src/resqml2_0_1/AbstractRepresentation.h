@@ -45,7 +45,7 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractResqmlDataObject(epcDoc, guid, title), interpretation (NULL), hdfProxy(NULL), localCrs(NULL) {}
+		AbstractRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractResqmlDataObject(epcDoc, partialObject), interpretation (NULL), hdfProxy(NULL), localCrs(NULL) {}
 
 		// Set the domain of the interpretation according to the local CRS
 		// Does not set relationship with interp and crs because the gsoap proxy is not allocated yet. This must be done at concrete class level.

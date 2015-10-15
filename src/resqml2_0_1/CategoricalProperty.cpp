@@ -76,7 +76,7 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 
 CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			StringTableLookup* strLookup, PropertyKind * localPropType)
+			StringTableLookup* strLookup, PropertyKind * localPropKind)
 	:stringLookup(strLookup)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
@@ -84,17 +84,12 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 
-	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy->soap, 1);
-	xmlLocalPropKind->LocalPropertyKind = localPropType->newResqmlReference();
-	prop->PropertyKind = xmlLocalPropKind;
-
 	stringLookup->addCategoricalPropertyValues(this);
 	prop->Lookup = stringLookup->newResqmlReference();
 
 	setRepresentation(rep);
 
-	localPropertyKind = localPropType;
-	localPropType->addProperty(this);
+	setLocalPropertyKind(localPropKind);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

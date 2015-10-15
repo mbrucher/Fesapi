@@ -49,7 +49,7 @@ PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, con
 	parentPropertyKind(NULL)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(epcDoc->getGsoapContext(), 1);
-	_resqml2__PropertyKind* propType = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 	
 	propType->NamingSystem = namingSystem;
 	propType->RepresentativeUom = uom;
@@ -70,7 +70,7 @@ PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, con
 	parentPropertyKind(parentPropType)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(epcDoc->getGsoapContext(), 1);
-	_resqml2__PropertyKind* propType = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 	
 	propType->NamingSystem = namingSystem;
 	propType->RepresentativeUom = uom;
@@ -87,14 +87,22 @@ PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, con
 		epcDoc->addGsoapProxy(this);
 }
 
+_resqml2__PropertyKind* PropertyKind::getSpecializedGsoapProxy() const
+{
+	if (isPartial() == true)
+		throw logic_error("Partial object");
+
+	return static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+}
+
 const std::string & PropertyKind::getNamingSystem() const
 {
-	return static_cast<_resqml2__PropertyKind*>(gsoapProxy)->NamingSystem;
+	return getSpecializedGsoapProxy()->NamingSystem;
 }
 
 const resqml2__ResqmlUom & PropertyKind::getUom() const
 {
-	return static_cast<_resqml2__PropertyKind*>(gsoapProxy)->RepresentativeUom;
+	return getSpecializedGsoapProxy()->RepresentativeUom;
 }
 
 std::string PropertyKind::getUomAsString() const
@@ -104,7 +112,7 @@ std::string PropertyKind::getUomAsString() const
 
 vector<Relationship> PropertyKind::getAllEpcRelationships() const
 {
-	_resqml2__PropertyKind* propType = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 
 	vector<Relationship> result;
 
@@ -140,21 +148,21 @@ std::string PropertyKind::getParentAsString() const
 		return parentPropertyKind->getTitle();
 	else
 	{
-		_resqml2__PropertyKind* propType = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+		_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 		return epcDocument->getEnergisticsPropertyKindName(static_cast<resqml2__StandardPropertyKind*>(propType->ParentPropertyKind)->Kind);
 	}
 }
 
 bool PropertyKind::isParentAnEnergisticsPropertyKind() const
 {
-	return static_cast<_resqml2__PropertyKind*>(gsoapProxy)->ParentPropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StandardPropertyKind;
+	return getSpecializedGsoapProxy()->ParentPropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StandardPropertyKind;
 }
 
 gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind PropertyKind::getParentEnergisticsPropertyKind() const
 {
 	if (isParentAnEnergisticsPropertyKind())
 	{
-		_resqml2__PropertyKind* propKind = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+		_resqml2__PropertyKind* propKind = getSpecializedGsoapProxy();
 		return static_cast<resqml2__StandardPropertyKind*>(propKind->ParentPropertyKind)->Kind;
 	}
 	else
@@ -165,7 +173,7 @@ std::string PropertyKind::getParentLocalPropertyKindUuid() const
 {
 	if (isParentAnEnergisticsPropertyKind() == false)
 	{
-		_resqml2__PropertyKind* propKind = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+		_resqml2__PropertyKind* propKind = getSpecializedGsoapProxy();
 		return static_cast<resqml2__LocalPropertyKind*>(propKind->ParentPropertyKind)->LocalPropertyKind->UUID;
 	}
 	else
@@ -174,7 +182,7 @@ std::string PropertyKind::getParentLocalPropertyKindUuid() const
 
 void PropertyKind::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	_resqml2__PropertyKind* propType = static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 
 	if (propType->ParentPropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__LocalPropertyKind)
 	{

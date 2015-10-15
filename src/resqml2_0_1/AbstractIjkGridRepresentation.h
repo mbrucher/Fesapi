@@ -35,6 +35,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractColumnLayerGridRepresentation.h"
 
+#include <stdexcept>
+
 namespace resqml2_0_1
 {
 	/**
@@ -64,6 +66,8 @@ namespace resqml2_0_1
 		*/
 		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractColumnLayerGridRepresentation(fromGsoap), splitInformation(NULL) {}
 
+		gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* getSpecializedGsoapProxy() const;
+
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
 
 		std::vector< std::pair< unsigned int, std::vector<unsigned int> > >* splitInformation;
@@ -75,7 +79,11 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):AbstractColumnLayerGridRepresentation(epcDoc, guid, title), splitInformation(NULL) {}
+		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractColumnLayerGridRepresentation(epcDoc, partialObject), splitInformation(NULL)
+		{
+			epcDoc->addGsoapProxy(this);
+		}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -240,8 +248,8 @@ namespace resqml2_0_1
 		class UnstructuredGridRepresentation* cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
 
 		virtual geometryKind getGeometryKind() const { return geometryKind::UNKNOWN; }
-		virtual std::string getHdfProxyUuid() const { return NULL; }
-		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const { return 0; }
+		virtual std::string getHdfProxyUuid() const { throw std::logic_error("Partial object"); }
+		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const { throw std::logic_error("Partial object"); }
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

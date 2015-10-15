@@ -55,41 +55,30 @@ using namespace gsoap_resqml2_0_1;
 /**
 * Only for partial transfer
 */
-AbstractObject::AbstractObject(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title):
-	partial(true), gsoapProxy(nullptr)
+AbstractObject::AbstractObject(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+	partialObject(partialObject), gsoapProxy(nullptr)
 {
-	if (guid.empty() == true)
-		uuid = tools::GuidTools::generateUidAsString();
-	else
-		uuid = guid;
-
-	if (title.empty() == true)
-		this->title = "Unknown title";
-	else
-		this->title = title;
-
-	epcDoc->addGsoapProxy(this);
 }
 
 string AbstractObject::getUuid() const
 {
-	if (!gsoapProxy) // partial transfer
-		return uuid;
+	if (gsoapProxy == nullptr) // partial transfer
+		return partialObject->UUID;
 	else
 		return gsoapProxy->uuid;
 }
 
 string AbstractObject::getTitle() const
 {
-	if (!gsoapProxy) // partial transfer
-		return title;
+	if (gsoapProxy == nullptr) // partial transfer
+		return partialObject->Title;
 	else
 		return gsoapProxy->Citation->Title;
 }
 
 string AbstractObject::getEditor() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->Editor)
@@ -100,7 +89,7 @@ string AbstractObject::getEditor() const
 
 time_t AbstractObject::getCreation() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	return gsoapProxy->Citation->Creation;
@@ -108,7 +97,7 @@ time_t AbstractObject::getCreation() const
 
 string AbstractObject::getOriginator() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	return gsoapProxy->Citation->Originator;
@@ -116,7 +105,7 @@ string AbstractObject::getOriginator() const
 
 string AbstractObject::getDescription() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->Description)
@@ -127,7 +116,7 @@ string AbstractObject::getDescription() const
 
 time_t AbstractObject::getLastUpdate() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->LastUpdate)
@@ -138,7 +127,7 @@ time_t AbstractObject::getLastUpdate() const
 
 string AbstractObject::getFormat() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	return gsoapProxy->Citation->Format;
@@ -146,7 +135,7 @@ string AbstractObject::getFormat() const
 
 string AbstractObject::getDescriptiveKeywords() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->DescriptiveKeywords)
@@ -157,7 +146,7 @@ string AbstractObject::getDescriptiveKeywords() const
 
 void AbstractObject::setUuid(const std::string & uuid)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	gsoapProxy->uuid = uuid;
@@ -165,7 +154,7 @@ void AbstractObject::setUuid(const std::string & uuid)
 
 void AbstractObject::setTitle(const std::string & title)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	gsoapProxy->Citation->Title = title;
@@ -173,7 +162,7 @@ void AbstractObject::setTitle(const std::string & title)
 
 void AbstractObject::setEditor(const std::string & editor)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->Editor == NULL)
@@ -183,7 +172,7 @@ void AbstractObject::setEditor(const std::string & editor)
 
 void AbstractObject::setCreation(const time_t & creation)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	gsoapProxy->Citation->Creation = creation;
@@ -191,7 +180,7 @@ void AbstractObject::setCreation(const time_t & creation)
 
 void AbstractObject::setOriginator(const std::string & originator)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	gsoapProxy->Citation->Originator = originator;
@@ -199,7 +188,7 @@ void AbstractObject::setOriginator(const std::string & originator)
 
 void AbstractObject::setDescription(const std::string & description)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->Description == NULL)
@@ -209,7 +198,7 @@ void AbstractObject::setDescription(const std::string & description)
 
 void AbstractObject::setLastUpdate(const time_t & lastUpdate)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->LastUpdate == NULL)
@@ -219,7 +208,7 @@ void AbstractObject::setLastUpdate(const time_t & lastUpdate)
 
 void AbstractObject::setFormat(const std::string & format)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	gsoapProxy->Citation->Format = format;
@@ -227,7 +216,7 @@ void AbstractObject::setFormat(const std::string & format)
 
 void AbstractObject::setDescriptiveKeywords(const std::string & descriptiveKeywords)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (gsoapProxy->Citation->DescriptiveKeywords == NULL)
@@ -237,7 +226,7 @@ void AbstractObject::setDescriptiveKeywords(const std::string & descriptiveKeywo
 
 void AbstractObject::addNewGuid(const string & newGuid)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (newGuid.empty() == true)
@@ -248,7 +237,7 @@ void AbstractObject::addNewGuid(const string & newGuid)
 
 void AbstractObject::initMandatoryMetadata()
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	addNewGuid("");
@@ -290,7 +279,7 @@ void AbstractObject::initMandatoryMetadata()
 void AbstractObject::setMetadata(const std::string & guid, const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
 				const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (!guid.empty())
@@ -340,7 +329,7 @@ void AbstractObject::setMetadata(const std::string & guid, const std::string & t
 
 void AbstractObject::serializeIntoStream(ostream * stream)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (!stream)
@@ -378,7 +367,7 @@ eml__DataObjectReference* AbstractObject::newResqmlReference() const
 
 gsoap_resqml2_0_1::resqml2__ContactElementReference* AbstractObject::newResqmlContactElementReference() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	ostringstream oss;
@@ -423,7 +412,7 @@ string AbstractObject::serializeIntoString()
 
 void AbstractObject::addAlias(const std::string & authority, const std::string & title)
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	eml__ObjectAlias* alias = soap_new_eml__ObjectAlias(gsoapProxy->soap, 1);
@@ -435,7 +424,7 @@ void AbstractObject::addAlias(const std::string & authority, const std::string &
 
 unsigned int AbstractObject::getAliasCount() const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	return static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy)->Aliases.size();
@@ -443,7 +432,7 @@ unsigned int AbstractObject::getAliasCount() const
 
 std::string AbstractObject::getAliasAuthorityAtIndex(const unsigned int & index) const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (getAliasCount() <= index)
@@ -457,7 +446,7 @@ std::string AbstractObject::getAliasAuthorityAtIndex(const unsigned int & index)
 
 std::string AbstractObject::getAliasTitleAtIndex(const unsigned int & index) const
 {
-	if (!gsoapProxy)
+	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (getAliasCount() <= index)

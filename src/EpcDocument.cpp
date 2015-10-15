@@ -295,45 +295,69 @@ std::string EpcDocument::getWitsmlPlaneAngleUom(const gsoap_witsml1_4_1_1::witsm
 
 void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 {
-	if (proxy->getGsoapProxy() != nullptr)
+	if (proxy->getXmlTag().compare(TectonicBoundaryFeature::XML_TAG) == 0)
 	{
-		switch (proxy->getGsoapType())
-		{
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETectonicBoundaryFeature :
-			if (static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(proxy->getGsoapProxy())->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fault)
-				faultSet.push_back(static_cast<Fault*>(proxy));
-			else if (static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(proxy->getGsoapProxy())->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture)
-				fractureSet.push_back(static_cast<Fracture*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGeneticBoundaryFeature :
-			if (static_cast<gsoap_resqml2_0_1::_resqml2__GeneticBoundaryFeature*>(proxy->getGsoapProxy())->GeneticBoundaryKind == gsoap_resqml2_0_1::resqml2__GeneticBoundaryKind__horizon)
-				horizonSet.push_back(static_cast<Horizon*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLineFeature :
-			seismicLineSet.push_back(static_cast<SeismicLineFeature*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_eml__obj_USCOREEpcExternalPartReference :
-			hdfProxySet.push_back(static_cast<AbstractHdfProxy*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreFeature :
-			wellboreSet.push_back(static_cast<WellboreFeature*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation :
-			polylineRepresentationSet.push_back(static_cast<PolylineRepresentation*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREIjkGridRepresentation :
-			ijkGridRepresentationSet.push_back(static_cast<AbstractIjkGridRepresentation*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREUnstructuredGridRepresentation :
-			unstructuredGridRepresentationSet.push_back(static_cast<UnstructuredGridRepresentation*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs :
-			localDepth3dCrsSet.push_back(static_cast<LocalDepth3dCrs*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs :
-			localTime3dCrsSet.push_back(static_cast<LocalTime3dCrs*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREStratigraphicColumn :
-			stratigraphicColumnSet.push_back(static_cast<StratigraphicColumn*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation :
-			triangulatedSetRepresentationSet.push_back(static_cast<TriangulatedSetRepresentation*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFrontierFeature :
-			frontierSet.push_back(static_cast<FrontierFeature*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREOrganizationFeature :
-			organizationSet.push_back(static_cast<OrganizationFeature*>(proxy)); break;
-		case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETimeSeries :
-			timeSeriesSet.push_back(static_cast<TimeSeries*>(proxy)); break;
-		}
+		if (static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(proxy->getGsoapProxy())->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fault)
+			faultSet.push_back(static_cast<Fault*>(proxy));
+		else if (static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(proxy->getGsoapProxy())->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture)
+			fractureSet.push_back(static_cast<Fracture*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(GeneticBoundaryFeature::XML_TAG) == 0)
+	{
+		if (static_cast<gsoap_resqml2_0_1::_resqml2__GeneticBoundaryFeature*>(proxy->getGsoapProxy())->GeneticBoundaryKind == gsoap_resqml2_0_1::resqml2__GeneticBoundaryKind__horizon)
+			horizonSet.push_back(static_cast<Horizon*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(SeismicLineFeature::XML_TAG) == 0)
+	{
+		seismicLineSet.push_back(static_cast<SeismicLineFeature*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(EpcExternalPartReference::XML_TAG) == 0)
+	{
+		hdfProxySet.push_back(static_cast<AbstractHdfProxy*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(WellboreFeature::XML_TAG) == 0)
+	{
+		wellboreSet.push_back(static_cast<WellboreFeature*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(PolylineRepresentation::XML_TAG) == 0)
+	{
+		polylineRepresentationSet.push_back(static_cast<PolylineRepresentation*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(AbstractIjkGridRepresentation::XML_TAG) == 0)
+	{
+		ijkGridRepresentationSet.push_back(static_cast<AbstractIjkGridRepresentation*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(UnstructuredGridRepresentation::XML_TAG) == 0)
+	{
+		unstructuredGridRepresentationSet.push_back(static_cast<UnstructuredGridRepresentation*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(LocalDepth3dCrs::XML_TAG) == 0)
+	{
+		localDepth3dCrsSet.push_back(static_cast<LocalDepth3dCrs*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(LocalTime3dCrs::XML_TAG) == 0)
+	{
+		localTime3dCrsSet.push_back(static_cast<LocalTime3dCrs*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(StratigraphicColumn::XML_TAG) == 0)
+	{
+		stratigraphicColumnSet.push_back(static_cast<StratigraphicColumn*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(TriangulatedSetRepresentation::XML_TAG) == 0)
+	{
+		triangulatedSetRepresentationSet.push_back(static_cast<TriangulatedSetRepresentation*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(FrontierFeature::XML_TAG) == 0)
+	{
+		frontierSet.push_back(static_cast<FrontierFeature*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(OrganizationFeature::XML_TAG) == 0)
+	{
+		organizationSet.push_back(static_cast<OrganizationFeature*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(TimeSeries::XML_TAG) == 0)
+	{
+		timeSeriesSet.push_back(static_cast<TimeSeries*>(proxy));
 	}
 	resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
 	proxy->epcDocument = this;
@@ -409,7 +433,10 @@ string EpcDocument::deserialize()
 		if (it->second.getContentTypeString().find("application/x-resqml+xml;version=2.0;type=") == 0 ||
 			it->second.getContentTypeString().find("application/x-resqml+xml;version=2.0.1;type=") == 0)
 		{
-			istringstream iss(package->extractFile(it->second.getExtensionOrPartName().substr(1)));
+			string fileStr = package->extractFile(it->second.getExtensionOrPartName().substr(1));
+			if (fileStr.empty() == true)
+				throw invalid_argument("The EPC document contains the file " + it->second.getExtensionOrPartName().substr(1) + " in its contentType file which cannot be found or cannot be unzipped or is empty.");
+			istringstream iss(fileStr);
 			s->is = &iss;
 			resqml2_0_1::AbstractObject* wrapper = nullptr;
 			size_t lastEqualCharPos = it->second.getContentTypeString().find_last_of('_'); // The XML tag is after "obj_"
@@ -772,7 +799,10 @@ string EpcDocument::deserialize()
 		}
 		else if (it->second.getContentTypeString().find("application/x-witsml+xml;version=1.4.1.1;type=") == 0)
 		{
-			istringstream iss(package->extractFile(it->second.getExtensionOrPartName().substr(1)));
+			string fileStr = package->extractFile(it->second.getExtensionOrPartName().substr(1));
+			if (fileStr.empty() == true)
+				throw invalid_argument("The EPC document contains the file " + it->second.getExtensionOrPartName().substr(1) + " in its contentType file which cannot be found or cannot be unzipped or is empty.");
+			istringstream iss(fileStr);
 			s->is = &iss;
 			witsml1_4_1_1::AbstractObject* wrapper = nullptr;
 			string resqmlContentType = "";
@@ -1793,7 +1823,11 @@ AbstractIjkGridRepresentation* EpcDocument::createPartialIjkGridRepresentation(c
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-	return new AbstractIjkGridRepresentation(this, guid, title);
+
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	return new AbstractIjkGridRepresentation(this, dor);
 }
 
 IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(AbstractLocal3dCrs * crs,
@@ -1854,7 +1888,11 @@ UnstructuredGridRepresentation* EpcDocument::createPartialUnstructuredGridRepres
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-	return new UnstructuredGridRepresentation(this, guid, title);
+
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	return new UnstructuredGridRepresentation(this, dor);
 }
 
 UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentation(AbstractLocal3dCrs * crs,
@@ -1870,7 +1908,11 @@ resqml2_0_1::SubRepresentation* EpcDocument::createPartialSubRepresentation(cons
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-	return new SubRepresentation(this, guid, title);
+
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	return new SubRepresentation(this, dor);
 }
 
 SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)

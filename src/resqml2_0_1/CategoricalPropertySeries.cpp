@@ -95,10 +95,6 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 
-	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy->soap, 1);
-	xmlLocalPropKind->LocalPropertyKind = localPropKind->newResqmlReference();
-	prop->PropertyKind = xmlLocalPropKind;
-
 	stringLookup->addCategoricalPropertyValues(this);
 	prop->Lookup = stringLookup->newResqmlReference();
 
@@ -109,8 +105,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
 
-	localPropertyKind = localPropKind;
-	localPropKind->addProperty(this);
+	setLocalPropertyKind(localPropKind);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

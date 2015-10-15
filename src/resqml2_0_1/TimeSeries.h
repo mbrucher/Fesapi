@@ -41,6 +41,15 @@ namespace resqml2_0_1
 	{
 	public:
 		/**
+		* Only to be used in partial transfer context
+		*/
+		TimeSeries(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractResqmlDataObject(epcDoc, partialObject)
+		{
+				epcDoc->addGsoapProxy(this);
+		}
+
+		/**
 		* Creates a local property type which derives from a standard Energistics property type.
 		* @param epcDoc							the epc document where this intance will be stored.
 		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
@@ -96,6 +105,8 @@ namespace resqml2_0_1
 		const std::vector<AbstractProperty*>& getPropertySet() const {return propertySet;}
 
 	protected:
+		
+		gsoap_resqml2_0_1::_resqml2__TimeSeries* getSpecializedGsoapProxy() const;
 
 		// XML backward relationship
 		std::vector<AbstractProperty*> propertySet;
