@@ -66,6 +66,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/OrganizationFeature.h"
 #include "resqml2_0_1/EarthModelInterpretation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
+#include "resqml2_0_1/StratigraphicUnitInterpretation.h"
 #include "resqml2_0_1/Grid2dRepresentation.h"
 #include "resqml2_0_1/Grid2dSetRepresentation.h"
 #include "resqml2_0_1/SeismicLatticeFeature.h"
@@ -1086,6 +1087,40 @@ void serialize(const string & filePath)
 #endif
 }
 
+void showAllMetadata(AbstractResqmlDataObject * obj)
+{
+	std::cout << "Title is : " << obj->getTitle() << std::endl;
+	std::cout << "Guid is : " << obj->getUuid() << std::endl;
+	for (unsigned int i = 0; i < obj->getAliasCount(); ++i)
+		std::cout << "Alias is : " << obj->getAliasAuthorityAtIndex(i) << ":" << obj->getAliasTitleAtIndex(i) << std::endl;
+	for (unsigned int i = 0; i < obj->getExtraMetadataCount(); ++i)
+			std::cout << "Extrametadata is : " << obj->getExtraMetadataKeyAtIndex(i) << ":" << obj->getExtraMetadataStringValueAtIndex(i) << std::endl;
+	std::cout << "--------------------------------------------------" << std::endl;
+}
+
+void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
+{
+	showAllMetadata(stratiColumn);
+	for (size_t i = 0; i < stratiColumn->getStratigraphicColumnRankInterpretationSet().size(); ++i)
+	{
+		std::cout << "\tCOLUMN RANK INTERP" << std::endl;
+		StratigraphicColumnRankInterpretation* stratiColumnRankInterp = stratiColumn->getStratigraphicColumnRankInterpretationSet()[i];
+		showAllMetadata(stratiColumnRankInterp);
+		if (stratiColumnRankInterp->isAChronoStratiRank() == true)
+			cout << "This is a chrono rank!" << endl;
+		else
+			cout << "This is not a chrono rank!" << endl;
+		unsigned int contactCount = stratiColumnRankInterp->getContactCount();
+		for (unsigned int contactIndex = 0; contactIndex < contactCount; ++contactIndex)
+		{
+			cout << "SUBJECT : " << endl;
+			showAllMetadata(stratiColumnRankInterp->getSubjectOfContact(contactIndex));
+			cout << "DIRECT OBJECT : " << endl;
+			showAllMetadata(stratiColumnRankInterp->getDirectObjectOfContact(contactIndex));
+		}
+	}
+}
+
 void deserialize(const string & inputFile)
 {
 	common::EpcDocument pck(inputFile);
@@ -1123,7 +1158,7 @@ void deserialize(const string & inputFile)
 
 	std::cout << "CRS" << endl;
 	std::vector<LocalDepth3dCrs*> depthCrsSet = pck.getLocalDepth3dCrsSet();
-	for (unsigned int i = 0; i < depthCrsSet.size(); ++i)
+	for (size_t i = 0; i < depthCrsSet.size(); ++i)
 	{
 		std::cout << "Title is : " << depthCrsSet[i]->getTitle() << std::endl;
 		if (depthCrsSet[i]->isProjectedCrsDefinedWithEpsg())
@@ -1132,7 +1167,7 @@ void deserialize(const string & inputFile)
 			std::cout << "Projected : Unknown." << "Reason is:" << depthCrsSet[i]->getProjectedCrsUnknownReason() << std::endl;
 	}
 	std::vector<LocalTime3dCrs*> timeCrsSet = pck.getLocalTime3dCrsSet();
-	for (unsigned int i = 0; i < timeCrsSet.size(); ++i)
+	for (size_t i = 0; i < timeCrsSet.size(); ++i)
 	{
 		std::cout << "Title is : " << timeCrsSet[i]->getTitle() << std::endl;
 		if (timeCrsSet[i]->isVerticalCrsDefinedWithEpsg())
@@ -1153,25 +1188,22 @@ void deserialize(const string & inputFile)
 	std::vector<WellboreTrajectoryRepresentation*> wellboreCubicTrajSet = pck.getWellboreCubicParamLineTrajRepSet();
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
 	std::vector<TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
+	std::vector<StratigraphicColumn*> stratiColumnSet = pck.getStratigraphicColumnSet();
 
 	std::cout << "FAULTS" << endl;
-	for (unsigned int i = 0; i < faultSet.size(); ++i)
+	for (size_t i = 0; i < faultSet.size(); ++i)
 	{
-		std::cout << "Title is : " << faultSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << faultSet[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		showAllMetadata(faultSet[i]);
 	}
 
 	std::cout << faultPolyRep.size() << " FAULT POLYLINE REP" << endl;
-	for (unsigned int i = 0; i < faultPolyRep.size(); ++i)
+	for (size_t i = 0; i < faultPolyRep.size(); ++i)
 	{
-		std::cout << "Title is : " << faultPolyRep[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << faultPolyRep[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		showAllMetadata(faultPolyRep[i]);
 		ULONG64 nodeCount = faultPolyRep[i]->getXyzPointCountOfAllPatches();
 		double* allXyzPoints = new double[nodeCount * 3];
 		faultPolyRep[i]->getXyzPointsOfAllPatchesInGlobalCrs(allXyzPoints);
-		for (unsigned int nodeIndex = 0; nodeIndex < nodeCount * 3; nodeIndex += 3)
+		for (ULONG64 nodeIndex = 0; nodeIndex < nodeCount * 3; nodeIndex += 3)
 		{
 			std::cout << allXyzPoints[nodeIndex] << " " << allXyzPoints[nodeIndex+1] << " " << allXyzPoints[nodeIndex+2] << endl;
 		}
@@ -1197,11 +1229,9 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << "FAULTS TRI REP" << endl;
-	for (unsigned int i = 0; i < faultTriRepSet.size(); i++)
+	for (size_t i = 0; i < faultTriRepSet.size(); i++)
 	{
-		std::cout << "Title is : " << faultTriRepSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << faultTriRepSet[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		showAllMetadata(faultTriRepSet[i]);
 
 		ULONG64 pointCount = faultTriRepSet[i]->getXyzPointCountOfAllPatches();
 		unsigned int triangleCount = faultTriRepSet[i]->getTriangleCountOfAllPatches();
@@ -1226,19 +1256,16 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << "HORIZONS" << endl;
-	for (unsigned int i = 0; i < horizonSet.size(); i++)
+	for (size_t i = 0; i < horizonSet.size(); i++)
 	{
-		std::cout << "Title is : " << horizonSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << horizonSet[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		showAllMetadata(horizonSet[i]);
+		std::cout << std::endl;
 	}
 
 	std::cout << "HORIZONS GRID 2D REP" << endl;
-	for (unsigned int i = 0; i < horizonGrid2dSet.size(); i++)
+	for (size_t i = 0; i < horizonGrid2dSet.size(); i++)
 	{
-		std::cout << "Title is : " << horizonGrid2dSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << horizonGrid2dSet[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		showAllMetadata(horizonGrid2dSet[i]);
 
 		cout << horizonGrid2dSet[i]->getXOriginInGlobalCrs() << endl;
 		cout << horizonGrid2dSet[i]->getYOriginInGlobalCrs() << endl;
@@ -1252,7 +1279,7 @@ void deserialize(const string & inputFile)
 
 		std::cout << "\tHORIZONS GRID 2D REP PROPERTIES" << endl;
 		std::vector<AbstractValuesProperty*> propertyValuesSet = horizonGrid2dSet[i]->getValuesPropertySet();
-		for (unsigned int j = 0; j < propertyValuesSet.size(); j++)
+		for (size_t j = 0; j < propertyValuesSet.size(); j++)
 		{
 			std::cout << "\tTitle is : " << propertyValuesSet[j]->getTitle() << std::endl;
 			std::cout << "\tGuid is : " << propertyValuesSet[j]->getUuid() << std::endl;
@@ -1282,11 +1309,9 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << "HORIZONS TRI REP" << endl;
-	for (unsigned int i = 0; i < horizonTriRepSet.size(); i++)
+	for (size_t i = 0; i < horizonTriRepSet.size(); i++)
 	{
-		std::cout << "Title is : " << horizonTriRepSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << horizonTriRepSet[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		showAllMetadata(horizonTriRepSet[i]);
 
 		ULONG64 pointCount = horizonTriRepSet[i]->getXyzPointCountOfAllPatches();
 		unsigned int triangleCount = horizonTriRepSet[i]->getTriangleCountOfAllPatches();
@@ -1311,11 +1336,9 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << "HORIZONS SINGLE POLYLINE REP" << endl;
-	for (unsigned int i = 0; i < horizonSinglePolylineRepSet.size(); i++)
+	for (size_t i = 0; i < horizonSinglePolylineRepSet.size(); i++)
 	{
-		std::cout << "Title is : " << horizonSinglePolylineRepSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << horizonSinglePolylineRepSet[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		showAllMetadata(horizonSinglePolylineRepSet[i]);
 /*
 		cout << "Seismic support is : " << horizonSinglePolylineRepSet[i]->getSeismicSupportOfPatch(0)->getTitle() << endl;
 		double * lineAbscissa = new double[horizonSinglePolylineRepSet[i]->getSeismicPointCountOfPatch(0)];
@@ -1329,12 +1352,16 @@ void deserialize(const string & inputFile)
 		*/
 	}
 
-	std::cout << "WELLBORES" << endl;
-	for (unsigned int i = 0; i < wellboreSet.size(); i++)
+	std::cout << "STRATI COLUMN" << endl;
+	for (size_t i = 0; i < stratiColumnSet.size(); i++)
 	{
-		std::cout << "Title is : " << wellboreSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << wellboreSet[i]->getUuid() << std::endl;
-		std::cout << "--------------------------------------------------" << std::endl;
+		deserializeStratiColumn(stratiColumnSet[i]);
+	}
+
+	std::cout << "WELLBORES" << endl;
+	for (size_t i = 0; i < wellboreSet.size(); i++)
+	{
+		showAllMetadata(wellboreSet[i]);
 		witsml1_4_1_1::Wellbore* witsmlWellbore = wellboreSet[i]->getWitsmlWellbore();
 		if (witsmlWellbore)
 		{
@@ -1344,21 +1371,21 @@ void deserialize(const string & inputFile)
 			std::cout << "Associated with witsml well bore datum " << witsmlWellbore->getTrajectories()[0]->getMdDatumName();
 			std::cout << "Well bore datum elevation uom" << witsmlWellbore->getTrajectories()[0]->getMdDatumElevationUom();
 		}
-		for (unsigned int j = 0; j < wellboreSet[i]->getInterpretationSet().size(); j++)
+		for (size_t j = 0; j < wellboreSet[i]->getInterpretationSet().size(); j++)
 		{
-			for (unsigned int k = 0; k < wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet().size(); k++)
+			for (size_t k = 0; k < wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet().size(); k++)
 			{
 				if (wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
 				{
 					WellboreMarkerFrameRepresentation* wmf = static_cast<WellboreMarkerFrameRepresentation*>(wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]);
 					vector<WellboreMarker*> marketSet = wmf->getWellboreMarkerSet();
-					for (unsigned int markerIndex = 0; markerIndex < marketSet.size(); ++markerIndex)
+					for (size_t markerIndex = 0; markerIndex < marketSet.size(); ++markerIndex)
 					{
 						std::cout << "marker : " << marketSet[i]->getTitle() << std::endl;
 						std::cout << "marker boundary feature : " << marketSet[i]->getBoundaryFeatureInterpretation()->getTitle() << std::endl;
 					}
 
-					for (unsigned int l = 0; l < wmf->getPropertySet().size(); l++)
+					for (size_t l = 0; l < wmf->getPropertySet().size(); l++)
 					{
 						if (wmf->getPropertySet()[l]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
 						{
@@ -1384,12 +1411,9 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << endl << "WELLBORES CUBIC TRAJ" << endl;
-	for (unsigned int i = 0; i < wellboreCubicTrajSet.size(); i++)
+	for (size_t i = 0; i < wellboreCubicTrajSet.size(); i++)
 	{
-		if (wellboreCubicTrajSet[i]->getTitle() != "B2")
-			continue;
-		std::cout << "Title is : " << wellboreCubicTrajSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << wellboreCubicTrajSet[i]->getUuid() << std::endl;
+		showAllMetadata(wellboreCubicTrajSet[i]);
 		std::cout << "MD Datum is : " << wellboreCubicTrajSet[i]->getMdDatum()->getTitle() << std::endl;
 		std::cout << "--------------------------------------------------" << std::endl;
 		if (wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches() == 0)
@@ -1398,7 +1422,7 @@ void deserialize(const string & inputFile)
 		wellboreCubicTrajSet[i]->getMdValues(mdValues);
 		double* xyzPt = new double[wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches() * 3];
 		wellboreCubicTrajSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(xyzPt);
-		for (unsigned int j = 0; j < wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches()*3 && j < 10; j += 3)
+		for (ULONG64 j = 0; j < wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches()*3 && j < 10; j += 3)
 		{
 			cout << "Trajectory station : MD=" << mdValues[j] << " X=" << xyzPt[j] << " Y=" << xyzPt[j+1] << " Z=" << xyzPt[j+2] << endl;
 		}
@@ -1407,7 +1431,7 @@ void deserialize(const string & inputFile)
 		std::cout << "LOGS" << endl;
 		std::cout << "--------------------------------------------------" << std::endl;
 		std::vector<WellboreFrameRepresentation*> wellboreFrameSet = wellboreCubicTrajSet[i]->getWellboreFrameRepresentationSet();
-		for (unsigned int j = 0; j < wellboreFrameSet.size(); j++)
+		for (size_t j = 0; j < wellboreFrameSet.size(); j++)
 		{
 			std::cout << "Title is : " << wellboreFrameSet[j]->getTitle() << std::endl;
 			std::cout << "Guid is : " << wellboreFrameSet[j]->getUuid() << std::endl;
@@ -1427,8 +1451,7 @@ void deserialize(const string & inputFile)
 	{
 		AbstractIjkGridRepresentation* ijkGrid = pck.getIjkGridRepresentation(i);
 
-		std::cout << "Title is : " << ijkGrid->getTitle() << std::endl;
-		std::cout << "Guid is : " << ijkGrid->getUuid() << std::endl;
+		showAllMetadata(ijkGrid);
 		std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
 		double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
 		ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
@@ -1473,7 +1496,7 @@ void deserialize(const string & inputFile)
 			}
 		}
 
-		for (unsigned int l = 0; l < ijkGrid->getPropertySet().size(); l++)
+		for (size_t l = 0; l < ijkGrid->getPropertySet().size(); l++)
 		{
 			AbstractValuesProperty* propVal = static_cast<AbstractValuesProperty*>(ijkGrid->getPropertySet()[l]);
 			std::cout << "Dimension count is : " << propVal->getDimensionsCountOfPatch(0) << std::endl;
@@ -1486,10 +1509,9 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << endl << "UNSTRUCTURED GRID REP" << endl;
-	for (unsigned int i = 0; i < unstructuredGridRepSet.size(); ++i)
+	for (size_t i = 0; i < unstructuredGridRepSet.size(); ++i)
 	{
-		std::cout << "Title is : " << unstructuredGridRepSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << unstructuredGridRepSet[i]->getUuid() << std::endl;
+		showAllMetadata(unstructuredGridRepSet[i]);
 		if (unstructuredGridRepSet[i]->isPartial() == false)
 		{
 			std::cout << "Node count is : " << unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
@@ -1518,19 +1540,18 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << endl << "TIME SERIES" << endl;
-	for (unsigned int i = 0; i < timeSeriesSet.size(); ++i)
+	for (size_t i = 0; i < timeSeriesSet.size(); ++i)
 	{
-		std::cout << "Title is : " << timeSeriesSet[i]->getTitle() << std::endl;
-		std::cout << "Guid is : " << timeSeriesSet[i]->getUuid() << std::endl;
-		for (unsigned int j = 0; j < timeSeriesSet[i]->getPropertySet().size(); ++j)
+		showAllMetadata(timeSeriesSet[i]);
+		for (size_t j = 0; j < timeSeriesSet[i]->getPropertySet().size(); ++j)
 		{
-			std::cout << "Property Title is : " << timeSeriesSet[i]->getPropertySet()[j]->getTitle() << std::endl;
-			std::cout << "Property Guid is : " << timeSeriesSet[i]->getPropertySet()[j]->getUuid() << std::endl;
+			std::cout << endl << "\tPROPERTIES" << endl;
+			showAllMetadata(timeSeriesSet[i]->getPropertySet()[j]);
 		}
 	}
 
 	std::cout << endl << pck.getWarnings().size() << " WARNING(S)" << endl;
-	for (unsigned int i = 0; i < pck.getWarnings().size(); ++i)
+	for (size_t i = 0; i < pck.getWarnings().size(); ++i)
 		std::cout << i << " - " << pck.getWarnings()[i] << endl;
 }
 

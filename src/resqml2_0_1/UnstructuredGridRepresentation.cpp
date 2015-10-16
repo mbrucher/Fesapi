@@ -343,6 +343,19 @@ unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
 		return 0;
 }
 
+void UnstructuredGridRepresentation::getCellFaceIsRightHanded(char* cellFaceIsRightHanded) const
+{
+  _resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
+  if (grid->Geometry == NULL)
+    throw invalid_argument("There is no geometry in this grid.");
+  if (grid->Geometry->CellFaceIsRightHanded->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+  {
+    hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellFaceIsRightHanded)->Values->PathInHdfFile, cellFaceIsRightHanded);
+  }
+  else
+	  throw logic_error("Not yet implemented.");
+}
+
 void UnstructuredGridRepresentation::setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy,
 				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
 				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
@@ -571,26 +584,14 @@ void UnstructuredGridRepresentation::unloadGeometry()
 	constantNodeCountPerFace = 0;
 	constantFaceCountPerCell = 0;
 
-	if (cumulativeNodeCountPerFace != nullptr)
-	{
-		delete [] cumulativeNodeCountPerFace;
-		cumulativeNodeCountPerFace = nullptr;
-	}
-	if (cumulativeFaceCountPerCell != nullptr)
-	{
-		delete [] cumulativeFaceCountPerCell;
-		cumulativeFaceCountPerCell = nullptr;
-	}
-	if (nodeIndicesOfFaces != nullptr)
-	{
-		delete [] nodeIndicesOfFaces;
-		nodeIndicesOfFaces = nullptr;
-	}
-	if (faceIndicesOfCells != nullptr)
-	{
-		delete [] faceIndicesOfCells;
-		faceIndicesOfCells = nullptr;
-	}
+  delete[] cumulativeNodeCountPerFace;
+  cumulativeNodeCountPerFace = nullptr;
+  delete[] cumulativeFaceCountPerCell;
+  cumulativeFaceCountPerCell = nullptr;
+  delete[] nodeIndicesOfFaces;
+  nodeIndicesOfFaces = nullptr;
+  delete[] faceIndicesOfCells;
+  faceIndicesOfCells = nullptr;
 }
 
 unsigned int UnstructuredGridRepresentation::getFaceCountOfCell(const ULONG64 & cellIndex) const

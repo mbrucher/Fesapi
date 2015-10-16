@@ -57,6 +57,17 @@ namespace resqml2_0_1
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		~StratigraphicUnitInterpretation() {}
+
+		/**
+		 * Indicates if the instance has an information about its deposition mode.
+		 */
+		bool hasDepositionMode() const;
+
+		/**
+		 * Get the deposition mode of the stratigraphic unit interpretation.
+		 * You should verify its existency using hasDepositionMode() before to call this function.
+		 */
+		gsoap_resqml2_0_1::resqml2__DepositionMode getDepositionMode() const;
 			
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

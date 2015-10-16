@@ -64,6 +64,9 @@ namespace resqml2_0_1
 
 		void pushBackStratiColumnRank(class StratigraphicColumnRankInterpretation * stratiColumnRank);
 
+		/**
+		 * Get all the stratigraphic column rank interpretations which are contained in this stratigraphic column.
+		 */
 		std::vector<class StratigraphicColumnRankInterpretation*> getStratigraphicColumnRankInterpretationSet() const {return stratigraphicColumnRankSet;}
 
         std::vector<epc::Relationship> getAllEpcRelationships() const;

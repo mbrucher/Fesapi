@@ -206,6 +206,11 @@ namespace resqml2_0_1
 		 */
 		ULONG64 getNodeCount() const;
 
+    	/**
+	    * Retrieves orientation i.e. if each cell face is right handed or not
+    	*/
+    	void getCellFaceIsRightHanded(char* cellFaceIsRightHanded) const;
+
 		/**
 		 * Set the geometry
 		 */

@@ -38,6 +38,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/StratigraphicUnitFeature.h"
 #include "resqml2_0_1/StratigraphicColumnRankInterpretation.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -79,4 +83,17 @@ vector<Relationship> StratigraphicUnitInterpretation::getAllEpcRelationships() c
 	}
 
 	return result;
+}
+
+bool StratigraphicUnitInterpretation::hasDepositionMode() const
+{
+	return static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy)->DepositionMode != nullptr;
+}
+
+gsoap_resqml2_0_1::resqml2__DepositionMode StratigraphicUnitInterpretation::getDepositionMode() const
+{
+	if (hasDepositionMode() == false)
+		throw invalid_argument("The stratigraphic unit interpretation has not any deposition mode.");
+
+	return *static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy)->DepositionMode;
 }
