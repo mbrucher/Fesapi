@@ -1091,10 +1091,13 @@ void showAllMetadata(AbstractResqmlDataObject * obj)
 {
 	std::cout << "Title is : " << obj->getTitle() << std::endl;
 	std::cout << "Guid is : " << obj->getUuid() << std::endl;
-	for (unsigned int i = 0; i < obj->getAliasCount(); ++i)
-		std::cout << "Alias is : " << obj->getAliasAuthorityAtIndex(i) << ":" << obj->getAliasTitleAtIndex(i) << std::endl;
-	for (unsigned int i = 0; i < obj->getExtraMetadataCount(); ++i)
+	if (obj->isPartial() == false)
+	{
+		for (unsigned int i = 0; i < obj->getAliasCount(); ++i)
+			std::cout << "Alias is : " << obj->getAliasAuthorityAtIndex(i) << ":" << obj->getAliasTitleAtIndex(i) << std::endl;
+		for (unsigned int i = 0; i < obj->getExtraMetadataCount(); ++i)
 			std::cout << "Extrametadata is : " << obj->getExtraMetadataKeyAtIndex(i) << ":" << obj->getExtraMetadataStringValueAtIndex(i) << std::endl;
+	}
 	std::cout << "--------------------------------------------------" << std::endl;
 }
 

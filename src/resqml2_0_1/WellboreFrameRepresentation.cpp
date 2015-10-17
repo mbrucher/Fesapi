@@ -175,25 +175,25 @@ AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDat
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile);
-		if (dt == H5T_NATIVE_DOUBLE)
+		if (H5Tequal(dt, H5T_NATIVE_DOUBLE) > 0)
 			return AbstractValuesProperty::DOUBLE;
-		else if (dt == H5T_NATIVE_FLOAT)
+		else if (H5Tequal(dt, H5T_NATIVE_FLOAT) > 0)
 			return AbstractValuesProperty::FLOAT;
-		else if (dt == H5T_NATIVE_LONG)
+		else if (H5Tequal(dt, H5T_NATIVE_LONG) > 0)
 			return AbstractValuesProperty::LONG;
-		else if (dt == H5T_NATIVE_ULONG)
+		else if (H5Tequal(dt, H5T_NATIVE_ULONG) > 0)
 			return AbstractValuesProperty::ULONG;
-		else if (dt == H5T_NATIVE_INT)
+		else if (H5Tequal(dt, H5T_NATIVE_INT) > 0)
 			return AbstractValuesProperty::INT;
-		else if (dt == H5T_NATIVE_UINT)
+		else if (H5Tequal(dt, H5T_NATIVE_UINT) > 0)
 			return AbstractValuesProperty::UINT;
-		else if (dt == H5T_NATIVE_SHORT)
+		else if (H5Tequal(dt, H5T_NATIVE_SHORT) > 0)
 			return AbstractValuesProperty::SHORT;
-		else if (dt == H5T_NATIVE_USHORT)
+		else if (H5Tequal(dt, H5T_NATIVE_USHORT) > 0)
 			return AbstractValuesProperty::USHORT;
-		else if (dt == H5T_NATIVE_CHAR)
+		else if (H5Tequal(dt, H5T_NATIVE_CHAR) > 0)
 			return AbstractValuesProperty::CHAR;
-		else if (dt == H5T_NATIVE_UCHAR)
+		else if (H5Tequal(dt, H5T_NATIVE_UCHAR) > 0)
 			return AbstractValuesProperty::UCHAR;
 	}
 
