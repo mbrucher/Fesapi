@@ -247,7 +247,7 @@ namespace resqml2_0_1
 		*/
 		class UnstructuredGridRepresentation* cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
 
-		virtual geometryKind getGeometryKind() const { return geometryKind::UNKNOWN; }
+		virtual geometryKind getGeometryKind() const { return UNKNOWN; }
 		virtual std::string getHdfProxyUuid() const { throw std::logic_error("Partial object"); }
 		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const { throw std::logic_error("Partial object"); }
 

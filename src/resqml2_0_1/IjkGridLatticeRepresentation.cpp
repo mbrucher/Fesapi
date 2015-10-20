@@ -548,5 +548,5 @@ void IjkGridLatticeRepresentation::addSeismic3dCoordinatesToPatch(
 
 AbstractIjkGridRepresentation::geometryKind IjkGridLatticeRepresentation::getGeometryKind() const
 {
-	return AbstractIjkGridRepresentation::geometryKind::LATTICE;
+	return LATTICE;
 }

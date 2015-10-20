@@ -208,7 +208,7 @@ bool UnstructuredGridRepresentation::isFaceCountOfCellsConstant() const
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry == NULL)
 		throw invalid_argument("There is no geometry in this grid.");
-	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape__tetrahedral)
 	{
 		return true;
 	}
@@ -233,11 +233,11 @@ unsigned int UnstructuredGridRepresentation::getConstantFaceCountOfCells() const
 	if (isFaceCountOfCellsConstant() == false)
 		throw invalid_argument("The face count per cell is not constant.");
 
-	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral)
 	{
 		return 6;
 	}
-	else if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	else if (grid->Geometry->CellShape == resqml2__CellShape__tetrahedral)
 	{
 		return 4;
 	}
@@ -308,7 +308,7 @@ bool UnstructuredGridRepresentation::isNodeCountOfFacesContant() const
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry == NULL)
 		throw invalid_argument("There is no geometry in this grid.");
-	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape__tetrahedral)
 	{
 		return true;
 	}
@@ -327,11 +327,11 @@ unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
 	if (isNodeCountOfFacesContant() == false)
 		throw invalid_argument("The node count per cell is not constant.");
 
-	if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__hexahedral)
+	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral)
 	{
 		return 4;
 	}
-	else if (grid->Geometry->CellShape == resqml2__CellShape::resqml2__CellShape__tetrahedral)
+	else if (grid->Geometry->CellShape == resqml2__CellShape__tetrahedral)
 	{
 		return 3;
 	}

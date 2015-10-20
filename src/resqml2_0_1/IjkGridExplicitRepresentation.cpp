@@ -187,5 +187,5 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 
 AbstractIjkGridRepresentation::geometryKind IjkGridExplicitRepresentation::getGeometryKind() const
 {
-	return AbstractIjkGridRepresentation::geometryKind::EXPLICIT;
+	return EXPLICIT;
 }

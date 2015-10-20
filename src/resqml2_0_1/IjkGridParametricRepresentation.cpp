@@ -827,5 +827,5 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gs
 
 AbstractIjkGridRepresentation::geometryKind IjkGridParametricRepresentation::getGeometryKind() const
 {
-	return AbstractIjkGridRepresentation::geometryKind::PARAMETRIC;
+	return PARAMETRIC;
 }

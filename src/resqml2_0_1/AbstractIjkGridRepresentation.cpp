@@ -512,7 +512,7 @@ void AbstractIjkGridRepresentation::loadSplitInformation()
 		getColumnsOfSplitCoordinateLines(splitColumnIndices);
 
 		// Rearrange the split information
-		std::pair< unsigned int, std::vector<unsigned int>> splittedColumns;
+		std::pair< unsigned int, std::vector<unsigned int> > splittedColumns;
 		splittedColumns.first = 0;
 		for (unsigned int splitColumnIndex = 0;
 			splitColumnIndex < columnIndexCumulativeCountPerSplitCoordinateLine[0];
@@ -750,7 +750,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	static_cast<_resqml2__UnstructuredGridRepresentation*>(result->getGsoapProxy())->Geometry->LocalCrs = localCrs->newResqmlReference();
 
 	geom->NodeCount = getXyzPointCountOfPatch(0);
-	geom->CellShape = gsoap_resqml2_0_1::resqml2__CellShape::resqml2__CellShape__hexahedral;
+	geom->CellShape = resqml2__CellShape__hexahedral;
 
 	loadSplitInformation();
 	geom->FaceCount = getFaceCount();
