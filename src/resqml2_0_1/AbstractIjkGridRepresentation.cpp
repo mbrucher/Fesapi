@@ -1026,7 +1026,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 			uuidActnum[34] = '1';
 		else
 			uuidActnum[34] = '0';
-		DiscreteProperty* actnum = new DiscreteProperty(result, uuidActnum, "ACTNUM for " + result->getTitle(), 1, resqml2__IndexableElements__cells, kind);
+		DiscreteProperty* actnum = new DiscreteProperty(result, uuidActnum, "ACTNUM", 1, resqml2__IndexableElements__cells, kind);
 
 		// Values
 		resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
