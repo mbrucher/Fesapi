@@ -1157,8 +1157,22 @@ void showAllProperties(AbstractRepresentation * rep)
 			if (dynamic_cast<DiscreteProperty*>(propVal) == nullptr && dynamic_cast<CategoricalProperty*>(propVal) == nullptr)
 			{
 				cerr << "\tERROR !!!!! The continuous property is linked to an integer HDF5 dataset." << endl;
+				cout << "\tTrying to convert.." << endl;
+				double* values = new double[valueCount];
+				static_cast<ContinuousProperty*>(propVal)->getDoubleValuesOfPatch(0, values);
+				std::cout << "\tFirst value is " << values[0] << endl;
+				std::cout << "\tSecond value is " << values[1] << endl;
+				delete [] values;
 				cout << "\tPress enter to continue..." << endl;
 				cin.get();
+			}
+			else
+			{
+				long* values = new long[valueCount];
+				propVal->getLongValuesOfPatch(0, values);
+				std::cout << "\tFirst value is " << values[0] << endl;
+				std::cout << "\tSecond value is " << values[1] << endl;
+				delete [] values;
 			}
 		}
 		else
@@ -1167,13 +1181,21 @@ void showAllProperties(AbstractRepresentation * rep)
 			{
 				cerr << "\tERROR !!!!! The discrete or categorical property is linked to a floating point HDF5 dataset." << endl;
 				cout << "\tTrying to convert.." << endl;
-				unsigned long* values = new unsigned long[valueCount];
-				propVal->getULongValuesOfPatch(0, values);
+				long* values = new long[valueCount];
+				propVal->getLongValuesOfPatch(0, values);
 				std::cout << "\tFirst value is " << values[0] << endl;
 				std::cout << "\tSecond value is " << values[1] << endl;
 				delete [] values;
 				cout << "\tPress enter to continue..." << endl;
 				cin.get();
+			}
+			else
+			{
+				double* values = new double[valueCount];
+				static_cast<ContinuousProperty*>(propVal)->getDoubleValuesOfPatch(0, values);
+				std::cout << "\tFirst value is " << values[0] << endl;
+				std::cout << "\tSecond value is " << values[1] << endl;
+				delete [] values;
 			}
 		}
 	}

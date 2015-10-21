@@ -179,10 +179,30 @@ long AbstractValuesProperty::getLongValuesOfPatch(const unsigned int & patchInde
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
-
-	hdfProxy->readArrayNdOfLongValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
-
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfLongValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<long>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfLongValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<long>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfLongValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 long AbstractValuesProperty::getNullValueOfPatch(const unsigned int & patchIndex)
@@ -201,9 +221,29 @@ unsigned long AbstractValuesProperty::getULongValuesOfPatch(const unsigned int &
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
-	hdfProxy->readArrayNdOfULongValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
-
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfULongValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned long>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfULongValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned long>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfULongValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 int AbstractValuesProperty::getIntValuesOfPatch(const unsigned int & patchIndex, int * values)
@@ -212,10 +252,30 @@ int AbstractValuesProperty::getIntValuesOfPatch(const unsigned int & patchIndex,
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
-	
-	hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
 
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<int>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<int>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 unsigned int AbstractValuesProperty::getUIntValuesOfPatch(const unsigned int & patchIndex, unsigned int * values)
@@ -225,9 +285,29 @@ unsigned int AbstractValuesProperty::getUIntValuesOfPatch(const unsigned int & p
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
-	hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
-
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned int>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned int>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 short AbstractValuesProperty::getShortValuesOfPatch(const unsigned int & patchIndex, short * values)
@@ -237,9 +317,29 @@ short AbstractValuesProperty::getShortValuesOfPatch(const unsigned int & patchIn
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
-	hdfProxy->readArrayNdOfShortValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
-
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfShortValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<short>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfShortValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<short>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfShortValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 unsigned short AbstractValuesProperty::getUShortValuesOfPatch(const unsigned int & patchIndex, unsigned short * values)
@@ -249,9 +349,29 @@ unsigned short AbstractValuesProperty::getUShortValuesOfPatch(const unsigned int
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
-	hdfProxy->readArrayNdOfUShortValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
-
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUShortValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned short>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfUShortValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned short>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUShortValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 char AbstractValuesProperty::getCharValuesOfPatch(const unsigned int & patchIndex, char * values)
@@ -261,9 +381,29 @@ char AbstractValuesProperty::getCharValuesOfPatch(const unsigned int & patchInde
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
-	hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
-
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<char>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<char>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 unsigned char AbstractValuesProperty::getUCharValuesOfPatch(const unsigned int & patchIndex, unsigned char * values)
@@ -273,9 +413,29 @@ unsigned char AbstractValuesProperty::getUCharValuesOfPatch(const unsigned int &
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 
-	hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
-
-	return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	int valuesType = patch->Values->soap_type();
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned char>::max)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		getEpcDocument()->addWarning("Convert floating poit into integer : may wrongly interpret NaN value.");
+		hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__DoubleHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return (numeric_limits<unsigned char>::min)();
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile, values);
+		return static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->NullValue;
+	}
+	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
+	{
+		throw invalid_argument("Cannot convert string into integer datatype.");
+	}
+	else
+		throw invalid_argument("The type of the property values is not allowed.");
 }
 
 unsigned int AbstractValuesProperty::getValuesCountOfDimensionOfPatch(const unsigned int & dimIndex, const unsigned int & patchIndex)
@@ -285,7 +445,12 @@ unsigned int AbstractValuesProperty::getValuesCountOfDimensionOfPatch(const unsi
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
 	std::vector<hsize_t> dims;
-	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	
+	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		dims = hdfProxy->readArrayDimensions(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile);
+	}
+	else if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
 		dims = hdfProxy->readArrayDimensions (static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile);
 	}
@@ -310,7 +475,11 @@ unsigned int AbstractValuesProperty::getDimensionsCountOfPatch(const unsigned in
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
-	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		return hdfProxy->getDimensionCount(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile);
+	}
+	else if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
 		return hdfProxy->getDimensionCount (static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile); 
 	}
@@ -332,7 +501,11 @@ unsigned int AbstractValuesProperty::getValuesCountOfPatch (const unsigned int &
 		throw invalid_argument("The Hdf proxy cannot be NULL.");
 
 	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
-	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+	{
+		return hdfProxy->getElementCount(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile);
+	}
+	else if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
 		return hdfProxy->getElementCount (static_cast<resqml2__IntegerHdf5Array*>(patch->Values)->Values->PathInHdfFile); 
 	}
