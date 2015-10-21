@@ -916,8 +916,22 @@ namespace resqml2_0_1
 		ULONG64 getFaceCount() const;
 		void getFaceIndicesOfCells(ULONG64 * faceIndices) const;
 		void getCumulativeFaceCountPerCell(ULONG64 * faceCountPerCell) const;
+		void getFaceCountPerCell(ULONG64 * faceCountPerCell) const;
+		bool isFaceCountOfCellsConstant() const;
+		unsigned int getConstantFaceCountOfCells() const;
+		
 		void getNodeIndicesOfFaces(ULONG64 * nodeIndices) const;
 		void getCumulativeNodeCountPerFace(ULONG64 * nodeCountPerFace) const;
+		void getNodeCountPerFace(ULONG64 * nodeCountPerFace) const;
+		bool isNodeCountOfFacesContant() const;
+		unsigned int getConstantNodeCountOfFaces() const;
+		
+		void loadGeometry();
+		unsigned int getFaceCountOfCell(const ULONG64 & cellIndex) const;
+		unsigned int getNodeCountOfFaceOfCell(const ULONG64 & cellIndex, const unsigned int & localFaceIndex) const;
+		ULONG64 * getNodeIndicesOfFaceOfCell(const ULONG64 & cellIndex, const unsigned int & localFaceIndex) const;
+		void unloadGeometry();
+		
 		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy,
 				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
 				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,

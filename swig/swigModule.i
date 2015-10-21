@@ -31,6 +31,7 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %array_class(unsigned long, ULongArray);
 %array_class(unsigned int, UIntArray);
 %array_class(int, IntArray);
+%array_class(long long, LongLongArray);
 %array_class(long, LongArray);
 %array_class(float, FloatArray);
 %array_class(double, DoubleArray);
