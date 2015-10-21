@@ -1087,18 +1087,97 @@ void serialize(const string & filePath)
 #endif
 }
 
-void showAllMetadata(AbstractResqmlDataObject * obj)
+void showAllMetadata(AbstractResqmlDataObject * obj, const std::string & prefix = "")
 {
-	std::cout << "Title is : " << obj->getTitle() << std::endl;
-	std::cout << "Guid is : " << obj->getUuid() << std::endl;
+	std::cout << prefix << "Title is : " << obj->getTitle() << std::endl;
+	std::cout << prefix << "Guid is : " << obj->getUuid() << std::endl;
 	if (obj->isPartial() == false)
 	{
 		for (unsigned int i = 0; i < obj->getAliasCount(); ++i)
-			std::cout << "Alias is : " << obj->getAliasAuthorityAtIndex(i) << ":" << obj->getAliasTitleAtIndex(i) << std::endl;
+			std::cout << prefix << "Alias is : " << obj->getAliasAuthorityAtIndex(i) << ":" << obj->getAliasTitleAtIndex(i) << std::endl;
 		for (unsigned int i = 0; i < obj->getExtraMetadataCount(); ++i)
-			std::cout << "Extrametadata is : " << obj->getExtraMetadataKeyAtIndex(i) << ":" << obj->getExtraMetadataStringValueAtIndex(i) << std::endl;
+			std::cout << prefix << "Extrametadata is : " << obj->getExtraMetadataKeyAtIndex(i) << ":" << obj->getExtraMetadataStringValueAtIndex(i) << std::endl;
 	}
-	std::cout << "--------------------------------------------------" << std::endl;
+	std::cout << prefix << "--------------------------------------------------" << std::endl;
+}
+
+void showAllProperties(AbstractRepresentation * rep)
+{
+	std::vector<AbstractValuesProperty*> propertyValuesSet = rep->getValuesPropertySet();
+	if (propertyValuesSet.empty() == false)
+		cout << "PROPERTIES" << std::endl;
+	std::cout << "\t--------------------------------------------------" << std::endl;
+	for (size_t propIndex = 0; propIndex < propertyValuesSet.size(); ++propIndex)
+	{
+		AbstractValuesProperty* propVal = propertyValuesSet[propIndex];
+		showAllMetadata(propVal, "\t");
+
+		std::cout << "\tProperty kind is : " << propVal->getPropertyKindAsString() << std::endl;
+		if (propVal->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+		{
+			std::cout << "\tProperty kind is an Energistics one" << std::endl;
+		}
+		else
+		{
+			std::cout << "\tProperty kind is not an Energistics one" << std::endl;
+			if (propVal->getLocalPropertyKind()->isParentAnEnergisticsPropertyKind() == true)
+			{
+				std::cout << "\t\tProperty kind parent is an Energistics one" << std::endl;
+				std::cout << "\t\tProperty kind parent is : " << propVal->getLocalPropertyKind()->getParentAsString() << std::endl;
+			}
+			else
+			{
+				std::cout << "\t\tProperty kind parent is not an Energistics one" << std::endl;
+				std::cout << "\t\tProperty kind parent is : " << propVal->getLocalPropertyKind()->getParentLocalPropertyKind()->getTitle() << std::endl;
+			}
+		}
+		
+		// Dimension
+		unsigned int dimCount = propVal->getDimensionsCountOfPatch(0);
+		std::cout << "\tDimension count is : " << dimCount << std::endl;
+		for (unsigned int dimIndex = 0; dimIndex < dimCount; ++dimIndex)
+		{
+			std::cout << "\tValues count in dimension " << dimIndex << " is : " << propVal->getValuesCountOfDimensionOfPatch(dimIndex, 0) << std::endl;
+		}
+		unsigned int valueCount = propVal->getValuesCountOfPatch(0);
+		std::cout << "\tValues count in all dimensions is : " << valueCount << std::endl;
+
+		// Datatype
+		std::cout << "\tDatatype is : " << propVal->getValuesHdfDatatype() << std::endl;
+		bool isFloat = true;
+		if (propVal->getValuesHdfDatatype() == 0)
+		{
+			cerr << "\tERROR !!!!! The hdf datatype is unknown" << endl;
+			cout << "\tPress enter to continue..." << endl;
+			cin.get();
+		}
+		else if (propVal->getValuesHdfDatatype() > 2)
+		{
+			isFloat = false;
+			if (dynamic_cast<DiscreteProperty*>(propVal) == nullptr && dynamic_cast<CategoricalProperty*>(propVal) == nullptr)
+			{
+				cerr << "\tERROR !!!!! The continuous property is linked to an integer HDF5 dataset." << endl;
+				cout << "\tPress enter to continue..." << endl;
+				cin.get();
+			}
+		}
+		else
+		{
+			if (dynamic_cast<ContinuousProperty*>(propVal) == nullptr)
+			{
+				cerr << "\tERROR !!!!! The discrete or categorical property is linked to a floating point HDF5 dataset." << endl;
+				cout << "\tTrying to convert.." << endl;
+				unsigned long* values = new unsigned long[valueCount];
+				propVal->getULongValuesOfPatch(0, values);
+				std::cout << "\tFirst value is " << values[0] << endl;
+				std::cout << "\tSecond value is " << values[1] << endl;
+				delete [] values;
+				cout << "\tPress enter to continue..." << endl;
+				cin.get();
+			}
+		}
+	}
+	std::cout << "\t--------------------------------------------------" << std::endl;
 }
 
 void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
@@ -1229,6 +1308,8 @@ void deserialize(const string & inputFile)
 		}
 		delete [] crosslines;
 		*/
+
+		showAllProperties(faultPolyRep[i]);
 	}
 
 	std::cout << "FAULTS TRI REP" << endl;
@@ -1256,6 +1337,8 @@ void deserialize(const string & inputFile)
 
 		delete [] xyzPoints;
 		delete [] triangleIndices;
+		
+		showAllProperties(faultTriRepSet[i]);
 	}
 
 	std::cout << "HORIZONS" << endl;
@@ -1279,36 +1362,9 @@ void deserialize(const string & inputFile)
 		horizonGrid2dSet[i]->getZValuesInGlobalCrs(zValues);
 		std::cout << "First zValue is : " << zValues[0] << std::endl;
 		delete [] zValues;
-
-		std::cout << "\tHORIZONS GRID 2D REP PROPERTIES" << endl;
-		std::vector<AbstractValuesProperty*> propertyValuesSet = horizonGrid2dSet[i]->getValuesPropertySet();
-		for (size_t j = 0; j < propertyValuesSet.size(); j++)
-		{
-			std::cout << "\tTitle is : " << propertyValuesSet[j]->getTitle() << std::endl;
-			std::cout << "\tGuid is : " << propertyValuesSet[j]->getUuid() << std::endl;
-				std::cout << "\tProperty kind is : " << propertyValuesSet[j]->getPropertyKindAsString() << std::endl;
-			if (propertyValuesSet[j]->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
-			{
-				std::cout << "\tProperty kind is an Energistics one" << std::endl;
-			}
-			else
-			{
-				std::cout << "\tProperty kind is not an Energistics one" << std::endl;
-				if (propertyValuesSet[j]->getLocalPropertyKind()->isParentAnEnergisticsPropertyKind() == true)
-				{
-					std::cout << "\t\tProperty kind parent is an Energistics one" << std::endl;
-					std::cout << "\t\tProperty kind parent is : " << propertyValuesSet[j]->getLocalPropertyKind()->getParentAsString() << std::endl;
-				}
-				else
-				{
-					std::cout << "\t\tProperty kind parent is not an Energistics one" << std::endl;
-					std::cout << "\t\tProperty kind parent is : " << propertyValuesSet[j]->getLocalPropertyKind()->getParentLocalPropertyKind()->getTitle() << std::endl;
-				}
-			}
-			//std::cout << "\tDatatype is : " << propertyValuesSet[j]->getValuesHdfDatatype() << std::endl;
-			std::cout << "\t--------------------------------------------------" << std::endl;
-		}
+		
 		deserializeActivity(horizonGrid2dSet[i]);
+		showAllProperties(horizonGrid2dSet[i]);
 	}
 
 	std::cout << "HORIZONS TRI REP" << endl;
@@ -1336,6 +1392,7 @@ void deserialize(const string & inputFile)
 		delete [] xyzPoints;
 		delete [] triangleIndices;
 		deserializeActivity(horizonTriRepSet[i]);
+		showAllProperties(horizonTriRepSet[i]);
 	}
 
 	std::cout << "HORIZONS SINGLE POLYLINE REP" << endl;
@@ -1353,6 +1410,7 @@ void deserialize(const string & inputFile)
 		}
 		delete [] lineAbscissa;
 		*/
+		showAllProperties(horizonSinglePolylineRepSet[i]);
 	}
 
 	std::cout << "STRATI COLUMN" << endl;
@@ -1498,17 +1556,8 @@ void deserialize(const string & inputFile)
 				std::cout << "Fault interpretation of this grid connection set is : " << faultInterpOfGridConn->getTitle()  << " With UUID " << faultInterpOfGridConn->getUuid() << endl;
 			}
 		}
-
-		for (size_t l = 0; l < ijkGrid->getPropertySet().size(); l++)
-		{
-			AbstractValuesProperty* propVal = static_cast<AbstractValuesProperty*>(ijkGrid->getPropertySet()[l]);
-			std::cout << "Dimension count is : " << propVal->getDimensionsCountOfPatch(0) << std::endl;
-			std::cout << "Datatype is : " << propVal->getValuesHdfDatatype() << std::endl;
-			std::cout << "Values count in slowest dimension is : " << propVal->getValuesCountOfDimensionOfPatch(0, 0) << std::endl;
-			std::cout << "Values count in middle dimension is : " << propVal->getValuesCountOfDimensionOfPatch(1, 0) << std::endl;
-			std::cout << "Values count in fastest dimension is : " << propVal->getValuesCountOfDimensionOfPatch(2, 0) << std::endl;
-			std::cout << "Values count in all dimensions is : " << propVal->getValuesCountOfPatch(0) << std::endl;
-		}
+	
+		showAllProperties(ijkGrid);
 	}
 
 	std::cout << endl << "UNSTRUCTURED GRID REP" << endl;
@@ -1539,6 +1588,8 @@ void deserialize(const string & inputFile)
 			std::cout << "(in memory) Node  indice 0 of face 1 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 1)[0] << std::endl;
 
 			unstructuredGridRepSet[i]->unloadGeometry();
+
+			showAllProperties(unstructuredGridRepSet[i]);
 		}
 	}
 
