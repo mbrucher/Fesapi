@@ -79,6 +79,8 @@ namespace common
 		EpcDocument(const std::string & fileName);
 		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory);
 		
+		void setFilePath(const std::string & filePath);
+
 		void serialize();
 		std::string deserialize();
 		void close();
