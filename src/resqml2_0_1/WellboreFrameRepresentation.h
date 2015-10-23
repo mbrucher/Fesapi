@@ -69,13 +69,38 @@ namespace resqml2_0_1
 		~WellboreFrameRepresentation() {}
 
 		/**
-		* Set the MD values of this WellboreFeature frame to an array 1d of explicit values.
+		* Set the MD values of this WellboreFrameRepresentation frame to an array 1d of explicit values.
 		* @param mdValues		All the MD values to set from top of the well trajectory to bottom.
-		* @param numMdValues	The MD values count.
+		* @param mdValueCount	The MD values count.
 		* @param proxy			The HDF proxy where to write the MD values. It must be already opened for writing and won't be closed in this method.
 		*/
-		void setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, class AbstractHdfProxy * proxy);
+		void setMdValues(double * mdValues, const unsigned int & mdValueCount, class AbstractHdfProxy * proxy);
 
+		/**
+		* Set the MD values of this WellboreFrameRepresentation frame as a regular discretization along the wellbore trajectory.
+		* @param firstMdValue		The first MD value.
+		* @param incrementMdValue	The increment value between two Measured depth.
+		* @param mdValueCount		The count of md values in this WellboreFrameRepresentation.
+		*/
+		void setMdValues(const double & firstMdValue, const double & incrementMdValue, const unsigned int & mdValueCount);
+
+		/**
+		* Indicates either the MDs are regularly spaced or not (useful for optimization)
+		* Does not verify if the writer has used a generic array to store regular mds.
+		*/
+		bool areMdValuesRegularlySpaced() const;
+		
+		/**
+		* Indicates the incremetn value between two MDs only if the MDs are regualrly spaced.
+		* Please use areMdValuesRegularlySpaced before using this method.
+		*/
+		double getMdConstantIncrementValue() const;
+
+		/**
+		* Returns the first MD value of this WellboreFrameRepresentation
+		*/
+		double getMdFirstValue() const;
+		
 		/**
 		* Get the number of Md values in this WellboreFeature frame.
 		*/

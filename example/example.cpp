@@ -190,7 +190,10 @@ void serializeWells(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	// WellboreFeature frame
 	WellboreFrameRepresentation* w1i1FrameRep = pck->createWellboreFrameRepresentation(wellbore1Interp1, "", "Wellbore1 Interp1 FrameRep", w1i1TrajRep);
 	double logMds[5] = {0, 250, 500, 750, 1000};
-	w1i1FrameRep->setMdValuesAsArray1dOfExplicitValues(trajectoryMds, 5, hdfProxy);
+	w1i1FrameRep->setMdValues(trajectoryMds, 5, hdfProxy);
+
+	WellboreFrameRepresentation* w1i1RegularFrameRep = pck->createWellboreFrameRepresentation(wellbore1Interp1, "a54b8399-d3ba-4d4b-b215-8d4f8f537e66", "Wellbore1 Interp1 Regular FrameRep", w1i1TrajRep);
+	w1i1RegularFrameRep->setMdValues(0, 200, 6);
 
 	PropertyKind * unitNumberPropType = pck->createPropertyKind("", "Unit number", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 
@@ -217,7 +220,7 @@ void serializeStratigraphicModel(common::EpcDocument * pck, AbstractHdfProxy* hd
 	// WellboreFeature marker frame
 	WellboreMarkerFrameRepresentation* wmf = pck->createWellboreMarkerFrameRepresentation(stratiOccurence, "", "Wellbore Marker Frame", w1i1TrajRep);
 	double markerMdValues[2] = {350, 550};
-	wmf->setMdValuesAsArray1dOfExplicitValues(markerMdValues, 2, hdfProxy);
+	wmf->setMdValues(markerMdValues, 2, hdfProxy);
 	WellboreMarker* marker0 = wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);
 	marker0->setBoundaryFeatureInterpretation(horizon1Interp1);
 	WellboreMarker* marker1 = wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
@@ -1516,9 +1519,18 @@ void deserialize(const string & inputFile)
 		std::vector<WellboreFrameRepresentation*> wellboreFrameSet = wellboreCubicTrajSet[i]->getWellboreFrameRepresentationSet();
 		for (size_t j = 0; j < wellboreFrameSet.size(); j++)
 		{
-			std::cout << "Title is : " << wellboreFrameSet[j]->getTitle() << std::endl;
-			std::cout << "Guid is : " << wellboreFrameSet[j]->getUuid() << std::endl;
-			std::cout << "--------------------------------------------------" << std::endl;
+			showAllMetadata(wellboreFrameSet[j]);
+			std::cout << "Value Count : " << wellboreFrameSet[j]->getMdValuesCount() << endl;
+			if (wellboreFrameSet[j]->areMdValuesRegularlySpaced())
+			{
+				std::cout << "Regularly spaced" << std::endl;
+				std::cout << "First Value : " << wellboreFrameSet[j]->getMdFirstValue() << endl;
+				std::cout << "Increment : " << wellboreFrameSet[j]->getMdConstantIncrementValue() << endl;
+			}
+			else
+			{
+				std::cout << "Iregularly spaced" << std::endl;
+			}
 			if (wellboreFrameSet[j]->getMdHdfDatatype() == AbstractValuesProperty::DOUBLE)
 				std::cout << "Hdf datatype is NATIVE DOUBLE" << std::endl;
 			else if (wellboreFrameSet[j]->getMdHdfDatatype() == AbstractValuesProperty::FLOAT)
@@ -1607,6 +1619,8 @@ void deserialize(const string & inputFile)
 				std::cout << "(in memory) Face count of cell 1 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(1) << std::endl;	
 			std::cout << "(in memory) Node  count of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeCountOfFaceOfCell(0, 0) << std::endl;
 			std::cout << "(in memory) Node  indice 0 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[0] << std::endl;
+			std::cout << "(in memory) Node  indice 1 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[1] << std::endl;
+			std::cout << "(in memory) Node  indice 2 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[2] << std::endl;
 			std::cout << "(in memory) Node  indice 0 of face 1 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 1)[0] << std::endl;
 
 			unstructuredGridRepSet[i]->unloadGeometry();

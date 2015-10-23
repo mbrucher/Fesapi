@@ -843,7 +843,13 @@ namespace resqml2_0_1
 	class WellboreFrameRepresentation : public AbstractRepresentation
 	{
 	public:
-		void setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, class AbstractHdfProxy * proxy);
+		void setMdValues(double * mdValues, const unsigned int & mdValueCount, class AbstractHdfProxy * proxy);
+		void setMdValues(const double & firstMdValue, const double & incrementMdValue, const unsigned int & mdValueCount);
+
+		bool areMdValuesRegularlySpaced() const;
+		double getMdConstantIncrementValue() const;
+		double getMdFirstValue() const;
+
 		unsigned int getMdValuesCount() const;
 		AbstractValuesProperty::hdfDatatypeEnum getMdHdfDatatype() const;
 		void getMdAsDoubleValues(double * values);

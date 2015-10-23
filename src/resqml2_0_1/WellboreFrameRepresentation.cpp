@@ -126,7 +126,7 @@ void WellboreFrameRepresentation::importRelationshipSetFromEpc(common::EpcDocume
 	}
 }
 
-void WellboreFrameRepresentation::setMdValuesAsArray1dOfExplicitValues(double * mdValues, const unsigned int & numMdValues, AbstractHdfProxy * proxy)
+void WellboreFrameRepresentation::setMdValues(double * mdValues, const unsigned int & mdValueCount, AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
 
@@ -140,10 +140,10 @@ void WellboreFrameRepresentation::setMdValuesAsArray1dOfExplicitValues(double * 
 
 	frame->NodeMd = xmlMdValues;
 
-	frame->NodeCount = numMdValues;
+	frame->NodeCount = mdValueCount;
 
 	// HDF
-	hsize_t dim[] = {numMdValues};
+	hsize_t dim[] = {mdValueCount};
 	hdfProxy->writeArrayNd(frame->uuid,
 			"mdValues",
 			H5T_NATIVE_DOUBLE,
@@ -151,19 +151,74 @@ void WellboreFrameRepresentation::setMdValuesAsArray1dOfExplicitValues(double * 
 			dim, 1);
 }
 
-unsigned int WellboreFrameRepresentation::getMdValuesCount() const
+void WellboreFrameRepresentation::setMdValues(const double & firstMdValue, const double & incrementMdValue, const unsigned int & mdValueCount)
 {
-	if (hdfProxy == nullptr)
-		return 0;
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 
+	// XML
+	resqml2__DoubleLatticeArray* xmlMdValues = soap_new_resqml2__DoubleLatticeArray(gsoapProxy->soap, 1);
+	xmlMdValues->StartValue = firstMdValue;
+	xmlMdValues->Offset.push_back(soap_new_resqml2__DoubleConstantArray(gsoapProxy->soap, 1));
+	xmlMdValues->Offset[0]->Count = mdValueCount - 1;
+	xmlMdValues->Offset[0]->Value = incrementMdValue;
+
+	frame->NodeMd = xmlMdValues;
+
+	frame->NodeCount = mdValueCount;
+}
+
+bool WellboreFrameRepresentation::areMdValuesRegularlySpaced() const
+{
+	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy)->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray;
+}
+
+double WellboreFrameRepresentation::getMdConstantIncrementValue() const
+{
+	if (!areMdValuesRegularlySpaced())
+		throw invalid_argument("The MD values are not regularly spaced.");
+
+	return static_cast<resqml2__DoubleLatticeArray*>(static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy)->NodeMd)->Offset[0]->Value;
+}
+
+double WellboreFrameRepresentation::getMdFirstValue() const
+{
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
-		return hdfProxy->getElementCount(static_cast<resqml2__DoubleHdf5Array*>(
-			frame->NodeMd)->Values->PathInHdfFile);
-	}
+		if (hdfProxy == nullptr)
+			throw invalid_argument("No Hdf Proxy");
+		
+		double* values = new double[getMdValuesCount()];
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile, values);
+		double result = values[0];
+		delete [] values;
 
-	return 0;
+		return result;
+	}
+	else if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray)
+	{
+		return static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->StartValue;
+	}
+	else
+		throw logic_error("The array structure of MD is not supported?");
+}
+
+unsigned int WellboreFrameRepresentation::getMdValuesCount() const
+{
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
+	{
+		if (hdfProxy == nullptr)
+			throw invalid_argument("No Hdf Proxy");
+		else
+			return hdfProxy->getElementCount(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile);
+	}
+	else if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray)
+	{
+		return static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->Offset[0]->Count + 1;
+	}
+	else
+		throw logic_error("The array structure of MD is not supported?");
 }
 
 AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDatatype() const
@@ -201,29 +256,44 @@ AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDat
 }
 
 void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)
-{
-	if (hdfProxy == nullptr)
-		return;
-
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+{	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
-	{
-		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(
-			frame->NodeMd)->Values->PathInHdfFile, values);
+	{	
+		if (hdfProxy == nullptr)
+			throw invalid_argument("No Hdf Proxy");
+		else
+			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile, values);
 	}
+	else if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray)
+	{
+		values[0] = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->StartValue;
+		resqml2__DoubleConstantArray* constantArray = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->Offset[0];
+		for (ULONG64 inc = 0; inc < constantArray->Count; ++inc)
+			values[inc+1] = values[inc] + constantArray->Value;
+	}
+	else
+		throw logic_error("The array structure of MD is not supported?");
 }
 
 void WellboreFrameRepresentation::getMdAsFloatValues(float *  values)
 {
-	if (hdfProxy == nullptr)
-		return;
-
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
-		hdfProxy->readArrayNdOfFloatValues(static_cast<resqml2__DoubleHdf5Array*>(
-			frame->NodeMd)->Values->PathInHdfFile, values);
+		if (hdfProxy == nullptr)
+			throw invalid_argument("No Hdf Proxy");
+		else
+			hdfProxy->readArrayNdOfFloatValues(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile, values);
 	}
+	else if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray)
+	{
+		values[0] = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->StartValue;
+		resqml2__DoubleConstantArray* constantArray = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->Offset[0];
+		for (ULONG64 inc = 0; inc < constantArray->Count; ++inc)
+			values[inc+1] = values[inc] + constantArray->Value;
+	}
+	else
+		throw logic_error("The array structure of MD is not supported?");
 }
 
 std::string WellboreFrameRepresentation::getWellboreTrajectoryUuid() const
