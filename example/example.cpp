@@ -930,31 +930,31 @@ void serializeActivities(common::EpcDocument * epcDoc)
 	********************/
 
 	ActivityTemplate* genericCreationActivityTemplate = epcDoc->createActivityTemplate("a41c63bf-78cb-454b-8018-c9df060c5cf3", "GenericCreationActivity");
-	genericCreationActivityTemplate->pushBackUntypedParameter("CreationInput", true, false, 0, -1);
-	genericCreationActivityTemplate->pushBackResqmlObjectParameter("CreationOutput", false, true, 1, -1);
+	genericCreationActivityTemplate->pushBackParameter("CreationInput", true, false, 0, -1);
+	genericCreationActivityTemplate->pushBackParameter("CreationOutput", false, true, 1, -1);
 
 	/********************
 	* Activities
 	********************/
 	Activity* pickingActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Seismic picking");
-	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", horizon1);
-	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", horizon1Interp1);
-	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", h1i1SingleGrid2dRep);
-	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", fault1);
-	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", fault1Interp1);
-	pickingActivity->pushBackResqmlObjectParameter("CreationOutput", f1i1PolyLineRep);
+	pickingActivity->pushBackParameter("CreationOutput", horizon1);
+	pickingActivity->pushBackParameter("CreationOutput", horizon1Interp1);
+	pickingActivity->pushBackParameter("CreationOutput", h1i1SingleGrid2dRep);
+	pickingActivity->pushBackParameter("CreationOutput", fault1);
+	pickingActivity->pushBackParameter("CreationOutput", fault1Interp1);
+	pickingActivity->pushBackParameter("CreationOutput", f1i1PolyLineRep);
 	
 	Activity* h1triangulationActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
-	h1triangulationActivity->pushBackResqmlObjectParameter("CreationInput", h1i1SingleGrid2dRep);
-	h1triangulationActivity->pushBackResqmlObjectParameter("CreationOutput", h1i1triRep);
+	h1triangulationActivity->pushBackParameter("CreationInput", h1i1SingleGrid2dRep);
+	h1triangulationActivity->pushBackParameter("CreationOutput", h1i1triRep);
 	
 	Activity* f1TriangulationActivity1 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
-	f1TriangulationActivity1->pushBackResqmlObjectParameter("CreationInput", f1i1PolyLineRep);
-	f1TriangulationActivity1->pushBackResqmlObjectParameter("CreationOutput", f1i1triRepSinglePatch);
+	f1TriangulationActivity1->pushBackParameter("CreationInput", f1i1PolyLineRep);
+	f1TriangulationActivity1->pushBackParameter("CreationOutput", f1i1triRepSinglePatch);
 	
 	Activity* f1TriangulationActivity2 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
-	f1TriangulationActivity2->pushBackResqmlObjectParameter("CreationInput", f1i1PolyLineRep);
-	f1TriangulationActivity2->pushBackResqmlObjectParameter("CreationOutput", f1i1triRep);
+	f1TriangulationActivity2->pushBackParameter("CreationInput", f1i1PolyLineRep);
+	f1TriangulationActivity2->pushBackParameter("CreationOutput", f1i1triRep);
 
 }
 

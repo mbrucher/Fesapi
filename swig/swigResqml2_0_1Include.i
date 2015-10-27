@@ -59,6 +59,8 @@
 #include "resqml2_0_1/ContinuousProperty.h"
 #include "resqml2_0_1/ContinuousPropertySeries.h"
 
+#include "resqml2_0_1/ActivityTemplate.h"
+
 #include "resqml2_0_1/HdfProxy.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
 %}
@@ -79,6 +81,7 @@ typedef unsigned long long 	hsize_t;
 //************************
 
 namespace resqml2_0_1 {
+	class Activity;
 	class LocalDepth3dCrs;
 	class LocalTime3dCrs;
 	class StratigraphicColumn;
@@ -108,6 +111,7 @@ namespace resqml2_0_1 {
 // Use C array approach instead.
 %include "std_vector.i"
 namespace std {
+   %template(ActivityVector) vector<resqml2_0_1::Activity*>;
    %template(LocalDepth3dCrsVector) vector<resqml2_0_1::LocalDepth3dCrs*>;
    %template(LocalTime3dCrsVector) vector<resqml2_0_1::LocalTime3dCrs*>;
    %template(StratigraphicColumnVector) vector<resqml2_0_1::StratigraphicColumn*>;
@@ -191,6 +195,8 @@ namespace resqml2_0_1
 #if defined(SWIGJAVA) || defined(SWIGCSHARP)
 	%nspace resqml2_0_1::AbstractObject;
 	%nspace resqml2_0_1::AbstractResqmlDataObject;
+	%nspace resqml2_0_1::Activity;
+	%nspace resqml2_0_1::ActivityTemplate;
 	%nspace resqml2_0_1::EpcExternalPartReference;
 	%nspace resqml2_0_1::AbstractHdfProxy;
 	%nspace resqml2_0_1::HdfProxy;
@@ -272,8 +278,8 @@ namespace resqml2_0_1
 namespace resqml2_0_1
 {
 	%nodefaultctor; // Disable creation of default constructors
-	
-	
+		
+	class Activity;
 #ifdef SWIGPYTHON
 	%rename(Resqml2_0AbstractObject) AbstractObject;
 #endif
@@ -310,6 +316,8 @@ namespace resqml2_0_1
 		unsigned int getAliasCount() const;
 		std::string getAliasAuthorityAtIndex(const unsigned int & index) const;
 		std::string getAliasTitleAtIndex(const unsigned int & index) const;
+		
+		const std::vector<Activity*> & getActivitySet() const;
 	};
 
 	class AbstractResqmlDataObject : public AbstractObject
@@ -321,6 +329,77 @@ namespace resqml2_0_1
 		unsigned int getExtraMetadataCount() const;
 		std::string getExtraMetadataKeyAtIndex(const unsigned int & index) const;
 		std::string getExtraMetadataStringValueAtIndex(const unsigned int & index) const;
+	};
+	
+	//************************************
+	//************ Activity **************
+	//************************************
+
+	class ActivityTemplate : public AbstractResqmlDataObject
+	{
+	public:
+		void pushBackParameter(const std::string title,
+			const bool & isInput, const bool isOutput,
+			const unsigned int & minOccurs, const int & maxOccurs);
+		void pushBackParameter(const std::string title,
+			const gsoap_resqml2_0_1::resqml2__ParameterKind & kind,
+			const bool & isInput, const bool isOutput,
+			const unsigned int & minOccurs, const int & maxOccurs);
+		void pushBackParameter(const std::string title,
+			const bool & isInput, const bool isOutput,
+			const unsigned int & minOccurs, const int & maxOccurs,
+			const std::string & resqmlObjectContentType);
+		bool isAnExistingParameter(const std::string & paramTitle) const;
+		const unsigned int getParameterCount() const;
+		const std::string & getParameterTitle(const unsigned int & index) const;
+		const bool & getParameterIsInput(const unsigned int & index) const;
+		const bool & getParameterIsInput(const std::string & paramTitle) const;
+		const bool & getParameterIsOutput(const unsigned int & index) const;
+		const bool & getParameterIsOutput(const std::string & paramTitle) const;
+		const LONG64 getParameterMinOccurences(const unsigned int & index) const;
+		const LONG64 getParameterMinOccurences(const std::string & paramTitle) const;
+		const LONG64 getParameterMaxOccurences(const unsigned int & index) const;
+		const LONG64 getParameterMaxOccurences(const std::string & paramTitle) const;
+
+		const std::vector<Activity*> & getActivitySet() const;
+	};
+
+	class Activity : public AbstractResqmlDataObject
+	{
+	public:
+		void pushBackParameter(const std::string title,
+			const double & value, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc);
+		void pushBackParameter(const std::string title,
+			const std::string & value);
+		void pushBackParameter(const std::string title,
+			const LONG64 & value);
+		void pushBackParameter(const std::string title,
+			AbstractObject* resqmlObject);
+		
+		unsigned int getParameterCount() const;
+		unsigned int getParameterCount(const std::string & paramTitle) const;
+
+		const std::string & getParameterTitle(const unsigned int & index) const;
+
+		bool isAFloatingPointQuantityParameter(const std::string & paramTitle) const;
+		bool isAFloatingPointQuantityParameter(const unsigned int & index) const;
+		double getFloatingPointQuantityParameterValue(const unsigned int & index) const;
+		gsoap_resqml2_0_1::resqml2__ResqmlUom getFloatingPointQuantityParameterUom(const unsigned int & index) const;
+
+		bool isAnIntegerQuantityParameter(const std::string & paramTitle) const;
+		bool isAnIntegerQuantityParameter(const unsigned int & index) const;
+		LONG64 getIntegerQuantityParameterValue(const unsigned int & index) const;
+
+		bool isAStringParameter(const std::string & paramTitle) const;
+		bool isAStringParameter(const unsigned int & index) const;
+		const std::string & getStringParameterValue(const unsigned int & index) const;
+
+		bool isAResqmlObjectParameter(const std::string & paramTitle) const;
+		bool isAResqmlObjectParameter(const unsigned int & index) const;
+		AbstractObject* getResqmlObjectParameterValue(const unsigned int & index) const;
+
+		void setActivityTemplate(ActivityTemplate* activityTemplate);
+		ActivityTemplate* getActivityTemplate() const;
 	};
 	
 	//************************************

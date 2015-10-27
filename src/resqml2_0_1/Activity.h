@@ -74,13 +74,13 @@ namespace resqml2_0_1
 		* This parameter must exist in the associated activity template.
 		*/
 		void pushBackParameter(const std::string title,
-			const long long & value);
+			const LONG64 & value);
 
 		/**
 		* Push back a resqml object parameter in the instance.
 		* This parameter must exist in the associated activity template.
 		*/
-		void pushBackResqmlObjectParameter(const std::string title,
+		void pushBackParameter(const std::string title,
 			AbstractObject* resqmlObject);
 		
 		/**
@@ -104,8 +104,8 @@ namespace resqml2_0_1
 
 		bool isAnIntegerQuantityParameter(const std::string & paramTitle) const;
 		bool isAnIntegerQuantityParameter(const unsigned int & index) const;
-		std::vector<long long> getIntegerQuantityParameterValue(const std::string & paramTitle) const;
-		long long getIntegerQuantityParameterValue(const unsigned int & index) const;
+		std::vector<LONG64> getIntegerQuantityParameterValue(const std::string & paramTitle) const;
+		LONG64 getIntegerQuantityParameterValue(const unsigned int & index) const;
 
 		bool isAStringParameter(const std::string & paramTitle) const;
 		bool isAStringParameter(const unsigned int & index) const;

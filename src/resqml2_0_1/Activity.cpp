@@ -70,7 +70,7 @@ void Activity::pushBackParameter(const std::string title,
 {
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
-	long long maxOccurs = activityTemplate->getParameterMaxOccurences(title);
+	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
 	if (maxOccurs > -1 && maxOccurs <= getParameterCount(title))
 		throw invalid_argument("The max number of occurences has already been reached for parameter " + title);
 	vector<resqml2__ParameterKind> allowedKinds = activityTemplate->getParameterAllowedKinds(title);
@@ -90,7 +90,7 @@ void Activity::pushBackParameter(const std::string title, const std::string & va
 {
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
-	long long maxOccurs = activityTemplate->getParameterMaxOccurences(title);
+	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
 	if (maxOccurs > -1 && maxOccurs <= getParameterCount(title))
 		throw invalid_argument("The max number of occurences has already been reached for parameter " + title);
 	vector<resqml2__ParameterKind> allowedKinds = activityTemplate->getParameterAllowedKinds(title);
@@ -105,11 +105,11 @@ void Activity::pushBackParameter(const std::string title, const std::string & va
 	activity->Parameter.push_back(sp);
 }
 
-void Activity::pushBackParameter(const std::string title, const long long & value)
+void Activity::pushBackParameter(const std::string title, const LONG64 & value)
 {
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
-	long long maxOccurs = activityTemplate->getParameterMaxOccurences(title);
+	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
 	if (maxOccurs > -1 && maxOccurs <= getParameterCount(title))
 		throw invalid_argument("The max number of occurences has already been reached for parameter " + title);
 	vector<resqml2__ParameterKind> allowedKinds = activityTemplate->getParameterAllowedKinds(title);
@@ -124,14 +124,14 @@ void Activity::pushBackParameter(const std::string title, const long long & valu
 	activity->Parameter.push_back(iqp);
 }
 
-void Activity::pushBackResqmlObjectParameter(const std::string title,
+void Activity::pushBackParameter(const std::string title,
 			AbstractObject* resqmlObject)
 {
 	if (resqmlObject == nullptr)
 		throw invalid_argument("The resqml object must be non null.");
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
-	long long maxOccurs = activityTemplate->getParameterMaxOccurences(title);
+	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
 	if (maxOccurs > -1 && maxOccurs <= getParameterCount(title))
 		throw invalid_argument("The max number of occurences has already been reached for parameter " + title);
 	vector<resqml2__ParameterKind> allowedKinds = activityTemplate->getParameterAllowedKinds(title);
@@ -336,14 +336,14 @@ bool Activity::isAnIntegerQuantityParameter(const unsigned int & index) const
 	return activity->Parameter[index]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerQuantityParameter;
 }
 
-vector<long long> Activity::getIntegerQuantityParameterValue(const std::string & paramTitle) const
+vector<LONG64> Activity::getIntegerQuantityParameterValue(const std::string & paramTitle) const
 {
 	vector<resqml2__AbstractActivityParameter*> param = getParameterFromTitle(paramTitle);
 
 	if (param.size() < 1)
 		throw range_error("The parameter " + paramTitle + " is not in the parameter range.");
 
-	vector<long long> result;
+	vector<LONG64> result;
 	for (unsigned int i = 0; i < param.size(); ++i)
 	{
 		if (param[i]->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerQuantityParameter)
@@ -355,7 +355,7 @@ vector<long long> Activity::getIntegerQuantityParameterValue(const std::string &
 	return result;
 }
 
-long long Activity::getIntegerQuantityParameterValue(const unsigned int & index) const
+LONG64 Activity::getIntegerQuantityParameterValue(const unsigned int & index) const
 {
 	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy);
 
@@ -563,7 +563,7 @@ void Activity::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 				throw domain_error("The resqml object of a data object parameter cannot be null.");
 
 			updateXml = false;
-			pushBackResqmlObjectParameter(dop->Title, epcDoc->getResqmlAbstractObjectByUuid(dop->DataObject->UUID));
+			pushBackParameter(dop->Title, epcDoc->getResqmlAbstractObjectByUuid(dop->DataObject->UUID));
 			updateXml = true;
 		}
 	}

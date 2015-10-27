@@ -56,7 +56,7 @@ namespace resqml2_0_1
 		* Push back a parameter in the activity template instance.
 		* This parameter has an unconstrained type.
 		*/
-		void pushBackUntypedParameter(const std::string title,
+		void pushBackParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
 			const unsigned int & minOccurs, const int & maxOccurs);
 
@@ -72,11 +72,12 @@ namespace resqml2_0_1
 		/**
 		* Push back a parameter in the activity template instance.
 		* This parameter must be of a data object kind.
+		* @param resqmlObjectContentType	If empty, there is no constraint on the content type of this parameter.
 		*/
-		void pushBackResqmlObjectParameter(const std::string title,
+		void pushBackParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
 			const unsigned int & minOccurs, const int & maxOccurs,
-			const std::string & resqmlObjectContentType = "");
+			const std::string & resqmlObjectContentType);
 
 		/**
 		* Check if the instance contains a parameter with a particular title
@@ -92,10 +93,10 @@ namespace resqml2_0_1
 		const bool & getParameterIsInput(const std::string & paramTitle) const;
 		const bool & getParameterIsOutput(const unsigned int & index) const;
 		const bool & getParameterIsOutput(const std::string & paramTitle) const;
-		const unsigned int getParameterMinOccurences(const unsigned int & index) const;
-		const unsigned int getParameterMinOccurences(const std::string & paramTitle) const;
-		const long long getParameterMaxOccurences(const unsigned int & index) const;
-		const long long getParameterMaxOccurences(const std::string & paramTitle) const;
+		const LONG64 getParameterMinOccurences(const unsigned int & index) const;
+		const LONG64 getParameterMinOccurences(const std::string & paramTitle) const;
+		const LONG64 getParameterMaxOccurences(const unsigned int & index) const;
+		const LONG64 getParameterMaxOccurences(const std::string & paramTitle) const;
 
 		const std::vector<Activity*> & getActivitySet() const {return activitySet;}
 
