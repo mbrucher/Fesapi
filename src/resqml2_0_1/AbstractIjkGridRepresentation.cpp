@@ -764,6 +764,24 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	geom->NodeCount = getXyzPointCountOfPatch(0);
 	geom->CellShape = resqml2__CellShape__hexahedral;
 
+	
+	vector<ULONG64> cellIndexPair;
+	vector<unsigned int> localFacePerCellIndexPair;
+	GridConnectionSetRepresentation* gcsr = nullptr;
+	if (gridConnectionSetRepresentationSet.size() > 1)
+	{
+		throw new invalid_argument("Cannot clone IJK grid which has got more than one GridConnectionSetRepresentationSet.");
+	}
+	else if (gridConnectionSetRepresentationSet.size() == 1)
+	{
+		gcsr = gridConnectionSetRepresentationSet[0];
+		cellIndexPair.resize(gcsr->getCellIndexPairCount() * 2);
+		localFacePerCellIndexPair.resize(gcsr->getCellIndexPairCount() * 2, (numeric_limits<int>::max)());
+		gcsr->getCellIndexPairs(cellIndexPair.data());
+		if (gcsr->hasLocalFacePerCell())
+			gcsr->getLocalFacePerCellIndexPairs(localFacePerCellIndexPair.data());
+	}
+
 	loadSplitInformation();
 	geom->FaceCount = getFaceCount();
 	ULONG64* faceIndicesPerCell = new ULONG64[getCellCount() * 6];
@@ -783,6 +801,10 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		{
 			for (unsigned int iCell = 0; iCell < getICellCount(); ++iCell)
 			{
+				//****************************
+				//****** Nodes and faces *****
+				//****************************
+
 				// 0 Upper K face  : Cannot be splitted by hypothesis. Split nodes are not supported yet
 				faceIndicesPerCell[cellIndex*6] = nodeIndicesPerFaceIndex/4;
 				cellFaceIsRightHanded[cellIndex*6] = 0;
@@ -885,6 +907,39 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 				else // The face has already been created
 				{
 					faceIndicesPerCell[cellIndex*6 + 5] = previousIFace.first;
+				}
+
+				//****************************
+				//****** Grid Connection *****
+				//****************************
+
+				// I connection
+				if (iCell < getICellCount()-1 &&
+					isColumnEdgeSplitted(iCell, jCell, 3) == false)
+				{
+					cellIndexPair.push_back(cellIndex);
+					cellIndexPair.push_back(cellIndex+1);
+					localFacePerCellIndexPair.push_back(3);
+					localFacePerCellIndexPair.push_back(5);
+				}
+
+				// J connection
+				if (jCell < getJCellCount()-1 &&
+					isColumnEdgeSplitted(iCell, jCell, 4) == false)
+				{
+					cellIndexPair.push_back(cellIndex);
+					cellIndexPair.push_back(cellIndex+getICellCount());
+					localFacePerCellIndexPair.push_back(4);
+					localFacePerCellIndexPair.push_back(2);
+				}
+
+				// K connection : Cannot be splitted by hypothesis.
+				if (kCell < getKCellCount()-1)
+				{
+					cellIndexPair.push_back(cellIndex);
+					cellIndexPair.push_back(cellIndex+getColumnCount());
+					localFacePerCellIndexPair.push_back(0);
+					localFacePerCellIndexPair.push_back(1);
 				}
 
 				++columnIndex;
@@ -1033,12 +1088,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 			throw invalid_argument("Cannot create the actnum property kind because it already exists a resqml object with the same uuid in the EPC document.");
 
 		// Property
-		string uuidActnum = result->getUuid(); // TODO : better deterministic uuid generation
-		if (uuidActnum[34] == '0')
-			uuidActnum[34] = '1';
-		else
-			uuidActnum[34] = '0';
-		DiscreteProperty* actnum = new DiscreteProperty(result, uuidActnum, "ACTNUM", 1, resqml2__IndexableElements__cells, kind);
+		DiscreteProperty* actnum = new DiscreteProperty(result, "", "ACTNUM", 1, resqml2__IndexableElements__cells, kind);
 
 		// Values
 		resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
@@ -1050,82 +1100,98 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		actnum->setHdfProxy(hdfProxy);
 	}
 
-	return result;
-}
-
-GridConnectionSetRepresentation* AbstractIjkGridRepresentation::createStandardCellConnection(const std::string & guid, const std::string & title)
-{
-	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
-
-	GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(interpretation, guid, title, this);
-
-	loadSplitInformation();
-	vector<ULONG64> cellIndexPair;
-	vector<unsigned int> localFacePerCellIndexPair;
-
-	ULONG64 cellIndex = 0;
-	bool* enabledCells = new bool[getCellCount()];
-	if (hasEnabledCellInformation())
+	/**********************************
+	******** CELL CONNECTIONS *********
+	**********************************/
+	
+	if (gcsr != nullptr && static_cast<_resqml2__GridConnectionSetRepresentation*>(gcsr->getGsoapProxy())->GridIndexPairs != nullptr)
 	{
-		getEnabledCells(enabledCells);
+		throw new invalid_argument("Cannot clone IJK grid which has got a GridConnectionSetRepresentationSet dependent on several grids.");
 	}
-	else
-	{
-		for (ULONG64 i = 0; i < getCellCount(); ++i)
-			enabledCells[i] = true;
-	}
+	GridConnectionSetRepresentation* gcsrCopy = new GridConnectionSetRepresentation(interpretation, "", "Grid Connection Set", result);
+	gcsrCopy->setCellIndexPairs(cellIndexPair.size()/2, cellIndexPair.data(), (numeric_limits<ULONG64>::max)(), hdfProxy);
+	gcsrCopy->setLocalFacePerCellIndexPairs(cellIndexPair.size()/2, localFacePerCellIndexPair.data(), (numeric_limits<unsigned int>::max)(), hdfProxy);
 
-	for (unsigned int kCell = 0; kCell < getKCellCount(); ++kCell)
+	//**********************************
+	//*********** PROPERTIES ***********
+	//**********************************
+
+	for (unsigned int i = 0; i < propertySet.size(); ++i)
 	{
-		for (unsigned int jCell = 0; jCell < getJCellCount(); ++jCell)
+		AbstractProperty* prop = propertySet[i];
+
+		AbstractValuesProperty* propCopy = nullptr;
+		if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
 		{
-			for (unsigned int iCell = 0; iCell < getICellCount(); ++iCell)
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
 			{
-				if (enabledCells[cellIndex])
-				{
-					// I connection. TODO : check pinch
-					if (iCell < getICellCount()-1 &&
-						enabledCells[kCell+1] && 
-						isColumnEdgeSplitted(iCell, jCell, 3) == false)
-					{
-						cellIndexPair.push_back(cellIndex);
-						cellIndexPair.push_back(cellIndex+1);
-						localFacePerCellIndexPair.push_back(3);
-						localFacePerCellIndexPair.push_back(5);
-					}
-
-					// J connection. TODO : check pinch
-					if (jCell < getJCellCount()-1 &&
-						enabledCells[kCell+getICellCount()] && 
-						isColumnEdgeSplitted(iCell, jCell, 4) == false)
-					{
-						cellIndexPair.push_back(cellIndex);
-						cellIndexPair.push_back(cellIndex+getICellCount());
-						localFacePerCellIndexPair.push_back(4);
-						localFacePerCellIndexPair.push_back(2);
-					}
-
-					// K connection : Cannot be splitted by hypothesis. TODO : check pinch
-					if (kCell < getKCellCount()-1 &&
-						enabledCells[kCell+getColumnCount()])
-					{
-						cellIndexPair.push_back(cellIndex);
-						cellIndexPair.push_back(cellIndex+getColumnCount());
-						localFacePerCellIndexPair.push_back(0);
-						localFacePerCellIndexPair.push_back(1);
-					}
-				}
-
-				++cellIndex;
+				propCopy = new CategoricalProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<CategoricalProperty*>(prop)->getStringLookup(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new CategoricalProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<CategoricalProperty*>(prop)->getStringLookup(), prop->getLocalPropertyKind());
 			}
 		}
+		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECommentProperty)
+		{
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				propCopy = new CommentProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new CommentProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getLocalPropertyKind());
+			}
+			static_cast<_resqml2__CommentProperty*>(propCopy->getGsoapProxy())->Language = static_cast<_resqml2__CommentProperty*>(prop->getGsoapProxy())->Language;
+		}
+		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
+		{
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				propCopy = new ContinuousProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<ContinuousProperty*>(prop)->getUom(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new ContinuousProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), static_cast<ContinuousProperty*>(prop)->getUom(), prop->getLocalPropertyKind());
+			}
+			static_cast<_resqml2__ContinuousProperty*>(propCopy->getGsoapProxy())->MinimumValue = static_cast<_resqml2__ContinuousProperty*>(prop->getGsoapProxy())->MinimumValue;
+			static_cast<_resqml2__ContinuousProperty*>(propCopy->getGsoapProxy())->MaximumValue = static_cast<_resqml2__ContinuousProperty*>(prop->getGsoapProxy())->MaximumValue;
+		}
+		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDiscreteProperty)
+		{
+			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
+			{
+				propCopy = new DiscreteProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getEnergisticsPropertyKind());
+			}
+			else
+			{
+				propCopy = new DiscreteProperty(result, "", prop->getTitle(), prop->getElementCountPerValue(),
+						prop->getAttachmentKind(), prop->getLocalPropertyKind());
+			}
+			static_cast<_resqml2__DiscreteProperty*>(propCopy->getGsoapProxy())->MinimumValue = static_cast<_resqml2__DiscreteProperty*>(prop->getGsoapProxy())->MinimumValue;
+			static_cast<_resqml2__DiscreteProperty*>(propCopy->getGsoapProxy())->MaximumValue = static_cast<_resqml2__DiscreteProperty*>(prop->getGsoapProxy())->MaximumValue;
+		}
+
+		if (propCopy != nullptr)
+		{
+			propCopy->setHdfProxy(hdfProxy);
+			if (prop->getTimeSeries() != nullptr)
+			{
+				propCopy->setTimeIndex(prop->getTimeIndex(), prop->getTimeSeries());
+			}
+			resqml2__AbstractValuesProperty* propProxy= static_cast<resqml2__AbstractValuesProperty*>(prop->getGsoapProxy());
+			resqml2__AbstractValuesProperty* propCopyProxy= static_cast<resqml2__AbstractValuesProperty*>(propCopy->getGsoapProxy());
+			propCopyProxy->PatchOfValues = propProxy->PatchOfValues;
+			propCopyProxy->Facet = propProxy->Facet;
+		}
 	}
-
-	delete [] enabledCells;
-	unloadSplitInformation();
-
-	result->setCellIndexPairs(cellIndexPair.size()/2, cellIndexPair.data(), (numeric_limits<ULONG64>::max)(), hdfProxy);
-	result->setLocalFacePerCellIndexPairs(cellIndexPair.size()/2, localFacePerCellIndexPair.data(), (numeric_limits<ULONG64>::max)(), hdfProxy);
 
 	return result;
 }

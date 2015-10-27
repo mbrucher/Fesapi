@@ -1144,15 +1144,15 @@ namespace resqml2_0_1
 		ULONG64 getCellIndexPairCount() const;
 		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
 		
-		void getCellIndexPairs(unsigned int * cellIndexPairs) const;
+		void getCellIndexPairs(ULONG64 * cellIndexPairs) const;
 		void getGridConnectionSetInformationFromFaultIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & faultIndex) const;
 		bool hasLocalFacePerCell() const;
-		void getLocalFacePerCellIndexPairs(int * localFacePerCellIndexPairs) const;
+		void getLocalFacePerCellIndexPairs(unsigned int * localFacePerCellIndexPairs) const;
 		bool isBasedOnMultiGrids() const;
 		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
 		
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 		
 		std::string getFaultInterpretationUuidFromFaultIndex(const unsigned int & faultIndex) const;

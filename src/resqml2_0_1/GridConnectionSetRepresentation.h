@@ -83,7 +83,7 @@ namespace resqml2_0_1
 		/**
 		* Get the cell index pair count of this grid connection representation
 		*/
-		void getCellIndexPairs(unsigned int * cellIndexPairs) const;
+		void getCellIndexPairs(ULONG64 * cellIndexPairs) const;
 
 		/**
 		* Get the cell index pairs count which correspond to a particular fault interpretation.
@@ -148,7 +148,7 @@ namespace resqml2_0_1
 		* Get the local face cell index pairs of this grid connection representation
 		* The count of localFacePerCellIndexPairs must be getCellIndexPairCount()*2.
 		*/
-		void getLocalFacePerCellIndexPairs(int * localFacePerCellIndexPairs) const;
+		void getLocalFacePerCellIndexPairs(unsigned int * localFacePerCellIndexPairs) const;
 
 		/**
 		* Indicates if the grid connection set representation is based on several grids.
@@ -169,7 +169,7 @@ namespace resqml2_0_1
 		*/
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 
 		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 	

@@ -111,7 +111,7 @@ void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cel
 	hdfProxy->writeArrayNd(rep->uuid, "CellIndexPairs", H5T_NATIVE_ULLONG, cellIndexPair, numValues, 2);
 }
 
-void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy)
+void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 
@@ -241,7 +241,7 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 
 	//load global information into memory
 	unsigned int totalCellIndexPairCount = getCellIndexPairCount();
-	unsigned int * totalCellIndexPairs = new unsigned int[totalCellIndexPairCount*2];
+	ULONG64 * totalCellIndexPairs = new ULONG64[totalCellIndexPairCount*2];
 	getCellIndexPairs(totalCellIndexPairs);
 	unsigned int * totalGridIndexPairs = NULL;
 	if (gridIndexPairs != NULL)
@@ -249,10 +249,10 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 		totalGridIndexPairs = new unsigned int[totalCellIndexPairCount*2];
 		getGridIndexPairs(totalGridIndexPairs);
 	}
-	int * totalLocalFaceIndexPairs = NULL;
+	unsigned int * totalLocalFaceIndexPairs = NULL;
 	if (localFaceIndexPairs != NULL)
 	{
-		totalLocalFaceIndexPairs = new int[totalCellIndexPairCount*2];
+		totalLocalFaceIndexPairs = new unsigned int[totalCellIndexPairCount*2];
 		getLocalFacePerCellIndexPairs(totalLocalFaceIndexPairs);
 	}
 
@@ -404,13 +404,13 @@ unsigned int GridConnectionSetRepresentation::getFaultInterpretationCount() cons
 	}
 }
 
-void GridConnectionSetRepresentation::getCellIndexPairs(unsigned int * cellIndexPairs) const
+void GridConnectionSetRepresentation::getCellIndexPairs(ULONG64 * cellIndexPairs) const
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 
 	if (rep->CellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
-		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->CellIndexPairs)->Values->PathInHdfFile, cellIndexPairs);
+		hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(rep->CellIndexPairs)->Values->PathInHdfFile, cellIndexPairs);
 	}
 	else
 		throw std::logic_error("Not yet implemented");
@@ -439,10 +439,10 @@ void GridConnectionSetRepresentation::getGridIndexPairs(unsigned int * gridIndex
 
 bool GridConnectionSetRepresentation::hasLocalFacePerCell() const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->LocalFacePerCellIndexPairs != NULL;
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->LocalFacePerCellIndexPairs != nullptr;
 }
 
-void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(int * localFaceCellIndexPairs) const
+void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(unsigned int * localFaceCellIndexPairs) const
 {
 	if (hasLocalFacePerCell() == false)
 		throw std::invalid_argument("This representation has no local face per cell.");
@@ -451,7 +451,7 @@ void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(int * localF
 
 	if (rep->LocalFacePerCellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
-		hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->LocalFacePerCellIndexPairs)->Values->PathInHdfFile, localFaceCellIndexPairs);
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->LocalFacePerCellIndexPairs)->Values->PathInHdfFile, localFaceCellIndexPairs);
 	}
 	else
 		throw std::logic_error("Not yet implemented");
