@@ -471,10 +471,14 @@ namespace resqml2_0_1
 		std::string getLocalCrsUuid() const;
 		AbstractLocal3dCrs * getLocalCrs();
 		
-		const double& getLocationOrdinal1() const;
-		const double& getLocationOrdinal2() const;
-		const double& getLocationOrdinal3() const;
-		const gsoap_resqml2_0_1::resqml2__MdReference& getOriginKind() const;
+		double getX() const;
+		double getXInGlobalCrs() const;
+		double getY() const;
+		double getYInGlobalCrs() const;
+		double getZ() const;
+		double getZInGlobalCrs() const;
+
+		gsoap_resqml2_0_1::resqml2__MdReference getOriginKind() const;
 	};
 	
 	//************************************

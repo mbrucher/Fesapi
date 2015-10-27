@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -58,7 +58,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap):AbstractResqmlDataObject(fromGsoap) {}
+		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap):AbstractResqmlDataObject(fromGsoap), localCrs(NULL) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -85,7 +85,7 @@ namespace resqml2_0_1
 		/**
 		* Get the Local 3d CRS where the reference point ordinals are given
 		*/
-		class AbstractLocal3dCrs * getLocalCrs() {return local3dCrs;}
+		class AbstractLocal3dCrs * getLocalCrs() {return localCrs;}
 
 		/**
 		* Get the Local 3d CRS uuid where the reference point ordinals are given
@@ -93,29 +93,32 @@ namespace resqml2_0_1
 		std::string getLocalCrsUuid() const;
 
 		/**
-		* Getter (in read-only mode) of the first ordinal of the reference location.
+		* Getter of the first ordinal of the reference location.
 		*/
-		const double& getLocationOrdinal1() const;
+		double getX() const;
+		double getXInGlobalCrs() const;
 
 		/**
-		* Getter (in read-only mode) of the second ordinal of the reference location.
+		* Getter of the second ordinal of the reference location.
 		*/
-		const double& getLocationOrdinal2() const;
+		double getY() const;
+		double getYInGlobalCrs() const;
 
 		/**
-		* Getter (in read-only mode) of the third ordinal of the reference location.
+		* Getter of the third ordinal of the reference location.
 		*/
-		const double& getLocationOrdinal3() const;
+		double getZ() const;
+		double getZInGlobalCrs() const;
 
 		/**
-		* Getter (in read-only mode) of the origin kind of the MD.
+		* Getter of the origin kind of the MD.
 		*/
-		const gsoap_resqml2_0_1::resqml2__MdReference& getOriginKind() const;
+		gsoap_resqml2_0_1::resqml2__MdReference getOriginKind() const;
 
 	protected:
 
 		// XML forward relationship
-		class AbstractLocal3dCrs * local3dCrs;
+		class AbstractLocal3dCrs * localCrs;
 
 		// XML backward relationship
 		std::vector<class WellboreTrajectoryRepresentation*> wellboreTrajectoryRepresentationSet;
