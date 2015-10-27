@@ -205,30 +205,17 @@ double WellboreFrameRepresentation::getMdFirstValue() const
 
 unsigned int WellboreFrameRepresentation::getMdValuesCount() const
 {
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
-	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
-	{
-		if (hdfProxy == nullptr)
-			throw invalid_argument("No Hdf Proxy");
-		else
-			return hdfProxy->getElementCount(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile);
-	}
-	else if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray)
-	{
-		return static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->Offset[0]->Count + 1;
-	}
-	else
-		throw logic_error("The array structure of MD is not supported?");
+	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy)->NodeCount;
 }
 
 AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDatatype() const
 {
-	if (hdfProxy == nullptr)
-		return AbstractValuesProperty::UNKNOWN;
-
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
+		if (hdfProxy == nullptr)
+			return AbstractValuesProperty::UNKNOWN;
+
 		hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile);
 		if (H5Tequal(dt, H5T_NATIVE_DOUBLE) > 0)
 			return AbstractValuesProperty::DOUBLE;
@@ -250,6 +237,10 @@ AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDat
 			return AbstractValuesProperty::CHAR;
 		else if (H5Tequal(dt, H5T_NATIVE_UCHAR) > 0)
 			return AbstractValuesProperty::UCHAR;
+	}
+	else if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray)
+	{
+		return AbstractValuesProperty::DOUBLE;
 	}
 
 	return AbstractValuesProperty::UNKNOWN; // unknwown datatype...

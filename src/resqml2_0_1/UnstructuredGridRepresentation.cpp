@@ -52,7 +52,7 @@ const char* UnstructuredGridRepresentation::XML_TAG = "UnstructuredGridRepresent
 
 void UnstructuredGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & cellCount)
+			const ULONG64 & cellCount)
 {
 	if (!epcDoc)
 		throw invalid_argument("The EPC document where the unstructured grid will be stored cannot be null.");
@@ -77,7 +77,7 @@ void UnstructuredGridRepresentation::init(common::EpcDocument* epcDoc, AbstractL
 
 UnstructuredGridRepresentation::UnstructuredGridRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & cellCount):
+			const ULONG64 & cellCount):
 	AbstractGridRepresentation(nullptr, crs), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 	cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 	nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
@@ -87,7 +87,7 @@ UnstructuredGridRepresentation::UnstructuredGridRepresentation(common::EpcDocume
 
 UnstructuredGridRepresentation::UnstructuredGridRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
-		const unsigned int & cellCount):
+		const ULONG64 & cellCount):
 	AbstractGridRepresentation(interp, crs), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 	cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 	nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)

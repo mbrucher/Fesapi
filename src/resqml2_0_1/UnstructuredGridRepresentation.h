@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	private :
 		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
-				const unsigned int & cellCount);
+				const ULONG64 & cellCount);
 		
 		gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* getSpecializedGsoapProxy() const;
 
@@ -70,11 +70,11 @@ namespace resqml2_0_1
 
 		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & cellCount);
+			const ULONG64 & cellCount);
 
 		UnstructuredGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & cellCount);
+			const ULONG64 & cellCount);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

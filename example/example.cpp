@@ -428,8 +428,8 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	// Grid Connection
 	//**************
-	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, local3dCrs, "", "GridConnectionSetRepresentation", ijkgrid);
-	unsigned int cellConn[2] = {0,1};
+	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "", "GridConnectionSetRepresentation", ijkgrid);
+	ULONG64 cellConn[2] = {0,1};
 	gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
 	//unsigned int faultIndices = 0;
 	//gridConnSet->setConnectionFaultNames(&faultIndices, 1, 9999, hdfProxy);

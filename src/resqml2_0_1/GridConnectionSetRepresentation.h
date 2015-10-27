@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT GridConnectionSetRepresentation : public AbstractRepresentation
 	{
 	private:
-		void init(common::EpcDocument* epcDoc, class AbstractLocal3dCrs * crs,
+		void init(
                 const std::string & guid, const std::string & title,
 				class AbstractGridRepresentation * supportingGridRep);
 
@@ -52,13 +52,13 @@ namespace resqml2_0_1
         * @param indexSetPerPatch The indexes of the elements referenced by each patch of the instance.
         * @param numIndexPerPatch The number of referenced element by each patch of the instance.
 		*/
-		GridConnectionSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs, 
+		GridConnectionSetRepresentation(class AbstractFeatureInterpretation* interp,
                 const std::string & guid, const std::string & title,
 				class AbstractGridRepresentation * supportingGridRep);
 
-		GridConnectionSetRepresentation(common::EpcDocument* epcDoc, class AbstractLocal3dCrs * crs,
-		                const std::string & guid, const std::string & title,
-						class AbstractGridRepresentation * supportingGridRep);
+		GridConnectionSetRepresentation(
+			const std::string & guid, const std::string & title,
+			class AbstractGridRepresentation * supportingGridRep);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -167,11 +167,11 @@ namespace resqml2_0_1
         * @param cellIndexPair		All the cell index pair in a 1d Array where the cell indices go faster than the pair.
         * @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
 		*/
-		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 
-		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 	
 		/**
 		 * Set the grid representation which is the support of this representation.

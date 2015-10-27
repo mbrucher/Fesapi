@@ -1072,9 +1072,9 @@ namespace resqml2_0_1
 		bool isBasedOnMultiGrids() const;
 		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
 		
-		void setCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * cellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * LocalFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
-		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 		
 		std::string getFaultInterpretationUuidFromFaultIndex(const unsigned int & faultIndex) const;
 		FaultInterpretation* getFaultInterpretationFromFaultIndex(const unsigned int & faultIndex) const;

@@ -1897,7 +1897,7 @@ UnstructuredGridRepresentation* EpcDocument::createPartialUnstructuredGridRepres
 
 UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentation(AbstractLocal3dCrs * crs,
 	const std::string & guid, const std::string & title,
-	const unsigned int & cellCount)
+	const ULONG64 & cellCount)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
@@ -1930,13 +1930,13 @@ SubRepresentation* EpcDocument::createSubRepresentation(AbstractFeatureInterpret
 	return new SubRepresentation(interp, guid, title, supportingRep);
 }
 
-GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,  AbstractLocal3dCrs * crs, 
+GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,
         const std::string & guid, const std::string & title,
 		AbstractGridRepresentation * supportingGridRep)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-	return new GridConnectionSetRepresentation(interp, crs, guid, title, supportingGridRep);
+	return new GridConnectionSetRepresentation(interp, guid, title, supportingGridRep);
 }
 
 //************************************

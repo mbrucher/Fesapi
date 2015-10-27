@@ -142,7 +142,7 @@ namespace resqml2_0_1
 		unsigned int getJPillarFromGlobalIndex(const unsigned int & globalIndex) const;
 
 		/**
-		* Get the global index of a pillar from it I and J indices in the grid.
+		* Get the global index of a pillar from its I and J indices in the grid.
 		*/
 		unsigned int getGlobalIndexPillarFromIjIndex(const unsigned int & iPillar, const unsigned int & jPillar) const;
 
@@ -157,9 +157,14 @@ namespace resqml2_0_1
 		unsigned int getJColumnFromGlobalIndex(const unsigned int & globalIndex) const;
 
 		/**
-		* Get the global index of a column from it I and J indices in the grid.
+		* Get the global index of a cell from its I and J indices in the grid.
 		*/
 		unsigned int getGlobalIndexColumnFromIjIndex(const unsigned int & iColumn, const unsigned int & jColumn) const;
+
+		/**
+		* Get the global index of a column from its I, J and K indices in the grid.
+		*/
+		unsigned int getGlobalIndexCellFromIjkIndex(const unsigned int & iCell, const unsigned int & jCell, const unsigned int & kCell) const;
 
 		bool isRightHanded() const;
 
@@ -240,12 +245,17 @@ namespace resqml2_0_1
 		*				6 for (1,1,1)
 		*				7 for (0,1,1)
 		*/
-		unsigned int getXyzPointIndexFromCellCorner(const unsigned int & iCell, const unsigned int & jCell, const unsigned int & kCell, const unsigned int & corner) const;
+		ULONG64 getXyzPointIndexFromCellCorner(const unsigned int & iCell, const unsigned int & jCell, const unsigned int & kCell, const unsigned int & corner) const;
 
 		/**
 		* Create a new unstructured grid representation which has the same geoemtry and indexing that this IJK grid.
 		*/
 		class UnstructuredGridRepresentation* cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
+
+		/**
+		* Create a grid connection set representation by expliciting all the standard connections of the ijk grid.
+		*/
+		GridConnectionSetRepresentation* createStandardCellConnection(const std::string & guid, const std::string & title);
 
 		virtual geometryKind getGeometryKind() const { return UNKNOWN; }
 		virtual std::string getHdfProxyUuid() const { throw std::logic_error("Partial object"); }
