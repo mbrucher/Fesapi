@@ -27,7 +27,15 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 	}
 	
     string type = $modulePINVOKE.resqml2_0_1_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
-	if (type == "BoundaryFeature")
+	if (type == "Activity")
+    {
+        ret = new f2i.energisticsStandardsApi.resqml2_0_1.Activity(cPtr, owner);
+    }
+	else if (type == "ActivityTemplate")
+    {
+        ret = new f2i.energisticsStandardsApi.resqml2_0_1.ActivityTemplate(cPtr, owner);
+    }
+	else if (type == "BoundaryFeature")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeature(cPtr, owner);
     }

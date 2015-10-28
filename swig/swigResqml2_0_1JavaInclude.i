@@ -22,7 +22,15 @@
 	}
 	
     String type = resqml2_0_1_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject(cPtr, false));
-    if (type.equals("BoundaryFeature"))
+    if (type.equals("Activity"))
+    {
+        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.Activity(cPtr, owner);
+    }
+    else if (type.equals("ActivityTemplate"))
+    {
+        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.ActivityTemplate(cPtr, owner);
+    }
+    else if (type.equals("BoundaryFeature"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeature(cPtr, owner);
     }
