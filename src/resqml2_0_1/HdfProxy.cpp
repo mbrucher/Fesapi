@@ -180,7 +180,7 @@ unsigned int HdfProxy::getDimensionCount(const std::string & datasetName)
 	return result;
 }
 
-unsigned int HdfProxy::getElementCount(const std::string & datasetName)
+hssize_t HdfProxy::getElementCount(const std::string & datasetName)
 {
 	if (!isOpened())
 		open();

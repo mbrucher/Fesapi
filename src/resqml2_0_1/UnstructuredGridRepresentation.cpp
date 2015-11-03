@@ -197,9 +197,13 @@ void UnstructuredGridRepresentation::getFaceCountPerCell(ULONG64 * faceCountPerC
 {
 	getCumulativeFaceCountPerCell(faceCountPerCell);
 	const ULONG64 cellCount = getCellCount();
+	ULONG64 buffer = faceCountPerCell[0];
+	ULONG64 bufferCumCount = 0;
 	for (ULONG64 cumulativeFaceCountPerCellIndex = 1; cumulativeFaceCountPerCellIndex < cellCount; ++cumulativeFaceCountPerCellIndex)
 	{
-		faceCountPerCell[cumulativeFaceCountPerCellIndex] -= faceCountPerCell[cumulativeFaceCountPerCellIndex - 1];
+		bufferCumCount = faceCountPerCell[cumulativeFaceCountPerCellIndex];
+		faceCountPerCell[cumulativeFaceCountPerCellIndex] -= buffer;
+		buffer = bufferCumCount;
 	}
 }
 
@@ -297,9 +301,13 @@ void UnstructuredGridRepresentation::getNodeCountPerFace(ULONG64 * nodeCountPerF
 {
 	getCumulativeNodeCountPerFace(nodeCountPerFace);
 	const ULONG64 faceCount = getFaceCount();
+	ULONG64 buffer = nodeCountPerFace[0];
+	ULONG64 bufferCumCount = 0;
 	for (ULONG64 cumulativeNodeCountPerFaceIndex = 1; cumulativeNodeCountPerFaceIndex < faceCount; ++cumulativeNodeCountPerFaceIndex)
 	{
-		nodeCountPerFace[cumulativeNodeCountPerFaceIndex] -= nodeCountPerFace[cumulativeNodeCountPerFaceIndex - 1];
+		bufferCumCount = nodeCountPerFace[cumulativeNodeCountPerFaceIndex];
+		nodeCountPerFace[cumulativeNodeCountPerFaceIndex] -= buffer;
+		buffer = bufferCumCount;
 	}
 }
 

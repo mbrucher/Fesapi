@@ -33,13 +33,16 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/GridConnectionSetRepresentation.h"
 
 namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT AbstractGridRepresentation : public AbstractRepresentation
 	{
+	private:
+		gsoap_resqml2_0_1::resqml2__Regrid* createRegrid(const unsigned int & indexRegridStart, unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount, double * childCellWeights,
+														  const std::string & dimension);
+
 	protected:
 
 		/**
@@ -66,7 +69,7 @@ namespace resqml2_0_1
 		std::vector<GridConnectionSetRepresentation*> getGridConnectionSetRepresentationSet() const {return gridConnectionSetRepresentationSet;}
 
 		/**
-		 * Get the GridConnectionSetRepresentation count into this EPC document which are assocaited to this grid.
+		 * Get the GridConnectionSetRepresentation count into this EPC document which are associated to this grid.
 		 * It is mainly used in SWIG context for parsing the vector from a non C++ language.
 		 */
 		unsigned int getGridConnectionSetRepresentationCount() const {return gridConnectionSetRepresentationSet.size();}
@@ -84,7 +87,7 @@ namespace resqml2_0_1
 
 		/**
 		* Get the parent grid of this grid.
-		* @return	NULL if the grid is not a child grid (not a LGR)
+		* @return	nullptr if the grid is not a child grid (not a LGR)
 		*/
 		AbstractGridRepresentation* getParentGrid() const;
 
@@ -99,9 +102,126 @@ namespace resqml2_0_1
 		AbstractGridRepresentation* getChildGrid(const unsigned int & index) const {return childGridSet[index];}
 
 		/**
-		* Indicates that this grid takes place into another grid.
+		* Indicates that this grid takes place into another unstructured parent grid.
 		*/
-		void setCellParentWindow(ULONG64 * cellIndices, const ULONG64 & cellIndexCount, AbstractGridRepresentation* parentGrid);
+		void setParentWindow(ULONG64 * cellIndices, const ULONG64 & cellIndexCount, class UnstructuredGridRepresentation* parentGrid);
+
+		/**
+		* Indicates that this grid takes place into another Column Layer parent grid.
+		* @param	columnIndices				Identifies the columns (of the parent grid) which are regrided.
+		* @param	columnIndexCount			Identifies the coutn of columns (of the parent grid) which are regrided.
+		* @param	kLayerIndexRegridStart		Identifies the first kLayer of all above columns (of the parent grid) which is regrided.
+		* @param	childCellCountPerInterval	The count of cells per interval in this (child) grid.
+		* @param	parentCellCountPerInterval	The count of cells per interval in the parent grid.
+		* @param	intervalCount				The count of intervals. An interval is a portion of cells to regrid which is independant to other portion of cell. Intervals are the same for all the columns.
+		* @param	parentGrid					The parent grid which is regridded.
+		* @param	childCellWeights			The weights that are proportional to the relative sizes of child cells within each interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells per column (sum of child cells per interval).
+		*/
+		void setParentWindow(unsigned int * columnIndices, const unsigned int & columnIndexCount,
+			const unsigned int & kLayerIndexRegridStart,
+			unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount,
+			class AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = NULL);
+
+		/**
+		* Indicates that this grid takes place into another IJK parent grid.
+		* @param	iCellIndexRegridStart		Identifies the first Cell by its i dimension of the regrid window.
+		* @param	childCellCountPerIInterval	The count of cells per i interval in this (child) grid.
+		* @param	parentCellCountPerIInterval	The count of cells per i interval in the parent grid.
+		* @param	iIntervalCount				The count of intervals on i dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
+		* @param	iCellIndexRegridStart		Identifies the first Cell by its j dimension of the regrid window.
+		* @param	childCellCountPerIInterval	The count of cells per j interval in this (child) grid.
+		* @param	parentCellCountPerIInterval	The count of cells per j interval in the parent grid.
+		* @param	jIntervalCount				The count of intervals on j dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
+		* @param	iCellIndexRegridStart		Identifies the first Cell by its k dimension of the regrid window.
+		* @param	childCellCountPerIInterval	The count of cells per k interval in this (child) grid.
+		* @param	parentCellCountPerIInterval	The count of cells per k interval in the parent grid.
+		* @param	kIntervalCount				The count of intervals on k dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
+		* @param	parentGrid					The parent grid which is regridded.
+		* @param	iChildCellWeights			The weights that are proportional to the relative i sizes of child cells within each i interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells on i dimension (sum of child cells per interval).
+		* @param	jChildCellWeights			The weights that are proportional to the relative j sizes of child cells within each j interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells on j dimension (sum of child cells per interval).
+		* @param	kChildCellWeights			The weights that are proportional to the relative k sizes of child cells within each k interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells on k dimension (sum of child cells per interval).
+		*/
+		void setParentWindow(
+			const unsigned int & iCellIndexRegridStart, unsigned int * childCellCountPerIInterval, unsigned int * parentCellCountPerIInterval,  const unsigned int & iIntervalCount,
+			const unsigned int & jCellIndexRegridStart, unsigned int * childCellCountPerJInterval, unsigned int * parentCellCountPerJInterval,  const unsigned int & jIntervalCount,
+			const unsigned int & kCellIndexRegridStart, unsigned int * childCellCountPerKInterval, unsigned int * parentCellCountPerKInterval,  const unsigned int & kIntervalCount,
+			class AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = NULL, double * jChildCellWeights = NULL, double * kChildCellWeights = NULL);
+
+		/**
+		* When a parent windows has been defined, this method allows to force some parent cells to be noted as non regridded.
+		* It mainly allows non-rectangular local grids to be specified.
+		*/
+		void setForcedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount);
+
+		/**
+		* Optional cell volume overlap information between the current grid (the child) and the parent grid. Use this data-object when the child grid has an explicitly defined geometry, and these relationships cannot be inferred from the regrid descriptions.
+		*/
+		void setCellOverlap(const ULONG64 & parentChildCellPairCount, ULONG64 * parentChildCellPair,
+			const gsoap_resqml2_0_1::eml__VolumeUom & volumeUom = gsoap_resqml2_0_1::eml__VolumeUom__m3, double * overlapVolumes = NULL);
+
+		/**
+		* Only run this method for an unstructured parent grid.
+		* Use regrid information for ijk parent grid or (regrid and columIndexCount) for strict column layer parent grid.
+		*/
+		LONG64 getParentCellIndexCount() const;
+
+		/**
+		* Only run this method for an unstructured parent grid.
+		* @param parentCellIndices	This array must have been preallocated with a size of getParentCellIndexCount().
+		*/
+		void getParentCellIndices(ULONG64 * parentCellIndices) const;
+
+		/**
+		* Only run this method for a strict column layer parent grid.
+		*/
+		LONG64 getParentColumnIndexCount() const;
+
+		/**
+		* Only run this method for an unstructured parent grid.
+		* @param parentCellIndices	This array must have been preallocated with a size of getParentCellIndexCount().
+		*/
+		void getParentColumnIndices(ULONG64 * parentColumnIndices) const;
+
+		/**
+		* Only run this method for an ijk parent grid or a strict column layer parent grid.
+		* Get the first cell index of the regrid on a particular dimension.
+		* @param	dimension	It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		*/
+		ULONG64 getRegridStartIndexOnParentGrid(const char & dimension) const;
+
+		/**
+		* Only run this method for an ijk parent grid or a strict column layer parent grid.
+		* Get the count of intervals which are regridded on a particular dimension
+		* @param	dimension	It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		*/
+		ULONG64 getRegridIntervalCount(const char & dimension) const;
+
+		/**
+		* Only run this method for an ijk parent grid or a strict column layer parent grid.
+		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		* @param	childCellCountPerInterval	This array must have been preallocated with a size of getRegridIntervalCount().
+		*/
+		void getRegridChildCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval) const;
+
+		/**
+		* Only run this method for an ijk parent grid or a strict column layer parent grid.
+		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		* @param	parentCellCountPerInterval	This array must have been preallocated with a size of getRegridIntervalCount().
+		*/
+		void getRegridParentCellCountPerInterval(const char & dimension, ULONG64 * parentCellCountPerInterval) const;
+
+		/**
+		* Only run this method for an ijk parent grid or a strict column layer parent grid.
+		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		*/
+		bool hasRegridChildCellWeights(const char & dimension) const;
+
+		/**
+		* Only run this method for an ijk parent grid or a strict column layer parent grid.
+		* @param	dimension			It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		* @param	childCellWeights	This array must have been preallocated with a size equal to the sum of ChildCellCountPerInterval.
+		*/
+		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
 
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 

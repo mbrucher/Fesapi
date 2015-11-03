@@ -88,6 +88,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/SealedSurfaceFrameworkRepresentation.h"
 #include "resqml2_0_1/SubRepresentation.h"
 #include "resqml2_0_1/TimeSeries.h"
+#include "resqml2_0_1/ContinuousPropertySeries.h"
 
 #include "resqml2_0_1/PropertyKindMapper.h"
 
@@ -431,6 +432,8 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "", "GridConnectionSetRepresentation", ijkgrid);
 	ULONG64 cellConn[2] = {0,1};
 	gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
+	unsigned int localFacePerCellIndexPairs[2] = {3,5};
+	gridConnSet->setLocalFacePerCellIndexPairs(1, localFacePerCellIndexPairs, 9999, hdfProxy);
 	//unsigned int faultIndices = 0;
 	//gridConnSet->setConnectionFaultNames(&faultIndices, 1, 9999, hdfProxy);
 
@@ -455,17 +458,28 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime0->setTimeIndex(0, timeSeries);
 	double valuesTime0[2] = {0,1};
-	continuousPropTime0->pushBackDoubleHdf5Array1dOfValues(valuesTime0, 2, hdfProxy);
+	continuousPropTime0->pushBackDoubleHdf5Array3dOfValues(valuesTime0, 2, 1, 1, hdfProxy);
 	ContinuousProperty* continuousPropTime1 = pck->createContinuousProperty(ijkgrid, "", "Time 1", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime1->setTimeIndex(1, timeSeries);
 	double valuesTime1[2] = {2,3};
-	continuousPropTime1->pushBackDoubleHdf5Array1dOfValues(valuesTime1, 2, hdfProxy);
+	continuousPropTime1->pushBackDoubleHdf5Array3dOfValues(valuesTime1, 2, 1, 1, hdfProxy);
 	ContinuousProperty* continuousPropTime2 = pck->createContinuousProperty(ijkgrid, "", "Time 2", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime2->setTimeIndex(2, timeSeries);
 	double valuesTime2[2] = {3,4};
-	continuousPropTime2->pushBackDoubleHdf5Array1dOfValues(valuesTime2, 2, hdfProxy);
+	continuousPropTime2->pushBackDoubleHdf5Array3dOfValues(valuesTime2, 2, 1, 1, hdfProxy);
+
+	ContinuousPropertySeries* continuousPropertySeries = pck->createContinuousPropertySeries(
+		ijkgrid,
+		"", "Testing continuous property series",
+		1,
+		gsoap_resqml2_0_1::resqml2__IndexableElements__cells,
+		gsoap_resqml2_0_1::resqml2__ResqmlUom__m,
+		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length,
+		timeSeries);
+	 double valuesTime[6] = {0,1,2,3,3,4};
+	 continuousPropertySeries->pushBackDoubleHdf5Array1dOfValues(valuesTime, 6, hdfProxy);
 
 #if !defined(OFFICIAL)
 	ijkgrid->cloneToUnstructuredGridRepresentation("42e6c090-33b2-4572-a64c-3b119f6a1f41", "Two faulted sugar cubes (unstructured)");

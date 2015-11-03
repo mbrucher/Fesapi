@@ -109,7 +109,7 @@ namespace resqml2_0_1
 		* Get the number of elements in an HDF dataset of the proxy. The number of elements is get from all dimensions.
 		* @param datasetName	The absolute name of the dataset we want to get the number of elements.
 		*/
-		unsigned int getElementCount(const std::string & datasetName);
+		hssize_t getElementCount(const std::string & datasetName);
 
 		/**
 		* Set the new compression level which will be used for all data to be written

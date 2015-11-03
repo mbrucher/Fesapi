@@ -46,6 +46,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/CommentProperty.h"
 #include "resqml2_0_1/ContinuousProperty.h"
 #include "resqml2_0_1/DiscretePropertySeries.h"
+#include "resqml2_0_1/StringTableLookup.h"
 
 #if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
 #include "nullptr_emulation.h"
@@ -513,7 +514,7 @@ void AbstractIjkGridRepresentation::loadSplitInformation()
 	splitInformation = new std::vector< std::pair< unsigned int, std::vector<unsigned int> > >[(getICellCount()+1) * (getJCellCount()+1)];
 
 	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
-	if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
+	if (ijkGrid->Geometry && ijkGrid->Geometry->SplitCoordinateLines != nullptr)
 	{
 		// Read the split information
 		unsigned int* splitPillars = new unsigned int [getSplitCoordinateLineCount()];
@@ -767,6 +768,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	
 	vector<ULONG64> cellIndexPair;
 	vector<unsigned int> localFacePerCellIndexPair;
+	vector<long> connectionOrientationPropValues;
 	GridConnectionSetRepresentation* gcsr = nullptr;
 	if (gridConnectionSetRepresentationSet.size() > 1)
 	{
@@ -780,6 +782,23 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		gcsr->getCellIndexPairs(cellIndexPair.data());
 		if (gcsr->hasLocalFacePerCell())
 			gcsr->getLocalFacePerCellIndexPairs(localFacePerCellIndexPair.data());
+
+		connectionOrientationPropValues.resize(gcsr->getCellIndexPairCount(), (numeric_limits<long>::max)());
+		for (size_t i = 0; i < connectionOrientationPropValues.size(); i++)
+		{
+			/*
+			if ((localFacePerCellIndexPair[2*i] == 3 && localFacePerCellIndexPair[2*i + 1] == 5) ||
+				(localFacePerCellIndexPair[2*i] == 5 && localFacePerCellIndexPair[2*i + 1] == 3))
+				connectionOrientationPropValues[i] = 0;
+			else if ((localFacePerCellIndexPair[2*i] == 2 && localFacePerCellIndexPair[2*i + 1] == 4) ||
+				(localFacePerCellIndexPair[2*i] == 4 && localFacePerCellIndexPair[2*i + 1] == 2))
+				connectionOrientationPropValues[i] = 1;
+			else if ((localFacePerCellIndexPair[2*i] == 0 && localFacePerCellIndexPair[2*i + 1] == 1) ||
+				(localFacePerCellIndexPair[2*i] == 1 && localFacePerCellIndexPair[2*i + 1] == 0))
+				connectionOrientationPropValues[i] = 2;
+			*/
+			connectionOrientationPropValues[i] = 4;
+		}
 	}
 
 	loadSplitInformation();
@@ -915,22 +934,24 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 
 				// I connection
 				if (iCell < getICellCount()-1 &&
-					isColumnEdgeSplitted(iCell, jCell, 3) == false)
+					isColumnEdgeSplitted(iCell, jCell, 1) == false)
 				{
 					cellIndexPair.push_back(cellIndex);
 					cellIndexPair.push_back(cellIndex+1);
 					localFacePerCellIndexPair.push_back(3);
 					localFacePerCellIndexPair.push_back(5);
+					connectionOrientationPropValues.push_back(0);
 				}
 
 				// J connection
 				if (jCell < getJCellCount()-1 &&
-					isColumnEdgeSplitted(iCell, jCell, 4) == false)
+					isColumnEdgeSplitted(iCell, jCell, 2) == false)
 				{
 					cellIndexPair.push_back(cellIndex);
 					cellIndexPair.push_back(cellIndex+getICellCount());
 					localFacePerCellIndexPair.push_back(4);
 					localFacePerCellIndexPair.push_back(2);
+					connectionOrientationPropValues.push_back(1);
 				}
 
 				// K connection : Cannot be splitted by hypothesis.
@@ -940,6 +961,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 					cellIndexPair.push_back(cellIndex+getColumnCount());
 					localFacePerCellIndexPair.push_back(0);
 					localFacePerCellIndexPair.push_back(1);
+					connectionOrientationPropValues.push_back(2);
 				}
 
 				++columnIndex;
@@ -1111,6 +1133,28 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	GridConnectionSetRepresentation* gcsrCopy = new GridConnectionSetRepresentation(interpretation, "", "Grid Connection Set", result);
 	gcsrCopy->setCellIndexPairs(cellIndexPair.size()/2, cellIndexPair.data(), (numeric_limits<ULONG64>::max)(), hdfProxy);
 	gcsrCopy->setLocalFacePerCellIndexPairs(cellIndexPair.size()/2, localFacePerCellIndexPair.data(), (numeric_limits<unsigned int>::max)(), hdfProxy);
+
+	// Property kind
+	AbstractObject* connectionOrientationPropKindUuidObj = epcDocument->getResqmlAbstractObjectByUuid("238fa7fe-1178-406d-bc0e-3bf212476012");
+	PropertyKind* kind = nullptr;
+	if (connectionOrientationPropKindUuidObj != nullptr && connectionOrientationPropKindUuidObj->getXmlTag() == PropertyKind::XML_TAG)
+		kind = static_cast<PropertyKind*>(connectionOrientationPropKindUuidObj);
+	else if (connectionOrientationPropKindUuidObj == nullptr)
+		kind = new PropertyKind(getEpcDocument(), "238fa7fe-1178-406d-bc0e-3bf212476012", "CONNECTION_ORIENTATION", "F2I", resqml2__ResqmlUom__Euc, resqml2__ResqmlPropertyKind__categorical);
+	else
+		throw invalid_argument("Cannot create the conneciton orientation property kind because it already exists a resqml object with the same uuid in the EPC document.");
+
+	// Property
+	StringTableLookup* stl = new StringTableLookup(getEpcDocument(), "a8b9a605-7836-4dac-9e17-756c0c22e980", "Connection Orientation string table lookup");
+	stl->addValue("I", 0);
+	stl->addValue("J", 1);
+	stl->addValue("K", 2);
+	stl->addValue("MF", 3);
+	stl->addValue("FAULT", 4);
+	CategoricalProperty* connectionOrientationProp = new CategoricalProperty(result, "", "CONNECTION_ORIENTATION", 1, resqml2__IndexableElements__edges, stl, kind);
+
+	// Values
+	connectionOrientationProp->pushBackLongHdf5Array1dOfValues(connectionOrientationPropValues.data(), connectionOrientationPropValues.size(), hdfProxy, (numeric_limits<long>::max)());
 
 	//**********************************
 	//*********** PROPERTIES ***********

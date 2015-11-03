@@ -224,10 +224,10 @@ namespace resqml2_0_1
 		* This method requires your have already loaded the split information.
 		* @param iColumn	The I index of the column
 		* @param jColumn	The J index of the column
-		* @param edge		0 for edge from i to i+1, lower j
-		*					1 for edge from j to j+1, upper i
-		*					2 for edge from i+1 to i, upper j
-		*					3 for edge from j+1 to j, lower i
+		* @param edge		0 for edge from i to i+1, lower j connection
+		*					1 for edge from j to j+1, upper i connection
+		*					2 for edge from i+1 to i, upper j connection
+		*					3 for edge from j+1 to j, lower i connection
 		*/
 		bool isColumnEdgeSplitted(const unsigned int & iColumn, const unsigned int & jColumn, const unsigned int & edge) const;
 
