@@ -60,8 +60,6 @@ namespace resqml2_0_1
 		*/
 		virtual ~AbstractValuesProperty() {}
 
-		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
 		/**
 		* Get the values datatype in the HDF dataset
 		*/
@@ -265,6 +263,9 @@ namespace resqml2_0_1
 			const unsigned int& offsetInMiddleDim, 
 			const unsigned int& offsetInSlowestDim
 		);
+
+	protected:	
+		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 	};
 }

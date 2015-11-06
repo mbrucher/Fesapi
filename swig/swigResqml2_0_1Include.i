@@ -43,6 +43,7 @@
 #include "resqml2_0_1/IjkGridExplicitRepresentation.h"
 #include "resqml2_0_1/IjkGridParametricRepresentation.h"
 #include "resqml2_0_1/IjkGridLatticeRepresentation.h"
+#include "resqml2_0_1/IjkGridNoGeometryRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/SubRepresentation.h"
 #include "resqml2_0_1/GridConnectionSetRepresentation.h"
@@ -105,6 +106,10 @@ namespace resqml2_0_1 {
 	class WellboreMarkerFrameRepresentation;
 	class UnstructuredGridRepresentation;
 	class WellboreMarker;
+	class IjkGridExplicitRepresentation;
+	class IjkGridParametricRepresentation;
+	class IjkGridLatticeRepresentation;
+	class IjkGridNoGeometryRepresentation;
 }
 
 // Don't try to create vector of polymorphic data unless you really know what you are doing.
@@ -138,6 +143,7 @@ namespace std {
    %template(IjkGridExplicitRepresentationVector) vector<resqml2_0_1::IjkGridExplicitRepresentation*>;
    %template(IjkGridParametricRepresentationVector) vector<resqml2_0_1::IjkGridParametricRepresentation*>;
    %template(IjkGridLatticeRepresentationVector) vector<resqml2_0_1::IjkGridLatticeRepresentation*>;
+   %template(IjkGridNoGeometryRepresentationVector) vector<resqml2_0_1::IjkGridNoGeometryRepresentation*>;
 }
 
 namespace gsoap_resqml2_0_1
@@ -273,6 +279,7 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::IjkGridExplicitRepresentation;
 	%nspace resqml2_0_1::IjkGridLatticeRepresentation;
 	%nspace resqml2_0_1::IjkGridParametricRepresentation;
+	%nspace resqml2_0_1::IjkGridNoGeometryRepresentation;
 #endif
 
 namespace resqml2_0_1
@@ -1032,7 +1039,7 @@ namespace resqml2_0_1
 	class AbstractIjkGridRepresentation : public AbstractColumnLayerGridRepresentation
 	{
 	public:
-		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3 };
+		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3, NO_GEOMETRY = 4 };
 	
 		unsigned int getICellCount() const;
 		void setICellCount(const unsigned int & iCount);
@@ -1135,6 +1142,11 @@ namespace resqml2_0_1
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns);
+	};
+	
+	class IjkGridNoGeometryRepresentation : public AbstractIjkGridRepresentation
+	{
+	public:
 	};
 	
 	class GridConnectionSetRepresentation : public AbstractRepresentation

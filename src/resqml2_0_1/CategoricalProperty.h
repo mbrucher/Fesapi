@@ -85,13 +85,6 @@ namespace resqml2_0_1
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		/**
-		* Instantiate the link with the string lookup
-		*/
-		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
 		/**
 		* Add a 1d array of explicit integer values to the property values.
 		* @param values					All the property values to set ordered according the topology of the representation it is based on.
@@ -139,6 +132,10 @@ namespace resqml2_0_1
 		std::string getStringLookupUuid() const;
 
 	protected:
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
+
 
 		// XML forward relationship
 		class StringTableLookup* stringLookup;

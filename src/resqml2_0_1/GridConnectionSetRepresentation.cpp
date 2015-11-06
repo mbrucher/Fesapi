@@ -58,7 +58,7 @@ void GridConnectionSetRepresentation::init(
         const std::string & guid, const std::string & title,
 		class AbstractGridRepresentation * supportingGridRep)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(supportingGridRep->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(supportingGridRep->getEpcDocument()->getGsoapContext(), 1);
     _resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 
     initMandatoryMetadata();
@@ -370,7 +370,7 @@ FaultInterpretation* GridConnectionSetRepresentation::getFaultInterpretationFrom
 		if (rep->ConnectionInterpretations->FeatureInterpretation.size() > faultIndex)
 		{
 			AbstractObject* result = epcDocument->getResqmlAbstractObjectByUuid(rep->ConnectionInterpretations->FeatureInterpretation[faultIndex]->UUID);
-			if (result->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFaultInterpretation)
+			if (result->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFaultInterpretation)
 			{
 				return static_cast<FaultInterpretation*>(result);
 			}
@@ -535,6 +535,11 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 }
 
 ULONG64 GridConnectionSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
+{
+	throw logic_error("Not yet implemented.");
+}
+
+void GridConnectionSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
 	throw logic_error("Not yet implemented.");
 }

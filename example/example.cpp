@@ -478,9 +478,20 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		gsoap_resqml2_0_1::resqml2__ResqmlUom__m,
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length,
 		timeSeries);
-	 double valuesTime[6] = {0,1,2,3,3,4};
-	 continuousPropertySeries->pushBackDoubleHdf5Array1dOfValues(valuesTime, 6, hdfProxy);
+	double valuesTime[6] = {0,1,2,3,3,4};
+	continuousPropertySeries->pushBackDoubleHdf5Array1dOfValues(valuesTime, 6, hdfProxy);
 
+	//**************
+	// LGR
+	//**************
+	
+	IjkGridExplicitRepresentation* lgrGrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "LGR", 2, 1, 3);
+	lgrGrid->setParentWindow(
+		0, 2, 1,
+		0, 1, 1,
+		0, 3, 1,
+		ijkgrid);
+	
 #if !defined(OFFICIAL)
 	ijkgrid->cloneToUnstructuredGridRepresentation("42e6c090-33b2-4572-a64c-3b119f6a1f41", "Two faulted sugar cubes (unstructured)");
 
@@ -493,7 +504,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 
 	// Tetra grid
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "", "One tetrahedron grid", 1);
-	double tetraGridPoints[12] = {0,0,300, 700,0,350, 0,150,300, 0,0,500};
+	double tetraGridPoints[12] = {0,0,300, 375,0,300, 0,150,300, 0,0,500};
 	unsigned int faceIndicesPerCell[4] = {0,1,2,3};
 	unsigned int nodeIndicesPerCell[12] = {0,1,2, 1,2,3, 0,1,3, 0,2,3};
 	tetraGrid->setTetrahedraOnlyGeometry(true, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerCell);
@@ -559,14 +570,14 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
 //    structuralOrganizationInterpretationSurfaceFramework->pushBackRepresentation(h2i1triRep);
 
     // Single Patch Fault 1
-    SealedSurfaceFrameworkRepresentation* singlePatchFault1SealedSurfaceFramework = pck.createSealedSurfaceFrameworkRepresentation(structuralOrganizationInterpretation, local3dCrs, "", "Single Patch Fault1 StructuralOrg1 Interp1 Interp1 SealedSurfFrmwk");
+    SealedSurfaceFrameworkRepresentation* singlePatchFault1SealedSurfaceFramework = pck.createSealedSurfaceFrameworkRepresentation(structuralOrganizationInterpretation, "", "Single Patch Fault1 StructuralOrg1 Interp1 Interp1 SealedSurfFrmwk");
     singlePatchFault1SealedSurfaceFramework->setOriginator("Geosiris");
 	f1i1triRepSinglePatch->pushBackIntoRepresentationSet(singlePatchFault1SealedSurfaceFramework);
     h1i1triRep->pushBackIntoRepresentationSet(singlePatchFault1SealedSurfaceFramework);
     h2i1triRep->pushBackIntoRepresentationSet(singlePatchFault1SealedSurfaceFramework);
 
     // Multipatch Fault 1
-    SealedSurfaceFrameworkRepresentation* sealedSurfaceFramework = pck.createSealedSurfaceFrameworkRepresentation(structuralOrganizationInterpretation, local3dCrs, "", "StructuralOrg1 Interp1 Interp1 SealedSurfFrmwk");
+    SealedSurfaceFrameworkRepresentation* sealedSurfaceFramework = pck.createSealedSurfaceFrameworkRepresentation(structuralOrganizationInterpretation, "", "StructuralOrg1 Interp1 Interp1 SealedSurfFrmwk");
     sealedSurfaceFramework->setOriginator("Geosiris");
 	f1i1triRep->pushBackIntoRepresentationSet(sealedSurfaceFramework);
     h1i1triRep->pushBackIntoRepresentationSet(sealedSurfaceFramework);
@@ -1475,7 +1486,7 @@ void deserialize(const string & inputFile)
 		{
 			for (size_t k = 0; k < wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet().size(); k++)
 			{
-				if (wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
+				if (wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
 				{
 					WellboreMarkerFrameRepresentation* wmf = static_cast<WellboreMarkerFrameRepresentation*>(wellboreSet[i]->getInterpretationSet()[j]->getRepresentationSet()[k]);
 					vector<WellboreMarker*> marketSet = wmf->getWellboreMarkerSet();
@@ -1487,7 +1498,7 @@ void deserialize(const string & inputFile)
 
 					for (size_t l = 0; l < wmf->getPropertySet().size(); l++)
 					{
-						if (wmf->getPropertySet()[l]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
+						if (wmf->getPropertySet()[l]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
 						{
 							CategoricalProperty* catVal = static_cast<CategoricalProperty*>(wmf->getPropertySet()[l]);
 							if (catVal->getValuesHdfDatatype() == AbstractValuesProperty::LONG)
@@ -1561,11 +1572,14 @@ void deserialize(const string & inputFile)
 		AbstractIjkGridRepresentation* ijkGrid = pck.getIjkGridRepresentation(i);
 
 		showAllMetadata(ijkGrid);
-		std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
-		double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
-		ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
-		std::cout << "--------------------------------------------------" << std::endl;
-		delete [] gridPoints;
+		if (ijkGrid->getGeometryKind() != AbstractIjkGridRepresentation::NO_GEOMETRY)
+		{
+			std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
+			double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
+			ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
+			std::cout << "--------------------------------------------------" << std::endl;
+			delete [] gridPoints;
+		}
 
 		if (ijkGrid->getInterpretation())
 		{
@@ -1602,6 +1616,28 @@ void deserialize(const string & inputFile)
 			{
 				FaultInterpretation* faultInterpOfGridConn = gridConnectionSet->getFaultInterpretationFromFaultIndex(0);
 				std::cout << "Fault interpretation of this grid connection set is : " << faultInterpOfGridConn->getTitle()  << " With UUID " << faultInterpOfGridConn->getUuid() << endl;
+			}
+		}
+
+		if (ijkGrid->getParentGrid() != NULL)
+		{
+			std::cout << "\t PARENT WINDOW" << std::endl;
+			if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREIjkGridRepresentation)
+			{
+				std::cout << "\t Regrid I start at :" << ijkGrid->getRegridStartIndexOnParentGrid('i') << std::endl;
+				std::cout << "\t Regrid J start at :" << ijkGrid->getRegridStartIndexOnParentGrid('j') << std::endl;
+				std::cout << "\t Regrid K start at :" << ijkGrid->getRegridStartIndexOnParentGrid('k') << std::endl;
+				std::cout << "\t I Interval count is :" << ijkGrid->getRegridIntervalCount('i') << std::endl;
+				std::cout << "\t J Interval count is :" << ijkGrid->getRegridIntervalCount('j') << std::endl;
+				std::cout << "\t K Interval count is :" << ijkGrid->getRegridIntervalCount('k') << std::endl;
+			}
+			else if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREUnstructuredColumnLayerGridRepresentation)
+			{
+				std::cout << "\t Refined columns count :" << ijkGrid->getParentColumnIndexCount() << std::endl;
+			}
+			else if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREUnstructuredGridRepresentation)
+			{
+				std::cout << "\t Refined cells count :" << ijkGrid->getParentCellIndexCount() << std::endl;
 			}
 		}
 	

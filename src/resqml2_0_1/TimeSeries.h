@@ -71,13 +71,6 @@ namespace resqml2_0_1
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		/**
-		* Does nothing since StringTableLookup has not got any forward relationship.
-		*/
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		/**
 		* Add a representation values object which uses this property type.
 		* Does not add the inverse relationship i.e. from the representation values object to this property type.
 		*/
@@ -105,6 +98,12 @@ namespace resqml2_0_1
 		const std::vector<AbstractProperty*>& getPropertySet() const {return propertySet;}
 
 	protected:
+
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		/**
+		* Does nothing since StringTableLookup has not got any forward relationship.
+		*/
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
 		
 		gsoap_resqml2_0_1::_resqml2__TimeSeries* getSpecializedGsoapProxy() const;
 

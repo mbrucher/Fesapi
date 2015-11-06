@@ -134,7 +134,7 @@ double MdDatum::getZ() const
 double MdDatum::getZInGlobalCrs() const
 {
 	double originOrdinal3 = .0;
-	if (localCrs->getGsoapProxy()->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 		originOrdinal3 = localCrs->getOriginDepthOrElevation();
 	return getZ() + originOrdinal3;
 }

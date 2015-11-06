@@ -64,8 +64,6 @@ void AbstractIjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLo
 {
 	if (epcDoc == nullptr)
 		throw invalid_argument("The EPC document where the ijk grid will be stored cannot be null.");
-	if (crs == nullptr)
-		throw invalid_argument("The local CRS of the IJK Grid cannot be null.");
 
 	gsoapProxy = soap_new_resqml2__obj_USCOREIjkGridRepresentation(epcDoc->getGsoapContext(), 1);
 	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
@@ -81,8 +79,11 @@ void AbstractIjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLo
 	epcDoc->addGsoapProxy(this);
 
 	// relationhsips
-	localCrs = crs;
-	localCrs->addRepresentation(this);
+	if (crs != nullptr)
+	{
+		localCrs = crs;
+		localCrs->addRepresentation(this);
+	}
 }
 
 AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
@@ -120,7 +121,7 @@ gsoap_resqml2_0_1::resqml2__PointGeometry* AbstractIjkGridRepresentation::getPoi
 	if (patchIndex == 0)
 		return getSpecializedGsoapProxy()->Geometry;
 	else
-		return NULL;
+		throw range_error("There cannot be more than one patch is an ijk grid representation.");
 }
 
 unsigned int AbstractIjkGridRepresentation::getICellCount() const
@@ -1165,7 +1166,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		AbstractProperty* prop = propertySet[i];
 
 		AbstractValuesProperty* propCopy = nullptr;
-		if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
+		if (prop->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
 		{
 			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
 			{
@@ -1178,7 +1179,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 						prop->getAttachmentKind(), static_cast<CategoricalProperty*>(prop)->getStringLookup(), prop->getLocalPropertyKind());
 			}
 		}
-		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECommentProperty)
+		else if (prop->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECommentProperty)
 		{
 			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
 			{
@@ -1192,7 +1193,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 			}
 			static_cast<_resqml2__CommentProperty*>(propCopy->getGsoapProxy())->Language = static_cast<_resqml2__CommentProperty*>(prop->getGsoapProxy())->Language;
 		}
-		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
+		else if (prop->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
 		{
 			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
 			{
@@ -1207,7 +1208,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 			static_cast<_resqml2__ContinuousProperty*>(propCopy->getGsoapProxy())->MinimumValue = static_cast<_resqml2__ContinuousProperty*>(prop->getGsoapProxy())->MinimumValue;
 			static_cast<_resqml2__ContinuousProperty*>(propCopy->getGsoapProxy())->MaximumValue = static_cast<_resqml2__ContinuousProperty*>(prop->getGsoapProxy())->MaximumValue;
 		}
-		else if (prop->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDiscreteProperty)
+		else if (prop->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDiscreteProperty)
 		{
 			if (prop->isAssociatedToOneStandardEnergisticsPropertyKind() == true)
 			{

@@ -70,7 +70,7 @@ string IjkGridExplicitRepresentation::getHdfProxyUuid() const
 
 ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex == 0)
+	if (patchIndex < getPatchCount())
 	{
 		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
 		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
@@ -83,7 +83,21 @@ ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned in
 		return result;
 	}
 	else
-		return 0;
+		throw range_error("An ijk grid has a maximum of one patch.");
+}
+
+void IjkGridExplicitRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("An ijk grid has a maximum of one patch.");
+
+	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+	{
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
+	}
+	else
+		throw invalid_argument("The geometry of the grid either does not exist or it is not an explicit one.");
 }
 
 void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(

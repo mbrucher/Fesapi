@@ -65,16 +65,8 @@ namespace resqml2_0_1
 		*/
 		~MdDatum() {}
 
-		//******************************************************************
-		//********** INHERITED FROM AbstractObjectWithDcMetadata ***********
-		//******************************************************************
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		/**
 		* Add a WellboreFeature trajectory which uses this MD information
@@ -116,6 +108,9 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::resqml2__MdReference getOriginKind() const;
 
 	protected:
+
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		// XML forward relationship
 		class AbstractLocal3dCrs * localCrs;

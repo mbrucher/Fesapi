@@ -116,6 +116,13 @@ namespace resqml2_0_1
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
+
+		/**
 		 * @param points		The points which constitute the polyline. Ordered by XYZ and then points.
 		 * @param pointCount	The count of points in the polyline. Must be three times the count of the array of doubles "points".
 		 * @param proxy			The HDf proxy defining the HDF file where the double array will be stored.
@@ -158,6 +165,7 @@ namespace resqml2_0_1
 
 		unsigned int getPatchCount() const {return 1;}
 
+	protected:
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 	};
 }

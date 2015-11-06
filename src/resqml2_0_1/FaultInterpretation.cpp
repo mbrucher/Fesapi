@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -52,7 +52,7 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 	if (!fault)
 		throw invalid_argument("The interpreted fault cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy);
 	interp->Domain = resqml2__Domain__mixed;
 	setInterpretedFeature(fault);
@@ -67,7 +67,7 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, const string & title,
 										GeneticBoundaryFeature * chronoTop, GeneticBoundaryFeature * chronoBtm)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy);
 	interp->Domain = resqml2__Domain__mixed;
 	interp->InterpretedFeature = fault->newResqmlReference();
@@ -79,8 +79,7 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
-	interpretedFeature = fault;
-	interpretedFeature->addInterpretation(this);
+	setInterpretedFeature(fault);
 
 	epcDocument = fault->getEpcDocument();
 	if (epcDocument)

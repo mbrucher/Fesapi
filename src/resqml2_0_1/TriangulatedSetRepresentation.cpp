@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -51,7 +51,7 @@ TriangulatedSetRepresentation::TriangulatedSetRepresentation(AbstractFeatureInte
 		const std::string & guid, const std::string & title):
 	AbstractSurfaceRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORETriangulatedSetRepresentation(interp->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCORETriangulatedSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__TriangulatedSetRepresentation* triRep = static_cast<_resqml2__TriangulatedSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -126,12 +126,25 @@ void TriangulatedSetRepresentation::pushBackTrianglePatch(
 
 ULONG64 TriangulatedSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
 	_resqml2__TriangulatedSetRepresentation* triRep = static_cast<_resqml2__TriangulatedSetRepresentation*>(gsoapProxy);
-	
-	if (triRep->TrianglePatch.size() > patchIndex)
-		return triRep->TrianglePatch[patchIndex]->NodeCount;
+	return triRep->TrianglePatch[patchIndex]->NodeCount;
+}
+
+void TriangulatedSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+	{
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
+	}
 	else
-		throw out_of_range("The patchIndex is out of range");
+		throw invalid_argument("The geometry of the representation either does not exist or it is not an explicit one.");
 }
 
 unsigned int TriangulatedSetRepresentation::getTriangleCountOfPatch(const unsigned int & patchIndex) const

@@ -66,7 +66,7 @@ vector<WellboreMarkerFrameRepresentation*> AbstractFeatureInterpretation::getWel
 
 	for (unsigned int i = 0; i < representationSet.size(); ++i)
 	{
-		if (representationSet[i]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
+		if (representationSet[i]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
 			result.push_back(static_cast<WellboreMarkerFrameRepresentation*>(representationSet[i]));
 	}
 
@@ -78,7 +78,11 @@ void AbstractFeatureInterpretation::importRelationshipSetFromEpc(common::EpcDocu
 	resqml2__AbstractFeatureInterpretation* interp = static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy);
 	interpretedFeature = static_cast<AbstractFeature*>(epcDoc->getResqmlAbstractObjectByUuid(interp->InterpretedFeature->UUID));
 	if (interpretedFeature)
-		interpretedFeature->addInterpretation(this);
+	{
+		updateXml = false;
+		setInterpretedFeature(interpretedFeature);
+		updateXml = true;
+	}
 }
 
 vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() const
@@ -135,3 +139,12 @@ std::string AbstractFeatureInterpretation::getInterpretedFeatureUuid() const
 	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->InterpretedFeature->UUID;
 }
 
+void AbstractFeatureInterpretation::setDomain(const gsoap_resqml2_0_1::resqml2__Domain & domain)
+{
+	static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->Domain = domain;
+}
+
+gsoap_resqml2_0_1::resqml2__Domain AbstractFeatureInterpretation::getDomain() const
+{
+	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->Domain;
+}

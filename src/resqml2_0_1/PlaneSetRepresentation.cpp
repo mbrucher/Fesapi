@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -49,7 +49,7 @@ PlaneSetRepresentation::PlaneSetRepresentation(AbstractFeatureInterpretation* in
 		const std::string & guid, const std::string & title):
 	AbstractRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPlaneSetRepresentation(interp->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPlaneSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__PlaneSetRepresentation* plSetRep = static_cast<_resqml2__PlaneSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -110,6 +110,33 @@ ULONG64 PlaneSetRepresentation::getXyzPointCountOfPatch(const unsigned int & pat
 	else
 	{
 		return static_cast<resqml2__TiltedPlaneGeometry*>(rep->Planes[patchIndex])->Plane.size() * 3;
+	}
+}
+
+void PlaneSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index patch is not in the allowed range of patch");
+
+	_resqml2__PlaneSetRepresentation* rep = static_cast<_resqml2__PlaneSetRepresentation*>(gsoapProxy);
+	if (rep->Planes[patchIndex]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__HorizontalPlaneGeometry)
+	{
+		xyzPoints[0] = numeric_limits<double>::quiet_NaN();
+		xyzPoints[1] = numeric_limits<double>::quiet_NaN();
+		xyzPoints[2] = static_cast<resqml2__HorizontalPlaneGeometry*>(rep->Planes[patchIndex])->Coordinate;
+	}
+	else
+	{
+		resqml2__TiltedPlaneGeometry* tiltedPlane = static_cast<resqml2__TiltedPlaneGeometry*>(rep->Planes[patchIndex]); // TODO : allow more than one plane in one tilted plane
+		xyzPoints[0] = tiltedPlane->Plane[0]->Point3d[0]->Coordinate1;
+		xyzPoints[1] = tiltedPlane->Plane[0]->Point3d[0]->Coordinate2;
+		xyzPoints[2] = tiltedPlane->Plane[0]->Point3d[0]->Coordinate3;
+		xyzPoints[3] = tiltedPlane->Plane[1]->Point3d[1]->Coordinate1;
+		xyzPoints[4] = tiltedPlane->Plane[1]->Point3d[1]->Coordinate2;
+		xyzPoints[5] = tiltedPlane->Plane[1]->Point3d[1]->Coordinate3;
+		xyzPoints[6] = tiltedPlane->Plane[2]->Point3d[2]->Coordinate1;
+		xyzPoints[7] = tiltedPlane->Plane[2]->Point3d[2]->Coordinate2;
+		xyzPoints[8] = tiltedPlane->Plane[2]->Point3d[2]->Coordinate3;
 	}
 }
 

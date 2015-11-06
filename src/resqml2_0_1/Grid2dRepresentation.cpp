@@ -52,14 +52,14 @@ Grid2dRepresentation::Grid2dRepresentation(AbstractFeatureInterpretation* interp
 	const string & guid, const std::string & title):
 	AbstractSurfaceRepresentation(interp, crs), supportingRepresentation(NULL)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dRepresentation(interp->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__Grid2dRepresentation* singleGrid2dRep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// Surface role
-	if (interp->getInterpretedFeature()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLatticeFeature)
+	if (interp->getInterpretedFeature()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLatticeFeature)
 		singleGrid2dRep->SurfaceRole = resqml2__SurfaceRole__pick;
 
 	// relationhsips
@@ -98,12 +98,18 @@ ULONG64 Grid2dRepresentation::getNodeCountAlongJAxis() const
 
 ULONG64 Grid2dRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex == 0)
-	{
-		return getNodeCountAlongIAxis() * getNodeCountAlongJAxis();
-	}
-	else
-		return 0;
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index patch is not in the allowed range of patch.");
+
+	return getNodeCountAlongIAxis() * getNodeCountAlongJAxis();
+}
+
+void Grid2dRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index patch is not in the allowed range of patch.");
+
+	throw logic_error("Please use compute X and Y values with th elattice information.");
 }
 
 void Grid2dRepresentation::getZValues(double* values) const
@@ -127,7 +133,7 @@ void Grid2dRepresentation::getZValuesInGlobalCrs(double * values) const
 {
 	getZValues(values);
 
-	if (localCrs->getGsoapProxy()->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 	{
 		_resqml2__Grid2dRepresentation* rep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy);
 		unsigned int NodeCount = rep->Grid2dPatch->FastestAxisCount * rep->Grid2dPatch->SlowestAxisCount;
@@ -455,6 +461,11 @@ std::string Grid2dRepresentation::getSupportingRepresentationUuid() const
 
 void Grid2dRepresentation::setSupportingRepresentation(Grid2dRepresentation * supportingRep)
 {
+	if (supportingRep == nullptr)
+	{
+		throw invalid_argument("The supporting representation to set cannot be null.");
+	}
+
 	supportingRepresentation = supportingRep;
 	supportingRepresentation->supportedRepresentationSet.push_back(this);
 }

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -68,15 +68,14 @@ namespace resqml2_0_1
 		 * Get all the stratigraphic column rank interpretations which are contained in this stratigraphic column.
 		 */
 		std::vector<class StratigraphicColumnRankInterpretation*> getStratigraphicColumnRankInterpretationSet() const {return stratigraphicColumnRankSet;}
-
-        std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		void importRelationshipSetFromEpc(common::EpcDocument * epcDoc);
                 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
     private:
+        std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument * epcDoc);
+
 		// Forward relationships
         std::vector<class StratigraphicColumnRankInterpretation*> stratigraphicColumnRankSet;
 

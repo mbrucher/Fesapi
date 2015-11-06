@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -64,8 +64,6 @@ namespace resqml2_0_1
 		*/
 		virtual ~AbstractGridRepresentation() {}
 
-		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
-
 		std::vector<GridConnectionSetRepresentation*> getGridConnectionSetRepresentationSet() const {return gridConnectionSetRepresentationSet;}
 
 		/**
@@ -128,13 +126,13 @@ namespace resqml2_0_1
 		* @param	childCellCountPerIInterval	The count of cells per i interval in this (child) grid.
 		* @param	parentCellCountPerIInterval	The count of cells per i interval in the parent grid.
 		* @param	iIntervalCount				The count of intervals on i dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
-		* @param	iCellIndexRegridStart		Identifies the first Cell by its j dimension of the regrid window.
-		* @param	childCellCountPerIInterval	The count of cells per j interval in this (child) grid.
-		* @param	parentCellCountPerIInterval	The count of cells per j interval in the parent grid.
+		* @param	jCellIndexRegridStart		Identifies the first Cell by its j dimension of the regrid window.
+		* @param	childCellCountPerJInterval	The count of cells per j interval in this (child) grid.
+		* @param	parentCellCountPerJInterval	The count of cells per j interval in the parent grid.
 		* @param	jIntervalCount				The count of intervals on j dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
-		* @param	iCellIndexRegridStart		Identifies the first Cell by its k dimension of the regrid window.
-		* @param	childCellCountPerIInterval	The count of cells per k interval in this (child) grid.
-		* @param	parentCellCountPerIInterval	The count of cells per k interval in the parent grid.
+		* @param	kCellIndexRegridStart		Identifies the first Cell by its k dimension of the regrid window.
+		* @param	childCellCountPerKInterval	The count of cells per k interval in this (child) grid.
+		* @param	parentCellCountPerKInterval	The count of cells per k interval in the parent grid.
 		* @param	kIntervalCount				The count of intervals on k dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
 		* @param	parentGrid					The parent grid which is regridded.
 		* @param	iChildCellWeights			The weights that are proportional to the relative i sizes of child cells within each i interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells on i dimension (sum of child cells per interval).
@@ -145,6 +143,29 @@ namespace resqml2_0_1
 			const unsigned int & iCellIndexRegridStart, unsigned int * childCellCountPerIInterval, unsigned int * parentCellCountPerIInterval,  const unsigned int & iIntervalCount,
 			const unsigned int & jCellIndexRegridStart, unsigned int * childCellCountPerJInterval, unsigned int * parentCellCountPerJInterval,  const unsigned int & jIntervalCount,
 			const unsigned int & kCellIndexRegridStart, unsigned int * childCellCountPerKInterval, unsigned int * parentCellCountPerKInterval,  const unsigned int & kIntervalCount,
+			class AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = NULL, double * jChildCellWeights = NULL, double * kChildCellWeights = NULL);
+
+		/**
+		* Indicates that this grid takes place into another IJK parent grid.
+		* this method assume there is only one regrid interval per dimension.
+		* @param	iCellIndexRegridStart		Identifies the first Cell by its i dimension of the regrid window.
+		* @param	iChildCellCount				The count of cells per i interval in this (child) grid.
+		* @param	iParentCellCount			The count of cells per i interval in the parent grid.
+		* @param	jCellIndexRegridStart		Identifies the first Cell by its j dimension of the regrid window.
+		* @param	jChildCellCount				The count of cells per j interval in this (child) grid.
+		* @param	jParentCellCount			The count of cells per j interval in the parent grid.
+		* @param	kCellIndexRegridStart		Identifies the first Cell by its k dimension of the regrid window.
+		* @param	kChildCellCount				The count of cells per k interval in this (child) grid.
+		* @param	kParentCellCount			The count of cells per k interval in the parent grid.
+		* @param	parentGrid					The parent grid which is regridded.
+		* @param	iChildCellWeights			The weights that are proportional to the relative i sizes of child cells. The weights need not to be normalized. The count of double values must be equal to iChildCellCount.
+		* @param	jChildCellWeights			The weights that are proportional to the relative j sizes of child cells. The weights need not to be normalized. The count of double values must be equal to jChildCellCount.
+		* @param	kChildCellWeights			The weights that are proportional to the relative k sizes of child cells. The weights need not to be normalized. The count of double values must be equal to kChildCellCount.
+		*/
+		void setParentWindow(
+			const unsigned int & iCellIndexRegridStart, unsigned int iChildCellCount, unsigned int iParentCellCount,
+			const unsigned int & jCellIndexRegridStart, unsigned int jChildCellCount, unsigned int jParentCellCount,
+			const unsigned int & kCellIndexRegridStart, unsigned int kChildCellCount, unsigned int kParentCellCount,
 			class AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = NULL, double * jChildCellWeights = NULL, double * kChildCellWeights = NULL);
 
 		/**
@@ -223,9 +244,11 @@ namespace resqml2_0_1
 		*/
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
 
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 	protected:
+
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		std::vector<AbstractGridRepresentation*> childGridSet;
 

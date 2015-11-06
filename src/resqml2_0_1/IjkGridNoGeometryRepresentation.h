@@ -37,27 +37,27 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT IjkGridExplicitRepresentation : public AbstractIjkGridRepresentation
+	class DLL_IMPORT_OR_EXPORT IjkGridNoGeometryRepresentation : public AbstractIjkGridRepresentation
 	{
 	public:
 
-		IjkGridExplicitRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+		IjkGridNoGeometryRepresentation(common::EpcDocument * epcDoc,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
-		IjkGridExplicitRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		IjkGridNoGeometryRepresentation(class AbstractFeatureInterpretation* interp,
 				const std::string & guid, const std::string & title,
 				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		IjkGridExplicitRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractIjkGridRepresentation(fromGsoap) {}
+		IjkGridNoGeometryRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractIjkGridRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
-		virtual ~IjkGridExplicitRepresentation() {}
+		virtual ~IjkGridNoGeometryRepresentation() {}
 
 		std::string getHdfProxyUuid() const;
 
@@ -72,15 +72,6 @@ namespace resqml2_0_1
 		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
 		*/
 		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
-
-		/**
-		* Set the geometry of the IJK grid as explicit coordinate line nodes
-		*/
-		void setGeometryAsCoordinateLineNodes(
-			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * points, class AbstractHdfProxy * proxy,
-			const unsigned long & splitCoordinateLineCount = 0, unsigned int * pillarOfCoordinateLine = NULL,
-			unsigned int * splitCoordinateLineColumnCumulativeCount = NULL, unsigned int * splitCoordinateLineColumns = NULL);
 
 		geometryKind getGeometryKind() const;
 	};

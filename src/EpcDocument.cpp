@@ -91,6 +91,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/IjkGridExplicitRepresentation.h"
 #include "resqml2_0_1/IjkGridParametricRepresentation.h"
 #include "resqml2_0_1/IjkGridLatticeRepresentation.h"
+#include "resqml2_0_1/IjkGridNoGeometryRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 
 #include "resqml2_0_1/Activity.h"
@@ -647,15 +648,20 @@ string EpcDocument::deserialize()
 				gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREIjkGridRepresentation(s, 1);
 				soap_read_resqml2__obj_USCOREIjkGridRepresentation(s, read);
 				
-				switch (read->Geometry->Points->soap_type())
+				if (read->Geometry != nullptr)
 				{
-				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array :
-					wrapper = new IjkGridExplicitRepresentation(read); break;
-				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray :
-					wrapper = new IjkGridParametricRepresentation(read); break;
-				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray :
-					wrapper = new IjkGridLatticeRepresentation(read); break;
+					switch (read->Geometry->Points->soap_type())
+					{
+					case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array :
+						wrapper = new IjkGridExplicitRepresentation(read); break;
+					case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray :
+						wrapper = new IjkGridParametricRepresentation(read); break;
+					case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray :
+						wrapper = new IjkGridLatticeRepresentation(read); break;
+					}
 				}
+				else
+					wrapper = new IjkGridNoGeometryRepresentation(read);
 			}
 			else if (resqmlContentType.compare(UnstructuredGridRepresentation::XML_TAG) == 0)
 			{
@@ -912,7 +918,7 @@ vector<PolylineSetRepresentation*> EpcDocument::getFaultPolylineSetRepSet() cons
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
 				{
 					result.push_back(static_cast<PolylineSetRepresentation*>(repSet[repIndex]));
 				}
@@ -936,7 +942,7 @@ vector<PolylineSetRepresentation*> EpcDocument::getFracturePolylineSetRepSet() c
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
 				{
 					result.push_back(static_cast<PolylineSetRepresentation*>(repSet[repIndex]));
 				}
@@ -960,7 +966,7 @@ vector<PolylineSetRepresentation*> EpcDocument::getFrontierPolylineSetRepSet() c
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
 				{
 					result.push_back(static_cast<PolylineSetRepresentation*>(repSet[repIndex]));
 				}
@@ -984,7 +990,7 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFaultTriangulatedSetRepSe
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
 				{
 					result.push_back(static_cast<TriangulatedSetRepresentation*>(repSet[repIndex]));
 				}
@@ -1008,7 +1014,7 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFractureTriangulatedSetRe
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
 				{
 					result.push_back(static_cast<TriangulatedSetRepresentation*>(repSet[repIndex]));
 				}
@@ -1032,7 +1038,7 @@ vector<Grid2dSetRepresentation*> EpcDocument::getHorizonGrid2dSetRepSet() const
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dSetRepresentation)
 				{
 					result.push_back(static_cast<Grid2dSetRepresentation*>(repSet[repIndex]));
 				}
@@ -1056,7 +1062,7 @@ vector<Grid2dRepresentation*> EpcDocument::getHorizonGrid2dRepSet() const
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dRepresentation)
 				{
 					result.push_back(static_cast<Grid2dRepresentation*>(repSet[repIndex]));
 				}
@@ -1080,7 +1086,7 @@ std::vector<PolylineRepresentation*> EpcDocument::getHorizonPolylineRepSet() con
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation)
 				{
 					result.push_back(static_cast<PolylineRepresentation*>(repSet[repIndex]));
 				}
@@ -1104,7 +1110,7 @@ std::vector<PolylineSetRepresentation*> EpcDocument::getHorizonPolylineSetRepSet
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
 				{
 					result.push_back(static_cast<PolylineSetRepresentation*>(repSet[repIndex]));
 				}
@@ -1128,7 +1134,7 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getHorizonTriangulatedSetRep
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
 				{
 					TriangulatedSetRepresentation* rep = static_cast<TriangulatedSetRepresentation*>(repSet[repIndex]);
 					result.push_back(rep);
@@ -1146,7 +1152,7 @@ std::vector<resqml2_0_1::TriangulatedSetRepresentation*> EpcDocument::getUnclass
 
 	for (unsigned int triRepIndex = 0; triRepIndex < triangulatedSetRepresentationSet.size(); triRepIndex++)
 	{
-		int soapType = triangulatedSetRepresentationSet[triRepIndex]->getInterpretation()->getGsoapProxy()->soap_type();
+		int soapType = triangulatedSetRepresentationSet[triRepIndex]->getInterpretation()->getGsoapType();
 		if (soapType != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFaultInterpretation && soapType != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREHorizonInterpretation)
 		{
 			result.push_back(triangulatedSetRepresentationSet[triRepIndex]);
@@ -1168,7 +1174,7 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
-				if (repSet[repIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreTrajectoryRepresentation)
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreTrajectoryRepresentation)
 				{
 					result.push_back(static_cast<WellboreTrajectoryRepresentation*>(repSet[repIndex]));
 				}
@@ -1789,34 +1795,34 @@ WellboreMarkerFrameRepresentation* EpcDocument::createWellboreMarkerFrameReprese
 }
 
 RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
-        AbstractOrganizationInterpretation* interp, AbstractLocal3dCrs * crs,
+        AbstractOrganizationInterpretation* interp,
         const std::string & guid,
         const std::string & title)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-    return new RepresentationSetRepresentation(interp, crs, guid, title);
+    return new RepresentationSetRepresentation(interp, guid, title);
 }
 
 NonSealedSurfaceFrameworkRepresentation* EpcDocument::createNonSealedSurfaceFrameworkRepresentation(
-        StructuralOrganizationInterpretation* interp, AbstractLocal3dCrs * crs, 
+        StructuralOrganizationInterpretation* interp, 
         const std::string & guid,
         const std::string & title,
         const bool & isSealed)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-    return new NonSealedSurfaceFrameworkRepresentation(interp, crs, guid, title, isSealed);
+    return new NonSealedSurfaceFrameworkRepresentation(interp, guid, title, isSealed);
 }
 
 SealedSurfaceFrameworkRepresentation* EpcDocument::createSealedSurfaceFrameworkRepresentation(
-        StructuralOrganizationInterpretation* interp, AbstractLocal3dCrs * crs,
+        StructuralOrganizationInterpretation* interp,
         const std::string & guid,
         const std::string & title)
 {
 	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
 		return nullptr;
-    return new SealedSurfaceFrameworkRepresentation(interp, crs, guid, title);
+    return new SealedSurfaceFrameworkRepresentation(interp, guid, title);
 }
 
 AbstractIjkGridRepresentation* EpcDocument::createPartialIjkGridRepresentation(const std::string & guid, const std::string & title)

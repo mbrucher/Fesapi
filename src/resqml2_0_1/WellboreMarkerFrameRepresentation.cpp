@@ -61,7 +61,7 @@ const char* WellboreMarkerFrameRepresentation::XML_TAG = "WellboreMarkerFrameRep
 WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj):
 	WellboreFrameRepresentation(interp, traj->getLocalCrs())
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
 
 	setInterpretation(interp);
@@ -80,7 +80,7 @@ WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(WellboreInt
 WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(StratigraphicColumnRankInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj):
 	WellboreFrameRepresentation(interp, traj->getLocalCrs())
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
 
 	setInterpretation(interp);
@@ -99,7 +99,7 @@ WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(Stratigraph
 WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(StratigraphicOccurrenceInterpretation* interp, const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj):
 	WellboreFrameRepresentation(interp, traj->getLocalCrs())
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
 
 	setInterpretation(interp);
@@ -219,7 +219,10 @@ void WellboreMarkerFrameRepresentation::importRelationshipSetFromEpc(common::Epc
 		}
 
 		WellboreMarker* marker = new WellboreMarker(rep->WellboreMarker[i], this);
-		marker->importRelationshipSetFromEpc(epcDoc);
+		if (rep->WellboreMarker[i]->Interpretation)
+		{
+			marker->setBoundaryFeatureInterpretation(static_cast<BoundaryFeatureInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->WellboreMarker[i]->Interpretation->UUID)));
+		}
 		markerSet.push_back(marker);
 	}
 

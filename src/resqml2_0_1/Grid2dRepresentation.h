@@ -92,6 +92,13 @@ namespace resqml2_0_1
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
+
+		/**
 		* Get all the z values of a patch located at a specific index of the geometry points.
 		* Z Values are given in the local CRS.
 		* @param values		All the z values of the selected patch. i dimension is the quickest.
@@ -268,14 +275,16 @@ namespace resqml2_0_1
 		*/
 		int getIndexOffsetOnSupportingRepresentation(const unsigned int & dimension) const;
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
 		unsigned int getPatchCount() const {return 1;}
 
 	private:
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
+		// Forward relationships
 		Grid2dRepresentation * supportingRepresentation;
+
+		// Backward relationships
 		std::vector<AbstractRepresentation *> supportedRepresentationSet;
 
 		friend void Grid2dSetRepresentation::pushBackGeometryPatch(
@@ -284,6 +293,5 @@ namespace resqml2_0_1
 				Grid2dRepresentation * supportingGrid2dRepresentation,
 				const unsigned int & startIndexI, const unsigned int & startIndexJ,
 				const int & indexIncrementI, const int & indexIncrementJ);
-		friend void Grid2dSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 	};
 }

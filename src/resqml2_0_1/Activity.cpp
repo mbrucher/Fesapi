@@ -54,7 +54,7 @@ Activity::Activity(ActivityTemplate* activityTemplate, const string & guid, cons
 	if (activityTemplate == nullptr)
 		throw invalid_argument("The activity template of an activity must be not null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREActivity(activityTemplate->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREActivity(activityTemplate->getEpcDocument()->getGsoapContext(), 1);
 
 	setActivityTemplate(activityTemplate);
 

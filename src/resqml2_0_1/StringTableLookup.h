@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -67,13 +67,6 @@ namespace resqml2_0_1
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		/**
-		* Does nothing since StringTableLookup has not got any forward relationship.
-		*/
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		/**
 		* Add a categorical property values object which uses this string lookup.
 		* Does not add the inverse relationship i.e. from the categorical property values object to this string lookup.
 		*/
@@ -127,6 +120,12 @@ namespace resqml2_0_1
 #endif
 
 	protected:
+
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		/**
+		* Does nothing since StringTableLookup has not got any forward relationship.
+		*/
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
 
 		// XML backwards relationships
 		std::vector<class CategoricalProperty*> categoricalPropertyValuesSet;

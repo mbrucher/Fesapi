@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -58,12 +58,12 @@ namespace resqml2_0_1
 		*/
 		~SeismicLineSetFeature() {}
 
-        std::vector<epc::Relationship> getAllEpcRelationships() const;
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 	private:
+        std::vector<epc::Relationship> getAllEpcRelationships() const;
+
 		// Backward relationship
 		std::vector<SeismicLineFeature *> seismicLineSet;
 

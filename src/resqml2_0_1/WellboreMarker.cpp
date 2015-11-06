@@ -52,7 +52,7 @@ const char* WellboreMarker::XML_TAG = "WellboreMarker";
 WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarkerFrame, const std::string & guid, const std::string & title):
 	boundaryFeatureInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
 {
-	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getEpcDocument()->getGsoapContext(), 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -61,7 +61,7 @@ WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarker
 WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarkerFrame, const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind & geologicBoundaryKind):
 	boundaryFeatureInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
 {
-	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getEpcDocument()->getGsoapContext(), 1);	
 	resqml2__WellboreMarker* marker = static_cast<resqml2__WellboreMarker*>(gsoapProxy);
 
 	marker->GeologicBoundaryKind = (resqml2__GeologicBoundaryKind*)soap_malloc(gsoapProxy->soap, sizeof(resqml2__GeologicBoundaryKind));
@@ -104,18 +104,4 @@ void WellboreMarker::setBoundaryFeatureInterpretation(BoundaryFeatureInterpretat
         resqml2__WellboreMarker* marker = static_cast<resqml2__WellboreMarker*>(gsoapProxy);
 		marker->Interpretation = interp->newResqmlReference();
 	}
-}
-
-void WellboreMarker::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
-{
-	updateXml = false;
-
-	resqml2__WellboreMarker* marker = static_cast<resqml2__WellboreMarker*>(gsoapProxy);
-
-	if (marker->Interpretation)
-	{
-		setBoundaryFeatureInterpretation(static_cast<BoundaryFeatureInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(marker->Interpretation->UUID)));
-	}
-
-	updateXml = true;
 }

@@ -69,6 +69,13 @@ namespace resqml2_0_1
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
 		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
+
+		/**
 		* Get the max control point coutn on a pillar of the grid.
 		* Only relevant in case the IJK grid is a parametric one.
 		*/
@@ -127,8 +134,6 @@ namespace resqml2_0_1
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns);
-
-		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		geometryKind getGeometryKind() const;
 	};

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -73,8 +73,6 @@ namespace resqml2_0_1
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 		
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		
 		/**
 		 * Pushes back a new throw interpretation for this fault interpretation.
 		 * More than one throw kind is necessary if for example the throw is reverse at a time period and then normal at another time period.
@@ -83,6 +81,9 @@ namespace resqml2_0_1
 		void pushBackThrowInterpretation(const gsoap_resqml2_0_1::resqml2__ThrowKind & throwKind);
 
 	private:
+		
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+
 		// backward relationships
 		std::vector<StructuralOrganizationInterpretation*> structuralOrganizationInterpretationSet;
 

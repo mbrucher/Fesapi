@@ -129,17 +129,13 @@ namespace resqml2_0_1
 
 		std::string getResqmlVersion() const;
 
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
-
 		static const char* XML_TAG;
 		std::string getXmlTag() const {return XML_TAG;}
 
+	private:
+
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-	private:
 
 		std::vector<gsoap_resqml2_0_1::resqml2__AbstractActivityParameter*> getParameterFromTitle(const std::string & paramTitle) const;
 		

@@ -60,12 +60,12 @@ AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* in
 	{
 		if (interp->getRepresentationCount() == 0)
 		{
-			if (crs->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-				static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain = resqml2__Domain__time;
+			if (crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+				interp->setDomain(resqml2__Domain__time);
 			else
-				static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain = resqml2__Domain__depth;
+				interp->setDomain(resqml2__Domain__depth);
 		}
-		else if (static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain != resqml2__Domain__mixed)
+		else if (interp->getDomain() != resqml2__Domain__mixed)
 		{
 			unsigned int repIndex = 0;
 			AbstractLocal3dCrs* local3dCrs = interp->getRepresentation(repIndex)->getLocalCrs();
@@ -76,27 +76,22 @@ AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* in
 			}
 			if (local3dCrs != nullptr)
 			{
-				if (interp->getRepresentation(repIndex)->getLocalCrs()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs &&
-					crs->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs)
-					static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain = resqml2__Domain__mixed;
-				else if (interp->getRepresentation(repIndex)->getLocalCrs()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs &&
-					crs->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-					static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain = resqml2__Domain__mixed;
+				if (interp->getRepresentation(repIndex)->getLocalCrs()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs &&
+					crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs)
+					interp->setDomain(resqml2__Domain__mixed);
+				else if (interp->getRepresentation(repIndex)->getLocalCrs()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs &&
+					crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+					interp->setDomain(resqml2__Domain__mixed);
 			}
 			else
 			{
-				if (crs->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-					static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain = resqml2__Domain__time;
+				if (crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+					interp->setDomain(resqml2__Domain__time);
 				else
-					static_cast<resqml2__AbstractFeatureInterpretation*>(interp->getGsoapProxy())->Domain = resqml2__Domain__depth;
+					interp->setDomain(resqml2__Domain__depth);
 			}
 		}
 	}
-}
-
-void AbstractRepresentation::getXyzPointsOfPatchFromParametricPoints(gsoap_resqml2_0_1::resqml2__Point3dParametricArray* parametricPoint3d, double * xyzPoints) const
-{
-	throw logic_error("This representation has not specialized implementation for reading parametric points.");
 }
 
 std::string AbstractRepresentation::getLocalCrsUuid() const
@@ -281,10 +276,10 @@ std::vector<AbstractValuesProperty*> AbstractRepresentation::getValuesPropertySe
 
 	for (unsigned int i = 0; i < propertySet.size();i ++)
 	{
-		if (propertySet[i]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty ||
-			propertySet[i]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty ||
-			propertySet[i]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDiscreteProperty ||
-			propertySet[i]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECommentProperty)
+		if (propertySet[i]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty ||
+			propertySet[i]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty ||
+			propertySet[i]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDiscreteProperty ||
+			propertySet[i]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECommentProperty)
 		{
 			result.push_back(static_cast<AbstractValuesProperty*>(propertySet[i]));
 		}
@@ -367,57 +362,6 @@ gsoap_resqml2_0_1::resqml2__Seismic3dCoordinates* AbstractRepresentation::getSei
 		return NULL;
 }
 
-void AbstractRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
-{
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
-	if (pointGeom)
-	{
-		if (pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
-		{
-			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
-		}
-		else if (pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
-		{
-			getXyzPointsOfPatchFromParametricPoints(static_cast<resqml2__Point3dParametricArray*>(pointGeom->Points), xyzPoints);
-		}
-	}
-	else if (patchIndex == 0)
-	{
-		if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreTrajectoryRepresentation)
-		{
-			_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
-			resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
-			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(paramLine->ControlPoints)->Coordinates->PathInHdfFile, xyzPoints);
-		}
-	}
-	else
-	{
-		if (gsoapProxy->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPlaneSetRepresentation)
-		{
-			_resqml2__PlaneSetRepresentation* rep = static_cast<_resqml2__PlaneSetRepresentation*>(gsoapProxy);
-			if (rep->Planes[patchIndex]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__HorizontalPlaneGeometry)
-			{
-				xyzPoints[0] = numeric_limits<double>::quiet_NaN();
-				xyzPoints[1] = numeric_limits<double>::quiet_NaN();
-				xyzPoints[2] = static_cast<resqml2__HorizontalPlaneGeometry*>(rep->Planes[patchIndex])->Coordinate;
-			}
-			else
-			{
-				resqml2__TiltedPlaneGeometry* tiltedPlane = static_cast<resqml2__TiltedPlaneGeometry*>(rep->Planes[patchIndex]); // TODO : allow more than one plane in one tilted plane
-				xyzPoints[0] = tiltedPlane->Plane[0]->Point3d[0]->Coordinate1;
-				xyzPoints[1] = tiltedPlane->Plane[0]->Point3d[0]->Coordinate2;
-				xyzPoints[2] = tiltedPlane->Plane[0]->Point3d[0]->Coordinate3;
-				xyzPoints[3] = tiltedPlane->Plane[1]->Point3d[1]->Coordinate1;
-				xyzPoints[4] = tiltedPlane->Plane[1]->Point3d[1]->Coordinate2;
-				xyzPoints[5] = tiltedPlane->Plane[1]->Point3d[1]->Coordinate3;
-				xyzPoints[6] = tiltedPlane->Plane[2]->Point3d[2]->Coordinate1;
-				xyzPoints[7] = tiltedPlane->Plane[2]->Point3d[2]->Coordinate2;
-				xyzPoints[8] = tiltedPlane->Plane[2]->Point3d[2]->Coordinate3;
-			}
-		}
-	}
-}
-
 void AbstractRepresentation::getXyzPointsOfPatchInGlobalCrs(const unsigned int & patchIndex, double * xyzPoints) const
 {
 	getXyzPointsOfPatch(patchIndex, xyzPoints);
@@ -425,7 +369,7 @@ void AbstractRepresentation::getXyzPointsOfPatchInGlobalCrs(const unsigned int &
 	double originOrdinal1 = localCrs->getOriginOrdinal1();
 	double originOrdinal2 = localCrs->getOriginOrdinal2();
 	double originOrdinal3 = .0;
-	if (localCrs->getGsoapProxy()->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 		originOrdinal3 = localCrs->getOriginDepthOrElevation();
 	double arealRotation = -localCrs->getArealRotation();
 
@@ -459,7 +403,7 @@ void AbstractRepresentation::getXyzPointsOfAllPatchesInGlobalCrs(double * xyzPoi
 	double originOrdinal1 = localCrs->getOriginOrdinal1();
 	double originOrdinal2 = localCrs->getOriginOrdinal2();
 	double originOrdinal3 = .0;
-	if (localCrs->getGsoapProxy()->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 		originOrdinal3 = localCrs->getOriginDepthOrElevation();
 	double arealRotation = -localCrs->getArealRotation();
 

@@ -197,13 +197,16 @@ namespace resqml2_0_1
 		*/
 		std::string getSupportingGridRepresentationUuid() const;
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+
+		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		/**
 		* Always return one since this representation does not contain patches.
@@ -211,6 +214,10 @@ namespace resqml2_0_1
 		unsigned int getPatchCount() const {return 1;}
 
 	private:
+
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
 		class AbstractGridRepresentation* supportingGridRepresentation; // TODO: Support more than only one suporting grid representation in this class
 	};
 }

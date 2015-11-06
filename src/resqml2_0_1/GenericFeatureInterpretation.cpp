@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -49,7 +49,7 @@ GenericFeatureInterpretation::GenericFeatureInterpretation(AbstractFeature * fea
 	if (!feature)
 		throw invalid_argument("The interpreted feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREGenericFeatureInterpretation(feature->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREGenericFeatureInterpretation(feature->getEpcDocument()->getGsoapContext(), 1);	
 	setInterpretedFeature(feature);
 
 	static_cast<_resqml2__GenericFeatureInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;

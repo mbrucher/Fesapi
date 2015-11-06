@@ -60,12 +60,12 @@ namespace resqml2_0_1
 		*/
 		~HorizonInterpretation() {}
 
-        std::vector<epc::Relationship> getAllEpcRelationships() const;
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
     private:
+        std::vector<epc::Relationship> getAllEpcRelationships() const;
+
         // backward relationships
         std::vector<class StructuralOrganizationInterpretation*> structuralOrganizationInterpretationSet;
         std::vector<class StratigraphicColumnRankInterpretation*> stratigraphicColumnRankInterpretationSet;

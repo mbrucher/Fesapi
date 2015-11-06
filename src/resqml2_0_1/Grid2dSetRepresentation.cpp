@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -52,7 +52,7 @@ Grid2dSetRepresentation::Grid2dSetRepresentation(AbstractFeatureInterpretation* 
 	const string & guid, const string & title):
 	AbstractSurfaceRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dSetRepresentation(interp->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__Grid2dSetRepresentation* grid2dSetRep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
 	
 	initMandatoryMetadata();
@@ -67,6 +67,14 @@ Grid2dSetRepresentation::Grid2dSetRepresentation(AbstractFeatureInterpretation* 
 	// epc document
 	if (interp->getEpcDocument())
 		interp->getEpcDocument()->addGsoapProxy(this);
+}
+
+void Grid2dSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index patch is not in the allowed range of patch.");
+
+	throw logic_error("Please use compute X and Y values with th elattice information.");
 }
 
 unsigned int Grid2dSetRepresentation::getNodeCountAlongIAxis(const unsigned int & patchIndex) const
@@ -113,7 +121,7 @@ void Grid2dSetRepresentation::getZValuesOfPatchInGlobalCrs(const unsigned int & 
 {
 	getZValuesOfPatch(patchIndex, values);
 
-	if (localCrs->getGsoapProxy()->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 	{
 		_resqml2__Grid2dSetRepresentation* rep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
 		unsigned int NodeCount = rep->Grid2dPatch[patchIndex]->FastestAxisCount * rep->Grid2dPatch[patchIndex]->SlowestAxisCount;
@@ -137,22 +145,26 @@ void Grid2dSetRepresentation::pushBackGeometryPatch(double * zValues,
 				const unsigned int & startIndexI, const unsigned int & startIndexJ,
 				const int & indexIncrementI, const int & indexIncrementJ)
 {
-	resqml2__Grid2dPatch* patch = soap_new_resqml2__Grid2dPatch(gsoapProxy->soap, 1);
-	patch->PatchIndex = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.size();
-	static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.push_back(patch);
+	if (updateXml)
+	{
+		resqml2__Grid2dPatch* patch = soap_new_resqml2__Grid2dPatch(gsoapProxy->soap, 1);
+		patch->PatchIndex = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.size();
+		static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.push_back(patch);
 
-	patch->SlowestAxisCount = numJ;
-	patch->FastestAxisCount = numI;
+		patch->SlowestAxisCount = numJ;
+		patch->FastestAxisCount = numI;
 
+		resqml2__PointGeometry* geomPatch = createArray2dOfExplicitZ(0,
+				zValues,
+				numI, numJ, proxy,
+				supportingGrid2dRepresentation,
+				startIndexI + startIndexJ * numI,
+				indexIncrementI, indexIncrementJ);
+		patch->Geometry = geomPatch;
+	}
+	
 	supportingRepresentationSet.push_back(supportingGrid2dRepresentation);
 	supportingGrid2dRepresentation->supportedRepresentationSet.push_back(this);
-	resqml2__PointGeometry* geomPatch = createArray2dOfExplicitZ(0,
-			zValues,
-			numI, numJ, proxy,
-			supportingGrid2dRepresentation,
-			startIndexI + startIndexJ * numI,
-			indexIncrementI, indexIncrementJ);
-	patch->Geometry = geomPatch;
 }
 
 std::string Grid2dSetRepresentation::getSupportingRepresentationUuid(const unsigned int & patchIndex) const
@@ -242,8 +254,12 @@ void Grid2dSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* 
 		if (supportingRepUuid.empty() == false)
 		{
 			Grid2dRepresentation* supportingGrid2dRepresentation = static_cast<Grid2dRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(supportingRepUuid));
-			supportingRepresentationSet.push_back(supportingGrid2dRepresentation);
-			supportingGrid2dRepresentation->supportedRepresentationSet.push_back(this);
+			if (supportingGrid2dRepresentation != nullptr)
+			{
+				updateXml = false;
+				pushBackGeometryPatch(nullptr, 0, 0, nullptr, supportingGrid2dRepresentation);
+				updateXml = true;
+			}
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -68,6 +68,18 @@ namespace resqml2_0_1
 		friend class Activity; // necessary cause of cyclic include if we try : friend class Activity::pushBackResqmlObjectParameter(const std::string title, AbstractObject* resqmlObject);
 
 		void initMandatoryMetadata();
+		
+		/**
+		* Resolve all relationships of the object in an epc document
+		*/
+		virtual void importRelationshipSetFromEpc(common::EpcDocument * epcDoc) = 0;
+		friend void common::EpcDocument::updateAllRelationships();
+
+		/**
+		* Return all relationships (backward and forward ones) of the instance using EPC format.
+		*/
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const = 0;
+		friend void common::EpcDocument::serialize(bool useZip64);
 
 	public:
 		virtual ~AbstractObject() {}
@@ -109,20 +121,20 @@ namespace resqml2_0_1
 				const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords);
 
 		/**
-		* Get the gsoap proxy which is wrapped by this entity
-		*/
-		gsoap_resqml2_0_1::eml__AbstractCitedDataObject* getGsoapProxy() {return gsoapProxy;}
-
-		/**
 		* Serialize the instance into a stream.
 		* @param stream	The stream must be opened for writing and won't be closed.
 		*/
 		void serializeIntoStream(std::ostream * stream);
 
 		/**
+		* Get the gsoap proxy which is wrapped by this entity
+		*/
+		gsoap_resqml2_0_1::eml__AbstractCitedDataObject* getGsoapProxy() const {return gsoapProxy;}
+
+		/**
 		* Get the Gsoap type of the wrapped element
 		*/
-		int getGsoapType() const {return gsoapProxy->soap_type();}
+		int getGsoapType() const {return getGsoapProxy()->soap_type();}
 
 		gsoap_resqml2_0_1::eml__DataObjectReference* newResqmlReference() const;
 
@@ -132,11 +144,6 @@ namespace resqml2_0_1
 		 * Return the EPC document which contains this gsoap wrapper.
 		 */
 		common::EpcDocument* getEpcDocument() const {return epcDocument;}
-
-		/**
-		* Resolve all relationships of the object in an epc document
-		*/
-		virtual void importRelationshipSetFromEpc(common::EpcDocument * epcDoc) = 0;
 
 		/**
 		* Get the XML namespace for the tags for the XML serialization of this instance
@@ -162,11 +169,6 @@ namespace resqml2_0_1
 		* Get part name of this XML top level instance in the EPC document
 		*/
 		std::string getPartNameInEpcDocument() const;
-
-		/**
-		* Return all relationships (backward and forward ones) of the instance using EPC format.
-		*/
-		virtual std::vector<epc::Relationship> getAllEpcRelationships() const = 0;
 
 		/**
 		* Serialize the gsoap proxy into a string

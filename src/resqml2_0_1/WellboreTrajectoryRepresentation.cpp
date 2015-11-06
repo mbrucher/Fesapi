@@ -58,7 +58,7 @@ const char* WellboreTrajectoryRepresentation::XML_TAG = "WellboreTrajectoryRepre
 WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, MdDatum * mdInfo) :
 	AbstractRepresentation(interp, mdInfo->getLocalCrs()), mdDatum(mdInfo), parentTraj(NULL), witsmlTrajectory(NULL)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	
 	setInterpretation(interp);
@@ -256,6 +256,23 @@ ULONG64 WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const unsigned
 
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->KnotCount;
+}
+
+void WellboreTrajectoryRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index patch is not in the allowed range of patch");
+
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
+	if (rep->Geometry != nullptr)
+	{
+		resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(paramLine->ControlPoints)->Coordinates->PathInHdfFile, xyzPoints);
+	}
+	else
+	{
+		throw invalid_argument("The wellbore trajectory has no geometry.");
+	}
 }
 
 void WellboreTrajectoryRepresentation::getMdValues(double * values)

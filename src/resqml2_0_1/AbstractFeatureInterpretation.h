@@ -97,6 +97,16 @@ namespace resqml2_0_1
 		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const;
 
 		/**
+		* Set the domain of the interpretation
+		*/
+		void setDomain(const gsoap_resqml2_0_1::resqml2__Domain & domain);
+
+		/**
+		* Set the domain of the interpretation
+		*/
+		gsoap_resqml2_0_1::resqml2__Domain getDomain() const;
+
+		/**
 		* Indicates that this interpretation is a frontier of a stack of an organization
 		* BE CAREFUL : Does not add back this instance to the organization. It is assumed it is already done.
 		*/		
@@ -104,15 +114,11 @@ namespace resqml2_0_1
 		void setTopFrontierOf(class StructuralOrganizationInterpretation* structOrg) {isTopFrontierSet.push_back(structOrg);}
 		void setSideFrontierOf(class StructuralOrganizationInterpretation* structOrg) {isSideFrontierSet.push_back(structOrg);}
 
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
+	protected:
 
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
 		
 		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-	protected:
 
 		// XML Forward relationship
 		class AbstractFeature *										interpretedFeature;

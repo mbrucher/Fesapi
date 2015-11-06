@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT RepresentationSetRepresentation : public AbstractRepresentation
 	{
 	protected:
-		RepresentationSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs) {}
+		RepresentationSetRepresentation(class AbstractFeatureInterpretation* interp): AbstractRepresentation(interp, NULL) {}
 
 	public:
 		/**
@@ -48,7 +48,7 @@ namespace resqml2_0_1
 		* @param horizon the feature the instance interprets.
 		* @param title A title for the instance to create.
 		*/
-		RepresentationSetRepresentation(class AbstractOrganizationInterpretation* interp, class AbstractLocal3dCrs * crs, const std::string & guid, const std::string & title);
+		RepresentationSetRepresentation(class AbstractOrganizationInterpretation* interp, const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -63,17 +63,24 @@ namespace resqml2_0_1
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
 		std::string getHdfProxyUuid() const {return "";}
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
+		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
+
 		unsigned int getPatchCount() const {return 0;}
 
     protected:
+
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		std::vector<AbstractRepresentation*> representationSet;
 
 		friend void AbstractRepresentation::pushBackIntoRepresentationSet(RepresentationSetRepresentation * repSet);

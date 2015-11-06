@@ -58,16 +58,6 @@ namespace resqml2_0_1
 		virtual ~AbstractProperty() {}
 
 		/**
-		 * Get all the relationships of the property in an EPC format/context.
-		 */
-		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		/**
-		 * Resolve all relationships in memory based on the XML relationships
-		 */
-		virtual void importRelationshipSetFromEpc(common::EpcDocument * epcDoc);
-
-		/**
 		* Get the unit of measure of the values of this property as a string.
 		*/
 		std::string getPropertyKindUomAsString() const;
@@ -192,6 +182,8 @@ namespace resqml2_0_1
 		void setHdfProxy(class AbstractHdfProxy * proxy);
 
 	protected:
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
+		virtual void importRelationshipSetFromEpc(common::EpcDocument * epcDoc);
 
 		class AbstractRepresentation *	representation;		/// The reresentation which contains this property.
 		class AbstractLocal3dCrs *		local3dCrs;			/// The used local 3D CRS in case the property values need one. 

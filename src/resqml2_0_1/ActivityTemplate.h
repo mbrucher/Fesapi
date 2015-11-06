@@ -109,10 +109,10 @@ namespace resqml2_0_1
 		static const char* XML_TAG;
 		std::string getXmlTag() const {return XML_TAG;}
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		void importRelationshipSetFromEpc(common::EpcDocument * epcDoc) {}
 
 	private:
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument * epcDoc) {}
 
 		gsoap_resqml2_0_1::resqml2__ParameterTemplate* getParameterFromTitle(const std::string & paramTitle) const;
 		

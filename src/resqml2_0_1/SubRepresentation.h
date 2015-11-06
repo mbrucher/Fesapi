@@ -161,21 +161,24 @@ namespace resqml2_0_1
 		void pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
 			const LONG64 & nullValue, AbstractHdfProxy * proxy);
 
-		/**
-		* Get all the relationships of this intance.
-		* Mainly used in EPC context.
-		*/
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
-
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+
+		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		unsigned int getPatchCount() const;
 
 	private:
+
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
+		
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
 		class AbstractRepresentation* supportingRepresentation;
 	};
 }

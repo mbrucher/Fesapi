@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractProperty.h"
+#include "resqml2_0_1/PropertyKindMapper.h"
 
 namespace resqml2_0_1
 {
@@ -121,19 +122,8 @@ namespace resqml2_0_1
 		*/
 		class PropertyKind* getParentLocalPropertyKind() const {return parentPropertyKind;}
 
-		//******************************************************************
-		//********** INHERITED FROM AbstractObjectWithDcMetadata ***********
-		//******************************************************************
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		/**
-		* Instantiate the link with the parent local property type.
-		*/
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		/**
 		* Add a representation values object which uses this property type.
@@ -142,6 +132,8 @@ namespace resqml2_0_1
 		void addProperty(class AbstractProperty* repVal) {propertySet.push_back(repVal);}
 
 	protected:
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 		
 		gsoap_resqml2_0_1::_resqml2__PropertyKind* getSpecializedGsoapProxy() const;
 
@@ -153,6 +145,7 @@ namespace resqml2_0_1
 		std::vector<PropertyKind*> childPropertyKind;
 
 		friend void AbstractProperty::setLocalPropertyKind(PropertyKind* propKind);
+		friend PropertyKind* PropertyKindMapper::addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName(const std::string & applicationPropertyKindName, const std::string & application);
 	};
 }
 

@@ -55,7 +55,7 @@ const char* PolylineRepresentation::XML_TAG = "PolylineRepresentation";
 void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy);
 
 	polylineRep->IsClosed = isClosed;
@@ -114,12 +114,24 @@ resqml2__PointGeometry* PolylineRepresentation::getPointGeometry(const unsigned 
 
 ULONG64 PolylineRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex == 0)
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->NodePatch->Count;
+}
+
+void PolylineRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
 	{
-		return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->NodePatch->Count;
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
 	}
 	else
-		return 0;
+		throw invalid_argument("The geometry of the representation either does not exist or it is not an explicit one.");
 }
 
 void PolylineRepresentation::setGeometry(double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy)
@@ -159,7 +171,7 @@ bool PolylineRepresentation::isASeismicLine() const
     vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
-        if (allValuesProperty[propIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
+        if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
         {
             atLeastOneContProp = true;
             break;
@@ -168,7 +180,7 @@ bool PolylineRepresentation::isASeismicLine() const
     if (!atLeastOneContProp)
         return false;
 
-	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLineFeature;
+	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLineFeature;
 }
 
 bool PolylineRepresentation::isAFaciesLine() const
@@ -179,7 +191,7 @@ bool PolylineRepresentation::isAFaciesLine() const
     vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
-        if (allValuesProperty[propIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
+        if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
         {
             atLeastOneCateProp = true;
             break;
@@ -188,7 +200,7 @@ bool PolylineRepresentation::isAFaciesLine() const
     if (!atLeastOneCateProp)
         return false;
 
-	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLineFeature;
+	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLineFeature;
 }
 
 vector<Relationship> PolylineRepresentation::getAllEpcRelationships() const

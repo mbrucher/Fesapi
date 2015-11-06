@@ -54,7 +54,7 @@ const char* PolylineSetRepresentation::XML_TAG = "PolylineSetRepresentation";
 void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 									 const std::string & guid, const std::string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(crs->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(crs->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__PolylineSetRepresentation* polylineSetRep = static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -269,6 +269,9 @@ void PolylineSetRepresentation::getNodeCountPerPolylineOfAllPatches(unsigned int
 
 ULONG64 PolylineSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
 	ULONG64 NodeCount = 0;
 
 	unsigned int polylineCount = getPolylineCountOfPatch(patchIndex);
@@ -282,6 +285,20 @@ ULONG64 PolylineSetRepresentation::getXyzPointCountOfPatch(const unsigned int & 
 
 	delete [] NodeCountPerPolyline;
 	return NodeCount;
+}
+
+void PolylineSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+	{
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
+	}
+	else
+		throw invalid_argument("The geometry of the representation either does not exist or it is not an explicit one.");
 }
 
 unsigned int PolylineSetRepresentation::getPatchCount() const

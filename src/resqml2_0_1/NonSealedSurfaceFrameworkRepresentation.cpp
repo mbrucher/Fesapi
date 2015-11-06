@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -52,17 +52,16 @@ const char* NonSealedSurfaceFrameworkRepresentation::XML_TAG = "NonSealedSurface
 
 NonSealedSurfaceFrameworkRepresentation::NonSealedSurfaceFrameworkRepresentation(
         StructuralOrganizationInterpretation* interp,
-		AbstractLocal3dCrs * crs,
         const std::string & guid, 
         const std::string & title,
         const bool & isSealed):
-	RepresentationSetRepresentation(interp, crs)
+	RepresentationSetRepresentation(interp)
 {
 	if (!interp)
 		throw invalid_argument("The structural organization interpretation cannot be null.");
 
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation(interp->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy);
     
 	orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);

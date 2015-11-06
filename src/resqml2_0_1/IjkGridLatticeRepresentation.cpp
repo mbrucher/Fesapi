@@ -71,7 +71,7 @@ bool IjkGridLatticeRepresentation::isASeismicCube() const
     vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
-        if (allValuesProperty[propIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
+        if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
         {
             atLeastOneContProp = true;
             break;
@@ -80,7 +80,7 @@ bool IjkGridLatticeRepresentation::isASeismicCube() const
     if (!atLeastOneContProp)
         return false;
 
-	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLatticeFeature;
+	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLatticeFeature;
 }
 
 bool IjkGridLatticeRepresentation::isAFaciesCube() const
@@ -91,7 +91,7 @@ bool IjkGridLatticeRepresentation::isAFaciesCube() const
     vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
-        if (allValuesProperty[propIndex]->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
+        if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
         {
             atLeastOneCateProp = true;
             break;
@@ -100,7 +100,7 @@ bool IjkGridLatticeRepresentation::isAFaciesCube() const
     if (!atLeastOneCateProp)
         return false;
 
-	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLatticeFeature;
+	return getInterpretation() && getInterpretation()->getInterpretedFeature()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORESeismicLatticeFeature;
 }
 
 string IjkGridLatticeRepresentation::getHdfProxyUuid() const
@@ -110,13 +110,23 @@ string IjkGridLatticeRepresentation::getHdfProxyUuid() const
 
 ULONG64 IjkGridLatticeRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex == 0)
+	if (patchIndex < getPatchCount())
 	{
 		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
 		return (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
 	}
 	else
-		return 0;
+		throw range_error("An ijk grid has a maximum of one patch.");
+}
+
+void IjkGridLatticeRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex < getPatchCount())
+	{
+		throw logic_error("Not yet implemented. Please use lattice information.");
+	}
+	else
+		throw range_error("An ijk grid has a maximum of one patch.");
 }
 
 resqml2__Point3dLatticeArray* IjkGridLatticeRepresentation::getArrayLatticeOfPoints3d() const
@@ -180,7 +190,7 @@ double IjkGridLatticeRepresentation::getZOrigin() const
 double IjkGridLatticeRepresentation::getZOriginInGlobalCrs() const
 {
 	double result = getZOrigin();
-	if (result != result || localCrs->getGsoapProxy()->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
+	if (result != result || localCrs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 		return result;
 
 	return result + localCrs->getOriginDepthOrElevation();

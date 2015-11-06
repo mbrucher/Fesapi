@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -47,7 +47,7 @@ PointSetRepresentation::PointSetRepresentation(AbstractFeatureInterpretation* in
 		const std::string & guid, const std::string & title):
 	AbstractRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPointSetRepresentation(interp->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPointSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__PointSetRepresentation* rep = static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -94,10 +94,24 @@ resqml2__PointGeometry* PointSetRepresentation::getPointGeometry(const unsigned 
 
 ULONG64 PointSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex < static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.size())
-		return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch[patchIndex]->Count;
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch[patchIndex]->Count;
+}
+
+void PointSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+	{
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
+	}
 	else
-		return 0;
+		throw invalid_argument("The geometry of the representation either does not exist or it is not an explicit one.");
 }
 
 unsigned int PointSetRepresentation::getPatchCount() const

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -112,6 +112,13 @@ namespace resqml2_0_1
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const {return getMdValuesCount();}
 
 		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
+
+		/**
 		* Get the Measured Depth datatype in the HDF dataset
 		*/
 		AbstractValuesProperty::hdfDatatypeEnum getMdHdfDatatype() const;
@@ -145,18 +152,14 @@ namespace resqml2_0_1
 		void setWitsmlLog(witsml1_4_1_1::Log * witsmlLogToSet);
 		witsml1_4_1_1::Log* getWitsmlLog() {return witsmlLog;}
 
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
-		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
+	protected:
 
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
 		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
-	protected:
 		class WellboreTrajectoryRepresentation * trajectory;
 		witsml1_4_1_1::Log * witsmlLog;
 	};

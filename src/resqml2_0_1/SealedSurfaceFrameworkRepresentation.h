@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -48,7 +48,6 @@ namespace resqml2_0_1
 		 * @param title     A title for the instance to create.
 		 */
 		SealedSurfaceFrameworkRepresentation(class StructuralOrganizationInterpretation* interp,
-								class AbstractLocal3dCrs * crs,
 								const std::string & guid,
 								const std::string & title);
 

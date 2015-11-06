@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -58,21 +58,16 @@ namespace resqml2_0_1
 		*/
 		~EpcExternalPartReference() {}
 
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
+	protected:
 
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		/**
 		* Does nothing since external reference has not forward relationships at all
 		*/
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
-
-	protected:
 
 		std::vector<class AbstractRepresentation*> representationSourceObject;					/// All the representations that use this external reference.
 		std::vector<class AbstractProperty*> propertySourceObject;								/// All the properties that use this external reference.

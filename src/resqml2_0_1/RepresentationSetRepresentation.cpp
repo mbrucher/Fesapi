@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -39,6 +39,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/AbstractOrganizationInterpretation.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace epc;
 using namespace resqml2_0_1;
@@ -46,11 +50,11 @@ using namespace gsoap_resqml2_0_1;
 
 const char* RepresentationSetRepresentation::XML_TAG = "RepresentationSetRepresentation";
 
-RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractOrganizationInterpretation* interp, AbstractLocal3dCrs * crs, const std::string & guid, const string & title):
-	AbstractRepresentation(interp, crs)
+RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractOrganizationInterpretation* interp, const std::string & guid, const string & title):
+	AbstractRepresentation(interp, nullptr)
 {
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__RepresentationSetRepresentation* orgRep = static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy);
     
     orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);
@@ -85,3 +89,10 @@ ULONG64 RepresentationSetRepresentation::getXyzPointCountOfPatch(const unsigned 
 	throw logic_error("Not yet implemented.");
 }
 
+void RepresentationSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index patch is not in the allowed range of patch.");
+
+	throw logic_error("Please use getXyzPointsOfPatch on each included representation.");
+}

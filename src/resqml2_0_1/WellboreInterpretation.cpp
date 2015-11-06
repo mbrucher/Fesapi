@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -42,7 +42,7 @@ const char* WellboreInterpretation::XML_TAG = "WellboreInterpretation";
 
 WellboreInterpretation::WellboreInterpretation(WellboreFeature * WellboreFeature, const string & guid, const string & title, bool isDrilled)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreInterpretation(WellboreFeature->getGsoapProxy()->soap, 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreInterpretation(WellboreFeature->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__WellboreInterpretation* wbInterp = static_cast<_resqml2__WellboreInterpretation*>(gsoapProxy);
 	wbInterp->Domain = resqml2__Domain__mixed;
 

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -85,6 +85,13 @@ namespace resqml2_0_1
 		* @param patchIndex	The index of the patch of the representation.
 		*/
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+
+		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
         /**
 		* Get the triangle count in a given patch

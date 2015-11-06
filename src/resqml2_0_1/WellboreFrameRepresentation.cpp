@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -56,7 +56,7 @@ const char* WellboreFrameRepresentation::XML_TAG = "WellboreFrameRepresentation"
 WellboreFrameRepresentation::WellboreFrameRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj) :
 	AbstractRepresentation(interp, traj->getLocalCrs()), trajectory(traj), witsmlLog(NULL)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(interp->getGsoapProxy()->soap, 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 
 	setInterpretation(interp);
@@ -69,6 +69,21 @@ WellboreFrameRepresentation::WellboreFrameRepresentation(WellboreInterpretation*
 
 	if (interp->getEpcDocument())
 		interp->getEpcDocument()->addGsoapProxy(this);
+}
+
+
+void WellboreFrameRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+	{
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
+	}
+	else
+		throw invalid_argument("The geometry of the representation either does not exist or it is not an explicit one.");
 }
 
 vector<Relationship> WellboreFrameRepresentation::getAllEpcRelationships() const
@@ -259,8 +274,8 @@ void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)
 	{
 		values[0] = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->StartValue;
 		resqml2__DoubleConstantArray* constantArray = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->Offset[0];
-		for (ULONG64 inc = 0; inc < constantArray->Count; ++inc)
-			values[inc+1] = values[inc] + constantArray->Value;
+		for (ULONG64 inc = 1; inc <= constantArray->Count; ++inc)
+			values[inc] = values[0] + (inc * constantArray->Value);
 	}
 	else
 		throw logic_error("The array structure of MD is not supported?");
@@ -280,8 +295,8 @@ void WellboreFrameRepresentation::getMdAsFloatValues(float *  values)
 	{
 		values[0] = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->StartValue;
 		resqml2__DoubleConstantArray* constantArray = static_cast<resqml2__DoubleLatticeArray*>(frame->NodeMd)->Offset[0];
-		for (ULONG64 inc = 0; inc < constantArray->Count; ++inc)
-			values[inc+1] = values[inc] + constantArray->Value;
+		for (ULONG64 inc = 1; inc <= constantArray->Count; ++inc)
+			values[inc] = values[0] + (inc * constantArray->Value);
 	}
 	else
 		throw logic_error("The array structure of MD is not supported?");

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -185,6 +185,8 @@ resqml2__Regrid* AbstractGridRepresentation::createRegrid(const unsigned int & i
 			numValues += childCellCountPerInterval[i];
 		hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy->uuid, "ParentWindow_" + dimension + "Regrid_ChildCellWeights", childCellWeights, &numValues, 1);
 	}
+
+	return regrid;
 }
 
 void AbstractGridRepresentation::setParentWindow(ULONG64 * cellIndices, const ULONG64 & cellIndexCount, UnstructuredGridRepresentation* parentGrid)
@@ -286,11 +288,24 @@ void AbstractGridRepresentation::setParentWindow(
 	
 	// Regrids
 	ijkpw->IRegrid = createRegrid(iCellIndexRegridStart, childCellCountPerIInterval, parentCellCountPerIInterval, iIntervalCount, iChildCellWeights, "I");
-	ijkpw->KRegrid = createRegrid(jCellIndexRegridStart, childCellCountPerJInterval, parentCellCountPerJInterval, jIntervalCount, jChildCellWeights, "J");
+	ijkpw->JRegrid = createRegrid(jCellIndexRegridStart, childCellCountPerJInterval, parentCellCountPerJInterval, jIntervalCount, jChildCellWeights, "J");
 	ijkpw->KRegrid = createRegrid(kCellIndexRegridStart, childCellCountPerKInterval, parentCellCountPerKInterval, kIntervalCount, kChildCellWeights, "K");
 
 	// LGR backward relationships
 	parentGrid->childGridSet.push_back(this);
+}
+
+void AbstractGridRepresentation::setParentWindow(
+	const unsigned int & iCellIndexRegridStart, unsigned int iChildCellCount, unsigned int iParentCellCount,
+	const unsigned int & jCellIndexRegridStart, unsigned int jChildCellCount, unsigned int jParentCellCount,
+	const unsigned int & kCellIndexRegridStart, unsigned int kChildCellCount, unsigned int kParentCellCount,
+	AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights, double * jChildCellWeights, double * kChildCellWeights)
+{
+	setParentWindow(
+		iCellIndexRegridStart, &iChildCellCount, &iParentCellCount, 1,
+		jCellIndexRegridStart, &jChildCellCount, &jParentCellCount, 1,
+		kCellIndexRegridStart, &kChildCellCount, &kParentCellCount, 1,
+		parentGrid, iChildCellWeights, jChildCellWeights, kChildCellWeights);
 }
 
 void AbstractGridRepresentation::setForcedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount)

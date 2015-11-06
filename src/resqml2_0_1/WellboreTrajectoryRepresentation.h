@@ -66,16 +66,8 @@ namespace resqml2_0_1
 
 		~WellboreTrajectoryRepresentation() {}
 
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		/*
 		*  Set the geometry of the representation by means of one natural cubic parametric line.
@@ -115,6 +107,13 @@ namespace resqml2_0_1
 		* Get the xyz point count in a given patch.
 		*/
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+
+		/**
+		* Get all the XYZ points of a particular patch of this representation.
+		* XYZ points are given in the local CRS.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		*/
+		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		/**
 		* Getter of the md double values associated to each trajectory station of this WellboreFeature trajectory representation.
@@ -173,6 +172,9 @@ namespace resqml2_0_1
 		void addChildrenTrajectory(WellboreTrajectoryRepresentation* childrenTraj) {childrenTrajSet.push_back(childrenTraj);}
 
 	protected:
+
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		// XML forward relationships
 		class MdDatum * mdDatum;

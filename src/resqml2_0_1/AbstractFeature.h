@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -59,11 +59,6 @@ namespace resqml2_0_1
 		virtual ~AbstractFeature() {}
 
 		/**
-		* Add an interpretation to this feature. Does not set the inverse relationhsip i.e. from the interpretation to the feature
-		*/
-		void addInterpretation(class AbstractFeatureInterpretation* interp) {interpretationSet.push_back(interp);}
-
-		/**
 		* Get all the interpretations of this feature
 		*/
 		std::vector<AbstractFeatureInterpretation*> 	getInterpretationSet() const {return interpretationSet;}
@@ -78,18 +73,14 @@ namespace resqml2_0_1
 		 */
 		AbstractFeatureInterpretation*				getInterpretation(const unsigned int & index) const {if (interpretationSet.size() > index) return interpretationSet[index]; else return NULL;}
 
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
+	protected:
 
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
-
 		/**
 		* Does nothing since feature has not forward relationships at all
 		*/
 		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
 
-	protected:
 		std::vector<AbstractFeatureInterpretation*> interpretationSet; /// All the interpretations of the feature
 
 		friend void AbstractFeatureInterpretation::setInterpretedFeature(AbstractFeature * feature);

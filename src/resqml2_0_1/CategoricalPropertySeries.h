@@ -89,6 +89,7 @@ namespace resqml2_0_1
 
 		std::string getResqmlVersion() const {return "2.0.1";}
 
+	protected:
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 	};
 }

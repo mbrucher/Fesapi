@@ -383,10 +383,21 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 
 ULONG64 SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
 	if (getElementKindOfPatch(patchIndex, 0) == resqml2__IndexableElements__nodes)
 		return getElementCountOfPatch(patchIndex);
 	else
 		throw logic_error("Not yet implemented.");
+}
+
+void SubRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
+{
+	if (patchIndex >= getPatchCount())
+		throw range_error("The index of the patch is not in the allowed range of patch.");
+
+	throw logic_error("Not yet implemented.");
 }
 
 unsigned int SubRepresentation::getPatchCount() const

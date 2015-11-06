@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -55,14 +55,6 @@ namespace resqml2_0_1
 		* Destructor does nothing since the memory is manged by the gsoap context.
 		*/
 		~AbstractLocal3dCrs() {}
-
-		//******************************************************************
-		//********** INHERITED FROM AbstractObjectWithDcMetadata ***********
-		//******************************************************************
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
 
 		/**
 		* Add a geometrical representation which is based on this local CRS
@@ -170,6 +162,9 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::eml__AxisOrder2d getAxisOrder() const;
 
 	protected:
+		
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
 
 		// XML backward relationship
 		std::vector<class AbstractRepresentation*> repSet;

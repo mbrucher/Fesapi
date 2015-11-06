@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -99,18 +99,15 @@ namespace resqml2_0_1
 		*/
 		void setBoundaryFeatureInterpretation(class BoundaryFeatureInterpretation* interp);
 
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
-
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const {std::vector<epc::Relationship> result; return result;}
-
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
 	private:
+
+		// No need these two inherited methods since WellboreMarker is not an EPC top level element.
+		std::vector<epc::Relationship> getAllEpcRelationships() const {std::vector<epc::Relationship> result; return result;}
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {};
+
 		class BoundaryFeatureInterpretation* boundaryFeatureInterpretation;
 		class WellboreMarkerFrameRepresentation* wellboreMarkerFrameRepresentation;
 	};

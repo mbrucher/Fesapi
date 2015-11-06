@@ -74,7 +74,7 @@ namespace resqml2_0_1
 
 	public:
 
-		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3 }; // UNKNOWN exists in case of partial transfer
+		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3, NO_GEOMETRY = 4}; // UNKNOWN exists in case of partial transfer
 
 		/**
 		* Only to be used in partial transfer context
@@ -255,6 +255,7 @@ namespace resqml2_0_1
 		virtual geometryKind getGeometryKind() const { return UNKNOWN; }
 		virtual std::string getHdfProxyUuid() const { throw std::logic_error("Partial object"); }
 		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const { throw std::logic_error("Partial object"); }
+		virtual void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const { throw std::logic_error("Partial object"); }
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

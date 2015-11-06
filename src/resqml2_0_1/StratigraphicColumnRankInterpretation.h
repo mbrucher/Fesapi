@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -135,15 +135,14 @@ namespace resqml2_0_1
 		* Get all the horizon interpretations contained in this StratigraphicColumnRankInterpretation.
 		*/
         std::vector<class HorizonInterpretation*> getHorizonInterpretationSet() const {return horizonInterpretationSet;}
-
-        std::vector<epc::Relationship> getAllEpcRelationships() const;
-		
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
                 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 	private:
+
+        std::vector<epc::Relationship> getAllEpcRelationships() const;	
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
         // forward relationships
         std::vector<class StratigraphicUnitInterpretation*> stratigraphicUnitSet;

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014) 
+Copyright F2I-CONSULTING, (2014-2015) 
 
 philippe.verney@f2i-consulting.com
 
@@ -48,7 +48,6 @@ namespace resqml2_0_1
 		* @param isSealed	Indicates if this representaiton is sealed or not.
 		*/
 		NonSealedSurfaceFrameworkRepresentation(class StructuralOrganizationInterpretation* interp,
-						AbstractLocal3dCrs * crs,
                         const std::string & guid, 
                         const std::string & title,
                         const bool & isSealed);
@@ -87,11 +86,12 @@ namespace resqml2_0_1
         static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-
 		virtual std::string getHdfProxyUuid() const;
 
     private:
+
+		std::vector<epc::Relationship> getAllEpcRelationships() const;
+
         std::vector<class AbstractRepresentation*> supportingRepOfContactPatchSet;
             
 	};

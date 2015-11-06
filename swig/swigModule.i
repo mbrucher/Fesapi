@@ -310,18 +310,18 @@ namespace common
 		resqml2_0_1::WellboreMarkerFrameRepresentation* createWellboreMarkerFrameRepresentation(resqml2_0_1::StratigraphicOccurrenceInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);
 			
 		resqml2_0_1::RepresentationSetRepresentation* createRepresentationSetRepresentation(
-                	resqml2_0_1::AbstractOrganizationInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+                	resqml2_0_1::AbstractOrganizationInterpretation* interp,
 	                const std::string & guid,
         	        const std::string & title);
                 
 		resqml2_0_1::NonSealedSurfaceFrameworkRepresentation* createNonSealedSurfaceFrameworkRepresentation(
-	    	        resqml2_0_1::StructuralOrganizationInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+	    	        resqml2_0_1::StructuralOrganizationInterpretation* interp,
 					const std::string & guid, 
 					const std::string & title,
 	    	        const bool & isSealed);
 
 		resqml2_0_1::SealedSurfaceFrameworkRepresentation* createSealedSurfaceFrameworkRepresentation(
-		        resqml2_0_1::StructuralOrganizationInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+		        resqml2_0_1::StructuralOrganizationInterpretation* interp,
 		        const std::string & guid,
 		        const std::string & title);
     	        
