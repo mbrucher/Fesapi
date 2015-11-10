@@ -153,11 +153,13 @@ double IjkGridLatticeRepresentation::getXOrigin() const
 
 double IjkGridLatticeRepresentation::getXOriginInGlobalCrs() const
 {
-	double result = getXOrigin();
-	if (result != result)
-		return result;
+	double result[] = {getXOrigin(), getYOrigin(), .0};
+	if (result[0] != result[0])
+		return result[0];
 
-	return result + localCrs->getOriginOrdinal1(); // TODO rotation
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[0];
 }
 
 double IjkGridLatticeRepresentation::getYOrigin() const
@@ -171,11 +173,13 @@ double IjkGridLatticeRepresentation::getYOrigin() const
 
 double IjkGridLatticeRepresentation::getYOriginInGlobalCrs() const
 {
-	double result = getYOrigin();
-	if (result != result)
-		return result;
+	double result[] = {getXOrigin(), getYOrigin(), .0};
+	if (result[0] != result[0])
+		return result[0];
 
-	return result + localCrs->getOriginOrdinal2(); // TODO rotation
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[1];
 }
 
 double IjkGridLatticeRepresentation::getZOrigin() const

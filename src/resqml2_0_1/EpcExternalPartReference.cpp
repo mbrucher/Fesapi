@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "GuidTools.h"
+#include "tools/GuidTools.h"
 
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/AbstractProperty.h"

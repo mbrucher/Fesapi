@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "GuidTools.h"
+#include "tools/GuidTools.h"
 #include "witsml1_4_1_1/Well.h"
 #include "witsml1_4_1_1/CoordinateReferenceSystem.h"
 

@@ -43,7 +43,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "GuidTools.h"
+#include "tools/GuidTools.h"
 #include "resqml2_0_1/WellboreMarker.h"
 #include "resqml2_0_1/StratigraphicColumnRankInterpretation.h"
 #include "resqml2_0_1/StratigraphicOccurrenceInterpretation.h"

@@ -47,6 +47,8 @@ namespace resqml2_0_1
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const bool & isUpOriented);
 
+		double getZOffset() const {return .0;}
+
 	public:
 		/**
 		* Creates a local depth 3d CRS which is fully identified by means of EPSG code.

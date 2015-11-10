@@ -38,6 +38,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/MdDatum.h"
 #include "resqml2_0_1/AbstractRepresentation.h"
 
+#include "tools/Trigonometry.h"
+
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -86,6 +88,11 @@ double AbstractLocal3dCrs::getOriginDepthOrElevation() const
 double AbstractLocal3dCrs::getArealRotation() const
 {
 	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ArealRotation->__item;
+}
+
+gsoap_resqml2_0_1::eml__PlaneAngleUom AbstractLocal3dCrs::getArealRotationUom() const
+{
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ArealRotation->uom;
 }
 
 bool AbstractLocal3dCrs::isDepthOriented() const
@@ -168,4 +175,33 @@ string AbstractLocal3dCrs::getVerticalCrsUnitAsString() const
 eml__AxisOrder2d AbstractLocal3dCrs::getAxisOrder() const
 {
 	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedAxisOrder;
+}
+
+void AbstractLocal3dCrs::convertXyzPointsToGlobalCrs(double * xyzPoints, const ULONG64 & xyzPointCount) const
+{
+	ULONG64 coordinateCount = xyzPointCount * 3;
+
+	if (getArealRotation() != .0)
+	{
+		pair<double,double> xRotatedUnitVector = trigonometry::rotateXY(1.0, .0, -getArealRotation(), getArealRotationUom());
+		pair<double,double> yRotatedUnitVector = trigonometry::rotateXY(.0, 1.0, -getArealRotation(), getArealRotationUom());
+		for (ULONG64 i = 0; i < coordinateCount; i+=3)
+		{
+			xyzPoints[i] = xRotatedUnitVector.first * xyzPoints[i] + yRotatedUnitVector.first * xyzPoints[i];
+			xyzPoints[i+1] = xRotatedUnitVector.second * xyzPoints[i+1] + yRotatedUnitVector.second * xyzPoints[i+1];
+		}
+	}
+
+	double originOrdinal1 = getOriginOrdinal1();
+	double originOrdinal2 = getOriginOrdinal2();
+	double originOrdinal3 = getZOffset();
+	if (originOrdinal1 == .0 && originOrdinal2 == .0 && originOrdinal3 == .0)
+		return;
+
+	for (ULONG64 i = 0; i < coordinateCount; i+=3 )
+	{
+		xyzPoints[i] += originOrdinal1;
+		xyzPoints[i+1] += originOrdinal2;
+		xyzPoints[i+2] += originOrdinal3;
+	}
 }

@@ -366,23 +366,7 @@ void AbstractRepresentation::getXyzPointsOfPatchInGlobalCrs(const unsigned int &
 {
 	getXyzPointsOfPatch(patchIndex, xyzPoints);
 
-	double originOrdinal1 = localCrs->getOriginOrdinal1();
-	double originOrdinal2 = localCrs->getOriginOrdinal2();
-	double originOrdinal3 = .0;
-	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-		originOrdinal3 = localCrs->getOriginDepthOrElevation();
-	double arealRotation = -localCrs->getArealRotation();
-
-	if (originOrdinal1 == .0 && originOrdinal2 == .0 && originOrdinal3 == .0 && arealRotation == .0)
-		return;
-
-	unsigned int coordinatePointCount = getXyzPointCountOfPatch(patchIndex) * 3;
-	for (unsigned int i = 0; i < coordinatePointCount; i+=3 )
-	{
-		xyzPoints[i] += originOrdinal1;
-		xyzPoints[i+1] += originOrdinal2;
-		xyzPoints[i+2] += originOrdinal3;
-	}
+	localCrs->convertXyzPointsToGlobalCrs(xyzPoints, getXyzPointCountOfPatch(patchIndex));
 }
 
 void AbstractRepresentation::getXyzPointsOfAllPatches(double * xyzPoints) const
@@ -399,24 +383,8 @@ void AbstractRepresentation::getXyzPointsOfAllPatches(double * xyzPoints) const
 void AbstractRepresentation::getXyzPointsOfAllPatchesInGlobalCrs(double * xyzPoints) const
 {
 	getXyzPointsOfAllPatches(xyzPoints);
-
-	double originOrdinal1 = localCrs->getOriginOrdinal1();
-	double originOrdinal2 = localCrs->getOriginOrdinal2();
-	double originOrdinal3 = .0;
-	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-		originOrdinal3 = localCrs->getOriginDepthOrElevation();
-	double arealRotation = -localCrs->getArealRotation();
-
-	if (originOrdinal1 == .0 && originOrdinal2 == .0 && originOrdinal3 == .0 && arealRotation == .0)
-		return;
-
-	unsigned int coordinatePointCount = getXyzPointCountOfAllPatches() * 3;
-	for (unsigned int i = 0; i < coordinatePointCount; i+=3 )
-	{
-		xyzPoints[i] += originOrdinal1;
-		xyzPoints[i+1] += originOrdinal2;
-		xyzPoints[i+2] += originOrdinal3;
-	}
+	
+	localCrs->convertXyzPointsToGlobalCrs(xyzPoints, getXyzPointCountOfAllPatches());
 }
 
 resqml2__PointGeometry* AbstractRepresentation::createPointGeometryPatch(const unsigned int & patchIndex,

@@ -110,9 +110,14 @@ double MdDatum::getX() const
 }
 
 double MdDatum::getXInGlobalCrs() const
-{
-	double originOrdinal1 = localCrs->getOriginOrdinal1();
-	return getX() + originOrdinal1; // TODO : Rotation!!
+{	
+	double result[] = {getX(), getY(), .0};
+	if (result[0] != result[0])
+		return result[0];
+
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[0];
 }
 
 double MdDatum::getY() const
@@ -122,8 +127,13 @@ double MdDatum::getY() const
 
 double MdDatum::getYInGlobalCrs() const
 {
-	double originOrdinal2 = localCrs->getOriginOrdinal2();
-	return getY() + originOrdinal2; // TODO : Rotation!!
+	double result[] = {getX(), getY(), .0};
+	if (result[0] != result[0])
+		return result[0];
+
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[1];
 }
 
 double MdDatum::getZ() const

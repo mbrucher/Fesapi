@@ -227,20 +227,24 @@ double Grid2dRepresentation::getYOrigin() const
 
 double Grid2dRepresentation::getXOriginInGlobalCrs() const
 {
-	double result = getXOrigin();
-	if (result != result)
-		return result;
+	double result[] = {getXOrigin(), getYOrigin(), .0};
+	if (result[0] != result[0])
+		return result[0];
 
-	return result + localCrs->getOriginOrdinal1(); // TODO rotation
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[0];
 }
 
 double Grid2dRepresentation::getYOriginInGlobalCrs() const
 {
-	double result = getYOrigin();
-	if (result != result)
-		return result;
+	double result[] = {getXOrigin(), getYOrigin(), .0};
+	if (result[1] != result[1])
+		return result[1];
 
-	return result + localCrs->getOriginOrdinal2(); // TODO rotation
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[1];
 }
 
 double Grid2dRepresentation::getXJOffset() const
@@ -280,17 +284,25 @@ double Grid2dRepresentation::getYJOffset() const
 // TODO rotation
 double Grid2dRepresentation::getXJOffsetInGlobalCrs() const
 {
-	double result = getXJOffset();
+	double result[] = {getXJOffset(), getYJOffset(), .0};
+	if (result[0] != result[0])
+		return result[0];
 
-	return result;
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[0];
 }
 
 // TODO rotation
 double Grid2dRepresentation::getYJOffsetInGlobalCrs() const
 {
-	double result = getYJOffset();
+	double result[] = {getXJOffset(), getYJOffset(), .0};
+	if (result[1] != result[1])
+		return result[1];
 
-	return result;
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[1];
 }
 
 double Grid2dRepresentation::getXIOffset() const
@@ -326,17 +338,25 @@ double Grid2dRepresentation::getYIOffset() const
 // TODO rotation
 double Grid2dRepresentation::getXIOffsetInGlobalCrs() const
 {
-	double result = getXIOffset();
+	double result[] = {getXIOffset(), getYIOffset(), .0};
+	if (result[0] != result[0])
+		return result[0];
 
-	return result;
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[0];
 }
 
 // TODO rotation
 double Grid2dRepresentation::getYIOffsetInGlobalCrs() const
 {
-	double result = getYIOffset();
+	double result[] = {getXIOffset(), getYIOffset(), .0};
+	if (result[1] != result[1])
+		return result[1];
 
-	return result;
+	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+
+	return result[1];
 }
 
 

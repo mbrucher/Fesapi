@@ -49,6 +49,12 @@ namespace resqml2_0_1
 		AbstractLocal3dCrs(gsoap_resqml2_0_1::resqml2__AbstractLocal3dCrs* fromGsoap):
 			AbstractResqmlDataObject(fromGsoap)/*, global2dCrs(NULL), global1dCrs(NULL), globalTimeCrs(NULL)*/ {}
 
+		/**
+		* Get the Z offset which is always equal to zero for a time CRS.
+		* Don't mix zOffset vs depthOffset : the schema calls zOffset what is actually a depthOrElevationOffset.
+		*/
+		virtual double getZOffset() const = 0;
+
 	public:
 
 		/**
@@ -90,6 +96,13 @@ namespace resqml2_0_1
 		* A negative value indicates a counterclockwise rotation form the global axis.
 		*/
 		double getArealRotation() const;
+
+		/**
+		* Get the rotation in radians of the the local Y axis relative to the global projected axis which is 90 degrees counter-clockwise from the other global axis.
+		* A positive value indicates a clockwise rotation from the global axis.
+		* A negative value indicates a counterclockwise rotation form the global axis.
+		*/
+		gsoap_resqml2_0_1::eml__PlaneAngleUom getArealRotationUom() const;
 
 		/**
 		* Indicates if the depth or elevation values given in this local CRS are depth ones or elevation ones.
@@ -160,6 +173,8 @@ namespace resqml2_0_1
 		 * Get the axis order of the projected Crs
 		 */
 		gsoap_resqml2_0_1::eml__AxisOrder2d getAxisOrder() const;
+
+		void convertXyzPointsToGlobalCrs(double * xyzPoints, const ULONG64 & xyzPointCount) const;
 
 	protected:
 		

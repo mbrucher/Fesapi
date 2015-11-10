@@ -37,7 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <string>
 #include <sstream>
 
-#include "GuidTools.h"
+#include "tools/GuidTools.h"
 
 #if defined(__gnu_linux__) || defined(__APPLE__)
 #include <unistd.h>
