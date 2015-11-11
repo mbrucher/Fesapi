@@ -311,6 +311,7 @@ namespace resqml2_0_1
 		double getMaximumValue();
 
 	private:
+
 		/**
 		* Compute and set the minimum and maximum value in \p values. 
 		* @param values				The array of values.

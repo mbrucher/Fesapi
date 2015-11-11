@@ -151,20 +151,6 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 	}
 }
 
-std::string AbstractProperty::getPropertyKindUomAsString() const
-{
-	if (isAssociatedToOneStandardEnergisticsPropertyKind() == false)
-	{
-		return getLocalPropertyKind()->getUomAsString();
-	}
-	else if(epcDocument->getPropertyKindMapper() != NULL)
-	{
-		return epcDocument->getPropertyKindMapper()->getUomOfResqmlStandardPropertyKindName(getEnergisticsPropertyKind());
-	}
-	else
-		throw std::invalid_argument("You must load the property kind mapping files if you want to get the uom.");
-}
-
 gsoap_resqml2_0_1::resqml2__IndexableElements AbstractProperty::getAttachmentKind() const
 {
 	return static_cast<resqml2__AbstractProperty*>(gsoapProxy)->IndexableElement;

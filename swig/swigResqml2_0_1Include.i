@@ -1223,7 +1223,6 @@ namespace resqml2_0_1
 		std::string getHdfProxyUuid() const;
 		AbstractHdfProxy* getHdfProxy();
 		
-		std::string getPropertyKindUomAsString() const;	
 		std::string getPropertyKindDescription() const;
 		std::string getPropertyKindAsString() const;
 		std::string getPropertyKindParentAsString() const;
@@ -1441,7 +1440,6 @@ namespace resqml2_0_1
 		PropertyKindMapper(common::EpcDocument * epcDoc);
 
 		std::string loadMappingFilesFromDirectory(const std::string & directory);
-		std::string getUomOfResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const;
 		std::string getApplicationPropertyKindNameFromResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName, const std::string & application) const;
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getResqmlStandardPropertyKindNameFromApplicationPropertyKindName(const std::string & applicationPropertyKindName, const std::string & application) const;
 		std::string getApplicationPropertyKindNameFromResqmlLocalPropertyKindUuid(const std::string & resqmlLocalPropertyKindUuid, const std::string & application) const;

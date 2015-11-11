@@ -59,11 +59,6 @@ namespace resqml2_0_1
 		std::string loadMappingFilesFromDirectory(const std::string & directory);
 
 		/**
-		* @return empty string if not found
-		*/
-		std::string getUomOfResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const;
-
-		/**
 		 * Get the name of a resqml standard property kind into a particular application.
 		 *
 		 * @param  	resqmlStandardPropertyKindName	The enumerated resqml standard property kind name

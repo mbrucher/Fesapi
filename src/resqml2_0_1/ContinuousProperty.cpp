@@ -400,14 +400,14 @@ void ContinuousProperty::getFloatValuesOf3dPatch(
 
 double ContinuousProperty::getMinimumValue()
 {
-		_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
 
-		return prop->MinimumValue[0];
+	return prop->MinimumValue[0];
 }
 
 double ContinuousProperty::getMaximumValue()
 {
-		_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
 
-		return prop->MaximumValue[0];
+	return prop->MaximumValue[0];
 }

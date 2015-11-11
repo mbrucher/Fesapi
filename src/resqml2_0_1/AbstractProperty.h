@@ -58,11 +58,6 @@ namespace resqml2_0_1
 		virtual ~AbstractProperty() {}
 
 		/**
-		* Get the unit of measure of the values of this property as a string.
-		*/
-		std::string getPropertyKindUomAsString() const;
-
-		/**
 		 * Get the title of the property kind of this property
 		 */
 		std::string getPropertyKindDescription() const;

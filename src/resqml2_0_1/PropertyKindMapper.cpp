@@ -164,25 +164,6 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 #endif
 }
 
-std::string PropertyKindMapper::getUomOfResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const
-{
-#if (defined(_WIN32) && _MSC_VER >= 1600)
-	std::unordered_map<gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind, gsoap_resqml2_0_1::ptm__standardEnergisticsPropertyType*>::const_iterator cit = resqmlStandardPropertyKindNameToApplicationPropertyKindName.find (resqmlStandardPropertyKindName);
-#elif defined(__APPLE__)
-	std::unordered_map<gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind, gsoap_resqml2_0_1::ptm__standardEnergisticsPropertyType*, std::hash<int> >::const_iterator cit = resqmlStandardPropertyKindNameToApplicationPropertyKindName.find (resqmlStandardPropertyKindName);
-#else
-	std::tr1::unordered_map<gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind, gsoap_resqml2_0_1::ptm__standardEnergisticsPropertyType*, std::tr1::hash<int> >::const_iterator cit = resqmlStandardPropertyKindNameToApplicationPropertyKindName.find (resqmlStandardPropertyKindName);
-#endif
-
-	if (cit != resqmlStandardPropertyKindNameToApplicationPropertyKindName.end())
-	{
-		if (cit->second->unitOfMeasure)
-			return *(cit->second->unitOfMeasure);
-	}
-
-	return "";
-}
-
 std::string PropertyKindMapper::getDescriptionOfResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const
 {
 #if (defined(_WIN32) && _MSC_VER >= 1600)

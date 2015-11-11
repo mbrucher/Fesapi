@@ -5,31 +5,23 @@
 		<description>The amount of energy absorbed per mass.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Gy</unitOfMeasure>
-		<dimensionalClass>L2/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>acceleration linear</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m/s2</unitOfMeasure>
-		<dimensionalClass>L/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>activity (of radioactivity)</name>
 		<description>A measure of the radiation being emitted.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Bq</unitOfMeasure>
-		<dimensionalClass>1/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>amount of substance</name>
 		<description>Molar amount of a substance.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>mol</unitOfMeasure>
-		<dimensionalClass>N</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Amount of substance</name>
 			<namingSystem>Petrel</namingSystem>
@@ -40,44 +32,32 @@
 		<description>Amplitude of the acoustic signal recorded. It is not a physical property, only a standardEnergisticsPropertyType.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>unitless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>0</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>angle per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>rad/m</unitOfMeasure>
-		<dimensionalClass>A/L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>angle per time</name>
 		<description>The angular velocity. The rate of change of an angle.</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>rad/s</unitOfMeasure>
-		<dimensionalClass>A/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>angle per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>rad/m3</unitOfMeasure>
-		<dimensionalClass>A/L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>angular acceleration</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>rad/s2</unitOfMeasure>
-		<dimensionalClass>A/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>area</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2</unitOfMeasure>
-		<dimensionalClass>L2</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Area</name>
 			<namingSystem>Petrel</namingSystem>
@@ -88,38 +68,28 @@
 		<description>A dimensionless quantity where the basis of the ratio is area.</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L2)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>area per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/m</unitOfMeasure>
-		<dimensionalClass>1/L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>attenuation</name>
 		<description>A logarithmic, fractional change of some measure, generally power or amplitude, over a standard range. This is generally used for frequency attenuation over an octave.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>B/O</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>attenuation per length</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>B/m</unitOfMeasure>
-		<dimensionalClass>1/L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>azimuth</name>
 		<description>Angle between the North and the projection of the normal to the horizon surface estimated on a local area of the interface.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>plane angle</parentKind>
-		<unitOfMeasure>rad</unitOfMeasure>
-		<dimensionalClass>A</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Dip azimuth</name>
 			<namingSystem>Petrel</namingSystem>
@@ -130,16 +100,12 @@
 		<description>The pressure at which the first gas bubble appears while decreasing pressure on a fluid sample.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>pressure</parentKind>
-		<unitOfMeasure>Pa</unitOfMeasure>
-		<dimensionalClass>M/LT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>bulk modulus</name>
 		<description>Bulk modulus, K</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>pressure</parentKind>
-		<unitOfMeasure>Pa</unitOfMeasure>
-		<dimensionalClass>M/LT2</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Bulk modulus</name>
 			<namingSystem>Petrel</namingSystem>
@@ -149,8 +115,6 @@
 		<name>capacitance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>F</unitOfMeasure>
-		<dimensionalClass>C2T4/L2M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>categorical</name>
@@ -163,22 +127,16 @@
 		<description>distance from cell face center to cell face center in the specified direction, DI, DJ, DK</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>length</parentKind>
-		<unitOfMeasure>m</unitOfMeasure>
-		<dimensionalClass>L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>charge density</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>C/m3</unitOfMeasure>
-		<dimensionalClass>CT/L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>chemical potential</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J/mol</unitOfMeasure>
-		<dimensionalClass>L2M/NT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>code</name>
@@ -190,23 +148,17 @@
 		<name>compressibility</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/Pa</unitOfMeasure>
-		<dimensionalClass>LT2/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>concentration of B</name>
 		<description>molar concentration of a substance.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>mol/m3</unitOfMeasure>
-		<dimensionalClass>N/L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>conductivity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>S/m</unitOfMeasure>
-		<dimensionalClass>C2T3/L3M</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Conductivity</name>
 			<namingSystem>Petrel</namingSystem>
@@ -222,38 +174,28 @@
 		<name>cross section absorption</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/mol</unitOfMeasure>
-		<dimensionalClass>L2/N</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>current density</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>A/m2</unitOfMeasure>
-		<dimensionalClass>C/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>Darcy flow coefficient</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa/m3</unitOfMeasure>
-		<dimensionalClass>M/L4T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>data transmission speed</name>
 		<description>used primarily for computer transmission rates.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>bps</unitOfMeasure>
-		<dimensionalClass>1/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>delta temperature</name>
 		<description>Delta temperature refers to temperature differences. For non-zero offset temperature scales, Fahrenheit and Celsius, the conversion formulas are different than for absolute temperatures.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>K</unitOfMeasure>
-		<dimensionalClass>K</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Differential temperature</name>
 			<namingSystem>Petrel</namingSystem>
@@ -263,8 +205,6 @@
 		<name>density</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg/m3</unitOfMeasure>
-		<dimensionalClass>M/L3</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Density</name>
 			<namingSystem>Petrel</namingSystem>
@@ -275,8 +215,6 @@
 		<description>The perpendicular measurement downward from a surface. Also, the direct linear measurement from the point of viewing usually from front to back.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>length</parentKind>
-		<unitOfMeasure>m</unitOfMeasure>
-		<dimensionalClass>L</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Elevation depth</name>
 			<namingSystem>Petrel</namingSystem>
@@ -286,8 +224,6 @@
 		<name>diffusion coefficient</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/s</unitOfMeasure>
-		<dimensionalClass>L2/T</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Diffusivity</name>
 			<namingSystem>Petrel</namingSystem>
@@ -297,24 +233,18 @@
 		<name>digital storage</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>byte</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>dimensionless</name>
 		<description>A dimensionless quantity is the ratio of two dimensional quantities. The quantity types are not apparent from the basic dimensionless class, but may be apparent in variations - such as area per area, volume per volume, or mass per mass.</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>dip</name>
 		<description>In the azimuth direction, Angle between an horizon plane and an estimated plane on a local area of the interface.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>plane angle</parentKind>
-		<unitOfMeasure>rad</unitOfMeasure>
-		<dimensionalClass>A</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Dip angle</name>
 			<namingSystem>Petrel</namingSystem>
@@ -330,71 +260,51 @@
 		<name>dose equivalent</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Sv</unitOfMeasure>
-		<dimensionalClass>L2/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>dose equivalent rate</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Sv/s</unitOfMeasure>
-		<dimensionalClass>L2/T3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>dynamic viscosity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa.s</unitOfMeasure>
-		<dimensionalClass>M/LT</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electric charge</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>C</unitOfMeasure>
-		<dimensionalClass>CT</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electric conductance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>S</unitOfMeasure>
-		<dimensionalClass>C2T3/L2M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electric current</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>A</unitOfMeasure>
-		<dimensionalClass>C</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electric dipole moment</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>C.m</unitOfMeasure>
-		<dimensionalClass>CTL</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electric field strength</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>V/m</unitOfMeasure>
-		<dimensionalClass>LM/CT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electric polarization</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>C/m2</unitOfMeasure>
-		<dimensionalClass>CT/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electric potential</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>V</unitOfMeasure>
-		<dimensionalClass>L2M/CT3</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Spontaneous potential</name>
 			<namingSystem>Petrel</namingSystem>
@@ -404,8 +314,6 @@
 		<name>electrical resistivity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>ohm.m</unitOfMeasure>
-		<dimensionalClass>L3M/C2T3</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Resistivity</name>
 			<namingSystem>Petrel</namingSystem>
@@ -416,146 +324,106 @@
 		<description>An electrochemical equivalent differs from molarity in that the valence (oxidation reduction potential) of the element is also considered.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>eq</unitOfMeasure>
-		<dimensionalClass>CT/N</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>electromagnetic moment</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>A.m2</unitOfMeasure>
-		<dimensionalClass>CL2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>energy length per area</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N</unitOfMeasure>
-		<dimensionalClass>LM/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>energy length per time area temperature</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/m.K</unitOfMeasure>
-		<dimensionalClass>LM/KT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>energy per area</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N/m</unitOfMeasure>
-		<dimensionalClass>M/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>energy per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N</unitOfMeasure>
-		<dimensionalClass>LM/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>equivalent per mass</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>eq/kg</unitOfMeasure>
-		<dimensionalClass>CT/MN</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>equivalent per volume</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>eq/m3</unitOfMeasure>
-		<dimensionalClass>CT/L3N</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>exposure (radioactivity)</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>C/kg</unitOfMeasure>
-		<dimensionalClass>CT/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>fluid volume</name>
 		<description>Volume of fluid</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume</parentKind>
-		<unitOfMeasure>m3</unitOfMeasure>
-		<dimensionalClass>L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>force</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N</unitOfMeasure>
-		<dimensionalClass>LM/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>force area</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N.m2</unitOfMeasure>
-		<dimensionalClass>L3M/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>force length per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N</unitOfMeasure>
-		<dimensionalClass>LM/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>force per force</name>
 		<description>A dimensionless quantity where the basis of the ratio is force.</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(LM/T2)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>force per length</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N/m</unitOfMeasure>
-		<dimensionalClass>M/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>force per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N/m3</unitOfMeasure>
-		<dimensionalClass>M/L2T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>formation volume factor</name>
 		<description>Ratio of volumes at subsurface and surface conditions</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume per volume</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L3)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>frequency</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Hz</unitOfMeasure>
-		<dimensionalClass>1/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>frequency interval</name>
 		<description>An octave is a doubling of a frquency.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>O</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>gamma ray API unit</name>
 		<description>This class is defined by the API, and is used for units of gamma ray log response.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>gAPI</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Gamma ray</name>
 			<namingSystem>Petrel</namingSystem>
@@ -565,23 +433,17 @@
 		<name>heat capacity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J/K</unitOfMeasure>
-		<dimensionalClass>L2M/KT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>heat flow rate</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W</unitOfMeasure>
-		<dimensionalClass>L2M/T3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>heat transfer coefficient</name>
 		<description>PRESSURE PER VELOCITY PER AREA</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/m2.K</unitOfMeasure>
-		<dimensionalClass>M/KT3</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Heat transfer coefficient</name>
 			<namingSystem>Petrel</namingSystem>
@@ -591,8 +453,6 @@
 		<name>illuminance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>lx</unitOfMeasure>
-		<dimensionalClass>BS/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>index</name>
@@ -604,30 +464,22 @@
 		<name>irradiance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/m2</unitOfMeasure>
-		<dimensionalClass>M/T3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>isothermal compressibility</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3/J</unitOfMeasure>
-		<dimensionalClass>LT2/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>kinematic viscosity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/s</unitOfMeasure>
-		<dimensionalClass>L2/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>Lambda Rho</name>
 		<description>Product of Lame constant and density, LR</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>(Pa.kg)/m3</unitOfMeasure>
-		<dimensionalClass>M2/L4T2</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Lambda*Rho</name>
 			<namingSystem>Petrel</namingSystem>
@@ -638,136 +490,98 @@
 		<description>Lame constant, Lambda</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>pressure</parentKind>
-		<unitOfMeasure>Pa</unitOfMeasure>
-		<dimensionalClass>M/LT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>length</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m</unitOfMeasure>
-		<dimensionalClass>L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>length per length</name>
 		<description>A dimensionless quantity where the basis of the ratio is length.</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>length per temperature</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m/K</unitOfMeasure>
-		<dimensionalClass>L/K</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>length per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/m2</unitOfMeasure>
-		<dimensionalClass>1/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>level of power intensity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>B</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>light exposure</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>lx.s</unitOfMeasure>
-		<dimensionalClass>BST/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>linear thermal expansion</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/K</unitOfMeasure>
-		<dimensionalClass>1/K</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>luminance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>cd/m2</unitOfMeasure>
-		<dimensionalClass>B/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>luminous efficacy</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>lm/W</unitOfMeasure>
-		<dimensionalClass>BST3/L2M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>luminous flux</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>lm</unitOfMeasure>
-		<dimensionalClass>BS</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>luminous intensity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>cd</unitOfMeasure>
-		<dimensionalClass>B</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>magnetic dipole moment</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Wb.m</unitOfMeasure>
-		<dimensionalClass>L3M/CT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>magnetic field strength</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>A/m</unitOfMeasure>
-		<dimensionalClass>C/L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>magnetic flux</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Wb</unitOfMeasure>
-		<dimensionalClass>L2M/CT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>magnetic induction</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>T</unitOfMeasure>
-		<dimensionalClass>M/CT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>magnetic permeability</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>H/m</unitOfMeasure>
-		<dimensionalClass>LM/C2T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>magnetic vector potential</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Wb/m</unitOfMeasure>
-		<dimensionalClass>LM/CT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass</name>
 		<description>M/L2T</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg</unitOfMeasure>
-		<dimensionalClass>M</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Mass</name>
 			<namingSystem>Petrel</namingSystem>
@@ -777,23 +591,17 @@
 		<name>mass attenuation coefficient</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/kg</unitOfMeasure>
-		<dimensionalClass>L2/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass concentration</name>
 		<description>A dimensionless quantity where the basis of the ratio is mass.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(M)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass flow rate</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg/s</unitOfMeasure>
-		<dimensionalClass>M/T</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Mass flow rate</name>
 			<namingSystem>Petrel</namingSystem>
@@ -803,51 +611,37 @@
 		<name>mass length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg.m</unitOfMeasure>
-		<dimensionalClass>ML</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass per energy</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg/J</unitOfMeasure>
-		<dimensionalClass>T2/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass per length</name>
 		<description>M  /L4T</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg/m</unitOfMeasure>
-		<dimensionalClass>M/L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass per time per area</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg/m2.s</unitOfMeasure>
-		<dimensionalClass>M/L2T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass per time per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa.s</unitOfMeasure>
-		<dimensionalClass>M/LT</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mass per volume per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg/m4</unitOfMeasure>
-		<dimensionalClass>M/L4</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mobility</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/Pa.s</unitOfMeasure>
-		<dimensionalClass>L3T/M</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Mobility</name>
 			<namingSystem>Petrel</namingSystem>
@@ -857,30 +651,22 @@
 		<name>modulus of compression</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J/m3</unitOfMeasure>
-		<dimensionalClass>M/LT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>molar concentration</name>
 		<description>molar concentration of a substance.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>concentration of B</parentKind>
-		<unitOfMeasure>mol/m3</unitOfMeasure>
-		<dimensionalClass>N/L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>molar heat capacity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J/mol.K</unitOfMeasure>
-		<dimensionalClass>L2M/KNT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>molar volume</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3/mol</unitOfMeasure>
-		<dimensionalClass>L3/N</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Molar volume</name>
 			<namingSystem>Petrel</namingSystem>
@@ -890,58 +676,42 @@
 		<name>mole per area</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>mol/m2</unitOfMeasure>
-		<dimensionalClass>N/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mole per time</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>mol/s</unitOfMeasure>
-		<dimensionalClass>N/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>mole per time per area</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>mol/m2.s</unitOfMeasure>
-		<dimensionalClass>N/L2T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>moment of force</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J</unitOfMeasure>
-		<dimensionalClass>L2M/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>moment of inertia</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg.m2</unitOfMeasure>
-		<dimensionalClass>L2M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>moment of section</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m4</unitOfMeasure>
-		<dimensionalClass>L4</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>momentum</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg.m/s</unitOfMeasure>
-		<dimensionalClass>LM/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>Mu Rho</name>
 		<description>Product of Shear modulus and density, MR</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>(Pa.kg)/m3</unitOfMeasure>
-		<dimensionalClass>M2/L4T2</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Mu*Rho</name>
 			<namingSystem>Petrel</namingSystem>
@@ -952,8 +722,6 @@
 		<description>Ratio of net rock volume to gross rock volume, NTG</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume per volume</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L3)</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Net/Gross</name>
 			<namingSystem>Petrel</namingSystem>
@@ -963,78 +731,56 @@
 		<name>neutron API unit</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>nAPI</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>nonDarcy flow coefficient</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa.s/m6</unitOfMeasure>
-		<dimensionalClass>M/L7T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>operations per time</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/s</unitOfMeasure>
-		<dimensionalClass>1/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>parachor</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>N4/kg.m7</unitOfMeasure>
-		<dimensionalClass>M3/L3T8</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>per area</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/m2</unitOfMeasure>
-		<dimensionalClass>1/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>per electric potential</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/V</unitOfMeasure>
-		<dimensionalClass>CT3/L2M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>per force</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/N</unitOfMeasure>
-		<dimensionalClass>T2/LM</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/m</unitOfMeasure>
-		<dimensionalClass>1/L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>per mass</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/kg</unitOfMeasure>
-		<dimensionalClass>1/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/m3</unitOfMeasure>
-		<dimensionalClass>1/L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>permeability length</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3</unitOfMeasure>
-		<dimensionalClass>L3</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Permeability-length</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1044,53 +790,39 @@
 		<name>permeability rock</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2</unitOfMeasure>
-		<dimensionalClass>L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>permeability thickness</name>
 		<description>Product of permeability and thickness</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>permeability length</parentKind>
-		<unitOfMeasure>m3</unitOfMeasure>
-		<dimensionalClass>L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>permeance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>H</unitOfMeasure>
-		<dimensionalClass>L2M/C2T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>permittivity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>F/m</unitOfMeasure>
-		<dimensionalClass>C2T4/L3M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>pH</name>
 		<description>The pH is a class that measures the hydrogen ion concentration (acidity).</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>pH</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>plane angle</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>rad</unitOfMeasure>
-		<dimensionalClass>A</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>Poisson ratio</name>
 		<description>Poisson's ratio, Sigma</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>1</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Poissons ratio</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1101,8 +833,6 @@
 		<description>Volume of the Pore Space of the Rock</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume</parentKind>
-		<unitOfMeasure>m3</unitOfMeasure>
-		<dimensionalClass>L3</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Pore volume</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1113,8 +843,6 @@
 		<description>porosity</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume per volume</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L3)</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Porosity</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1124,29 +852,21 @@
 		<name>potential difference per power drop</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>V/B</unitOfMeasure>
-		<dimensionalClass>L2M/CT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>power</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W</unitOfMeasure>
-		<dimensionalClass>L2M/T3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>power per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/m3</unitOfMeasure>
-		<dimensionalClass>M/LT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>pressure</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa</unitOfMeasure>
-		<dimensionalClass>M/LT2</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Pressure</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1156,44 +876,32 @@
 		<name>pressure per time</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa/s</unitOfMeasure>
-		<dimensionalClass>M/LT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>pressure squared</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa2</unitOfMeasure>
-		<dimensionalClass>M2/L2T4</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>pressure squared per force time per area</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa/s</unitOfMeasure>
-		<dimensionalClass>M/LT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>pressure time per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Pa.s/m3</unitOfMeasure>
-		<dimensionalClass>M/L4T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>productivity index</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3/Pa.s</unitOfMeasure>
-		<dimensionalClass>L4T/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>property multiplier</name>
 		<description>Unitless multiplier to apply to any property</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>unitless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>0</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>quantity</name>
@@ -1205,30 +913,22 @@
 		<name>quantity of light</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>lm.s</unitOfMeasure>
-		<dimensionalClass>BST</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>radiance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/m2.sr</unitOfMeasure>
-		<dimensionalClass>M/ST3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>radiant intensity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/sr</unitOfMeasure>
-		<dimensionalClass>L2M/ST3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>relative permeability</name>
 		<description>Ratio of phase permeability, which is a function of saturation, to the rock permeability</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>Ratio(L2)</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Relative permeability</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1239,37 +939,27 @@
 		<description>A dimensionless quantity where the basis of the ratio is power.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L2M/T3)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>relative time</name>
 		<description>A dimensionless quantity where the basis of the ratio is time.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(T)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>reluctance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/H</unitOfMeasure>
-		<dimensionalClass>C2T2/L2M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>resistance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>ohm</unitOfMeasure>
-		<dimensionalClass>L2M/C2T3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>resistivity per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>ohm/m</unitOfMeasure>
-		<dimensionalClass>LM/C2T3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>RESQML root property</name>
@@ -1281,16 +971,12 @@
 		<description>Acoustic impedence, Ip, Is</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>mass per time per area</parentKind>
-		<unitOfMeasure>kg/m2.s</unitOfMeasure>
-		<dimensionalClass>M/L2T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>rock permeability</name>
 		<description>See "permeability rock"</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>permeability rock</parentKind>
-		<unitOfMeasure>m2</unitOfMeasure>
-		<dimensionalClass>L2</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Permeability</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1301,8 +987,6 @@
 		<description>Rock Volume</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume</parentKind>
-		<unitOfMeasure>m3</unitOfMeasure>
-		<dimensionalClass>L3</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Rock volume</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1313,23 +997,17 @@
 		<description>Ratio of phase fluid volume to pore volume</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume per volume</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L3)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>second moment of area</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m4</unitOfMeasure>
-		<dimensionalClass>L4</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>shear modulus</name>
 		<description>Shear modulus, Mu</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>pressure</parentKind>
-		<unitOfMeasure>Pa</unitOfMeasure>
-		<dimensionalClass>M/LT2</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Shear modulus</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1339,16 +1017,12 @@
 		<name>solid angle</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>sr</unitOfMeasure>
-		<dimensionalClass>S</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>solution gas-oil ratio</name>
 		<description>Ratio of solution gas volume to oil volume at reservoir conditions</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume per volume</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L3)</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Solution gas-oil ratio</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1358,50 +1032,36 @@
 		<name>specific activity (of radioactivity)</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>Bq/kg</unitOfMeasure>
-		<dimensionalClass>1/MT</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>specific energy</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J/kg</unitOfMeasure>
-		<dimensionalClass>L2/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>specific heat capacity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J/kg.K</unitOfMeasure>
-		<dimensionalClass>L2/KT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>specific productivity index</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3/Pa2.s2</unitOfMeasure>
-		<dimensionalClass>L5T2/M2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>specific volume</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3/kg</unitOfMeasure>
-		<dimensionalClass>L3/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>surface density</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>kg/m2</unitOfMeasure>
-		<dimensionalClass>M/L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>temperature per length</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>K/m</unitOfMeasure>
-		<dimensionalClass>K/L</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Thermal Gradient</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1411,43 +1071,31 @@
 		<name>temperature per time</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>K/s</unitOfMeasure>
-		<dimensionalClass>K/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>thermal conductance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/K</unitOfMeasure>
-		<dimensionalClass>L2M/KT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>thermal conductivity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/m.K</unitOfMeasure>
-		<dimensionalClass>LM/KT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>thermal diffusivity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/s</unitOfMeasure>
-		<dimensionalClass>L2/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>thermal insulance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>K.m2/W</unitOfMeasure>
-		<dimensionalClass>KT3/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>thermal resistance</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>K/W</unitOfMeasure>
-		<dimensionalClass>KT3/L2M</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Thermal resistance</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1457,8 +1105,6 @@
 		<name>thermodynamic temperature</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>K</unitOfMeasure>
-		<dimensionalClass>K</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Absolute temperature</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1469,8 +1115,6 @@
 		<description>Distance measured in a volume between two surfaces ( e.G. Geological Top Boundary and Geological Bottom Boundary of a Geological unit).</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>length</parentKind>
-		<unitOfMeasure>m</unitOfMeasure>
-		<dimensionalClass>L</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Thickness general</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1480,8 +1124,6 @@
 		<name>time</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>s</unitOfMeasure>
-		<dimensionalClass>T</dimensionalClass>
 		<equivalentPropertyType>
 			<name>General time</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1491,46 +1133,34 @@
 		<name>time per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>s/m</unitOfMeasure>
-		<dimensionalClass>T/L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>time per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>s/m3</unitOfMeasure>
-		<dimensionalClass>T/L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>transmissibility</name>
 		<description>Volumetric flux per unit area per unit pressure drop for unit viscosity fluid</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3</unitOfMeasure>
-		<dimensionalClass>L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>unit productivity index</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/Pa.s</unitOfMeasure>
-		<dimensionalClass>L3T/M</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>unitless</name>
 		<description>The abstract supertype of all floating point properties with NO unit of measure. In order to allow the unit information to be required for all continuous properties, the special unit of measure of "NONE" has been assigned to all children of this class. In addition, the special dimensional class of "0" has been assigned to all children of this class. PV: CHANGED "NONE" TO "Euc"</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>continuous</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>0</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>vapor oil-gas ratio</name>
 		<description>Ratio of oil vapor volume to gas volume at reservoir conditions</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>volume per volume</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L3)</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Vapourized oil-gas ratio</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1540,8 +1170,6 @@
 		<name>velocity</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m/s</unitOfMeasure>
-		<dimensionalClass>L/T</dimensionalClass>
 		<equivalentPropertyType>
 			<name>Velocity</name>
 			<namingSystem>Petrel</namingSystem>
@@ -1551,101 +1179,73 @@
 		<name>volume</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3</unitOfMeasure>
-		<dimensionalClass>L3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume flow rate</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3/s</unitOfMeasure>
-		<dimensionalClass>L3/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume length per time</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m4/s</unitOfMeasure>
-		<dimensionalClass>L4/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume per area</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m</unitOfMeasure>
-		<dimensionalClass>L</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2</unitOfMeasure>
-		<dimensionalClass>L2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume per time per area</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m/s</unitOfMeasure>
-		<dimensionalClass>L/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume per time per length</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m2/s</unitOfMeasure>
-		<dimensionalClass>L2/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume per time per time</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>m3/s2</unitOfMeasure>
-		<dimensionalClass>L3/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume per time per volume</name>
 		<isAbstract>true</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/s</unitOfMeasure>
-		<dimensionalClass>1/T</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volume per volume</name>
 		<description>A dimensionless quantity where the basis of the ratio is volume.</description>
 		<isAbstract>true</isAbstract>
 		<parentKind>dimensionless</parentKind>
-		<unitOfMeasure>Euc</unitOfMeasure>
-		<dimensionalClass>ratio(L3)</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volumetric heat transfer coefficient</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>W/m3.K</unitOfMeasure>
-		<dimensionalClass>M/KLT3</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>volumetric thermal expansion</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>1/K</unitOfMeasure>
-		<dimensionalClass>1/K</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>work</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
-		<unitOfMeasure>J</unitOfMeasure>
-		<dimensionalClass>L2M/T2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>Young modulus</name>
 		<description>Young's modulus, E</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>pressure</parentKind>
-		<unitOfMeasure>Pa</unitOfMeasure>
-		<dimensionalClass>M/LT2</dimensionalClass>
 	</standardEnergisticsPropertyType>
 </standardEnergisticsPropertyTypeSet>
 
