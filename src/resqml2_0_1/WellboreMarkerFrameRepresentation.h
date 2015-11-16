@@ -53,14 +53,12 @@ namespace resqml2_0_1
 		* @param title		A title for the instance to create.
 		* @param traj		The trajectory this WellboreFeature frame is based on.
 		*/
-		WellboreMarkerFrameRepresentation(class WellboreInterpretation* interp, const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj); // Deprecated
-		WellboreMarkerFrameRepresentation(class StratigraphicColumnRankInterpretation* interp, const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj); // Deprecated
-		WellboreMarkerFrameRepresentation(class StratigraphicOccurrenceInterpretation* interp, const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj);
+		WellboreMarkerFrameRepresentation(class WellboreInterpretation* interp, const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		WellboreMarkerFrameRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreMarkerFrameRepresentation* fromGsoap): WellboreFrameRepresentation(fromGsoap)  {}
+		WellboreMarkerFrameRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreMarkerFrameRepresentation* fromGsoap) : WellboreFrameRepresentation(fromGsoap), stratigraphicColumnRankInterpretation(NULL) {}
 
 		// clean the owned markers
 		~WellboreMarkerFrameRepresentation();
@@ -85,7 +83,17 @@ namespace resqml2_0_1
 		/**
 		* Get all the wellbore markers of this well marker frame representation.
 		*/
-		const std::vector<class WellboreMarker*> & getWellboreMarkerSet() const {return markerSet;}
+		const std::vector<class WellboreMarker*> & getWellboreMarkerSet() const { return markerSet; }
+
+		void setStratigraphicColumnRankInterpretation(class StratigraphicColumnRankInterpretation * stratiColumnRankInterp);
+
+		/**
+		* Set the correspondance between the interval of the wellbore marker frame rep and the units of a stratiColRankInterp
+		* @param stratiUnitIndices The count must be equal to the count of contacts in stratiColRankInterp
+		*/
+		void setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, class StratigraphicColumnRankInterpretation* stratiColRankInterp);
+
+		class StratigraphicColumnRankInterpretation* getStratigraphicColumnRankInterpretation() {return stratigraphicColumnRankInterpretation;}
 
 		void setWitsmlFormationMarker(const unsigned int & resqmlMarkerIndex, witsml1_4_1_1::FormationMarker * witsmlFormationMarker);
 
@@ -99,6 +107,7 @@ namespace resqml2_0_1
 
 		// XML forward relationships
 		std::vector<witsml1_4_1_1::FormationMarker*> witsmlFormationMarkerSet;
+		class StratigraphicColumnRankInterpretation* stratigraphicColumnRankInterpretation;
 
 		// only memory relationship
 		std::vector<class WellboreMarker*> markerSet;

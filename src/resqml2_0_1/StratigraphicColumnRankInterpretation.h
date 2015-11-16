@@ -36,6 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractOrganizationInterpretation.h"
 #include "resqml2_0_1/StratigraphicColumn.h"
 #include "resqml2_0_1/StratigraphicOccurrenceInterpretation.h"
+#include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 
 namespace resqml2_0_1
 {
@@ -129,7 +130,12 @@ namespace resqml2_0_1
 		/**
 		* Get all the stratigraphic occurence interpretations associated with this StratigraphicColumnRankInterpretation.
 		*/
-		std::vector<class StratigraphicOccurrenceInterpretation*> getStratigraphicOccurrenceInterpretationSet() const {return stratigraphicOccurrenceInterpretationSet;}
+		std::vector<class StratigraphicOccurrenceInterpretation*> getStratigraphicOccurrenceInterpretationSet() const { return stratigraphicOccurrenceInterpretationSet; }
+
+		/**
+		* Get all the stratigraphic occurence interpretations associated with this StratigraphicColumnRankInterpretation.
+		*/
+		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const { return wellboreMarkerFrameRepresentationSet; }
 
 		/**
 		* Get all the horizon interpretations contained in this StratigraphicColumnRankInterpretation.
@@ -151,8 +157,10 @@ namespace resqml2_0_1
 		// Backward relationship
 		std::vector<StratigraphicColumn *> stratigraphicColumnSet;
 		std::vector<StratigraphicOccurrenceInterpretation *> stratigraphicOccurrenceInterpretationSet;
+		std::vector<WellboreMarkerFrameRepresentation *> wellboreMarkerFrameRepresentationSet;
 
 		friend void StratigraphicColumn::pushBackStratiColumnRank(StratigraphicColumnRankInterpretation * stratiColumnRank);
 		friend void StratigraphicOccurrenceInterpretation::setStratigraphicColumnRankInterpretation(StratigraphicColumnRankInterpretation * stratiColumnRankInterp);
+		friend void WellboreMarkerFrameRepresentation::setStratigraphicColumnRankInterpretation(StratigraphicColumnRankInterpretation * stratiColumnRankInterp);
 	};
 }

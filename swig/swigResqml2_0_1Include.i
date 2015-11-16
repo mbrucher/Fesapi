@@ -914,6 +914,7 @@ namespace resqml2_0_1
 		std::string getMdDatumUuid() const;
 		MdDatum * getMdDatum();
 		
+		void setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, class AbstractHdfProxy * proxy);
 		void setGeometry(double * controlPoints,
 			double* controlPointParameters, const unsigned int & controlPointCount,
 			AbstractHdfProxy * proxy);
@@ -970,7 +971,10 @@ namespace resqml2_0_1
 		
 		unsigned int getWellboreMarkerCount();
 		const std::vector<WellboreMarker*> & getWellboreMarkerSet() const;
-		
+
+		void setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, class StratigraphicColumnRankInterpretation* stratiColRankInterp);
+		StratigraphicColumnRankInterpretation* getStratigraphicColumnRankInterpretation();
+
 		void setWitsmlFormationMarker(const unsigned int & resqmlMarkerIndex, witsml1_4_1_1::FormationMarker * witsmlFormationMarker);
 	};
 	

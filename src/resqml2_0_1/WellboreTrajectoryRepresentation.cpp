@@ -78,13 +78,10 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
-void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
-			AbstractHdfProxy * proxy)
+void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, AbstractHdfProxy * proxy)
 {
 	if (controlPoints == nullptr)
 		throw invalid_argument("The control points are missing.");
-	if (controlPointParameters == nullptr)
-		throw invalid_argument("The control points parameters are missing.");
 	if (controlPointCount == 0)
 		throw invalid_argument("The control point count cannot be 0.");
 	if (proxy == nullptr)
@@ -97,12 +94,12 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, doubl
 	rep->Geometry = soap_new_resqml2__ParametricLineGeometry(gsoapProxy->soap, 1);
 	resqml2__ParametricLineGeometry* paramLine = soap_new_resqml2__ParametricLineGeometry(gsoapProxy->soap, 1);
 	paramLine->LocalCrs = localCrs->newResqmlReference();
-	rep->StartMd = controlPointParameters[0];
-	rep->FinishMd = controlPointParameters[controlPointCount-1];
+	rep->StartMd = startMd;
+	rep->FinishMd = endMd;
 	rep->Geometry = paramLine;
 
 	paramLine->KnotCount = controlPointCount;
-	paramLine->LineKindIndex = 2;
+	paramLine->LineKindIndex = lineKind;
 
 	// XML control points
 	resqml2__Point3dHdf5Array* xmlControlPoints = soap_new_resqml2__Point3dHdf5Array(gsoapProxy->soap, 1);
@@ -112,8 +109,19 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, doubl
 	paramLine->ControlPoints = xmlControlPoints;
 
 	// HDF control points
-	hsize_t dim[] = {controlPointCount, 3};
+	hsize_t dim[] = { controlPointCount, 3 };
 	hdfProxy->writeArrayNdOfDoubleValues(rep->uuid, "controlPoints", controlPoints, dim, 2);
+}
+
+void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
+			AbstractHdfProxy * proxy)
+{
+	if (controlPointParameters == nullptr)
+		throw invalid_argument("The control points parameters are missing.");
+
+	setGeometry(controlPoints, controlPointParameters[0], controlPointParameters[controlPointCount - 1], controlPointCount, 2, proxy);
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
+	resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
 
 	// XML control point parameters
 	resqml2__DoubleHdf5Array* xmlControlPointParameters = soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
@@ -136,7 +144,6 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
 	paramLine->LineKindIndex = 5;
-	hsize_t dim[] = {controlPointCount, 3};
 
 	// XML tangent vectors
 	resqml2__Point3dHdf5Array* xmlTangentVectors = soap_new_resqml2__Point3dHdf5Array(gsoapProxy->soap, 1);
@@ -146,6 +153,7 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
 	paramLine->TangentVectors = xmlTangentVectors;
 
 	// HDF tangent vectors
+	hsize_t dim[] = { controlPointCount, 3 };
 	hdfProxy->writeArrayNdOfDoubleValues(rep->uuid, "tangentVectors", tangentVectors, dim, 2);
 }
 

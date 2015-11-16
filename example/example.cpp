@@ -117,6 +117,7 @@ TriangulatedSetRepresentation* h2i1triRep;
 WellboreTrajectoryRepresentation* w1i1TrajRep;
 LocalDepth3dCrs* local3dCrs;
 LocalTime3dCrs* localTime3dCrs;
+WellboreInterpretation* wellbore1Interp1;
 
 witsml1_4_1_1::Wellbore* witsmlWellbore = NULL;
 
@@ -174,7 +175,7 @@ void serializeWells(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		wellbore1->setWitsmlWellbore(witsmlWellbore);
 
 	// Interpretations
-	WellboreInterpretation* wellbore1Interp1 = pck->createWellboreInterpretation(wellbore1, "", "Wellbore1 Interp1", false);
+	wellbore1Interp1 = pck->createWellboreInterpretation(wellbore1, "", "Wellbore1 Interp1", false);
 
 	// Representation
 	MdDatum* mdInfo = pck->createMdDatum("", "md Info", local3dCrs, gsoap_resqml2_0_1::resqml2__MdReference__mean_x0020sea_x0020level, 275, 75, 0);
@@ -219,7 +220,7 @@ void serializeStratigraphicModel(common::EpcDocument * pck, AbstractHdfProxy* hd
 	StratigraphicOccurrenceInterpretation* stratiOccurence = pck->createStratigraphicOccurrenceInterpretationInApparentDepth(stratiModelFeature, "", "stratiModel Interp");
 	
 	// WellboreFeature marker frame
-	WellboreMarkerFrameRepresentation* wmf = pck->createWellboreMarkerFrameRepresentation(stratiOccurence, "", "Wellbore Marker Frame", w1i1TrajRep);
+	WellboreMarkerFrameRepresentation* wmf = pck->createWellboreMarkerFrameRepresentation(wellbore1Interp1, "", "Wellbore Marker Frame", w1i1TrajRep);
 	double markerMdValues[2] = {350, 550};
 	wmf->setMdValues(markerMdValues, 2, hdfProxy);
 	WellboreMarker* marker0 = wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);

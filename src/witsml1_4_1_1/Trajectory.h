@@ -211,6 +211,14 @@ namespace witsml1_4_1_1
 			const double & incl,
 			const double & azi);
 
+		gsoap_witsml1_4_1_1::witsml1__cs_USCOREtrajectoryStation* newTrajectoryStation(
+			gsoap_witsml1_4_1_1::witsml1__cs_USCOREwellDatum* mdDatum,
+			gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom mDUom,
+			const double & mD,
+			gsoap_witsml1_4_1_1::witsml1__cs_USCOREwellDatum* tvdDatum,
+			gsoap_witsml1_4_1_1::witsml1__WellVerticalCoordinateUom tVDUom,
+			const double & tVD);
+
 		// XML forwards relationship
 		class Wellbore* wellbore;
 

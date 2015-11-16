@@ -1779,21 +1779,6 @@ WellboreMarkerFrameRepresentation* EpcDocument::createWellboreMarkerFrameReprese
 	return new WellboreMarkerFrameRepresentation(interp, guid, title, traj);
 }
 
-WellboreMarkerFrameRepresentation* EpcDocument::createWellboreMarkerFrameRepresentation(StratigraphicColumnRankInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
-{
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new WellboreMarkerFrameRepresentation(interp, guid, title, traj);
-}
-
-
-WellboreMarkerFrameRepresentation* EpcDocument::createWellboreMarkerFrameRepresentation(StratigraphicOccurrenceInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj)
-{
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new WellboreMarkerFrameRepresentation(interp, guid, title, traj);
-}
-
 RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
         AbstractOrganizationInterpretation* interp,
         const std::string & guid,

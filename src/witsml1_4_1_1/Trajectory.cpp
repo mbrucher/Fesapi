@@ -39,6 +39,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "witsml1_4_1_1/Well.h"
 #include "witsml1_4_1_1/CoordinateReferenceSystem.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace witsml1_4_1_1;
 using namespace gsoap_witsml1_4_1_1;
@@ -412,6 +416,34 @@ gsoap_witsml1_4_1_1::witsml1__cs_USCOREtrajectoryStation* Trajectory::newTraject
 	return trajectoryStation;
 }
 
+gsoap_witsml1_4_1_1::witsml1__cs_USCOREtrajectoryStation* Trajectory::newTrajectoryStation(
+	witsml1__cs_USCOREwellDatum* mdDatum,
+	gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom mDUom,
+	const double & mD,
+	witsml1__cs_USCOREwellDatum* tvdDatum,
+	gsoap_witsml1_4_1_1::witsml1__WellVerticalCoordinateUom tVDUom,
+	const double & tVD)
+{
+	witsml1__cs_USCOREtrajectoryStation* trajectoryStation = soap_new_witsml1__cs_USCOREtrajectoryStation(collection->soap, 1);
+	trajectoryStation->typeTrajStation = gsoap_witsml1_4_1_1::witsml1__TrajStationType__unknown;;
+
+	// md
+	trajectoryStation->md = soap_new_witsml1__measuredDepthCoord(collection->soap, 1);
+	trajectoryStation->md->uom = mDUom;
+	trajectoryStation->md->datum = soap_new_std__string(collection->soap, 1);
+	trajectoryStation->md->datum->assign(mdDatum->uid);
+	trajectoryStation->md->__item = mD;
+
+	// tvd
+	trajectoryStation->tvd = soap_new_witsml1__wellVerticalDepthCoord(collection->soap, 1);
+	trajectoryStation->tvd->uom = tVDUom;
+	trajectoryStation->tvd->datum = soap_new_std__string(collection->soap, 1);
+	trajectoryStation->tvd->datum->assign(tvdDatum->uid);
+	trajectoryStation->tvd->__item = tVD;
+
+	return trajectoryStation;
+}
+
 bool isVerticalLookingAtXyz(const unsigned int & locationCount, double * locationXSet, double * locationYSet)
 {
 	for (unsigned int i=1; i<locationCount; ++i)
@@ -444,6 +476,13 @@ void Trajectory::setTrajectoryStations(
 		witsml1__AziRef aziRef,
 		double * aziSet)
 {
+	if (mDSet == nullptr)
+		throw invalid_argument("There is no mds.");
+	if (inclSet == nullptr)
+		throw invalid_argument("There is no inclinometries.");
+	if (aziSet == nullptr)
+		throw invalid_argument("There is no aimuths.");
+
 	witsml1__cs_USCOREwellDatum* mdDatum = wellbore->getWell()->getDatum(mdDatumIndex);
 	__witsml1__obj_USCOREtrajectory_sequence* trajectorySequence = soap_new___witsml1__obj_USCOREtrajectory_sequence(collection->soap, 1);
 
@@ -504,6 +543,15 @@ void Trajectory::setEastingNorthingTrajectoryStations(
 		double * locationNorthingSet,
 		CoordinateReferenceSystem* wellCrs)
 {
+	if (mDSet == nullptr)
+		throw invalid_argument("There is no mds.");
+	if (tVDSet == nullptr)
+		throw invalid_argument("There is no tvds.");
+	if (locationEastingSet == nullptr)
+		throw invalid_argument("There is no projected x values.");
+	if (locationNorthingSet == nullptr)
+		throw invalid_argument("There is no projected y values.");
+
 	witsml1__cs_USCOREwellDatum* mdDatum = wellbore->getWell()->getDatum(mdDatumIndex);
 	witsml1__cs_USCOREwellDatum* tvdDatum = wellbore->getWell()->getDatum(tvdDatumIndex);
 	__witsml1__obj_USCOREtrajectory_sequence* trajectorySequence = soap_new___witsml1__obj_USCOREtrajectory_sequence(collection->soap, 1);
@@ -515,15 +563,31 @@ void Trajectory::setEastingNorthingTrajectoryStations(
 	// construction of the trajectory stations and computing of mdMn and mdMx
 	double mdMn = mDSet[0];
 	double mdMx = mDSet[0];
-	for (unsigned int i=0 ; i<trajectoryStationCount ; ++i)
+	if (inclSet != nullptr && aziSet != nullptr)
 	{
-		if (mDSet[i]<mdMn) mdMn = mDSet[i];
-		if (mDSet[i]>mdMx) mdMx = mDSet[i];
+		for (unsigned int i = 0; i < trajectoryStationCount; ++i)
+		{
+			if (mDSet[i] < mdMn) mdMn = mDSet[i];
+			if (mDSet[i] > mdMx) mdMx = mDSet[i];
 
-		witsml1__cs_USCOREtrajectoryStation* trajectoryStation = newTrajectoryStation(mdDatum, mDUom, mDSet[i], tvdDatum, tVDUom, tVDSet[i], angleUom, inclSet[i], aziSet[i]);
-		witsml1__cs_USCORElocation* location = constructEastingNorthingLocation(locationUom, locationEastingSet[i], locationNorthingSet[i], wellCrs);
-		trajectoryStation->location.push_back(location);
-		trajectorySequence->trajectoryStation.push_back(trajectoryStation);
+			witsml1__cs_USCOREtrajectoryStation* trajectoryStation = newTrajectoryStation(mdDatum, mDUom, mDSet[i], tvdDatum, tVDUom, tVDSet[i], angleUom, inclSet[i], aziSet[i]);
+			witsml1__cs_USCORElocation* location = constructEastingNorthingLocation(locationUom, locationEastingSet[i], locationNorthingSet[i], wellCrs);
+			trajectoryStation->location.push_back(location);
+			trajectorySequence->trajectoryStation.push_back(trajectoryStation);
+		}
+	}
+	else
+	{
+		for (unsigned int i = 0; i < trajectoryStationCount; ++i)
+		{
+			if (mDSet[i] < mdMn) mdMn = mDSet[i];
+			if (mDSet[i] > mdMx) mdMx = mDSet[i];
+
+			witsml1__cs_USCOREtrajectoryStation* trajectoryStation = newTrajectoryStation(mdDatum, mDUom, mDSet[i], tvdDatum, tVDUom, tVDSet[i]);
+			witsml1__cs_USCORElocation* location = constructEastingNorthingLocation(locationUom, locationEastingSet[i], locationNorthingSet[i], wellCrs);
+			trajectoryStation->location.push_back(location);
+			trajectorySequence->trajectoryStation.push_back(trajectoryStation);
+		}
 	}
 
 	// assignment of trajectory mdMn
@@ -630,6 +694,15 @@ void Trajectory::setProjectedXProjectedYTrajectoryStations(
 		double * locationProjectedYSet,
 		CoordinateReferenceSystem* wellCrs)
 {
+	if (mDSet == nullptr)
+		throw invalid_argument("There is no mds.");
+	if (tVDSet == nullptr)
+		throw invalid_argument("There is no tvds.");
+	if (locationProjectedXSet == nullptr)
+		throw invalid_argument("There is no projected x values.");
+	if (locationProjectedYSet == nullptr)
+		throw invalid_argument("There is no projected y values.");
+
 	witsml1__cs_USCOREwellDatum* mdDatum = wellbore->getWell()->getDatum(mdDatumIndex);
 	witsml1__cs_USCOREwellDatum* tvdDatum = wellbore->getWell()->getDatum(tvdDatumIndex);
 	__witsml1__obj_USCOREtrajectory_sequence* trajectorySequence = soap_new___witsml1__obj_USCOREtrajectory_sequence(collection->soap, 1);
@@ -641,15 +714,32 @@ void Trajectory::setProjectedXProjectedYTrajectoryStations(
 	// construction of the trajectory stations and computing of mdMn and mdMx
 	double mdMn = mDSet[0];
 	double mdMx = mDSet[0];
-	for (unsigned int i=0 ; i<trajectoryStationCount ; ++i)
-	{
-		if (mDSet[i]<mdMn) mdMn = mDSet[i];
-		if (mDSet[i]>mdMx) mdMx = mDSet[i];
 
-		witsml1__cs_USCOREtrajectoryStation* trajectoryStation = newTrajectoryStation(mdDatum, mDUom, mDSet[i], tvdDatum, tVDUom, tVDSet[i], angleUom, inclSet[i], aziSet[i]);
-		witsml1__cs_USCORElocation* location = constructProjectedXProjectedYLocation(locationUom, locationProjectedXSet[i], locationProjectedYSet[i], wellCrs);
-		trajectoryStation->location.push_back(location);
-		trajectorySequence->trajectoryStation.push_back(trajectoryStation);
+	if (inclSet != nullptr && aziSet != nullptr)
+	{
+		for (unsigned int i = 0; i < trajectoryStationCount; ++i)
+		{
+			if (mDSet[i] < mdMn) mdMn = mDSet[i];
+			if (mDSet[i] > mdMx) mdMx = mDSet[i];
+
+			witsml1__cs_USCOREtrajectoryStation* trajectoryStation = newTrajectoryStation(mdDatum, mDUom, mDSet[i], tvdDatum, tVDUom, tVDSet[i], angleUom, inclSet[i], aziSet[i]);
+			witsml1__cs_USCORElocation* location = constructProjectedXProjectedYLocation(locationUom, locationProjectedXSet[i], locationProjectedYSet[i], wellCrs);
+			trajectoryStation->location.push_back(location);
+			trajectorySequence->trajectoryStation.push_back(trajectoryStation);
+		}
+	}
+	else
+	{
+		for (unsigned int i = 0; i < trajectoryStationCount; ++i)
+		{
+			if (mDSet[i] < mdMn) mdMn = mDSet[i];
+			if (mDSet[i] > mdMx) mdMx = mDSet[i];
+
+			witsml1__cs_USCOREtrajectoryStation* trajectoryStation = newTrajectoryStation(mdDatum, mDUom, mDSet[i], tvdDatum, tVDUom, tVDSet[i]);
+			witsml1__cs_USCORElocation* location = constructProjectedXProjectedYLocation(locationUom, locationProjectedXSet[i], locationProjectedYSet[i], wellCrs);
+			trajectoryStation->location.push_back(location);
+			trajectorySequence->trajectoryStation.push_back(trajectoryStation);
+		}
 	}
 
 	// assignment of trajectory mdMn
