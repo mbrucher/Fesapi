@@ -157,7 +157,10 @@ void AbstractObject::setTitle(const std::string & title)
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	gsoapProxy->Citation->Title = title;
+	if (title.empty())
+		gsoapProxy->Citation->Title = "unknown";
+	else
+		gsoapProxy->Citation->Title = title;
 }
 
 void AbstractObject::setEditor(const std::string & editor)
@@ -165,9 +168,12 @@ void AbstractObject::setEditor(const std::string & editor)
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	if (gsoapProxy->Citation->Editor == NULL)
-		gsoapProxy->Citation->Editor = soap_new_std__string(gsoapProxy->soap, 1);
-	gsoapProxy->Citation->Editor->assign(editor);
+	if (!editor.empty())
+	{
+		if (gsoapProxy->Citation->Editor == NULL)
+			gsoapProxy->Citation->Editor = soap_new_std__string(gsoapProxy->soap, 1);
+		gsoapProxy->Citation->Editor->assign(editor);
+	}
 }
 
 void AbstractObject::setCreation(const time_t & creation)
@@ -183,7 +189,10 @@ void AbstractObject::setOriginator(const std::string & originator)
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	gsoapProxy->Citation->Originator = originator;
+	if (originator.empty())
+		gsoapProxy->Citation->Originator = "unknown";
+	else
+		gsoapProxy->Citation->Originator = originator;
 }
 
 void AbstractObject::setDescription(const std::string & description)
@@ -191,9 +200,12 @@ void AbstractObject::setDescription(const std::string & description)
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	if (gsoapProxy->Citation->Description == NULL)
-		gsoapProxy->Citation->Description = soap_new_std__string(gsoapProxy->soap, 1);
-	gsoapProxy->Citation->Description->assign(description);
+	if (!description.empty())
+	{
+		if (gsoapProxy->Citation->Description == NULL)
+			gsoapProxy->Citation->Description = soap_new_std__string(gsoapProxy->soap, 1);
+		gsoapProxy->Citation->Description->assign(description);
+	}
 }
 
 void AbstractObject::setLastUpdate(const time_t & lastUpdate)
@@ -211,7 +223,10 @@ void AbstractObject::setFormat(const std::string & format)
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	gsoapProxy->Citation->Format = format;
+	if (format.empty())
+		gsoapProxy->Citation->Format = "unknown";
+	else
+		gsoapProxy->Citation->Format = format;
 }
 
 void AbstractObject::setDescriptiveKeywords(const std::string & descriptiveKeywords)
@@ -219,9 +234,12 @@ void AbstractObject::setDescriptiveKeywords(const std::string & descriptiveKeywo
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	if (gsoapProxy->Citation->DescriptiveKeywords == NULL)
-		gsoapProxy->Citation->DescriptiveKeywords = soap_new_std__string(gsoapProxy->soap, 1);
-	gsoapProxy->Citation->DescriptiveKeywords->assign(descriptiveKeywords);
+	if (!descriptiveKeywords.empty())
+	{
+		if (gsoapProxy->Citation->DescriptiveKeywords == NULL)
+			gsoapProxy->Citation->DescriptiveKeywords = soap_new_std__string(gsoapProxy->soap, 1);
+		gsoapProxy->Citation->DescriptiveKeywords->assign(descriptiveKeywords);
+	}
 }
 
 void AbstractObject::addNewGuid(const string & newGuid)
