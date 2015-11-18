@@ -283,14 +283,46 @@ void WellboreTrajectoryRepresentation::getXyzPointsOfPatch(const unsigned int & 
 	}
 }
 
+int WellboreTrajectoryRepresentation::getGeometryKind() const
+{
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
+	if (rep->Geometry == nullptr)
+		return -1;
+	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry)
+		throw logic_error("This kind of parametric line is not yet supported for a wellbore trajectory.");
+	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LineKindIndex;
+}
+
+bool WellboreTrajectoryRepresentation::hasMdValues() const
+{
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
+	if (rep->Geometry == nullptr)
+		return false;
+	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry)
+		throw logic_error("This kind of parametric line is not yet supported for a wellbore trajectory.");
+	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters != nullptr;
+}
+
 void WellboreTrajectoryRepresentation::getMdValues(double * values)
 {
+	if (hasMdValues() == false)
+		throw invalid_argument("This trajectory has not got any md values.");
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The HDF proxy is missing.");
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	resqml2__DoubleHdf5Array* xmlControlPointParameters = static_cast<resqml2__DoubleHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters);
 	hdfProxy->readArrayNdOfDoubleValues(xmlControlPointParameters->Values->PathInHdfFile, values);
+}
+
+bool WellboreTrajectoryRepresentation::hasTangentVectors() const
+{
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
+	if (rep->Geometry == nullptr)
+		return false;
+	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry)
+		throw logic_error("This kind of parametric line is not yet supported for a wellbore trajectory.");
+	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->TangentVectors != nullptr;
 }
 
 void WellboreTrajectoryRepresentation::getTangentVectors(double* tangentVectors)

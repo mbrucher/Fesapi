@@ -1036,7 +1036,7 @@ void deserializeActivity(AbstractObject* resqmlObject)
 				}
 				else if (activity->isAnIntegerQuantityParameter(paramTitle) == true)
 				{
-					vector<long long> vals = activity->getIntegerQuantityParameterValue(paramTitle);
+					vector<LONG64> vals = activity->getIntegerQuantityParameterValue(paramTitle);
 					for (unsigned int k = 0; k < vals.size(); ++k)
 					{
 						cout << "Integer value : " << vals[k] << endl;

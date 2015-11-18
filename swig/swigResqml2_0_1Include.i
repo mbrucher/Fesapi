@@ -923,8 +923,13 @@ namespace resqml2_0_1
 			AbstractHdfProxy * proxy);
 			
 		void addParentTrajectory(const double & kickoffMd, const double & parentMd, WellboreTrajectoryRepresentation* parentTrajRep);
-		
+
+		int getGeometryKind() const;
+
+		bool hasTangentVectors() const;
 		void getTangentVectors(double* tangentVectors);
+
+		bool hasMdValues() const;
 		void getMdValues(double* values);
 
 		void setWitsmlTrajectory(witsml1_4_1_1::Trajectory * witsmlTraj);

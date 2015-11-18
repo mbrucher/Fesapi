@@ -104,6 +104,11 @@ namespace resqml2_0_1
 			class AbstractHdfProxy * proxy);
 
 		/**
+		* 0 for vertical, 1 for linear spline, 2 for natural cubic spline, 3 for cubic spline, 4 for z linear cubic spline, 5 for minimum-curvature spline, (-1) for null: no line
+		*/
+		int getGeometryKind() const;
+
+		/**
 		* Getter of the md information associated to this WellboreFeature trajectory representation.
 		*/
 		class MdDatum * getMdDatum() {return mdDatum;}
@@ -126,9 +131,19 @@ namespace resqml2_0_1
 		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		/**
+		* Indicates if the wellbore trajectory has got md values atatched to each trajectory station.
+		*/
+		bool hasMdValues() const;
+
+		/**
 		* Getter of the md double values associated to each trajectory station of this WellboreFeature trajectory representation.
 		*/
 		void getMdValues(double* values);
+
+		/**
+		* Indicates if the wellbore trajectory has got tangent vectors atatched to each trajectory station.
+		*/
+		bool hasTangentVectors() const;
 
 		/**
 		* Getter of the tangent vectors associated to each trajectory station of this WellboreFeature trajectory representation.
