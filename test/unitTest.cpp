@@ -1,229 +1,162 @@
 // unitTest.cpp : définit le point d'entrée pour l'application console.
 //
 
-#include "stdafx.h"
+#if defined(_WIN32)
+#define WIN32_LEAN_AND_MEAN
+#endif
 
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+
 #include "catch.hpp"
+#include "EpcDocumentTest.h"
+#include "resqml2_0_1test/LocalDepth3dCrsTest.h"
+#include "resqml2_0_1test/HorizonTest.h"
+#include "resqml2_0_1test/HorizonInterpretationTest.h"
+#include "resqml2_0_1test/FaultSinglePatchTriangulatedSetRepresentationTest.h"
+#include "resqml2_0_1test/FaultMultiPatchTriangulatedSetRepresentationTest.h"
+#include "resqml2_0_1test/FaultSingleAndMultiPatchTriangulatedSetRepresentationTest.h"
+#include "resqml2_0_1test/ActivityTemplateGenericCreationTest.h"
+#include "resqml2_0_1test/ActivityCreationTest.h"
+#include "resqml2_0_1test/OneTetrahedronUnstructuredGridRepresentationTest.h"
+#include "resqml2_0_1test/UnstructuredFromIjkGridRepresentationTest.h"
+#include "resqml2_0_1test/TimeSeriesTest.h"
+#include "resqml2_0_1test/ContinuousPropertySeriesTest.h"
+#include "resqml2_0_1test/ContinuousPropertyOnPartialGridTest.h"
+#include "resqml2_0_1test/WellboreMarkerFrameRepresentationTest.h"
 
 #include "EpcDocument.h"
-#include "resqml2_0/LocalDepth3dCrs.h"
-#include "resqml2_0/LocalTime3dCrs.h"
-#include "resqml2_0/FaultInterpretation.h"
-#include "resqml2_0/HdfProxy.h"
-#include "resqml2_0/IjkGridRepresentation.h"
-#include "resqml2_0/WellboreTrajectoryRepresentation.h"
-#include "resqml2_0/MdDatum.h"
-#include "resqml2_0/WellboreMarkerFrameRepresentation.h"
-#include "resqml2_0/SubRepresentation.h"
-#include "resqml2_0/StratigraphicColumn.h"
-#include "resqml2_0/StratigraphicColumnRankInterpretation.h"
-#include "resqml2_0/StratigraphicOccurrenceInterpretation.h"
-#include "resqml2_0/StratigraphicUnitFeature.h"
-#include "resqml2_0/StratigraphicUnitInterpretation.h"
+#include "resqml2_0_1/LocalDepth3dCrs.h"
+#include "resqml2_0_1/LocalTime3dCrs.h"
+#include "resqml2_0_1/FaultInterpretation.h"
+#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
+#include "resqml2_0_1/MdDatum.h"
+#include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
+#include "resqml2_0_1/SubRepresentation.h"
+#include "resqml2_0_1/StratigraphicColumn.h"
+#include "resqml2_0_1/StratigraphicColumnRankInterpretation.h"
+#include "resqml2_0_1/StratigraphicOccurrenceInterpretation.h"
+#include "resqml2_0_1/StratigraphicUnitFeature.h"
+#include "resqml2_0_1/StratigraphicUnitInterpretation.h"
+#include "resqml2_0_1/WellboreInterpretation.h"
 
-using namespace std;
-using namespace resqml2_0;
+using namespace commontest;
+using namespace resqml2_0_1test;
 
-static const char* uuidWellbore = "0c970a12-7950-4c20-8c2d-05111b509635";
-static const char* uuidWellboreInterp = "0878cefc-8019-435c-a399-5e8a23180dc1";
-static const char* uuidMdDatum = "a9096300-bc89-4dcd-8ebd-fe70a53fe891";
-static const char* uuidWellTrajectory = "06fc15a5-e95a-4217-a6d2-cfe5c4cbbf07";
-
-void initEpcDocument(common::EpcDocument * epcDoc)
+TEST_CASE( "Deserialize an EPC document", "[epc]")
 {
-	HdfProxy* hdfProxy = epcDoc->createHdfProxy("", "Hdf Proxy", epcDoc->getStorageDirectory(), epcDoc->getName() + ".h5");
-	hdfProxy->openForWriting();
-
-	//CRS
-	LocalDepth3dCrs* local3dCrs = epcDoc->createLocalDepth3dCrs("", "Default local CRS", .0, .0, .0, .0, gsoap_resqml2_0::eml__LengthUom__m, 23031, gsoap_resqml2_0::eml__LengthUom__m);
-	LocalTime3dCrs* localTime3dCrs = epcDoc->createLocalTime3dCrs("", "Default local time CRS", 1.0, 0.1, .2, .0, gsoap_resqml2_0::eml__LengthUom__m, 23031, gsoap_resqml2_0::eml__TimeUom__s, gsoap_resqml2_0::eml__LengthUom__m); // CRS translation is just for testing;
+	EpcDocumentTest* epcDocumentTest = new EpcDocumentTest("../../testingPackageCpp.epc");
+	epcDocumentTest->deserialize();
 }
 
-WellboreTrajectoryRepresentation* addWellTrajectory(common::EpcDocument * epcDoc)
+TEST_CASE( "Export and import a local depth 3d crs", "[crs]" )
 {
-	// Features
-	WellboreFeature* wellbore1 = epcDoc->createWellboreFeature(uuidWellbore, "Wellbore1");
+	LocalDepth3dCrsTest* localDepth3dCrsTest = new LocalDepth3dCrsTest("../../localDepth3dCrsTest.epc");
 
-	// Interpretations
-	WellboreInterpretation* wellbore1Interp1 = epcDoc->createWellboreInterpretation(wellbore1, uuidWellboreInterp, "Wellbore1 Interp1", false);
-
-	// Representation
-	MdDatum* mdInfo = epcDoc->createMdDatum(uuidMdDatum, "md Info", epcDoc->getLocalDepth3dCrsSet()[0], gsoap_resqml2_0::resqml2__MdReference__mean_x0020sea_x0020level, 275, 75, 0);
-
-	//Geometry	
-	WellboreTrajectoryRepresentation* w1i1TrajRep = epcDoc->createWellboreTrajectoryRepresentation(wellbore1Interp1, uuidWellTrajectory, "Wellbore1 Interp1 TrajRep", mdInfo);
-	double controlPoints[12] = {275, 75, 0, 275, 75, 325, 275, 75, 500, 275, 75, 1000};
-	double trajectoryTangentVectors[12] = {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1};
-	double trajectoryMds[4] = {0, 325, 500, 1000};
-	w1i1TrajRep->setGeometry(controlPoints, trajectoryTangentVectors, trajectoryMds, 4, epcDoc->getHdfProxySet()[0]);
-
-	return w1i1TrajRep;
+	localDepth3dCrsTest->serialize();
+	localDepth3dCrsTest->deserialize();
 }
 
-void addSubrepresentation(common::EpcDocument * epcDoc)
+TEST_CASE( "Export and import an horizon", "[feature]" )
 {
-	// Features
-	Fault* fault = epcDoc->createFault("1f870a12-7950-4c20-8c2d-05111b509645", "FaultForSubRep");
-
-	// Interpretations
-	FaultInterpretation* fault1Interp1 = epcDoc->createFaultInterpretation(fault, "2c87a12-7950-4c20-8c2d-05111b509645", "FaultForSubRep Interp1");
-
-	WellboreTrajectoryRepresentation*  wbTraj = addWellTrajectory(epcDoc);
-
-	// Representation with link to interp
-	SubRepresentation* subRepWithInterp = epcDoc->createSubRepresentation(fault1Interp1, epcDoc->getLocalDepth3dCrsSet()[0], "3e87a12-7950-4c20-8c2d-05111b509645", "subRepWithInterp", wbTraj);
-	unsigned int elementIndices[1] = {1};
-	subRepWithInterp->pushBackSubRepresentationPatch(gsoap_resqml2_0::resqml2__IndexableElements__nodes, 1, elementIndices , epcDoc->getHdfProxySet()[0]);
-
-	// Representation without link to interp	
-	SubRepresentation* subRepWithoutInterp = epcDoc->createSubRepresentation(epcDoc->getLocalDepth3dCrsSet()[0], "4567a12-7950-4c20-8c2d-05111b509645", "subRepWithoutInterp", wbTraj);
-	subRepWithoutInterp->pushBackSubRepresentationPatch(gsoap_resqml2_0::resqml2__IndexableElements__nodes, 1, elementIndices , epcDoc->getHdfProxySet()[0]);
-}
-
-WellboreMarkerFrameRepresentation* addWellboreMarkerFrameToStratiOrganization(common::EpcDocument * epcDoc)
-{
-	WellboreTrajectoryRepresentation* w1i1TrajRep = addWellTrajectory(epcDoc);
-
-	StratigraphicColumn* sc = epcDoc->createStratigraphicColumn("", "Stratigrahic column");
-	OrganizationFeature* stratiModelFeature = epcDoc->createStratigraphicModel("", "Stratigraphic model");
-	StratigraphicColumnRankInterpretation* scRank = epcDoc->createStratigraphicColumnRankInterpretationInApparentDepth(stratiModelFeature, "", "Stratigraphic rank interp", 0);
-	sc->pushBackStratiColumnRank(scRank);
-	StratigraphicUnitFeature* overburdenFeature = epcDoc->createStratigraphicUnit("", "Overburden");
-	StratigraphicUnitFeature* stratiLayerFeature = epcDoc->createStratigraphicUnit("", "stratiLayer");
-	StratigraphicUnitFeature* underburdenFeature = epcDoc->createStratigraphicUnit("", "Underburden");
-	StratigraphicUnitInterpretation* overburdenInterp = epcDoc->createStratigraphicUnitInterpretation(overburdenFeature, "", "stratiLayer");
-	StratigraphicUnitInterpretation* stratiLayerInterp = epcDoc->createStratigraphicUnitInterpretation(stratiLayerFeature, "", "stratiLayer");
-	StratigraphicUnitInterpretation* underburdenInterp = epcDoc->createStratigraphicUnitInterpretation(underburdenFeature, "", "stratiLayer");
-	scRank->pushBackStratiUnitInterpretation(overburdenInterp);
-	scRank->pushBackStratiUnitInterpretation(stratiLayerInterp);
-	scRank->pushBackStratiUnitInterpretation(underburdenInterp);
-	StratigraphicOccurrenceInterpretation* stratiOccurence = epcDoc->createStratigraphicOccurrenceInterpretationInApparentDepth(stratiModelFeature, "", "Strati along well Interp");
-	stratiOccurence->setStratigraphicColumnRankInterpretation(scRank);
+	HorizonTest* horizonTest = new HorizonTest("../../testHorizon.epc");
 	
-	// WellboreFeature marker frame
-	WellboreMarkerFrameRepresentation* wmf = epcDoc->createWellboreMarkerFrameRepresentation(stratiOccurence, "", "Wellbore Marker Frame", w1i1TrajRep);
-	double markerMdValues[2] = {350, 550};
-	wmf->setMdValuesAsArray1dOfExplicitValues(markerMdValues, 2, epcDoc->getHdfProxySet()[0]);
-	wmf->pushBackNewWellboreMarker("", "", gsoap_resqml2_0::resqml2__GeologicBoundaryKind__horizon);
-	wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0::resqml2__GeologicBoundaryKind__fault);
-
-	return wmf;
+	horizonTest->serialize();
+	horizonTest->deserialize();
 }
 
-TEST_CASE( "Export and import a well trajectory", "[well]" )
+TEST_CASE( "Export and import an horizon interpretation", "[interpretation]" )
 {
-	//Export
-	common::EpcDocument* epcDoc = new common::EpcDocument("../../testingWell.epc");
-	initEpcDocument(epcDoc);
-	
-	addWellTrajectory(epcDoc);
+	HorizonInterpretationTest* horizonInterpretationTest = new HorizonInterpretationTest("../../testHorizonInterpretation.epc");
 
-	epcDoc->serialize();
-	delete epcDoc;
-
-	// Import
-	epcDoc = new common::EpcDocument("../../testingWell.epc");
-	string validationResult = epcDoc->deserialize();
-	REQUIRE( validationResult.size() == 0 );
-	REQUIRE( epcDoc->getLocalDepth3dCrsSet().size() == 1 );
-	REQUIRE( epcDoc->getLocalTime3dCrsSet().size() == 1 );
-	REQUIRE( epcDoc->getHdfProxySet().size() == 1 );
-
-	REQUIRE( epcDoc->getWellboreCubicParamLineTrajRepSet().size() == 1);
-	WellboreTrajectoryRepresentation* w1i1TrajRep = epcDoc->getWellboreCubicParamLineTrajRepSet()[0];
-	REQUIRE( w1i1TrajRep->getUuid() == uuidWellTrajectory);
-	REQUIRE( w1i1TrajRep->getLocalCrs() == epcDoc->getLocalDepth3dCrsSet()[0]);
-	REQUIRE( w1i1TrajRep->getMdDatum()->getUuid() == uuidMdDatum);
-	REQUIRE( w1i1TrajRep->getXyzPointCountOfAllPatches() == 4);
-	double trajectoryMds[4];
-	w1i1TrajRep->getMdValues(trajectoryMds);
-	REQUIRE( trajectoryMds[0] == 0);
-	REQUIRE( trajectoryMds[1] == 325);
-	REQUIRE( trajectoryMds[2] == 500);
-	REQUIRE( trajectoryMds[3] == 1000);
-	double controlPoints[12];
-	w1i1TrajRep->getXyzPointsOfAllPatchesInGlobalCrs(controlPoints);
-	REQUIRE( controlPoints[0] == 275);
-	REQUIRE( controlPoints[1] == 75);
-	REQUIRE( controlPoints[2] == 0);
-	REQUIRE( controlPoints[3] == 275);
-
-	delete epcDoc;
+	horizonInterpretationTest->serialize();
+	horizonInterpretationTest->deserialize();
 }
 
-TEST_CASE( "Export and import a wellbore marker frame", "[well][stratigraphy]" )
+TEST_CASE( "Export and import a single patch triangulated set fault representation", "[representation]" )
 {
-	//Export
-	common::EpcDocument* epcDoc = new common::EpcDocument("../../testingStratiMarker.epc");
-	initEpcDocument(epcDoc);
+	FaultSinglePatchTriangulatedSetRepresentationTest* faultSinglePatchTriangulatedSetRepresentation = new FaultSinglePatchTriangulatedSetRepresentationTest("../../faultSinglePatchTriangulatedSetRepresentation.epc");
 	
-	addWellboreMarkerFrameToStratiOrganization(epcDoc);
-
-	epcDoc->serialize();
-	delete epcDoc;
-
-	// Import
-	epcDoc = new common::EpcDocument("../../testingStratiMarker.epc");
-	string validationResult = epcDoc->deserialize();
-	REQUIRE( validationResult.size() == 0 );
-	REQUIRE( epcDoc->getLocalDepth3dCrsSet().size() == 1 );
-	REQUIRE( epcDoc->getLocalTime3dCrsSet().size() == 1 );
-	REQUIRE( epcDoc->getHdfProxySet().size() == 1 );
-
-	REQUIRE( epcDoc->getStratigraphicColumnSet().size() == 1);
-	StratigraphicColumn* sc = epcDoc->getStratigraphicColumnSet()[0];
-	REQUIRE( sc->getStratigraphicColumnRankInterpretationSet().size() == 1);
-	StratigraphicColumnRankInterpretation* scRank = sc->getStratigraphicColumnRankInterpretationSet()[0];
-	REQUIRE( scRank->getStratigraphicOccurrenceInterpretationSet().size() == 1);
-	StratigraphicOccurrenceInterpretation* stratiOccurence = scRank->getStratigraphicOccurrenceInterpretationSet()[0];
-	REQUIRE( stratiOccurence->getWellboreMarkerFrameRepresentationSet().size() == 1);
-	WellboreMarkerFrameRepresentation* wmf = stratiOccurence->getWellboreMarkerFrameRepresentationSet()[0];
-	REQUIRE( wmf->getMdValuesCount() == 2);
-	double markerMdValues[2];
-	wmf->getMdAsDoubleValues(markerMdValues);
-	REQUIRE( markerMdValues[0] == 350);
-	REQUIRE( markerMdValues[1] == 550);
-
-	delete epcDoc;
+	faultSinglePatchTriangulatedSetRepresentation->serialize();
+	faultSinglePatchTriangulatedSetRepresentation->deserialize();
 }
 
-TEST_CASE( "Create subrepresentation with and without interpretation link" )
+TEST_CASE( "Export and import a multi patch triangulated set fault representation", "[representation]" )
 {
-	//Export
-	common::EpcDocument* epcDoc = new common::EpcDocument("../../testingSubrepresentation.epc");
-	initEpcDocument(epcDoc);
+	FaultMultiPatchTriangulatedSetRepresentationTest* faultMultiPatchTriangulatedSetRepresentation = new FaultMultiPatchTriangulatedSetRepresentationTest("../../faultMultiPatchTriangulatedSetRepresentation.epc");
 	
-	addSubrepresentation(epcDoc);
+	faultMultiPatchTriangulatedSetRepresentation->serialize();
+	faultMultiPatchTriangulatedSetRepresentation->deserialize();
+}
 
-	epcDoc->serialize();
-	delete epcDoc;
+TEST_CASE( "Export and import a single and multi patch triangulated set fault representation", "[representation]" )
+{
+	FaultSingleAndMultiPatchTriangulatedSetRepresentationTest* faultSingleAndMultiPatchTriangulatedSetRepresentationTest = new FaultSingleAndMultiPatchTriangulatedSetRepresentationTest("../../faultSingleAndMultiPatchTriangulatedSetRepresentation.epc");
+	
+	faultSingleAndMultiPatchTriangulatedSetRepresentationTest->serialize();
+	faultSingleAndMultiPatchTriangulatedSetRepresentationTest->deserialize();
+}
 
-	// Import
-	epcDoc = new common::EpcDocument("../../testingSubrepresentation.epc");
-	string validationResult = epcDoc->deserialize();
-	REQUIRE( validationResult.size() == 0 );
-	REQUIRE( epcDoc->getLocalDepth3dCrsSet().size() == 1 );
-	REQUIRE( epcDoc->getLocalTime3dCrsSet().size() == 1 );
-	REQUIRE( epcDoc->getHdfProxySet().size() == 1 );
+TEST_CASE( "Export and import a generic creation activity template", "[activity]" )
+{
+	ActivityTemplateGenericCreationTest* activityTemplate = new ActivityTemplateGenericCreationTest("../../activityTemplateGenericCreationTest.epc");
 
-	REQUIRE( epcDoc->getWellboreCubicParamLineTrajRepSet().size() == 1);
-	WellboreTrajectoryRepresentation* wbTraj = epcDoc->getWellboreCubicParamLineTrajRepSet()[0];
-	REQUIRE( wbTraj->getSubRepresentationSet().size() == 2);
-	SubRepresentation* subRep0 = wbTraj->getSubRepresentation(0);
-	SubRepresentation* subRep1 = wbTraj->getSubRepresentation(1);
-	if(subRep0->getTitle() == "subRepWithInterp")
-	{
-		REQUIRE( subRep0->getInterpretation() != NULL);
-		REQUIRE( subRep0->getInterpretation()->getTitle() == "FaultForSubRep Interp1");
-		REQUIRE( subRep1->getInterpretation() == NULL);
-	}
-	else
-	{
-		REQUIRE( subRep1->getInterpretation() != NULL);
-		REQUIRE( subRep1->getInterpretation()->getTitle() == "FaultForSubRep Interp1");
-		REQUIRE( subRep0->getInterpretation() == NULL);
-	}
+	activityTemplate->serialize();
+	activityTemplate->deserialize();
+}
 
-	delete epcDoc;
+TEST_CASE( "Export and import an activity", "[activity]" )
+{
+	ActivityCreationTest* activity = new ActivityCreationTest("../../activityCreationTest.epc");
+
+	activity->serialize();
+	activity->deserialize();
+}
+
+TEST_CASE( "Export and import an unstructured grid", "[grid]" )
+{
+	OneTetrahedronUnstructuredGridRepresentationTest* gridTest = new OneTetrahedronUnstructuredGridRepresentationTest("../../oneTetrahedronUnstructuredGridRepresentationTest.epc");
+
+	gridTest->serialize();
+	gridTest->deserialize();
+}
+
+TEST_CASE( "Ijk to unstructured grid", "[grid]" )
+{
+	UnstructuredFromIjkGridRepresentationTest* gridTest = new UnstructuredFromIjkGridRepresentationTest("../../unstructuredFromIjkGridRepresentationTest.epc");
+
+	gridTest->serialize();
+	gridTest->deserialize();
+}
+
+TEST_CASE( "Export and import a time series", "[property]" )
+{
+	TimeSeriesTest* timeSeriesTest = new TimeSeriesTest("../../timeSeriesTest.epc");
+
+	timeSeriesTest->serialize();
+	timeSeriesTest->deserialize();
+}
+
+TEST_CASE( "Export and import continuous property series", "[property]" )
+{
+	ContinuousPropertySeriesTest* continuousPropertySeriesTest = new ContinuousPropertySeriesTest("../../continuousPropertySeriesTest.epc");
+
+	continuousPropertySeriesTest->serialize();
+	continuousPropertySeriesTest->deserialize();
+}
+
+TEST_CASE( "Export and import continuous property on partial grid", "[property]" )
+{
+	ContinuousPropertyOnPartialGridTest* continuousPropertyOnPartialGridTest = new ContinuousPropertyOnPartialGridTest("../../continuousPropertyOnPartialGridTest.epc");
+
+	continuousPropertyOnPartialGridTest->serialize();
+	continuousPropertyOnPartialGridTest->deserialize();
+}
+
+TEST_CASE("Export and import a wellbore marker frame", "[well][stratigraphy]")
+{
+	WellboreMarkerFrameRepresentationTest* wellboreMarkerFrameRepresentationTest = new WellboreMarkerFrameRepresentationTest("../../wellboreMarkerFrameRepresentationTest.epc");
+
+	wellboreMarkerFrameRepresentationTest->serialize();
+	wellboreMarkerFrameRepresentationTest->deserialize();
 }
