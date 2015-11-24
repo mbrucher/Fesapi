@@ -315,6 +315,16 @@ void WellboreTrajectoryRepresentation::getMdValues(double * values)
 	hdfProxy->readArrayNdOfDoubleValues(xmlControlPointParameters->Values->PathInHdfFile, values);
 }
 
+double WellboreTrajectoryRepresentation::getStartMd() const
+{
+	return static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy)->StartMd;
+}
+
+double WellboreTrajectoryRepresentation::getFinishMd() const
+{
+	return static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy)->FinishMd;
+}
+
 bool WellboreTrajectoryRepresentation::hasTangentVectors() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);

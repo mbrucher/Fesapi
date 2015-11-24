@@ -142,8 +142,8 @@ namespace common
 	class DLL_IMPORT_OR_EXPORT EpcDocument
 	{
 	public:
-		EpcDocument(const std::string & fileName);
-		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory);
+		EpcDocument(const std::string & fileName, bool overwriteH5File = false);
+		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, bool overwriteH5File = false);
 
 		~EpcDocument();
 
@@ -167,6 +167,8 @@ namespace common
 		 * Free all ressources contained in this package.
 		 */
 		void close();
+
+		bool isOverwritingH5FileIfNeeded() const { return overwriteH5File; }
 
 		/**
 		 * Set the file path which will be used for future serialization and deserialization
@@ -945,6 +947,8 @@ namespace common
 
 	private :
 		static const char * DOCUMENT_EXTENSION;
+
+		bool overwriteH5File;
 
 		epc::Package* package;
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)

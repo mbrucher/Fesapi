@@ -141,6 +141,16 @@ namespace resqml2_0_1
 		void getMdValues(double* values);
 
 		/**
+		* Get the measured depth for the start of the wellbore trajectory. Range may often be from kickoff to TD, but this is not necessary.
+		*/
+		double getStartMd() const;
+
+		/**
+		* Get the ending depth for the start of the wellbore trajectory. Range may often be from kickoff to TD, but this is not necessary.
+		*/
+		double getFinishMd() const;
+
+		/**
 		* Indicates if the wellbore trajectory has got tangent vectors atatched to each trajectory station.
 		*/
 		bool hasTangentVectors() const;

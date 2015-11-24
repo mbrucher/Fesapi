@@ -1083,7 +1083,7 @@ void deserializeActivity(AbstractObject* resqmlObject)
 
 void serialize(const string & filePath)
 {
-	common::EpcDocument pck(filePath);
+	common::EpcDocument pck(filePath, true);
 
 	AbstractHdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
 
@@ -1250,6 +1250,25 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 			showAllMetadata(stratiColumnRankInterp->getSubjectOfContact(contactIndex));
 			cout << "DIRECT OBJECT : " << endl;
 			showAllMetadata(stratiColumnRankInterp->getDirectObjectOfContact(contactIndex));
+		}
+
+		vector<WellboreMarkerFrameRepresentation*> markerFrameSet = stratiColumnRankInterp->getWellboreMarkerFrameRepresentationSet();
+		for (unsigned int markerFrameIndex = 0; markerFrameIndex < markerFrameSet.size(); ++markerFrameIndex)
+		{
+			WellboreMarkerFrameRepresentation* markerFrame = markerFrameSet[markerFrameIndex];
+			showAllMetadata(markerFrame);
+			vector<WellboreMarker*> markerSet = markerFrame->getWellboreMarkerSet();
+			double* doubleMds = new double[markerFrame->getMdValuesCount()];
+			markerFrame->getMdAsDoubleValues(doubleMds);
+			for (unsigned int mIndex = 0; mIndex < markerSet.size(); ++mIndex)
+			{
+				if (doubleMds[mIndex] == doubleMds[mIndex])
+				{
+					cout << doubleMds[mIndex] << endl;
+				}
+				else
+					cout << "NaN" << endl;
+			}
 		}
 	}
 }
@@ -1475,7 +1494,7 @@ void deserialize(const string & inputFile)
 	{
 		showAllMetadata(wellboreSet[i]);
 		witsml1_4_1_1::Wellbore* witsmlWellbore = wellboreSet[i]->getWitsmlWellbore();
-		if (witsmlWellbore)
+		if (witsmlWellbore != NULL)
 		{
 			std::cout << "Associated with witsml well bore " << witsmlWellbore->getTitle()
 				<< " with GUID " << witsmlWellbore->getUuid() << " and witsml well " << witsmlWellbore->getWell()->getTitle()

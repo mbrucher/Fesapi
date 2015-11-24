@@ -320,6 +320,7 @@ namespace witsml1_4_1_1
 	public:
 		gsoap_witsml1_4_1_1::witsml1__LogIndexType getIndexType();
 		std::string getIndexMnemonic();
+		std::string getDataDelimiter() const;
 		const std::vector<std::string> & getData() const;
 		std::vector<std::string> getMnemonicSet();
 	

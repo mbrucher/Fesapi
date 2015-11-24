@@ -60,19 +60,6 @@ void AbstractFeatureInterpretation::setInterpretedFeature(AbstractFeature * feat
 	}
 }
 
-vector<WellboreMarkerFrameRepresentation*> AbstractFeatureInterpretation::getWellboreMarkerFrameRepresentationSet() const
-{
-	vector<WellboreMarkerFrameRepresentation*> result;
-
-	for (unsigned int i = 0; i < representationSet.size(); ++i)
-	{
-		if (representationSet[i]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreMarkerFrameRepresentation)
-			result.push_back(static_cast<WellboreMarkerFrameRepresentation*>(representationSet[i]));
-	}
-
-	return result;
-}
-
 void AbstractFeatureInterpretation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
 	resqml2__AbstractFeatureInterpretation* interp = static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy);

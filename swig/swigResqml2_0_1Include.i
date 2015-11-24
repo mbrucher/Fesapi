@@ -600,7 +600,6 @@ namespace resqml2_0_1
 		AbstractFeature*		getInterpretedFeature();
 		AbstractRepresentation* getRepresentation(const unsigned int & index) const;
 		std::string 			getInterpretedFeatureUuid() const;
-		std::vector<WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const;
 	};
 
 	class GenericFeatureInterpretation : public AbstractFeatureInterpretation
@@ -671,6 +670,7 @@ namespace resqml2_0_1
 		std::vector<StratigraphicUnitInterpretation*> getStratigraphicUnitInterpretationSet() const;
         std::vector<HorizonInterpretation*> getHorizonInterpretationSet() const;
 		std::vector<StratigraphicOccurrenceInterpretation*> getStratigraphicOccurrenceInterpretationSet() const;
+		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const;
 	};
 	
 	class StratigraphicOccurrenceInterpretation : public AbstractOrganizationInterpretation
@@ -931,6 +931,8 @@ namespace resqml2_0_1
 
 		bool hasMdValues() const;
 		void getMdValues(double* values);
+		double getStartMd() const;
+		double getFinishMd() const;
 
 		void setWitsmlTrajectory(witsml1_4_1_1::Trajectory * witsmlTraj);
 		witsml1_4_1_1::Trajectory * getWitsmlTrajectory();

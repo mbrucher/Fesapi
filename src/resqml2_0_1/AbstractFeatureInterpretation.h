@@ -92,11 +92,6 @@ namespace resqml2_0_1
 		AbstractRepresentation*				getRepresentation(const unsigned int & index) const {if (representationSet.size() > index) return representationSet[index]; else return NULL;}
 
 		/**
-		* Get all the wellbore marker frame representations of this interpretation
-		*/
-		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const;
-
-		/**
 		* Set the domain of the interpretation
 		*/
 		void setDomain(const gsoap_resqml2_0_1::resqml2__Domain & domain);

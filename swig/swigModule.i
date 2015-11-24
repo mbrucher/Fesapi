@@ -76,8 +76,8 @@ namespace common
 	class EpcDocument
 	{
 	public:
-		EpcDocument(const std::string & fileName);
-		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory);
+		EpcDocument(const std::string & fileName, bool overwriteH5File = false);
+		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, bool overwriteH5File = false);
 		
 		void setFilePath(const std::string & filePath);
 

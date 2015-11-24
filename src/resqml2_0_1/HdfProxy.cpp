@@ -46,16 +46,31 @@ void HdfProxy::open()
 	{
 		close();
 	}
+
+	bool needUuidAttribute = false;
 	hdfFile = H5Fcreate( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_EXCL, H5P_DEFAULT, H5P_DEFAULT);
 	if (hdfFile < 0) // It generally means the file already exists
 	{
-		htri_t isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath+relativeFilePath).c_str());
-		if (isHdf5 > 0)
-			hdfFile = H5Fopen( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+		if (getEpcDocument()->isOverwritingH5FileIfNeeded())
+		{
+			hdfFile = H5Fcreate((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+			needUuidAttribute = true;
+		}
 		else
-			throw invalid_argument("The indicated HDF5 file already exists and is not a valid HDF5 file.");
+		{
+			htri_t isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str());
+			if (isHdf5 > 0)
+			{
+				hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+			}
+			else
+				throw invalid_argument("The indicated HDF5 file already exists and is not a valid HDF5 file.");
+		}
 	}
-	else // create an attribute at the file level to store the uuid of the corresponding resqml hdf proxy.
+	else
+		needUuidAttribute = true;
+
+	if (needUuidAttribute)// create an attribute at the file level to store the uuid of the corresponding resqml hdf proxy.
 	{
 		hid_t aid  = H5Screate(H5S_SCALAR);
 		hid_t atype = H5Tcopy(H5T_C_S1);

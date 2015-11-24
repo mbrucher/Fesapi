@@ -128,14 +128,14 @@ namespace // anonymous namespace. Use only in that file.
   }
 }
 
-EpcDocument::EpcDocument(const string & fileName):
-		package(nullptr), s(nullptr), propertyKindMapper(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
+EpcDocument::EpcDocument(const string & fileName, bool overwriteH5File) :
+	overwriteH5File(overwriteH5File), package(nullptr), s(nullptr), propertyKindMapper(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
 {
 	open(fileName);
 }
 
-EpcDocument::EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory):
-	package(nullptr), s(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
+EpcDocument::EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, bool overwriteH5File) :
+	overwriteH5File(overwriteH5File), package(nullptr), s(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
 {
 	open(fileName);
 

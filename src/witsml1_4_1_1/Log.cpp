@@ -38,6 +38,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "tools/GuidTools.h"
 #include "witsml1_4_1_1/Well.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace witsml1_4_1_1;
 using namespace gsoap_witsml1_4_1_1;
@@ -156,21 +160,52 @@ void Log::setWellbore(Wellbore* witsmlWellbore)
 
 gsoap_witsml1_4_1_1::witsml1__LogIndexType Log::getIndexType()
 {
+	if (static_cast<_witsml1__logs*>(collection)->log.empty())
+		throw invalid_argument("The log collection is empty.");
+	if (static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence == nullptr)
+		throw invalid_argument("The log is empty.");
+
 	return static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence->indexType;
 }
 
 std::string Log::getIndexMnemonic()
 {
+	if (static_cast<_witsml1__logs*>(collection)->log.empty())
+		throw invalid_argument("The log collection is empty.");
+	if (static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence == nullptr)
+		throw invalid_argument("The log is empty.");
+
 	return static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence->indexCurve;
+}
+
+std::string Log::getDataDelimiter() const
+{
+	if (static_cast<_witsml1__logs*>(collection)->log.empty())
+		return ","; //Default
+	if (static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence == nullptr)
+		return ","; //Default
+	if (static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence->dataDelimiter != nullptr)
+		return *(static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence->dataDelimiter);
+	else
+		return ",";
 }
 
 const std::vector<std::string> & Log::getData() const
 {
+	if (static_cast<_witsml1__logs*>(collection)->log.empty())
+		throw invalid_argument("The log collection is empty.");
+	if (static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence == nullptr)
+		throw invalid_argument("The log is empty.");
+	if (static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence->logData.empty())
+		throw invalid_argument("The log is empty.");
 	return static_cast<_witsml1__logs*>(collection)->log[0]->__obj_USCORElog_sequence->logData[0]->data;
 }
 
 std::vector<std::string> Log::getMnemonicSet()
 {
+	if (static_cast<_witsml1__logs*>(collection)->log.empty())
+		throw invalid_argument("The log collection is empty.");
+
 	witsml1__obj_USCORElog* log = static_cast<_witsml1__logs*>(collection)->log[0];
 
 	std::vector<std::string> result;

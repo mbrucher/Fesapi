@@ -80,6 +80,8 @@ namespace witsml1_4_1_1
 
 		const std::vector<std::string> & getData() const;
 
+		std::string getDataDelimiter() const;
+
 		void setValues(
 			const std::string & description,
 			const std::string & dataDelimiter,

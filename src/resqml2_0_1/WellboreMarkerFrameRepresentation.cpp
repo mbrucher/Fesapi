@@ -132,6 +132,11 @@ void WellboreMarkerFrameRepresentation::setStratigraphicColumnRankInterpretation
 
 void WellboreMarkerFrameRepresentation::setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, StratigraphicColumnRankInterpretation* stratiColRankInterp)
 {
+	if (stratiUnitIndices == nullptr)
+		throw invalid_argument("The strati unit indices cannot be null.");
+	if (stratiColRankInterp->getContactCount() == 0)
+		throw invalid_argument("Where there is no contact in the StratigraphicColumnRankInterpretation, there cannot be strati unit indices.");
+
 	setStratigraphicColumnRankInterpretation(stratiColRankInterp);
 
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
@@ -144,7 +149,7 @@ void WellboreMarkerFrameRepresentation::setIntervalStratigraphicUnits(unsigned i
 	frame->IntervalStratigraphiUnits->UnitIndices = xmlDataset;
 
 	// ************ HDF *************
-	hsize_t dim = stratiColRankInterp->getContactCount();
+	hsize_t dim = stratiColRankInterp->getContactCount() - 1;
 	hdfProxy->writeArrayNd(frame->uuid, "IntervalStratigraphicUnits", H5T_NATIVE_UINT, stratiUnitIndices, &dim, 1);
 }
 
