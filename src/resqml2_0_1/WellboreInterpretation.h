@@ -64,6 +64,11 @@ namespace resqml2_0_1
 		*/
 		bool isDrilled() const;
 
+		/**
+		* Get all the trajectory representations of this interpretation
+		*/
+		std::vector<class WellboreTrajectoryRepresentation*> getWellboreTrajectoryRepresentationSet() const;
+
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 	};

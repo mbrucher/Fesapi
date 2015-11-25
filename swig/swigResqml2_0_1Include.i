@@ -620,10 +620,12 @@ namespace resqml2_0_1
 	{
 	};
 	
+	class WellboreTrajectoryRepresentation;
 	class WellboreInterpretation : public AbstractFeatureInterpretation
 	{
 	public:
 		bool isDrilled() const;
+		std::vector<WellboreTrajectoryRepresentation*> getWellboreTrajectoryRepresentationSet() const;
 	};
 	
 	class StratigraphicUnitInterpretation : public AbstractFeatureInterpretation
