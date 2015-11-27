@@ -89,6 +89,7 @@ namespace epc
 		void setId(const std::string & rsId);
 	};
 
+	bool operator==(const Relationship& r1, const Relationship& r2);
 };
 
 #endif

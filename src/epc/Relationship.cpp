@@ -111,3 +111,10 @@ void Relationship::setId(const string & rsId)
 		id = rsId;
 }
 
+bool epc::operator==(const Relationship& r1, const Relationship& r2)
+{
+	return
+		(r2.getId() == r1.getId()) &&
+		(r2.getType() == r1.getType()) &&
+		(r2.getTarget() == r1.getTarget());
+}

@@ -765,6 +765,12 @@ string EpcDocument::deserialize()
 				soap_read_resqml2__obj_USCORETimeSeries(s, read);
 				wrapper = new TimeSeries(read);
 			}
+			else if (resqmlContentType.compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__SealedSurfaceFrameworkRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(this->s, 1);
+				soap_read_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(s, read);
+				wrapper = new SealedSurfaceFrameworkRepresentation(read);
+			}
 			else if (resqmlContentType.compare(EpcExternalPartReference::XML_TAG) == 0)
 			{
 				// Look for the relative path of the HDF file

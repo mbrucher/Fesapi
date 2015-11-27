@@ -388,7 +388,7 @@ double Grid2dRepresentation::getISpacing() const
 		int iIndexOffset = getIndexOffsetOnSupportingRepresentation(1);
 		double iSpacingOnSupportingRep = supportingRepresentation->getISpacing();
 
-		return iIndexOffset * iIndexOffset;
+		return iIndexOffset * iSpacingOnSupportingRep;
 	}
 	else
 		return std::numeric_limits<double>::signaling_NaN();

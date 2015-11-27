@@ -35,6 +35,7 @@ termes.
 #include "FileRelationship.h"
 
 #include <sstream>
+#include <algorithm>
 
 using namespace std; // in order not to prefix by "std::" for each class in the "std" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
 using namespace epc; // in order not to prefix by "epc::" for each class in the "epc" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
@@ -103,7 +104,10 @@ void FileRelationship::setPathName(const std::string & frPathName)
 
 void FileRelationship::addRelationship(const Relationship & frRelationship)
 {
-	relationship.push_back(frRelationship);
+	if (std::find(this->relationship.cbegin(), this->relationship.cend(), frRelationship) == relationship.cend())
+	{
+		relationship.push_back(frRelationship);
+	}
 }
 
 void FileRelationship::readFromString(const string & textInput)
