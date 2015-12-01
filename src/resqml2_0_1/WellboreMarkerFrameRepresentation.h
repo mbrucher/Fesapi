@@ -58,7 +58,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		WellboreMarkerFrameRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreMarkerFrameRepresentation* fromGsoap) : WellboreFrameRepresentation(fromGsoap), stratigraphicColumnRankInterpretation(NULL) {}
+		WellboreMarkerFrameRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreMarkerFrameRepresentation* fromGsoap) : WellboreFrameRepresentation(fromGsoap), stratigraphicOccurrenceInterpretation(NULL) {}
 
 		// clean the owned markers
 		~WellboreMarkerFrameRepresentation();
@@ -85,15 +85,16 @@ namespace resqml2_0_1
 		*/
 		const std::vector<class WellboreMarker*> & getWellboreMarkerSet() const { return markerSet; }
 
-		void setStratigraphicColumnRankInterpretation(class StratigraphicColumnRankInterpretation * stratiColumnRankInterp);
+		void setStratigraphicOccurrenceInterpretation(class StratigraphicOccurrenceInterpretation * stratiOccurenceInterp);
 
 		/**
 		* Set the correspondance between the interval of the wellbore marker frame rep and the units of a stratiColRankInterp
-		* @param stratiUnitIndices The count must be equal to the count of contacts in stratiColRankInterp
+		* @param stratiUnitIndices	The count must be equal to the count of contacts in stratiColRankInterp
+		* @param nullValue			The value which is used to indicate we don't know the related strati units against a particular interval.
 		*/
-		void setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, class StratigraphicColumnRankInterpretation* stratiColRankInterp);
+		void setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, const unsigned int & nullValue, class StratigraphicOccurrenceInterpretation* stratiOccurenceInterp);
 
-		class StratigraphicColumnRankInterpretation* getStratigraphicColumnRankInterpretation() {return stratigraphicColumnRankInterpretation;}
+		class StratigraphicOccurrenceInterpretation* getStratigraphicOccurrenceInterpretation() { return stratigraphicOccurrenceInterpretation; }
 
 		void setWitsmlFormationMarker(const unsigned int & resqmlMarkerIndex, witsml1_4_1_1::FormationMarker * witsmlFormationMarker);
 
@@ -107,7 +108,7 @@ namespace resqml2_0_1
 
 		// XML forward relationships
 		std::vector<witsml1_4_1_1::FormationMarker*> witsmlFormationMarkerSet;
-		class StratigraphicColumnRankInterpretation* stratigraphicColumnRankInterpretation;
+		class StratigraphicOccurrenceInterpretation* stratigraphicOccurrenceInterpretation;
 
 		// only memory relationship
 		std::vector<class WellboreMarker*> markerSet;

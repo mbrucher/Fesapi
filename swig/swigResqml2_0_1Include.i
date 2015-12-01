@@ -672,7 +672,6 @@ namespace resqml2_0_1
 		std::vector<StratigraphicUnitInterpretation*> getStratigraphicUnitInterpretationSet() const;
         std::vector<HorizonInterpretation*> getHorizonInterpretationSet() const;
 		std::vector<StratigraphicOccurrenceInterpretation*> getStratigraphicOccurrenceInterpretationSet() const;
-		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const;
 	};
 	
 	class StratigraphicOccurrenceInterpretation : public AbstractOrganizationInterpretation
@@ -681,6 +680,8 @@ namespace resqml2_0_1
 		void setStratigraphicColumnRankInterpretation(StratigraphicColumnRankInterpretation * stratiColumnRankInterp);
 		StratigraphicColumnRankInterpretation * getStratigraphicColumnRankInterpretation() const;
 		std::string getStratigraphicColumnRankInterpretationUuid() const;
+		
+		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const;
 	};
 	
 	class StratigraphicColumn : public AbstractResqmlDataObject
@@ -981,8 +982,8 @@ namespace resqml2_0_1
 		unsigned int getWellboreMarkerCount();
 		const std::vector<WellboreMarker*> & getWellboreMarkerSet() const;
 
-		void setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, class StratigraphicColumnRankInterpretation* stratiColRankInterp);
-		StratigraphicColumnRankInterpretation* getStratigraphicColumnRankInterpretation();
+		void setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, const unsigned int & nullValue, class StratigraphicOccurrenceInterpretation* stratiOccurenceInterp);
+		StratigraphicOccurrenceInterpretation* getStratigraphicOccurrenceInterpretation();
 
 		void setWitsmlFormationMarker(const unsigned int & resqmlMarkerIndex, witsml1_4_1_1::FormationMarker * witsmlFormationMarker);
 	};

@@ -35,6 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractOrganizationInterpretation.h"
 #include "resqml2_0_1/EarthModelInterpretation.h"
+#include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 
 namespace resqml2_0_1
 {
@@ -67,6 +68,11 @@ namespace resqml2_0_1
 
 		class StratigraphicColumnRankInterpretation * getStratigraphicColumnRankInterpretation() const {return stratigraphicColumnRankInterpretation;}
 
+		/**
+		* Get all the stratigraphic occurence interpretations associated with this StratigraphicColumnRankInterpretation.
+		*/
+		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const { return wellboreMarkerFrameRepresentationSet; }
+
 		std::string getStratigraphicColumnRankInterpretationUuid() const;
                 
 		static const char* XML_TAG;
@@ -82,7 +88,9 @@ namespace resqml2_0_1
 
 		// Backward relationship
 		std::vector<EarthModelInterpretation *> earthModelSet;
+		std::vector<WellboreMarkerFrameRepresentation *> wellboreMarkerFrameRepresentationSet;
 
 		friend void EarthModelInterpretation::pushBackStratiOccurence(StratigraphicOccurrenceInterpretation * stratiOccurence);
+		friend void WellboreMarkerFrameRepresentation::setStratigraphicOccurrenceInterpretation(StratigraphicOccurrenceInterpretation * stratiOccurenceInterp);
 	};
 }

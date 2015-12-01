@@ -100,6 +100,13 @@ vector<Relationship> StratigraphicOccurrenceInterpretation::getAllEpcRelationshi
 		rel.setSourceObjectType();
 		result.push_back(rel);
 	}
+
+	for (unsigned int i = 0; i < wellboreMarkerFrameRepresentationSet.size(); i++)
+	{
+		Relationship rel(wellboreMarkerFrameRepresentationSet[i]->getPartNameInEpcDocument(), "", wellboreMarkerFrameRepresentationSet[i]->getUuid());
+		rel.setSourceObjectType();
+		result.push_back(rel);
+	}
         
     return result;
 }

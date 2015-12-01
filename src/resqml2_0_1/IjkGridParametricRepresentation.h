@@ -76,8 +76,7 @@ namespace resqml2_0_1
 		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		/**
-		* Get the max control point coutn on a pillar of the grid.
-		* Only relevant in case the IJK grid is a parametric one.
+		* Get the max control point count on a pillar of the grid.
 		*/
 		unsigned int getControlPointMaxCountPerPillar() const;
 

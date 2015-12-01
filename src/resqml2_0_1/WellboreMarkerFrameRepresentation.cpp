@@ -45,7 +45,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "tools/GuidTools.h"
 #include "resqml2_0_1/WellboreMarker.h"
-#include "resqml2_0_1/StratigraphicColumnRankInterpretation.h"
 #include "resqml2_0_1/StratigraphicOccurrenceInterpretation.h"
 #include "resqml2_0_1/HorizonInterpretation.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
@@ -64,7 +63,7 @@ using namespace epc;
 const char* WellboreMarkerFrameRepresentation::XML_TAG = "WellboreMarkerFrameRepresentation";
 
 WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj):
-	WellboreFrameRepresentation(interp, nullptr), stratigraphicColumnRankInterpretation(NULL)
+	WellboreFrameRepresentation(interp, nullptr), stratigraphicOccurrenceInterpretation(NULL)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
@@ -115,41 +114,39 @@ unsigned int WellboreMarkerFrameRepresentation::getWellboreMarkerCount()
 	return static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy)->WellboreMarker.size();
 }
 
-void WellboreMarkerFrameRepresentation::setStratigraphicColumnRankInterpretation(StratigraphicColumnRankInterpretation * stratiColRankInterp)
+void WellboreMarkerFrameRepresentation::setStratigraphicOccurrenceInterpretation( StratigraphicOccurrenceInterpretation * stratiOccurenceInterp)
 {
 	// EPC
-	stratigraphicColumnRankInterpretation = stratiColRankInterp;
-	stratiColRankInterp->wellboreMarkerFrameRepresentationSet.push_back(this);
+	stratigraphicOccurrenceInterpretation = stratiOccurenceInterp;
+	stratiOccurenceInterp->wellboreMarkerFrameRepresentationSet.push_back(this);
 
 	// XML
 	if (updateXml)
 	{
 		_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
 		frame->IntervalStratigraphiUnits = soap_new_resqml2__IntervalStratigraphicUnits(frame->soap, 1);
-		frame->IntervalStratigraphiUnits->StratigraphicOrganization = stratiColRankInterp->newResqmlReference();
+		frame->IntervalStratigraphiUnits->StratigraphicOrganization = stratiOccurenceInterp->newResqmlReference();
 	}
 }
 
-void WellboreMarkerFrameRepresentation::setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, StratigraphicColumnRankInterpretation* stratiColRankInterp)
+void WellboreMarkerFrameRepresentation::setIntervalStratigraphicUnits(unsigned int * stratiUnitIndices, const unsigned int & nullValue, StratigraphicOccurrenceInterpretation* stratiOccurenceInterp)
 {
 	if (stratiUnitIndices == nullptr)
 		throw invalid_argument("The strati unit indices cannot be null.");
-	if (stratiColRankInterp->getContactCount() == 0)
-		throw invalid_argument("Where there is no contact in the StratigraphicColumnRankInterpretation, there cannot be strati unit indices.");
 
-	setStratigraphicColumnRankInterpretation(stratiColRankInterp);
+	setStratigraphicOccurrenceInterpretation(stratiOccurenceInterp);
 
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
 
 	resqml2__IntegerHdf5Array* xmlDataset = soap_new_resqml2__IntegerHdf5Array(frame->soap, 1);
-	xmlDataset->NullValue = (std::numeric_limits<unsigned int>::max)();
+	xmlDataset->NullValue = nullValue;
 	xmlDataset->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
 	xmlDataset->Values->HdfProxy = hdfProxy->newResqmlReference();
 	xmlDataset->Values->PathInHdfFile = "/RESQML/" + frame->uuid + "/IntervalStratigraphicUnits";
 	frame->IntervalStratigraphiUnits->UnitIndices = xmlDataset;
 
 	// ************ HDF *************
-	hsize_t dim = stratiColRankInterp->getContactCount() - 1;
+	hsize_t dim = frame->NodeCount - 1;
 	hdfProxy->writeArrayNd(frame->uuid, "IntervalStratigraphicUnits", H5T_NATIVE_UINT, stratiUnitIndices, &dim, 1);
 }
 
@@ -176,9 +173,9 @@ vector<Relationship> WellboreMarkerFrameRepresentation::getAllEpcRelationships()
 	vector<Relationship> result = WellboreFrameRepresentation::getAllEpcRelationships();
 
 	// XML forward relationship
-	if (stratigraphicColumnRankInterpretation != nullptr)
+	if (stratigraphicOccurrenceInterpretation != nullptr)
 	{
-		Relationship relStratiRank(stratigraphicColumnRankInterpretation->getPartNameInEpcDocument(), "", stratigraphicColumnRankInterpretation->getUuid());
+		Relationship relStratiRank(stratigraphicOccurrenceInterpretation->getPartNameInEpcDocument(), "", stratigraphicOccurrenceInterpretation->getUuid());
 		relStratiRank.setDestinationObjectType();
 		result.push_back(relStratiRank);
 	}
@@ -221,7 +218,7 @@ void WellboreMarkerFrameRepresentation::importRelationshipSetFromEpc(common::Epc
 
 	if (rep->IntervalStratigraphiUnits != nullptr)
 	{
-		setStratigraphicColumnRankInterpretation(static_cast<StratigraphicColumnRankInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphiUnits->StratigraphicOrganization->UUID)));
+		setStratigraphicOccurrenceInterpretation(static_cast<StratigraphicOccurrenceInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphiUnits->StratigraphicOrganization->UUID)));
 	}
 
 	updateXml = true;

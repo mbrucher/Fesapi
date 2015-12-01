@@ -39,6 +39,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/StratigraphicUnitInterpretation.h"
 #include "resqml2_0_1/HorizonInterpretation.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "nullptr_emulation.h"
+#endif
+
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -94,6 +98,9 @@ unsigned int StratigraphicColumnRankInterpretation::getContactCount() const
 
 resqml2__ContactMode StratigraphicColumnRankInterpretation::getSubjectContactModeOfContact(const unsigned int & contactIndex) const
 {
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
+
 	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
 	if (contact->Subject->SecondaryQualifier)
 		return *contact->Subject->SecondaryQualifier;
@@ -103,6 +110,9 @@ resqml2__ContactMode StratigraphicColumnRankInterpretation::getSubjectContactMod
 
 StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getSubjectOfContact(const unsigned int & contactIndex) const
 {
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
+
 	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
 	if (contact->Subject)
 		return static_cast<StratigraphicUnitInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->Subject->UUID));
@@ -112,6 +122,9 @@ StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getSubje
 
 resqml2__ContactMode StratigraphicColumnRankInterpretation::getDirectObjectContactModeOfContact(const unsigned int & contactIndex) const
 {
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
+
 	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
 	if (contact->DirectObject->SecondaryQualifier)
 		return *contact->DirectObject->SecondaryQualifier;
@@ -121,6 +134,9 @@ resqml2__ContactMode StratigraphicColumnRankInterpretation::getDirectObjectConta
 
 StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getDirectObjectOfContact(const unsigned int & contactIndex) const
 {
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
+
 	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
 	if (contact->DirectObject)
 		return static_cast<StratigraphicUnitInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->DirectObject->UUID));
@@ -130,6 +146,9 @@ StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getDirec
 
 HorizonInterpretation* StratigraphicColumnRankInterpretation::getHorizonInterpretationOfContact(const unsigned int & contactIndex) const
 {
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
+
 	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
 	if (contact->PartOf)
 		return static_cast<HorizonInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->PartOf->UUID));
@@ -202,6 +221,22 @@ vector<Relationship> StratigraphicColumnRankInterpretation::getAllEpcRelationshi
 {
 	vector<Relationship> result = AbstractOrganizationInterpretation::getAllEpcRelationships();
 
+	// forward relationships
+	for (unsigned int i = 0; i < stratigraphicUnitSet.size(); i++)
+	{
+		Relationship rel(stratigraphicUnitSet[i]->getPartNameInEpcDocument(), "", stratigraphicUnitSet[i]->getUuid());
+		rel.setDestinationObjectType();
+		result.push_back(rel);
+	}
+
+	for (unsigned int i = 0; i < horizonInterpretationSet.size(); i++)
+	{
+		Relationship rel(horizonInterpretationSet[i]->getPartNameInEpcDocument(), "", horizonInterpretationSet[i]->getUuid());
+		rel.setDestinationObjectType();
+		result.push_back(rel);
+	}
+
+	// Backward relationships
 	for (unsigned int i = 0; i < stratigraphicColumnSet.size(); i++)
 	{
 		Relationship rel(stratigraphicColumnSet[i]->getPartNameInEpcDocument(), "", stratigraphicColumnSet[i]->getUuid());
@@ -213,13 +248,6 @@ vector<Relationship> StratigraphicColumnRankInterpretation::getAllEpcRelationshi
 	{
 		Relationship rel(stratigraphicOccurrenceInterpretationSet[i]->getPartNameInEpcDocument(), "", stratigraphicOccurrenceInterpretationSet[i]->getUuid());
 		rel.setSourceObjectType();
-		result.push_back(rel);
-	}
-
-	for (unsigned int i = 0; i < stratigraphicUnitSet.size(); i++)
-	{
-		Relationship rel(stratigraphicUnitSet[i]->getPartNameInEpcDocument(), "", stratigraphicUnitSet[i]->getUuid());
-		rel.setDestinationObjectType();
 		result.push_back(rel);
 	}
         
