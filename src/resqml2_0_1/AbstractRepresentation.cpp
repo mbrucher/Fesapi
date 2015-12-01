@@ -323,7 +323,7 @@ std::string AbstractRepresentation::getHdfProxyUuidFromPointGeometryPatch(gsoap_
 
 ULONG64 AbstractRepresentation::getXyzPointCountOfAllPatches() const
 {
-	unsigned int result = 0;
+	ULONG64 result = 0;
 
 	unsigned int patchCount = getPatchCount();
 	for (unsigned int patchIndex = 0; patchIndex < patchCount; patchIndex++)

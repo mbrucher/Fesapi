@@ -56,7 +56,7 @@ std::string GuidTools::generateUidAsString()
 
 string GuidTools::generateUidAsString()
 {
-	GUID sessionGUID = GUID_nullptr;
+	GUID sessionGUID = GUID_NULL;
 	HRESULT hr = CoCreateGuid(&sessionGUID);
 	wchar_t uuidWStr[39];
 	StringFromGUID2(sessionGUID, uuidWStr, 39);

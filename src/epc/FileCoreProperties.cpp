@@ -131,7 +131,7 @@ void FileCoreProperties::initDefaultCoreProperties()
 	if (properties[CoreProperty::identifier].isEmpty())
 	{
 #if defined(_WIN32)
-		GUID sessionGUID = GUID_nullptr;
+		GUID sessionGUID = GUID_NULL;
 		HRESULT hr = CoCreateGuid(&sessionGUID);
 		wchar_t uuidWStr[39];
 		StringFromGUID2(sessionGUID, uuidWStr, 39);

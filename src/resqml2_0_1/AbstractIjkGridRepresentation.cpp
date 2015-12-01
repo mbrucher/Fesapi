@@ -199,7 +199,7 @@ void AbstractIjkGridRepresentation::getColumnsOfSplitCoordinateLines(unsigned in
 
 	if (reverseIAxis || reverseJAxis)
 	{
-		unsigned int datasetValueCount = hdfProxy->getElementCount(static_cast<resqml2__IntegerHdf5Array*>(grid->Geometry->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->Elements)->Values->PathInHdfFile);
+		hssize_t datasetValueCount = hdfProxy->getElementCount(static_cast<resqml2__IntegerHdf5Array*>(grid->Geometry->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->Elements)->Values->PathInHdfFile);
 		if (reverseIAxis)
 		{
 			for (unsigned int index = 0; index < datasetValueCount; ++index)
@@ -344,7 +344,7 @@ void AbstractIjkGridRepresentation::getEnabledCells(bool * enabledCells, bool re
 		throw invalid_argument("The grid has no geometry or no information about enabled cells.");
 
 	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
-	unsigned int cellCount = getCellCount();
+	ULONG64 cellCount = getCellCount();
 	if (grid->Geometry->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
 		hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile);
@@ -352,7 +352,7 @@ void AbstractIjkGridRepresentation::getEnabledCells(bool * enabledCells, bool re
 		{
 			char* tmp = new char[cellCount];
 			hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
-			for (unsigned int i = 0; i < cellCount; i++)
+			for (ULONG64 i = 0; i < cellCount; i++)
 				if (tmp[i] == 0) enabledCells[i] = false; else enabledCells[i] = true;
 			delete [] tmp;
 		}
@@ -360,7 +360,7 @@ void AbstractIjkGridRepresentation::getEnabledCells(bool * enabledCells, bool re
 		{
 			unsigned char* tmp = new unsigned char[cellCount];
 			hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
-			for (unsigned int i = 0; i < cellCount; i++)
+			for (ULONG64 i = 0; i < cellCount; i++)
 				if (tmp[i] == 0) enabledCells[i] = false; else enabledCells[i] = true;
 			delete [] tmp;
 		}
@@ -382,9 +382,9 @@ void AbstractIjkGridRepresentation::getEnabledCells(bool * enabledCells, bool re
 	// Copy in order not to modify the controlPoints pointer
 	if (reverseIAxis || reverseJAxis || reverseKAxis)
 	{
-		unsigned int arrayCount = getCellCount();
+		ULONG64 arrayCount = getCellCount();
 		bool * initialCellGeometryIsDefined = new bool [arrayCount];
-		for (unsigned int index = 0; index < arrayCount; ++index)
+		for (ULONG64 index = 0; index < arrayCount; ++index)
 		{
 			initialCellGeometryIsDefined[index] = enabledCells[index];
 		}
