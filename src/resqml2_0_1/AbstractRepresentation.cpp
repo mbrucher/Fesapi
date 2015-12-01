@@ -45,10 +45,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 using namespace std;
@@ -342,24 +338,24 @@ gsoap_resqml2_0_1::resqml2__Seismic2dCoordinates* AbstractRepresentation::getSei
 {
 	resqml2__PointGeometry* geom = getPointGeometry(patchIndex);
 	if (!geom)
-		return NULL;
+		return nullptr;
 
 	if (geom->SeismicCoordinates->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Seismic2dCoordinates)
 		return static_cast<resqml2__Seismic2dCoordinates*>(geom->SeismicCoordinates);
 	else
-		return NULL;
+		return nullptr;
 }
 
 gsoap_resqml2_0_1::resqml2__Seismic3dCoordinates* AbstractRepresentation::getSeismic3dCoordinates(const unsigned int & patchIndex) const
 {
 	resqml2__PointGeometry* geom = getPointGeometry(patchIndex);
 	if (!geom)
-		return NULL;
+		return nullptr;
 
 	if (geom->SeismicCoordinates->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Seismic3dCoordinates)
 		return static_cast<resqml2__Seismic3dCoordinates*>(geom->SeismicCoordinates);
 	else
-		return NULL;
+		return nullptr;
 }
 
 void AbstractRepresentation::getXyzPointsOfPatchInGlobalCrs(const unsigned int & patchIndex, double * xyzPoints) const
@@ -428,7 +424,7 @@ void AbstractRepresentation::addSeismic3dCoordinatesToPatch(const unsigned int p
 	if (!geom)
 		throw invalid_argument("The patchIndex does not identify a point geometry.");
 
-	if (geom->SeismicCoordinates == NULL)
+	if (geom->SeismicCoordinates == nullptr)
 		geom->SeismicCoordinates = soap_new_resqml2__Seismic3dCoordinates(gsoapProxy->soap, 1);
 	else if (geom->SeismicCoordinates->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Seismic2dCoordinates)
 		throw invalid_argument("It already exists some seismic 2d coordinates for this patch.");
@@ -471,7 +467,7 @@ void AbstractRepresentation::addSeismic3dCoordinatesToPatch(const unsigned int p
 	if (!geom)
 		throw invalid_argument("The patchIndex does not identify a point geometry.");
 
-	if (geom->SeismicCoordinates == NULL)
+	if (geom->SeismicCoordinates == nullptr)
 		geom->SeismicCoordinates = soap_new_resqml2__Seismic3dCoordinates(gsoapProxy->soap, 1);
 	else if (geom->SeismicCoordinates->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Seismic2dCoordinates)
 		throw invalid_argument("It already exists some seismic 2d coordinates for this patch.");
@@ -508,7 +504,7 @@ void AbstractRepresentation::addSeismic2dCoordinatesToPatch(const unsigned int p
 	if (!geom)
 		throw invalid_argument("The patchIndex does not identify a point geometry.");
 
-	if (geom->SeismicCoordinates == NULL)
+	if (geom->SeismicCoordinates == nullptr)
 		geom->SeismicCoordinates = soap_new_resqml2__Seismic2dCoordinates(gsoapProxy->soap, 1);
 	else if (geom->SeismicCoordinates->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Seismic3dCoordinates)
 		throw invalid_argument("It already exists some seismic 3d coordinates for this patch.");
@@ -582,7 +578,7 @@ AbstractRepresentation* AbstractRepresentation::getSeismicSupportOfPatch(const u
 	if (seismicSupportSet.size() > patchIndex)
 		return seismicSupportSet[patchIndex];
 	else
-		return NULL;
+		return nullptr;
 }
 
 void AbstractRepresentation::pushBackIntoRepresentationSet(class RepresentationSetRepresentation * repSet)

@@ -44,7 +44,7 @@ const char* SeismicLineFeature::XML_TAG = "SeismicLineFeature";
 
 SeismicLineFeature::SeismicLineFeature(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
 			const int & traceIndexIncrement, const int & firstTraceIndex, const unsigned int & traceCount):
-	seismicLineSet(NULL)
+	seismicLineSet(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLineFeature(epcDoc->getGsoapContext(), 1);
 	_resqml2__SeismicLineFeature* seismicLine = static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy);

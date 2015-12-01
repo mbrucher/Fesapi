@@ -41,10 +41,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -109,7 +105,7 @@ resqml2__PointGeometry* PolylineRepresentation::getPointGeometry(const unsigned 
 	if (patchIndex == 0)
 		return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->NodePatch->Geometry;
 	else
-		return NULL;
+		return nullptr;
 }
 
 ULONG64 PolylineRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const

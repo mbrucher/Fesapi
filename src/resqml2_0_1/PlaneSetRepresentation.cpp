@@ -33,6 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "PlaneSetRepresentation.h"
 
+#include <stdexcept>
 #include <sstream>
 #include <algorithm>
 

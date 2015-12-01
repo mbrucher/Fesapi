@@ -86,7 +86,7 @@ void NonSealedSurfaceFrameworkRepresentation::pushBackNonSealedContactRepresenta
 	if (!proxy)
 		throw invalid_argument("The HDF proxy cannot be null.");
 
-	if (localCrs == NULL)
+	if (localCrs == nullptr)
 	{
 		localCrs = crs;
 		localCrs->addRepresentation(this);

@@ -50,7 +50,7 @@ const char* Grid2dRepresentation::XML_TAG = "Grid2dRepresentation";
 
 Grid2dRepresentation::Grid2dRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 	const string & guid, const std::string & title):
-	AbstractSurfaceRepresentation(interp, crs), supportingRepresentation(NULL)
+	AbstractSurfaceRepresentation(interp, crs), supportingRepresentation(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__Grid2dRepresentation* singleGrid2dRep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy);
@@ -78,7 +78,7 @@ resqml2__PointGeometry* Grid2dRepresentation::getPointGeometry(const unsigned in
 	if (patchIndex == 0)
 		return static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy)->Grid2dPatch->Geometry;
 	else
-		return NULL;
+		return nullptr;
 }
 
 string Grid2dRepresentation::getHdfProxyUuid() const
@@ -148,7 +148,7 @@ void Grid2dRepresentation::getZValuesInGlobalCrs(double * values) const
 
 resqml2__Point3dLatticeArray* Grid2dRepresentation::getArrayLatticeOfPoints3d() const
 {
-	resqml2__Point3dLatticeArray* result = NULL;
+	resqml2__Point3dLatticeArray* result = nullptr;
 
 	resqml2__Grid2dPatch* patch = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy)->Grid2dPatch;
 	if (patch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray)

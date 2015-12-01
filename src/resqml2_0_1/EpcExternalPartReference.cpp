@@ -74,7 +74,7 @@ vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const
 			result.push_back(rel);
 		}
 		else
-			throw domain_error("The representation associated to the external EPC reference cannot be NULL.");
+			throw domain_error("The representation associated to the external EPC reference cannot be nullptr.");
 	}
 
 	for (unsigned int i = 0; i < propertySourceObject.size(); i++)
@@ -86,7 +86,7 @@ vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const
 			result.push_back(rel);
 		}
 		else
-			throw domain_error("The property associated to the external EPC reference cannot be NULL.");
+			throw domain_error("The property associated to the external EPC reference cannot be nullptr.");
 	}
 
 	// External part

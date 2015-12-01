@@ -83,7 +83,7 @@ vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() con
 		result.push_back(rel);
 	}
 	else
-		throw domain_error("The feature associated to the interpretation cannot be NULL.");
+		throw domain_error("The feature associated to the interpretation cannot be nullptr.");
 	
 	for (unsigned int i = 0; i < representationSet.size(); i++)
 	{
@@ -94,7 +94,7 @@ vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() con
 			result.push_back(relRep);
 		}
 		else
-			throw domain_error("The representation associated to the interpretation cannot be NULL.");
+			throw domain_error("The representation associated to the interpretation cannot be nullptr.");
 	}
 
 	for (unsigned int i = 0; i < isTopFrontierSet.size(); i++)

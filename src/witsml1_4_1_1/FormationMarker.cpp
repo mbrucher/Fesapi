@@ -51,9 +51,9 @@ FormationMarker::FormationMarker(
 	const std::string & title,
 	const unsigned int & mdDatumIndex,
 	gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom mdUom,
-	const double & mdTopSample):resqmlWellboreMarkerFrameRepresentation(NULL)
+	const double & mdTopSample):resqmlWellboreMarkerFrameRepresentation(nullptr)
 {
-	if (witsmlWellbore == NULL) throw invalid_argument("A formation marker must be associated to a wellbore.");
+	if (witsmlWellbore == nullptr) throw invalid_argument("A formation marker must be associated to a wellbore.");
 	if (title.empty()) throw invalid_argument("A formation marker must have a name.");
 
 	collection = soap_new_witsml1__obj_USCOREformationMarkers(witsmlWellbore->getGSoapContext(), 1);	
@@ -104,9 +104,9 @@ FormationMarker::FormationMarker(
 	const time_t & dTimCreation,
 	const time_t & dTimLastChange,
 	const std::string & comments
-	):resqmlWellboreMarkerFrameRepresentation(NULL)
+	):resqmlWellboreMarkerFrameRepresentation(nullptr)
 {
-	if (witsmlWellbore == NULL) throw invalid_argument("A trajectory must be associated to a well.");
+	if (witsmlWellbore == nullptr) throw invalid_argument("A trajectory must be associated to a well.");
 	if (title.empty()) throw invalid_argument("A trajectory must have a name.");
 
 	collection = soap_new_witsml1__obj_USCOREformationMarkers(witsmlWellbore->getGSoapContext(), 1);	

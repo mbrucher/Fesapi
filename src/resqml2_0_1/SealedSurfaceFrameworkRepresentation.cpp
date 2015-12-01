@@ -258,7 +258,7 @@ std::string SealedSurfaceFrameworkRepresentation::getHdfProxyUuid() const
     string result = "";
     _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
 
-    if (orgRep->SealedContactRepresentation.size() > 0 && static_cast<resqml2__SealedContactRepresentationPart*>(orgRep->SealedContactRepresentation[0])->IdenticalNodeIndices != NULL)
+    if (orgRep->SealedContactRepresentation.size() > 0 && static_cast<resqml2__SealedContactRepresentationPart*>(orgRep->SealedContactRepresentation[0])->IdenticalNodeIndices != nullptr)
     {
         resqml2__SealedContactRepresentationPart *sealedContactRep = static_cast<resqml2__SealedContactRepresentationPart*>(orgRep->SealedContactRepresentation[0]);
         result = static_cast<resqml2__IntegerHdf5Array *>(sealedContactRep->IdenticalNodeIndices)->Values->HdfProxy->UUID;

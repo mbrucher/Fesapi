@@ -41,10 +41,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractValuesProperty.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -131,7 +127,7 @@ void IjkGridLatticeRepresentation::getXyzPointsOfPatch(const unsigned int & patc
 
 resqml2__Point3dLatticeArray* IjkGridLatticeRepresentation::getArrayLatticeOfPoints3d() const
 {
-    resqml2__Point3dLatticeArray* result = NULL;
+    resqml2__Point3dLatticeArray* result = nullptr;
 
     resqml2__PointGeometry* ptGeom = getPointGeometry(0);
     if (ptGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray)
@@ -510,7 +506,7 @@ void IjkGridLatticeRepresentation::addSeismic3dCoordinatesToPatch(
 	if (!geom)
 		throw invalid_argument("The patchIndex does not identify a point geometry.");
 
-	if (geom->SeismicCoordinates == NULL)
+	if (geom->SeismicCoordinates == nullptr)
 		geom->SeismicCoordinates = soap_new_resqml2__Seismic3dCoordinates(gsoapProxy->soap, 1);
 	else if (geom->SeismicCoordinates->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Seismic2dCoordinates)
 		throw invalid_argument("It already exists some seismic 2d coordinates for this patch.");

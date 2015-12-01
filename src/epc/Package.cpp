@@ -49,6 +49,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "FilePart.h"
 
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "tools/nullptr_emulation.h"
+#endif
+
 #define CASESENSITIVITY (0)
 #define WRITEBUFFERSIZE (8192)
 #define CORE_PROP_REL_TYPE "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties"
@@ -57,12 +61,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 using namespace std; // in order not to prefix by "std::" for each class in the "std" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
 using namespace epc; // in order not to prefix by "epc::" for each class in the "epc" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
 
-Package::Package() : unzipped(NULL), zf(NULL), isZip64(false)
+Package::Package() : unzipped(nullptr), zf(nullptr), isZip64(false)
 {
 }
 
 Package::Package(const FileCoreProperties & pkgFileCP, const FileContentType & pkgFileCT, const FileRelationship & pkgFileRS, const PartMap & pkgFileP, const string & pkgPathName):
-	fileCoreProperties(pkgFileCP),fileContentType(pkgFileCT),filePrincipalRelationship(pkgFileRS),allFileParts(pkgFileP),pathName(pkgPathName), unzipped(NULL), zf(NULL), isZip64(false)
+	fileCoreProperties(pkgFileCP),fileContentType(pkgFileCT),filePrincipalRelationship(pkgFileRS),allFileParts(pkgFileP),pathName(pkgPathName), unzipped(nullptr), zf(nullptr), isZip64(false)
 {
 }
 
@@ -105,7 +109,7 @@ void Package::openForReading(const std::string & pkgPathName)
 	
 	unzipped = unzOpen64(pathName.c_str());
 
-	if (unzipped==NULL)
+	if (unzipped==nullptr)
     {
         cerr << "Cannot open " << pathName << endl;
         return;
@@ -119,11 +123,11 @@ void Package::openForReading(const std::string & pkgPathName)
 #endif
 
     char current_filename[UNZ_MAXFILENAMEINZIP+1];
-	int err = unzGoToFirstFile2(unzipped, NULL, current_filename, sizeof(current_filename)-1, NULL, 0, NULL, 0);
+	int err = unzGoToFirstFile2(unzipped, nullptr, current_filename, sizeof(current_filename)-1, nullptr, 0, nullptr, 0);
     while (err == UNZ_OK)
     {
 		name2file[current_filename]=*(unz64_s*)unzipped;
-        err = unzGoToNextFile2(unzipped, NULL, current_filename, sizeof(current_filename)-1, NULL, 0, NULL, 0);
+        err = unzGoToNextFile2(unzipped, nullptr, current_filename, sizeof(current_filename)-1, nullptr, 0, nullptr, 0);
     }
 #endif
 
@@ -182,7 +186,7 @@ void Package::close()
 	if (unzipped)
 	{
 		unzClose(unzipped);
-		unzipped = NULL;
+		unzipped = nullptr;
 	}
 }
 
@@ -299,7 +303,7 @@ FilePart* Package::createPart(const std::string & inputContent, const std::strin
 FilePart* Package::findPart(const std::string & outputPartPath) const
 {
     PartMap::const_iterator it = allFileParts.find(outputPartPath);
-    return it==allFileParts.end() ? NULL : it->second;
+    return it==allFileParts.end() ? nullptr : it->second;
 }
 
 uLong buildTimeInfo(const char *filename, tm_zip *tmzip, uLong *dostime)
@@ -360,7 +364,7 @@ void Package::writeStringIntoNewPart(const std::string &input, const std::string
 
 	// Open the content type part in the zip archive
 	int err = zipOpenNewFileInZip64(zf,partPath.c_str(),&zi,
-		NULL,0,NULL,0,NULL /* comment*/,
+		nullptr,0,nullptr,0,nullptr /* comment*/,
 		Z_DEFLATED,						// method
 		Z_DEFAULT_COMPRESSION,				// level
 		isZip64);								// Zip64
@@ -437,7 +441,7 @@ void Package::writePackage()
 	}
 
 	// Close the zip archive
-	int err = zipClose(zf,NULL, isZip64);
+	int err = zipClose(zf,nullptr, isZip64);
 	if (err != ZIP_OK)
 		cerr << "error in closing " << pathName.substr(0, pathName.size() - 4).c_str() << endl;
 }
@@ -451,7 +455,7 @@ string do_extract_currentfile(unzFile uf,
 
     size_buf = WRITEBUFFERSIZE;
     buf = (void*)malloc(size_buf);
-    if (buf==NULL)
+    if (buf==nullptr)
     {
         printf("Error allocating memory\n");
         return "";
@@ -496,7 +500,7 @@ string do_extract_currentfile(unzFile uf,
 
 bool Package::fileExists(const string & filename) const
 {
-    if (unzipped == NULL){
+    if (unzipped == nullptr){
         return false;
     }
     return unzLocateFile(unzipped,filename.c_str(),CASESENSITIVITY) == UNZ_OK;
@@ -504,7 +508,7 @@ bool Package::fileExists(const string & filename) const
 
 string Package::extractFile(const string & filename, const string & password)
 {
-	if (unzipped == NULL)
+	if (unzipped == nullptr)
 		return "";
 
 #ifdef CACHE_FILE_DESCRIPTOR
@@ -535,6 +539,6 @@ string Package::extractFile(const string & filename, const string & password)
 	if (!password.empty())
 		return do_extract_currentfile(unzipped, password.c_str());
 	else
-		return do_extract_currentfile(unzipped, NULL);
+		return do_extract_currentfile(unzipped, nullptr);
 }
 

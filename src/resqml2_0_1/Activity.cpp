@@ -38,10 +38,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <algorithm>
 #include <stdexcept>
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -524,7 +520,7 @@ vector<Relationship> Activity::getAllEpcRelationships() const
 		result.push_back(rel);
 	}
 	else
-		throw domain_error("The activity template associated to the activity cannot be NULL.");
+		throw domain_error("The activity template associated to the activity cannot be nullptr.");
 
 	for (unsigned int i = 0; i < resqmlObjectSet.size(); ++i)
 	{
@@ -535,7 +531,7 @@ vector<Relationship> Activity::getAllEpcRelationships() const
 			result.push_back(relResqmlObject);
 		}
 		else
-			throw domain_error("The resqml Object associated to the activity cannot be NULL.");
+			throw domain_error("The resqml Object associated to the activity cannot be nullptr.");
 	}
 
 	return result;
@@ -552,14 +548,14 @@ void Activity::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 		updateXml = true;
 	}
 	if (activityTemplate == nullptr)
-		throw domain_error("The activity template associated to the activity " + activity->uuid + " cannot be NULL.");
+		throw domain_error("The activity template associated to the activity " + activity->uuid + " cannot be nullptr.");
 
 	for (unsigned int i = 0; i < activity->Parameter.size(); ++i)
 	{
 		if (activity->Parameter[i]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DataObjectParameter)
 		{
 			resqml2__DataObjectParameter* dop = static_cast<resqml2__DataObjectParameter*>(activity->Parameter[i]);
-			if (dop->DataObject == NULL)
+			if (dop->DataObject == nullptr)
 				throw domain_error("The resqml object of a data object parameter cannot be null.");
 
 			updateXml = false;

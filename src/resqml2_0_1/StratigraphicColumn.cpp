@@ -42,7 +42,7 @@ using namespace epc;
 
 const char* StratigraphicColumn::XML_TAG = "StratigraphicColumn";
 
-StratigraphicColumn::StratigraphicColumn(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title):earthModel(NULL)
+StratigraphicColumn::StratigraphicColumn(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title):earthModel(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicColumn(epcDoc->getGsoapContext(), 1);
 

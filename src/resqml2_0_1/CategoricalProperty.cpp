@@ -111,7 +111,7 @@ vector<Relationship> CategoricalProperty::getAllEpcRelationships() const
 		result.push_back(rel);
 	}
 	else
-		throw domain_error("The string lookup associated to the categorical property values cannot be NULL.");
+		throw domain_error("The string lookup associated to the categorical property values cannot be nullptr.");
 
 	return result;
 }

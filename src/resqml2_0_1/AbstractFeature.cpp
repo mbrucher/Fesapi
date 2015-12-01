@@ -54,7 +54,7 @@ vector<Relationship> AbstractFeature::getAllEpcRelationships() const
 			result.push_back(rel);
 		}
 		else
-			throw domain_error("The interpretation associated to the feature cannot be NULL.");
+			throw domain_error("The interpretation associated to the feature cannot be nullptr.");
 	}
 
 	return result;

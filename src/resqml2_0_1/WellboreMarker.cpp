@@ -38,10 +38,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 #include "resqml2_0_1/BoundaryFeatureInterpretation.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -50,7 +46,7 @@ using namespace epc;
 const char* WellboreMarker::XML_TAG = "WellboreMarker";
 
 WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarkerFrame, const std::string & guid, const std::string & title):
-	boundaryFeatureInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
+	boundaryFeatureInterpretation(nullptr), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
 {
 	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getEpcDocument()->getGsoapContext(), 1);
 
@@ -59,7 +55,7 @@ WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarker
 }
 
 WellboreMarker::WellboreMarker(WellboreMarkerFrameRepresentation* wellboreMarkerFrame, const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind & geologicBoundaryKind):
-	boundaryFeatureInterpretation(NULL), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
+	boundaryFeatureInterpretation(nullptr), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)
 {
 	gsoapProxy = soap_new_resqml2__WellboreMarker(wellboreMarkerFrame->getEpcDocument()->getGsoapContext(), 1);	
 	resqml2__WellboreMarker* marker = static_cast<resqml2__WellboreMarker*>(gsoapProxy);

@@ -41,10 +41,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractValuesProperty.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -173,7 +169,7 @@ bool IjkGridParametricRepresentation::hasControlPointParameters() const
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
-		return paramLineArray->ControlPointParameters != NULL;
+		return paramLineArray->ControlPointParameters != nullptr;
 	}
 	else
 		throw std::logic_error("Not yet implemented");
@@ -186,7 +182,7 @@ void IjkGridParametricRepresentation::getControlPointParameters(double * control
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
-		if (paramLineArray->ControlPointParameters == NULL)
+		if (paramLineArray->ControlPointParameters == nullptr)
 			throw invalid_argument("The grid does not contain any control point parameters.");
 		if (paramLineArray->ControlPointParameters->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 		{
@@ -439,7 +435,7 @@ ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned 
 		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
 		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
 
-		if (ijkGrid->Geometry->SplitCoordinateLines != NULL)
+		if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
 		{
 			result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
 		}
@@ -466,7 +462,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNo
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy)
 {
 	setGeometryAsParametricSplittedPillarNodes(mostComplexPillarGeometry, kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, pillarKind, proxy,
-		0, NULL, NULL, NULL);
+		0, nullptr, nullptr, nullptr);
 }
 
 void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes(

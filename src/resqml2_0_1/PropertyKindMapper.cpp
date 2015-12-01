@@ -62,9 +62,9 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 	{
 		string fileName(search_data.cFileName);
 #else
-	DIR* rep = NULL;
+	DIR* rep = nullptr;
 	rep = opendir(directory.c_str());
-	if (rep == NULL)
+	if (rep == nullptr)
 		throw invalid_argument("Cannot open the directory.");
 
 	struct dirent* currentFile = readdir(rep); // first file
@@ -155,7 +155,7 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 	FindClose(handle);
 	return "";
 #else
-	while ((currentFile = readdir(rep)) != NULL);
+	while ((currentFile = readdir(rep)) != nullptr);
 
 	if (closedir(rep) == -1)
 		throw invalid_argument("Cannot close the directory.");
@@ -313,7 +313,7 @@ PropertyKind* PropertyKindMapper::addResqmlLocalPropertyKindToEpcDocumentFromApp
 	if (cit1 != applicationPropertyKindNameToResqmlLocalPropertyKindUuid.end())
 		value =  cit1->second;
 	else
-		return NULL;
+		return nullptr;
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	std::unordered_map<std::string, std::string>::const_iterator cit = value.find (applicationPropertyKindName);
@@ -322,7 +322,7 @@ PropertyKind* PropertyKindMapper::addResqmlLocalPropertyKindToEpcDocumentFromApp
 #endif
 	if (cit != value.end())
 	{
-		if (epcDocument->getResqmlAbstractObjectByUuid(cit->second) == NULL)
+		if (epcDocument->getResqmlAbstractObjectByUuid(cit->second) == nullptr)
 		{
 			gsoap_resqml2_0_1::_resqml2__PropertyKind* propType = resqmlLocalPropertyKindUuidToResqmlLocalPropertyKind[cit->second];
 
@@ -331,7 +331,7 @@ PropertyKind* PropertyKindMapper::addResqmlLocalPropertyKindToEpcDocumentFromApp
 
 			while (propType->ParentPropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__LocalPropertyKind)
 			{
-				if (epcDocument->getResqmlAbstractObjectByUuid(static_cast<gsoap_resqml2_0_1::resqml2__LocalPropertyKind*>(propType->ParentPropertyKind)->LocalPropertyKind->UUID) == NULL)
+				if (epcDocument->getResqmlAbstractObjectByUuid(static_cast<gsoap_resqml2_0_1::resqml2__LocalPropertyKind*>(propType->ParentPropertyKind)->LocalPropertyKind->UUID) == nullptr)
 				{
 					propType = resqmlLocalPropertyKindUuidToResqmlLocalPropertyKind[static_cast<gsoap_resqml2_0_1::resqml2__LocalPropertyKind*>(propType->ParentPropertyKind)->LocalPropertyKind->UUID];
 					toAdd.push_back(propType);
@@ -355,7 +355,7 @@ PropertyKind* PropertyKindMapper::addResqmlLocalPropertyKindToEpcDocumentFromApp
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 std::string PropertyKindMapper::getPropertyKindParentOfResqmlStandardPropertyKindNameAsString(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const

@@ -60,7 +60,7 @@ resqml2__Point3dFromRepresentationLatticeArray* AbstractSurfaceRepresentation::g
 {
 	if (patch)
 	{
-		resqml2__Point3dFromRepresentationLatticeArray* patchOfSupportingRep = NULL;
+		resqml2__Point3dFromRepresentationLatticeArray* patchOfSupportingRep = nullptr;
 
 		if (patch->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray)
 		{
@@ -78,7 +78,7 @@ resqml2__Point3dFromRepresentationLatticeArray* AbstractSurfaceRepresentation::g
 		return patchOfSupportingRep;
 	}
 	else
-		return NULL;
+		return nullptr;
 }
 
 resqml2__PointGeometry* AbstractSurfaceRepresentation::createArray2dOfLatticePoints3d(

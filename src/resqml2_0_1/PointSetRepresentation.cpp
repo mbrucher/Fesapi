@@ -33,6 +33,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/PointSetRepresentation.h"
 
+#include <stdexcept>
+
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
@@ -89,7 +91,7 @@ resqml2__PointGeometry* PointSetRepresentation::getPointGeometry(const unsigned 
 	if (patchIndex < static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.size())
 			return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch[patchIndex]->Geometry;
 	else
-		return NULL;
+		return nullptr;
 }
 
 ULONG64 PointSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const

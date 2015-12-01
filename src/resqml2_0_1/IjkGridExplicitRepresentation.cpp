@@ -41,10 +41,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractValuesProperty.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -75,7 +71,7 @@ ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned in
 		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
 		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
 
-		if (ijkGrid->Geometry->SplitCoordinateLines != NULL)
+		if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
 		{
 			result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
 		}

@@ -42,6 +42,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 	#include <pwd.h>
 #endif
 
+
+#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
+#include "tools/nullptr_emulation.h"
+#endif
+
 using namespace std; // in order not to prefix by "std::" for each class in the "std" namespace. Never use "using namespace" in *.h file but only in*.cpp file!!!
 using namespace epc; // in order not to prefix by "epc::" for each class in the "epc" namespace. Never use "using namespace" in *.h file but only in*.cpp file!!!
 
@@ -82,7 +87,7 @@ void FileCoreProperties::initDefaultCoreProperties()
 	{
 		time_t timestamp;
 		struct tm * t;
-		timestamp = time(NULL);
+		timestamp = time(nullptr);
 		t = gmtime(&timestamp);
 		int year = 1900 + t->tm_year;
 		int month = 1 + t->tm_mon;
@@ -126,7 +131,7 @@ void FileCoreProperties::initDefaultCoreProperties()
 	if (properties[CoreProperty::identifier].isEmpty())
 	{
 #if defined(_WIN32)
-		GUID sessionGUID = GUID_NULL;
+		GUID sessionGUID = GUID_nullptr;
 		HRESULT hr = CoCreateGuid(&sessionGUID);
 		wchar_t uuidWStr[39];
 		StringFromGUID2(sessionGUID, uuidWStr, 39);

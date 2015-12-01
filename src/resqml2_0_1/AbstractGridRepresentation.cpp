@@ -37,12 +37,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <limits>
 
 #include "resqml2_0_1/AbstractHdfProxy.h"
-#include "resqml2_0_1/UnstructuredGridRepresentation.h""
+#include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/AbstractIjkGridRepresentation.h"
-
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
 
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -62,7 +58,7 @@ vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 			result.push_back(relRep);
 		}
 		else
-			throw domain_error("The grid Connections Representation associated to the grid cannot be NULL.");
+			throw domain_error("The grid Connections Representation associated to the grid cannot be nullptr.");
 	}
 
 	if (getParentGrid() != nullptr)
@@ -83,7 +79,7 @@ vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 			result.push_back(relChild);
 		}
 		else
-			throw domain_error("The child grid cannot be NULL.");
+			throw domain_error("The child grid cannot be nullptr.");
 	}
 
 	return result;

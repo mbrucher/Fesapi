@@ -45,10 +45,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/TimeSeries.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 using namespace std;
@@ -68,7 +64,7 @@ vector<Relationship> AbstractProperty::getAllEpcRelationships() const
 		result.push_back(relRep);
 	}
 	else
-		throw domain_error("The representation associated to the interpretation cannot be NULL.");
+		throw domain_error("The representation associated to the interpretation cannot be nullptr.");
 
 	if (isAssociatedToOneStandardEnergisticsPropertyKind() == false)
 	{
@@ -292,7 +288,7 @@ unsigned int AbstractProperty::getTimeIndex() const
 
 void AbstractProperty::setTimeStep(const unsigned int & timeStep)
 {
-	if (static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep == NULL)
+	if (static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep == nullptr)
 		static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
 	*(static_cast<resqml2__AbstractProperty*>(gsoapProxy)->TimeStep) = timeStep;
 }

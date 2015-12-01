@@ -91,7 +91,7 @@ vector<Relationship> MdDatum::getAllEpcRelationships() const
 		result.push_back(relLocalCrs);
 	}
 	else
-		throw domain_error("The local CRS associated to the MD information cannot be NULL.");
+		throw domain_error("The local CRS associated to the MD information cannot be nullptr.");
 
 	// WellboreFeature trajectories
 	for (unsigned int i = 0; i < wellboreTrajectoryRepresentationSet.size(); i++)

@@ -44,7 +44,7 @@ using namespace epc;
 
 const char* WellboreFeature::XML_TAG = "WellboreFeature";
 
-WellboreFeature::WellboreFeature(common::EpcDocument* epcDoc, const string & guid, const std::string & title):witsmlWellbore(NULL)
+WellboreFeature::WellboreFeature(common::EpcDocument* epcDoc, const string & guid, const std::string & title):witsmlWellbore(nullptr)
 {
 	if (!epcDoc)
 		throw invalid_argument("The EPC document where the WellboreFeature will be stored cannot be null.");

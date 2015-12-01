@@ -59,7 +59,7 @@ void AbstractObject::serializeIntoStream(ostream * stream)
 	collection->soap->os = stream;
 	( soap_begin_send(collection->soap) || soap_send(collection->soap, collection->soap->prolog ? collection->soap->prolog : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n") ||
 		(collection->soap_serialize(collection->soap), 0) ||
-		collection->soap_put(collection->soap, xmlTagIncludingNamespace.c_str(), NULL) ||
+		collection->soap_put(collection->soap, xmlTagIncludingNamespace.c_str(), nullptr) ||
 		soap_end_send(collection->soap) );
 }
 
@@ -125,7 +125,7 @@ witsml1__cs_USCORElocation* AbstractObject::constructEastingNorthingLocation(
 
 	witsml1__cs_USCORElocation* location = soap_new_witsml1__cs_USCORElocation(ctx, 1);
 
-	if (wellCrs != NULL)
+	if (wellCrs != nullptr)
 	{
 		location->wellCRS = wellCrs->newReference();
 		setCoordinateReferenceSystem(wellCrs);
@@ -152,7 +152,7 @@ witsml1__cs_USCORElocation* AbstractObject::constructWestingSouthingLocation(
 
 	witsml1__cs_USCORElocation* location = soap_new_witsml1__cs_USCORElocation(ctx, 1);
 
-	if (wellCrs != NULL)
+	if (wellCrs != nullptr)
 	{
 		location->wellCRS = wellCrs->newReference();
 		setCoordinateReferenceSystem(wellCrs);
@@ -179,7 +179,7 @@ witsml1__cs_USCORElocation* AbstractObject::constructProjectedXProjectedYLocatio
 
 	witsml1__cs_USCORElocation* location = soap_new_witsml1__cs_USCORElocation(ctx, 1);
 
-	if (wellCrs != NULL)
+	if (wellCrs != nullptr)
 	{
 		location->wellCRS = wellCrs->newReference();
 		setCoordinateReferenceSystem(wellCrs);

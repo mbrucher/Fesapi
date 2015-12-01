@@ -43,10 +43,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "witsml1_4_1_1/Trajectory.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -56,7 +52,7 @@ using namespace common;
 const char* WellboreTrajectoryRepresentation::XML_TAG = "WellboreTrajectoryRepresentation";
 
 WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, MdDatum * mdInfo) :
-	AbstractRepresentation(interp, mdInfo->getLocalCrs()), mdDatum(mdInfo), parentTraj(NULL), witsmlTrajectory(NULL)
+	AbstractRepresentation(interp, mdInfo->getLocalCrs()), mdDatum(mdInfo), parentTraj(nullptr), witsmlTrajectory(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
@@ -183,7 +179,7 @@ vector<Relationship> WellboreTrajectoryRepresentation::getAllEpcRelationships() 
 		result.push_back(relMdInfo);
 	}
 	else
-		throw domain_error("The MD information associated to the WellboreFeature trajectory cannot be NULL.");
+		throw domain_error("The MD information associated to the WellboreFeature trajectory cannot be nullptr.");
 
 	if (parentTraj)
 	{

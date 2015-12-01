@@ -38,10 +38,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "tools/GuidTools.h"
 #include "witsml1_4_1_1/Well.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace witsml1_4_1_1;
 using namespace gsoap_witsml1_4_1_1;
@@ -54,9 +50,9 @@ Log::Log(
 			const std::string & guid,
 			const std::string & title,
 			witsml1__LogIndexType indexType,
-			const std::string & indexCurve):resqmlWellboreFrameRepresentation(NULL)
+			const std::string & indexCurve):resqmlWellboreFrameRepresentation(nullptr)
 {
-	if (witsmlWellbore == NULL) throw invalid_argument("A log must be associated to a wellbore.");
+	if (witsmlWellbore == nullptr) throw invalid_argument("A log must be associated to a wellbore.");
 	if (title.empty()) throw invalid_argument("A log must have a name.");
 
 	collection = soap_new_witsml1__obj_USCORElogs(witsmlWellbore->getGSoapContext(), 1);	
@@ -95,9 +91,9 @@ Log::Log(
 		const time_t & dTimCreation,
 		const time_t & dTimLastChange,
 		const std::string & comments
-	):resqmlWellboreFrameRepresentation(NULL)
+	):resqmlWellboreFrameRepresentation(nullptr)
 {
-	if (witsmlWellbore == NULL) throw invalid_argument("A log must be associated to a wellbore.");
+	if (witsmlWellbore == nullptr) throw invalid_argument("A log must be associated to a wellbore.");
 	if (title.empty()) throw invalid_argument("A log must have a name.");
 
 	collection = soap_new_witsml1__obj_USCORElogs(witsmlWellbore->getGSoapContext(), 1);	
@@ -261,7 +257,7 @@ void Log::setValues(
 
 	// as the default nullValue is the empty string, we do not test wether the nullValue parameter is empty
 	//witsmlLog->nullValue = soap_new_std__string(soap, 1);
-	//witsmlLog->nullValue->assign(DEFAULT_NULLVALUE);
+	//witsmlLog->nullValue->assign(DEFAULT_nullptrVALUE);
 
 	// setting up the data
 	if (!mnemonicList.empty() && !unitList.empty() && !data.empty())
@@ -356,7 +352,7 @@ void Log::pushBackLogCurveInfo(
 
 	witsml1__obj_USCORElog* log = static_cast<_witsml1__logs*>(collection)->log[0];
 
-	witsml1__cs_USCOREwellDatum* datum = NULL;
+	witsml1__cs_USCOREwellDatum* datum = nullptr;
 	if (datumIndex >= 0)
 		wellbore->getWell()->getDatum(datumIndex);
 
@@ -384,9 +380,9 @@ void Log::pushBackLogCurveInfo(
 
 	// as the default nullValue is the empty string, we do not test wether the nullValue parameter is empty
 	//logCurveInfo->nullValue = soap_new_std__string(soap, 1);
-	//logCurveInfo->nullValue->assign(DEFAULT_NULLVALUE);
+	//logCurveInfo->nullValue->assign(DEFAULT_nullptrVALUE);
 
-	if (datum != NULL)
+	if (datum != nullptr)
 	{
 		logCurveInfo->wellDatum = soap_new_witsml1__refNameString(collection->soap, 1);
 		logCurveInfo->wellDatum->__item = datum->name;

@@ -39,10 +39,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "witsml1_4_1_1/Well.h"
 #include "witsml1_4_1_1/CoordinateReferenceSystem.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace witsml1_4_1_1;
 using namespace gsoap_witsml1_4_1_1;
@@ -52,9 +48,9 @@ const char* Trajectory::XML_TAG = "trajectorys";
 
 Trajectory::Trajectory(Wellbore* witsmlWellbore,
 			const std::string & guid,
-			const std::string & title):resqmlWellboreTrajectoryRepresentation(NULL)
+			const std::string & title):resqmlWellboreTrajectoryRepresentation(nullptr)
 {
-	if (witsmlWellbore == NULL) throw invalid_argument("A trajectory must be associated to a well.");
+	if (witsmlWellbore == nullptr) throw invalid_argument("A trajectory must be associated to a well.");
 	if (title.empty()) throw invalid_argument("A trajectory must have a name.");
 
 	collection = soap_new_witsml1__obj_USCOREtrajectorys(witsmlWellbore->getGSoapContext(), 1);	
@@ -85,9 +81,9 @@ Trajectory::Trajectory(Wellbore* witsmlWellbore,
 		const time_t & dTimCreation,
 		const time_t & dTimLastChange,
 		const std::string & comments
-	):resqmlWellboreTrajectoryRepresentation(NULL)
+	):resqmlWellboreTrajectoryRepresentation(nullptr)
 {
-	if (witsmlWellbore == NULL) throw invalid_argument("A trajectory must be associated to a well.");
+	if (witsmlWellbore == nullptr) throw invalid_argument("A trajectory must be associated to a well.");
 	if (title.empty()) throw invalid_argument("A trajectory must have a name.");
 
 	collection = soap_new_witsml1__obj_USCOREtrajectorys(witsmlWellbore->getGSoapContext(), 1);	

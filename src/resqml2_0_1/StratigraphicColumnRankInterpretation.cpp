@@ -39,10 +39,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/StratigraphicUnitInterpretation.h"
 #include "resqml2_0_1/HorizonInterpretation.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -117,7 +113,7 @@ StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getSubje
 	if (contact->Subject)
 		return static_cast<StratigraphicUnitInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->Subject->UUID));
 	else
-		return NULL;
+		return nullptr;
 }
 
 resqml2__ContactMode StratigraphicColumnRankInterpretation::getDirectObjectContactModeOfContact(const unsigned int & contactIndex) const
@@ -141,7 +137,7 @@ StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getDirec
 	if (contact->DirectObject)
 		return static_cast<StratigraphicUnitInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->DirectObject->UUID));
 	else
-		return NULL;
+		return nullptr;
 }
 
 HorizonInterpretation* StratigraphicColumnRankInterpretation::getHorizonInterpretationOfContact(const unsigned int & contactIndex) const
@@ -153,7 +149,7 @@ HorizonInterpretation* StratigraphicColumnRankInterpretation::getHorizonInterpre
 	if (contact->PartOf)
 		return static_cast<HorizonInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->PartOf->UUID));
 	else
-		return NULL;
+		return nullptr;
 }
 
 void StratigraphicColumnRankInterpretation::setHorizonOfLastContact(HorizonInterpretation * partOf)

@@ -41,10 +41,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -210,7 +206,7 @@ resqml2__PointGeometry* PolylineSetRepresentation::getPointGeometry(const unsign
 		static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LinePatch[patchIndex]->Geometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__PointGeometry)
 			return static_cast<resqml2__PointGeometry*>(static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy)->LinePatch[patchIndex]->Geometry);
 	else
-		return NULL;
+		return nullptr;
 }
 
 unsigned int PolylineSetRepresentation::getPolylineCountOfPatch(const unsigned int & patchIndex) const

@@ -99,7 +99,7 @@ vector<Relationship> FaultInterpretation::getAllEpcRelationships() const
 			result.push_back(rel);
 		}
 		else
-			throw domain_error("The structural Organization Interpretation associated to the fault interpretation cannot be NULL.");
+			throw domain_error("The structural Organization Interpretation associated to the fault interpretation cannot be nullptr.");
 	}
 
 	return result;

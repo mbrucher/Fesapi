@@ -1252,22 +1252,26 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 			showAllMetadata(stratiColumnRankInterp->getDirectObjectOfContact(contactIndex));
 		}
 
-		vector<WellboreMarkerFrameRepresentation*> markerFrameSet = stratiColumnRankInterp->getWellboreMarkerFrameRepresentationSet();
-		for (unsigned int markerFrameIndex = 0; markerFrameIndex < markerFrameSet.size(); ++markerFrameIndex)
+		vector<StratigraphicOccurrenceInterpretation*> soiSet = stratiColumnRankInterp->getStratigraphicOccurrenceInterpretationSet();
+		for (unsigned int soiIndex = 0; soiIndex < soiSet.size(); ++soiIndex)
 		{
-			WellboreMarkerFrameRepresentation* markerFrame = markerFrameSet[markerFrameIndex];
-			showAllMetadata(markerFrame);
-			vector<WellboreMarker*> markerSet = markerFrame->getWellboreMarkerSet();
-			double* doubleMds = new double[markerFrame->getMdValuesCount()];
-			markerFrame->getMdAsDoubleValues(doubleMds);
-			for (unsigned int mIndex = 0; mIndex < markerSet.size(); ++mIndex)
+			vector<WellboreMarkerFrameRepresentation*> markerFrameSet = soiSet[soiIndex]->getWellboreMarkerFrameRepresentationSet();
+			for (unsigned int markerFrameIndex = 0; markerFrameIndex < markerFrameSet.size(); ++markerFrameIndex)
 			{
-				if (doubleMds[mIndex] == doubleMds[mIndex])
+				WellboreMarkerFrameRepresentation* markerFrame = markerFrameSet[markerFrameIndex];
+				showAllMetadata(markerFrame);
+				vector<WellboreMarker*> markerSet = markerFrame->getWellboreMarkerSet();
+				double* doubleMds = new double[markerFrame->getMdValuesCount()];
+				markerFrame->getMdAsDoubleValues(doubleMds);
+				for (unsigned int mIndex = 0; mIndex < markerSet.size(); ++mIndex)
 				{
-					cout << doubleMds[mIndex] << endl;
+					if (doubleMds[mIndex] == doubleMds[mIndex])
+					{
+						cout << doubleMds[mIndex] << endl;
+					}
+					else
+						cout << "NaN" << endl;
 				}
-				else
-					cout << "NaN" << endl;
 			}
 		}
 	}

@@ -48,10 +48,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/DiscretePropertySeries.h"
 #include "resqml2_0_1/StringTableLookup.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -155,7 +151,7 @@ bool AbstractIjkGridRepresentation::isRightHanded() const
 void AbstractIjkGridRepresentation::getPillarsOfSplitCoordinateLines(unsigned int * pillarIndices, bool reverseIAxis, bool reverseJAxis) const
 {
 	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry->SplitCoordinateLines == NULL)
+	if (grid->Geometry->SplitCoordinateLines == nullptr)
 		throw invalid_argument("There is no split coordinate line in this grid.");
 	if (grid->Geometry->SplitCoordinateLines->PillarIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -192,7 +188,7 @@ void AbstractIjkGridRepresentation::getPillarsOfSplitCoordinateLines(unsigned in
 void AbstractIjkGridRepresentation::getColumnsOfSplitCoordinateLines(unsigned int * columnIndices, bool reverseIAxis, bool reverseJAxis) const
 {
 	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry->SplitCoordinateLines == NULL)
+	if (grid->Geometry->SplitCoordinateLines == nullptr)
 		throw invalid_argument("There is no split coordinate line in this grid.");
 	if (grid->Geometry->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -228,7 +224,7 @@ void AbstractIjkGridRepresentation::getColumnsOfSplitCoordinateLines(unsigned in
 void AbstractIjkGridRepresentation::getColumnCountOfSplitCoordinateLines(unsigned int * columnIndexCountPerSplitCoordinateLine) const
 {
 	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry->SplitCoordinateLines == NULL)
+	if (grid->Geometry->SplitCoordinateLines == nullptr)
 		throw invalid_argument("There is no split coordinate line in this grid.");
 	if (grid->Geometry->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{

@@ -46,7 +46,7 @@ const char* PropertyKind::XML_TAG = "PropertyKind";
 
 PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, const string & title,
 			const string & namingSystem, const resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind):
-	parentPropertyKind(NULL)
+	parentPropertyKind(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(epcDoc->getGsoapContext(), 1);
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();

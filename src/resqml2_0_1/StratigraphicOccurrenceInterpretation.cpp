@@ -46,7 +46,7 @@ using namespace epc;
 const char* StratigraphicOccurrenceInterpretation::XML_TAG = "StratigraphicOccurrenceInterpretation";
 
 StratigraphicOccurrenceInterpretation::StratigraphicOccurrenceInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__OrderingCriteria & orderingCriteria):
-	stratigraphicColumnRankInterpretation(NULL)
+	stratigraphicColumnRankInterpretation(nullptr)
 {
 	if (!orgFeat)
 		throw invalid_argument("The interpreted organization feature cannot be null.");

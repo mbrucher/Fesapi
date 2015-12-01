@@ -48,9 +48,9 @@ const char* Wellbore::XML_TAG = "wellbores";
 Wellbore::Wellbore(
 			Well* witsmlWell,
 			const std::string & guid,
-			const std::string & title):resqmlWellboreFeature(NULL)
+			const std::string & title):resqmlWellboreFeature(nullptr)
 {
-	if (witsmlWell == NULL) throw invalid_argument("A wellbore must be associated to a well.");
+	if (witsmlWell == nullptr) throw invalid_argument("A wellbore must be associated to a well.");
 	if (title.empty()) throw invalid_argument("A wellbore must have a name.");
 
 	collection = soap_new_witsml1__obj_USCOREwellbores(witsmlWell->getGSoapContext(), 1);	
@@ -87,12 +87,12 @@ Wellbore::Wellbore(
 		const time_t & dTimCreation,
 		const time_t & dTimLastChange,
 		const std::string & comments
-	):resqmlWellboreFeature(NULL)
+	):resqmlWellboreFeature(nullptr)
 {
-	if (witsmlWell == NULL) throw invalid_argument("A wellbore must be associated to a well.");
+	if (witsmlWell == nullptr) throw invalid_argument("A wellbore must be associated to a well.");
 	if (title.empty()) throw invalid_argument("A wellbore must have a name.");
 
-	if (witsmlWell == NULL) throw invalid_argument("A wellbore must be associated to a well.");
+	if (witsmlWell == nullptr) throw invalid_argument("A wellbore must be associated to a well.");
 	if (title.empty()) throw invalid_argument("A wellbore must have a name.");
 
 	collection = soap_new_witsml1__obj_USCOREwellbores(witsmlWell->getGSoapContext(), 1);	
@@ -148,8 +148,8 @@ Trajectory* Wellbore::createTrajectory(
 	const std::string & guid,
 	const std::string & title)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new Trajectory(this, guid, title);
 }
 
@@ -161,8 +161,8 @@ Trajectory* Wellbore::createTrajectory(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new Trajectory(this, guid, title, sourceName, dTimCreation, dTimLastChange, comments);
 }
 
@@ -172,8 +172,8 @@ Log* Wellbore::createLog(
 	gsoap_witsml1_4_1_1::witsml1__LogIndexType indexType,
 	const std::string & indexCurve)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new Log(this, guid, title, indexType, indexCurve);
 }
 
@@ -187,8 +187,8 @@ Log* Wellbore::createLog(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new Log(this, guid, title, indexType, indexCurve, sourceName, dTimCreation, dTimLastChange, comments);
 }
 		
@@ -199,8 +199,8 @@ FormationMarker* Wellbore::createFormationMarker(
 	gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom mdUom,
 	const double & mdTopSample)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new FormationMarker(this, guid, title, mdDatumIndex, mdUom, mdTopSample);
 }
 
@@ -222,8 +222,8 @@ FormationMarker* Wellbore::createFormationMarker(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new FormationMarker(this, guid, title, mdDatumIndex, mdUom, mdTopSample, tvdDatumIndex, tvdUom, tvdTopSample, dipUom, dip, dipDirectionUom, dipDirection,sourceName, dTimCreation, dTimLastChange, comments);
 }
 
@@ -243,7 +243,7 @@ void Wellbore::setWell(Well* witsmlWell)
 
 void Wellbore::setShape(const witsml1__WellboreShape & shape)
 {
-	if (static_cast<_witsml1__wellbores*>(collection)->wellbore[0]->__obj_USCOREwellbore_sequence == NULL)
+	if (static_cast<_witsml1__wellbores*>(collection)->wellbore[0]->__obj_USCOREwellbore_sequence == nullptr)
 		static_cast<_witsml1__wellbores*>(collection)->wellbore[0]->__obj_USCOREwellbore_sequence = soap_new___witsml1__obj_USCOREwellbore_sequence(collection->soap, 1);
 
 	static_cast<_witsml1__wellbores*>(collection)->wellbore[0]->__obj_USCOREwellbore_sequence->shape = (witsml1__WellboreShape *)soap_malloc(collection->soap, sizeof( witsml1__WellboreShape));

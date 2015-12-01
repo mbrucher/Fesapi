@@ -51,10 +51,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "witsml1_4_1_1/FormationMarker.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -63,7 +59,7 @@ using namespace epc;
 const char* WellboreMarkerFrameRepresentation::XML_TAG = "WellboreMarkerFrameRepresentation";
 
 WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj):
-	WellboreFrameRepresentation(interp, nullptr), stratigraphicOccurrenceInterpretation(NULL)
+	WellboreFrameRepresentation(interp, nullptr), stratigraphicOccurrenceInterpretation(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
@@ -157,7 +153,7 @@ void WellboreMarkerFrameRepresentation::setWitsmlFormationMarker(const unsigned 
 		throw out_of_range("The marker index is not valid");
 
 	for (unsigned int i = witsmlFormationMarkerSet.size(); i < resqmlMarkerIndex+1; ++i)
-		witsmlFormationMarkerSet.push_back(NULL);
+		witsmlFormationMarkerSet.push_back(nullptr);
 
 	witsmlFormationMarkerSet[resqmlMarkerIndex] = witsmlFormationMarker;
 	witsmlFormationMarker->resqmlWellboreMarkerFrameRepresentation = this;

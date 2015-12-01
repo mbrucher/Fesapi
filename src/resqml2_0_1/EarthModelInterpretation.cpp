@@ -48,7 +48,7 @@ using namespace epc;
 const char* EarthModelInterpretation::XML_TAG = "EarthModelInterpretation";
 
 EarthModelInterpretation::EarthModelInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const string & title):
-	structuralOrganization(NULL), stratigraphicColumn(NULL)
+	structuralOrganization(nullptr), stratigraphicColumn(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREEarthModelInterpretation(orgFeat->getEpcDocument()->getGsoapContext(), 1);
 	_resqml2__EarthModelInterpretation* interp = static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy);
@@ -124,7 +124,7 @@ vector<Relationship> EarthModelInterpretation::getAllEpcRelationships() const
 			result.push_back(rel);
 		}
 		else
-			throw domain_error("The stratigraphic occurence associated to the earth model cannot be NULL.");
+			throw domain_error("The stratigraphic occurence associated to the earth model cannot be nullptr.");
     }
         
     return result;

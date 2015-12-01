@@ -42,10 +42,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "witsml1_4_1_1/Log.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -54,7 +50,7 @@ using namespace epc;
 const char* WellboreFrameRepresentation::XML_TAG = "WellboreFrameRepresentation";
 
 WellboreFrameRepresentation::WellboreFrameRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj) :
-	AbstractRepresentation(interp, traj->getLocalCrs()), trajectory(traj), witsmlLog(NULL)
+	AbstractRepresentation(interp, traj->getLocalCrs()), trajectory(traj), witsmlLog(nullptr)
 {
 	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
@@ -100,7 +96,7 @@ vector<Relationship> WellboreFrameRepresentation::getAllEpcRelationships() const
 		result.push_back(relTraj);
 	}
 	else
-		throw domain_error("The trajectory associated to the WellboreFeature frame cannot be NULL.");
+		throw domain_error("The trajectory associated to the WellboreFeature frame cannot be nullptr.");
 
 	if (witsmlLog)
 	{

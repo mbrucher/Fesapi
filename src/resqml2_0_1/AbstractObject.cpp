@@ -44,10 +44,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <pwd.h>
 #endif
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -170,7 +166,7 @@ void AbstractObject::setEditor(const std::string & editor)
 
 	if (!editor.empty())
 	{
-		if (gsoapProxy->Citation->Editor == NULL)
+		if (gsoapProxy->Citation->Editor == nullptr)
 			gsoapProxy->Citation->Editor = soap_new_std__string(gsoapProxy->soap, 1);
 		gsoapProxy->Citation->Editor->assign(editor);
 	}
@@ -202,7 +198,7 @@ void AbstractObject::setDescription(const std::string & description)
 
 	if (!description.empty())
 	{
-		if (gsoapProxy->Citation->Description == NULL)
+		if (gsoapProxy->Citation->Description == nullptr)
 			gsoapProxy->Citation->Description = soap_new_std__string(gsoapProxy->soap, 1);
 		gsoapProxy->Citation->Description->assign(description);
 	}
@@ -213,7 +209,7 @@ void AbstractObject::setLastUpdate(const time_t & lastUpdate)
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	if (gsoapProxy->Citation->LastUpdate == NULL)
+	if (gsoapProxy->Citation->LastUpdate == nullptr)
 		gsoapProxy->Citation->LastUpdate = (time_t *)soap_malloc(gsoapProxy->soap, sizeof(time_t));
 	*gsoapProxy->Citation->LastUpdate = lastUpdate;
 }
@@ -236,7 +232,7 @@ void AbstractObject::setDescriptiveKeywords(const std::string & descriptiveKeywo
 
 	if (!descriptiveKeywords.empty())
 	{
-		if (gsoapProxy->Citation->DescriptiveKeywords == NULL)
+		if (gsoapProxy->Citation->DescriptiveKeywords == nullptr)
 			gsoapProxy->Citation->DescriptiveKeywords = soap_new_std__string(gsoapProxy->soap, 1);
 		gsoapProxy->Citation->DescriptiveKeywords->assign(descriptiveKeywords);
 	}
@@ -308,7 +304,7 @@ void AbstractObject::setMetadata(const std::string & guid, const std::string & t
 
 	if (!editor.empty())
 	{
-		if (gsoapProxy->Citation->Editor == NULL)
+		if (gsoapProxy->Citation->Editor == nullptr)
 			gsoapProxy->Citation->Editor = soap_new_std__string(gsoapProxy->soap, 1);
 		*(gsoapProxy->Citation->Editor) = editor;
 	}
@@ -321,14 +317,14 @@ void AbstractObject::setMetadata(const std::string & guid, const std::string & t
 
 	if (!description.empty())
 	{
-		if (gsoapProxy->Citation->Description == NULL)
+		if (gsoapProxy->Citation->Description == nullptr)
 			gsoapProxy->Citation->Description = soap_new_std__string(gsoapProxy->soap, 1);
 		*(gsoapProxy->Citation->Description) = description;
 	}
 
 	if (creation >0)
 	{
-		if (gsoapProxy->Citation->LastUpdate == NULL)
+		if (gsoapProxy->Citation->LastUpdate == nullptr)
 			gsoapProxy->Citation->LastUpdate = (time_t *)soap_malloc(gsoapProxy->soap, sizeof(time_t));
 		*(gsoapProxy->Citation->LastUpdate) = lastUpdate;
 	}
@@ -338,7 +334,7 @@ void AbstractObject::setMetadata(const std::string & guid, const std::string & t
 
 	if (!descriptiveKeywords.empty())
 	{
-		if (gsoapProxy->Citation->DescriptiveKeywords == NULL)
+		if (gsoapProxy->Citation->DescriptiveKeywords == nullptr)
 			gsoapProxy->Citation->DescriptiveKeywords = soap_new_std__string(gsoapProxy->soap, 1);
 		*(gsoapProxy->Citation->DescriptiveKeywords) = descriptiveKeywords;
 	}
@@ -358,7 +354,7 @@ void AbstractObject::serializeIntoStream(ostream * stream)
 	gsoapProxy->soap->os = stream;
 	( soap_begin_send(gsoapProxy->soap) || soap_send(gsoapProxy->soap, gsoapProxy->soap->prolog ? gsoapProxy->soap->prolog : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n") ||
 		(gsoapProxy->soap_serialize(gsoapProxy->soap), 0) ||
-		gsoapProxy->soap_put(gsoapProxy->soap, xmlTagIncludingNamespace.c_str(), NULL) ||
+		gsoapProxy->soap_put(gsoapProxy->soap, xmlTagIncludingNamespace.c_str(), nullptr) ||
 		soap_end_send(gsoapProxy->soap) );
 }
 

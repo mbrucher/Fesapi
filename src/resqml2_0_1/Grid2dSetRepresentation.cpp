@@ -33,6 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/Grid2dSetRepresentation.h"
 
+#include <stdexcept>
 #include <algorithm>
 
 #include "resqml2_0_1/AbstractFeature.h"
@@ -92,7 +93,7 @@ resqml2__PointGeometry* Grid2dSetRepresentation::getPointGeometry(const unsigned
 	if (patchIndex < static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.size())
 		return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->Geometry;
 	else
-		return NULL;
+		return nullptr;
 }
 
 string Grid2dSetRepresentation::getHdfProxyUuid() const

@@ -52,7 +52,7 @@ Well::Well(EpcDocument * epcDoc,
 			const std::string & title,
 			const std::string & timeZone)
 {
-	if (epcDoc == NULL) throw invalid_argument("A well must belong to an epc doc.");
+	if (epcDoc == nullptr) throw invalid_argument("A well must belong to an epc doc.");
 	if (title.empty()) throw invalid_argument("A well must have a name.");
 	if (timeZone.empty()) throw invalid_argument("A well must have a timezone.");
 
@@ -95,7 +95,7 @@ Well::Well(EpcDocument * epcDoc,
 		const std::string & comments
 	)
 {
-	if (epcDoc == NULL) throw invalid_argument("A well must belong to an epc doc.");
+	if (epcDoc == nullptr) throw invalid_argument("A well must belong to an epc doc.");
 	if (title.empty()) throw invalid_argument("A well must have a name.");
 	if (timeZone.empty()) throw invalid_argument("A well must have a timezone.");
 	if (operator_.empty()) throw invalid_argument("You must set a non empty operator.");
@@ -155,8 +155,8 @@ Wellbore* Well::createWellbore(
 	const std::string & guid,
 	const std::string & title)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new Wellbore(this, guid, title);
 }
 
@@ -173,8 +173,8 @@ Wellbore* Well::createWellbore(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != NULL)
-		return NULL;
+	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
+		return nullptr;
 	return new Wellbore(this, guid, title, statusWellbore, isActive, purposeWellbore, typeWellbore, achievedTD, sourceName, dTimCreation, dTimLastChange, comments);
 }
 
@@ -265,7 +265,7 @@ void Well::setEastingNorthingLocation(
 	CoordinateReferenceSystem* wellCrs)
 {
 	witsml1__cs_USCORElocation* location = constructEastingNorthingLocation(uom, easting, northing, wellCrs);
-	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == NULL)
+	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == nullptr)
 	{
 		static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence = soap_new___witsml1__obj_USCOREwell_sequence(collection->soap, 1);
 	}
@@ -279,7 +279,7 @@ void Well::setWestingSouthingLocation(
 	CoordinateReferenceSystem* wellCrs)
 {
 	witsml1__cs_USCORElocation* location = constructWestingSouthingLocation(uom, westing, southing, wellCrs);
-	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == NULL)
+	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == nullptr)
 	{
 		static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence = soap_new___witsml1__obj_USCOREwell_sequence(collection->soap, 1);
 	}
@@ -293,7 +293,7 @@ void Well::setProjectedXProjectedYLocation(
 	CoordinateReferenceSystem* wellCrs)
 {
 	witsml1__cs_USCORElocation* location = constructProjectedXProjectedYLocation(uom, projectedX, projectedY, wellCrs);
-	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == NULL)
+	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == nullptr)
 	{
 		static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence = soap_new___witsml1__obj_USCOREwell_sequence(collection->soap, 1);
 	}
@@ -316,7 +316,7 @@ void Well::pushBackDatum(
 	}
 	wellDatum->name = title;
 
-	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == NULL)
+	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == nullptr)
 	{
 		static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence = soap_new___witsml1__obj_USCOREwell_sequence(collection->soap, 1);
 	}
@@ -352,7 +352,7 @@ void Well::pushBackDatum(
 	}
 	wellDatum->name = title;
 
-	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == NULL)
+	if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence == nullptr)
 	{
 		static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence = soap_new___witsml1__obj_USCOREwell_sequence(collection->soap, 1);
 	}
@@ -387,7 +387,7 @@ gsoap_witsml1_4_1_1::witsml1__cs_USCOREwellDatum* Well::getDatum(const std::stri
 		if (static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence->wellDatum[i]->uid == uid)
 			return static_cast<_witsml1__wells*>(collection)->well[0]->__obj_USCOREwell_sequence->wellDatum[i];
 
-	return NULL;
+	return nullptr;
 }
 
 void Well::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)

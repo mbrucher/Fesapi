@@ -41,7 +41,7 @@ using namespace resqml2_0_1;
 
 void HdfProxy::open()
 {
-	H5Eset_auto(H5E_DEFAULT, NULL, NULL);
+	H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
 	if (hdfFile != -1)
 	{
 		close();
@@ -129,7 +129,7 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 
 	// ************* CUMULATIVE LENGTH *************
 	// Create dataspace for the dataset in the file.
-	hid_t fspaceCL = H5Screate_simple(1, &cumulativeLengthSize, NULL);
+	hid_t fspaceCL = H5Screate_simple(1, &cumulativeLengthSize, nullptr);
 
 	hid_t datasetCL;
 	if (compressionLevel)
@@ -154,7 +154,7 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 
 	// ************* ELEMENTS *************
 	// Create dataspace for the dataset in the file.
-	hid_t fspaceE = H5Screate_simple(1, &elementsSize, NULL);
+	hid_t fspaceE = H5Screate_simple(1, &elementsSize, nullptr);
 
 	hid_t datasetE;
 	if (compressionLevel)
@@ -261,7 +261,7 @@ void HdfProxy::writeArrayNd(const string & groupName,
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
 
 	// Create the data space
-	hid_t space = H5Screate_simple(numDimensions, numValuesInEachDimension, NULL);
+	hid_t space = H5Screate_simple(numDimensions, numValuesInEachDimension, nullptr);
 
     // Create the dataset.
 	hid_t dataset;
@@ -301,7 +301,7 @@ void HdfProxy::createArrayNd(
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
 
 	// Create the data space
-	hid_t space = H5Screate_simple(numDimensions, numValuesInEachDimension, NULL);
+	hid_t space = H5Screate_simple(numDimensions, numValuesInEachDimension, nullptr);
 
 	// Create the dataset.
 	hid_t dataset;
@@ -344,13 +344,13 @@ void HdfProxy::writeArrayNdSlab(
 	
 
 	hid_t filespace = H5Dget_space(dataset);
-	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, NULL, numValuesInEachDimension, NULL);
+	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, nullptr, numValuesInEachDimension, nullptr);
 
 	hsize_t slab_size = 1;
 	for(int h = 0; h < numDimensions; h++){
 		slab_size *= numValuesInEachDimension[h];
 	}
-	hid_t memspace = H5Screate_simple(1, &slab_size, NULL);
+	hid_t memspace = H5Screate_simple(1, &slab_size, nullptr);
 
 	hid_t datatype = H5Dget_type(dataset);
 	H5Dwrite(dataset, datatype, datatype, memspace, H5P_DEFAULT, values);
@@ -395,14 +395,14 @@ void HdfProxy::readArrayNdOfFloatValues(
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 
 	hid_t filespace = H5Dget_space(dataset);
-	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, NULL, numValuesInEachDimension, NULL);
+	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, nullptr, numValuesInEachDimension, nullptr);
 
 	hsize_t slab_size =1;
 	for (unsigned int h = 0; h < numDimensions; ++h)
 	{
 		slab_size *= numValuesInEachDimension[h];
 	}
-	hid_t memspace = H5Screate_simple(1, &slab_size, NULL);
+	hid_t memspace = H5Screate_simple(1, &slab_size, nullptr);
 
 	H5Dread(dataset, H5T_NATIVE_FLOAT, memspace, filespace, H5P_DEFAULT, values);
 
@@ -454,14 +454,14 @@ void HdfProxy::readArrayNdOfLongValues(
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 
 	hid_t filespace = H5Dget_space(dataset);
-	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, NULL, numValuesInEachDimension, NULL);
+	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, nullptr, numValuesInEachDimension, nullptr);
 
 	hsize_t slab_size =1;
 	for (unsigned int h = 0; h < numDimensions; ++h)
 	{
 		slab_size *= numValuesInEachDimension[h];
 	}
-	hid_t memspace = H5Screate_simple(1, &slab_size, NULL);
+	hid_t memspace = H5Screate_simple(1, &slab_size, nullptr);
 
 	H5Dread(dataset, H5T_NATIVE_LONG, memspace, filespace, H5P_DEFAULT, values);
 
@@ -585,7 +585,7 @@ std::vector<hsize_t> HdfProxy::readArrayDimensions(const std::string & datasetNa
 	hid_t dataspace = H5Dget_space(dataset);
 	int nDim = H5Sget_simple_extent_ndims(dataspace);
 	std::vector<hsize_t> dims(nDim, 0);
-	H5Sget_simple_extent_dims(dataspace, &dims[0], NULL);
+	H5Sget_simple_extent_dims(dataspace, &dims[0], nullptr);
 
 	H5Sclose(dataspace);
 	H5Dclose(dataset);

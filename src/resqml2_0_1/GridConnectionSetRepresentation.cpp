@@ -43,10 +43,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace epc;
 using namespace resqml2_0_1;
@@ -147,7 +143,7 @@ string GridConnectionSetRepresentation::getHdfProxyUuid() const
 
 bool GridConnectionSetRepresentation::isAssociatedToFaults() const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->ConnectionInterpretations != NULL;
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->ConnectionInterpretations != nullptr;
 }
 
 void GridConnectionSetRepresentation::getFaultIndexCumulativeCount(unsigned int * cumulativeCount) const
@@ -243,14 +239,14 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 	unsigned int totalCellIndexPairCount = getCellIndexPairCount();
 	ULONG64 * totalCellIndexPairs = new ULONG64[totalCellIndexPairCount*2];
 	getCellIndexPairs(totalCellIndexPairs);
-	unsigned int * totalGridIndexPairs = NULL;
-	if (gridIndexPairs != NULL)
+	unsigned int * totalGridIndexPairs = nullptr;
+	if (gridIndexPairs != nullptr)
 	{
 		totalGridIndexPairs = new unsigned int[totalCellIndexPairCount*2];
 		getGridIndexPairs(totalGridIndexPairs);
 	}
-	unsigned int * totalLocalFaceIndexPairs = NULL;
-	if (localFaceIndexPairs != NULL)
+	unsigned int * totalLocalFaceIndexPairs = nullptr;
+	if (localFaceIndexPairs != nullptr)
 	{
 		totalLocalFaceIndexPairs = new unsigned int[totalCellIndexPairCount*2];
 		getLocalFacePerCellIndexPairs(totalLocalFaceIndexPairs);
@@ -261,7 +257,7 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 	if (rep->ConnectionInterpretations)
 	{
 		// Get the fault indices information
-		unsigned int * cumulativeCount = NULL;
+		unsigned int * cumulativeCount = nullptr;
 		if (rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
 			cumulativeCount = new unsigned int[totalCellIndexPairCount];
@@ -269,13 +265,13 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 		}
 		else
 		{
-			if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
-			if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+			if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
+			if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
 			delete [] totalCellIndexPairs;
 			throw std::logic_error("Not yet implemented");
 		}
 
-		unsigned int * faultIndices = NULL;
+		unsigned int * faultIndices = nullptr;
 		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
 			faultIndices = new unsigned int[cumulativeCount[totalCellIndexPairCount-1]];
@@ -284,8 +280,8 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 		else
 		{
 			delete [] cumulativeCount;
-			if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
-			if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+			if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
+			if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
 			delete [] totalCellIndexPairs;
 			throw std::logic_error("Not yet implemented");
 		}
@@ -301,12 +297,12 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 				{
 					cellIndexPairs[cellIndexPairIndex*2] = totalCellIndexPairs[i*2];
 					cellIndexPairs[cellIndexPairIndex*2+1] = totalCellIndexPairs[i*2+1];
-					if (gridIndexPairs != NULL)
+					if (gridIndexPairs != nullptr)
 					{
 						gridIndexPairs[cellIndexPairIndex*2] = totalGridIndexPairs[i*2];
 						gridIndexPairs[cellIndexPairIndex*2+1] = totalGridIndexPairs[i*2+1];
 					}
-					if (localFaceIndexPairs != NULL)
+					if (localFaceIndexPairs != nullptr)
 					{
 						localFaceIndexPairs[cellIndexPairIndex*2] = totalLocalFaceIndexPairs[i*2];
 						localFaceIndexPairs[cellIndexPairIndex*2+1] = totalLocalFaceIndexPairs[i*2+1];
@@ -322,14 +318,14 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromFaultIn
 	}
 	else
 	{
-		if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
-		if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+		if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
+		if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
 		delete [] totalCellIndexPairs;
 		throw invalid_argument("The grid connection does not contain any fault association."); 
 	}
 	
-	if (totalGridIndexPairs != NULL) delete [] totalGridIndexPairs;
-	if (totalLocalFaceIndexPairs != NULL) delete [] totalLocalFaceIndexPairs;
+	if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
+	if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
 	delete [] totalCellIndexPairs;
 }
 
@@ -418,7 +414,7 @@ void GridConnectionSetRepresentation::getCellIndexPairs(ULONG64 * cellIndexPairs
 
 bool GridConnectionSetRepresentation::isBasedOnMultiGrids() const 
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->GridIndexPairs != NULL && 
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->GridIndexPairs != nullptr && 
 		static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Grid.size() > 1;
 }
 

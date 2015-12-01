@@ -39,10 +39,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)))
-#include "nullptr_emulation.h"
-#endif
-
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -183,7 +179,7 @@ void UnstructuredGridRepresentation::getFaceIndicesOfCells(ULONG64 * faceIndices
 void UnstructuredGridRepresentation::getCumulativeFaceCountPerCell(ULONG64 * cumulativeFaceCountPerCell) const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry == NULL)
+	if (grid->Geometry == nullptr)
 		throw invalid_argument("There is no geometry in this grid.");
 	if (grid->Geometry->FacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -224,7 +220,7 @@ void UnstructuredGridRepresentation::getFaceCountPerCell(ULONG64 * faceCountPerC
 bool UnstructuredGridRepresentation::isFaceCountOfCellsConstant() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry == NULL)
+	if (grid->Geometry == nullptr)
 		throw invalid_argument("There is no geometry in this grid.");
 	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape__tetrahedral)
 	{
@@ -276,7 +272,7 @@ unsigned int UnstructuredGridRepresentation::getConstantFaceCountOfCells() const
 void UnstructuredGridRepresentation::getNodeIndicesOfFaces(ULONG64 * nodeIndices) const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry == NULL)
+	if (grid->Geometry == nullptr)
 		throw invalid_argument("There is no geometry in this grid.");
 	if (grid->Geometry->NodesPerFace->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -289,7 +285,7 @@ void UnstructuredGridRepresentation::getNodeIndicesOfFaces(ULONG64 * nodeIndices
 void UnstructuredGridRepresentation::getCumulativeNodeCountPerFace(ULONG64 * nodeCountPerFace) const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-		if (grid->Geometry == NULL)
+		if (grid->Geometry == nullptr)
 			throw invalid_argument("There is no geometry in this grid.");
 	if (grid->Geometry->NodesPerFace->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -328,7 +324,7 @@ void UnstructuredGridRepresentation::getNodeCountPerFace(ULONG64 * nodeCountPerF
 bool UnstructuredGridRepresentation::isNodeCountOfFacesContant() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry == NULL)
+	if (grid->Geometry == nullptr)
 		throw invalid_argument("There is no geometry in this grid.");
 	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral || grid->Geometry->CellShape == resqml2__CellShape__tetrahedral)
 	{
@@ -368,7 +364,7 @@ unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
 void UnstructuredGridRepresentation::getCellFaceIsRightHanded(char* cellFaceIsRightHanded) const
 {
   _resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-  if (grid->Geometry == NULL)
+  if (grid->Geometry == nullptr)
     throw invalid_argument("There is no geometry in this grid.");
   if (grid->Geometry->CellFaceIsRightHanded->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
   {
