@@ -104,7 +104,7 @@ void FileRelationship::setPathName(const std::string & frPathName)
 
 void FileRelationship::addRelationship(const Relationship & frRelationship)
 {
-	if (std::find(this->relationship.begin(), this->relationship.end(), frRelationship) == relationship.end())
+	if (std::find(relationship.begin(), relationship.end(), frRelationship) == relationship.end())
 	{
 		relationship.push_back(frRelationship);
 	}

@@ -1747,10 +1747,9 @@ int main(int argc, char **argv)
 */
 
 // filepath is defined in a macro to better check memory leak
-//#define filePath "../../testingPackageCpp.epc"
+#define filePath "../../testingPackageCpp.epc"
 //#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
 //#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/cvx/fully_unstructured_mesh/2014-08-22/house.epc"
-#define filePath "/tmp/AlphaGamma.epc"
 int main(int argc, char **argv)
 {
 	serialize(filePath);

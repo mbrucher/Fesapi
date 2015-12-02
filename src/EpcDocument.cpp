@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "EpcDocument.h"
 
 #include <sstream>
+#include <stdexcept>
 
 #include "epc/Relationship.h"
 #include "epc/FilePart.h"
@@ -356,7 +357,15 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 	{
 		timeSeriesSet.push_back(static_cast<TimeSeries*>(proxy));
 	}
-	resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
+
+	if (resqmlAbstractObjectSet.find(proxy->getUuid()) == resqmlAbstractObjectSet.end())
+	{
+		resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
+	}
+	else
+	{
+		throw invalid_argument("You cannot have twice the same UUID " + proxy->getUuid() + " for two different Resqml objects in an EPC document");
+	}
 	proxy->epcDocument = this;
 }
 
@@ -368,7 +377,14 @@ void EpcDocument::addGsoapProxy(witsml1_4_1_1::AbstractObject* proxy)
 		witsmlTrajectorySet.push_back(static_cast<Trajectory*>(proxy)); break;
 	}
 
-	witsmlAbstractObjectSet[proxy->getUuid()] = proxy;
+	if (witsmlAbstractObjectSet.find(proxy->getUuid()) == witsmlAbstractObjectSet.end())
+	{
+		witsmlAbstractObjectSet[proxy->getUuid()] = proxy;
+	}
+	else
+	{
+		throw invalid_argument("You cannot have twice the same UUID " + proxy->getUuid() + " for two different Resqml objects in an EPC document");
+	}
 	proxy->epcDocument = this;
 }
 
