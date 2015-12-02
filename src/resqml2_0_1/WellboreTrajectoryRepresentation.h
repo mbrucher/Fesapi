@@ -45,7 +45,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT WellboreTrajectoryRepresentation : public AbstractRepresentation
 	{
 	private:
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
 
 	public:
 
@@ -62,7 +62,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		WellboreTrajectoryRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreTrajectoryRepresentation* fromGsoap): AbstractRepresentation(fromGsoap),
-				mdDatum(NULL), parentTraj(NULL), witsmlTrajectory(NULL) {}
+				mdDatum(nullptr), parentTraj(nullptr), witsmlTrajectory(nullptr) {}
 
 		~WellboreTrajectoryRepresentation() {}
 

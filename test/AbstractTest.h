@@ -29,6 +29,8 @@ namespace commontest {
 		 */
 		AbstractTest(common::EpcDocument * epcDoc);
 
+		virtual ~AbstractTest() {}
+
 		/**
 		 * This methods runs a serailization test. It handles the creation of an EPC document,
 		 * calls initEpcDoc() and serialize the EPC document. The EPC document is deleted at the very end

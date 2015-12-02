@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	protected:
 		/**
 		* Default constructor
-		* Set the gsoap proxy to NULL.
+		* Set the gsoap proxy to nullptr.
 		*/
 		AbstractSurfaceRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs) {}
 
@@ -53,7 +53,7 @@ namespace resqml2_0_1
 
 		/**
 		* Try to get a Point3dFromRepresentationLatticeArray from the geometry of a patch of the representation.
-		* @return	NULL if the geoemtry does not contain such an information.
+		* @return	nullptr if the geoemtry does not contain such an information.
 		*/
 		gsoap_resqml2_0_1::resqml2__Point3dFromRepresentationLatticeArray* getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(gsoap_resqml2_0_1::resqml2__PointGeometry* patch) const;
 

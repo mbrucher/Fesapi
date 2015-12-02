@@ -44,7 +44,7 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Default constructor
-		* Set the gsoap proxy to NULL.
+		* Set the gsoap proxy to nullptr.
 		*/
 		AbstractFeature(): AbstractResqmlDataObject() {}
 
@@ -71,7 +71,7 @@ namespace resqml2_0_1
 		/**
 		 * Get a particular interpretation of this feature according to its position in the interpretation ordering.
 		 */
-		AbstractFeatureInterpretation*				getInterpretation(const unsigned int & index) const {if (interpretationSet.size() > index) return interpretationSet[index]; else return NULL;}
+		AbstractFeatureInterpretation*				getInterpretation(const unsigned int & index) const {if (interpretationSet.size() > index) return interpretationSet[index]; else return nullptr;}
 
 	protected:
 

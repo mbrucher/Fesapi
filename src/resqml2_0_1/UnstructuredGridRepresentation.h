@@ -62,8 +62,8 @@ namespace resqml2_0_1
 		*/
 		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
 			AbstractGridRepresentation(epcDoc, partialObject), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
-			cumulativeNodeCountPerFace(NULL), cumulativeFaceCountPerCell(NULL),
-			nodeIndicesOfFaces(NULL), faceIndicesOfCells(NULL)
+			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
+			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 		{
 				epcDoc->addGsoapProxy(this);
 		}
@@ -81,8 +81,8 @@ namespace resqml2_0_1
 		*/
 		UnstructuredGridRepresentation(gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* fromGsoap):
 			AbstractGridRepresentation(fromGsoap), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
-			cumulativeNodeCountPerFace(NULL), cumulativeFaceCountPerCell(NULL),
-			nodeIndicesOfFaces(NULL), faceIndicesOfCells(NULL) {}
+			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
+			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

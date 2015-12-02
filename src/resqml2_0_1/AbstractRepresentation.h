@@ -45,7 +45,7 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractResqmlDataObject(epcDoc, partialObject), interpretation (NULL), hdfProxy(NULL), localCrs(NULL) {}
+		AbstractRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractResqmlDataObject(epcDoc, partialObject), interpretation (nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
 
 		// Set the domain of the interpretation according to the local CRS
 		// Does not set relationship with interp and crs because the gsoap proxy is not allocated yet. This must be done at concrete class level.
@@ -54,7 +54,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractRepresentation(gsoap_resqml2_0_1::resqml2__AbstractRepresentation* fromGsoap): AbstractResqmlDataObject(fromGsoap), interpretation (NULL), hdfProxy(NULL), localCrs(NULL) {}
+		AbstractRepresentation(gsoap_resqml2_0_1::resqml2__AbstractRepresentation* fromGsoap): AbstractResqmlDataObject(fromGsoap), interpretation (nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
 		
 		/**
 		* Creates a point geometry patch.
@@ -68,7 +68,7 @@ namespace resqml2_0_1
 		
 		/**
 		 * Get the point geometry of a specific patch of the representation.
-		 * @return	NULL if there is no point geometry for this particular patch otherwise the found point geometry.
+		 * @return	nullptr if there is no point geometry for this particular patch otherwise the found point geometry.
 		 */
 		virtual gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const = 0;
 
@@ -177,7 +177,7 @@ namespace resqml2_0_1
 		 */
 		class SubRepresentation* getSubRepresentation(const unsigned int & index) const
 		{
-			if (subRepresentationSet.size() > index) return subRepresentationSet[index]; else return NULL;
+			if (subRepresentationSet.size() > index) return subRepresentationSet[index]; else return nullptr;
 		}
 
 		/**
@@ -198,7 +198,7 @@ namespace resqml2_0_1
 		class SubRepresentation* getFaultSubRepresentation(const unsigned int & index) const
 		{
 			std::vector<class SubRepresentation*> tmp = getFaultSubRepresentationSet();
-			if (tmp.size() > index) return tmp[index]; else return NULL;
+			if (tmp.size() > index) return tmp[index]; else return nullptr;
 		}
 
 		/**
@@ -268,13 +268,13 @@ namespace resqml2_0_1
 		
 		/**
 		* Get all the inlines of the points of a specific patch.
-		* @return NULL if seismic info have not been provided.
+		* @return nullptr if seismic info have not been provided.
 		*/
 		//void getInlinesOfPointsOfPatch(const unsigned int & patchIndex, double* values);
 
 		/**
 		* Get all the crosslines of the points of a specific patch.
-		* @return NULL if seismic info have not been provided.
+		* @return nullptr if seismic info have not been provided.
 		*/
 		//void getCrosslinesOfPointsOfPatch(const unsigned int & patchIndex, double* values);
 
@@ -288,7 +288,7 @@ namespace resqml2_0_1
 
 		/**
 		* Get all the abscissa of the points of a specific patch related to seismic line 2d.
-		* @return NULL if seismic info have not been provided.
+		* @return nullptr if seismic info have not been provided.
 		*/
 		void getSeismicLineAbscissaOfPointsOfPatch(const unsigned int & patchIndex, double* values);
 
@@ -299,7 +299,7 @@ namespace resqml2_0_1
 
 		/**
 		* Get the seismic support of a specific patch.
-		* @return NULL if seismic info have not been provided.
+		* @return nullptr if seismic info have not been provided.
 		*/
 		AbstractRepresentation* getSeismicSupportOfPatch(const unsigned int & patchIndex);
 

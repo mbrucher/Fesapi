@@ -79,7 +79,7 @@ namespace resqml2_0_1
 		 */
 		void pushBackStratigraphicBinaryContact(StratigraphicUnitInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactMode & subjectContactMode,
 			StratigraphicUnitInterpretation* directObject, const gsoap_resqml2_0_1::resqml2__ContactMode & directObjectMode,
-			class HorizonInterpretation * partOf = NULL);
+			class HorizonInterpretation * partOf = nullptr);
 
 		/**
 		* Indicates if this strati column rank interp is wether a chrono one or not.

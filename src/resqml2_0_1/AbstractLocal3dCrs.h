@@ -47,7 +47,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		AbstractLocal3dCrs(gsoap_resqml2_0_1::resqml2__AbstractLocal3dCrs* fromGsoap):
-			AbstractResqmlDataObject(fromGsoap)/*, global2dCrs(NULL), global1dCrs(NULL), globalTimeCrs(NULL)*/ {}
+			AbstractResqmlDataObject(fromGsoap)/*, global2dCrs(nullptr), global1dCrs(nullptr), globalTimeCrs(nullptr)*/ {}
 
 		/**
 		* Get the Z offset which is always equal to zero for a time CRS.

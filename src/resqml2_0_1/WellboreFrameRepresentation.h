@@ -46,9 +46,9 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT WellboreFrameRepresentation : public AbstractRepresentation
 	{
 	protected:
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
 
-		WellboreFrameRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs), trajectory(NULL), witsmlLog(NULL) {}
+		WellboreFrameRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs), trajectory(nullptr), witsmlLog(nullptr) {}
 
 	public:
 
@@ -64,7 +64,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		WellboreFrameRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreFrameRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), trajectory(NULL), witsmlLog(NULL)  {}
+		WellboreFrameRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreFrameRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), trajectory(nullptr), witsmlLog(nullptr)  {}
 
 		~WellboreFrameRepresentation() {}
 

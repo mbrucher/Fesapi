@@ -138,11 +138,11 @@ namespace resqml2_0_1
 		* @param numValues				The number of property values ordered by dimension of the array to write.
 		* @param numArrayDimensions		The number of dimensions of the array to write.
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
-		* @param minimumValue			The minimum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the minimum value will be computed from the values.
-		* @param maximumValue			The maximum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the maximum value will be computed from the values.
+		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
+		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
 		void pushBackDoubleHdf5ArrayOfValues(double * values, hsize_t * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
-			double * minimumValue = NULL, double * maximumValue = NULL);
+			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
 		* Add a 1d array of explicit float values to the property values.
@@ -186,11 +186,11 @@ namespace resqml2_0_1
 		* @param numValues				The number of property values ordered by dimension of the array to write.
 		* @param numArrayDimensions		The number of dimensions of the array to write.
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
-		* @param minimumValue			The minimum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the minimum value will be computed from the values.
-		* @param maximumValue			The maximum value (or value vector) of the values to add. If NULL is provided and the dimension of value is 1 then the maximum value will be computed from the values.
+		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
+		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
 		void pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
-			double * minimumValue = NULL, double * maximumValue = NULL);
+			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
 		* Create an array (potentially multi dimensions) of explicit float values to the property values. No values are written to this array yet.
@@ -377,7 +377,7 @@ namespace resqml2_0_1
 
 		template <class valueType>
 		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, hsize_t * numValues, const unsigned int & numValueDimensions, AbstractHdfProxy * proxy,
-			double * minimumValue = NULL, double * maximumValue = NULL)
+			double * minimumValue = nullptr, double * maximumValue = nullptr)
 		{
 			setHdfProxy(proxy);
 			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy);
@@ -386,7 +386,7 @@ namespace resqml2_0_1
 			{
 				double computedMinimumValue;
 				double computedMaximumValue;
-				if (minimumValue == NULL || maximumValue == NULL)
+				if (minimumValue == nullptr || maximumValue == nullptr)
 				{
 					hsize_t numTotalValues = numValues[0];
 					for (unsigned int dim = 1; dim < numValueDimensions; dim++)

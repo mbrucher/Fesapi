@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT RepresentationSetRepresentation : public AbstractRepresentation
 	{
 	protected:
-		RepresentationSetRepresentation(class AbstractFeatureInterpretation* interp): AbstractRepresentation(interp, NULL) {}
+		RepresentationSetRepresentation(class AbstractFeatureInterpretation* interp): AbstractRepresentation(interp, nullptr) {}
 
 	public:
 		/**
@@ -65,7 +65,7 @@ namespace resqml2_0_1
 
 		std::string getHdfProxyUuid() const {return "";}
 
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 

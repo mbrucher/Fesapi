@@ -45,12 +45,12 @@ namespace resqml2_0_1
 		* Default constructor
 		* Set the relationship with an AbstractRepresentation and a local property type.
 		*/
-		AbstractProperty(): representation(NULL), local3dCrs(NULL), hdfProxy(NULL) {}
+		AbstractProperty(): representation(nullptr), local3dCrs(nullptr), hdfProxy(nullptr) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractProperty(gsoap_resqml2_0_1::resqml2__AbstractProperty* fromGsoap): AbstractResqmlDataObject(fromGsoap), representation(NULL), local3dCrs(NULL), hdfProxy(NULL) {}
+		AbstractProperty(gsoap_resqml2_0_1::resqml2__AbstractProperty* fromGsoap): AbstractResqmlDataObject(fromGsoap), representation(nullptr), local3dCrs(nullptr), hdfProxy(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -94,7 +94,7 @@ namespace resqml2_0_1
 
 		/**
 		* Getter for the local property kind which is associated to this instance.
-		* If NULL is returned then it means this instance is associated to an energistics standard property kind.
+		* If nullptr is returned then it means this instance is associated to an energistics standard property kind.
 		*/
 		class PropertyKind* getLocalPropertyKind() const;
 

@@ -54,7 +54,7 @@ namespace resqml2_0_1
 
 		/**
 		* Default constructor
-		* Set the gsoap proxy to NULL.
+		* Set the gsoap proxy to nullptr.
 		*/
 		AbstractResqmlDataObject(): AbstractObject() {}
 

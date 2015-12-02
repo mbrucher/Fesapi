@@ -52,7 +52,7 @@ using namespace gsoap_resqml2_0_1;
 * Only for partial transfer
 */
 AbstractObject::AbstractObject(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-	partialObject(partialObject), gsoapProxy(nullptr)
+	partialObject(partialObject), gsoapProxy(nullptr), epcDocument (nullptr), updateXml(true)
 {
 }
 

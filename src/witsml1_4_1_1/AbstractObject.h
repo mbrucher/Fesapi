@@ -51,7 +51,7 @@ namespace witsml1_4_1_1
 
 		bool updateXml; /// Indicate wether methods update the XML (Gsoap) or only the C++ classes of the API.
 		
-		AbstractObject(gsoap_witsml1_4_1_1::abstract__abstractObject* proxy = NULL) : collection(proxy), epcDocument (NULL), crs(NULL), updateXml(true) {}
+		AbstractObject(gsoap_witsml1_4_1_1::abstract__abstractObject* proxy = nullptr) : collection(proxy), epcDocument (nullptr), crs(nullptr), updateXml(true) {}
 
 		friend void common::EpcDocument::addGsoapProxy(AbstractObject* proxy);
 

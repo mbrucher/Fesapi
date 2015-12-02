@@ -63,7 +63,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		GridConnectionSetRepresentation(gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), supportingGridRepresentation(NULL) {}
+		GridConnectionSetRepresentation(gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), supportingGridRepresentation(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -197,7 +197,7 @@ namespace resqml2_0_1
 		*/
 		std::string getSupportingGridRepresentationUuid() const;
 
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 

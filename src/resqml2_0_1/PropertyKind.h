@@ -77,7 +77,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		PropertyKind(gsoap_resqml2_0_1::_resqml2__PropertyKind* fromGsoap):AbstractResqmlDataObject(fromGsoap), parentPropertyKind(NULL) {}
+		PropertyKind(gsoap_resqml2_0_1::_resqml2__PropertyKind* fromGsoap):AbstractResqmlDataObject(fromGsoap), parentPropertyKind(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -118,7 +118,7 @@ namespace resqml2_0_1
 
 		/**
 		* Getter for the local property kind which is the parent of this instance.
-		* If NULL is returned then it means this instance is associated to an energistics property kind.
+		* If nullptr is returned then it means this instance is associated to an energistics property kind.
 		*/
 		class PropertyKind* getParentLocalPropertyKind() const {return parentPropertyKind;}
 

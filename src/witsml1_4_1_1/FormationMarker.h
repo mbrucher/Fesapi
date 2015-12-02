@@ -74,7 +74,7 @@ namespace witsml1_4_1_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		FormationMarker(gsoap_witsml1_4_1_1::witsml1__obj_USCOREformationMarkers* fromGsoap):AbstractObject(fromGsoap), wellbore(NULL), resqmlWellboreMarkerFrameRepresentation(NULL) {}
+		FormationMarker(gsoap_witsml1_4_1_1::witsml1__obj_USCOREformationMarkers* fromGsoap):AbstractObject(fromGsoap), wellbore(nullptr), resqmlWellboreMarkerFrameRepresentation(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

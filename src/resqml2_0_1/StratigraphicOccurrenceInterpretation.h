@@ -57,7 +57,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 
-		StratigraphicOccurrenceInterpretation(gsoap_resqml2_0_1::_resqml2__StratigraphicOccurrenceInterpretation* fromGsoap): AbstractOrganizationInterpretation(fromGsoap), stratigraphicColumnRankInterpretation(NULL) {}
+		StratigraphicOccurrenceInterpretation(gsoap_resqml2_0_1::_resqml2__StratigraphicOccurrenceInterpretation* fromGsoap): AbstractOrganizationInterpretation(fromGsoap), stratigraphicColumnRankInterpretation(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

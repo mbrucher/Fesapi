@@ -70,7 +70,7 @@ namespace witsml1_4_1_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		Wellbore(gsoap_witsml1_4_1_1::witsml1__obj_USCOREwellbores* fromGsoap):AbstractObject(fromGsoap), well(NULL), resqmlWellboreFeature(NULL) {}
+		Wellbore(gsoap_witsml1_4_1_1::witsml1__obj_USCOREwellbores* fromGsoap):AbstractObject(fromGsoap), well(nullptr), resqmlWellboreFeature(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

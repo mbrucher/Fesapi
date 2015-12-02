@@ -64,7 +64,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractColumnLayerGridRepresentation(fromGsoap), splitInformation(NULL) {}
+		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractColumnLayerGridRepresentation(fromGsoap), splitInformation(nullptr) {}
 
 		gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* getSpecializedGsoapProxy() const;
 
@@ -80,7 +80,7 @@ namespace resqml2_0_1
 		* Only to be used in partial transfer context
 		*/
 		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractColumnLayerGridRepresentation(epcDoc, partialObject), splitInformation(NULL)
+			AbstractColumnLayerGridRepresentation(epcDoc, partialObject), splitInformation(nullptr)
 		{
 			epcDoc->addGsoapProxy(this);
 		}

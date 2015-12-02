@@ -48,7 +48,7 @@ namespace resqml2_0_1
 		/**
 		* Default constructor
 		*/
-		WellboreFeature():witsmlWellbore(NULL) {}
+		WellboreFeature():witsmlWellbore(nullptr) {}
 
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -61,7 +61,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		WellboreFeature(gsoap_resqml2_0_1::_resqml2__WellboreFeature* fromGsoap): AbstractTechnicalFeature(fromGsoap), witsmlWellbore(NULL) {}
+		WellboreFeature(gsoap_resqml2_0_1::_resqml2__WellboreFeature* fromGsoap): AbstractTechnicalFeature(fromGsoap), witsmlWellbore(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

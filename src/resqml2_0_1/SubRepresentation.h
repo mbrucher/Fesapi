@@ -78,7 +78,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		SubRepresentation(gsoap_resqml2_0_1::_resqml2__SubRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), supportingRepresentation(NULL) {}
+		SubRepresentation(gsoap_resqml2_0_1::_resqml2__SubRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), supportingRepresentation(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -174,7 +174,7 @@ namespace resqml2_0_1
 
 	private:
 
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return NULL;}
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
 		
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);

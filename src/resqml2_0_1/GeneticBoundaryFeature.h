@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Default constructor
-		* Set the gsoap proxy to NULL from superclass constructor
+		* Set the gsoap proxy to nullptr from superclass constructor
 		*/
 		GeneticBoundaryFeature() {}
 

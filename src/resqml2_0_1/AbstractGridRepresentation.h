@@ -118,7 +118,7 @@ namespace resqml2_0_1
 		void setParentWindow(unsigned int * columnIndices, const unsigned int & columnIndexCount,
 			const unsigned int & kLayerIndexRegridStart,
 			unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount,
-			class AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = NULL);
+			class AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = nullptr);
 
 		/**
 		* Indicates that this grid takes place into another IJK parent grid.
@@ -143,7 +143,7 @@ namespace resqml2_0_1
 			const unsigned int & iCellIndexRegridStart, unsigned int * childCellCountPerIInterval, unsigned int * parentCellCountPerIInterval,  const unsigned int & iIntervalCount,
 			const unsigned int & jCellIndexRegridStart, unsigned int * childCellCountPerJInterval, unsigned int * parentCellCountPerJInterval,  const unsigned int & jIntervalCount,
 			const unsigned int & kCellIndexRegridStart, unsigned int * childCellCountPerKInterval, unsigned int * parentCellCountPerKInterval,  const unsigned int & kIntervalCount,
-			class AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = NULL, double * jChildCellWeights = NULL, double * kChildCellWeights = NULL);
+			class AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
 
 		/**
 		* Indicates that this grid takes place into another IJK parent grid.
@@ -166,7 +166,7 @@ namespace resqml2_0_1
 			const unsigned int & iCellIndexRegridStart, unsigned int iChildCellCount, unsigned int iParentCellCount,
 			const unsigned int & jCellIndexRegridStart, unsigned int jChildCellCount, unsigned int jParentCellCount,
 			const unsigned int & kCellIndexRegridStart, unsigned int kChildCellCount, unsigned int kParentCellCount,
-			class AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = NULL, double * jChildCellWeights = NULL, double * kChildCellWeights = NULL);
+			class AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
 
 		/**
 		* When a parent windows has been defined, this method allows to force some parent cells to be noted as non regridded.
@@ -178,7 +178,7 @@ namespace resqml2_0_1
 		* Optional cell volume overlap information between the current grid (the child) and the parent grid. Use this data-object when the child grid has an explicitly defined geometry, and these relationships cannot be inferred from the regrid descriptions.
 		*/
 		void setCellOverlap(const ULONG64 & parentChildCellPairCount, ULONG64 * parentChildCellPair,
-			const gsoap_resqml2_0_1::eml__VolumeUom & volumeUom = gsoap_resqml2_0_1::eml__VolumeUom__m3, double * overlapVolumes = NULL);
+			const gsoap_resqml2_0_1::eml__VolumeUom & volumeUom = gsoap_resqml2_0_1::eml__VolumeUom__m3, double * overlapVolumes = nullptr);
 
 		/**
 		* Only run this method for an unstructured parent grid.

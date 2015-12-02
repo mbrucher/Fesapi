@@ -61,7 +61,7 @@ namespace witsml1_4_1_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		Trajectory(gsoap_witsml1_4_1_1::witsml1__obj_USCOREtrajectorys* fromGsoap):AbstractObject(fromGsoap), wellbore(NULL), resqmlWellboreTrajectoryRepresentation(NULL) {}
+		Trajectory(gsoap_witsml1_4_1_1::witsml1__obj_USCOREtrajectorys* fromGsoap):AbstractObject(fromGsoap), wellbore(nullptr), resqmlWellboreTrajectoryRepresentation(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

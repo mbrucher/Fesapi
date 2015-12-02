@@ -45,14 +45,14 @@ namespace resqml2_0_1
 	protected:
 		/**
 		* Default constructor
-		* Set the gsoap proxy to NULL.
+		* Set the gsoap proxy to nullptr.
 		*/
-		AbstractFeatureInterpretation(): interpretedFeature(NULL) {}
+		AbstractFeatureInterpretation(): interpretedFeature(nullptr) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractFeatureInterpretation(gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation* fromGsoap): AbstractResqmlDataObject(fromGsoap), interpretedFeature(NULL) {}
+		AbstractFeatureInterpretation(gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation* fromGsoap): AbstractResqmlDataObject(fromGsoap), interpretedFeature(nullptr) {}
 
 	public:
 
@@ -89,7 +89,7 @@ namespace resqml2_0_1
 		/**
 		 * Get a particular interpretation of this feature according to its position in the interpretation ordering.
 		 */
-		AbstractRepresentation*				getRepresentation(const unsigned int & index) const {if (representationSet.size() > index) return representationSet[index]; else return NULL;}
+		AbstractRepresentation*				getRepresentation(const unsigned int & index) const {if (representationSet.size() > index) return representationSet[index]; else return nullptr;}
 
 		/**
 		* Set the domain of the interpretation

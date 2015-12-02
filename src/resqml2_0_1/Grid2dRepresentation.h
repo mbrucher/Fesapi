@@ -64,7 +64,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		Grid2dRepresentation(gsoap_resqml2_0_1::_resqml2__Grid2dRepresentation* fromGsoap): AbstractSurfaceRepresentation(fromGsoap), supportingRepresentation(NULL) {}
+		Grid2dRepresentation(gsoap_resqml2_0_1::_resqml2__Grid2dRepresentation* fromGsoap): AbstractSurfaceRepresentation(fromGsoap), supportingRepresentation(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
