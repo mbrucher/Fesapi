@@ -70,7 +70,7 @@ namespace resqml2_0_1
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		/*
-		*  Set the geometry of the representation by means of a parametric line withtou MD information.
+		*  Set the geometry of the representation by means of a parametric line without MD information.
 		* @param controlPoints					All the control points of all the cubic parametric lines. They are ordered by parametric line first.
 		* @param controlPointCount				The count of control points and control point parameters per cubic parametric line.
 		* @param lineKind						Integer indicating the parametric line kind: 0 for vertical, 1 for linear spline, 2 for natural cubic spline, 3 for cubic spline, 4 for z linear cubic spline, 5 for minimum-curvature spline, (-1) for null: no line

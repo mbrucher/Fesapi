@@ -44,6 +44,7 @@ using namespace gsoap_resqml2_0_1;
 using namespace epc;
 
 const char* StratigraphicOccurrenceInterpretation::XML_TAG = "StratigraphicOccurrenceInterpretation";
+int StratigraphicOccurrenceInterpretation::GSOAP_TYPE = SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREStratigraphicOccurrenceInterpretation;
 
 StratigraphicOccurrenceInterpretation::StratigraphicOccurrenceInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__OrderingCriteria & orderingCriteria):
 	stratigraphicColumnRankInterpretation(nullptr)

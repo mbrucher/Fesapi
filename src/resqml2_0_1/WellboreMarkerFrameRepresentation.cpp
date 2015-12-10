@@ -214,7 +214,7 @@ void WellboreMarkerFrameRepresentation::importRelationshipSetFromEpc(common::Epc
 
 	if (rep->IntervalStratigraphiUnits != nullptr)
 	{
-		setStratigraphicOccurrenceInterpretation(static_cast<StratigraphicOccurrenceInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphiUnits->StratigraphicOrganization->UUID)));
+		setStratigraphicOccurrenceInterpretation(epcDoc->getResqmlAbstractObjectByUuid<resqml2_0_1::StratigraphicOccurrenceInterpretation>(rep->IntervalStratigraphiUnits->StratigraphicOrganization->UUID));
 	}
 
 	updateXml = true;

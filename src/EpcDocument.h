@@ -279,6 +279,20 @@ namespace common
 		*/
 		resqml2_0_1::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid) const;
 
+		/**
+		* Get a gsoap wrapper from the epc document by means of its uuid
+		* and try to cast it to a child class of resqml2_0_1::AbstractObject
+		*/
+		template <class valueType>
+		valueType* getResqmlAbstractObjectByUuid(const std::string & uuid)
+		{
+			resqml2_0_1::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid);
+			if (result->getGsoapProxy()->soap_type() == valueType::GSOAP_TYPE)
+				return static_cast<valueType*>(result);
+			else
+				throw invalid_argument("The uuid " + uuid + " does not resolve to the expected datatype.");
+		}
+
 		witsml1_4_1_1::AbstractObject* getWitsmlAbstractObjectByUuid(const std::string & uuid) const;
 
 		/**

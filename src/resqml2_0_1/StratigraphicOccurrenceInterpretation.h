@@ -45,6 +45,8 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT StratigraphicOccurrenceInterpretation : public AbstractOrganizationInterpretation
 	{
 	public:
+		static int GSOAP_TYPE;
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param orgFeat	The feature the instance interprets. It must be a stratigraphic organization feature.

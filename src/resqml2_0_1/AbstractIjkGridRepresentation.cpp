@@ -776,9 +776,9 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		gcsr = gridConnectionSetRepresentationSet[0];
 		cellIndexPair.resize(gcsr->getCellIndexPairCount() * 2);
 		localFacePerCellIndexPair.resize(gcsr->getCellIndexPairCount() * 2, (numeric_limits<int>::max)());
-		gcsr->getCellIndexPairs(cellIndexPair.data());
+		gcsr->getCellIndexPairs(&cellIndexPair[0]);
 		if (gcsr->hasLocalFacePerCell())
-			gcsr->getLocalFacePerCellIndexPairs(localFacePerCellIndexPair.data());
+			gcsr->getLocalFacePerCellIndexPairs(&localFacePerCellIndexPair[0]);
 
 		connectionOrientationPropValues.resize(gcsr->getCellIndexPairCount(), (numeric_limits<long>::max)());
 		for (size_t i = 0; i < connectionOrientationPropValues.size(); i++)
@@ -1128,8 +1128,8 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 		throw new invalid_argument("Cannot clone IJK grid which has got a GridConnectionSetRepresentationSet dependent on several grids.");
 	}
 	GridConnectionSetRepresentation* gcsrCopy = new GridConnectionSetRepresentation(interpretation, "", "Grid Connection Set", result);
-	gcsrCopy->setCellIndexPairs(cellIndexPair.size()/2, cellIndexPair.data(), (numeric_limits<ULONG64>::max)(), hdfProxy);
-	gcsrCopy->setLocalFacePerCellIndexPairs(cellIndexPair.size()/2, localFacePerCellIndexPair.data(), (numeric_limits<unsigned int>::max)(), hdfProxy);
+	gcsrCopy->setCellIndexPairs(cellIndexPair.size()/2, &cellIndexPair[0], (numeric_limits<ULONG64>::max)(), hdfProxy);
+	gcsrCopy->setLocalFacePerCellIndexPairs(cellIndexPair.size()/2, &localFacePerCellIndexPair[0], (numeric_limits<unsigned int>::max)(), hdfProxy);
 
 	// Property kind
 	AbstractObject* connectionOrientationPropKindUuidObj = epcDocument->getResqmlAbstractObjectByUuid("238fa7fe-1178-406d-bc0e-3bf212476012");
@@ -1151,7 +1151,7 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	CategoricalProperty* connectionOrientationProp = new CategoricalProperty(result, "", "CONNECTION_ORIENTATION", 1, resqml2__IndexableElements__edges, stl, kind);
 
 	// Values
-	connectionOrientationProp->pushBackLongHdf5Array1dOfValues(connectionOrientationPropValues.data(), connectionOrientationPropValues.size(), hdfProxy, (numeric_limits<long>::max)());
+	connectionOrientationProp->pushBackLongHdf5Array1dOfValues(&connectionOrientationPropValues[0], connectionOrientationPropValues.size(), hdfProxy, (numeric_limits<long>::max)());
 
 	//**********************************
 	//*********** PROPERTIES ***********
