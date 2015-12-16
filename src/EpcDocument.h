@@ -36,6 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <string>
 #include <vector>
 #include <limits>
+#include <stdexcept>
 
 #include "proxies/stdsoap2.h"
 #include "proxies/gsoap_resqml2_0_1H.h"
@@ -275,6 +276,11 @@ namespace common
 #endif
 
 		/**
+		* Get the Gsoap type  by means of its uuid
+		*/
+		resqml2_0_1::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const;
+
+		/**
 		* Get a gsoap wrapper from the epc document by means of its uuid
 		*/
 		resqml2_0_1::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid) const;
@@ -286,11 +292,12 @@ namespace common
 		template <class valueType>
 		valueType* getResqmlAbstractObjectByUuid(const std::string & uuid)
 		{
-			resqml2_0_1::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid);
-			if (result->getGsoapProxy()->soap_type() == valueType::GSOAP_TYPE)
+			int gsoapType = -1;
+			resqml2_0_1::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid, gsoapType);
+			if (gsoapType == valueType::GSOAP_TYPE)
 				return static_cast<valueType*>(result);
 			else
-				throw invalid_argument("The uuid " + uuid + " does not resolve to the expected datatype.");
+				throw std::invalid_argument("The uuid " + uuid + " does not resolve to the expected datatype.");
 		}
 
 		witsml1_4_1_1::AbstractObject* getWitsmlAbstractObjectByUuid(const std::string & uuid) const;

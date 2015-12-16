@@ -889,6 +889,17 @@ string EpcDocument::deserialize()
 	return "";
 }
 
+resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const
+{
+	resqml2_0_1::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid);
+	if (result == nullptr)
+	{
+		throw invalid_argument("The uuid " + uuid + " does not exist in this epc document.");
+	}
+	gsoapType = result->getGsoapType();
+	return result;
+}
+
 resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const string & uuid) const
 {
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
