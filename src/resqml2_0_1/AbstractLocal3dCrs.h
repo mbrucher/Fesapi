@@ -174,7 +174,7 @@ namespace resqml2_0_1
 		 */
 		gsoap_resqml2_0_1::eml__AxisOrder2d getAxisOrder() const;
 
-		void convertXyzPointsToGlobalCrs(double * xyzPoints, const ULONG64 & xyzPointCount) const;
+		void convertXyzPointsToGlobalCrs(double * xyzPoints, const ULONG64 & xyzPointCount, bool withoutTranslation = false) const;
 
 	protected:
 		

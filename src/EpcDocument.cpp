@@ -141,6 +141,7 @@ EpcDocument::EpcDocument(const std::string & fileName, const std::string & prope
 	string error = propertyKindMapper->loadMappingFilesFromDirectory(propertyKindMappingFilesDirectory);
 	if (error.size() != 0)
 	{
+		throw invalid_argument("Could not import property kind mappers : " + error);
 		delete propertyKindMapper;
 		propertyKindMapper = nullptr;
 	}

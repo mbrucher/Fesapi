@@ -288,7 +288,7 @@ double Grid2dRepresentation::getXJOffsetInGlobalCrs() const
 	if (result[0] != result[0])
 		return result[0];
 
-	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+	localCrs->convertXyzPointsToGlobalCrs(result, 1, true);
 
 	return result[0];
 }
@@ -300,7 +300,7 @@ double Grid2dRepresentation::getYJOffsetInGlobalCrs() const
 	if (result[1] != result[1])
 		return result[1];
 
-	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+	localCrs->convertXyzPointsToGlobalCrs(result, 1, true);
 
 	return result[1];
 }
@@ -342,7 +342,7 @@ double Grid2dRepresentation::getXIOffsetInGlobalCrs() const
 	if (result[0] != result[0])
 		return result[0];
 
-	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+	localCrs->convertXyzPointsToGlobalCrs(result, 1, true);
 
 	return result[0];
 }
@@ -354,7 +354,7 @@ double Grid2dRepresentation::getYIOffsetInGlobalCrs() const
 	if (result[1] != result[1])
 		return result[1];
 
-	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+	localCrs->convertXyzPointsToGlobalCrs(result, 1, true);
 
 	return result[1];
 }

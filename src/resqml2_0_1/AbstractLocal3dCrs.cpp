@@ -177,7 +177,7 @@ eml__AxisOrder2d AbstractLocal3dCrs::getAxisOrder() const
 	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedAxisOrder;
 }
 
-void AbstractLocal3dCrs::convertXyzPointsToGlobalCrs(double * xyzPoints, const ULONG64 & xyzPointCount) const
+void AbstractLocal3dCrs::convertXyzPointsToGlobalCrs(double * xyzPoints, const ULONG64 & xyzPointCount, bool withoutTranslation) const
 {
 	ULONG64 coordinateCount = xyzPointCount * 3;
 
@@ -192,16 +192,19 @@ void AbstractLocal3dCrs::convertXyzPointsToGlobalCrs(double * xyzPoints, const U
 		}
 	}
 
-	double originOrdinal1 = getOriginOrdinal1();
-	double originOrdinal2 = getOriginOrdinal2();
-	double originOrdinal3 = getZOffset();
-	if (originOrdinal1 == .0 && originOrdinal2 == .0 && originOrdinal3 == .0)
-		return;
-
-	for (ULONG64 i = 0; i < coordinateCount; i+=3 )
+	if (!withoutTranslation)
 	{
-		xyzPoints[i] += originOrdinal1;
-		xyzPoints[i+1] += originOrdinal2;
-		xyzPoints[i+2] += originOrdinal3;
+		double originOrdinal1 = getOriginOrdinal1();
+		double originOrdinal2 = getOriginOrdinal2();
+		double originOrdinal3 = getZOffset();
+		if (originOrdinal1 == .0 && originOrdinal2 == .0 && originOrdinal3 == .0)
+			return;
+
+		for (ULONG64 i = 0; i < coordinateCount; i+=3 )
+		{
+			xyzPoints[i] += originOrdinal1;
+			xyzPoints[i+1] += originOrdinal2;
+			xyzPoints[i+2] += originOrdinal3;
+		}
 	}
 }
