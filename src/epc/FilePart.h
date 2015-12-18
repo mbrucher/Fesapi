@@ -31,7 +31,8 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#pragma once
+#ifndef FILE_PART_H
+#define FILE_PART_H
 
 #include "FileRelationship.h"
 
@@ -72,3 +73,5 @@ namespace epc
 		void createRelationship(const std::string & rsTarget, const std::string & rsType,const std::string & rsId, const bool & internalTarget = true);
 	};
 }
+
+#endif

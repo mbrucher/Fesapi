@@ -21,7 +21,11 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 // STD STRING
 //************************
 
-%include "std_string.i"
+#ifdef SWIGCSHARP
+	%include "csharp/std_string_utf8.i"
+#else
+	%include "std_string.i"
+#endif
 
 //************************
 // POD C ARRAYS

@@ -89,6 +89,11 @@ namespace resqml2_0_1
 		*/
 		virtual ~UnstructuredGridRepresentation() {}
 
+		/**
+		* Indicates wether the grid has a geometry or not.
+		*/
+		bool hasGeometry() const;
+
 		std::string getHdfProxyUuid() const;
 
 		/**

@@ -31,7 +31,8 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#pragma once
+#ifndef FILE_CORE_PROPERTIES_H
+#define FILE_CORE_PROPERTIES_H
 
 #include "CoreProperty.h"
 
@@ -78,3 +79,5 @@ namespace epc
 		void readFromString(const std::string & textInput);
 	};
 }
+
+#endif

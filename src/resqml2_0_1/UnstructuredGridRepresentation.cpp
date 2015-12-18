@@ -97,6 +97,11 @@ UnstructuredGridRepresentation::UnstructuredGridRepresentation(AbstractFeatureIn
 	setInterpretation(interp);
 }
 
+bool UnstructuredGridRepresentation::hasGeometry() const
+{
+	return getSpecializedGsoapProxy()->Geometry != nullptr;
+}
+
 _resqml2__UnstructuredGridRepresentation* UnstructuredGridRepresentation::getSpecializedGsoapProxy() const
 {
 	if (isPartial() == true)

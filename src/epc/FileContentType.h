@@ -31,7 +31,8 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#pragma once
+#ifndef FILE_CONTENT_TYPE_H
+#define FILE_CONTENT_TYPE_H
 
 #if defined(_WIN32) || defined(__APPLE__)
 #include <unordered_map>
@@ -78,4 +79,4 @@ namespace epc
 	};
 }
 
-
+#endif

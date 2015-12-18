@@ -32,8 +32,8 @@ Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence CeCILL-B, et que vous en avez accepté les
 termes.
 -----------------------------------------------------------------------*/
-#ifndef EPC_FILERELATIONSHIP
-#define EPC_FILERELATIONSHIP
+#ifndef FILE_RELATIONSHIP_H
+#define FILE_RELATIONSHIP_H
 
 #include <vector>
 
@@ -75,4 +75,3 @@ namespace epc
 }
 
 #endif
-

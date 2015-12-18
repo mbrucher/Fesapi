@@ -31,7 +31,8 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#pragma once
+#ifndef CORE_PROPERTY_H
+#define CORE_PROPERTY_H
 
 #include <vector>
 #include <string>
@@ -123,3 +124,5 @@ namespace epc
 		std::vector<std::string> value;	/// The string value of the core property. Can be multiple for some core properties (such as keywords)
 	};
 }
+
+#endif

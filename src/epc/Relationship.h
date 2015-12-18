@@ -31,8 +31,8 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#ifndef EPC_RELATIONSHIP
-#define EPC_RELATIONSHIP
+#ifndef RELATIONSHIP_H
+#define RELATIONSHIP_H
 
 #include <string>
 
@@ -93,4 +93,3 @@ namespace epc
 };
 
 #endif
-
