@@ -34,7 +34,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractProperty.h"
-#include "hdf5.h"
 
 namespace resqml2_0_1
 {
@@ -168,7 +167,7 @@ namespace resqml2_0_1
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
 		void createLongHdf5ArrayOfValues(
-			hsize_t* numValues, 
+			unsigned long long* numValues, 
 			const unsigned int& numArrayDimensions, 
 			class AbstractHdfProxy* proxy
 		);
@@ -220,8 +219,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackLongHdf5SlabArrayOfValues(
 			long * values, 
-			hsize_t * numValues, 
-			hsize_t * offsetValues, 
+			unsigned long long * numValues,
+			unsigned long long * offsetValues,
 			const unsigned int & numArrayDimensions, 
 			class AbstractHdfProxy * proxy
 		);
@@ -237,8 +236,8 @@ namespace resqml2_0_1
 		void getLongValuesOfPatch(
 			const unsigned int& patchIndex, 
 			long* values, 
-			hsize_t* numValuesInEachDimension,
-			hsize_t* offsetInEachDimension, 
+			unsigned long long* numValuesInEachDimension,
+			unsigned long long* offsetInEachDimension,
 			const unsigned int& numArrayDimensions
 		);
 

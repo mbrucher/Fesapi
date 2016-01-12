@@ -1292,46 +1292,46 @@ void deserialize(const string & inputFile)
 	//deserializePropertyKindMappingFiles(&pck);
 #endif
 
-	std::cout << "MAPPING ENUM VS STRING" << endl;
-	std::cout << "rock permeability == " << pck.getEnergisticsPropertyKindName(pck.getEnergisticsPropertyKind("rock permeability")) << std::endl;
-	std::cout << "m (meter) == " << pck.getEnergisticsUnitOfMeasureName(pck.getEnergisticsUnitOfMeasure("m")) << std::endl;
+	cout << "MAPPING ENUM VS STRING" << endl;
+	cout << "rock permeability == " << pck.getEnergisticsPropertyKindName(pck.getEnergisticsPropertyKind("rock permeability")) << endl;
+	cout << "m (meter) == " << pck.getEnergisticsUnitOfMeasureName(pck.getEnergisticsUnitOfMeasure("m")) << endl;
 
-	std::cout << "EXTENDED CORE PROPERTIES" << endl;
+	cout << "EXTENDED CORE PROPERTIES" << endl;
 
-#if (defined(_WIN32) && _MSC_VER < 1600) || defined(__APPLE__)
-	std::tr1::unordered_map<std::string, std::string> extendedCoreProperty = pck.getExtendedCoreProperty();
-	for (std::tr1::unordered_map<std::string, std::string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
+	unordered_map<string, string> & extendedCoreProperty = pck.getExtendedCoreProperty();
+	for (unordered_map<string, string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
 	{
-		std::cout << it->first.c_str() << " " << it->second.c_str() << endl;
+		cout << it->first.c_str() << " " << it->second.c_str() << endl;
 	}
 #else
-	tr1::unordered_map<std::string, std::string> extendedCoreProperty = pck.getExtendedCoreProperty();
-	for (tr1::unordered_map<std::string, std::string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
+	tr1::unordered_map<string, string> & extendedCoreProperty = pck.getExtendedCoreProperty();
+	for (tr1::unordered_map<string, string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
 	{
-		std::cout << it->first.c_str() << " " << it->second.c_str() << endl;
+		cout << it->first.c_str() << " " << it->second.c_str() << endl;
 	}
 #endif
 
-	std::cout << "CRS" << endl;
-	std::vector<LocalDepth3dCrs*> depthCrsSet = pck.getLocalDepth3dCrsSet();
+	cout << "CRS" << endl;
+	vector<LocalDepth3dCrs*> depthCrsSet = pck.getLocalDepth3dCrsSet();
 	for (size_t i = 0; i < depthCrsSet.size(); ++i)
 	{
-		std::cout << "Title is : " << depthCrsSet[i]->getTitle() << std::endl;
+		cout << "Title is : " << depthCrsSet[i]->getTitle() << endl;
 		if (depthCrsSet[i]->isProjectedCrsDefinedWithEpsg())
-			std::cout << "Projected : EPSG one" << std::endl;
+			cout << "Projected : EPSG one" << endl;
 		else if (depthCrsSet[i]->isProjectedCrsUnknown())
-			std::cout << "Projected : Unknown." << "Reason is:" << depthCrsSet[i]->getProjectedCrsUnknownReason() << std::endl;
+			cout << "Projected : Unknown." << "Reason is:" << depthCrsSet[i]->getProjectedCrsUnknownReason() << endl;
 	}
-	std::vector<LocalTime3dCrs*> timeCrsSet = pck.getLocalTime3dCrsSet();
+	vector<LocalTime3dCrs*> timeCrsSet = pck.getLocalTime3dCrsSet();
 	for (size_t i = 0; i < timeCrsSet.size(); ++i)
 	{
-		std::cout << "Title is : " << timeCrsSet[i]->getTitle() << std::endl;
+		cout << "Title is : " << timeCrsSet[i]->getTitle() << endl;
 		if (timeCrsSet[i]->isVerticalCrsDefinedWithEpsg())
-			std::cout << "Vertical : EPSG one" << std::endl;
+			cout << "Vertical : EPSG one" << endl;
 		else if (timeCrsSet[i]->isVerticalCrsUnknown())
-			std::cout << "Vertical : Unknown." << "Reason is:" << timeCrsSet[i]->getVerticalCrsUnknownReason() << std::endl;
+			cout << "Vertical : Unknown." << "Reason is:" << timeCrsSet[i]->getVerticalCrsUnknownReason() << endl;
 	}
-	std::cout << std::endl;
+	cout << endl;
 
 	std::vector<Fault*> faultSet = pck.getFaultSet();
 	std::vector<PolylineSetRepresentation*> faultPolyRep = pck.getFaultPolylineSetRepSet();
@@ -1672,7 +1672,7 @@ void deserialize(const string & inputFile)
 	for (size_t i = 0; i < unstructuredGridRepSet.size(); ++i)
 	{
 		showAllMetadata(unstructuredGridRepSet[i]);
-		if (unstructuredGridRepSet[i]->isPartial() == false)
+		if (!unstructuredGridRepSet[i]->isPartial() && unstructuredGridRepSet[i]->hasGeometry())
 		{
 			std::cout << "Node count is : " << unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
 			ULONG64 * faceCountOfCells = new ULONG64 [unstructuredGridRepSet[i]->getCellCount()];

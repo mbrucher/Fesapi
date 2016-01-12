@@ -36,6 +36,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 #include <sstream>
 
+#include "hdf5.h"
+
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"

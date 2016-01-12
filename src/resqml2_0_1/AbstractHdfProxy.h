@@ -36,8 +36,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/EpcExternalPartReference.h"
 #include "resqml2_0_1/AbstractRepresentation.h"
 
-#include "hdf5.h"
-
 #define CUMULATIVE_LENGTH_DS_NAME "cumulativeLength"
 #define ELEMENTS_DS_NAME "elements"
 
@@ -52,7 +50,6 @@ namespace resqml2_0_1
 			EpcExternalPartReference(fromGsoap, packageDirAbsolutePath, externalFilePath) {}
     
 		virtual ~AbstractHdfProxy() {}
-
 
 		/**
 		* Open the file for reading and writing.
@@ -74,7 +71,7 @@ namespace resqml2_0_1
 		 * Get the used datatype in a dataset
 		 * Has to be changed, C++ interface, not always available...
 		 */
-		virtual hid_t getHdfDatatypeInDataset(const std::string & groupName) = 0;
+		virtual int getHdfDatatypeInDataset(const std::string & groupName) = 0;
 
 		/**
 		 * Write an itemized list of list into the HDF file by means of a single group containing 2 datasets.
@@ -174,7 +171,7 @@ namespace resqml2_0_1
 		 */
 		virtual void writeArrayNd(const std::string & groupName,
 		  const std::string & name,
-		  const hid_t & datatype,
+		  const int & datatype,
 		  void * values,
 		  hsize_t * numValuesInEachDimension,
 		  const unsigned int & numDimensions) = 0;
@@ -191,7 +188,7 @@ namespace resqml2_0_1
 		virtual void createArrayNd(
 		  const std::string& groupName,
 		  const std::string& name,
-		  const hid_t & datatype,
+		  const int & datatype,
 		  hsize_t* numValuesInEachDimension,
 		  const unsigned int& numDimensions
 		  ) = 0;

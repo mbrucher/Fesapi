@@ -141,7 +141,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5ArrayOfValues(double * values, hsize_t * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
+		void pushBackDoubleHdf5ArrayOfValues(double * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
@@ -189,7 +189,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
+		void pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, class AbstractHdfProxy * proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
@@ -199,7 +199,7 @@ namespace resqml2_0_1
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
 		void createFloatHdf5ArrayOfValues(
-			hsize_t* numValues, 
+			unsigned long long* numValues, 
 			const unsigned int& numArrayDimensions, 
 			class AbstractHdfProxy* proxy
 		);
@@ -251,8 +251,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackFloatHdf5SlabArrayOfValues(
 			float * values, 
-			hsize_t * numValues, 
-			hsize_t * offsetValues, 
+			unsigned long long * numValues,
+			unsigned long long * offsetValues,
 			const unsigned int & numArrayDimensions, 
 			class AbstractHdfProxy * proxy
 		);
@@ -280,8 +280,8 @@ namespace resqml2_0_1
 		void getFloatValuesOfPatch(
 			const unsigned int& patchIndex, 
 			float* values, 
-			hsize_t* numValuesInEachDimension,
-			hsize_t* offsetInEachDimension, 
+			unsigned long long* numValuesInEachDimension,
+			unsigned long long* offsetInEachDimension,
 			const unsigned int& numArrayDimensions
 		);
 
@@ -321,14 +321,14 @@ namespace resqml2_0_1
 		template <class T>
 		void setPropertyMinMax(
 			T* values, 
-			hsize_t* numValuesInEachDimension,
+			unsigned long long* numValuesInEachDimension,
 			const unsigned int& numArrayDimensions
 		) {
 			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = 
 				static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy);
 			if (prop->Count == 1) {
 
-				hsize_t nValues = numValuesInEachDimension[0];
+				unsigned long long nValues = numValuesInEachDimension[0];
 
 				for (unsigned int dim = 1; dim < numArrayDimensions; dim++) {
 					nValues *= numValuesInEachDimension[dim];
@@ -349,7 +349,7 @@ namespace resqml2_0_1
 			} else if (prop->Count > 1) {
 				//In this case, the last (fastest) dimension 
 				//has the number of elements in the representation.
-				hsize_t nValues = numValuesInEachDimension[0];
+				unsigned long long nValues = numValuesInEachDimension[0];
 
 				for (unsigned int dim = 1; dim < numArrayDimensions-1; dim++) {
 					nValues *= numValuesInEachDimension[dim];
@@ -376,7 +376,7 @@ namespace resqml2_0_1
 		}
 
 		template <class valueType>
-		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, hsize_t * numValues, const unsigned int & numValueDimensions, AbstractHdfProxy * proxy,
+		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, unsigned long long * numValues, const unsigned int & numValueDimensions, AbstractHdfProxy * proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr)
 		{
 			setHdfProxy(proxy);
@@ -388,7 +388,7 @@ namespace resqml2_0_1
 				double computedMaximumValue;
 				if (minimumValue == nullptr || maximumValue == nullptr)
 				{
-					hsize_t numTotalValues = numValues[0];
+					unsigned long long numTotalValues = numValues[0];
 					for (unsigned int dim = 1; dim < numValueDimensions; dim++)
 						numTotalValues *= numValues[dim];
 

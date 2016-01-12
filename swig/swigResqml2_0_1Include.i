@@ -74,7 +74,6 @@ typedef unsigned long long	ULONG64;
 #endif
 
 typedef long long 				time_t;
-typedef unsigned long long 	hsize_t;
 
 
 //************************
@@ -1277,7 +1276,7 @@ namespace resqml2_0_1
 		unsigned int getDimensionsCountOfPatch(const unsigned int & patchIndex);
 		
 		void createLongHdf5ArrayOfValues(
-			hsize_t* numValues, 
+			unsigned long long* numValues, 
 			const unsigned int& numArrayDimensions, 
 			AbstractHdfProxy* proxy
 		);
@@ -1299,16 +1298,16 @@ namespace resqml2_0_1
 		);
 		void pushBackLongHdf5SlabArrayOfValues(
 			long * values, 
-			hsize_t * numValues, 
-			hsize_t * offsetValues, 
+			unsigned long long * numValues, 
+			unsigned long long * offsetValues, 
 			const unsigned int & numArrayDimensions, 
 			AbstractHdfProxy * proxy
 		);
 		void getLongValuesOfPatch(
 			const unsigned int& patchIndex, 
 			long* values, 
-			hsize_t* numValuesInEachDimension,
-			hsize_t* offsetInEachDimension, 
+			unsigned long long* numValuesInEachDimension,
+			unsigned long long* offsetInEachDimension, 
 			const unsigned int& numArrayDimensions
 		);
 		void getLongValuesOf3dPatch(
@@ -1344,7 +1343,7 @@ namespace resqml2_0_1
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 		void pushBackDoubleHdf5Array3dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackDoubleHdf5ArrayOfValues(double * values, hsize_t * numValues, const unsigned int & numArrayDimensions, AbstractHdfProxy * proxy,
+		void pushBackDoubleHdf5ArrayOfValues(double * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, AbstractHdfProxy * proxy,
 			double * minimumValue = NULL, double * maximumValue = NULL);
 		void pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
@@ -1352,13 +1351,13 @@ namespace resqml2_0_1
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 		void pushBackFloatHdf5Array3dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackFloatHdf5ArrayOfValues(float * values, hsize_t * numValues, const unsigned int & numArrayDimensions, AbstractHdfProxy * proxy,
+		void pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, AbstractHdfProxy * proxy,
 			double * minimumValue = NULL, double * maximumValue = NULL);
 		void getDoubleValuesOfPatch(const unsigned int & patchIndex, double * values);
 		void getFloatValuesOfPatch(const unsigned int & patchIndex, float * values);
 		
 		void createFloatHdf5ArrayOfValues(
-			hsize_t* numValues, 
+			unsigned long long* numValues, 
 			const unsigned int& numArrayDimensions, 
 			AbstractHdfProxy* proxy
 		);
@@ -1380,16 +1379,16 @@ namespace resqml2_0_1
 		);
 		void pushBackFloatHdf5SlabArrayOfValues(
 			float * values, 
-			hsize_t * numValues, 
-			hsize_t * offsetValues, 
+			unsigned long long * numValues, 
+			unsigned long long * offsetValues, 
 			const unsigned int & numArrayDimensions, 
 			AbstractHdfProxy * proxy
 		);
 		void getFloatValuesOfPatch(
 			const unsigned int& patchIndex, 
 			float* values, 
-			hsize_t* numValuesInEachDimension,
-			hsize_t* offsetInEachDimension, 
+			unsigned long long* numValuesInEachDimension,
+			unsigned long long* offsetInEachDimension, 
 			const unsigned int& numArrayDimensions
 		);
 		void getFloatValuesOf3dPatch(
@@ -1422,8 +1421,8 @@ namespace resqml2_0_1
 		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
 	};
 	
 	class DiscretePropertySeries : public DiscreteProperty
@@ -1440,7 +1439,7 @@ namespace resqml2_0_1
 		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy, const long & nullValue);
 		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
 	};
 	
 	class CategoricalPropertySeries : public CategoricalProperty

@@ -349,12 +349,27 @@ std::string WellboreTrajectoryRepresentation::getMdDatumUuid() const
 std::string WellboreTrajectoryRepresentation::getHdfProxyUuid() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
-	resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
-	return static_cast<resqml2__Point3dHdf5Array*>(paramLine->ControlPoints)->Coordinates->HdfProxy->UUID;
+	if (rep->Geometry)
+	{
+		resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
+		return static_cast<resqml2__Point3dHdf5Array*>(paramLine->ControlPoints)->Coordinates->HdfProxy->UUID;
+	}
+	else
+	{
+		return "";
+	}
 }
 
 std::string WellboreTrajectoryRepresentation::getLocalCrsUuid() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
-	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LocalCrs->UUID;
+	if (rep->Geometry)
+		return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LocalCrs->UUID;
+	else
+		return "";
+}
+
+bool WellboreTrajectoryRepresentation::hasGeometry() const
+{
+	return static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy)->Geometry != nullptr;
 }

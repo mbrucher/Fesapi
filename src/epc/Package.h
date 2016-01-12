@@ -34,17 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #ifndef PACKAGE_H
 #define PACKAGE_H
 
-
-/**
-* \file Package.cpp
-* \class epc::Package
-* \author Philippe Verney
-*
-*	EPC Package class
-*	Copyright (c) 2014 F2I-CONSULTING. All rights reserved.
-*/
-
-#if defined(_WIN32) || defined(__APPLE__)
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 #include <unordered_map>
 #else
 #include <tr1/unordered_map>
@@ -54,121 +44,19 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "FileContentType.h"
 #include "FileRelationship.h"
 
-#include "zip.h"
-#include "unzip.h"
-
 namespace epc
 {
-
-#define CACHE_FILE_DESCRIPTOR //When defined all file descriptors are cached to speedup file lookup
-
-#ifdef CACHE_FILE_DESCRIPTOR
-	/* unz_file_info_interntal contain internal info about a file in zipfile*/
-	typedef struct unz_file_info64_internal_s
-	{
-		ZPOS64_T offset_curfile;            /* relative offset of local header 8 bytes */
-		ZPOS64_T byte_before_the_zipfile;   /* byte before the zipfile, (>0 for sfx) */
-	#ifdef HAVE_AES
-		uLong aes_encryption_mode;
-		uLong aes_compression_method;
-	#endif
-	} unz_file_info64_internal;
-
-	/* file_in_zip_read_info_s contain internal information about a file in zipfile */
-	typedef struct
-	{
-		Bytef *read_buffer;                 /* internal buffer for compressed data */
-		z_stream stream;                    /* zLib stream structure for inflate */
-
-	#ifdef HAVE_BZIP2
-		bz_stream bstream;                  /* bzLib stream structure for bziped */
-	#endif
-	#ifdef HAVE_AES
-		fcrypt_ctx aes_ctx;
-	#endif
-
-		ZPOS64_T pos_in_zipfile;            /* position in byte on the zipfile, for fseek */
-		uLong stream_initialised;           /* flag set if stream structure is initialised */
-
-		ZPOS64_T offset_local_extrafield;   /* offset of the local extra field */
-		uInt size_local_extrafield;         /* size of the local extra field */
-		ZPOS64_T pos_local_extrafield;      /* position in the local extra field in read */
-		ZPOS64_T total_out_64;
-
-		uLong crc32;                        /* crc32 of all data uncompressed */
-		uLong crc32_wait;                   /* crc32 we must obtain after decompress all */
-		ZPOS64_T rest_read_compressed;      /* number of byte to be decompressed */
-		ZPOS64_T rest_read_uncompressed;    /* number of byte to be obtained after decomp */
-
-		zlib_filefunc64_32_def z_filefunc;
-
-		voidpf filestream;                  /* io structore of the zipfile */
-		uLong compression_method;           /* compression method (0==store) */
-		ZPOS64_T byte_before_the_zipfile;   /* byte before the zipfile, (>0 for sfx) */
-		int raw;
-	} file_in_zip64_read_info_s;
-
-	/* unz64_s contain internal information about the zipfile */
-	typedef struct
-	{
-		zlib_filefunc64_32_def z_filefunc;
-		voidpf filestream;                  /* io structure of the current zipfile */
-		voidpf filestream_with_CD;          /* io structure of the disk with the central directory */
-		unz_global_info64 gi;               /* public global information */
-		ZPOS64_T byte_before_the_zipfile;   /* byte before the zipfile, (>0 for sfx)*/
-		ZPOS64_T num_file;                  /* number of the current file in the zipfile*/
-		ZPOS64_T pos_in_central_dir;        /* pos of the current file in the central dir*/
-		ZPOS64_T current_file_ok;           /* flag about the usability of the current file*/
-		ZPOS64_T central_pos;               /* position of the beginning of the central dir*/
-		uLong number_disk;                  /* number of the current disk, used for spanning ZIP*/
-		ZPOS64_T size_central_dir;          /* size of the central directory  */
-		ZPOS64_T offset_central_dir;        /* offset of start of central directory with
-											   respect to the starting disk number */
-
-		unz_file_info64 cur_file_info;      /* public info about the current file in zip*/
-		unz_file_info64_internal cur_file_info_internal;
-											/* private info about it*/
-		file_in_zip64_read_info_s* pfile_in_zip_read;
-											/* structure about the current file if we are decompressing it */
-		int encrypted;                      /* is the current file encrypted */
-		int isZip64;                        /* is the current file zip64 */
-	#ifndef NOUNCRYPT
-		unsigned long keys[3];              /* keys defining the pseudo-random sequence */
-		const unsigned long* pcrc_32_tab;
-	#endif
-	} unz64_s;
-#endif
-
 	class Package
 	{
-    public:
+
+	private :
+		class CheshireCat;               // Not defined here but in the cpp
+		CheshireCat * d_ptr;              // opaque pointer
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		typedef std::unordered_map<std::string, class FilePart*> PartMap;
 #else
 		typedef std::tr1::unordered_map<std::string, class FilePart*> PartMap;
-#endif
-
-	private :
-		FileCoreProperties	fileCoreProperties;											/// Core Properties file
-		FileContentType		fileContentType;											/// ContentTypes file
-		FileRelationship	filePrincipalRelationship;									/// Relationships file
-		PartMap				allFileParts;												/// Set of parts file
-#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		std::unordered_map< std::string, std::string >		extendedCoreProperties;		/// Set of non standard (extended) core properties
-#else
-		std::tr1::unordered_map< std::string, std::string >	extendedCoreProperties;		/// Set of non standard (extended) core properties
-#endif
-		std::string			pathName;													/// Pathname of package
-		unzFile				unzipped;
-        zipFile             zf;
-        bool                isZip64;
-#ifdef CACHE_FILE_DESCRIPTOR
-#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		std::unordered_map< std::string, unz64_s > name2file;
-#else
-		std::tr1::unordered_map< std::string, unz64_s > name2file;
-#endif
 #endif
 
 		/**
@@ -247,9 +135,9 @@ namespace epc
 		* All added non standard core properties will be stored in a single part which will be linked to the standard core properties part.
 		*/
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		std::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return extendedCoreProperties;}
+		std::unordered_map< std::string, std::string > & getExtendedCoreProperty();
 #else
-		std::tr1::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return extendedCoreProperties;}
+		std::tr1::unordered_map< std::string, std::string > & getExtendedCoreProperty();
 #endif
 
 		/**

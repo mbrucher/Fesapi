@@ -35,6 +35,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
+#include "hdf5.h"
+
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -98,7 +100,7 @@ void HdfProxy::close()
 	}
 }
 
-hid_t HdfProxy::getHdfDatatypeInDataset(const std::string & datasetName)
+int HdfProxy::getHdfDatatypeInDataset(const std::string & datasetName)
 {
 	if (!isOpened())
 		open();
@@ -540,7 +542,7 @@ void HdfProxy::readArrayNdOfUCharValues(const std::string & datasetName, unsigne
 	H5Dclose(dataset);
 }
 
-hid_t HdfProxy::openOrCreateHdfResqmlGroup()
+int HdfProxy::openOrCreateHdfResqmlGroup()
 {
 	if (!isOpened())
 		open();
@@ -554,7 +556,7 @@ hid_t HdfProxy::openOrCreateHdfResqmlGroup()
 		return H5Gcreate(hdfFile, "/RESQML", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 }
 
-hid_t HdfProxy::openOrCreateGroupInResqmlGroup(const string & groupName)
+int HdfProxy::openOrCreateGroupInResqmlGroup(const string & groupName)
 {
 	hid_t resqmlGroup = openOrCreateHdfResqmlGroup();
 

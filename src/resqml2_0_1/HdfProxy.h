@@ -35,9 +35,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractHdfProxy.h"
 
-#define CUMULATIVE_LENGTH_DS_NAME "cumulativeLength"
-#define ELEMENTS_DS_NAME "elements"
-
 namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT HdfProxy : public AbstractHdfProxy
@@ -80,7 +77,7 @@ namespace resqml2_0_1
 		* Get the used (native) datatype in a dataset
 		* To compare with H5T_NATIVE_INT, H5T_NATIVE_UINT, H5T_NATIVE_FLOAT, etc...
 		*/
-		hid_t getHdfDatatypeInDataset(const std::string & groupName);
+		int getHdfDatatypeInDataset(const std::string & groupName);
 		
 		/**
 		* Write an itemized list of list into the HDF file by means of a single group containing 2 datasets.
@@ -180,7 +177,7 @@ namespace resqml2_0_1
 		*/
 		void writeArrayNd(const std::string & groupName,
 			const std::string & name,
-			const hid_t & datatype,
+			const int & datatype,
 			void * values,
 			hsize_t * numValuesInEachDimension,
 			const unsigned int & numDimensions);
@@ -197,7 +194,7 @@ namespace resqml2_0_1
 		void createArrayNd(
 			const std::string& groupName,
 			const std::string& name,
-			const hid_t & datatype,
+			const int & datatype,
 			hsize_t* numValuesInEachDimension,
 			const unsigned int& numDimensions
 		);
@@ -344,16 +341,16 @@ namespace resqml2_0_1
 		* If it exists, it returns the latter. If not, it creates this group and then returns it.
 		* Please close the group after having called and used this group.
 		*/
-		hid_t openOrCreateHdfResqmlGroup();
+		int openOrCreateHdfResqmlGroup();
 
 		/**
 		* Check if an hdf group named as groupName exists in the "RESQML" group.
 		* If it exists, it returns the latter. If not, it creates this group and then returns it.
 		* Please close the group after having called and used this group.
 		*/
-		hid_t openOrCreateGroupInResqmlGroup(const std::string & groupName);
+		int openOrCreateGroupInResqmlGroup(const std::string & groupName);
 
-		hid_t hdfFile;
+		int hdfFile;
 
 		unsigned int compressionLevel;
 	};

@@ -482,9 +482,9 @@ namespace common
 		void updateAllRelationships();
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		std::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return package->getExtendedCoreProperty();}
+		std::unordered_map< std::string, std::string > & getExtendedCoreProperty();
 #else
-		std::tr1::unordered_map< std::string, std::string > & getExtendedCoreProperty() {return package->getExtendedCoreProperty();}
+		std::tr1::unordered_map< std::string, std::string > & getExtendedCoreProperty();
 #endif
 
 		void setExtendedCoreProperty(const std::string & key, const std::string & value);

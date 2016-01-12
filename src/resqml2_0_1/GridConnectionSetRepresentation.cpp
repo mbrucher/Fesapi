@@ -37,6 +37,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 #endif 
 
+#include "hdf5.h"
+
 #include "resqml2_0_1/FaultInterpretation.h"
 #include "resqml2_0_1/AbstractGridRepresentation.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"

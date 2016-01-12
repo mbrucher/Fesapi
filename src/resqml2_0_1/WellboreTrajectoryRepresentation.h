@@ -196,6 +196,8 @@ namespace resqml2_0_1
 
 		unsigned int getPatchCount() const {return 1;}
 
+		bool hasGeometry() const;
+
 		void setWitsmlTrajectory(witsml1_4_1_1::Trajectory * witsmlTraj);
 		witsml1_4_1_1::Trajectory * getWitsmlTrajectory() {return witsmlTrajectory;}
 

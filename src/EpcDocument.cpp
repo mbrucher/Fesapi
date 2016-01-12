@@ -1324,6 +1324,15 @@ void EpcDocument::updateAllRelationships()
 	}
 }
 
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
+unordered_map< string, string > & EpcDocument::getExtendedCoreProperty()
+#else
+tr1::unordered_map< string, string > & EpcDocument::getExtendedCoreProperty()
+#endif
+{
+	return package->getExtendedCoreProperty();
+}
+
 void EpcDocument::setExtendedCoreProperty(const std::string & key, const std::string & value)
 {
 	(package->getExtendedCoreProperty())[key] = value;

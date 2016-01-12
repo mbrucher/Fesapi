@@ -35,6 +35,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
+#include "hdf5.h"
+
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
