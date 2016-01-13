@@ -16,7 +16,7 @@ endif
 # Please modify the path to HDF5_ROOT according to your configuration
 if ! $?HDF5_ROOT then
 	echo "Need to set HDF5_ROOT"
-	setenv HDF5_ROOT ../dependencies/hdf5-1.8.14-linux-centos6-x86_64-gcc447-shared
+	setenv HDF5_ROOT ../dependencies/hdf5-1.8.10-linux-x86_64-shared
 else
 	echo "HDF5_ROOT already set."
 endif

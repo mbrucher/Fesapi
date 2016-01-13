@@ -669,7 +669,7 @@ string Package::extractFile(const string & filename, const string & password)
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	std::unordered_map< std::string, unz64_s >::const_iterator it = d_ptr->name2file.find(filename.c_str());
 #else
-	std::tr1::unordered_map< std::string, unz64_s >::const_iterator it = name2file.find(filename.c_str());
+	std::tr1::unordered_map< std::string, unz64_s >::const_iterator it = d_ptr->name2file.find(filename.c_str());
 #endif
 	if (it == d_ptr->name2file.end())
 	{
