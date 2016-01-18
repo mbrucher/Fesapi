@@ -86,9 +86,9 @@ namespace resqml2_0_1
 		virtual void writeItemizedListOfUnsignedInt(const std::string & groupName,
 		  const std::string & name,
 		  unsigned int * cumulativeLength,
-		  const hsize_t & cumulativeLengthSize,
+		  const unsigned long long & cumulativeLengthSize,
 		  unsigned int * elements,
-		  const hsize_t & elementsSize) = 0;
+		  const unsigned long long & elementsSize) = 0;
 
 		/**
 		 * Get the number of dimensions in an HDF dataset of the proxy.
@@ -100,7 +100,7 @@ namespace resqml2_0_1
 		 * Get the number of elements in an HDF dataset of the proxy. The number of elements is get from all dimensions.
 		 * @param datasetName	The absolute name of the dataset we want to get the number of elements.
 		 */
-		virtual hssize_t getElementCount(const std::string & datasetName) = 0;
+		virtual signed long long getElementCount(const std::string & datasetName) = 0;
 
 		/**
 		 * Set the new compression level which will be used for all data to be written
@@ -111,7 +111,7 @@ namespace resqml2_0_1
 		virtual void writeArrayNdOfFloatValues(const std::string & groupName,
 		  const std::string & name,
 		  float * floatValues,
-		  hsize_t * numValuesInEachDimension,
+		  unsigned long long * numValuesInEachDimension,
 		  const unsigned int & numDimensions) = 0;
 
 		/**
@@ -126,7 +126,7 @@ namespace resqml2_0_1
 		virtual void writeArrayNdOfDoubleValues(const std::string & groupName,
 		  const std::string & name,
 		  double * dblValues,
-		  hsize_t * numValuesInEachDimension,
+		  unsigned long long * numValuesInEachDimension,
 		  const unsigned int & numDimensions) = 0;
 
 		/**
@@ -141,7 +141,7 @@ namespace resqml2_0_1
 		virtual void writeArrayNdOfIntValues(const std::string & groupName,
 		  const std::string & name,
 		  int * intValues,
-		  hsize_t * numValuesInEachDimension,
+		  unsigned long long * numValuesInEachDimension,
 		  const unsigned int & numDimensions) = 0;
 
 		/**
@@ -156,7 +156,7 @@ namespace resqml2_0_1
  		virtual void writeArrayNdOfGSoapULong64Values(const std::string & groupName,
 			const std::string & name,
 			ULONG64 * ulong64Values,
-			hsize_t * numValuesInEachDimension,
+			unsigned long long * numValuesInEachDimension,
 			const unsigned int & numDimensions) = 0;
 
 		/**
@@ -173,7 +173,7 @@ namespace resqml2_0_1
 		  const std::string & name,
 		  const int & datatype,
 		  void * values,
-		  hsize_t * numValuesInEachDimension,
+		  unsigned long long * numValuesInEachDimension,
 		  const unsigned int & numDimensions) = 0;
 
 		/**
@@ -189,7 +189,7 @@ namespace resqml2_0_1
 		  const std::string& groupName,
 		  const std::string& name,
 		  const int & datatype,
-		  hsize_t* numValuesInEachDimension,
+		  unsigned long long* numValuesInEachDimension,
 		  const unsigned int& numDimensions
 		  ) = 0;
 
@@ -206,8 +206,8 @@ namespace resqml2_0_1
 		  const std::string& groupName,
 		  const std::string& name,
 		  void* values,
-		  hsize_t* numValuesInEachDimension,
-		  hsize_t* offsetValuesInEachDimension,
+		  unsigned long long* numValuesInEachDimension,
+		  unsigned long long* offsetValuesInEachDimension,
 		  const unsigned int& numDimensions
 		  ) = 0;
 
@@ -236,8 +236,8 @@ namespace resqml2_0_1
 		virtual void readArrayNdOfFloatValues(
 		  const std::string & datasetName,
 		  float* values,
-		  hsize_t * numValuesInEachDimension,
-		  hsize_t * offsetInEachDimension,
+		  unsigned long long * numValuesInEachDimension,
+		  unsigned long long * offsetInEachDimension,
 		  const unsigned int & numDimensions
 		  ) = 0;
 
@@ -269,8 +269,8 @@ namespace resqml2_0_1
 		virtual void readArrayNdOfLongValues(
 		  const std::string & datasetName,
 		  long* values,
-		  hsize_t * numValuesInEachDimension,
-		  hsize_t * offsetInEachDimension,
+		  unsigned long long * numValuesInEachDimension,
+		  unsigned long long * offsetInEachDimension,
 		  const unsigned int & numDimensions
 		  ) = 0;
 
@@ -327,7 +327,7 @@ namespace resqml2_0_1
 		 * Read the dimensions of an array stored in a specific dataset
 		 * @param datasetName	The absolute dataset name where to read the array dimensions
 		 */
-		virtual std::vector<hsize_t> readArrayDimensions(const std::string & datasetName) = 0;
+		virtual std::vector<unsigned long long> readArrayDimensions(const std::string & datasetName) = 0;
   
 		friend void AbstractRepresentation::setHdfProxy(AbstractHdfProxy * proxy);
 		friend void AbstractProperty::setHdfProxy(AbstractHdfProxy * proxy);

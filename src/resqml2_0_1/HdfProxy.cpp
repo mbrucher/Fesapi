@@ -43,7 +43,7 @@ using namespace resqml2_0_1;
 
 void HdfProxy::open()
 {
-	H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
+	//H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
 	if (hdfFile != -1)
 	{
 		close();
@@ -125,7 +125,7 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 	if (!isOpened())
 		open();
 
-	hid_t parentGrp = openOrCreateGroupInResqmlGroup(groupName.c_str());
+	hid_t parentGrp = openOrCreateGroupInResqmlGroup(groupName);
 	hid_t grp = H5Gcreate(parentGrp, name.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	H5Gclose(parentGrp);
 
@@ -260,7 +260,7 @@ void HdfProxy::writeArrayNd(const string & groupName,
 	if (!isOpened())
 		open();
 
-	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
+	hid_t grp = openOrCreateGroupInResqmlGroup(groupName);
 
 	// Create the data space
 	hid_t space = H5Screate_simple(numDimensions, numValuesInEachDimension, nullptr);
@@ -300,7 +300,7 @@ void HdfProxy::createArrayNd(
 		open();
 	}
 
-	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
+	hid_t grp = openOrCreateGroupInResqmlGroup(groupName);
 
 	// Create the data space
 	hid_t space = H5Screate_simple(numDimensions, numValuesInEachDimension, nullptr);
@@ -341,7 +341,7 @@ void HdfProxy::writeArrayNdSlab(
 		open();
 	}
 
-	hid_t grp = openOrCreateGroupInResqmlGroup(groupName.c_str());
+	hid_t grp = openOrCreateGroupInResqmlGroup(groupName);
 	hid_t dataset = H5Dopen(grp, datasetName.c_str(), H5P_DEFAULT);
 	
 

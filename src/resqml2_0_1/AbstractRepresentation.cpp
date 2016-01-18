@@ -37,6 +37,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <algorithm>
 #include <stdexcept>
 
+#include "H5public.h"
+
 #include "resqml2_0_1/AbstractTechnicalFeature.h"
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/RepresentationSetRepresentation.h"

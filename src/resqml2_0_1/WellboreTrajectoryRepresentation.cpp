@@ -35,6 +35,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
+#include "H5public.h"
+
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/MdDatum.h"
 #include "resqml2_0_1/WellboreFrameRepresentation.h"

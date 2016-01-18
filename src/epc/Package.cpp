@@ -667,9 +667,9 @@ string Package::extractFile(const string & filename, const string & password)
 
 #ifdef CACHE_FILE_DESCRIPTOR
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-	std::unordered_map< std::string, unz64_s >::const_iterator it = d_ptr->name2file.find(filename.c_str());
+	std::unordered_map< std::string, unz64_s >::const_iterator it = d_ptr->name2file.find(filename);
 #else
-	std::tr1::unordered_map< std::string, unz64_s >::const_iterator it = d_ptr->name2file.find(filename.c_str());
+	std::tr1::unordered_map< std::string, unz64_s >::const_iterator it = d_ptr->name2file.find(filename);
 #endif
 	if (it == d_ptr->name2file.end())
 	{
@@ -677,7 +677,7 @@ string Package::extractFile(const string & filename, const string & password)
 		{
 			return "";
 		}
-		d_ptr->name2file[filename.c_str()] = *(unz64_s*)d_ptr->unzipped;
+		d_ptr->name2file[filename] = *(unz64_s*)d_ptr->unzipped;
 	}
 	else
 	{

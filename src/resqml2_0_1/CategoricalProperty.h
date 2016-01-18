@@ -34,7 +34,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractValuesProperty.h"
-#include "H5public.h"
 
 namespace resqml2_0_1
 {
@@ -134,8 +133,6 @@ namespace resqml2_0_1
 	protected:
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-
 
 		// XML forward relationship
 		class StringTableLookup* stringLookup;

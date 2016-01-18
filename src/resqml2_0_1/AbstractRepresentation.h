@@ -34,7 +34,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractProperty.h"
-#include "H5public.h"
 
 namespace resqml2_0_1
 {
@@ -64,7 +63,7 @@ namespace resqml2_0_1
 		* @param numDimensionsInArray	The number of dimensions in the array to write.
 		* @param proxy					The HDF proxy where to write the points. It must be already opened for writing and won't be closed in this method.
 		*/
-		gsoap_resqml2_0_1::resqml2__PointGeometry* createPointGeometryPatch(const unsigned int & patchIndex, double * points, hsize_t * numPoints, const unsigned int & numDimensionsInArray, AbstractHdfProxy * proxy);
+		gsoap_resqml2_0_1::resqml2__PointGeometry* createPointGeometryPatch(const unsigned int & patchIndex, double * points, unsigned long long * numPoints, const unsigned int & numDimensionsInArray, AbstractHdfProxy * proxy);
 		
 		/**
 		 * Get the point geometry of a specific patch of the representation.

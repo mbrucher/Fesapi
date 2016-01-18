@@ -36,6 +36,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <algorithm>
 #include <sstream>
 
+#include "H5public.h"
+
 #include "resqml2_0_1/Grid2dRepresentation.h"
 #include "resqml2_0_1/PolylineRepresentation.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
