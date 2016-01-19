@@ -4,15 +4,15 @@
 #
 ##
 
-# Please modify the path to HDF5_ROOT according to your configuration
-if ($Env:HDF5_ROOT)
+# Please modify the path to HDF5_DIR according to your configuration
+if ($Env:HDF5_DIR)
 {
-	'HDF5_ROOT already set to ' + $Env:HDF5_ROOT
+	'HDF5_DIR already set to ' + $Env:HDF5_DIR
 }
 else
 {
-	'Need to set HDF5_ROOT'
-	$Env:HDF5_ROOT = Join-Path (Get-Location) "..\dependencies\hdf5-1.8.15-patch1-win64-vs2012-static"
+	'Need to set HDF5_DIR'
+	$Env:HDF5_DIR = Join-Path (Get-Location) "../dependencies/hdf5-1.8.16-win64-vs2013/cmake"
 }
 
 # Please modify the path to MINIZIP_DIR according to your configuration
@@ -23,7 +23,7 @@ if ($Env:MINIZIP_DIR)
 else
 {
 	'Need to set MINIZIP_DIR'
-	$Env:MINIZIP_DIR = Join-Path (Get-Location) "..\dependencies\minizip-win64-vs2012-static"
+	$Env:MINIZIP_DIR = Join-Path (Get-Location) "..\dependencies\minizip-win64-vs2013-static"
 }
 
 # Please modify the path to cmake-gui according to your configuration

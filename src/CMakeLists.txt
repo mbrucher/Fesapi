@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.1.0)
 
 PROJECT (Fesapi_SRC)
 
@@ -35,41 +35,28 @@ IF (PROXIES_GENERATION)
 		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/envStub.h ${CMAKE_CURRENT_SOURCE_DIR}/proxies/envStub.h
 	)
 
-	if(WITH_PROPERTY_MAPPING)
-		IF (UNIX) 
-			ADD_CUSTOM_COMMAND (
-				OUTPUT typemap.dat PropertyTypeMapping.xsd
-				COMMAND ${CMAKE_COMMAND} -E copy ${FESAPI_ROOT_DIR}/gsoap/typemap.dat ${CMAKE_CURRENT_BINARY_DIR}/typemap.dat
-				COMMAND ${CMAKE_COMMAND} -E copy ${FESAPI_ROOT_DIR}/gsoap/PropertyTypeMapping.xsd ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd
-				# next command aims at inserting the Resqml schema location into PropertyTypeMapping.xsd
-				COMMAND sed -i -e 's|RESQML_SCHEMA_LOCATION|${RESQML_SCHEMA_LOCATION}|g' ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd 
-			)
-		ELSEIF (WIN32)
-			ADD_CUSTOM_COMMAND (
-				OUTPUT typemap.dat PropertyTypeMapping.xsd
-				COMMAND ${CMAKE_COMMAND} -E copy ${FESAPI_ROOT_DIR}/gsoap/typemap.dat ${CMAKE_CURRENT_BINARY_DIR}/typemap.dat
-				# next command aims at inserting the Resqml schema location into PropertyTypeMapping.xsd
-				COMMAND cscript ${FESAPI_ROOT_DIR}/gsoap/sed.vbs "s*RESQML_SCHEMA_LOCATION*${RESQML_SCHEMA_LOCATION}*g" < ${FESAPI_ROOT_DIR}/gsoap/PropertyTypeMapping.xsd > ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd
-			)
-		ENDIF (UNIX)
-	
-		add_custom_command(
-			OUTPUT ${RESQML_PREFIX}ForGsoap.h
-			COMMAND ${GSOAP_WSDL2H} -W -gjk -q gsoap_${RESQML_PREFIX} -o ${RESQML_PREFIX}ForGsoap.h ${RESQML_XSD_FILES} ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd
-			DEPENDS typemap.dat PropertyTypeMapping.xsd
-		)
-	else(WITH_PROPERTY_MAPPING)
-		ADD_CUSTOM_COMMAND(
-			OUTPUT typemap.dat
+	IF (UNIX) 
+		ADD_CUSTOM_COMMAND (
+			OUTPUT typemap.dat PropertyTypeMapping.xsd
 			COMMAND ${CMAKE_COMMAND} -E copy ${FESAPI_ROOT_DIR}/gsoap/typemap.dat ${CMAKE_CURRENT_BINARY_DIR}/typemap.dat
+			COMMAND ${CMAKE_COMMAND} -E copy ${FESAPI_ROOT_DIR}/gsoap/PropertyTypeMapping.xsd ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd
+			# next command aims at inserting the Resqml schema location into PropertyTypeMapping.xsd
+			COMMAND sed -i -e 's|RESQML_SCHEMA_LOCATION|${RESQML_SCHEMA_LOCATION}|g' ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd 
 		)
-		
-		ADD_CUSTOM_COMMAND(
-			OUTPUT ${RESQML_PREFIX}ForGsoap.h
-			COMMAND ${GSOAP_WSDL2H} -W -gjk -q gsoap_${RESQML_PREFIX} -o ${RESQML_PREFIX}ForGsoap.h ${RESQML_XSD_FILES}
-			DEPENDS typemap.dat
+	ELSEIF (WIN32)
+		ADD_CUSTOM_COMMAND (
+			OUTPUT typemap.dat PropertyTypeMapping.xsd
+			COMMAND ${CMAKE_COMMAND} -E copy ${FESAPI_ROOT_DIR}/gsoap/typemap.dat ${CMAKE_CURRENT_BINARY_DIR}/typemap.dat
+			# next command aims at inserting the Resqml schema location into PropertyTypeMapping.xsd
+			COMMAND cscript ${FESAPI_ROOT_DIR}/gsoap/sed.vbs "s*RESQML_SCHEMA_LOCATION*${RESQML_SCHEMA_LOCATION}*g" < ${FESAPI_ROOT_DIR}/gsoap/PropertyTypeMapping.xsd > ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd
 		)
-	endif(WITH_PROPERTY_MAPPING)
+	ENDIF (UNIX)
+
+	add_custom_command(
+		OUTPUT ${RESQML_PREFIX}ForGsoap.h
+		COMMAND ${GSOAP_WSDL2H} -W -gjk -q gsoap_${RESQML_PREFIX} -o ${RESQML_PREFIX}ForGsoap.h ${RESQML_XSD_FILES} ${CMAKE_CURRENT_BINARY_DIR}/PropertyTypeMapping.xsd
+		DEPENDS typemap.dat PropertyTypeMapping.xsd
+	)
 
 	ADD_CUSTOM_COMMAND (
 		OUTPUT 
@@ -146,11 +133,6 @@ FILE (GLOB FESAPI_EPC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/epc/*.h)
 
 FILE (GLOB FESAPI_RESQML_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${RESQML_PREFIX}/*.cpp)
 FILE (GLOB FESAPI_RESQML_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/${RESQML_PREFIX}/*.h)
-# removing some sources/headers if property mapping is not handled
-IF (NOT WITH_PROPERTY_MAPPING)
-	LIST (REMOVE_ITEM FESAPI_RESQML_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${RESQML_PREFIX}/PropertyKindMapper.cpp)
-	LIST (REMOVE_ITEM FESAPI_RESQML_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/${RESQML_PREFIX}/PropertyKindMapper.h)
-ENDIF (NOT WITH_PROPERTY_MAPPING)
 	
 FILE (GLOB FESAPI_WITSML_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${WITSML_PREFIX}/*.cpp)
 FILE (GLOB FESAPI_WITSML_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/${WITSML_PREFIX}/*.h)
@@ -244,16 +226,18 @@ ENDIF (WIN32)
 
 INCLUDE_DIRECTORIES (
 	${CMAKE_CURRENT_SOURCE_DIR}
+	${HDF5_INCLUDE_DIR}
 	${HDF5_INCLUDE_DIRS}
 	${MINIZIP_INCLUDE_DIR}
 	${ZLIB_INCLUDE_DIRS}
 )
 
-IF (WITH_SZIP)
-	INCLUDE_DIRECTORIES (${SZIP_INCLUDE_DIRS})
-ENDIF (WITH_SZIP)
 
 IF (UNIX)
+	IF (WITH_SZIP)
+		INCLUDE_DIRECTORIES (${SZIP_INCLUDE_DIRS})
+	ENDIF (WITH_SZIP)
+
 	INCLUDE_DIRECTORIES (${UUID_INCLUDE_DIRS})
 ENDIF (UNIX)
 
@@ -271,11 +255,11 @@ ENDIF (WIN32)
 ADD_LIBRARY (FesapiCpp ${LIB_TYPE} ${ALL_SOURCES_AND_HEADERS})
 
 IF (WIN32)
-	IF (WITH_SZIP)
-		TARGET_LINK_LIBRARIES (FesapiCpp ${SZIP_LIBRARIES} ${ZLIB_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
-	ELSE (WITH_SZIP)
-		TARGET_LINK_LIBRARIES (FesapiCpp ${ZLIB_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
-	ENDIF (WITH_SZIP)
+	if(${WITH_HDF5_SHARED_LIBRARIES})
+		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIBRARY} ${HDF5_C_SHARED_LIBRARY})
+	else ()
+		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIBRARY} ${HDF5_C_STATIC_LIBRARY})
+	endif ()
 	SET_TARGET_PROPERTIES (FesapiCpp PROPERTIES LINK_FLAGS "/INCREMENTAL:NO /OPT:REF")
 	SET_TARGET_PROPERTIES (FesapiCpp PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${FESAPI_BINARY_DIR})
 ELSEIF (UNIX)
@@ -339,10 +323,8 @@ INSTALL (
 	DESTINATION include/${WITSML_PREFIX}/
 )
 
-IF (WITH_PROPERTY_MAPPING)
-	# PropertyTypeMapping.xml
-	INSTALL (
-		FILES ${FESAPI_ROOT_DIR}/resources/PropertyKindMapping.xml
-		DESTINATION resources/
-	)
-ENDIF (WITH_PROPERTY_MAPPING)
+# PropertyTypeMapping.xml
+INSTALL (
+	FILES ${FESAPI_ROOT_DIR}/resources/PropertyKindMapping.xml
+	DESTINATION resources/
+)

@@ -406,37 +406,43 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 
 	// ONE SUGAR
 	IjkGridExplicitRepresentation* singleCellIjkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "One unfaulted sugar cube", 1, 1, 1);
-	double singleCellIjkgridNodes[24] = {0,0,300, 700,0,350, 0,150,300, 700,150,350,
-		0,0,500, 700,0,550, 0,150,500, 700,150,550};
+	double singleCellIjkgridNodes[24] = { 0, 0, 300, 700, 0, 350, 0, 150, 300, 700, 150, 350,
+		0, 0, 500, 700, 0, 550, 0, 150, 500, 700, 150, 550 };
 	singleCellIjkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, singleCellIjkgridNodes, hdfProxy);
 
 	// TWO SUGARS
 	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "Two faulted sugar cubes", 2, 1, 1);
-	double nodes[48] = {0,0,300, 375,0,300, 700,0,350, 0,150,300, 375,150,300, 700,150,350, /* SPLIT*/ 375,0,350, 375,150,350,
-		0,0,500, 375,0,500, 700,0,550, 0,150,500, 375,150,500, 700,150,550, /* SPLIT*/ 375,0,550, 375,150,550};
-	unsigned int pillarOfCoordinateLine[2] = {1,4};
-	unsigned int splitCoordinateLineColumnCumulativeCount[2] = {1,2};
-	unsigned int splitCoordinateLineColumns[2] = {1,1};
+	double nodes[48] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350, /* SPLIT*/ 375, 0, 350, 375, 150, 350,
+		0, 0, 500, 375, 0, 500, 700, 0, 550, 0, 150, 500, 375, 150, 500, 700, 150, 550, /* SPLIT*/ 375, 0, 550, 375, 150, 550 };
+	unsigned int pillarOfCoordinateLine[2] = { 1, 4 };
+	unsigned int splitCoordinateLineColumnCumulativeCount[2] = { 1, 2 };
+	unsigned int splitCoordinateLineColumns[2] = { 1, 1 };
 	ijkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
 	//**************
 	// Subrepresentations
 	//**************
-	SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "", "Fault Subrep In Grid", ijkgrid);
-	unsigned int faultPillar[2] = {1,4};
-	faultSubRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__pillars, 2, faultPillar, hdfProxy);
+	if (fault1Interp1 != nullptr)
+	{
+		SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "", "Fault Subrep In Grid", ijkgrid);
+		unsigned int faultPillar[2] = { 1, 4 };
+		faultSubRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__pillars, 2, faultPillar, hdfProxy);
+	}
 
 	//**************
 	// Grid Connection
 	//**************
-	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "", "GridConnectionSetRepresentation", ijkgrid);
-	ULONG64 cellConn[2] = {0,1};
-	gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
-	unsigned int localFacePerCellIndexPairs[2] = {3,5};
-	gridConnSet->setLocalFacePerCellIndexPairs(1, localFacePerCellIndexPairs, 9999, hdfProxy);
-	//unsigned int faultIndices = 0;
-	//gridConnSet->setConnectionFaultNames(&faultIndices, 1, 9999, hdfProxy);
+	if (earthModelInterp != nullptr)
+	{
+		GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "", "GridConnectionSetRepresentation", ijkgrid);
+		ULONG64 cellConn[2] = { 0, 1 };
+		gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
+		unsigned int localFacePerCellIndexPairs[2] = { 3, 5 };
+		gridConnSet->setLocalFacePerCellIndexPairs(1, localFacePerCellIndexPairs, 9999, hdfProxy);
+		//unsigned int faultIndices = 0;
+		//gridConnSet->setConnectionFaultNames(&faultIndices, 1, 9999, hdfProxy);
+	}
 
 	//**************
 	// Properties
@@ -1086,7 +1092,7 @@ void serialize(const string & filePath)
 	common::EpcDocument pck(filePath, true);
 
 	AbstractHdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
-
+	
 	//CRS
 	local3dCrs = pck.createLocalDepth3dCrs("", "Default local CRS", .0, .0, .0, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__LengthUom__m, "Unknown", false);
 	localTime3dCrs = pck.createLocalTime3dCrs("", "Default local time CRS", 1.0, 0.1, 15, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__TimeUom__s, gsoap_resqml2_0_1::eml__LengthUom__m, "Unknown", false); // CRS translation is just for testing;
