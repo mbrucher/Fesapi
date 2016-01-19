@@ -43,7 +43,7 @@ using namespace resqml2_0_1;
 
 void HdfProxy::open()
 {
-	//H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
+	H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
 	if (hdfFile != -1)
 	{
 		close();
