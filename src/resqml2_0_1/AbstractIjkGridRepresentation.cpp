@@ -1096,7 +1096,17 @@ UnstructuredGridRepresentation* AbstractIjkGridRepresentation::cloneToUnstructur
 	********** ACTNUM *****************
 	**********************************/
 
-	if (ijkGrid->Geometry->CellGeometryIsDefined != nullptr)
+	bool actnumIsAlreadyPresent = false;
+	for (unsigned int i = 0; i < propertySet.size(); ++i)
+	{
+		if (propertySet[i]->getTitle() == "ACTNUM")
+		{
+			actnumIsAlreadyPresent = true;
+			break;
+		}
+	}
+
+	if (!actnumIsAlreadyPresent && ijkGrid->Geometry->CellGeometryIsDefined != nullptr)
 	{
 		// Property kind
 		AbstractObject* actnumUuidObj = epcDocument->getResqmlAbstractObjectByUuid("556b918e-fb78-43b9-b224-7d3ae7488f47");
