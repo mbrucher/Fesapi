@@ -36,6 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 #include <string>
 #include <sstream>
+#include <regex>
 
 #include "tools/GuidTools.h"
 
@@ -145,7 +146,14 @@ void AbstractObject::setUuid(const std::string & uuid)
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	gsoapProxy->uuid = uuid;
+	if (uuid.empty() == true)
+		gsoapProxy->uuid = tools::GuidTools::generateUidAsString();
+	else
+	{
+		if (!regex_match(uuid, regex("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")))
+			throw invalid_argument("The uuid " + uuid + " does not match the regular expression");
+		gsoapProxy->uuid = uuid;
+	}
 }
 
 void AbstractObject::setTitle(const std::string & title)
@@ -238,23 +246,12 @@ void AbstractObject::setDescriptiveKeywords(const std::string & descriptiveKeywo
 	}
 }
 
-void AbstractObject::addNewGuid(const string & newGuid)
-{
-	if (gsoapProxy == nullptr)
-		throw invalid_argument("The wrapped gsoap proxy must not be null");
-
-	if (newGuid.empty() == true)
-		gsoapProxy->uuid = tools::GuidTools::generateUidAsString();
-	else
-		gsoapProxy->uuid = newGuid;
-}
-
 void AbstractObject::initMandatoryMetadata()
 {
 	if (gsoapProxy == nullptr)
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
-	addNewGuid("");
+	setUuid("");
 
 	gsoapProxy->schemaVersion = getResqmlVersion();
 
@@ -297,7 +294,7 @@ void AbstractObject::setMetadata(const std::string & guid, const std::string & t
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (!guid.empty())
-		addNewGuid(guid);
+		setUuid(guid);
 
 	if (!title.empty())
 		gsoapProxy->Citation->Title = title;

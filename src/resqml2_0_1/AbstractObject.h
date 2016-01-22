@@ -58,12 +58,6 @@ namespace resqml2_0_1
 
 		AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* proxy = nullptr) : partialObject(nullptr), gsoapProxy(proxy), epcDocument (nullptr), updateXml(true) {}
 
-		/**
-		* Create or set a new GUID for the resqml instance.
-		* @param guid				The guid to set to the resqml instance. If empty then a new guid will be generated.
-		*/
-		void addNewGuid(const std::string & newGuid);
-
 		friend void common::EpcDocument::addGsoapProxy(AbstractObject* proxy);
 		friend class Activity; // necessary cause of cyclic include if we try : friend class Activity::pushBackResqmlObjectParameter(const std::string title, AbstractObject* resqmlObject);
 
@@ -101,6 +95,9 @@ namespace resqml2_0_1
 		std::string getFormat() const;
 		std::string getDescriptiveKeywords() const;
 
+		/**
+		* Set a uuid. If the input uuid is emepty then a random uuid will be set.
+		*/
 		void setUuid(const std::string & uuid);
 		void setTitle(const std::string & title);
 		void setEditor(const std::string & editor);

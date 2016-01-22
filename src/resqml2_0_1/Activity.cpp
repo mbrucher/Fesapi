@@ -45,20 +45,27 @@ using namespace epc;
 
 const char* Activity::XML_TAG = "Activity";
 
+void Activity::init(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title)
+{
+	if (epcDoc == nullptr)
+		throw invalid_argument("The activity template must be in an EPC document context.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREActivity(epcDoc->getGsoapContext(), 1);
+
+	initMandatoryMetadata();
+	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+
+	epcDoc->addGsoapProxy(this);
+}
+
 Activity::Activity(ActivityTemplate* activityTemplate, const string & guid, const string & title)
 {
 	if (activityTemplate == nullptr)
 		throw invalid_argument("The activity template of an activity must be not null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREActivity(activityTemplate->getEpcDocument()->getGsoapContext(), 1);
+	init(activityTemplate->getEpcDocument(), guid, title);
 
 	setActivityTemplate(activityTemplate);
-
-	initMandatoryMetadata();
-	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (activityTemplate->getEpcDocument() != nullptr)
-		activityTemplate->getEpcDocument()->addGsoapProxy(this);
 }
 
 void Activity::pushBackParameter(const std::string title,
