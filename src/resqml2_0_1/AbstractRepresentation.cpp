@@ -52,6 +52,8 @@ using namespace resqml2_0_1;
 using namespace std;
 using namespace epc;
 
+const char* AbstractRepresentation::XML_TAG = "AbstractRepresentation";
+
 AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs): interpretation(nullptr), hdfProxy(nullptr), localCrs(nullptr)
 {
 	if (crs != nullptr && interp != nullptr)

@@ -194,17 +194,20 @@ void EpcDocument::close()
 	}
 	witsmlAbstractObjectSet.clear();
 
-	if (package)
+	if (package != nullptr)
 	{
 		delete package;
 		package = nullptr;
 	}
 
-	soap_destroy(s); // remove deserialized C++ objects
-	soap_end(s); // remove deserialized data
-	soap_done(s); // finalize last use of the context
-	soap_free(s); // Free the context
-	s = nullptr;
+	if (s != nullptr)
+	{
+		soap_destroy(s); // remove deserialized C++ objects
+		soap_end(s); // remove deserialized data
+		soap_done(s); // finalize last use of the context
+		soap_free(s); // Free the context
+		s = nullptr;
+	}
 
 	filePath = "";
 	localDepth3dCrsSet.clear();
@@ -885,7 +888,7 @@ string EpcDocument::deserialize()
 
 	updateAllRelationships();
 
-	return "";
+	return string();
 }
 
 resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const
@@ -1287,14 +1290,14 @@ string EpcDocument::getStorageDirectory() const
 	if (slashPos != string::npos)
 		return filePath.substr(0, slashPos+1);
 	else
-		return "";
+		return string();
 }
 
 string EpcDocument::getName() const
 {
 	size_t slashPos = filePath.find_last_of("/\\");
 	if (slashPos == string::npos)
-		return "";
+		return string();
 
 	// Remove the extension
 	string nameSuffixed = filePath.substr(slashPos+1, filePath.size());
@@ -1343,7 +1346,7 @@ std::string EpcDocument::getExtendedCoreProperty(const std::string & key)
 	if (package->getExtendedCoreProperty().find(key) != package->getExtendedCoreProperty().end())
 		return (package->getExtendedCoreProperty())[key];
 	else
-		return "";
+		return string();
 }
 
 

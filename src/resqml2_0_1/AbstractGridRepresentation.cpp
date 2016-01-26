@@ -47,6 +47,8 @@ using namespace gsoap_resqml2_0_1;
 using namespace std;
 using namespace epc;
 
+const char* AbstractGridRepresentation::XML_TAG = "AbstractGridRepresentation";
+
 vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 {
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();

@@ -46,15 +46,14 @@ using namespace gsoap_resqml2_0_1;
 
 const char* RepresentationSetRepresentation::XML_TAG = "RepresentationSetRepresentation";
 
-RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractOrganizationInterpretation* interp, const std::string & guid, const string & title):
+RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractFeatureInterpretation* interp, const std::string & guid, const string & title) :
 	AbstractRepresentation(interp, nullptr)
 {
+	if (interp == nullptr)
+		throw invalid_argument("The linked interpretation cannot be NULL. Please use another constructor.");
+
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
-	_resqml2__RepresentationSetRepresentation* orgRep = static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy);
-    
-    orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);
-    orgRep->RepresentedInterpretation->UUID.assign(interp->getUuid());
+	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -64,6 +63,20 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractOrganiz
 
 	if (interp->getEpcDocument())
 		interp->getEpcDocument()->addGsoapProxy(this);
+}
+
+RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title) : AbstractRepresentation(nullptr, static_cast<AbstractLocal3dCrs*>(nullptr))
+{
+	if (epcDoc == nullptr)
+		throw invalid_argument("The epc document cannot be NULL.");
+
+	// proxy constructor
+	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(epcDoc->getGsoapContext(), 1);
+
+	initMandatoryMetadata();
+	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+
+	epcDoc->addGsoapProxy(this);
 }
 
 vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() const

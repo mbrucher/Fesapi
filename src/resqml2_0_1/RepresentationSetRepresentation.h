@@ -48,7 +48,10 @@ namespace resqml2_0_1
 		* @param horizon the feature the instance interprets.
 		* @param title A title for the instance to create.
 		*/
-		RepresentationSetRepresentation(class AbstractOrganizationInterpretation* interp, const std::string & guid, const std::string & title);
+		RepresentationSetRepresentation(class AbstractFeatureInterpretation* interp, const std::string & guid, const std::string & title);
+
+		// To use if the representation set representation is not linked to any interpretation
+		RepresentationSetRepresentation(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

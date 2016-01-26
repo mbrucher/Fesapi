@@ -385,14 +385,14 @@ void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
     //**************
     // Properties
     //**************
-    PropertyKind * propType1 = new PropertyKind(pck, "", "propType1", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
-    ContinuousProperty* contProp1 = new ContinuousProperty(h1i1SingleGrid2dRep,"","Horizon1 Interp1 Grid2dRep Prop1", 2,
+    PropertyKind * propType1 = pck->createPropertyKind("", "propType1", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
+	ContinuousProperty* contProp1 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "", "Horizon1 Interp1 Grid2dRep Prop1", 2,
         gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, propType1);
     double prop1Values[16] = {301,302, 301,302, 351,352, 351,352, 301,302, 301,302, 351,352, 351,352};
     contProp1->pushBackDoubleHdf5Array1dOfValues(prop1Values, 8, hdfProxy);
 
-    PropertyKind * propType2 = new PropertyKind(pck, "", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
-    ContinuousProperty* contProp2 = new ContinuousProperty(h1i1SingleGrid2dRep,"","Horizon1 Interp1 Grid2dRep Prop2", 1,
+	PropertyKind * propType2 = pck->createPropertyKind("", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
+	ContinuousProperty* contProp2 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "", "Horizon1 Interp1 Grid2dRep Prop2", 1,
         gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__ft, propType2);
     double prop2Values[8] = {302, 302, 352, 352, 302, 302, 352, 352};
     contProp2->pushBackDoubleHdf5Array1dOfValues(prop2Values, 8, hdfProxy);
@@ -500,8 +500,6 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		ijkgrid);
 	
 #if !defined(OFFICIAL)
-	ijkgrid->cloneToUnstructuredGridRepresentation("42e6c090-33b2-4572-a64c-3b119f6a1f41", "Two faulted sugar cubes (unstructured)");
-
 	// Partial transfer
 	UnstructuredGridRepresentation* partialGrid = pck->createPartialUnstructuredGridRepresentation("27290b9a-ff46-47b7-befd-cf6b7836045c", "Partial Grid");
 	ContinuousProperty* continuousProp1 = pck->createContinuousProperty(partialGrid, "cd627946-0f89-48fa-b99c-bdb35d8ac4aa", "Testing partial property", 1,

@@ -502,7 +502,7 @@ void Activity::setActivityTemplate(ActivityTemplate * activityTemplate)
 
 	// EPC
 	this->activityTemplate = activityTemplate;
-	activityTemplate->activitySet.push_back(this);
+	activityTemplate->activityInstanceSet.push_back(this);
 
 	// XML
 	if (updateXml)

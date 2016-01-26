@@ -215,21 +215,30 @@ hssize_t HdfProxy::getElementCount(const std::string & datasetName)
 }
 
 void HdfProxy::writeArrayNdOfFloatValues(const string & groupName,
-			const string & name,
-			float * floatValues,
-			hsize_t * numValuesInEachDimension,
-			const unsigned int & numDimensions)
+		const string & name,
+		float * floatValues,
+		hsize_t * numValuesInEachDimension,
+		const unsigned int & numDimensions)
 {
 	writeArrayNd(groupName, name, H5T_NATIVE_FLOAT, floatValues, numValuesInEachDimension, numDimensions);
 }
 
 void HdfProxy::writeArrayNdOfDoubleValues(const string & groupName,
-			const string & name,
-			double * dblValues,
-			hsize_t * numValuesInEachDimension,
-			const unsigned int & numDimensions)
+		const string & name,
+		double * dblValues,
+		hsize_t * numValuesInEachDimension,
+		const unsigned int & numDimensions)
 {
 	writeArrayNd(groupName, name, H5T_NATIVE_DOUBLE, dblValues, numValuesInEachDimension, numDimensions);
+}
+
+void HdfProxy::writeArrayNdOfCharValues(const std::string & groupName,
+		const std::string & name,
+		char * intValues,
+		unsigned long long * numValuesInEachDimension,
+		const unsigned int & numDimensions)
+{
+	writeArrayNd(groupName, name, H5T_NATIVE_CHAR, intValues, numValuesInEachDimension, numDimensions);
 }
 
 void HdfProxy::writeArrayNdOfIntValues(const string & groupName,
@@ -242,10 +251,10 @@ void HdfProxy::writeArrayNdOfIntValues(const string & groupName,
 }
 
 void HdfProxy::writeArrayNdOfGSoapULong64Values(const std::string & groupName,
-			const std::string & name,
-			ULONG64 * ulong64Values,
-			hsize_t * numValuesInEachDimension,
-			const unsigned int & numDimensions)
+		const std::string & name,
+		ULONG64 * ulong64Values,
+		hsize_t * numValuesInEachDimension,
+		const unsigned int & numDimensions)
 {
 	writeArrayNd(groupName, name, H5T_NATIVE_ULLONG, ulong64Values, numValuesInEachDimension, numDimensions);
 }

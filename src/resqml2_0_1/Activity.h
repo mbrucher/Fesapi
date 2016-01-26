@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT Activity : public AbstractResqmlDataObject
 	{
 	protected:
-		Activity():AbstractResqmlDataObject() {}
+		Activity() :AbstractResqmlDataObject(), activityTemplate(nullptr) {}
 
 		void init(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
 

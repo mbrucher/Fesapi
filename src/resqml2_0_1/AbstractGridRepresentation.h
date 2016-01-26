@@ -244,6 +244,7 @@ namespace resqml2_0_1
 		*/
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
 
+		static const char* XML_TAG;
 
 	protected:
 

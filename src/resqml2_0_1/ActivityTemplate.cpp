@@ -42,6 +42,19 @@ using namespace epc;
 
 const char* ActivityTemplate::XML_TAG = "ActivityTemplate";
 
+ActivityTemplate::ActivityTemplate(common::EpcDocument* epcDoc, const string & guid, const string & title)
+{
+	if (epcDoc == nullptr)
+		throw invalid_argument("The EPC document where the activity template will be stored cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREActivityTemplate(epcDoc->getGsoapContext(), 1);
+
+	initMandatoryMetadata();
+	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+
+	epcDoc->addGsoapProxy(this);
+}
+
 void ActivityTemplate::pushBackParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
 			const unsigned int & minOccurs, const int & maxOccurs)
@@ -221,19 +234,6 @@ std::string ActivityTemplate::getResqmlVersion() const
 	return "2.0.1";
 }
 
-ActivityTemplate::ActivityTemplate(common::EpcDocument* epcDoc, const string & guid, const string & title)
-{
-	if (epcDoc == nullptr)
-		throw invalid_argument("The EPC document where the activity template will be stored cannot be null.");
-
-	gsoapProxy = soap_new_resqml2__obj_USCOREActivityTemplate(epcDoc->getGsoapContext(), 1);
-
-	initMandatoryMetadata();
-	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
-}
-
 resqml2__ParameterTemplate* ActivityTemplate::getParameterFromTitle(const std::string & paramTitle) const
 {
 	_resqml2__ActivityTemplate* activityTemplate = static_cast<_resqml2__ActivityTemplate*>(gsoapProxy);
@@ -255,9 +255,9 @@ vector<Relationship> ActivityTemplate::getAllEpcRelationships() const
 {
 	vector<Relationship> result;
 
-	for (unsigned int i = 0; i < activitySet.size(); ++i)
+	for (unsigned int i = 0; i < activityInstanceSet.size(); ++i)
 	{
-		Relationship rel(activitySet[i]->getPartNameInEpcDocument(), "", activitySet[i]->getUuid());
+		Relationship rel(activityInstanceSet[i]->getPartNameInEpcDocument(), "", activityInstanceSet[i]->getUuid());
 		rel.setSourceObjectType();
 		result.push_back(rel);
 	}

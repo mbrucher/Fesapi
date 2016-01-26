@@ -98,7 +98,7 @@ namespace resqml2_0_1
 		const LONG64 getParameterMaxOccurences(const unsigned int & index) const;
 		const LONG64 getParameterMaxOccurences(const std::string & paramTitle) const;
 
-		const std::vector<Activity*> & getActivitySet() const {return activitySet;}
+		const std::vector<Activity*> & getActivityInstanceSet() const { return activityInstanceSet; }
 
 		//******************************************************************
 		//******************** MANDATORY FOR GsoapWrapper ******************
@@ -116,7 +116,7 @@ namespace resqml2_0_1
 
 		gsoap_resqml2_0_1::resqml2__ParameterTemplate* getParameterFromTitle(const std::string & paramTitle) const;
 		
-        std::vector<Activity*> activitySet;
+        std::vector<Activity*> activityInstanceSet;
 
 		friend void Activity::setActivityTemplate(ActivityTemplate* activityTemplate);
 	};

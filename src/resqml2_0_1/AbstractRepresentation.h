@@ -308,6 +308,8 @@ namespace resqml2_0_1
 
 		void setHdfProxy(class AbstractHdfProxy * proxy);
 
+		static const char* XML_TAG;
+
 	protected:
 
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
