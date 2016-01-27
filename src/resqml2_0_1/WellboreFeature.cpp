@@ -44,17 +44,15 @@ using namespace epc;
 
 const char* WellboreFeature::XML_TAG = "WellboreFeature";
 
-WellboreFeature::WellboreFeature(common::EpcDocument* epcDoc, const string & guid, const std::string & title):witsmlWellbore(nullptr)
+WellboreFeature::WellboreFeature(soap* soapContext, const string & guid, const std::string & title) :witsmlWellbore(nullptr)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the WellboreFeature will be stored cannot be null.");
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFeature(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFeature(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 
 void WellboreFeature::setWitsmlWellbore(witsml1_4_1_1::Wellbore * wellbore)

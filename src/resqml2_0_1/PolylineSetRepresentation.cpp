@@ -52,7 +52,7 @@ const char* PolylineSetRepresentation::XML_TAG = "PolylineSetRepresentation";
 void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 									 const std::string & guid, const std::string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(crs->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(crs->getGsoapContext(), 1);
 	_resqml2__PolylineSetRepresentation* polylineSetRep = static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -64,13 +64,9 @@ void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, Abst
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
-
-	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
-PolylineSetRepresentation::PolylineSetRepresentation(common::EpcDocument * epcDoc, AbstractLocal3dCrs * crs, const string & guid, const string & title):
+PolylineSetRepresentation::PolylineSetRepresentation(AbstractLocal3dCrs * crs, const string & guid, const string & title) :
 	AbstractRepresentation(nullptr, crs)
 {
 	init(nullptr, crs, guid, title);

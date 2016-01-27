@@ -51,7 +51,7 @@ HorizonInterpretation::HorizonInterpretation(Horizon * horizon, const string & g
 	if (!horizon)
 		throw invalid_argument("The interpreted horizon cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREHorizonInterpretation(horizon->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREHorizonInterpretation(horizon->getGsoapContext(), 1);
 
 	static_cast<_resqml2__HorizonInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
 
@@ -59,9 +59,6 @@ HorizonInterpretation::HorizonInterpretation(Horizon * horizon, const string & g
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretedFeature(horizon);
-
-	if (horizon->getEpcDocument())
-		horizon->getEpcDocument()->addGsoapProxy(this);
 }
 
 vector<Relationship> HorizonInterpretation::getAllEpcRelationships() const

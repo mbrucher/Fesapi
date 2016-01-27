@@ -41,10 +41,10 @@ using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
-IjkGridNoGeometryRepresentation::IjkGridNoGeometryRepresentation(common::EpcDocument* epcDoc,
+IjkGridNoGeometryRepresentation::IjkGridNoGeometryRepresentation(soap* soapContext,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
-	AbstractIjkGridRepresentation(epcDoc, nullptr, guid, title, iCount, jCount, kCount)
+			AbstractIjkGridRepresentation(soapContext, nullptr, guid, title, iCount, jCount, kCount)
 {
 }
 

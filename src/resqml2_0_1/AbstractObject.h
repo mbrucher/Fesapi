@@ -129,6 +129,11 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::eml__AbstractCitedDataObject* getGsoapProxy() const {return gsoapProxy;}
 
 		/**
+		* Get the gsoap context where the underlying gsoap proxy is defined.
+		*/
+		soap* getGsoapContext() const;
+
+		/**
 		* Get the Gsoap type of the wrapped element
 		*/
 		int getGsoapType() const {return getGsoapProxy()->soap_type();}

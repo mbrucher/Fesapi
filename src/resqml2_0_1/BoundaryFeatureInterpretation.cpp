@@ -51,16 +51,13 @@ BoundaryFeatureInterpretation::BoundaryFeatureInterpretation(BoundaryFeature * f
 	if (!feature)
 		throw invalid_argument("The interpreted feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREBoundaryFeatureInterpretation(feature->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREBoundaryFeatureInterpretation(feature->getGsoapContext(), 1);
 	_resqml2__BoundaryFeatureInterpretation* interp = static_cast<_resqml2__BoundaryFeatureInterpretation*>(gsoapProxy);
 	interp->Domain = resqml2__Domain__mixed;
 	setInterpretedFeature(feature);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (feature->getEpcDocument())
-		feature->getEpcDocument()->addGsoapProxy(this);
 }
 
 vector<Relationship> BoundaryFeatureInterpretation::getAllEpcRelationships() const

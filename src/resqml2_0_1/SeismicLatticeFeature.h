@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param epcDoc					The EPC document which will contain the seismic line.
+		* @param soapContext			The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid					The guid to set to this instance. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		* @param inlineIncrement		The inline index increment.
@@ -57,7 +57,7 @@ namespace resqml2_0_1
 		* @param inlineCount			The count of inlines in this seismic lattice.
 		* @param crosslineCount			The count of crosslines in this seismic lattice.
 		*/
-		SeismicLatticeFeature(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+		SeismicLatticeFeature(soap* soapContext, const std::string & guid, const std::string & title,
 			const int & inlineIncrement, const int & crosslineIncrement,
 			const unsigned int & originInline, const unsigned int & originCrossline,
 			const unsigned int & inlineCount, const unsigned int & crosslineCount);

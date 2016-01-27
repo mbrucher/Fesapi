@@ -39,12 +39,15 @@ using namespace gsoap_resqml2_0_1;
 
 const char* SeismicLatticeFeature::XML_TAG = "SeismicLatticeFeature";
 
-SeismicLatticeFeature::SeismicLatticeFeature(common::EpcDocument* epcDoc, const string & guid, const string & title,
+SeismicLatticeFeature::SeismicLatticeFeature(soap* soapContext, const string & guid, const string & title,
 			const int & inlineIncrement, const int & crosslineIncrement,
 			const unsigned int & originInline, const unsigned int & originCrossline,
 			const unsigned int & inlineCount, const unsigned int & crosslineCount)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLatticeFeature(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLatticeFeature(soapContext, 1);
 	_resqml2__SeismicLatticeFeature* seismicLattice = static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy);
 
 	seismicLattice->InlineIndexIncrement = inlineIncrement;
@@ -56,9 +59,6 @@ SeismicLatticeFeature::SeismicLatticeFeature(common::EpcDocument* epcDoc, const 
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 int SeismicLatticeFeature::getCrosslineIncrement() const

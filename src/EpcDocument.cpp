@@ -115,9 +115,9 @@ const char* EpcDocument::DOCUMENT_EXTENSION = ".epc";
 
 namespace // anonymous namespace. Use only in that file.
 {
-  resqml2_0_1::AbstractHdfProxy* default_builder(EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+	resqml2_0_1::AbstractHdfProxy* default_builder(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
   {
-    return new HdfProxy(epcDoc, guid, title, packageDirAbsolutePath, externalFilePath);
+	  return new HdfProxy(soapContext, guid, title, packageDirAbsolutePath, externalFilePath);
   }
   resqml2_0_1::AbstractHdfProxy* default_builder(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
   {
@@ -151,6 +151,58 @@ EpcDocument::~EpcDocument()
 {
 	close();
 }
+
+bool EpcDocument::isOverwritingH5FileIfNeeded() const { return overwriteH5File; }
+
+soap* EpcDocument::getGsoapContext() const { return s; }
+
+PropertyKindMapper* EpcDocument::getPropertyKindMapper() const { return propertyKindMapper; }
+
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
+const std::unordered_map< std::string, resqml2_0_1::AbstractObject* > & EpcDocument::getResqmlAbstractObjectSet() const { return resqmlAbstractObjectSet; }
+#else
+const std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > & EpcDocument::getResqmlAbstractObjectSet() const { return resqmlAbstractObjectSet; }
+#endif
+
+const std::vector<resqml2_0_1::LocalDepth3dCrs*> & EpcDocument::getLocalDepth3dCrsSet() const { return localDepth3dCrsSet; }
+
+const std::vector<resqml2_0_1::LocalTime3dCrs*> & EpcDocument::getLocalTime3dCrsSet() const { return localTime3dCrsSet; }
+
+const std::vector<resqml2_0_1::StratigraphicColumn*> & EpcDocument::getStratigraphicColumnSet() const { return stratigraphicColumnSet; }
+
+const std::vector<resqml2_0_1::Horizon*> & EpcDocument::getHorizonSet() const { return horizonSet; }
+
+const std::vector<resqml2_0_1::Fault*> & EpcDocument::getFaultSet() const { return faultSet; }
+
+const std::vector<resqml2_0_1::Fracture*> & EpcDocument::getFractureSet() const { return fractureSet; }
+
+const std::vector<resqml2_0_1::TriangulatedSetRepresentation*> & EpcDocument::getAllTriangulatedSetRepSet() const { return triangulatedSetRepresentationSet; }
+
+std::vector<resqml2_0_1::SeismicLineFeature*> EpcDocument::getSeismicLineSet() const { return seismicLineSet; }
+
+std::vector<resqml2_0_1::WellboreFeature*> EpcDocument::getWellboreSet() const { return wellboreSet; }
+
+std::vector<resqml2_0_1::PolylineRepresentation*> EpcDocument::getPolylineRepresentationSet() const { return polylineRepresentationSet; }
+
+std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> EpcDocument::getIjkGridRepresentationSet() const { return ijkGridRepresentationSet; }
+unsigned int EpcDocument::getIjkGridRepresentationCount() const { return ijkGridRepresentationSet.size(); }
+resqml2_0_1::AbstractIjkGridRepresentation* EpcDocument::getIjkGridRepresentation(const unsigned int & i) const { return ijkGridRepresentationSet[i]; }
+
+std::vector<resqml2_0_1::UnstructuredGridRepresentation*> EpcDocument::getUnstructuredGridRepresentationSet() const { return unstructuredGridRepresentationSet; }
+
+const std::vector<resqml2_0_1::FrontierFeature*> & EpcDocument::getFrontierSet() const { return frontierSet; }
+
+const std::vector<resqml2_0_1::OrganizationFeature*> & EpcDocument::getOrganizationSet() const { return organizationSet; }
+
+const std::vector<resqml2_0_1::TimeSeries*> & EpcDocument::getTimeSeriesSet() const { return timeSeriesSet; }
+
+std::vector<resqml2_0_1::AbstractHdfProxy*> EpcDocument::getHdfProxySet() const { return hdfProxySet; }
+unsigned int EpcDocument::getHdfProxyCount() const { return hdfProxySet.size(); }
+
+std::vector<witsml1_4_1_1::Trajectory*> EpcDocument::getWitsmlTrajectorySet() const { return witsmlTrajectorySet; }
+
+void EpcDocument::addWarning(const std::string & warning) { warnings.push_back(warning); }
+const std::vector<std::string> & EpcDocument::getWarnings() const { return warnings; }
 
 bool EpcDocument::open(const std::string & fileName)
 {
@@ -361,7 +413,7 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 		timeSeriesSet.push_back(static_cast<TimeSeries*>(proxy));
 	}
 
-	if (resqmlAbstractObjectSet.find(proxy->getUuid()) == resqmlAbstractObjectSet.end())
+	if (getResqmlAbstractObjectByUuid(proxy->getUuid()) == nullptr)
 	{
 		resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
 	}
@@ -370,6 +422,21 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 		throw invalid_argument("You cannot have twice the same UUID " + proxy->getUuid() + " for two different Resqml objects in an EPC document");
 	}
 	proxy->epcDocument = this;
+}
+
+void EpcDocument::addGsoapProxyAndDeleteItIfException(resqml2_0_1::AbstractObject* proxy)
+{
+	try {
+		addGsoapProxy(proxy);
+	}
+	catch (const exception & e)
+	{
+		std::cerr << e.what() << endl;
+		std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+		addWarning("The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application.");
+		delete proxy;
+		throw;
+	}
 }
 
 void EpcDocument::addGsoapProxy(witsml1_4_1_1::AbstractObject* proxy)
@@ -389,6 +456,21 @@ void EpcDocument::addGsoapProxy(witsml1_4_1_1::AbstractObject* proxy)
 		throw invalid_argument("You cannot have twice the same UUID " + proxy->getUuid() + " for two different Resqml objects in an EPC document");
 	}
 	proxy->epcDocument = this;
+}
+
+void EpcDocument::addGsoapProxyAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy)
+{
+	try {
+		addGsoapProxy(proxy);
+	}
+	catch (const exception & e)
+	{
+		std::cerr << e.what() << endl;
+		std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+		addWarning("The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application.");
+		delete proxy;
+		throw;
+	}
 }
 
 void EpcDocument::serialize(bool useZip64)
@@ -782,7 +864,7 @@ string EpcDocument::deserialize()
 			}
 			else if (resqmlContentType.compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
 			{
-				gsoap_resqml2_0_1::_resqml2__SealedSurfaceFrameworkRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(this->s, 1);
+				gsoap_resqml2_0_1::_resqml2__SealedSurfaceFrameworkRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(s, 1);
 				soap_read_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(s, read);
 				wrapper = new SealedSurfaceFrameworkRepresentation(read);
 			}
@@ -816,7 +898,7 @@ string EpcDocument::deserialize()
 			
 			if (wrapper)
 			{
-				addGsoapProxy(wrapper);
+				addGsoapProxyAndDeleteItIfException(wrapper);
 				if (s->error != SOAP_OK) {
 					ostringstream oss;
 					soap_stream_fault(s, oss);
@@ -873,14 +955,11 @@ string EpcDocument::deserialize()
 			
 			if (wrapper)
 			{
+				addGsoapProxyAndDeleteItIfException(wrapper);
 				if (s->error != SOAP_OK) {
 					ostringstream oss;
 					soap_stream_fault(s, oss);
 					return oss.str() + " IN " + it->second.getExtensionOrPartName();
-				}
-				else
-				{
-					addGsoapProxy(wrapper);
 				}
 			}
 		}
@@ -894,11 +973,10 @@ string EpcDocument::deserialize()
 resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const
 {
 	resqml2_0_1::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid);
-	if (result == nullptr)
+	if (result != nullptr)
 	{
-		throw invalid_argument("The uuid " + uuid + " does not exist in this epc document.");
+		gsoapType = result->getGsoapType();
 	}
-	gsoapType = result->getGsoapType();
 	return result;
 }
 
@@ -909,7 +987,7 @@ resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const st
 #else
 	std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
 #endif
-	if(it==resqmlAbstractObjectSet.end())
+	if (it == resqmlAbstractObjectSet.end())
 	{
 		return nullptr;
 	}
@@ -927,7 +1005,7 @@ witsml1_4_1_1::AbstractObject* EpcDocument::getWitsmlAbstractObjectByUuid(const 
 #else
 	std::tr1::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.find(uuid);
 #endif
-	if(it==witsmlAbstractObjectSet.end())
+	if (it == witsmlAbstractObjectSet.end())
 	{
 		return nullptr;
 	}
@@ -1356,9 +1434,9 @@ std::string EpcDocument::getExtendedCoreProperty(const std::string & key)
 
 AbstractHdfProxy* EpcDocument::createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return make_hdf_proxy(this, guid, title, packageDirAbsolutePath, externalFilePath);
+	AbstractHdfProxy* result = make_hdf_proxy(getGsoapContext(), guid, title, packageDirAbsolutePath, externalFilePath);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 //************************************
@@ -1371,12 +1449,11 @@ LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, co
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedEpsgCode,
 			verticalUom, verticalEpsgCode, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, const std::string & title,
@@ -1385,12 +1462,11 @@ resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::stri
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedUnknownReason,
 			verticalUom, verticalUnknownReason, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, const std::string & title,
@@ -1399,12 +1475,11 @@ resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::stri
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedEpsgCode,
 			verticalUom, verticalUnknownReason, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, const std::string & title,
@@ -1413,12 +1488,11 @@ resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::stri
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalDepth3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedUnknownReason,
 			verticalUom, verticalEpsgCode, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
@@ -1428,13 +1502,12 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalTime3dCrs* result = new LocalTime3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedEpsgCode,
 			timeUom,
 			verticalUom, verticalEpsgCode, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
@@ -1444,13 +1517,12 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalTime3dCrs* result = new LocalTime3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedUnknownReason,
 			timeUom,
 			verticalUom, verticalUnknownReason, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
@@ -1460,13 +1532,12 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalTime3dCrs* result = new LocalTime3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedEpsgCode,
 			timeUom,
 			verticalUom, verticalUnknownReason, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, const std::string & title,
@@ -1476,22 +1547,21 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			const gsoap_resqml2_0_1::eml__TimeUom & timeUom,
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
-	return new LocalTime3dCrs(this, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
+	LocalTime3dCrs* result = new LocalTime3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedUnknownReason,
 			timeUom,
 			verticalUom, verticalEpsgCode, isUpOriented);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 MdDatum* EpcDocument::createMdDatum(const std::string & guid, const std::string & title,
 			class AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,
 			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new MdDatum(this, guid, title, locCrs, originKind, referenceLocationOrdinal1, referenceLocationOrdinal2, referenceLocationOrdinal3);
+	MdDatum* result = new MdDatum(getGsoapContext(), guid, title, locCrs, originKind, referenceLocationOrdinal1, referenceLocationOrdinal2, referenceLocationOrdinal3);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 //************************************
 //************ FEATURE ***************
@@ -1499,44 +1569,44 @@ MdDatum* EpcDocument::createMdDatum(const std::string & guid, const std::string 
 
 BoundaryFeature* EpcDocument::createBoundaryFeature(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new BoundaryFeature(this, guid, title);
+	BoundaryFeature* result = new BoundaryFeature(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 Horizon* EpcDocument::createHorizon(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Horizon(this, guid, title);
+	Horizon* result = new Horizon(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 TectonicBoundaryFeature* EpcDocument::createTectonicBoundaryFeature(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new TectonicBoundaryFeature(this, guid, title);
+	TectonicBoundaryFeature* result = new TectonicBoundaryFeature(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 Fault* EpcDocument::createFault(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Fault(this, guid, title);
+	Fault* result = new Fault(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 Fracture* EpcDocument::createFracture(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Fracture(this, guid, title);
+	Fracture* result = new Fracture(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 WellboreFeature* EpcDocument::createWellboreFeature(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new WellboreFeature(this, guid, title);
+	WellboreFeature* result = new WellboreFeature(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 SeismicLatticeFeature* EpcDocument::createSeismicLattice(const std::string & guid, const std::string & title,
@@ -1544,66 +1614,66 @@ SeismicLatticeFeature* EpcDocument::createSeismicLattice(const std::string & gui
 			const unsigned int & originInline, const unsigned int & originCrossline,
 			const unsigned int & inlineCount, const unsigned int & crosslineCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new SeismicLatticeFeature(this, guid, title, inlineIncrement, crosslineIncrement, originInline, originCrossline, inlineCount, crosslineCount);
+	SeismicLatticeFeature* result = new SeismicLatticeFeature(getGsoapContext(), guid, title, inlineIncrement, crosslineIncrement, originInline, originCrossline, inlineCount, crosslineCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 SeismicLineFeature* EpcDocument::createSeismicLine(const std::string & guid, const std::string & title,
 			const int & traceIndexIncrement, const unsigned int & firstTraceIndex, const unsigned int & traceCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new SeismicLineFeature(this, guid, title, traceIndexIncrement, firstTraceIndex, traceCount);
+	SeismicLineFeature* result = new SeismicLineFeature(getGsoapContext(), guid, title, traceIndexIncrement, firstTraceIndex, traceCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 SeismicLineSetFeature* EpcDocument::createSeismicLineSet(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new SeismicLineSetFeature(this, guid, title);
+	SeismicLineSetFeature* result = new SeismicLineSetFeature(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 FrontierFeature* EpcDocument::createFrontier(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new FrontierFeature(this, guid, title);
+	FrontierFeature* result = new FrontierFeature(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StratigraphicUnitFeature* EpcDocument::createStratigraphicUnit(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StratigraphicUnitFeature(this, guid, title);
+	StratigraphicUnitFeature* result = new StratigraphicUnitFeature(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 OrganizationFeature* EpcDocument::createStructuralModel(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new OrganizationFeature(this, guid, title, resqml2__OrganizationKind__structural);
+	OrganizationFeature* result = new OrganizationFeature(getGsoapContext(), guid, title, resqml2__OrganizationKind__structural);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 OrganizationFeature* EpcDocument::createStratigraphicModel(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new OrganizationFeature(this, guid, title, resqml2__OrganizationKind__stratigraphic);
+	OrganizationFeature* result = new OrganizationFeature(getGsoapContext(), guid, title, resqml2__OrganizationKind__stratigraphic);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 OrganizationFeature* EpcDocument::createEarthModel(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-    return new OrganizationFeature(this, guid, title, resqml2__OrganizationKind__earth_x0020model);
+	OrganizationFeature* result = new OrganizationFeature(getGsoapContext(), guid, title, resqml2__OrganizationKind__earth_x0020model);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 FluidBoundaryFeature* EpcDocument::createFluidBoundaryFeature(const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__FluidContact & fluidContact)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-    return new FluidBoundaryFeature(this, guid, title, fluidContact);
+	FluidBoundaryFeature* result = new FluidBoundaryFeature(getGsoapContext(), guid, title, fluidContact);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 //************************************
@@ -1612,107 +1682,107 @@ FluidBoundaryFeature* EpcDocument::createFluidBoundaryFeature(const std::string 
 
 GenericFeatureInterpretation* EpcDocument::createGenericFeatureInterpretation(AbstractFeature * feature, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new GenericFeatureInterpretation(feature, guid, title);
+	GenericFeatureInterpretation* result = new GenericFeatureInterpretation(feature, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 BoundaryFeatureInterpretation* EpcDocument::createBoundaryFeatureInterpretation(resqml2_0_1::BoundaryFeature * feature, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new BoundaryFeatureInterpretation(feature, guid, title);
+	BoundaryFeatureInterpretation* result = new BoundaryFeatureInterpretation(feature, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 HorizonInterpretation* EpcDocument::createHorizonInterpretation(Horizon * horizon, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new HorizonInterpretation(horizon, guid, title);
+	HorizonInterpretation* result = new HorizonInterpretation(horizon, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 FaultInterpretation* EpcDocument::createFaultInterpretation(Fault * fault, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new FaultInterpretation(fault, guid, title);
+	FaultInterpretation* result = new FaultInterpretation(fault, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 WellboreInterpretation* EpcDocument::createWellboreInterpretation(WellboreFeature * wellbore, const std::string & guid, const std::string & title, bool isDrilled)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new WellboreInterpretation(wellbore, guid, title, isDrilled);
+	WellboreInterpretation* result = new WellboreInterpretation(wellbore, guid, title, isDrilled);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 EarthModelInterpretation* EpcDocument::createEarthModelInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new EarthModelInterpretation(orgFeat, guid, title);
+	EarthModelInterpretation* result = new EarthModelInterpretation(orgFeat, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StructuralOrganizationInterpretation* EpcDocument::createStructuralOrganizationInterpretationInAge(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__age);
+	StructuralOrganizationInterpretation* result = new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__age);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StructuralOrganizationInterpretation* EpcDocument::createStructuralOrganizationInterpretationInApparentDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__apparent_x0020depth);
+	StructuralOrganizationInterpretation* result = new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__apparent_x0020depth);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StructuralOrganizationInterpretation* EpcDocument::createStructuralOrganizationInterpretationInMeasuredDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__measured_x0020depth);
+	StructuralOrganizationInterpretation* result = new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__measured_x0020depth);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StratigraphicColumn* EpcDocument::createStratigraphicColumn(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StratigraphicColumn(this, guid, title);
+	StratigraphicColumn* result = new StratigraphicColumn(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StratigraphicUnitInterpretation* EpcDocument::createStratigraphicUnitInterpretation(StratigraphicUnitFeature * stratiUnitFeature, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StratigraphicUnitInterpretation(stratiUnitFeature, guid, title);
+	StratigraphicUnitInterpretation* result = new StratigraphicUnitInterpretation(stratiUnitFeature, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StratigraphicColumnRankInterpretation* EpcDocument::createStratigraphicColumnRankInterpretationInAge(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title, const unsigned long & rank)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StratigraphicColumnRankInterpretation(orgFeat, guid, title, rank, resqml2__OrderingCriteria__age);
+	StratigraphicColumnRankInterpretation* result = new StratigraphicColumnRankInterpretation(orgFeat, guid, title, rank, resqml2__OrderingCriteria__age);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StratigraphicColumnRankInterpretation* EpcDocument::createStratigraphicColumnRankInterpretationInApparentDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title, const unsigned long & rank)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StratigraphicColumnRankInterpretation(orgFeat, guid, title, rank, resqml2__OrderingCriteria__apparent_x0020depth);
+	StratigraphicColumnRankInterpretation* result = new StratigraphicColumnRankInterpretation(orgFeat, guid, title, rank, resqml2__OrderingCriteria__apparent_x0020depth);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StratigraphicOccurrenceInterpretation* EpcDocument::createStratigraphicOccurrenceInterpretationInAge(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StratigraphicOccurrenceInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__age);
+	StratigraphicOccurrenceInterpretation* result = new StratigraphicOccurrenceInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__age);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StratigraphicOccurrenceInterpretation* EpcDocument::createStratigraphicOccurrenceInterpretationInApparentDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StratigraphicOccurrenceInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__apparent_x0020depth);
+	StratigraphicOccurrenceInterpretation* result = new StratigraphicOccurrenceInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__apparent_x0020depth);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 //************************************
@@ -1722,102 +1792,102 @@ StratigraphicOccurrenceInterpretation* EpcDocument::createStratigraphicOccurrenc
 TriangulatedSetRepresentation* EpcDocument::createTriangulatedSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new TriangulatedSetRepresentation(interp, crs, guid, title);
+	TriangulatedSetRepresentation* result = new TriangulatedSetRepresentation(interp, crs, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PolylineSetRepresentation(this, crs, guid, title);
+	PolylineSetRepresentation* result = new PolylineSetRepresentation(crs, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PolylineSetRepresentation(interp, crs, guid, title);
+	PolylineSetRepresentation* result = new PolylineSetRepresentation(interp, crs, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PolylineSetRepresentation(interp, crs, guid, title, roleKind);
+	PolylineSetRepresentation* result = new PolylineSetRepresentation(interp, crs, guid, title, roleKind);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PointSetRepresentation* EpcDocument::createPointSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PointSetRepresentation(interp, crs, guid, title);
+	PointSetRepresentation* result = new PointSetRepresentation(interp, crs, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PlaneSetRepresentation* EpcDocument::createPlaneSetRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PlaneSetRepresentation(interp, crs, guid, title);
+	PlaneSetRepresentation* result = new PlaneSetRepresentation(interp, crs, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PolylineRepresentation(this, crs, guid, title, isClosed);
+	PolylineRepresentation* result = new PolylineRepresentation(crs, guid, title, isClosed);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PolylineRepresentation(interp, crs, guid, title, isClosed);
+	PolylineRepresentation* result = new PolylineRepresentation(interp, crs, guid, title, isClosed);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind, bool isClosed)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PolylineRepresentation(interp, crs, guid, title, roleKind, isClosed);
+	PolylineRepresentation* result = new PolylineRepresentation(interp, crs, guid, title, roleKind, isClosed);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 Grid2dRepresentation* EpcDocument::createGrid2dRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Grid2dRepresentation(interp, crs, guid, title);
+	Grid2dRepresentation* result = new Grid2dRepresentation(interp, crs, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 WellboreTrajectoryRepresentation* EpcDocument::createWellboreTrajectoryRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, MdDatum * mdInfo)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new WellboreTrajectoryRepresentation(interp, guid, title, mdInfo);
+	WellboreTrajectoryRepresentation* result = new WellboreTrajectoryRepresentation(interp, guid, title, mdInfo);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 WellboreFrameRepresentation* EpcDocument::createWellboreFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new WellboreFrameRepresentation(interp, guid, title, traj);
+	WellboreFrameRepresentation* result = new WellboreFrameRepresentation(interp, guid, title, traj);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 WellboreMarkerFrameRepresentation* EpcDocument::createWellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new WellboreMarkerFrameRepresentation(interp, guid, title, traj);
+	WellboreMarkerFrameRepresentation* result = new WellboreMarkerFrameRepresentation(interp, guid, title, traj);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
@@ -1825,9 +1895,9 @@ RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentat
         const std::string & guid,
         const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-    return new RepresentationSetRepresentation(interp, guid, title);
+	RepresentationSetRepresentation* result = new RepresentationSetRepresentation(interp, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 NonSealedSurfaceFrameworkRepresentation* EpcDocument::createNonSealedSurfaceFrameworkRepresentation(
@@ -1836,9 +1906,9 @@ NonSealedSurfaceFrameworkRepresentation* EpcDocument::createNonSealedSurfaceFram
         const std::string & title,
         const bool & isSealed)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-    return new NonSealedSurfaceFrameworkRepresentation(interp, guid, title, isSealed);
+	NonSealedSurfaceFrameworkRepresentation* result = new NonSealedSurfaceFrameworkRepresentation(interp, guid, title, isSealed);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 SealedSurfaceFrameworkRepresentation* EpcDocument::createSealedSurfaceFrameworkRepresentation(
@@ -1846,129 +1916,126 @@ SealedSurfaceFrameworkRepresentation* EpcDocument::createSealedSurfaceFrameworkR
         const std::string & guid,
         const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-    return new SealedSurfaceFrameworkRepresentation(interp, guid, title);
+	SealedSurfaceFrameworkRepresentation* result = new SealedSurfaceFrameworkRepresentation(interp, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 AbstractIjkGridRepresentation* EpcDocument::createPartialIjkGridRepresentation(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
 	dor->UUID = guid;
 	dor->Title = title;
-	return new AbstractIjkGridRepresentation(this, dor);
+	AbstractIjkGridRepresentation* result = new AbstractIjkGridRepresentation(dor);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new IjkGridExplicitRepresentation(this, crs, guid, title, iCount, jCount, kCount);
+	IjkGridExplicitRepresentation* result = new IjkGridExplicitRepresentation(getGsoapContext(), crs, guid, title, iCount, jCount, kCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new IjkGridExplicitRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+	IjkGridExplicitRepresentation* result = new IjkGridExplicitRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new IjkGridParametricRepresentation(this, crs, guid, title, iCount, jCount, kCount);
+	IjkGridParametricRepresentation* result = new IjkGridParametricRepresentation(getGsoapContext(), crs, guid, title, iCount, jCount, kCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new IjkGridParametricRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+	IjkGridParametricRepresentation* result = new IjkGridParametricRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new IjkGridLatticeRepresentation(this, crs, guid, title, iCount, jCount, kCount);
+	IjkGridLatticeRepresentation* result = new IjkGridLatticeRepresentation(getGsoapContext(), crs, guid, title, iCount, jCount, kCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new IjkGridLatticeRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+	IjkGridLatticeRepresentation* result = new IjkGridLatticeRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 UnstructuredGridRepresentation* EpcDocument::createPartialUnstructuredGridRepresentation(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
 	dor->UUID = guid;
 	dor->Title = title;
-	return new UnstructuredGridRepresentation(this, dor);
+	UnstructuredGridRepresentation* result = new UnstructuredGridRepresentation(dor);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentation(AbstractLocal3dCrs * crs,
 	const std::string & guid, const std::string & title,
 	const ULONG64 & cellCount)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new UnstructuredGridRepresentation(this, crs, guid, title, cellCount);
+	UnstructuredGridRepresentation* result = new UnstructuredGridRepresentation(getGsoapContext(), crs, guid, title, cellCount);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 resqml2_0_1::SubRepresentation* EpcDocument::createPartialSubRepresentation(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
 	dor->UUID = guid;
 	dor->Title = title;
-	return new SubRepresentation(this, dor);
+	SubRepresentation* result = new SubRepresentation(dor);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new SubRepresentation(this, guid, title, supportingRep);
+	SubRepresentation* result = new SubRepresentation(guid, title, supportingRep);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 SubRepresentation* EpcDocument::createSubRepresentation(AbstractFeatureInterpretation* interp,
 			const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new SubRepresentation(interp, guid, title, supportingRep);
+	SubRepresentation* result = new SubRepresentation(interp, guid, title, supportingRep);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,
         const std::string & guid, const std::string & title,
 		AbstractGridRepresentation * supportingGridRep)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new GridConnectionSetRepresentation(interp, guid, title, supportingGridRep);
+	GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(interp, guid, title, supportingGridRep);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 //************************************
@@ -1977,134 +2044,154 @@ GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentat
 
 TimeSeries* EpcDocument::createTimeSeries(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new TimeSeries(this, guid, title);
+	TimeSeries* result = new TimeSeries(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
+}
+
+resqml2_0_1::TimeSeries* EpcDocument::createPartialTimeSeries(const std::string & guid, const std::string & title)
+{
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	TimeSeries* result = new TimeSeries(dor);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 StringTableLookup* EpcDocument::createStringTableLookup(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new StringTableLookup(this, guid, title);
+	StringTableLookup* result = new StringTableLookup(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
 	const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PropertyKind(this, guid, title, namingSystem, uom, parentEnergisticsPropertyKind);
+	PropertyKind* result = new PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentEnergisticsPropertyKind);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
 	const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * parentPropType)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new PropertyKind(this, guid, title, namingSystem, uom, parentPropType);
+	PropertyKind* result = new PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentPropType);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
+}
+
+resqml2_0_1::PropertyKind* EpcDocument::createPartialPropertyKind(const std::string & guid, const std::string & title)
+{
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	PropertyKind* result = new PropertyKind(dor);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 CommentProperty* EpcDocument::createCommentProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new CommentProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
+	CommentProperty* result = new CommentProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 CommentProperty* EpcDocument::createCommentProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new CommentProperty(rep, guid, title, dimension, attachmentKind, localPropType);
+	CommentProperty* result = new CommentProperty(rep, guid, title, dimension, attachmentKind, localPropType);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 	
 ContinuousProperty* EpcDocument::createContinuousProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind);
+	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 ContinuousProperty* EpcDocument::createContinuousProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropType)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, localPropType);
+	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, localPropType);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
 	TimeSeries * ts, const bool & useInterval)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind, ts, useInterval);
+	ContinuousPropertySeries* result = new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind, ts, useInterval);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropType,
 	class TimeSeries * ts, const bool & useInterval)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, localPropType, ts, useInterval);
+	ContinuousPropertySeries* result = new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, localPropType, ts, useInterval);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 	
 DiscreteProperty* EpcDocument::createDiscreteProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new DiscreteProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
+	DiscreteProperty* result = new DiscreteProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 DiscreteProperty* EpcDocument::createDiscreteProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new DiscreteProperty(rep, guid, title, dimension, attachmentKind, localPropType);
+	DiscreteProperty* result = new DiscreteProperty(rep, guid, title, dimension, attachmentKind, localPropType);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 	
 DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
 	class TimeSeries * ts, const bool & useInterval)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind, ts, useInterval);
+	DiscretePropertySeries* result = new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind, ts, useInterval);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType,
 	class TimeSeries * ts, const bool & useInterval)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, localPropType, ts, useInterval);
+	DiscretePropertySeries* result = new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, localPropType, ts, useInterval);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind);
+	CategoricalProperty* result = new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 	
 CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 	StringTableLookup* strLookup, PropertyKind * localPropType)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, localPropType);
+	CategoricalProperty* result = new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, localPropType);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -2112,9 +2199,9 @@ CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(Abstract
 	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
 	class TimeSeries * ts, const bool & useInterval)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind, ts, useInterval);
+	CategoricalPropertySeries* result = new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind, ts, useInterval);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -2122,9 +2209,9 @@ CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(Abstract
 	StringTableLookup* strLookup, PropertyKind * localPropType,
 	class TimeSeries * ts, const bool & useInterval)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, localPropType, ts, useInterval);
+	CategoricalPropertySeries* result = new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, localPropType, ts, useInterval);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 //************************************
@@ -2133,16 +2220,16 @@ CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(Abstract
 
 ActivityTemplate* EpcDocument::createActivityTemplate(const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new ActivityTemplate(this, guid, title);
+	ActivityTemplate* result = new ActivityTemplate(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 		
 Activity* EpcDocument::createActivity(ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title)
 {
-	if (getResqmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Activity(activityTemplate, guid, title);
+	Activity* result = new Activity(activityTemplate, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 		
 //************************************
@@ -2154,9 +2241,9 @@ Well* EpcDocument::createWell(
 			const std::string & title,
 			const std::string & timeZone)
 {
-	if (getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Well(this, guid, title, timeZone);
+	Well* result = new Well(getGsoapContext(), guid, title, timeZone);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 Well* EpcDocument::createWell(
@@ -2174,9 +2261,9 @@ Well* EpcDocument::createWell(
 			const time_t & dTimLastChange,
 			const std::string & comments)
 {
-	if (getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Well(this, guid, title, timeZone, operator_, statusWell, purposeWell, fluidWell, directionWell, dTimSpud, sourceName, dTimCreation, dTimLastChange, comments);
+	Well* result = new Well(getGsoapContext(), guid, title, timeZone, operator_, statusWell, purposeWell, fluidWell, directionWell, dTimSpud, sourceName, dTimCreation, dTimLastChange, comments);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 CoordinateReferenceSystem* EpcDocument::createCoordinateReferenceSystem(
@@ -2189,9 +2276,9 @@ CoordinateReferenceSystem* EpcDocument::createCoordinateReferenceSystem(
 			const time_t & dTimLastChange,
 			const std::string & comments)
 {
-	if (getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new CoordinateReferenceSystem(this, guid, title, namingSystem, code, sourceName, dTimCreation, dTimLastChange, comments);
+	CoordinateReferenceSystem* result = new CoordinateReferenceSystem(getGsoapContext(), guid, title, namingSystem, code, sourceName, dTimCreation, dTimLastChange, comments);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
 }
 
 void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilder builder)

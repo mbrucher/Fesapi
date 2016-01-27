@@ -63,7 +63,7 @@ NonSealedSurfaceFrameworkRepresentation::NonSealedSurfaceFrameworkRepresentation
 		throw invalid_argument("The structural organization interpretation cannot be null.");
 
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation(interp->getGsoapContext(), 1);	
 	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy);
     
 	orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);
@@ -73,10 +73,6 @@ NonSealedSurfaceFrameworkRepresentation::NonSealedSurfaceFrameworkRepresentation
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretation(interp);
-
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
-
 }
 
 void NonSealedSurfaceFrameworkRepresentation::pushBackNonSealedContactRepresentation(const unsigned int & pointCount, double * points, AbstractLocal3dCrs* crs, AbstractHdfProxy * proxy)

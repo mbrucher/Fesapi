@@ -39,14 +39,13 @@ using namespace gsoap_resqml2_0_1;
 
 const char* BoundaryFeature::XML_TAG = "BoundaryFeature";
 
-BoundaryFeature::BoundaryFeature(common::EpcDocument* epcDoc, const string & guid, const string & title)
+BoundaryFeature::BoundaryFeature(soap* soapContext, const string & guid, const string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREBoundaryFeature(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context must exist");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREBoundaryFeature(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
-

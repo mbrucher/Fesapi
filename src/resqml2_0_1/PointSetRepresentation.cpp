@@ -51,7 +51,7 @@ PointSetRepresentation::PointSetRepresentation(AbstractFeatureInterpretation* in
 		const std::string & guid, const std::string & title):
 	AbstractRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPointSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPointSetRepresentation(interp->getGsoapContext(), 1);
 	_resqml2__PointSetRepresentation* rep = static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -62,10 +62,6 @@ PointSetRepresentation::PointSetRepresentation(AbstractFeatureInterpretation* in
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
-
-	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 void PointSetRepresentation::pushBackGeometryPatch(

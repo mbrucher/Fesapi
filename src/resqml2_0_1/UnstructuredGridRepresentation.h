@@ -40,7 +40,11 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT UnstructuredGridRepresentation : public AbstractGridRepresentation
 	{
 	private :
-		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+
+		/**
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		*/
+		void init(soap* soapContext, class AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const ULONG64 & cellCount);
 		
@@ -60,15 +64,17 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractGridRepresentation(epcDoc, partialObject), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+		UnstructuredGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractGridRepresentation(nullptr, partialObject), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 		{
-				epcDoc->addGsoapProxy(this);
 		}
 
-		UnstructuredGridRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+		/**
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		*/
+		UnstructuredGridRepresentation(soap* soapContext, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const ULONG64 & cellCount);
 

@@ -39,18 +39,16 @@ using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 
-Horizon::Horizon(common::EpcDocument* epcDoc, const string & guid, const string & title)
+Horizon::Horizon(soap* soapContext, const string & guid, const string & title)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the horizon will be stored cannot be null.");
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREGeneticBoundaryFeature(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREGeneticBoundaryFeature(soapContext, 1);
 	_resqml2__GeneticBoundaryFeature* horizon = static_cast<_resqml2__GeneticBoundaryFeature*>(gsoapProxy);
 	horizon->GeneticBoundaryKind = resqml2__GeneticBoundaryKind__horizon;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 

@@ -110,11 +110,11 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 	AbstractRepresentation* rep = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SupportingRepresentation->UUID));
 	if (rep == nullptr) // partial transfer
 	{
-		getEpcDocument()->addWarning("The referenced grid \"" + prop->SupportingRepresentation->Title + "\" (" + prop->SupportingRepresentation->UUID + ") is missing.");
+		epcDoc->addWarning("The referenced grid \"" + prop->SupportingRepresentation->Title + "\" (" + prop->SupportingRepresentation->UUID + ") is missing.");
 		if (prop->SupportingRepresentation->ContentType.find("UnstructuredGridRepresentation") != 0)
-			rep = new UnstructuredGridRepresentation(getEpcDocument(), prop->SupportingRepresentation);
+			rep = epcDoc->createPartialUnstructuredGridRepresentation(prop->SupportingRepresentation->UUID, prop->SupportingRepresentation->Title);
 		else if (prop->SupportingRepresentation->ContentType.find("IjkGridRepresentation") != 0)
-			rep = new AbstractIjkGridRepresentation(getEpcDocument(), prop->SupportingRepresentation);
+			rep = epcDoc->createPartialIjkGridRepresentation(prop->SupportingRepresentation->UUID, prop->SupportingRepresentation->Title);
 	}
 	setRepresentation(rep);
 	updateXml = true;
@@ -125,8 +125,8 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 		TimeSeries* ts = static_cast<TimeSeries*>(epcDoc->getResqmlAbstractObjectByUuid(prop->TimeIndex->TimeSeries->UUID));
 		if (ts == nullptr)
 		{
-			getEpcDocument()->addWarning("The referenced time series \"" + prop->TimeIndex->TimeSeries->Title + "\" (" + prop->TimeIndex->TimeSeries->UUID + ") is missing.");
-			ts = new TimeSeries(getEpcDocument(), prop->TimeIndex->TimeSeries);
+			epcDoc->addWarning("The referenced time series \"" + prop->TimeIndex->TimeSeries->Title + "\" (" + prop->TimeIndex->TimeSeries->UUID + ") is missing.");
+			ts = epcDoc->createPartialTimeSeries(prop->TimeIndex->TimeSeries->UUID, prop->SupportingRepresentation->Title);
 		}
 		setTimeSeries(ts);
 		updateXml = true;
@@ -139,8 +139,8 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 		PropertyKind* pk = static_cast<PropertyKind*>(epcDoc->getResqmlAbstractObjectByUuid(xmlLocalPropertyKind->LocalPropertyKind->UUID));
 		if (pk == nullptr)
 		{
-			getEpcDocument()->addWarning("The referenced local property kind \"" + xmlLocalPropertyKind->LocalPropertyKind->Title + "\" (" + xmlLocalPropertyKind->LocalPropertyKind->UUID + ") is missing.");
-			pk = new PropertyKind(getEpcDocument(), xmlLocalPropertyKind->LocalPropertyKind);
+			epcDoc->addWarning("The referenced local property kind \"" + xmlLocalPropertyKind->LocalPropertyKind->Title + "\" (" + xmlLocalPropertyKind->LocalPropertyKind->UUID + ") is missing.");
+			pk = epcDoc->createPartialPropertyKind(xmlLocalPropertyKind->LocalPropertyKind->UUID, prop->SupportingRepresentation->Title);
 		}
 		setLocalPropertyKind(pk);
 		updateXml = true;

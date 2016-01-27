@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param epcDoc					The EPC document which will contain the seismic line.
+		* @param soapContext			The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid					The guid to set to this instance. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		* @param traceIndexIncrement	The trace index increment.
@@ -51,7 +51,7 @@ namespace resqml2_0_1
 		* @param firstTraceIndex		The index of the first trace beginning at abscissa i=0.
 		* @param traceCount				The count of traces in this seismic line.
 		*/
-		SeismicLineFeature(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+		SeismicLineFeature(soap* soapContext, const std::string & guid, const std::string & title,
 			const int & traceIndexIncrement, const int & firstTraceIndex, const unsigned int & traceCount);
 
 		/**

@@ -55,7 +55,7 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 			StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 		: stringLookup(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -71,9 +71,6 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const string & guid, const string & title,
@@ -81,7 +78,7 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 			StringTableLookup* strLookup, PropertyKind * localPropKind)
 	:stringLookup(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -95,9 +92,6 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 vector<Relationship> CategoricalProperty::getAllEpcRelationships() const

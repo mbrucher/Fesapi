@@ -51,7 +51,7 @@ const char* DiscreteProperty::XML_TAG = "DiscreteProperty";
 DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
 	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -64,15 +64,12 @@ DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & 
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
 	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -83,9 +80,6 @@ DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & 
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 void DiscreteProperty::pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy,

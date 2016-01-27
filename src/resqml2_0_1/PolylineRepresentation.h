@@ -78,13 +78,12 @@ namespace resqml2_0_1
 
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param epcDoc					The epc document which contains the instance.
 		* @param crs					The local 3d crs where this representation is given.
 		* @param guid					The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		* @param isClosed				Indicates wether this line representaiton is closed or not.
 		*/
-		PolylineRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+		PolylineRepresentation(class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed = false);
 
 		/**

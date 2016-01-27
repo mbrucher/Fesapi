@@ -76,9 +76,6 @@ Log::Log(
 	witsmlSequence->indexType = indexType;
 	witsmlSequence->indexCurve = indexCurve;
 	log->__obj_USCORElog_sequence = witsmlSequence;
-
-	if (witsmlWellbore->getEpcDocument())
-		witsmlWellbore->getEpcDocument()->addGsoapProxy(this);
 }
 
 Log::Log(
@@ -131,9 +128,6 @@ Log::Log(
 		log->__obj_USCORElog_sequence->creationDate = (time_t *) soap_malloc(collection->soap, sizeof(time_t));
 		*log->__obj_USCORElog_sequence->creationDate = dTimCreation;
 	}
-
-	if (witsmlWellbore->getEpcDocument())
-		witsmlWellbore->getEpcDocument()->addGsoapProxy(this);
 }
 
 void Log::setWellbore(Wellbore* witsmlWellbore)

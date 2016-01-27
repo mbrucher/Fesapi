@@ -50,16 +50,13 @@ StratigraphicUnitInterpretation::StratigraphicUnitInterpretation(StratigraphicUn
 	if (!feature)
 		throw invalid_argument("The interpreted feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicUnitInterpretation(feature->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicUnitInterpretation(feature->getGsoapContext(), 1);
 	static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretedFeature(feature);
-
-	if (feature->getEpcDocument())
-		feature->getEpcDocument()->addGsoapProxy(this);
 }
 
 vector<Relationship> StratigraphicUnitInterpretation::getAllEpcRelationships() const

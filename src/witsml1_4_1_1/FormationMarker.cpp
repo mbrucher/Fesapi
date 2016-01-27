@@ -81,9 +81,6 @@ FormationMarker::FormationMarker(
 	fmSequence->mdTopSample->datum = soap_new_std__string(collection->soap, 1);
 	fmSequence->mdTopSample->datum->assign(getWellbore()->getWell()->getDatum(mdDatumIndex)->uid);
 	fm->__obj_USCOREformationMarker_sequence = fmSequence;
-
-	if (witsmlWellbore->getEpcDocument())
-		witsmlWellbore->getEpcDocument()->addGsoapProxy(this);
 }
 
 FormationMarker::FormationMarker(
@@ -165,9 +162,6 @@ FormationMarker::FormationMarker(
 			dTimLastChange,
 			comments);
 	}
-
-	if (witsmlWellbore->getEpcDocument())
-		witsmlWellbore->getEpcDocument()->addGsoapProxy(this);
 }
 
 void FormationMarker::setWellbore(Wellbore* witsmlWellbore)

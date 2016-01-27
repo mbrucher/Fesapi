@@ -39,18 +39,16 @@ using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 
-Fault::Fault(common::EpcDocument* epcDoc, const string & guid, const string & title)
+Fault::Fault(soap* soapContext, const string & guid, const string & title)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the fault will be stored cannot be null.");
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORETectonicBoundaryFeature(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCORETectonicBoundaryFeature(soapContext, 1);
 	_resqml2__TectonicBoundaryFeature* fault = static_cast<_resqml2__TectonicBoundaryFeature*>(gsoapProxy);
 	fault->TectonicBoundaryKind = resqml2__TectonicBoundaryKind__fault;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 

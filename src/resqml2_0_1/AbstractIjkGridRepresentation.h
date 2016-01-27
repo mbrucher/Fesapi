@@ -47,19 +47,14 @@ namespace resqml2_0_1
 	{
 	private :
 
-		void init(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+		/**
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		*/
+		void init(soap* soapContext, class AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
 	protected :
-
-		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
-			const std::string & guid, const std::string & title,
-			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
-
-		AbstractIjkGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
-				const std::string & guid, const std::string & title,
-				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -77,12 +72,22 @@ namespace resqml2_0_1
 		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3, NO_GEOMETRY = 4}; // UNKNOWN exists in case of partial transfer
 
 		/**
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		*/
+		AbstractIjkGridRepresentation(soap* soapContext, class AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		AbstractIjkGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractIjkGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractColumnLayerGridRepresentation(epcDoc, partialObject), splitInformation(nullptr)
+		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractColumnLayerGridRepresentation(nullptr, partialObject), splitInformation(nullptr)
 		{
-			epcDoc->addGsoapProxy(this);
 		}
 
 		/**

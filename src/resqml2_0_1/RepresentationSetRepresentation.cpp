@@ -53,16 +53,13 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractFeature
 		throw invalid_argument("The linked interpretation cannot be NULL. Please use another constructor.");
 
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getGsoapContext(), 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 	
 	// XML relationships
 	setInterpretation(interp);
-
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title) : AbstractRepresentation(nullptr, static_cast<AbstractLocal3dCrs*>(nullptr))
@@ -75,8 +72,6 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocu
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 
 vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() const

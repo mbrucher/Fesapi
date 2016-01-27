@@ -48,16 +48,16 @@ using namespace resqml2_0_1;
 const char* UnstructuredGridRepresentation::XML_TAG = "UnstructuredGridRepresentation";
 
 
-void UnstructuredGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+void UnstructuredGridRepresentation::init(soap* soapContext, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const ULONG64 & cellCount)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the unstructured grid will be stored cannot be null.");
-	if (!crs)
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+	if (crs == nullptr)
 		throw invalid_argument("The local CRS of the unstructured grid cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREUnstructuredGridRepresentation(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREUnstructuredGridRepresentation(soapContext, 1);
 	_resqml2__UnstructuredGridRepresentation* unstructuredGrid = getSpecializedGsoapProxy();
 
 	unstructuredGrid->CellCount = cellCount;
@@ -65,22 +65,19 @@ void UnstructuredGridRepresentation::init(common::EpcDocument* epcDoc, AbstractL
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
-	// epc document
-	epcDoc->addGsoapProxy(this);
-
 	// relationhsips
 	localCrs = crs;
 	localCrs->addRepresentation(this);
 }
 
-UnstructuredGridRepresentation::UnstructuredGridRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+UnstructuredGridRepresentation::UnstructuredGridRepresentation(soap* soapContext, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const ULONG64 & cellCount):
 	AbstractGridRepresentation(nullptr, crs), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 	cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 	nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 {
-	init(epcDoc, crs, guid, title, cellCount);
+	init(soapContext, crs, guid, title, cellCount);
 }
 
 UnstructuredGridRepresentation::UnstructuredGridRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
@@ -93,7 +90,7 @@ UnstructuredGridRepresentation::UnstructuredGridRepresentation(AbstractFeatureIn
 	if (interp == nullptr)
 		throw invalid_argument("The interpretation of the unstructured grid cannot be null.");
 
-	init(interp->getEpcDocument(), crs, guid, title, cellCount);
+	init(interp->getGsoapContext(), crs, guid, title, cellCount);
 
 	// relationhsips
 	setInterpretation(interp);

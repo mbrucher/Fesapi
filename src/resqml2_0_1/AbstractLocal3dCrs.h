@@ -60,7 +60,7 @@ namespace resqml2_0_1
 		/**
 		* Destructor does nothing since the memory is manged by the gsoap context.
 		*/
-		~AbstractLocal3dCrs() {}
+		virtual ~AbstractLocal3dCrs() {}
 
 		/**
 		* Add a geometrical representation which is based on this local CRS

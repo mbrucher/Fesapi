@@ -45,27 +45,27 @@ using namespace epc;
 
 const char* MdDatum::XML_TAG = "MdDatum";
 
-MdDatum::MdDatum(common::EpcDocument* epcDoc, const string & guid, const string & title,
+MdDatum::MdDatum(soap* soapContext, const string & guid, const string & title,
 			AbstractLocal3dCrs * locCrs, const resqml2__MdReference & originKind,
 			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3) : localCrs(locCrs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREMdDatum(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context must exist");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREMdDatum(soapContext, 1);
 	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy);
 	
 	mdInfo->LocalCrs = locCrs->newResqmlReference();
 	locCrs->addMdDatum(this);
 
 	mdInfo->MdReference = originKind;
-	mdInfo->Location = soap_new_resqml2__Point3d(gsoapProxy->soap, 1);
+	mdInfo->Location = soap_new_resqml2__Point3d(soapContext, 1);
 	mdInfo->Location->Coordinate1 = referenceLocationOrdinal1;
 	mdInfo->Location->Coordinate2 = referenceLocationOrdinal2;
 	mdInfo->Location->Coordinate3 = referenceLocationOrdinal3;
 	
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 void MdDatum::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)

@@ -63,7 +63,7 @@ const char* WellboreMarkerFrameRepresentation::XML_TAG = "WellboreMarkerFrameRep
 WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj):
 	WellboreFrameRepresentation(interp, nullptr), stratigraphicOccurrenceInterpretation(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getGsoapContext(), 1);	
 	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
 
 	setInterpretation(interp);
@@ -74,9 +74,6 @@ WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(WellboreInt
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 WellboreMarkerFrameRepresentation::~WellboreMarkerFrameRepresentation()

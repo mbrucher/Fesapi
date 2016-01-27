@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param soap						A gsoap context which will manage the memory and the serialization/deserialization of this instance.
+		* @param soapContext				The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid						The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title						A title for the instance to create.
 		* @param locCrs						The local CRS where the ordinal are given
@@ -51,7 +51,7 @@ namespace resqml2_0_1
 		* @param referenceLocationOrdinal2	The location of the MD reference point on the second axis of the local 3d CRS.
 		* @param referenceLocationOrdinal3	The location of the MD reference point on the third axis of the local 3d CRS.
 		*/
-		MdDatum(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		MdDatum(soap* soapContext, const std::string & guid, const std::string & title,
 			class AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,
 			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3);
 

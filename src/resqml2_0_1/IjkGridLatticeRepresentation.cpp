@@ -45,10 +45,10 @@ using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
-IjkGridLatticeRepresentation::IjkGridLatticeRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+IjkGridLatticeRepresentation::IjkGridLatticeRepresentation(soap* soapContext, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
-	AbstractIjkGridRepresentation(epcDoc, crs, guid, title, iCount, jCount, kCount)
+			AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount)
 {
 }
 

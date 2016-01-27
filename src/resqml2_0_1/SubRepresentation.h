@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT SubRepresentation : public AbstractRepresentation
 	{
 	private :
-		void init(common::EpcDocument * epcDoc,
+		void init(
                 const std::string & guid, const std::string & title,
 				class AbstractRepresentation * supportingRep);
 
@@ -51,18 +51,16 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		SubRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractRepresentation(epcDoc, partialObject)
+		SubRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractRepresentation(nullptr, partialObject)
 		{
-			epcDoc->addGsoapProxy(this);
 		}
 
 		/**
 		* Creates an instance of this class in a gsoap context. This instance is not linked to any interpretation.
-		* @param epcDoc	The epc document which contains the instance.
 		* @param title A title for the instance to create.
 		*/
-		SubRepresentation(common::EpcDocument * epcDoc,
+		SubRepresentation(
                 const std::string & guid, const std::string & title,
 				class AbstractRepresentation * supportingRep);
 

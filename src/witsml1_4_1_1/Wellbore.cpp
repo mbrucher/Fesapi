@@ -69,9 +69,6 @@ Wellbore::Wellbore(
 	}
 
 	wellbore->name = title;
-
-	if (witsmlWell->getEpcDocument())
-		witsmlWell->getEpcDocument()->addGsoapProxy(this);
 }
 
 Wellbore::Wellbore(
@@ -139,18 +136,27 @@ Wellbore::Wellbore(
 			dTimLastChange,
 			comments);
 	}
-	
-	if (witsmlWell->getEpcDocument())
-		witsmlWell->getEpcDocument()->addGsoapProxy(this);
 }
 
 Trajectory* Wellbore::createTrajectory(
 	const std::string & guid,
 	const std::string & title)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Trajectory(this, guid, title);
+	Trajectory* result = new Trajectory(this, guid, title);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 
 Trajectory* Wellbore::createTrajectory(
@@ -161,9 +167,21 @@ Trajectory* Wellbore::createTrajectory(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Trajectory(this, guid, title, sourceName, dTimCreation, dTimLastChange, comments);
+	Trajectory* result = new Trajectory(this, guid, title, sourceName, dTimCreation, dTimLastChange, comments);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 
 Log* Wellbore::createLog(
@@ -172,9 +190,21 @@ Log* Wellbore::createLog(
 	gsoap_witsml1_4_1_1::witsml1__LogIndexType indexType,
 	const std::string & indexCurve)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Log(this, guid, title, indexType, indexCurve);
+	Log* result = new Log(this, guid, title, indexType, indexCurve);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 
 Log* Wellbore::createLog(
@@ -187,9 +217,21 @@ Log* Wellbore::createLog(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Log(this, guid, title, indexType, indexCurve, sourceName, dTimCreation, dTimLastChange, comments);
+	Log* result = new Log(this, guid, title, indexType, indexCurve, sourceName, dTimCreation, dTimLastChange, comments);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 		
 FormationMarker* Wellbore::createFormationMarker(
@@ -199,9 +241,21 @@ FormationMarker* Wellbore::createFormationMarker(
 	gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom mdUom,
 	const double & mdTopSample)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new FormationMarker(this, guid, title, mdDatumIndex, mdUom, mdTopSample);
+	FormationMarker* result = new FormationMarker(this, guid, title, mdDatumIndex, mdUom, mdTopSample);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 
 FormationMarker* Wellbore::createFormationMarker(
@@ -222,9 +276,21 @@ FormationMarker* Wellbore::createFormationMarker(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new FormationMarker(this, guid, title, mdDatumIndex, mdUom, mdTopSample, tvdDatumIndex, tvdUom, tvdTopSample, dipUom, dip, dipDirectionUom, dipDirection,sourceName, dTimCreation, dTimLastChange, comments);
+	FormationMarker* result = new FormationMarker(this, guid, title, mdDatumIndex, mdUom, mdTopSample, tvdDatumIndex, tvdUom, tvdTopSample, dipUom, dip, dipDirectionUom, dipDirection, sourceName, dTimCreation, dTimLastChange, comments);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 
 void Wellbore::setWell(Well* witsmlWell)

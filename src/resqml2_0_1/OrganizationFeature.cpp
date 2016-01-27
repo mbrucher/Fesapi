@@ -41,18 +41,16 @@ using namespace gsoap_resqml2_0_1;
 
 const char* OrganizationFeature::XML_TAG = "OrganizationFeature";
 
-OrganizationFeature::OrganizationFeature(common::EpcDocument* epcDoc, const std::string & guid, const string & title, const resqml2__OrganizationKind & orgType)
+OrganizationFeature::OrganizationFeature(soap* soapContext, const std::string & guid, const string & title, const resqml2__OrganizationKind & orgType)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the organization will be stored cannot be null.");
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREOrganizationFeature(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREOrganizationFeature(soapContext, 1);
 	_resqml2__OrganizationFeature* orgFeat = static_cast<_resqml2__OrganizationFeature*>(gsoapProxy);
 	orgFeat->OrganizationKind = orgType;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 

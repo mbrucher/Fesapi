@@ -47,18 +47,13 @@ using namespace epc;
 
 const char* EpcExternalPartReference::XML_TAG = "EpcExternalPartReference";
 
-EpcExternalPartReference::EpcExternalPartReference(common::EpcDocument* epcDoc, const string & guid, const std::string & title, const string & packageDirAbsolutePath, const string & externalFilePath) :
+EpcExternalPartReference::EpcExternalPartReference(soap* soapContext, const string & guid, const std::string & title, const string & packageDirAbsolutePath, const string & externalFilePath) :
 		packageDirectoryAbsolutePath(packageDirAbsolutePath), relativeFilePath(externalFilePath)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the external ECP reference will be stored cannot be null.");
-
-	gsoapProxy = soap_new_eml__obj_USCOREEpcExternalPartReference(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_eml__obj_USCOREEpcExternalPartReference(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 
 vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const

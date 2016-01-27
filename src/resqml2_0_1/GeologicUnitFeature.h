@@ -52,7 +52,7 @@ namespace resqml2_0_1
 		* @param guid		The guid to set to the boundary horizon. If empty then a new guid will be generated.
 		* @param title		A title for the instance to create.
 		*/
-		GeologicUnitFeature(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
+		GeologicUnitFeature(soap* soapContext, const std::string & guid, const std::string & title);
 
 		GeologicUnitFeature(gsoap_resqml2_0_1::_resqml2__GeologicUnitFeature* fromGsoap): AbstractGeologicFeature(fromGsoap) {}
 		virtual ~GeologicUnitFeature() {}

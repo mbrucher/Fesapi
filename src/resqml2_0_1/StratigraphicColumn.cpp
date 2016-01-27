@@ -42,15 +42,15 @@ using namespace epc;
 
 const char* StratigraphicColumn::XML_TAG = "StratigraphicColumn";
 
-StratigraphicColumn::StratigraphicColumn(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title):earthModel(nullptr)
+StratigraphicColumn::StratigraphicColumn(soap* soapContext, const std::string & guid, const std::string & title) :earthModel(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicColumn(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicColumn(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 void StratigraphicColumn::pushBackStratiColumnRank(StratigraphicColumnRankInterpretation * stratiColumnRank)

@@ -41,17 +41,15 @@ using namespace gsoap_resqml2_0_1;
 
 const char* FrontierFeature::XML_TAG = "FrontierFeature";
 
-FrontierFeature::FrontierFeature(common::EpcDocument* epcDoc, const std::string & guid, const string & title)
+FrontierFeature::FrontierFeature(soap* soapContext, const std::string & guid, const string & title)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the frontier will be stored cannot be null.");
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREFrontierFeature(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREFrontierFeature(soapContext, 1);
 	_resqml2__FrontierFeature* frontier = static_cast<_resqml2__FrontierFeature*>(gsoapProxy);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 

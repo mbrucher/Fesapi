@@ -41,11 +41,11 @@ namespace resqml2_0_1
 	{
 	public:
 		/**
-		* Default constructor
-		* @packageDirAbsolutePath	The directory where the EPC document is stored. Must end with a slash or back-slash
-		* @externalFilePath			The relative path regarding packageDirectoryAbsolutePath where the external resource is located
+		* @param soapContext				The soap context where the underlying gsoap proxy is going to be created.
+		* @param packageDirAbsolutePath		The directory where the EPC document is stored. Must end with a slash or back-slash
+		* @param externalFilePath			The relative path regarding packageDirectoryAbsolutePath where the external resource is located
 		*/
-		EpcExternalPartReference(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		EpcExternalPartReference(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

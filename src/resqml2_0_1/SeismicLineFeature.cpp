@@ -42,11 +42,14 @@ using namespace epc;
 
 const char* SeismicLineFeature::XML_TAG = "SeismicLineFeature";
 
-SeismicLineFeature::SeismicLineFeature(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title,
+SeismicLineFeature::SeismicLineFeature(soap* soapContext, const std::string & guid, const std::string & title,
 			const int & traceIndexIncrement, const int & firstTraceIndex, const unsigned int & traceCount):
 	seismicLineSet(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLineFeature(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLineFeature(soapContext, 1);
 	_resqml2__SeismicLineFeature* seismicLine = static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy);
 
 	seismicLine->TraceIndexIncrement = traceIndexIncrement;
@@ -55,9 +58,6 @@ SeismicLineFeature::SeismicLineFeature(common::EpcDocument* epcDoc, const std::s
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 int SeismicLineFeature::getTraceIndexIncrement() const

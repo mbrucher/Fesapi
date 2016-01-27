@@ -41,18 +41,16 @@ using namespace gsoap_resqml2_0_1;
 
 const char* FluidBoundaryFeature::XML_TAG = "FluidBoundaryFeature";
 
-FluidBoundaryFeature::FluidBoundaryFeature(common::EpcDocument* epcDoc, const string & guid, const string & title, const resqml2__FluidContact & fluidContact)
+FluidBoundaryFeature::FluidBoundaryFeature(soap* soapContext, const string & guid, const string & title, const resqml2__FluidContact & fluidContact)
 {
-	if (!epcDoc)
-		throw invalid_argument("The EPC document where the fluid boundary will be stored cannot be null.");
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREFluidBoundaryFeature(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREFluidBoundaryFeature(soapContext, 1);
 	_resqml2__FluidBoundaryFeature* fbf = static_cast<_resqml2__FluidBoundaryFeature*>(gsoapProxy);
 	fbf->FluidContact = fluidContact;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	epcDoc->addGsoapProxy(this);
 }
 

@@ -42,11 +42,11 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Creates an instance of this class in an EPC document.
-		* @param epcDoc The EPC document which will contain the instance.
+		* @param soapContext The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid	A guid for the instance to create.
 		* @param title	A title for the instance to create.
 		*/
-		Fracture(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
+		Fracture(soap* soapContext, const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

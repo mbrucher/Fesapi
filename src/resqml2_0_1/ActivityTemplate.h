@@ -43,11 +43,11 @@ namespace resqml2_0_1
 
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param epcDoc		The Epc document which contains the activity template
-		* @param guid		The guid to set to the boundary horizon. If empty then a new guid will be generated.
-		* @param title		A title for the instance to create.
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		* @param guid			The guid to set to the boundary horizon. If empty then a new guid will be generated.
+		* @param title			A title for the instance to create.
 		*/
-		ActivityTemplate(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title);
+		ActivityTemplate(soap* soapContext, const std::string & guid, const std::string & title);
 
 		ActivityTemplate(gsoap_resqml2_0_1::_resqml2__ActivityTemplate* fromGsoap): AbstractResqmlDataObject(fromGsoap) {}
 		virtual ~ActivityTemplate() {}

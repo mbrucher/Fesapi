@@ -56,7 +56,7 @@ void GridConnectionSetRepresentation::init(
         const std::string & guid, const std::string & title,
 		class AbstractGridRepresentation * supportingGridRep)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(supportingGridRep->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(supportingGridRep->getGsoapContext(), 1);
     _resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 
     initMandatoryMetadata();
@@ -64,9 +64,6 @@ void GridConnectionSetRepresentation::init(
 
 	// relationship
 	setSupportingGridRepresentation(supportingGridRep);
-
-	// epc document
-	supportingGridRep->getEpcDocument()->addGsoapProxy(this);
 }
 
 GridConnectionSetRepresentation::GridConnectionSetRepresentation(

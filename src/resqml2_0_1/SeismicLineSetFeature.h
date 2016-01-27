@@ -42,11 +42,11 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param epcDoc					The EPC document which will contain the seismic line set.
+		* @param soapContext			The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid					The guid to set to this instance. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		*/
-		SeismicLineSetFeature(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title);
+		SeismicLineSetFeature(soap* soapContext, const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

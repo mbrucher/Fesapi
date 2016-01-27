@@ -49,14 +49,11 @@ GenericFeatureInterpretation::GenericFeatureInterpretation(AbstractFeature * fea
 	if (!feature)
 		throw invalid_argument("The interpreted feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREGenericFeatureInterpretation(feature->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREGenericFeatureInterpretation(feature->getGsoapContext(), 1);	
 	setInterpretedFeature(feature);
 
 	static_cast<_resqml2__GenericFeatureInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (feature->getEpcDocument())
-		feature->getEpcDocument()->addGsoapProxy(this);
 }

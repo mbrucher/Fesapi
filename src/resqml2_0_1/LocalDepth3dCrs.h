@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT LocalDepth3dCrs : public AbstractLocal3dCrs
 	{
 	private:
-		void init(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		void init(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom,
@@ -51,7 +51,7 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Creates a local depth 3d CRS which is fully identified by means of EPSG code.
-		* @param epcDoc				The Epc document which is going to contain the created instance.
+		* @param soapContext		The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid				The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title				A title for the instance to create.
 		* @param originOrdinal1		The offset of the global 2d crs on its first axis.
@@ -64,7 +64,7 @@ namespace resqml2_0_1
 		* @param verticalEpsgCode	The epsg code of the associated vertical CRS.
 		* @param isUpOriented		If true, indicates that this depth CRS is actually an elevation CRS.
 		*/
-		LocalDepth3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		LocalDepth3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
@@ -72,7 +72,7 @@ namespace resqml2_0_1
 
 		/**
 		* Creates a local depth 3d CRS which is fully unknown.
-		* @param epcDoc					The Epc document which is going to contain the created instance.
+		* @param soapContext			The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
@@ -85,7 +85,7 @@ namespace resqml2_0_1
 		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
 		* @param isUpOriented			If true, indicates that this depth CRS is actually an elevation CRS.
 		*/
-		LocalDepth3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		LocalDepth3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,
@@ -93,7 +93,7 @@ namespace resqml2_0_1
 
 		/**
 		* Creates a local depth 3d CRS which is identified by an EPSG code for its projected part and which is unkown for its vertial part.
-		* @param epcDoc					The Epc document which is going to contain the created instance.
+		* @param soapContext			The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
@@ -106,7 +106,7 @@ namespace resqml2_0_1
 		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
 		* @param isUpOriented			If true, indicates that this depth CRS is actually an elevation CRS.
 		*/
-		LocalDepth3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		LocalDepth3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const unsigned long & projectedEpsgCode,
@@ -114,7 +114,7 @@ namespace resqml2_0_1
 
 		/**
 		* Creates a local depth 3d CRS which unkown for its projected part and which is identified by an EPSG code for its vertical part.
-		* @param epcDoc					The Epc document which is going to contain the created instance.
+		* @param soapContext			The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid					The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		* @param originOrdinal1			The offset of the global 2d crs on its first axis.
@@ -127,7 +127,7 @@ namespace resqml2_0_1
 		* @param verticalEpsgCode		The epsg code of the associated vertical CRS.
 		* @param isUpOriented			If true, indicates that this depth CRS is actually an elevation CRS.
 		*/
-		LocalDepth3dCrs(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		LocalDepth3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
 			const double & arealRotation,
 			const gsoap_resqml2_0_1::eml__LengthUom & projectedUom, const std::string & projectedUnknownReason,

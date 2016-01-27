@@ -36,8 +36,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 
-AbstractHdfProxy::AbstractHdfProxy(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
-  EpcExternalPartReference(epcDoc, guid, title, packageDirAbsolutePath, externalFilePath)
+AbstractHdfProxy::AbstractHdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
+EpcExternalPartReference(soapContext, guid, title, packageDirAbsolutePath, externalFilePath)
 {
   static_cast<_eml__EpcExternalPartReference*>(gsoapProxy)->MimeType = "application/x-hdf5";
 }

@@ -42,9 +42,10 @@ namespace witsml1_4_1_1
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param guid		The guid to set to this instance. If empty then a new guid will be generated.
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		* @param guid			The guid to set to this instance. If empty then a new guid will be generated.
 		*/
-		CoordinateReferenceSystem(common::EpcDocument * epcDoc,
+		CoordinateReferenceSystem(soap* soapContext,
 			const std::string & guid,
 			const std::string & title,
 			const std::string & namingSystem,

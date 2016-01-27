@@ -43,10 +43,9 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		TimeSeries(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractResqmlDataObject(epcDoc, partialObject)
+		TimeSeries(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			AbstractResqmlDataObject(nullptr, partialObject)
 		{
-				epcDoc->addGsoapProxy(this);
 		}
 
 		/**
@@ -55,7 +54,7 @@ namespace resqml2_0_1
 		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title							The title of the instance.
 		*/
-		TimeSeries(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
+		TimeSeries(soap* soapContext, const std::string & guid, const std::string & title);
 		 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

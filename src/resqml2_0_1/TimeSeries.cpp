@@ -44,16 +44,16 @@ using namespace epc;
 
 const char* TimeSeries::XML_TAG = "TimeSeries";
 
-TimeSeries::TimeSeries(common::EpcDocument* epcDoc, const string & guid, const string & title)
+TimeSeries::TimeSeries(soap* soapContext, const string & guid, const string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORETimeSeries(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCORETimeSeries(soapContext, 1);
 	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
 	
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc != nullptr)
-		epcDoc->addGsoapProxy(this);
 }
 
 _resqml2__TimeSeries* TimeSeries::getSpecializedGsoapProxy() const

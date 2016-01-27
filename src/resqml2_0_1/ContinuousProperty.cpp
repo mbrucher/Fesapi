@@ -49,7 +49,7 @@ const char* ContinuousProperty::XML_TAG = "ContinuousProperty";
 ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
 	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -63,15 +63,12 @@ ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const strin
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
 	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -83,9 +80,6 @@ ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const strin
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 const gsoap_resqml2_0_1::resqml2__ResqmlUom & ContinuousProperty::getUom() const

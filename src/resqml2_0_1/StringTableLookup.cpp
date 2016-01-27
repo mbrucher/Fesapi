@@ -44,15 +44,15 @@ using namespace epc;
 
 const char* StringTableLookup::XML_TAG = "StringTableLookup";
 
-StringTableLookup::StringTableLookup(common::EpcDocument* epcDoc, const string & guid, const string & title)
+StringTableLookup::StringTableLookup(soap* soapContext, const string & guid, const string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREStringTableLookup(epcDoc->getGsoapContext(), 1);	
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREStringTableLookup(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 vector<Relationship> StringTableLookup::getAllEpcRelationships() const

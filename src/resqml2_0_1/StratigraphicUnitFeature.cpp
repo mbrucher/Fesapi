@@ -39,14 +39,14 @@ using namespace gsoap_resqml2_0_1;
 
 const char* StratigraphicUnitFeature::XML_TAG = "StratigraphicUnitFeature";
 
-StratigraphicUnitFeature::StratigraphicUnitFeature(common::EpcDocument* epcDoc, const string & guid, const string & title)
+StratigraphicUnitFeature::StratigraphicUnitFeature(soap* soapContext, const string & guid, const string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicUnitFeature(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicUnitFeature(soapContext, 1);
 	_resqml2__StratigraphicUnitFeature* stratUnit = static_cast<_resqml2__StratigraphicUnitFeature*>(gsoapProxy);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }

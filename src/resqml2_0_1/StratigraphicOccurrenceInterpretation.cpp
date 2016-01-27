@@ -52,7 +52,7 @@ StratigraphicOccurrenceInterpretation::StratigraphicOccurrenceInterpretation(Org
 	if (!orgFeat)
 		throw invalid_argument("The interpreted organization feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicOccurrenceInterpretation(orgFeat->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicOccurrenceInterpretation(orgFeat->getGsoapContext(), 1);
 	static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
 	static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy)->OrderingCriteria = orderingCriteria;
 
@@ -60,9 +60,6 @@ StratigraphicOccurrenceInterpretation::StratigraphicOccurrenceInterpretation(Org
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretedFeature(orgFeat);
-
-	if (orgFeat->getEpcDocument())
-		orgFeat->getEpcDocument()->addGsoapProxy(this);
 }
 
 void StratigraphicOccurrenceInterpretation::setStratigraphicColumnRankInterpretation(StratigraphicColumnRankInterpretation * stratiColumnRankInterp)

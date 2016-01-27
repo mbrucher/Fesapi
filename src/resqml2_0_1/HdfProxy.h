@@ -42,11 +42,12 @@ namespace resqml2_0_1
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		* @packageDirAbsolutePath	The directory where the EPC document is stored. Must end with a slash or back-slash
 		* @relativeFilePath			The relative file path of the associated HDF file. It is relative to the location of the package
 		*/
-		HdfProxy(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath):
-			AbstractHdfProxy(epcDoc, guid, title, packageDirAbsolutePath, externalFilePath), hdfFile(-1), compressionLevel(0) {}
+		HdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
+			AbstractHdfProxy(soapContext, guid, title, packageDirAbsolutePath, externalFilePath), hdfFile(-1), compressionLevel(0) {}
 
 		HdfProxy(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath):
 		  AbstractHdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath), hdfFile(-1), compressionLevel(0) {}

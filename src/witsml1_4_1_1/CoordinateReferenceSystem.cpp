@@ -44,7 +44,7 @@ using namespace epc;
 
 const char* CoordinateReferenceSystem::XML_TAG = "coordinateReferenceSystems";
 
-CoordinateReferenceSystem::CoordinateReferenceSystem(common::EpcDocument * epcDoc,
+CoordinateReferenceSystem::CoordinateReferenceSystem(soap* soapContext,
 		const std::string & guid,
 		const std::string & title,
 		const std::string & namingSystem,
@@ -55,9 +55,12 @@ CoordinateReferenceSystem::CoordinateReferenceSystem(common::EpcDocument * epcDo
 		const std::string & comments
 	)
 {
-	if (title.empty()) throw invalid_argument("A well must have a name.");
+	if (soapContext == nullptr)
+		throw invalid_argument("A soap context must exist.");
+	if (title.empty())
+		throw invalid_argument("A well must have a name.");
 
-	collection = soap_new_witsml1__obj_USCOREcoordinateReferenceSystems(epcDoc->getGsoapContext(), 1);	
+	collection = soap_new_witsml1__obj_USCOREcoordinateReferenceSystems(soapContext, 1);
 	static_cast<_witsml1__coordinateReferenceSystems*>(collection)->version = SCHEMA_VERSION;
 
 	witsml1__obj_USCOREcoordinateReferenceSystem* crs = soap_new_witsml1__obj_USCOREcoordinateReferenceSystem(collection->soap, 1);
@@ -95,9 +98,6 @@ CoordinateReferenceSystem::CoordinateReferenceSystem(common::EpcDocument * epcDo
 			dTimLastChange,
 			comments);
 	}
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 witsml1__refNameString* CoordinateReferenceSystem::newReference() const

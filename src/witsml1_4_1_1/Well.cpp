@@ -47,16 +47,16 @@ using namespace common;
 
 const char* Well::XML_TAG = "wells";
 
-Well::Well(EpcDocument * epcDoc,
+Well::Well(soap* soapContext,
 			const std::string & guid,
 			const std::string & title,
 			const std::string & timeZone)
 {
-	if (epcDoc == nullptr) throw invalid_argument("A well must belong to an epc doc.");
+	if (soapContext == nullptr) throw invalid_argument("A soap context must exist.");
 	if (title.empty()) throw invalid_argument("A well must have a name.");
 	if (timeZone.empty()) throw invalid_argument("A well must have a timezone.");
 
-	collection = soap_new_witsml1__obj_USCOREwells(epcDoc->getGsoapContext(), 1);	
+	collection = soap_new_witsml1__obj_USCOREwells(soapContext, 1);
 	static_cast<_witsml1__wells*>(collection)->version = SCHEMA_VERSION;
 
 	witsml1__obj_USCOREwell* well = soap_new_witsml1__obj_USCOREwell(collection->soap, 1);
@@ -74,12 +74,9 @@ Well::Well(EpcDocument * epcDoc,
 	__witsml1__obj_USCOREwell_sequence* wellSequence = soap_new___witsml1__obj_USCOREwell_sequence(collection->soap, 1);
 	wellSequence->timeZone = timeZone;
 	well->__obj_USCOREwell_sequence = wellSequence;
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
-Well::Well(EpcDocument * epcDoc, 
+Well::Well(soap* soapContext,
 		const std::string & guid,
 		const std::string & title,
 		const std::string & timeZone,
@@ -95,12 +92,12 @@ Well::Well(EpcDocument * epcDoc,
 		const std::string & comments
 	)
 {
-	if (epcDoc == nullptr) throw invalid_argument("A well must belong to an epc doc.");
+	if (soapContext == nullptr) throw invalid_argument("A soap context must exist.");
 	if (title.empty()) throw invalid_argument("A well must have a name.");
 	if (timeZone.empty()) throw invalid_argument("A well must have a timezone.");
 	if (operator_.empty()) throw invalid_argument("You must set a non empty operator.");
 
-	collection = soap_new_witsml1__obj_USCOREwells(epcDoc->getGsoapContext(), 1);	
+	collection = soap_new_witsml1__obj_USCOREwells(soapContext, 1);
 	static_cast<_witsml1__wells*>(collection)->version = SCHEMA_VERSION;
 
 	witsml1__obj_USCOREwell* well = soap_new_witsml1__obj_USCOREwell(collection->soap, 1);
@@ -146,18 +143,27 @@ Well::Well(EpcDocument * epcDoc,
 			dTimLastChange,
 			comments);
 	}
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 Wellbore* Well::createWellbore(
 	const std::string & guid,
 	const std::string & title)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Wellbore(this, guid, title);
+	Wellbore* result = new Wellbore(this, guid, title);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 
 Wellbore* Well::createWellbore(
@@ -173,9 +179,21 @@ Wellbore* Well::createWellbore(
 	const time_t & dTimLastChange,
 	const std::string & comments)
 {
-	if (getEpcDocument()->getWitsmlAbstractObjectByUuid(guid) != nullptr)
-		return nullptr;
-	return new Wellbore(this, guid, title, statusWellbore, isActive, purposeWellbore, typeWellbore, achievedTD, sourceName, dTimCreation, dTimLastChange, comments);
+	Wellbore* result = new Wellbore(this, guid, title, statusWellbore, isActive, purposeWellbore, typeWellbore, achievedTD, sourceName, dTimCreation, dTimLastChange, comments);
+	if (getEpcDocument() != nullptr)
+	{
+		try {
+			getEpcDocument()->addGsoapProxy(result);
+		}
+		catch (const exception & e)
+		{
+			std::cerr << e.what() << endl;
+			std::cerr << "The proxy is going to be deleted but deletion is not yet guaranteed. You should close your application." << endl;
+			delete result;
+			throw;
+		}
+	}
+	return result;
 }
 
 void Well::setOperator(const string & operator_) 

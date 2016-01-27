@@ -44,7 +44,7 @@ const char* WellboreInterpretation::XML_TAG = "WellboreInterpretation";
 
 WellboreInterpretation::WellboreInterpretation(WellboreFeature * WellboreFeature, const string & guid, const string & title, bool isDrilled)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreInterpretation(WellboreFeature->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreInterpretation(WellboreFeature->getGsoapContext(), 1);
 	_resqml2__WellboreInterpretation* wbInterp = static_cast<_resqml2__WellboreInterpretation*>(gsoapProxy);
 	wbInterp->Domain = resqml2__Domain__mixed;
 
@@ -54,9 +54,6 @@ WellboreInterpretation::WellboreInterpretation(WellboreFeature * WellboreFeature
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretedFeature(WellboreFeature);
-
-	if (WellboreFeature->getEpcDocument())
-		WellboreFeature->getEpcDocument()->addGsoapProxy(this);
 }
 
 bool WellboreInterpretation::isDrilled() const

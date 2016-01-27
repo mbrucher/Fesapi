@@ -69,9 +69,6 @@ Trajectory::Trajectory(Wellbore* witsmlWellbore,
 	}
 
 	traj->name = title;
-
-	if (witsmlWellbore->getEpcDocument())
-		witsmlWellbore->getEpcDocument()->addGsoapProxy(this);
 }
 
 Trajectory::Trajectory(Wellbore* witsmlWellbore,
@@ -111,9 +108,6 @@ Trajectory::Trajectory(Wellbore* witsmlWellbore,
 			dTimLastChange,
 			comments);
 	}
-
-	if (witsmlWellbore->getEpcDocument())
-		witsmlWellbore->getEpcDocument()->addGsoapProxy(this);
 }
 
 void Trajectory::setWellbore(Wellbore* witsmlWellbore)

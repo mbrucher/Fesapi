@@ -153,7 +153,7 @@ namespace common
 		~EpcDocument();
 
 		// A function pointer definition which allows to build an abstract hdf proxy in writing mode of an epc document
-		typedef resqml2_0_1::AbstractHdfProxy* (HdfProxyBuilder)(EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		typedef resqml2_0_1::AbstractHdfProxy* (HdfProxyBuilder)(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 		// A function pointer which allows to build an abstract hdf proxy in reading mode of an epc document
 		typedef resqml2_0_1::AbstractHdfProxy* (HdfProxyBuilderFromSOAP)(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
@@ -173,7 +173,7 @@ namespace common
 		 */
 		void close();
 
-		bool isOverwritingH5FileIfNeeded() const { return overwriteH5File; }
+		bool isOverwritingH5FileIfNeeded() const;
 
 		/**
 		 * Set the file path which will be used for future serialization and deserialization
@@ -195,7 +195,7 @@ namespace common
 		/**
 		* Get the soap context of the epc document.
 		*/
-		soap* getGsoapContext() {return s;}
+		soap* getGsoapContext() const;
 
 		/**
 		* Add a gsoap proxy to serialize with the package
@@ -211,7 +211,7 @@ namespace common
 		 * Get the property kind mapper of this epc document if given at EPC document construction time.
 		 * Else return NULL.
 		 */
-		resqml2_0_1::PropertyKindMapper* getPropertyKindMapper() const {return propertyKindMapper;}
+		resqml2_0_1::PropertyKindMapper* getPropertyKindMapper() const;
 
 		/**
 		* Get the name of the energistics property kind as a string based on the enumerated property kind.
@@ -270,9 +270,9 @@ namespace common
 		* Get all the resqml gsoap wrappers from the epc document
 		*/
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		const std::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const {return resqmlAbstractObjectSet;}
+		const std::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const;
 #else
-		const std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const {return resqmlAbstractObjectSet;}
+		const std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const;
 #endif
 
 		/**
@@ -305,27 +305,27 @@ namespace common
 		/**
 		* Get all the local 3d depth crs contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::LocalDepth3dCrs*> & getLocalDepth3dCrsSet() const {return localDepth3dCrsSet;}
+		const std::vector<resqml2_0_1::LocalDepth3dCrs*> & getLocalDepth3dCrsSet() const;
 
 		/**
 		* Get all the local 3d time crs contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::LocalTime3dCrs*> & getLocalTime3dCrsSet() const {return localTime3dCrsSet;}
+		const std::vector<resqml2_0_1::LocalTime3dCrs*> & getLocalTime3dCrsSet() const;
 
 		/**
 		* Get all the stratigraphic columns contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::StratigraphicColumn*> & getStratigraphicColumnSet() const {return stratigraphicColumnSet;}
+		const std::vector<resqml2_0_1::StratigraphicColumn*> & getStratigraphicColumnSet() const;
 
 		/**
 		* Get all the faults contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::Fault*> & getFaultSet() const {return faultSet;}
+		const std::vector<resqml2_0_1::Fault*> & getFaultSet() const;
 
 		/**
 		* Get all the fractures contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::Fracture*> & getFractureSet() const {return fractureSet;}
+		const std::vector<resqml2_0_1::Fracture*> & getFractureSet() const;
 
 		/**
 		* Get all the individual representations of faults which are associated to a polyline topology
@@ -355,7 +355,7 @@ namespace common
 		/**
 		* Get all the horizons contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::Horizon*> & getHorizonSet() const {return horizonSet;}
+		const std::vector<resqml2_0_1::Horizon*> & getHorizonSet() const;
 
 		/**
 		* Get all the individual representations of horizons which are associated to grid 2d set topology
@@ -385,7 +385,7 @@ namespace common
 		/**
 		* Get all the triangulated set representations of the EPC document
 		*/
-		const std::vector<resqml2_0_1::TriangulatedSetRepresentation*> & getAllTriangulatedSetRepSet() const {return triangulatedSetRepresentationSet;}
+		const std::vector<resqml2_0_1::TriangulatedSetRepresentation*> & getAllTriangulatedSetRepSet() const;
 
 		/**
 		* Get all the triangulated set representations of the EPC document which are not horizon and fault neither.
@@ -395,12 +395,12 @@ namespace common
 		/**
 		* Get all the seismic line contained into the EPC document
 		*/
-		std::vector<resqml2_0_1::SeismicLineFeature*> getSeismicLineSet() const {return seismicLineSet;}
+		std::vector<resqml2_0_1::SeismicLineFeature*> getSeismicLineSet() const;
 
 		/**
 		* Get all the wellbores contained into the EPC document
 		*/
-		std::vector<resqml2_0_1::WellboreFeature*> getWellboreSet() const {return wellboreSet;}
+		std::vector<resqml2_0_1::WellboreFeature*> getWellboreSet() const;
 
 		/**
 		* Get all the individual representations of wellbores which uses a cubic parametric line geometry.
@@ -410,7 +410,7 @@ namespace common
 		/**
 		* Get all the polyline representation contained into the EPC document.
 		*/
-		std::vector<resqml2_0_1::PolylineRepresentation*> getPolylineRepresentationSet() const {return polylineRepresentationSet;}
+		std::vector<resqml2_0_1::PolylineRepresentation*> getPolylineRepresentationSet() const;
 
 		/**
 		* Get all the single polyline representations contained into the EPC document which correspond to a seismic line.
@@ -420,9 +420,9 @@ namespace common
 		/**
 		* Get all the ijk grid contained into the EPC document.
 		*/
-		std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> getIjkGridRepresentationSet() const {return ijkGridRepresentationSet;}
-		unsigned int getIjkGridRepresentationCount() const {return ijkGridRepresentationSet.size();}
-		resqml2_0_1::AbstractIjkGridRepresentation* getIjkGridRepresentation(const unsigned int & i) const {return ijkGridRepresentationSet[i];}
+		std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> getIjkGridRepresentationSet() const;
+		unsigned int getIjkGridRepresentationCount() const;
+		resqml2_0_1::AbstractIjkGridRepresentation* getIjkGridRepresentation(const unsigned int & i) const;
 
 		/**
 		* Get all the ijk grid contained into the EPC document which have a parametric geometry.
@@ -442,28 +442,28 @@ namespace common
 		/**
 		* Get all the unstructured grid contained into the EPC document
 		*/
-		std::vector<resqml2_0_1::UnstructuredGridRepresentation*> getUnstructuredGridRepresentationSet() const {return unstructuredGridRepresentationSet;}
+		std::vector<resqml2_0_1::UnstructuredGridRepresentation*> getUnstructuredGridRepresentationSet() const;
 
 		/**
 		* Get all the frontier features contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::FrontierFeature*> & getFrontierSet() const {return frontierSet;}
+		const std::vector<resqml2_0_1::FrontierFeature*> & getFrontierSet() const;
 
 		/**
 		 * Get all the organization features contained into the EPC document
 		 */
-		const std::vector<resqml2_0_1::OrganizationFeature*> & getOrganizationSet() const {return organizationSet;}
+		const std::vector<resqml2_0_1::OrganizationFeature*> & getOrganizationSet() const;
 
 		/**
 		 * Get all the time series contained into the EPC document
 		 */
-		const std::vector<resqml2_0_1::TimeSeries*> & getTimeSeriesSet() const {return timeSeriesSet;}
+		const std::vector<resqml2_0_1::TimeSeries*> & getTimeSeriesSet() const;
 
 		/**
 		* Get all the Hdf proxies used with this EPC document
 		*/
-		std::vector<resqml2_0_1::AbstractHdfProxy*> getHdfProxySet() const {return hdfProxySet;}
-		unsigned int getHdfProxyCount() const {return hdfProxySet.size();}
+		std::vector<resqml2_0_1::AbstractHdfProxy*> getHdfProxySet() const;
+		unsigned int getHdfProxyCount() const;
 		resqml2_0_1::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
 
 		/**
@@ -855,6 +855,8 @@ namespace common
 
 		resqml2_0_1::TimeSeries* createTimeSeries(const std::string & guid, const std::string & title);
 
+		resqml2_0_1::TimeSeries* createPartialTimeSeries(const std::string & guid, const std::string & title);
+
 		resqml2_0_1::StringTableLookup* createStringTableLookup(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
@@ -862,6 +864,8 @@ namespace common
 
 		resqml2_0_1::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2_0_1::PropertyKind * parentPropType);
+
+		resqml2_0_1::PropertyKind* createPartialPropertyKind(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::CommentProperty* createCommentProperty(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
@@ -930,7 +934,7 @@ namespace common
 		/**
 		* Get all the witsml trajectories contained into the EPC document
 		*/
-		std::vector<witsml1_4_1_1::Trajectory*> getWitsmlTrajectorySet() const {return witsmlTrajectorySet;}
+		std::vector<witsml1_4_1_1::Trajectory*> getWitsmlTrajectorySet() const;
 
 		witsml1_4_1_1::Well* createWell(
 			const std::string & guid,
@@ -967,8 +971,8 @@ namespace common
 		//************* WARNINGS *************
 		//************************************
 
-		void addWarning(const std::string & warning) {warnings.push_back(warning);}
-		const std::vector<std::string> & getWarnings() const {return warnings;}
+		void addWarning(const std::string & warning);
+		const std::vector<std::string> & getWarnings() const;
 
 	private :
 		static const char * DOCUMENT_EXTENSION;
@@ -1015,6 +1019,9 @@ namespace common
 
 		HdfProxyBuilder* make_hdf_proxy; // the builder for HDF proxy in writing mode of the epc document
 		HdfProxyBuilderFromSOAP* make_hdf_proxy_from_soap; // the builder for HDF proxy in reading mode of the epc document
+
+		void addGsoapProxyAndDeleteItIfException(resqml2_0_1::AbstractObject* proxy);
+		void addGsoapProxyAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy);
 	};
 }
 

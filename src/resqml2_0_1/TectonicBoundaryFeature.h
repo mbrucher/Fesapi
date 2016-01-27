@@ -48,11 +48,11 @@ namespace resqml2_0_1
 
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param soap		A gsoap context wihch will manage the memory and the serialization/deserialization of this instance.
-		* @param guid		The guid to set to the boundary horizon. If empty then a new guid will be generated.
-		* @param title		A title for the instance to create.
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created
+		* @param guid			The guid to set to the boundary horizon. If empty then a new guid will be generated.
+		* @param title			A title for the instance to create.
 		*/
-		TectonicBoundaryFeature(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
+		TectonicBoundaryFeature(soap* soapContext, const std::string & guid, const std::string & title);
 
 		TectonicBoundaryFeature(gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature* fromGsoap): BoundaryFeature(fromGsoap) {}
 		virtual ~TectonicBoundaryFeature() {}

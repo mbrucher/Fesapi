@@ -44,11 +44,14 @@ using namespace epc;
 
 const char* PropertyKind::XML_TAG = "PropertyKind";
 
-PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, const string & title,
+PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
 			const string & namingSystem, const resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind):
 	parentPropertyKind(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 	
 	propType->NamingSystem = namingSystem;
@@ -60,16 +63,16 @@ PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, con
 	
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
-PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, const string & title,
+PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
 			const string & namingSystem, const resqml2__ResqmlUom & uom, PropertyKind * parentPropType):
 	parentPropertyKind(parentPropType)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 	
 	propType->NamingSystem = namingSystem;
@@ -82,9 +85,6 @@ PropertyKind::PropertyKind(common::EpcDocument* epcDoc, const string & guid, con
 	parentPropType->childPropertyKind.push_back(this);
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 _resqml2__PropertyKind* PropertyKind::getSpecializedGsoapProxy() const

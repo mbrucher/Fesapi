@@ -60,7 +60,7 @@ SealedSurfaceFrameworkRepresentation::SealedSurfaceFrameworkRepresentation(
         throw invalid_argument("The structural organization interpretation cannot be null.");
 
     // proxy constructor
-    gsoapProxy = soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
+    gsoapProxy = soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(interp->getGsoapContext(), 1);
     _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
 
     orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);
@@ -71,9 +71,6 @@ SealedSurfaceFrameworkRepresentation::SealedSurfaceFrameworkRepresentation(
 
 	// XML relationships
     setInterpretation(interp);
-
-    if (interp->getEpcDocument())
-        interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 void SealedSurfaceFrameworkRepresentation::pushBackSealedContactRepresentation(const gsoap_resqml2_0_1::resqml2__IdentityKind & kind)

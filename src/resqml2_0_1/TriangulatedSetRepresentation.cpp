@@ -53,7 +53,7 @@ TriangulatedSetRepresentation::TriangulatedSetRepresentation(AbstractFeatureInte
 		const std::string & guid, const std::string & title):
 	AbstractSurfaceRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORETriangulatedSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCORETriangulatedSetRepresentation(interp->getGsoapContext(), 1);
 	_resqml2__TriangulatedSetRepresentation* triRep = static_cast<_resqml2__TriangulatedSetRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -64,10 +64,6 @@ TriangulatedSetRepresentation::TriangulatedSetRepresentation(AbstractFeatureInte
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
-
-	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 string TriangulatedSetRepresentation::getHdfProxyUuid() const

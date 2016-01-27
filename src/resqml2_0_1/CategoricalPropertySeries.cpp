@@ -54,7 +54,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 			TimeSeries * ts, const bool & useInterval)
 		: CategoricalProperty(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapContext(), 1);	
 	_resqml2__CategoricalPropertySeries* prop = static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -75,9 +75,6 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
@@ -86,7 +83,7 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 			class TimeSeries * ts, const bool & useInterval)
 	:CategoricalProperty(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapContext(), 1);	
 	_resqml2__CategoricalPropertySeries* prop = static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -105,9 +102,6 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 void CategoricalPropertySeries::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)

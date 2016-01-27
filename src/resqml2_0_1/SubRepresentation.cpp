@@ -50,16 +50,14 @@ using namespace gsoap_resqml2_0_1;
 
 const char* SubRepresentation::XML_TAG = "SubRepresentation";
 
-void SubRepresentation::init(common::EpcDocument* epcDoc,
+void SubRepresentation::init(
         const string & guid, const string & title,
 		AbstractRepresentation * supportingRep)
 {
-	if (epcDoc == nullptr)
-		throw invalid_argument("The EPC document where the subrepresentation will be stored cannot be null.");
 	if (supportingRep == nullptr)
 		throw invalid_argument("The supportng representation of the subrepresentation cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORESubRepresentation(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCORESubRepresentation(supportingRep->getGsoapContext(), 1);
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 
 	initMandatoryMetadata();
@@ -68,17 +66,14 @@ void SubRepresentation::init(common::EpcDocument* epcDoc,
 	rep->SupportingRepresentation = supportingRep->newResqmlReference();
 	supportingRepresentation = supportingRep;
 	supportingRep->addSubRepresentation(this);
-
-	// epc document
-	epcDoc->addGsoapProxy(this);
 }
 
-SubRepresentation::SubRepresentation(common::EpcDocument* epcDoc,
+SubRepresentation::SubRepresentation(
         const string & guid, const string & title,
 		AbstractRepresentation * supportingRep):
 	AbstractRepresentation(static_cast<AbstractFeatureInterpretation*>(nullptr), nullptr)
 {
-	init(epcDoc, guid, title, supportingRep);
+	init(guid, title, supportingRep);
 }
 
 SubRepresentation::SubRepresentation(AbstractFeatureInterpretation* interp,
@@ -89,7 +84,7 @@ SubRepresentation::SubRepresentation(AbstractFeatureInterpretation* interp,
 	if (interp == nullptr)
 		throw invalid_argument("The interpretation of the subrepresentation cannot be null.");
 
-	init(interp->getEpcDocument(), guid, title, supportingRep);
+	init(guid, title, supportingRep);
 
 	// relationhsips
 	setInterpretation(interp);
@@ -372,9 +367,9 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 	{
 		getEpcDocument()->addWarning("The referenced grid \"" + subRep->SupportingRepresentation->Title + "\" (" + subRep->SupportingRepresentation->UUID + ") is missing.");
 		if (subRep->SupportingRepresentation->ContentType.find("UnstructuredGridRepresentation") != 0)
-			supportingRepresentation = new UnstructuredGridRepresentation(getEpcDocument(), subRep->SupportingRepresentation);
+			supportingRepresentation = epcDoc->createPartialUnstructuredGridRepresentation(subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
 		else if (subRep->SupportingRepresentation->ContentType.find("IjkGridRepresentation") != 0)
-			supportingRepresentation = new AbstractIjkGridRepresentation(getEpcDocument(), subRep->SupportingRepresentation);
+			supportingRepresentation = epcDoc->createPartialIjkGridRepresentation(subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
 	}
 	supportingRepresentation->addSubRepresentation(this);
 }

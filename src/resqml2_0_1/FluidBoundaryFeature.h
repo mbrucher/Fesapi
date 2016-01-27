@@ -46,7 +46,7 @@ namespace resqml2_0_1
 		* @param guid		The guid to set to the horizon. If empty then a new guid will be generated.
 		* @param title		A title for the instance to create.
 		*/
-		FluidBoundaryFeature(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__FluidContact & fluidContact);
+		FluidBoundaryFeature(soap* soapContext, const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__FluidContact & fluidContact);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

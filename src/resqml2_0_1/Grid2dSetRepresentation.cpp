@@ -53,7 +53,7 @@ Grid2dSetRepresentation::Grid2dSetRepresentation(AbstractFeatureInterpretation* 
 	const string & guid, const string & title):
 	AbstractSurfaceRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dSetRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dSetRepresentation(interp->getGsoapContext(), 1);
 	_resqml2__Grid2dSetRepresentation* grid2dSetRep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
 	
 	initMandatoryMetadata();
@@ -64,10 +64,6 @@ Grid2dSetRepresentation::Grid2dSetRepresentation(AbstractFeatureInterpretation* 
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
-
-	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 void Grid2dSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const

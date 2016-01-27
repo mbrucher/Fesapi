@@ -44,7 +44,11 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT AbstractHdfProxy : public EpcExternalPartReference
 	{
 	public:
-		AbstractHdfProxy(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+
+		/**
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		*/
+		AbstractHdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		AbstractHdfProxy(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath):
 			EpcExternalPartReference(fromGsoap, packageDirAbsolutePath, externalFilePath) {}

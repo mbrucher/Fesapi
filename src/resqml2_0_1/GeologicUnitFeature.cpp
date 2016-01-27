@@ -39,13 +39,13 @@ using namespace gsoap_resqml2_0_1;
 
 const char* GeologicUnitFeature::XML_TAG = "GeologicUnitFeature";
 
-GeologicUnitFeature::GeologicUnitFeature(common::EpcDocument* epcDoc, const string & guid, const string & title)
+GeologicUnitFeature::GeologicUnitFeature(soap* soapContext, const string & guid, const string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGeologicUnitFeature(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCOREGeologicUnitFeature(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }

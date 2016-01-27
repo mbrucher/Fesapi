@@ -44,34 +44,30 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		PropertyKind(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractResqmlDataObject(epcDoc, partialObject)
-		{
-				epcDoc->addGsoapProxy(this);
-		}
+		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractResqmlDataObject(nullptr, partialObject) {}
 
 		/**
 		* Creates a local property type which derives from a standard Energistics property type.
-		* @param epcDoc							the epc document where this intance will be stored.
+		* @param soapContext					The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title							The title of the instance.
 		* @param namingSystem					The name of the dictionary within which the property is unique.
 		* @param uom							The unit of measure of the property type.
 		* @param parentEnergisticsPropertyKind	The name of the parent property type in the Energistics property dictionary.
 		*/
-		PropertyKind(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		PropertyKind(soap* soapContext, const std::string & guid, const std::string & title,
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind);
 
 		/**
 		* Creates a local property type which derives from another local property type.
-		* @param epcDoc							the epc document where this intance will be stored.
+		* @param soapContext					The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title							The title of the instance.
 		* @param namingSystem					The name of the dictionary within which the property is unique.
 		* @param uom							The unit of measure of the property type.
 		* @param parentPropType					The local parent property type in the EPC document.
 		*/
-		PropertyKind(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title,
+		PropertyKind(soap* soapContext, const std::string & guid, const std::string & title,
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * parentPropType);
 
 		/**

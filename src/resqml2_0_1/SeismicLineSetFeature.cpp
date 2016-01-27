@@ -42,16 +42,16 @@ using namespace epc;
 
 const char* SeismicLineSetFeature::XML_TAG = "SeismicLineSetFeature";
 
-SeismicLineSetFeature::SeismicLineSetFeature(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title)
+SeismicLineSetFeature::SeismicLineSetFeature(soap* soapContext, const std::string & guid, const std::string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLineSetFeature(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
+
+	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLineSetFeature(soapContext, 1);
 	_resqml2__SeismicLineSetFeature* seismicLineSet = static_cast<_resqml2__SeismicLineSetFeature*>(gsoapProxy);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 std::vector<epc::Relationship> SeismicLineSetFeature::getAllEpcRelationships() const

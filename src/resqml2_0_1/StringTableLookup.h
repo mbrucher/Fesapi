@@ -51,7 +51,7 @@ namespace resqml2_0_1
 		* @param guid		The guid to set to this instance. If empty then a new guid will be generated.
 		* @param title		A title for the instance to create.
 		*/
-		StringTableLookup(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
+		StringTableLookup(soap* soapContext, const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

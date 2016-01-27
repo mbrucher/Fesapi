@@ -56,14 +56,14 @@ using namespace resqml2_0_1;
 
 const char* AbstractIjkGridRepresentation::XML_TAG = "IjkGridRepresentation";
 
-void AbstractIjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+void AbstractIjkGridRepresentation::init(soap* soapContext, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
-	if (epcDoc == nullptr)
-		throw invalid_argument("The EPC document where the ijk grid will be stored cannot be null.");
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREIjkGridRepresentation(epcDoc->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREIjkGridRepresentation(soapContext, 1);
 	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
 
 	ijkGrid->Ni = iCount;
@@ -73,9 +73,6 @@ void AbstractIjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLo
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
-	// epc document
-	epcDoc->addGsoapProxy(this);
-
 	// relationhsips
 	if (crs != nullptr)
 	{
@@ -84,12 +81,12 @@ void AbstractIjkGridRepresentation::init(common::EpcDocument* epcDoc, AbstractLo
 	}
 }
 
-AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(common::EpcDocument* epcDoc, AbstractLocal3dCrs * crs,
+AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(soap* soapContext, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractColumnLayerGridRepresentation(nullptr, crs), splitInformation(nullptr)
 {
-	init(epcDoc, crs, guid, title, iCount, jCount, kCount);
+	init(soapContext, crs, guid, title, iCount, jCount, kCount);
 }
 
 AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
@@ -100,7 +97,7 @@ AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(AbstractFeatureInte
 	if (interp == nullptr)
 		throw invalid_argument("The interpretation of the IJK grid cannot be null.");
 
-	init(interp->getEpcDocument(), crs, guid, title, iCount, jCount, kCount);
+	init(interp->getGsoapContext(), crs, guid, title, iCount, jCount, kCount);
 
 	// relationhsips
 	setInterpretation(interp);

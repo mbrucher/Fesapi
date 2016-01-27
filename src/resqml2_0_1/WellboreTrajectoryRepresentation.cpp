@@ -56,7 +56,7 @@ const char* WellboreTrajectoryRepresentation::XML_TAG = "WellboreTrajectoryRepre
 WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, MdDatum * mdInfo) :
 	AbstractRepresentation(interp, mdInfo->getLocalCrs()), mdDatum(mdInfo), parentTraj(nullptr), witsmlTrajectory(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getGsoapContext(), 1);	
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy);
 	
 	setInterpretation(interp);
@@ -71,9 +71,6 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 	localCrs->addRepresentation(this);
 
 	rep->MdUom = mdInfo->getLocalCrs()->getVerticalCrsUnit();
-
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, AbstractHdfProxy * proxy)

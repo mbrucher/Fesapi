@@ -52,22 +52,19 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 	if (!fault)
 		throw invalid_argument("The interpreted fault cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);
 	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy);
 	interp->Domain = resqml2__Domain__mixed;
 	setInterpretedFeature(fault);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (fault->getEpcDocument())
-		fault->getEpcDocument()->addGsoapProxy(this);
 }
 
 FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, const string & title,
 										GeneticBoundaryFeature * chronoTop, GeneticBoundaryFeature * chronoBtm)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);	
 	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy);
 	interp->Domain = resqml2__Domain__mixed;
 	interp->InterpretedFeature = fault->newResqmlReference();
@@ -80,10 +77,6 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretedFeature(fault);
-
-	epcDocument = fault->getEpcDocument();
-	if (epcDocument)
-		epcDocument->addGsoapProxy(this);
 }
 
 vector<Relationship> FaultInterpretation::getAllEpcRelationships() const

@@ -41,7 +41,10 @@ namespace resqml2_0_1
 	{
 	public:
 
-		IjkGridExplicitRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+		/**
+		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
+		*/
+		IjkGridExplicitRepresentation(soap* soapContext, class AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 

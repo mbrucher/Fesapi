@@ -50,7 +50,7 @@ const char* EarthModelInterpretation::XML_TAG = "EarthModelInterpretation";
 EarthModelInterpretation::EarthModelInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const string & title):
 	structuralOrganization(nullptr), stratigraphicColumn(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREEarthModelInterpretation(orgFeat->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREEarthModelInterpretation(orgFeat->getGsoapContext(), 1);
 	_resqml2__EarthModelInterpretation* interp = static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy);
 
 	interp->Domain = resqml2__Domain__mixed;
@@ -59,9 +59,6 @@ EarthModelInterpretation::EarthModelInterpretation(OrganizationFeature * orgFeat
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretedFeature(orgFeat);
-
-	if (orgFeat->getEpcDocument())
-		orgFeat->getEpcDocument()->addGsoapProxy(this);
 }
 
 void EarthModelInterpretation::setStructuralOrganizationInterpretation(StructuralOrganizationInterpretation * structOrganization)

@@ -57,6 +57,23 @@ AbstractObject::AbstractObject(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::
 {
 }
 
+soap* AbstractObject::getGsoapContext() const
+{
+	if (getGsoapProxy() == nullptr)
+	{
+		if (getEpcDocument() == nullptr)
+		{
+			return nullptr;
+		}
+		else
+		{
+			getEpcDocument()->getGsoapContext();
+		}
+	}
+	else
+		return getGsoapProxy()->soap;
+}
+
 string AbstractObject::getUuid() const
 {
 	if (gsoapProxy == nullptr) // partial transfer
@@ -359,7 +376,7 @@ eml__DataObjectReference* AbstractObject::newResqmlReference() const
 {
 	ostringstream oss;
 
-	eml__DataObjectReference* result = soap_new_eml__DataObjectReference(getEpcDocument()->getGsoapContext(), 1);
+	eml__DataObjectReference* result = soap_new_eml__DataObjectReference(getGsoapContext(), 1);
 	result->UUID = getUuid();
 	result->Title = getTitle();
 	result->ContentType = getContentType();

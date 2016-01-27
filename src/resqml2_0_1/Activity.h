@@ -42,8 +42,6 @@ namespace resqml2_0_1
 	protected:
 		Activity() :AbstractResqmlDataObject(), activityTemplate(nullptr) {}
 
-		void init(common::EpcDocument * epcDoc, const std::string & guid, const std::string & title);
-
 	public:
 
 		/**

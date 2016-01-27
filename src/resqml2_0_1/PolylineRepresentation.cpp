@@ -53,7 +53,7 @@ const char* PolylineRepresentation::XML_TAG = "PolylineRepresentation";
 void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getGsoapContext(), 1);
 	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy);
 
 	polylineRep->IsClosed = isClosed;
@@ -67,13 +67,9 @@ void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, Abstrac
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
-
-	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
-PolylineRepresentation::PolylineRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+PolylineRepresentation::PolylineRepresentation(AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed):
 	AbstractRepresentation(nullptr, crs)
 {

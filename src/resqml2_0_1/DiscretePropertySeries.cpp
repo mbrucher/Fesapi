@@ -51,7 +51,7 @@ DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, con
 			const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
 			class TimeSeries * ts, const bool & useInterval)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREDiscretePropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREDiscretePropertySeries(rep->getGsoapContext(), 1);	
 	_resqml2__DiscretePropertySeries* prop = static_cast<_resqml2__DiscretePropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -69,9 +69,6 @@ DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, con
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
@@ -79,7 +76,7 @@ DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, con
 			PropertyKind * localPropKind,
 			class TimeSeries * ts, const bool & useInterval)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREDiscretePropertySeries(rep->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREDiscretePropertySeries(rep->getGsoapContext(), 1);	
 	_resqml2__DiscretePropertySeries* prop = static_cast<_resqml2__DiscretePropertySeries*>(gsoapProxy);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
@@ -95,9 +92,6 @@ DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, con
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (rep->getEpcDocument())
-		rep->getEpcDocument()->addGsoapProxy(this);
 }
 
 void DiscretePropertySeries::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)

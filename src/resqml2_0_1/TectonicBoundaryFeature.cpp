@@ -39,15 +39,15 @@ using namespace gsoap_resqml2_0_1;
 
 const char* TectonicBoundaryFeature::XML_TAG = "TectonicBoundaryFeature";
 
-TectonicBoundaryFeature::TectonicBoundaryFeature(common::EpcDocument* epcDoc, const string & guid, const string & title)
+TectonicBoundaryFeature::TectonicBoundaryFeature(soap* soapContext, const string & guid, const string & title)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORETectonicBoundaryFeature(epcDoc->getGsoapContext(), 1);
+	if (soapContext == nullptr)
+		throw invalid_argument("The soap context must exist");
+
+	gsoapProxy = soap_new_resqml2__obj_USCORETectonicBoundaryFeature(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (epcDoc)
-		epcDoc->addGsoapProxy(this);
 }
 
 bool TectonicBoundaryFeature::isAFracture() const

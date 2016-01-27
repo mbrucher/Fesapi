@@ -41,7 +41,7 @@ namespace resqml2_0_1
 	{
 	public:
 
-		IjkGridNoGeometryRepresentation(common::EpcDocument * epcDoc,
+		IjkGridNoGeometryRepresentation(soap* soapContext,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 

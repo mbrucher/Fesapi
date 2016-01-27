@@ -48,12 +48,11 @@ namespace resqml2_0_1
 		
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param epcDoc							The epc document which contains the instance.
 		* @param crs							The local CRS where the geometry of this representation is given.
 		* @param guid							The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title							A title for the instance to create.
 		*/
-		PolylineSetRepresentation(common::EpcDocument * epcDoc, class AbstractLocal3dCrs * crs,
+		PolylineSetRepresentation(class AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title);
 
 		/**

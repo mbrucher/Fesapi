@@ -50,7 +50,7 @@ const char* StructuralOrganizationInterpretation::XML_TAG = "StructuralOrganizat
 StructuralOrganizationInterpretation::StructuralOrganizationInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title,
 		const gsoap_resqml2_0_1::resqml2__OrderingCriteria & orderingCriteria)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREStructuralOrganizationInterpretation(orgFeat->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREStructuralOrganizationInterpretation(orgFeat->getGsoapContext(), 1);
 	
 	static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy)->OrderingCriteria = orderingCriteria;
 	static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
@@ -59,9 +59,6 @@ StructuralOrganizationInterpretation::StructuralOrganizationInterpretation(Organ
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	setInterpretedFeature(orgFeat);
-
-	if (orgFeat->getEpcDocument())
-		orgFeat->getEpcDocument()->addGsoapProxy(this);
 }
 
 void StructuralOrganizationInterpretation::pushBackFaultInterpretation(FaultInterpretation * faultInterpretation)

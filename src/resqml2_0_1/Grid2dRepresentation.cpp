@@ -52,7 +52,7 @@ Grid2dRepresentation::Grid2dRepresentation(AbstractFeatureInterpretation* interp
 	const string & guid, const std::string & title):
 	AbstractSurfaceRepresentation(interp, crs), supportingRepresentation(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);
+	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dRepresentation(interp->getGsoapContext(), 1);
 	_resqml2__Grid2dRepresentation* singleGrid2dRep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy);
 
 	initMandatoryMetadata();
@@ -67,10 +67,6 @@ Grid2dRepresentation::Grid2dRepresentation(AbstractFeatureInterpretation* interp
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);
-
-	// epc document
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 resqml2__PointGeometry* Grid2dRepresentation::getPointGeometry(const unsigned int & patchIndex) const

@@ -54,7 +54,7 @@ const char* WellboreFrameRepresentation::XML_TAG = "WellboreFrameRepresentation"
 WellboreFrameRepresentation::WellboreFrameRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj) :
 	AbstractRepresentation(interp, traj->getLocalCrs()), trajectory(traj), witsmlLog(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(interp->getEpcDocument()->getGsoapContext(), 1);	
+	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(interp->getGsoapContext(), 1);	
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
 
 	setInterpretation(interp);
@@ -64,9 +64,6 @@ WellboreFrameRepresentation::WellboreFrameRepresentation(WellboreInterpretation*
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-
-	if (interp->getEpcDocument())
-		interp->getEpcDocument()->addGsoapProxy(this);
 }
 
 
