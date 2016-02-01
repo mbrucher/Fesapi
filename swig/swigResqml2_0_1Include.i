@@ -1075,8 +1075,6 @@ namespace resqml2_0_1
 		void setEnabledCells(unsigned char* enabledCells);
 		
 		virtual geometryKind getGeometryKind() const = 0;
-		
-		UnstructuredGridRepresentation* cloneToUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
 	};
 	
 	class IjkGridLatticeRepresentation : public AbstractIjkGridRepresentation
