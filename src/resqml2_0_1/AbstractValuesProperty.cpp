@@ -493,6 +493,33 @@ unsigned int AbstractValuesProperty::getDimensionsCountOfPatch(const unsigned in
 		return 0;
 }
 
+void AbstractValuesProperty::pushBackFacet(const gsoap_resqml2_0_1::resqml2__Facet & facet, const std::string & facetValue)
+{
+	resqml2__PropertyKindFacet* newFacet = soap_new_resqml2__PropertyKindFacet(gsoapProxy->soap, 1);
+	newFacet->Facet = facet;
+	newFacet->Value = facetValue;
+	static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet.push_back(newFacet);
+}
+
+unsigned int AbstractValuesProperty::getFacetCount() const
+{
+	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet.size();
+}
+
+gsoap_resqml2_0_1::resqml2__Facet AbstractValuesProperty::getFacet(const unsigned int & index) const
+{
+	if (index >= getFacetCount())
+		throw out_of_range("The facet index is out of range");
+	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet[index]->Facet;
+}
+
+std::string AbstractValuesProperty::getFacetValue(const unsigned int & index) const
+{
+	if (index >= getFacetCount())
+		throw out_of_range("The facet index is out of range");
+	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet[index]->Value;
+}
+
 unsigned int AbstractValuesProperty::getValuesCountOfPatch (const unsigned int & patchIndex)
 {
 	if (hdfProxy == nullptr)

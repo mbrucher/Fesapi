@@ -238,6 +238,18 @@ namespace common
 		gsoap_resqml2_0_1::resqml2__ResqmlUom getEnergisticsUnitOfMeasure(const std::string & energisticsUomName) const;
 
 		/**
+		* Get the name of the resqml facet as a string based on the enumerated facet.
+		* @return The empty string if no correspondence is found
+		*/
+		std::string getFacet(const gsoap_resqml2_0_1::resqml2__Facet & facet) const;
+
+		/**
+		* Get the facet enumerated value from the name (string) of the facet.
+		* @return The what facet if no correspondance is found with the facet string/name.
+		*/
+		gsoap_resqml2_0_1::resqml2__Facet getFacet(const std::string & facet) const;
+
+		/**
 		* Get the name (string) of the witsml uom as a string based on the enumerated uom.
 		* @return The empty string if no correspondence is found
 		*/

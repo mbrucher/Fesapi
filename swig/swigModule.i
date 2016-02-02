@@ -97,6 +97,8 @@ namespace common
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getEnergisticsPropertyKind(const std::string & energisticsPropertyKindName) const;
 		std::string getEnergisticsUnitOfMeasureName(const gsoap_resqml2_0_1::resqml2__ResqmlUom & energisticsUom) const;
 		gsoap_resqml2_0_1::resqml2__ResqmlUom getEnergisticsUnitOfMeasure(const std::string & energisticsUomName) const;
+		std::string getFacet(const gsoap_resqml2_0_1::resqml2__Facet & facet) const;
+		gsoap_resqml2_0_1::resqml2__Facet getFacet(const std::string & facet) const;
 		std::string getWitsmlLengthUom(const gsoap_witsml1_4_1_1::witsml1__LengthUom & witsmlUom) const;
 		std::string getWitsmlWellVerticalCoordinateUom(const gsoap_witsml1_4_1_1::witsml1__WellVerticalCoordinateUom & witsmlUom) const;
 		std::string getWitsmlMeasuredDepthUom(const gsoap_witsml1_4_1_1::witsml1__MeasuredDepthUom & witsmlUom) const;
@@ -326,6 +328,8 @@ namespace common
 		        resqml2_0_1::StructuralOrganizationInterpretation* interp,
 		        const std::string & guid,
 		        const std::string & title);
+				
+		resqml2_0_1::AbstractIjkGridRepresentation* createPartialIjkGridRepresentation(const std::string & guid, const std::string & title);
     	        
 		resqml2_0_1::IjkGridExplicitRepresentation* createIjkGridExplicitRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
@@ -350,10 +354,14 @@ namespace common
 		resqml2_0_1::IjkGridLatticeRepresentation* createIjkGridLatticeRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+			
+		resqml2_0_1::UnstructuredGridRepresentation* createPartialUnstructuredGridRepresentation(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::UnstructuredGridRepresentation* createUnstructuredGridRepresentation(resqml2_0_1::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const ULONG64 & cellCount);
+
+		resqml2_0_1::SubRepresentation* createPartialSubRepresentation(const std::string & guid, const std::string & title);
 			
 		resqml2_0_1::SubRepresentation* createSubRepresentation(
                 const std::string & guid, const std::string & title,
@@ -371,6 +379,8 @@ namespace common
 		//************************************
 
 		resqml2_0_1::TimeSeries* createTimeSeries(const std::string & guid, const std::string & title);
+
+		resqml2_0_1::TimeSeries* createPartialTimeSeries(const std::string & guid, const std::string & title);
 		
 		resqml2_0_1::StringTableLookup* createStringTableLookup(const std::string & guid, const std::string & title);
 		
@@ -379,6 +389,8 @@ namespace common
 
 		resqml2_0_1::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2_0_1::PropertyKind * parentPropType);
+
+		resqml2_0_1::PropertyKind* createPartialPropertyKind(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::CommentProperty* createCommentProperty(resqml2_0_1::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);

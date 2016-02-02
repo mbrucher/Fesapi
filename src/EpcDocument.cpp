@@ -186,7 +186,13 @@ std::vector<resqml2_0_1::PolylineRepresentation*> EpcDocument::getPolylineRepres
 
 std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> EpcDocument::getIjkGridRepresentationSet() const { return ijkGridRepresentationSet; }
 unsigned int EpcDocument::getIjkGridRepresentationCount() const { return ijkGridRepresentationSet.size(); }
-resqml2_0_1::AbstractIjkGridRepresentation* EpcDocument::getIjkGridRepresentation(const unsigned int & i) const { return ijkGridRepresentationSet[i]; }
+resqml2_0_1::AbstractIjkGridRepresentation* EpcDocument::getIjkGridRepresentation(const unsigned int & i) const
+{
+	if (i >= getIjkGridRepresentationCount())
+		throw out_of_range("The ijk grid index is out of range.");
+	else
+		return ijkGridRepresentationSet[i];
+}
 
 std::vector<resqml2_0_1::UnstructuredGridRepresentation*> EpcDocument::getUnstructuredGridRepresentationSet() const { return unstructuredGridRepresentationSet; }
 
@@ -324,6 +330,20 @@ gsoap_resqml2_0_1::resqml2__ResqmlUom EpcDocument::getEnergisticsUnitOfMeasure(c
 		return result;
 	else
 		return resqml2__ResqmlUom__Euc;
+}
+
+std::string EpcDocument::getFacet(const gsoap_resqml2_0_1::resqml2__Facet & facet) const
+{
+	return gsoap_resqml2_0_1::soap_resqml2__Facet2s(s, facet);
+}
+
+gsoap_resqml2_0_1::resqml2__Facet EpcDocument::getFacet(const std::string & facet) const
+{
+	gsoap_resqml2_0_1::resqml2__Facet result;
+	if (soap_s2resqml2__Facet(s, facet.c_str(), &result) == SOAP_OK)
+		return result;
+	else
+		return resqml2__Facet__what;
 }
 
 std::string EpcDocument::getWitsmlLengthUom(const gsoap_witsml1_4_1_1::witsml1__LengthUom & witsmlUom) const

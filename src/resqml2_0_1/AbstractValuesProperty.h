@@ -156,6 +156,26 @@ namespace resqml2_0_1
 		*/
 		unsigned int getDimensionsCountOfPatch(const unsigned int & patchIndex);
 
+		/**
+		* Pushes back a new facet to this intance
+		*/
+		void pushBackFacet(const gsoap_resqml2_0_1::resqml2__Facet & facet, const std::string & facetValue);
+
+		/**
+		* Get the count of facet of this instance
+		*/
+		unsigned int getFacetCount() const;
+
+		/**
+		* Get the facet at a particular index of the facet collection of this instance
+		*/
+		gsoap_resqml2_0_1::resqml2__Facet getFacet(const unsigned int & index) const;
+
+		/**
+		* Get the facet value at a particular index of the facet collection of this instance.
+		*/
+		std::string getFacetValue(const unsigned int & index) const;
+
 		//***************************
 		//*** For hyperslabbing *****
 		//***************************
