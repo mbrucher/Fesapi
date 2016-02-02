@@ -78,10 +78,7 @@ IF (UNIX)
 	ENDIF (WITH_SZIP)
 	
 ELSEIF (WIN32)
-	SET (WITH_HDF5_SHARED_LIBRARIES ON CACHE BOOL "Use shared o static HDF5 libraries")
-	if(NOT DEFINED WITH_HDF5_SHARED_LIBRARIES)
-		set(WITH_HDF5_SHARED_LIBRARIES "YES")
-	endif()
+	SET (WITH_HDF5_SHARED_LIBRARIES ON CACHE BOOL "Use shared or static HDF5 libraries")
 
 	# Need to have set the environment variable HDF5_DIR in windows before!!! This env variable needs to point to the cmake directory of the hdf5 install directory.
 	if(${WITH_HDF5_SHARED_LIBRARIES})
@@ -90,6 +87,7 @@ ELSEIF (WIN32)
 		find_package (HDF5 NAMES hdf5 COMPONENTS C static)
 	endif()
 ENDIF (UNIX)
+SET (WITH_RESQML2_1 OFF CACHE BOOL "Support for Resqml 2.1")
 
 FIND_PACKAGE (MiniZip REQUIRED)
 MARK_AS_ADVANCED (MINIZIP_INCLUDE_DIR)
