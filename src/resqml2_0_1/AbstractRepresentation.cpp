@@ -585,10 +585,21 @@ AbstractRepresentation* AbstractRepresentation::getSeismicSupportOfPatch(const u
 		return nullptr;
 }
 
-void AbstractRepresentation::pushBackIntoRepresentationSet(class RepresentationSetRepresentation * repSet)
+void AbstractRepresentation::pushBackIntoRepresentationSet(class RepresentationSetRepresentation * repSet, bool xml)
 {
+	if (repSet == nullptr)
+		throw invalid_argument("The representation set representation which should contain this representation cannot be null.");
+
 	// XML
-	static_cast<_resqml2__RepresentationSetRepresentation*>(repSet->getGsoapProxy())->Representation.push_back(newResqmlReference());
+	if (xml)
+	{
+		static_cast<_resqml2__RepresentationSetRepresentation*>(repSet->getGsoapProxy())->Representation.push_back(newResqmlReference());
+		if (repSet->isHomogeneous() && repSet->getRepresentationCount() > 1)
+		{
+			if (getGsoapType() != repSet->getRepresentation(0)->getGsoapType())
+				static_cast<_resqml2__RepresentationSetRepresentation*>(repSet->getGsoapProxy())->IsHomogeneous = false;
+		}
+	}
 
 	// EPC
 	repSet->representationSet.push_back(this);

@@ -125,6 +125,18 @@ namespace resqml2_0_1
 		ULONG64 getLatticeElementIndicesOffsetCount(const unsigned int & latticeDimensionIndex, const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
 
 		/**
+		* Push back a new patch in the subrepresentation which is based on a lattice definition.
+		* @param elementKind						The kind of (indexable) elements which constitutes the subrepresentation.
+		* @param elementCountInSlowestDimension		Commonly in K dimensionn.
+		* @param elementCountInMiddleDimension		Commonly in J dimensionn.
+		* @param elementCountInFastestDimension		Commonly in I dimension.
+		*/
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & originIndex, 
+			const unsigned int & elementCountInSlowestDimension,
+			const unsigned int & elementCountInMiddleDimension,
+			const unsigned int & elementCountInFastestDimension);
+
+		/**
 		* Push back a new patch in the subrepresentation.
 		* @param elementKind		The kind of (indexable) elements which constitutes the subrepresentation.
         * @param elementCount		The count of elements which constitutes the subrepresentation.

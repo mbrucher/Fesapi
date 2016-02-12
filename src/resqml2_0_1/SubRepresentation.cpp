@@ -109,6 +109,43 @@ bool SubRepresentation::isElementPairBased(const unsigned int & patchIndex) cons
 		throw range_error("The patch does not exist at this index.");
 }
 
+void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & originIndex,
+	const unsigned int & elementCountInSlowestDimension,
+	const unsigned int & elementCountInMiddleDimension,
+	const unsigned int & elementCountInFastestDimension)
+{
+	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
+
+	resqml2__SubRepresentationPatch* patch = soap_new_resqml2__SubRepresentationPatch(gsoapProxy->soap, 1);
+
+	// XML
+	patch->PatchIndex = rep->SubRepresentationPatch.size();
+	rep->SubRepresentationPatch.push_back(patch);
+	patch->Count = elementCountInSlowestDimension * elementCountInMiddleDimension * elementCountInFastestDimension;
+	resqml2__ElementIndices* elements = soap_new_resqml2__ElementIndices(gsoapProxy->soap, 1);
+	patch->ElementIndices.push_back(elements);
+	elements->IndexableElement = elementKind;
+
+	resqml2__IntegerLatticeArray * integerArray = soap_new_resqml2__IntegerLatticeArray(gsoapProxy->soap, 1);
+	elements->Indices = integerArray;
+	integerArray->StartValue = originIndex;
+
+	resqml2__IntegerConstantArray * offset = soap_new_resqml2__IntegerConstantArray(gsoapProxy->soap, 1);
+	offset->Count = elementCountInSlowestDimension - 1;
+	offset->Value = 1;
+	integerArray->Offset.push_back(offset);
+
+	offset = soap_new_resqml2__IntegerConstantArray(gsoapProxy->soap, 1);
+	offset->Count = elementCountInMiddleDimension - 1;
+	offset->Value = 1;
+	integerArray->Offset.push_back(offset);
+
+	offset = soap_new_resqml2__IntegerConstantArray(gsoapProxy->soap, 1);
+	offset->Count = elementCountInFastestDimension - 1;
+	offset->Value = 1;
+	integerArray->Offset.push_back(offset);
+}
+
 void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy)
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();

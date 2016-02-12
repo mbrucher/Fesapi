@@ -191,6 +191,11 @@ namespace resqml2_0_1
 		 * Get the split coordinate line count
 		 */
 		unsigned long getSplitCoordinateLineCount() const;
+
+		/**
+		* Get the split coordinate line count
+		*/
+		ULONG64 getSplitNodeCount() const;
 		
 		void getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis = false, bool reverseJAxis = false) const;
 

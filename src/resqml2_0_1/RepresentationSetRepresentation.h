@@ -81,11 +81,30 @@ namespace resqml2_0_1
 
 		unsigned int getPatchCount() const {return 0;}
 
+		bool isHomogeneous() const;
+
+		/**
+		* Get all the representations of this representation set
+		*/
+		std::vector<AbstractRepresentation*> getRepresentationSet() const;
+
+		/**
+		* Get the count of representations in this representation set.
+		*/
+		unsigned int 						getRepresentationCount() const;
+
+		/**
+		* Get a particular representation of this representation set according to its position.
+		*/
+		AbstractRepresentation*				getRepresentation(const unsigned int & index) const;
+
     protected:
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
+		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
 		std::vector<AbstractRepresentation*> representationSet;
 
-		friend void AbstractRepresentation::pushBackIntoRepresentationSet(RepresentationSetRepresentation * repSet);
+		friend void AbstractRepresentation::pushBackIntoRepresentationSet(RepresentationSetRepresentation * repSet, bool xml);
 	};
 }

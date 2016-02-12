@@ -244,6 +244,17 @@ unsigned long AbstractIjkGridRepresentation::getSplitCoordinateLineCount() const
 		return 0;
 }
 
+ULONG64 AbstractIjkGridRepresentation::getSplitNodeCount() const
+{
+	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
+	if (grid->Geometry->SplitNodes)
+	{
+		return grid->Geometry->SplitNodes->Count;
+	}
+	else
+		return 0;
+}
+
 void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis, bool reverseJAxis) const
 {
 	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();

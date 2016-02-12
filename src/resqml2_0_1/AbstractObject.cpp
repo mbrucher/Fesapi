@@ -167,7 +167,6 @@ void AbstractObject::setUuid(const std::string & uuid)
 		gsoapProxy->uuid = tools::GuidTools::generateUidAsString();
 	else
 	{
-		cerr << "The uuid " << uuid << " does not match the regular expression" << endl;
 #if (defined(_WIN32) || (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9))))
 		if (!regex_match(uuid, regex("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")))
 			throw invalid_argument("The uuid " + uuid + " does not match the regular expression");

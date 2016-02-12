@@ -516,6 +516,22 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 #endif
 }
 
+void serializeRepresentationSetRepresentation(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
+{
+	RepresentationSetRepresentation* result = pck->createRepresentationSetRepresentation("", "Testing Representation set");
+	cout << "is homogeneous : " << result->isHomogeneous() << endl;
+	f1i1triRepSinglePatch->pushBackIntoRepresentationSet(result);
+	cout << "is homogeneous : " << result->isHomogeneous() << endl;
+	f1i1triRep->pushBackIntoRepresentationSet(result);
+	cout << "is homogeneous : " << result->isHomogeneous() << endl;
+	h1i1triRep->pushBackIntoRepresentationSet(result);
+	cout << "is homogeneous : " << result->isHomogeneous() << endl;
+	h2i1triRep->pushBackIntoRepresentationSet(result);
+	cout << "is homogeneous : " << result->isHomogeneous() << endl;
+	w1i1TrajRep->pushBackIntoRepresentationSet(result);
+	cout << "is homogeneous : " << result->isHomogeneous() << endl;
+}
+
 void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfProxy)
 {
     // =========================================================================
@@ -1106,6 +1122,7 @@ void serialize(const string & filePath)
 	serializeWells(&pck, hdfProxy);
 	serializeStratigraphicModel(&pck, hdfProxy);
 	serializeActivities(&pck);
+	serializeRepresentationSetRepresentation(&pck, hdfProxy);
 #endif
 
 	// Add an extended core property before to serialize
@@ -1349,6 +1366,17 @@ void deserialize(const string & inputFile)
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
 	std::vector<TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
 	std::vector<StratigraphicColumn*> stratiColumnSet = pck.getStratigraphicColumnSet();
+	std::vector<RepresentationSetRepresentation*> representationSetRepresentationSet = pck.getRepresentationSetRepresentationSet();
+
+	std::cout << "RepresentationSetRepresentation" << endl;
+	for (unsigned int i = 0; i < representationSetRepresentationSet.size(); i++)
+	{
+		showAllMetadata(representationSetRepresentationSet[i]);
+		std::cout << "Is homogeneous : " << representationSetRepresentationSet[i]->isHomogeneous() << std::endl;
+		std::cout << "Representation count : " << representationSetRepresentationSet[i]->getRepresentationCount() << std::endl;
+		showAllMetadata(representationSetRepresentationSet[i]->getRepresentation(0));
+		std::cout << "--------------------------------------------------" << std::endl;
+	}
 
 	std::cout << "FAULTS" << endl;
 	for (size_t i = 0; i < faultSet.size(); ++i)

@@ -54,6 +54,7 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractFeature
 
 	// proxy constructor
 	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getGsoapContext(), 1);
+	static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy)->IsHomogeneous = true;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -69,6 +70,7 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocu
 
 	// proxy constructor
 	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(epcDoc->getGsoapContext(), 1);
+	static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy)->IsHomogeneous = true;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -78,7 +80,7 @@ vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() c
 {
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
 
-	for (unsigned int i = 0; i < representationSet.size(); i++)
+	for (size_t i = 0; i < representationSet.size(); ++i)
 	{
 		Relationship rel(representationSet[i]->getPartNameInEpcDocument(), "", representationSet[i]->getUuid());
 		rel.setDestinationObjectType();
@@ -86,6 +88,17 @@ vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() c
 	}
 
 	return result;
+}
+
+void RepresentationSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
+{
+	_resqml2__RepresentationSetRepresentation* rsr = static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy);
+	for (size_t i = 0; i < rsr->Representation.size(); ++i)
+	{
+		AbstractRepresentation* rep = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rsr->Representation[i]->UUID));
+		if (rep != nullptr)
+			rep->pushBackIntoRepresentationSet(this, false);
+	}
 }
 
 ULONG64 RepresentationSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
@@ -99,4 +112,34 @@ void RepresentationSetRepresentation::getXyzPointsOfPatch(const unsigned int & p
 		throw range_error("The index patch is not in the allowed range of patch.");
 
 	throw logic_error("Please use getXyzPointsOfPatch on each included representation.");
+}
+
+bool RepresentationSetRepresentation::isHomogeneous() const
+{
+	return static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy)->IsHomogeneous;
+}
+
+
+std::vector<AbstractRepresentation*> RepresentationSetRepresentation::getRepresentationSet() const
+{
+	return representationSet;
+}
+
+/**
+* Get the count of representations in this representation set.
+*/
+unsigned int 						RepresentationSetRepresentation::getRepresentationCount() const
+{
+	return representationSet.size();
+}
+
+/**
+* Get a particular representation of this representation set according to its position.
+*/
+AbstractRepresentation*				RepresentationSetRepresentation::getRepresentation(const unsigned int & index) const
+{
+	if (representationSet.size() > index)
+		return representationSet[index];
+	else
+		throw range_error("The index of the representation to get is out of range in this representaiton set representation");
 }

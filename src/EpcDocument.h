@@ -420,6 +420,21 @@ namespace common
 		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreCubicParamLineTrajRepSet() const;
 
 		/**
+		* Get all the representationset representations contained into the EPC document
+		*/
+		std::vector<resqml2_0_1::RepresentationSetRepresentation*> getRepresentationSetRepresentationSet() const;
+
+		/**
+		* Get the representationset representations count of this EPC document
+		*/
+		unsigned int getRepresentationSetRepresentationCount() const;
+
+		/**
+		* Get the representationset representations at a particular index of this EPC document
+		*/
+		resqml2_0_1::RepresentationSetRepresentation* getRepresentationSetRepresentation(const unsigned int & index) const;
+
+		/**
 		* Get all the polyline representation contained into the EPC document.
 		*/
 		std::vector<resqml2_0_1::PolylineRepresentation*> getPolylineRepresentationSet() const;
@@ -802,7 +817,11 @@ namespace common
 		resqml2_0_1::RepresentationSetRepresentation* createRepresentationSetRepresentation(
                 resqml2_0_1::AbstractOrganizationInterpretation* interp,
                 const std::string & guid,
-                const std::string & title);
+				const std::string & title);
+
+		resqml2_0_1::RepresentationSetRepresentation* createRepresentationSetRepresentation(
+			const std::string & guid,
+			const std::string & title);
                 
         resqml2_0_1::NonSealedSurfaceFrameworkRepresentation* createNonSealedSurfaceFrameworkRepresentation(
                 resqml2_0_1::StructuralOrganizationInterpretation* interp, 
@@ -1015,6 +1034,7 @@ namespace common
 		std::vector<resqml2_0_1::SeismicLineFeature*>				seismicLineSet;
 		std::vector<resqml2_0_1::AbstractHdfProxy*>					hdfProxySet;
 		std::vector<resqml2_0_1::WellboreFeature*>					wellboreSet;
+		std::vector<resqml2_0_1::RepresentationSetRepresentation*>	representationSetRepresentationSet;
 		std::vector<witsml1_4_1_1::Trajectory*>						witsmlTrajectorySet;
 		std::vector<resqml2_0_1::TriangulatedSetRepresentation*>	triangulatedSetRepresentationSet;
 		std::vector<resqml2_0_1::PolylineRepresentation*>			polylineRepresentationSet;

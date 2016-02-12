@@ -71,11 +71,16 @@ ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned in
 	if (patchIndex < getPatchCount())
 	{
 		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+
 		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
 
 		if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
 		{
 			result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
+		}
+		if (ijkGrid->Geometry->SplitNodes != nullptr)
+		{
+			result += ijkGrid->Geometry->SplitNodes->Count;
 		}
 
 		return result;

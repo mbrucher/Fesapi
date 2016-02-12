@@ -746,6 +746,10 @@ namespace resqml2_0_1
 	class SubRepresentation : public AbstractRepresentation
 	{
 	public:
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & originIndex, 
+			const unsigned int & elementCountInSlowestDimension,
+			const unsigned int & elementCountInMiddleDimension,
+			const unsigned int & elementCountInFastestDimension);
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy);
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 			const ULONG64 & elementCount,
@@ -991,6 +995,9 @@ namespace resqml2_0_1
 	class RepresentationSetRepresentation : public AbstractRepresentation
 	{
 	public:
+		bool isHomogeneous() const;
+		unsigned int 						getRepresentationCount() const;
+		AbstractRepresentation*				getRepresentation(const unsigned int & index) const;
 	};
 	
 	class NonSealedSurfaceFrameworkRepresentation : public RepresentationSetRepresentation
@@ -1421,12 +1428,20 @@ namespace resqml2_0_1
 	public:
 		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const int & nullValue);
 		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue);
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue);
 		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const int & nullValue);
 	};
 	
 	class DiscretePropertySeries : public DiscreteProperty

@@ -82,6 +82,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 #include "resqml2_0_1/NonSealedSurfaceFrameworkRepresentation.h"
 #include "resqml2_0_1/SealedSurfaceFrameworkRepresentation.h"
+#include "resqml2_0_1/SealedVolumeFrameworkRepresentation.h"
 
 #include "resqml2_0_1/StratigraphicUnitFeature.h"
 #include "resqml2_0_1/StratigraphicUnitInterpretation.h"
@@ -276,6 +277,7 @@ void EpcDocument::close()
 	seismicLineSet.clear();
 	hdfProxySet.clear();
 	wellboreSet.clear();
+	representationSetRepresentationSet.clear();
 	witsmlTrajectorySet.clear();
 	triangulatedSetRepresentationSet.clear();
 	polylineRepresentationSet.clear();
@@ -427,6 +429,22 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 	else if (proxy->getXmlTag().compare(OrganizationFeature::XML_TAG) == 0)
 	{
 		organizationSet.push_back(static_cast<OrganizationFeature*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(RepresentationSetRepresentation::XML_TAG) == 0)
+	{
+		representationSetRepresentationSet.push_back(static_cast<RepresentationSetRepresentation*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(NonSealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
+	{
+		representationSetRepresentationSet.push_back(static_cast<NonSealedSurfaceFrameworkRepresentation*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
+	{
+		representationSetRepresentationSet.push_back(static_cast<SealedSurfaceFrameworkRepresentation*>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(SealedVolumeFrameworkRepresentation::XML_TAG) == 0)
+	{
+		representationSetRepresentationSet.push_back(static_cast<SealedVolumeFrameworkRepresentation*>(proxy));
 	}
 	else if (proxy->getXmlTag().compare(TimeSeries::XML_TAG) == 0)
 	{
@@ -882,6 +900,12 @@ string EpcDocument::deserialize()
 				soap_read_resqml2__obj_USCORETimeSeries(s, read);
 				wrapper = new TimeSeries(read);
 			}
+			else if (resqmlContentType.compare(RepresentationSetRepresentation::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__RepresentationSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORERepresentationSetRepresentation(s, 1);
+				soap_read_resqml2__obj_USCORERepresentationSetRepresentation(s, read);
+				wrapper = new RepresentationSetRepresentation(read);
+			}
 			else if (resqmlContentType.compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
 			{
 				gsoap_resqml2_0_1::_resqml2__SealedSurfaceFrameworkRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(s, 1);
@@ -1313,6 +1337,24 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 	}
 
 	return result;
+}
+
+std::vector<RepresentationSetRepresentation*> EpcDocument::getRepresentationSetRepresentationSet() const
+{
+	return representationSetRepresentationSet;
+}
+
+unsigned int EpcDocument::getRepresentationSetRepresentationCount() const
+{
+	return representationSetRepresentationSet.size();
+}
+
+RepresentationSetRepresentation* EpcDocument::getRepresentationSetRepresentation(const unsigned int & index) const
+{
+	if (index >= getRepresentationSetRepresentationCount())
+		throw range_error("The index of the representation set representaiton is out of range");
+	else
+		return representationSetRepresentationSet[index];
 }
 
 vector<IjkGridParametricRepresentation*> EpcDocument::getIjkGridParametricRepresentationSet() const
@@ -1916,6 +1958,15 @@ RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentat
         const std::string & title)
 {
 	RepresentationSetRepresentation* result = new RepresentationSetRepresentation(interp, guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
+}
+
+RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
+	const std::string & guid,
+	const std::string & title)
+{
+	RepresentationSetRepresentation* result = new RepresentationSetRepresentation(this, guid, title);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }

@@ -304,7 +304,12 @@ namespace resqml2_0_1
 
 		virtual unsigned int getPatchCount() const = 0;
 
-		void pushBackIntoRepresentationSet(class RepresentationSetRepresentation * repSet);
+		/**
+		* Pushes back this representaiton into a representation set
+		* @param repSet	The representation set representation which will contain this representation.
+		* @param xml	If set to true (defaultà, then xml relationships will be updated. If set to no, only memory (and epc) relationships will be updated.
+		*/
+		void pushBackIntoRepresentationSet(class RepresentationSetRepresentation * repSet, bool xml = true);
 
 		void setHdfProxy(class AbstractHdfProxy * proxy);
 

@@ -90,6 +90,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, class AbstractHdfProxy * proxy, const int & nullValue);
 
 		/**
 		* Add a 2d array of explicit long values to the property values.
@@ -102,6 +104,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue);
 
 		/**
 		* Add a 3d array of explicit long values to the property values.
@@ -115,6 +119,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class AbstractHdfProxy * proxy, const int & nullValue);
 
 		/**
 		* Add an array (potentially multi dimensions) of explicit values to the property values.
@@ -127,5 +133,10 @@ namespace resqml2_0_1
 		*/
 		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class AbstractHdfProxy * proxy, const int & nullValue);
+
+	private:
+		std::string pushBackOnlyXmlPartOfArrayOfValues(class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 	};
 }

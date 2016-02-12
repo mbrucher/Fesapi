@@ -441,6 +441,10 @@ ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned 
 		{
 			result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
 		}
+		if (ijkGrid->Geometry->SplitNodes != nullptr)
+		{
+			result += ijkGrid->Geometry->SplitNodes->Count;
+		}
 
 		return result;
 	}
