@@ -248,7 +248,7 @@ bool UnstructuredGridRepresentation::isFaceCountOfCellsConstant() const
 unsigned int UnstructuredGridRepresentation::getConstantFaceCountOfCells() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (isFaceCountOfCellsConstant() == false)
+	if (!isFaceCountOfCellsConstant())
 		throw invalid_argument("The face count per cell is not constant.");
 
 	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral)

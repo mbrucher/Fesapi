@@ -84,6 +84,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/CategoricalProperty.h"
 #include "resqml2_0_1/StringTableLookup.h"
 #include "resqml2_0_1/IjkGridExplicitRepresentation.h"
+#include "resqml2_0_1/IjkGridParametricRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/SealedSurfaceFrameworkRepresentation.h"
 #include "resqml2_0_1/SubRepresentation.h"
@@ -410,14 +411,22 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		0, 0, 500, 700, 0, 550, 0, 150, 500, 700, 150, 550 };
 	singleCellIjkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, singleCellIjkgridNodes, hdfProxy);
 
-	// TWO SUGARS
-	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "Two faulted sugar cubes", 2, 1, 1);
+	// TWO SUGARS EXPLICIT
+	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "Two faulted sugar cubes (explicit geometry)", 2, 1, 1);
 	double nodes[48] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350, /* SPLIT*/ 375, 0, 350, 375, 150, 350,
 		0, 0, 500, 375, 0, 500, 700, 0, 550, 0, 150, 500, 375, 150, 500, 700, 150, 550, /* SPLIT*/ 375, 0, 550, 375, 150, 550 };
 	unsigned int pillarOfCoordinateLine[2] = { 1, 4 };
 	unsigned int splitCoordinateLineColumnCumulativeCount[2] = { 1, 2 };
 	unsigned int splitCoordinateLineColumns[2] = { 1, 1 };
 	ijkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes, hdfProxy,
+		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
+
+	// TWO SUGARS PARAMETRIC
+	IjkGridParametricRepresentation* ijkgridParametric = pck->createIjkGridParametricRepresentation(local3dCrs, "", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
+	double parameters[16] = { 300, 300, 350, 300, 300, 350, /* SPLIT*/ 350, 350,
+		500, 500, 550, 500, 500, 550, /* SPLIT*/ 550, 550 };
+	double controlPoints[18] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350 };
+	ijkgridParametric->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPoints, NULL, 1, 0, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
 	//**************
@@ -1630,11 +1639,25 @@ void deserialize(const string & inputFile)
 		showAllMetadata(ijkGrid);
 		if (ijkGrid->getGeometryKind() != AbstractIjkGridRepresentation::NO_GEOMETRY)
 		{
+			std::cout << "This grid has no geometry." << std::endl;
 			std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
 			double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
 			ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
 			std::cout << "--------------------------------------------------" << std::endl;
 			delete [] gridPoints;
+
+			if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::PARAMETRIC)
+			{
+				std::cout << "This grid has a parametric geometry." << std::endl;
+				if (static_cast<IjkGridParametricRepresentation*>(ijkGrid)->isParametricLineKindConstant())
+				{
+					std::cout << "Constant parametric line kind : " << static_cast<IjkGridParametricRepresentation*>(ijkGrid)->getConstantParametricLineKind() << std::endl;
+				}
+				else
+				{
+					std::cout << "Non constant parametric line kind" << std::endl;
+				}
+			}
 		}
 
 		if (ijkGrid->getInterpretation())

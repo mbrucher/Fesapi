@@ -101,6 +101,16 @@ namespace resqml2_0_1
 		void getControlPointParameters(double * controlPointParameters, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
 
 		/**
+		* Check if the parametric line kind is constant in the grid.
+		*/
+		bool isParametricLineKindConstant() const;
+
+		/*
+		* Get the constant parametric line count in the grid.
+		*/
+		short getConstantParametricLineKind() const;
+
+		/**
 		* Get the kind of each parametric line representing a pillar :
 		*					0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line 
 		* Only relevant in case the IJK grid is a parametric one.
@@ -116,8 +126,16 @@ namespace resqml2_0_1
 
 		/**
 		* Set the geometry of the IJK grid as parametric pillar nodes where no pillar is splitted
-		* @param lineKind	the kind of each pillar :
-		*					0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line 
+		* @param mostComplexPillarGeometry					The most complex pillar shape which we can find on this ijk grid.
+		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
+		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
+		* @param parameters									The parameter values (regarding the pillars) of each node of the grid.
+		* @param controlPoints								The control points of the pillars of the grid
+		* @param controlPointParameters						The value of the parameter at each control points. It must be nullptr for vertical and Z linear cubic parametric lines grid.
+		* @param controlPointMaxCountPerPillar				The maximum count of control points which defines a pillar of this grid.
+		* @param pillarKind									The kind of each pillar : 0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line 
+		* @param proxy										The Hdf proxy where all numerical values will be stored.
+		* @param splitCoordinateLineCount					The count of split coordinate line in this grid. A pillar being splitted by a maximum of 3 split coordinate lines (one coordinate line is always non splitted)
 		*/
 		void setGeometryAsParametricNonSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
@@ -125,12 +143,44 @@ namespace resqml2_0_1
 
 		/**
 		* Set the geometry of the IJK grid as parametric pillar nodes where at least one pillar is supposed to be splitted
-		* @param lineKind	the kind of each pillar :
-		*					0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line 
+		* @param mostComplexPillarGeometry					The most complex pillar shape which we can find on this ijk grid.
+		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
+		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
+		* @param parameters									The parameter values (regarding the pillars) of each node of the grid.
+		* @param controlPoints								The control points of the pillars of the grid
+		* @param controlPointParameters						The value of the parameter at each control points. It must be nullptr for vertical and Z linear cubic parametric lines grid.
+		* @param controlPointMaxCountPerPillar				The maximum count of control points which defines a pillar of this grid.
+		* @param pillarKind									The kind of each pillar : 0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line 
+		* @param proxy										The Hdf proxy where all numerical values will be stored.
+		* @param splitCoordinateLineCount					The count of split coordinate line in this grid. A pillar being splitted by a maximum of 3 split coordinate lines (one coordinate line is always non splitted)
+		* @param pillarOfCoordinateLine						For each split coordinate line, indicates the pillar it belongs to.
+		* @param splitCoordinateLineColumnCumulativeCount	For each split coordinate line, indicates the count of grid column which are splitted by this coordinate line.
+		* @param splitCoordinateLineColumns					For each split coordinate line, indicates the grid columns which are splitted by this coordinate line.
 		*/
 		void setGeometryAsParametricSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
+			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
+			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns);
+
+		/**
+		* Set the geometry of the IJK grid as parametric pillar nodes where at least one pillar is supposed to be splitted and where all pillars are of the same kind.
+		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
+		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
+		* @param parameters									The parameter values (regarding the pillars) of each node of the grid.
+		* @param controlPoints								The control points of the pillars of the grid
+		* @param controlPointParameters						The value of the parameter at each control points. It must be nullptr for vertical and Z linear cubic parametric lines grid.
+		* @param controlPointCountPerPillar					The count of control points which defines each of the pillar of this grid.
+		* @param pillarKind									The constant kind of each pillar : 0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line
+		* @param proxy										The Hdf proxy where all numerical values will be stored.
+		* @param splitCoordinateLineCount					The count of split coordinate line in this grid. A pillar being splitted by a maximum of 3 split coordinate lines (one coordinate line is always non splitted)
+		* @param pillarOfCoordinateLine						For each split coordinate line, indicates the pillar it belongs to.
+		* @param splitCoordinateLineColumnCumulativeCount	For each split coordinate line, indicates the count of grid column which are splitted by this coordinate line.
+		* @param splitCoordinateLineColumns					For each split coordinate line, indicates the grid columns which are splitted by this coordinate line.
+		*/
+		void setGeometryAsParametricSplittedPillarNodes(
+			const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointCountPerPillar, short pillarKind, class AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns);
 
