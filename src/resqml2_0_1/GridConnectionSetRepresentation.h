@@ -86,58 +86,58 @@ namespace resqml2_0_1
 		void getCellIndexPairs(ULONG64 * cellIndexPairs) const;
 
 		/**
-		* Get the cell index pairs count which correspond to a particular fault interpretation.
-		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		* Get the cell index pairs count which correspond to a particular interpretation.
+		* @param interpretationIndex The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
-		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
+		unsigned int getCellIndexPairCountFromInterpretationIndex(const unsigned int & interpretationIndex) const;
 
 		/**
-		* Indicates wether the cell connection are associated to faults or not.
+		* Indicates wether the cell connection are associated to interpretation or not.
 		*/
-		bool isAssociatedToFaults() const;
+		bool isAssociatedToInterpretations() const;
 
 		/**
-		* Get the fault index cumulative count of this grid connection representation
-		* The count of localFacePerCellIndexPairs must be getCellIndexPairCount().
+		* Get the interpretation index cumulative count of this grid connection representation
+		* The count of cumulativeCount must be getCellIndexPairCount().
 		*/
-		void getFaultIndexCumulativeCount(unsigned int * cumulativeCount) const;
+		void getInterpretationIndexCumulativeCount(unsigned int * cumulativeCount) const;
 
 		/**
-		* Get the fault indices of this grid connection representation
-		* The count of faultIndices is the last value of the array returning by getFaultIndexCumulativeCount.
+		* Get the interpretation indices of this grid connection representation
+		* The count of interpretationIndices is the last value of the array returning by getInterpretationIndexCumulativeCount.
 		*/
-		void getFaultIndices(unsigned int * faultIndices) const;
+		void getInterpretationIndices(unsigned int * interpretationIndices) const;
 
 		/**
-		* Returns the null value for fault index.
+		* Returns the null value for interpretation index.
 		*/
-		LONG64 getFaultIndexNullValue() const;
+		LONG64 getInterpretationIndexNullValue() const;
 
 		/**
 		* Get the cell index pairs, the grid index pairs (optional) and the local face pairs (optional) which correspond to a particular fault interpretation.
 		* @param cellIndexPairs			Mandatory. Must be allocated with getCellIndexPairCountFromFaultIndex first.
 		* @param gridIndexPairs			Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromFaultIndex first.
 		* @param localFaceIndexPairs	Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromFaultIndex first.
-		* @param faultIndex				The index of the fault in the collection of feature interpretation of this grid connection set.
+		* @param interpretationIndex	The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
-		void getGridConnectionSetInformationFromFaultIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & faultIndex) const;
+		void getGridConnectionSetInformationFromInterpretationIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
 
 		/**
-		* Get the UUID of a particular fault interpretation of this grid connection set.
-		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		* Get the UUID of a particular interpretation of this grid connection set.
+		* @param interpretationIndex The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
-		std::string getFaultInterpretationUuidFromFaultIndex(const unsigned int & faultIndex) const;
+		std::string getInterpretationUuidFromFaultIndex(const unsigned int & interpretationIndex) const;
 
 		/**
-		* Get a particular fault interpretation of this grid connection set.
-		* @param faultIndex The index of the fault in the collection of feature interpretation of this grid connection set.
+		* Get a particular interpretation of this grid connection set.
+		* @param interpretationIndex The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
-		class FaultInterpretation* getFaultInterpretationFromFaultIndex(const unsigned int & faultIndex) const;
+		class AbstractFeatureInterpretation * getInterpretationFromIndex(const unsigned int & interpretationIndex) const;
 
 		/**
 		* Get the count of fault interpretations in this grid connection set.
 		*/
-		unsigned int getFaultInterpretationCount() const;
+		unsigned int getInterpretationCount() const;
 
 		/**
 		* Indicates if the grid connection set representation contains information on the connected faces of the two cells.
@@ -171,7 +171,20 @@ namespace resqml2_0_1
 
 		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 
-		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		/**
+		* For each connection in the grid connection set representation, allow to map zero or one feature interpretation. TODO: Resqml allows to map with more than one feature interpretation.
+		* @param interpretationIndices		For each connection, the index of the corresponding interpretation in the interpretation set of this grid connection. The count of this array is given by the next parameter.
+		* @param interpretationIndiceCount	The count of interpretation indices.
+		* @param nullValue					The null value must be used as the corresponding interpretation index for each connection which are not associated to any interpretation.
+		* @param proxy						The Hdf proxy where the numerical values will be stored.
+		*/
+		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+
+		/**
+		* Pushes back an interpretation which can be mapped with some connections.
+		* @param interp	The interpration to push back.
+		*/
+		void pushBackInterpretation(class AbstractFeatureInterpretation* interp);
 	
 		/**
 		 * Set the grid representation which is the support of this representation.

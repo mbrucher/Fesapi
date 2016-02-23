@@ -38,6 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractFeature.h"
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
+#include "resqml2_0_1/GridConnectionSetRepresentation.h"
 
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -85,9 +86,9 @@ vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() con
 	else
 		throw domain_error("The feature associated to the interpretation cannot be nullptr.");
 	
-	for (unsigned int i = 0; i < representationSet.size(); i++)
+	for (size_t i = 0; i < representationSet.size(); i++)
 	{
-		if (representationSet[i])
+		if (representationSet[i] != nullptr)
 		{
 			Relationship relRep(representationSet[i]->getPartNameInEpcDocument(), "", representationSet[i]->getUuid());
 			relRep.setSourceObjectType();
@@ -97,21 +98,33 @@ vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() con
 			throw domain_error("The representation associated to the interpretation cannot be nullptr.");
 	}
 
-	for (unsigned int i = 0; i < isTopFrontierSet.size(); i++)
+	for (size_t i = 0; i < gridConnectionSetRepresentationSet.size(); i++)
+	{
+		if (gridConnectionSetRepresentationSet[i] != nullptr)
+		{
+			Relationship relGsr(gridConnectionSetRepresentationSet[i]->getPartNameInEpcDocument(), "", gridConnectionSetRepresentationSet[i]->getUuid());
+			relGsr.setSourceObjectType();
+			result.push_back(relGsr);
+		}
+		else
+			throw domain_error("The representation associated to the interpretation cannot be nullptr.");
+	}
+
+	for (size_t i = 0; i < isTopFrontierSet.size(); i++)
 	{
 		Relationship relOrgStack(isTopFrontierSet[i]->getPartNameInEpcDocument(), "", isTopFrontierSet[i]->getUuid());
 		relOrgStack.setSourceObjectType();
 		result.push_back(relOrgStack);
 	}
 
-	for (unsigned int i = 0; i < isBottomFrontierSet.size(); i++)
+	for (size_t i = 0; i < isBottomFrontierSet.size(); i++)
 	{
 		Relationship relOrgStack(isBottomFrontierSet[i]->getPartNameInEpcDocument(), "", isBottomFrontierSet[i]->getUuid());
 		relOrgStack.setSourceObjectType();
 		result.push_back(relOrgStack);
 	}
 
-	for (unsigned int i = 0; i < isSideFrontierSet.size(); i++)
+	for (size_t i = 0; i < isSideFrontierSet.size(); i++)
 	{
 		Relationship relOrgStack(isSideFrontierSet[i]->getPartNameInEpcDocument(), "", isSideFrontierSet[i]->getUuid());
 		relOrgStack.setSourceObjectType();
@@ -134,4 +147,47 @@ void AbstractFeatureInterpretation::setDomain(const gsoap_resqml2_0_1::resqml2__
 gsoap_resqml2_0_1::resqml2__Domain AbstractFeatureInterpretation::getDomain() const
 {
 	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->Domain;
+}
+
+AbstractFeature* AbstractFeatureInterpretation::getInterpretedFeature() const
+{
+	return interpretedFeature;
+}
+
+vector<AbstractRepresentation*> AbstractFeatureInterpretation::getRepresentationSet() const
+{
+	return representationSet;
+}
+
+unsigned int AbstractFeatureInterpretation::getRepresentationCount() const
+{
+	return representationSet.size();
+}
+
+AbstractRepresentation*	AbstractFeatureInterpretation::getRepresentation(const unsigned int & index) const
+{
+	if (representationSet.size() > index)
+		return representationSet[index];
+	else
+		throw range_error("The representaiton index you are requesting is out of range.");
+}
+
+vector<GridConnectionSetRepresentation *> AbstractFeatureInterpretation::getGridConnectionSetRepresentationSet()
+{
+	return gridConnectionSetRepresentationSet;
+}
+
+void AbstractFeatureInterpretation::setBottomFrontierOf(StructuralOrganizationInterpretation* structOrg)
+{
+	isBottomFrontierSet.push_back(structOrg);
+}
+
+void AbstractFeatureInterpretation::setTopFrontierOf(StructuralOrganizationInterpretation* structOrg)
+{
+	isTopFrontierSet.push_back(structOrg);
+}
+
+void AbstractFeatureInterpretation::setSideFrontierOf(StructuralOrganizationInterpretation* structOrg)
+{
+	isSideFrontierSet.push_back(structOrg);
 }

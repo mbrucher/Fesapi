@@ -449,8 +449,11 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
 		unsigned int localFacePerCellIndexPairs[2] = { 3, 5 };
 		gridConnSet->setLocalFacePerCellIndexPairs(1, localFacePerCellIndexPairs, 9999, hdfProxy);
-		//unsigned int faultIndices = 0;
-		//gridConnSet->setConnectionFaultNames(&faultIndices, 1, 9999, hdfProxy);
+
+		/// link to fault
+		gridConnSet->pushBackInterpretation(fault1Interp1);
+		unsigned int faultIndices = 0;
+		gridConnSet->setConnectionInterpretationIndices(&faultIndices, 1, 9999, hdfProxy);
 	}
 
 	//**************
@@ -1425,6 +1428,14 @@ void deserialize(const string & inputFile)
 		*/
 
 		showAllProperties(faultPolyRep[i]);
+
+		if (faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet().size() > 0)
+		{
+			for (size_t gsrIndex = 0; gsrIndex < faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet().size(); ++gsrIndex)
+			{
+				cout << "This fault polyline rep is linked to " << faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet()[gsrIndex]->getSupportingGridRepresentation()->getTitle() << endl;
+			}
+		}
 	}
 
 	std::cout << "FAULTS TRI REP" << endl;
@@ -1689,12 +1700,12 @@ void deserialize(const string & inputFile)
 		if (gridConnectionSetCount > 0)
 		{
 			GridConnectionSetRepresentation* gridConnectionSet = ijkGrid->getGridConnectionSetRepresentation(0);
-			unsigned int faultInterpOfGridConnCount = gridConnectionSet->getFaultInterpretationCount();
-			std::cout << "Fault interpretation Count of this grid connection set is : " << faultInterpOfGridConnCount << endl;
+			unsigned int faultInterpOfGridConnCount = gridConnectionSet->getInterpretationCount();
+			std::cout << "Interpretation Count of this grid connection set is : " << faultInterpOfGridConnCount << endl;
 			if (faultInterpOfGridConnCount > 0)
 			{
-				FaultInterpretation* faultInterpOfGridConn = gridConnectionSet->getFaultInterpretationFromFaultIndex(0);
-				std::cout << "Fault interpretation of this grid connection set is : " << faultInterpOfGridConn->getTitle()  << " With UUID " << faultInterpOfGridConn->getUuid() << endl;
+				AbstractFeatureInterpretation* faultInterpOfGridConn = gridConnectionSet->getInterpretationFromIndex(0);
+				std::cout << "Interpretation of this grid connection set is : " << faultInterpOfGridConn->getTitle()  << " With UUID " << faultInterpOfGridConn->getUuid() << endl;
 			}
 		}
 

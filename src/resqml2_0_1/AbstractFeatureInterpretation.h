@@ -33,10 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
-
-#include <fstream>
-#include <iostream>
+#include "resqml2_0_1/GridConnectionSetRepresentation.h"
 
 namespace resqml2_0_1
 {
@@ -69,7 +66,7 @@ namespace resqml2_0_1
 		/**
 		* Get the feature this instance interprets
 		*/
-		class AbstractFeature* getInterpretedFeature() const {return interpretedFeature;}
+		class AbstractFeature* getInterpretedFeature() const;
 
 		/**
 		* Get the feature uuid this instance interprets
@@ -79,17 +76,22 @@ namespace resqml2_0_1
 		/**
 		* Get all the representations of this interpretation
 		*/
-		std::vector<AbstractRepresentation*> getRepresentationSet() const {return representationSet;}
+		std::vector<AbstractRepresentation*> getRepresentationSet() const;
 
 		/**
 		 * Get the interpretation count of this feature.
 		 */
-		unsigned int 						getRepresentationCount() const {return representationSet.size();}
+		unsigned int 						getRepresentationCount() const;
 
 		/**
 		 * Get a particular interpretation of this feature according to its position in the interpretation ordering.
 		 */
-		AbstractRepresentation*				getRepresentation(const unsigned int & index) const {if (representationSet.size() > index) return representationSet[index]; else return nullptr;}
+		AbstractRepresentation*				getRepresentation(const unsigned int & index) const;
+
+		/**
+		* Get all the Grid Connection Set Representation which reference this interpretation.
+		*/
+		std::vector<class GridConnectionSetRepresentation *>	getGridConnectionSetRepresentationSet();
 
 		/**
 		* Set the domain of the interpretation
@@ -105,9 +107,9 @@ namespace resqml2_0_1
 		* Indicates that this interpretation is a frontier of a stack of an organization
 		* BE CAREFUL : Does not add back this instance to the organization. It is assumed it is already done.
 		*/		
-		void setBottomFrontierOf(class StructuralOrganizationInterpretation* structOrg) {isBottomFrontierSet.push_back(structOrg);}
-		void setTopFrontierOf(class StructuralOrganizationInterpretation* structOrg) {isTopFrontierSet.push_back(structOrg);}
-		void setSideFrontierOf(class StructuralOrganizationInterpretation* structOrg) {isSideFrontierSet.push_back(structOrg);}
+		void setBottomFrontierOf(class StructuralOrganizationInterpretation* structOrg);
+		void setTopFrontierOf(class StructuralOrganizationInterpretation* structOrg);
+		void setSideFrontierOf(class StructuralOrganizationInterpretation* structOrg);
 
 	protected:
 
@@ -120,10 +122,12 @@ namespace resqml2_0_1
 
 		// XML backward relationship
 		std::vector<AbstractRepresentation *>						representationSet;
+		std::vector<GridConnectionSetRepresentation *>		gridConnectionSetRepresentationSet;
 		std::vector<class StructuralOrganizationInterpretation *>	isBottomFrontierSet;
 		std::vector<class StructuralOrganizationInterpretation *>	isTopFrontierSet;
 		std::vector<class StructuralOrganizationInterpretation *>	isSideFrontierSet;
 
 		friend void AbstractRepresentation::setInterpretation(AbstractFeatureInterpretation * interp);
+		friend void GridConnectionSetRepresentation::pushBackInterpretation(AbstractFeatureInterpretation* interp);
 	};
 }
