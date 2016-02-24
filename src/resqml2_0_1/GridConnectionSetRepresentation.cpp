@@ -330,7 +330,7 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpr
 	delete [] totalCellIndexPairs;
 }
 
-std::string GridConnectionSetRepresentation::getInterpretationUuidFromFaultIndex(const unsigned int & interpretationIndex) const
+std::string GridConnectionSetRepresentation::getInterpretationUuidFromIndex(const unsigned int & interpretationIndex) const
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
 

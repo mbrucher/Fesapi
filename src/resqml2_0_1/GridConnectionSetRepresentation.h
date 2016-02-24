@@ -114,10 +114,10 @@ namespace resqml2_0_1
 		LONG64 getInterpretationIndexNullValue() const;
 
 		/**
-		* Get the cell index pairs, the grid index pairs (optional) and the local face pairs (optional) which correspond to a particular fault interpretation.
-		* @param cellIndexPairs			Mandatory. Must be allocated with getCellIndexPairCountFromFaultIndex first.
-		* @param gridIndexPairs			Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromFaultIndex first.
-		* @param localFaceIndexPairs	Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromFaultIndex first.
+		* Get the cell index pairs, the grid index pairs (optional) and the local face pairs (optional) which correspond to a particular  interpretation.
+		* @param cellIndexPairs			Mandatory. Must be allocated with getCellIndexPairCountFromIndex first.
+		* @param gridIndexPairs			Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromIndex first.
+		* @param localFaceIndexPairs	Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromIndex first.
 		* @param interpretationIndex	The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
 		void getGridConnectionSetInformationFromInterpretationIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
@@ -126,7 +126,7 @@ namespace resqml2_0_1
 		* Get the UUID of a particular interpretation of this grid connection set.
 		* @param interpretationIndex The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
-		std::string getInterpretationUuidFromFaultIndex(const unsigned int & interpretationIndex) const;
+		std::string getInterpretationUuidFromIndex(const unsigned int & interpretationIndex) const;
 
 		/**
 		* Get a particular interpretation of this grid connection set.
@@ -135,7 +135,7 @@ namespace resqml2_0_1
 		class AbstractFeatureInterpretation * getInterpretationFromIndex(const unsigned int & interpretationIndex) const;
 
 		/**
-		* Get the count of fault interpretations in this grid connection set.
+		* Get the count of interpretations in this grid connection set.
 		*/
 		unsigned int getInterpretationCount() const;
 
