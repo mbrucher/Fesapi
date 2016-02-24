@@ -282,6 +282,10 @@ bool IjkGridParametricRepresentation::isParametricLineKindConstant() const
 		{
 			return true;
 		}
+		else if (paramLineArray->LineKindIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			return false;
+		}
 		else
 			throw std::logic_error("Not yet implemented");
 	}

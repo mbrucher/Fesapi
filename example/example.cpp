@@ -1609,7 +1609,7 @@ void deserialize(const string & inputFile)
 		wellboreCubicTrajSet[i]->getMdValues(mdValues);
 		double* xyzPt = new double[wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches() * 3];
 		wellboreCubicTrajSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(xyzPt);
-		for (ULONG64 j = 0; j < wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches()*3 && j < 10; j += 3)
+		for (size_t j = 0; j < wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches()*3 && j < 10; j += 3)
 		{
 			cout << "Trajectory station : MD=" << mdValues[j/3] << " X=" << xyzPt[j] << " Y=" << xyzPt[j+1] << " Z=" << xyzPt[j+2] << endl;
 		}
@@ -1813,11 +1813,12 @@ int main(int argc, char **argv)
 */
 
 // filepath is defined in a macro to better check memory leak
-#define filePath "../../testingPackageCpp.epc"
+//#define filePath "../../testingPackageCpp.epc"
+#define filePath "/home/philippe/data/resqml/ix/SIMPLE_NOFAULT_ACTNUM0_PETREL20153.epc"
 //#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
 int main(int argc, char **argv)
 {
-	serialize(filePath);
+	//serialize(filePath);
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;
