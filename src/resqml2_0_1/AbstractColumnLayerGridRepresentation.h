@@ -69,5 +69,10 @@ namespace resqml2_0_1
 		* Set the K layer count of the grid
 		*/
 		void setKCellCount(const unsigned int & kCount);
+
+		/**
+		* Get the K direction of the grid.
+		*/
+		virtual gsoap_resqml2_0_1::resqml2__KDirection getKDirection() const = 0;
 	};
 }

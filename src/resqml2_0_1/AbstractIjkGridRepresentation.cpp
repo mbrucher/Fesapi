@@ -776,3 +776,14 @@ void AbstractIjkGridRepresentation::setEnabledCells(unsigned char* enabledCells)
 	hdfProxy->writeArrayNd(gsoapProxy->uuid, "CellGeometryIsDefined", H5T_NATIVE_UCHAR, enabledCells, cellGeometryIsDefinedCount, 3);
 	delete [] cellGeometryIsDefinedCount;
 }
+
+gsoap_resqml2_0_1::resqml2__KDirection AbstractIjkGridRepresentation::getKDirection() const
+{
+	resqml2__IjkGridGeometry* geom = getSpecializedGsoapProxy()->Geometry;
+	if (geom == nullptr)
+	{
+		throw invalid_argument("The geometry of the ijk grid has not been defined yet.");
+	}
+
+	return geom->KDirection;
+}

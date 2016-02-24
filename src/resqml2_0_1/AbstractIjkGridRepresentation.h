@@ -257,6 +257,11 @@ namespace resqml2_0_1
 		*/
 		ULONG64 getXyzPointIndexFromCellCorner(const unsigned int & iCell, const unsigned int & jCell, const unsigned int & kCell, const unsigned int & corner) const;
 
+		/**
+		* Get the K direction of the grid.
+		*/
+		gsoap_resqml2_0_1::resqml2__KDirection getKDirection() const;
+
 		virtual geometryKind getGeometryKind() const { return UNKNOWN; }
 		virtual std::string getHdfProxyUuid() const { throw std::logic_error("Partial object"); }
 		virtual ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const { throw std::logic_error("Partial object"); }

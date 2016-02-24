@@ -45,3 +45,4 @@ void AbstractColumnLayerGridRepresentation::setKCellCount(const unsigned int & k
 {
 	static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy)->Nk = kCount;
 }
+

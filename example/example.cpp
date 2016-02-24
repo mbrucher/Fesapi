@@ -1611,7 +1611,7 @@ void deserialize(const string & inputFile)
 		wellboreCubicTrajSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(xyzPt);
 		for (ULONG64 j = 0; j < wellboreCubicTrajSet[i]->getXyzPointCountOfAllPatches()*3 && j < 10; j += 3)
 		{
-			cout << "Trajectory station : MD=" << mdValues[j] << " X=" << xyzPt[j] << " Y=" << xyzPt[j+1] << " Z=" << xyzPt[j+2] << endl;
+			cout << "Trajectory station : MD=" << mdValues[j/3] << " X=" << xyzPt[j] << " Y=" << xyzPt[j+1] << " Z=" << xyzPt[j+2] << endl;
 		}
 		delete [] mdValues;
 		delete [] xyzPt;
