@@ -1171,16 +1171,16 @@ namespace resqml2_0_1
 	class GridConnectionSetRepresentation : public AbstractRepresentation
 	{
 	public:
-		bool isAssociatedToFaults() const;
-		void getFaultIndexCumulativeCount(unsigned int * cumulativeCount) const;
-		void getFaultIndices(unsigned int * faultIndices) const;
-		LONG64 getFaultIndexNullValue() const;
+		bool isAssociatedToInterpretations() const;
+		void getInterpretationIndexCumulativeCount(unsigned int * cumulativeCount) const;
+		void getInterpretationIndices(unsigned int * interpretationIndices) const;
+		LONG64 getInterpretationIndexNullValue() const;
 	
 		ULONG64 getCellIndexPairCount() const;
-		unsigned int getCellIndexPairCountFromFaultIndex(const unsigned int & faultIndex) const;
+		unsigned int getCellIndexPairCountFromInterpretationIndex(const unsigned int & interpretationIndex) const;
 		
 		void getCellIndexPairs(ULONG64 * cellIndexPairs) const;
-		void getGridConnectionSetInformationFromFaultIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & faultIndex) const;
+		void getGridConnectionSetInformationFromInterpretationIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
 		bool hasLocalFacePerCell() const;
 		void getLocalFacePerCellIndexPairs(unsigned int * localFacePerCellIndexPairs) const;
 		bool isBasedOnMultiGrids() const;
@@ -1188,11 +1188,12 @@ namespace resqml2_0_1
 		
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
-		void setConnectionFaultNames(unsigned int * faultIndices, const unsigned int & faultIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void pushBackInterpretation(class AbstractFeatureInterpretation* interp);
 		
-		std::string getFaultInterpretationUuidFromFaultIndex(const unsigned int & faultIndex) const;
-		FaultInterpretation* getFaultInterpretationFromFaultIndex(const unsigned int & faultIndex) const;
-		unsigned int getFaultInterpretationCount() const;
+		std::string getInterpretationUuidFromIndex(const unsigned int & interpretationIndex) const;
+		AbstractFeatureInterpretation * getInterpretationFromIndex(const unsigned int & interpretationIndex) const;
+		unsigned int getInterpretationCount() const;
 		
 		unsigned int getSupportingGridRepresentationCount() const;
 		AbstractGridRepresentation* getSupportingGridRepresentation();

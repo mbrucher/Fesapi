@@ -33,6 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/GridConnectionSetRepresentation.h"
 
+#include <algorithm>
 #if defined(__gnu_linux__) || defined(__APPLE__) 
 #include <stdexcept>
 #endif 

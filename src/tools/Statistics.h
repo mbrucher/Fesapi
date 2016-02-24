@@ -33,6 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
+#include <cstddef>
 #include <utility>
 
 namespace statistics
