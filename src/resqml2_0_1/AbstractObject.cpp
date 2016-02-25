@@ -67,7 +67,7 @@ soap* AbstractObject::getGsoapContext() const
 		}
 		else
 		{
-			getEpcDocument()->getGsoapContext();
+			return getEpcDocument()->getGsoapContext();
 		}
 	}
 	else

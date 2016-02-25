@@ -519,6 +519,11 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	double continuousProp1Values[6] = {0,1,2,3,4,5};
 	continuousProp1->pushBackDoubleHdf5Array1dOfValues(continuousProp1Values, 6, hdfProxy);
 
+	// sub rep of a partial unstructured grid
+	SubRepresentation * subRepOfUnstructuredGrid = pck->createSubRepresentation("", "Subrep On Partial grid", partialGrid);
+	unsigned int nodeIndex[2] = { 0, 1 };
+	subRepOfUnstructuredGrid->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, 2, nodeIndex, hdfProxy);
+
 	// Tetra grid
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "", "One tetrahedron grid", 1);
 	double tetraGridPoints[12] = {0,0,300, 375,0,300, 0,150,300, 0,0,500};
@@ -1813,12 +1818,11 @@ int main(int argc, char **argv)
 */
 
 // filepath is defined in a macro to better check memory leak
-//#define filePath "../../testingPackageCpp.epc"
-#define filePath "/home/philippe/data/resqml/ix/SIMPLE_NOFAULT_ACTNUM0_PETREL20153.epc"
+#define filePath "../../testingPackageCpp.epc"
 //#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
 int main(int argc, char **argv)
 {
-	//serialize(filePath);
+	serialize(filePath);
 	deserialize(filePath);
 
 	cout << "Press enter to continue..." << endl;
