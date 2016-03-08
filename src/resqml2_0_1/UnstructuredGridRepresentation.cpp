@@ -417,7 +417,8 @@ void UnstructuredGridRepresentation::setGeometry(char * cellFaceIsRightHanded, d
 	cellFaceIsRightHandedForHdf5->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded";
 	geom->CellFaceIsRightHanded = cellFaceIsRightHandedForHdf5;
 	// HDF
-	hdfProxy->writeArrayNdOfCharValues(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", cellFaceIsRightHanded, &faceCount, 1);
+	unsigned long long faceCountTmp = faceCount; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
+	hdfProxy->writeArrayNdOfCharValues(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", cellFaceIsRightHanded, &faceCountTmp, 1);
 
 	// Face indices
 	//XML
@@ -506,7 +507,8 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(char * cellFaceIs
 	cellFaceIsRightHandedForHdf5->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded";
 	geom->CellFaceIsRightHanded = cellFaceIsRightHandedForHdf5;
 	// HDF
-	hdfProxy->writeArrayNdOfCharValues(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", cellFaceIsRightHanded, &faceCount, 1);
+	unsigned long long faceCountTmp = faceCount; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
+	hdfProxy->writeArrayNdOfCharValues(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", cellFaceIsRightHanded, &faceCountTmp, 1);
 
 	// Face indices
 	//XML

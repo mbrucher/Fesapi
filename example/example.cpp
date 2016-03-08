@@ -1656,16 +1656,9 @@ void deserialize(const string & inputFile)
 		showAllMetadata(ijkGrid);
 		if (ijkGrid->getGeometryKind() != AbstractIjkGridRepresentation::NO_GEOMETRY)
 		{
-			std::cout << "This grid has no geometry." << std::endl;
-			std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
-			double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
-			ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
-			std::cout << "--------------------------------------------------" << std::endl;
-			delete [] gridPoints;
-
 			if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::PARAMETRIC)
 			{
-				std::cout << "This grid has a parametric geometry." << std::endl;
+				std::cout << "This 3d grid has a parametric geometry." << std::endl;
 				if (static_cast<IjkGridParametricRepresentation*>(ijkGrid)->isParametricLineKindConstant())
 				{
 					std::cout << "Constant parametric line kind : " << static_cast<IjkGridParametricRepresentation*>(ijkGrid)->getConstantParametricLineKind() << std::endl;
@@ -1675,7 +1668,25 @@ void deserialize(const string & inputFile)
 					std::cout << "Non constant parametric line kind" << std::endl;
 				}
 			}
+			else if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::EXPLICIT)
+			{
+				std::cout << "This 3d grid has an explicit geometry." << std::endl;
+			}
+			else
+			{
+				std::cout << "This 3d grid has a lattice geometry." << std::endl;
+			}
+
+			std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
+			double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
+			ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
+			std::cout << "--------------------------------------------------" << std::endl;
+			delete [] gridPoints;
+
+			std::cout << "Split coordinate line count is : " << ijkGrid->getSplitCoordinateLineCount() << std::endl;
 		}
+		else
+			std::cout << "This 3d grid has no geometry." << std::endl;
 
 		if (ijkGrid->getInterpretation())
 		{

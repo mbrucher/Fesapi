@@ -68,6 +68,7 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
     }
 }
 
+%include "swigResqml2Include.i"
 %include "swigResqml2_0_1Include.i"
 %include "swigWitsml1_4_1_1Include.i"
 
@@ -152,7 +153,7 @@ namespace common
 		void setExtendedCoreProperty(const std::string & key, const std::string & value);
 		std::string getExtendedCoreProperty(const std::string & key);
 
-		resqml2_0_1::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid) const;
+		resqml2::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid) const;
 		witsml1_4_1_1::AbstractObject* getWitsmlAbstractObjectByUuid(const std::string & uuid) const;
 
 		//************************************
