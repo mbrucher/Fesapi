@@ -63,7 +63,7 @@ void AbstractIjkGridRepresentation::init(soap* soapContext, AbstractLocal3dCrs *
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREIjkGridRepresentation(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREIjkGridRepresentation(soapContext, 1);
 	_resqml2__IjkGridRepresentation* ijkGrid = getSpecializedGsoapProxy();
 
 	ijkGrid->Ni = iCount;
@@ -108,7 +108,7 @@ _resqml2__IjkGridRepresentation* AbstractIjkGridRepresentation::getSpecializedGs
 	if (isPartial() == true)
 		throw logic_error("Partial object");
 
-	return static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy);
+	return static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
 }
 
 gsoap_resqml2_0_1::resqml2__PointGeometry* AbstractIjkGridRepresentation::getPointGeometry(const unsigned int & patchIndex) const
@@ -761,19 +761,19 @@ void AbstractIjkGridRepresentation::setEnabledCells(unsigned char* enabledCells)
 		throw invalid_argument("The geometry of the ijk grid has not been defined yet.");
 	}
 
-	resqml2__BooleanHdf5Array* boolArray = soap_new_resqml2__BooleanHdf5Array(gsoapProxy->soap, 1);
+	resqml2__BooleanHdf5Array* boolArray = soap_new_resqml2__BooleanHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->CellGeometryIsDefined = boolArray;
 
-	boolArray->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	boolArray->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	boolArray->Values->HdfProxy = hdfProxy->newResqmlReference();
-	boolArray->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/CellGeometryIsDefined";
+	boolArray->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/CellGeometryIsDefined";
 
 	// HDF
 	hsize_t * cellGeometryIsDefinedCount = new hsize_t[3];
 	cellGeometryIsDefinedCount[0] = getKCellCount();
 	cellGeometryIsDefinedCount[1] = getJCellCount();
 	cellGeometryIsDefinedCount[2] = getICellCount();
-	hdfProxy->writeArrayNd(gsoapProxy->uuid, "CellGeometryIsDefined", H5T_NATIVE_UCHAR, enabledCells, cellGeometryIsDefinedCount, 3);
+	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "CellGeometryIsDefined", H5T_NATIVE_UCHAR, enabledCells, cellGeometryIsDefinedCount, 3);
 	delete [] cellGeometryIsDefinedCount;
 }
 

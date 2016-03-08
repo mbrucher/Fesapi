@@ -49,6 +49,9 @@ namespace resqml2_0_1
 		GeneticBoundaryFeature(gsoap_resqml2_0_1::_resqml2__GeneticBoundaryFeature* fromGsoap): BoundaryFeature(fromGsoap) {}
 		virtual ~GeneticBoundaryFeature() {}
 	
+		// Indicates wether the instance is a fracture (or a fault). This public method is especially needed for SWIG reason.
+		bool isAnHorizon() const;
+
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 	};

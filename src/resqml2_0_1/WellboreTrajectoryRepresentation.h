@@ -62,7 +62,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		WellboreTrajectoryRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreTrajectoryRepresentation* fromGsoap): AbstractRepresentation(fromGsoap),
-				mdDatum(nullptr), parentTraj(nullptr), witsmlTrajectory(nullptr) {}
+				mdDatum(nullptr), witsmlTrajectory(nullptr) {}
 
 		~WellboreTrajectoryRepresentation() {}
 
@@ -167,6 +167,17 @@ namespace resqml2_0_1
 		void addParentTrajectory(const double & kickoffMd, const double & parentMd, WellboreTrajectoryRepresentation* parentTrajRep);
 
 		/**
+		* Get the parent trajectory of this trajectory
+		* @return nullptr if the trajectory has no parent trajectory.
+		*/
+		WellboreTrajectoryRepresentation* getParentTrajectory() const;
+
+		/**
+		* Get a set of all children trajecotries of this trajectory
+		*/
+		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
+
+		/**
 		* Add a WellboreFeature frame to this trajectory.
 		* Does not add the inverse relationship i.e. from the WellboreFeature frame to this trajectory
 		*/
@@ -215,7 +226,6 @@ namespace resqml2_0_1
 
 		// XML forward relationships
 		class MdDatum * mdDatum;
-		WellboreTrajectoryRepresentation* parentTraj;
 		witsml1_4_1_1::Trajectory * witsmlTrajectory;
 		
 		// XML backward relationships

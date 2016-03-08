@@ -49,7 +49,7 @@ TimeSeries::TimeSeries(soap* soapContext, const string & guid, const string & ti
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORETimeSeries(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORETimeSeries(soapContext, 1);
 	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
 	
 	initMandatoryMetadata();
@@ -61,12 +61,12 @@ _resqml2__TimeSeries* TimeSeries::getSpecializedGsoapProxy() const
 	if (isPartial() == true)
 		throw logic_error("Partial object");
 
-	return static_cast<_resqml2__TimeSeries*>(gsoapProxy);
+	return static_cast<_resqml2__TimeSeries*>(gsoapProxy2_0_1);
 }
 
 void TimeSeries::pushBackTimestamp(const time_t & timestamp)
 {
-	resqml2__Timestamp* ts = soap_new_resqml2__Timestamp(gsoapProxy->soap, 1);
+	resqml2__Timestamp* ts = soap_new_resqml2__Timestamp(gsoapProxy2_0_1->soap, 1);
 	ts->DateTime = timestamp;
 	getSpecializedGsoapProxy()->Time.push_back(ts);
 }

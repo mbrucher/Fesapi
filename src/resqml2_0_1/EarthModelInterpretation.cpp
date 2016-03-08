@@ -50,8 +50,8 @@ const char* EarthModelInterpretation::XML_TAG = "EarthModelInterpretation";
 EarthModelInterpretation::EarthModelInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const string & title):
 	structuralOrganization(nullptr), stratigraphicColumn(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREEarthModelInterpretation(orgFeat->getGsoapContext(), 1);
-	_resqml2__EarthModelInterpretation* interp = static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREEarthModelInterpretation(orgFeat->getGsoapContext(), 1);
+	_resqml2__EarthModelInterpretation* interp = static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy2_0_1);
 
 	interp->Domain = resqml2__Domain__mixed;
 
@@ -69,7 +69,7 @@ void EarthModelInterpretation::setStructuralOrganizationInterpretation(Structura
         
     // XML
 	if (updateXml)
-		static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy)->Structure = structOrganization->newResqmlReference();
+		static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy2_0_1)->Structure = structOrganization->newResqmlReference();
 }
 
 void EarthModelInterpretation::setStratiColumn(StratigraphicColumn * stratiColumn)
@@ -80,7 +80,7 @@ void EarthModelInterpretation::setStratiColumn(StratigraphicColumn * stratiColum
         
     // XML
 	if (updateXml)
-		static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy)->StratigraphicColumn = stratiColumn->newResqmlReference();
+		static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy2_0_1)->StratigraphicColumn = stratiColumn->newResqmlReference();
 }
 
 void EarthModelInterpretation::pushBackStratiOccurence(StratigraphicOccurrenceInterpretation * stratiOccurence)
@@ -91,7 +91,7 @@ void EarthModelInterpretation::pushBackStratiOccurence(StratigraphicOccurrenceIn
         
     // XML
 	if (updateXml)
-		static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy)->StratigraphicOccurrences.push_back(stratiOccurence->newResqmlReference());
+		static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy2_0_1)->StratigraphicOccurrences.push_back(stratiOccurence->newResqmlReference());
 }
 
 vector<Relationship> EarthModelInterpretation::getAllEpcRelationships() const
@@ -133,7 +133,7 @@ void EarthModelInterpretation::importRelationshipSetFromEpc(common::EpcDocument*
 
 	updateXml = false;
 
-	_resqml2__EarthModelInterpretation* interp = static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy);
+	_resqml2__EarthModelInterpretation* interp = static_cast<_resqml2__EarthModelInterpretation*>(gsoapProxy2_0_1);
 
 	if (interp->Structure)
 	{

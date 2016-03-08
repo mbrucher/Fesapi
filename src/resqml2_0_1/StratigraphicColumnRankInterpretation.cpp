@@ -51,10 +51,10 @@ StratigraphicColumnRankInterpretation::StratigraphicColumnRankInterpretation(Org
 	if (!orgFeat)
 		throw invalid_argument("The interpreted organization feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicColumnRankInterpretation(orgFeat->getGsoapContext(), 1);
-	static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
-	static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->Index = rank;
-	static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->OrderingCriteria = orderingCriteria;
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREStratigraphicColumnRankInterpretation(orgFeat->getGsoapContext(), 1);
+	static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->Domain = resqml2__Domain__mixed;
+	static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->Index = rank;
+	static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->OrderingCriteria = orderingCriteria;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -71,8 +71,8 @@ void StratigraphicColumnRankInterpretation::pushBackStratiUnitInterpretation(Str
     // XML
 	if (updateXml)
 	{
-        _resqml2__StratigraphicColumnRankInterpretation* stratigraphicColumnRankInterpretation = static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy); 
-		resqml2__StratigraphicUnitInterpretationIndex* stratiUnitInterpRef = soap_new_resqml2__StratigraphicUnitInterpretationIndex(gsoapProxy->soap, 1);
+        _resqml2__StratigraphicColumnRankInterpretation* stratigraphicColumnRankInterpretation = static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1); 
+		resqml2__StratigraphicUnitInterpretationIndex* stratiUnitInterpRef = soap_new_resqml2__StratigraphicUnitInterpretationIndex(gsoapProxy2_0_1->soap, 1);
 		stratiUnitInterpRef->Index = stratigraphicColumnRankInterpretation->StratigraphicUnits.size();
 		stratiUnitInterpRef->Unit = stratiUnitInterpretation->newResqmlReference();
 		stratigraphicColumnRankInterpretation->StratigraphicUnits.push_back(stratiUnitInterpRef);
@@ -81,20 +81,20 @@ void StratigraphicColumnRankInterpretation::pushBackStratiUnitInterpretation(Str
 
 bool StratigraphicColumnRankInterpretation::isAChronoStratiRank() const
 {
-	return static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->OrderingCriteria == resqml2__OrderingCriteria__age;
+	return static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->OrderingCriteria == resqml2__OrderingCriteria__age;
 }
 
 unsigned int StratigraphicColumnRankInterpretation::getContactCount() const
 {
-	return static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size();
+	return static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation.size();
 }
 
 resqml2__ContactMode StratigraphicColumnRankInterpretation::getSubjectContactModeOfContact(const unsigned int & contactIndex) const
 {
-	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation.size() <= contactIndex)
 		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
 
-	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
+	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation[contactIndex]);
 	if (contact->Subject->SecondaryQualifier)
 		return *contact->Subject->SecondaryQualifier;
 	else
@@ -103,10 +103,10 @@ resqml2__ContactMode StratigraphicColumnRankInterpretation::getSubjectContactMod
 
 StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getSubjectOfContact(const unsigned int & contactIndex) const
 {
-	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation.size() <= contactIndex)
 		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
 
-	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
+	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation[contactIndex]);
 	if (contact->Subject)
 		return static_cast<StratigraphicUnitInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->Subject->UUID));
 	else
@@ -115,10 +115,10 @@ StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getSubje
 
 resqml2__ContactMode StratigraphicColumnRankInterpretation::getDirectObjectContactModeOfContact(const unsigned int & contactIndex) const
 {
-	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation.size() <= contactIndex)
 		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
 
-	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
+	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation[contactIndex]);
 	if (contact->DirectObject->SecondaryQualifier)
 		return *contact->DirectObject->SecondaryQualifier;
 	else
@@ -127,10 +127,10 @@ resqml2__ContactMode StratigraphicColumnRankInterpretation::getDirectObjectConta
 
 StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getDirectObjectOfContact(const unsigned int & contactIndex) const
 {
-	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation.size() <= contactIndex)
 		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
 
-	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
+	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation[contactIndex]);
 	if (contact->DirectObject)
 		return static_cast<StratigraphicUnitInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->DirectObject->UUID));
 	else
@@ -139,10 +139,10 @@ StratigraphicUnitInterpretation* StratigraphicColumnRankInterpretation::getDirec
 
 HorizonInterpretation* StratigraphicColumnRankInterpretation::getHorizonInterpretationOfContact(const unsigned int & contactIndex) const
 {
-	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation.size() <= contactIndex)
+	if (static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation.size() <= contactIndex)
 		throw range_error("The contact index is out of range in the context of the StratigraphicColumnRankInterpretation");
 
-	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy)->ContactInterpretation[contactIndex]);
+	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1)->ContactInterpretation[contactIndex]);
 	if (contact->PartOf)
 		return static_cast<HorizonInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(contact->PartOf->UUID));
 	else
@@ -158,7 +158,7 @@ void StratigraphicColumnRankInterpretation::setHorizonOfLastContact(HorizonInter
     // XML
 	if (updateXml)
 	{
-		resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy);
+		resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy2_0_1);
         resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(org->ContactInterpretation[org->ContactInterpretation.size() - 1]);
 		contact->PartOf = partOf->newResqmlReference();
 	}
@@ -168,13 +168,13 @@ void StratigraphicColumnRankInterpretation::pushBackStratigraphicBinaryContact(S
 			StratigraphicUnitInterpretation* directObject, const gsoap_resqml2_0_1::resqml2__ContactMode & directObjectMode,
 			HorizonInterpretation * partOf)
 {
-	resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy);
+	resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy2_0_1);
 
 	pushBackBinaryContact(resqml2__ContactRelationship__stratigraphic_x0020unit_x0020to_x0020stratigraphic_x0020unit, subject, resqml2__ContactVerb__stops_x0020at, directObject);
     resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(org->ContactInterpretation[org->ContactInterpretation.size() - 1]);
-    contact->DirectObject->SecondaryQualifier = static_cast<resqml2__ContactMode*>(soap_malloc(gsoapProxy->soap, sizeof(resqml2__ContactMode)));
+    contact->DirectObject->SecondaryQualifier = static_cast<resqml2__ContactMode*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(resqml2__ContactMode)));
     *(contact->DirectObject->SecondaryQualifier) = directObjectMode;
-    contact->Subject->SecondaryQualifier = static_cast<resqml2__ContactMode*>(soap_malloc(gsoapProxy->soap, sizeof(resqml2__ContactMode)));
+    contact->Subject->SecondaryQualifier = static_cast<resqml2__ContactMode*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(resqml2__ContactMode)));
     *(contact->Subject->SecondaryQualifier) = subjectContactMode;
 
 	if (partOf)
@@ -189,7 +189,7 @@ void StratigraphicColumnRankInterpretation::importRelationshipSetFromEpc(common:
 
 	updateXml = false;
 
-	_resqml2__StratigraphicColumnRankInterpretation* interp = static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy); 
+	_resqml2__StratigraphicColumnRankInterpretation* interp = static_cast<_resqml2__StratigraphicColumnRankInterpretation*>(gsoapProxy2_0_1); 
 
 	for (unsigned int i = 0; i < interp->StratigraphicUnits.size(); i++)
 	{

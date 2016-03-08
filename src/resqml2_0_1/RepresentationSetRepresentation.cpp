@@ -53,8 +53,8 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractFeature
 		throw invalid_argument("The linked interpretation cannot be NULL. Please use another constructor.");
 
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getGsoapContext(), 1);
-	static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy)->IsHomogeneous = true;
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getGsoapContext(), 1);
+	static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1)->IsHomogeneous = true;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -69,8 +69,8 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocu
 		throw invalid_argument("The epc document cannot be NULL.");
 
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(epcDoc->getGsoapContext(), 1);
-	static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy)->IsHomogeneous = true;
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(epcDoc->getGsoapContext(), 1);
+	static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1)->IsHomogeneous = true;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -92,7 +92,7 @@ vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() c
 
 void RepresentationSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	_resqml2__RepresentationSetRepresentation* rsr = static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy);
+	_resqml2__RepresentationSetRepresentation* rsr = static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1);
 	for (size_t i = 0; i < rsr->Representation.size(); ++i)
 	{
 		AbstractRepresentation* rep = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rsr->Representation[i]->UUID));
@@ -116,7 +116,7 @@ void RepresentationSetRepresentation::getXyzPointsOfPatch(const unsigned int & p
 
 bool RepresentationSetRepresentation::isHomogeneous() const
 {
-	return static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy)->IsHomogeneous;
+	return static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1)->IsHomogeneous;
 }
 
 

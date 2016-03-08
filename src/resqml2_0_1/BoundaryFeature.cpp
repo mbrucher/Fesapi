@@ -44,7 +44,7 @@ BoundaryFeature::BoundaryFeature(soap* soapContext, const string & guid, const s
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context must exist");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREBoundaryFeature(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREBoundaryFeature(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

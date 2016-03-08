@@ -57,13 +57,13 @@ void AbstractFeatureInterpretation::setInterpretedFeature(AbstractFeature * feat
 	// XMl
 	if (updateXml)
 	{
-		static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->InterpretedFeature = feature->newResqmlReference();
+		static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->InterpretedFeature = feature->newResqmlReference();
 	}
 }
 
 void AbstractFeatureInterpretation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	resqml2__AbstractFeatureInterpretation* interp = static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy);
+	resqml2__AbstractFeatureInterpretation* interp = static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1);
 	interpretedFeature = static_cast<AbstractFeature*>(epcDoc->getResqmlAbstractObjectByUuid(interp->InterpretedFeature->UUID));
 	if (interpretedFeature)
 	{
@@ -136,17 +136,17 @@ vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() con
 
 std::string AbstractFeatureInterpretation::getInterpretedFeatureUuid() const
 {
-	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->InterpretedFeature->UUID;
+	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->InterpretedFeature->UUID;
 }
 
 void AbstractFeatureInterpretation::setDomain(const gsoap_resqml2_0_1::resqml2__Domain & domain)
 {
-	static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->Domain = domain;
+	static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain = domain;
 }
 
 gsoap_resqml2_0_1::resqml2__Domain AbstractFeatureInterpretation::getDomain() const
 {
-	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy)->Domain;
+	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain;
 }
 
 AbstractFeature* AbstractFeatureInterpretation::getInterpretedFeature() const

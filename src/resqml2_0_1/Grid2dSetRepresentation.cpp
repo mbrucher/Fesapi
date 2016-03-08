@@ -53,8 +53,8 @@ Grid2dSetRepresentation::Grid2dSetRepresentation(AbstractFeatureInterpretation* 
 	const string & guid, const string & title):
 	AbstractSurfaceRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGrid2dSetRepresentation(interp->getGsoapContext(), 1);
-	_resqml2__Grid2dSetRepresentation* grid2dSetRep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREGrid2dSetRepresentation(interp->getGsoapContext(), 1);
+	_resqml2__Grid2dSetRepresentation* grid2dSetRep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1);
 	
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -76,18 +76,18 @@ void Grid2dSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchInde
 
 unsigned int Grid2dSetRepresentation::getNodeCountAlongIAxis(const unsigned int & patchIndex) const
 {
-	return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->FastestAxisCount;
+	return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->FastestAxisCount;
 }
 
 unsigned int Grid2dSetRepresentation::getNodeCountAlongJAxis(const unsigned int & patchIndex) const
 {
-	return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->SlowestAxisCount;
+	return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->SlowestAxisCount;
 }
 
 resqml2__PointGeometry* Grid2dSetRepresentation::getPointGeometry(const unsigned int & patchIndex) const
 {
-	if (patchIndex < static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.size())
-		return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->Geometry;
+	if (patchIndex < static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch.size())
+		return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->Geometry;
 	else
 		return nullptr;
 }
@@ -99,7 +99,7 @@ string Grid2dSetRepresentation::getHdfProxyUuid() const
 
 void Grid2dSetRepresentation::getZValuesOfPatch(const unsigned int & patchIndex, double* values) const
 {
-	_resqml2__Grid2dSetRepresentation* rep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
+	_resqml2__Grid2dSetRepresentation* rep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1);
 	resqml2__AbstractDoubleArray* zValues = static_cast<resqml2__Point3dZValueArray*>(rep->Grid2dPatch[patchIndex]->Geometry->Points)->ZValues;
 	string datasetName = "";
 	if (zValues->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
@@ -120,7 +120,7 @@ void Grid2dSetRepresentation::getZValuesOfPatchInGlobalCrs(const unsigned int & 
 
 	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 	{
-		_resqml2__Grid2dSetRepresentation* rep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
+		_resqml2__Grid2dSetRepresentation* rep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1);
 		unsigned int NodeCount = rep->Grid2dPatch[patchIndex]->FastestAxisCount * rep->Grid2dPatch[patchIndex]->SlowestAxisCount;
 		double zOffset = localCrs->getOriginDepthOrElevation();
 		if (zOffset != .0)
@@ -133,7 +133,7 @@ void Grid2dSetRepresentation::getZValuesOfPatchInGlobalCrs(const unsigned int & 
 
 unsigned int Grid2dSetRepresentation::getPatchCount() const
 {
-	return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.size();
+	return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch.size();
 }
 
 void Grid2dSetRepresentation::pushBackGeometryPatch(double * zValues,
@@ -144,9 +144,9 @@ void Grid2dSetRepresentation::pushBackGeometryPatch(double * zValues,
 {
 	if (updateXml)
 	{
-		resqml2__Grid2dPatch* patch = soap_new_resqml2__Grid2dPatch(gsoapProxy->soap, 1);
-		patch->PatchIndex = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.size();
-		static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch.push_back(patch);
+		resqml2__Grid2dPatch* patch = soap_new_resqml2__Grid2dPatch(gsoapProxy2_0_1->soap, 1);
+		patch->PatchIndex = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch.size();
+		static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch.push_back(patch);
 
 		patch->SlowestAxisCount = numJ;
 		patch->FastestAxisCount = numI;
@@ -166,7 +166,7 @@ void Grid2dSetRepresentation::pushBackGeometryPatch(double * zValues,
 
 std::string Grid2dSetRepresentation::getSupportingRepresentationUuid(const unsigned int & patchIndex) const
 {
-	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->Geometry);
+	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->Geometry);
 	
 	if (geom)
 	{
@@ -182,7 +182,7 @@ int Grid2dSetRepresentation::getIndexOriginOnSupportingRepresentation(const unsi
 {
 	int result = 0;
 
-	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->Geometry);
+	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->Geometry);
 
 	if (geom)
 	{
@@ -199,7 +199,7 @@ int Grid2dSetRepresentation::getNodeCountOnSupportingRepresentation(const unsign
 {
 	int result = 0;
 
-	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->Geometry);
+	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->Geometry);
 
 	if (geom)
 		result = geom->NodeIndicesOnSupportingRepresentation->Offset[dimension]->Count + 1;
@@ -211,7 +211,7 @@ int Grid2dSetRepresentation::getIndexOffsetOnSupportingRepresentation(const unsi
 {
 	int result = 0;
 
-	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy)->Grid2dPatch[patchIndex]->Geometry);
+	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->Geometry);
 
 	if (geom)
 		result = geom->NodeIndicesOnSupportingRepresentation->Offset[dimension]->Value;
@@ -242,7 +242,7 @@ void Grid2dSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* 
 {
 	AbstractSurfaceRepresentation::importRelationshipSetFromEpc(epcDoc);
 
-	_resqml2__Grid2dSetRepresentation* grid2dSetRep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy);
+	_resqml2__Grid2dSetRepresentation* grid2dSetRep = static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1);
 
 	// Supporting representation
 	for (unsigned int patchIndex = 0; patchIndex < grid2dSetRep->Grid2dPatch.size(); ++patchIndex)

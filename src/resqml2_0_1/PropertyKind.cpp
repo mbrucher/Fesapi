@@ -51,13 +51,13 @@ PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string 
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 	
 	propType->NamingSystem = namingSystem;
 	propType->RepresentativeUom = uom;
 
-	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy->soap, 1);
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlStandardPropKind->Kind = parentEnergisticsPropertyKind;
 	propType->ParentPropertyKind = xmlStandardPropKind;
 	
@@ -72,13 +72,13 @@ PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string 
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 	
 	propType->NamingSystem = namingSystem;
 	propType->RepresentativeUom = uom;
 
-	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy->soap, 1);
+	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlLocalPropKind->LocalPropertyKind = parentPropType->newResqmlReference();
 	propType->ParentPropertyKind = xmlLocalPropKind;
 	
@@ -92,7 +92,7 @@ _resqml2__PropertyKind* PropertyKind::getSpecializedGsoapProxy() const
 	if (isPartial() == true)
 		throw logic_error("Partial object");
 
-	return static_cast<_resqml2__PropertyKind*>(gsoapProxy);
+	return static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1);
 }
 
 const std::string & PropertyKind::getNamingSystem() const
@@ -107,7 +107,7 @@ const resqml2__ResqmlUom & PropertyKind::getUom() const
 
 std::string PropertyKind::getUomAsString() const
 {
-	return gsoap_resqml2_0_1::soap_resqml2__ResqmlUom2s(gsoapProxy->soap, getUom());
+	return gsoap_resqml2_0_1::soap_resqml2__ResqmlUom2s(gsoapProxy2_0_1->soap, getUom());
 }
 
 vector<Relationship> PropertyKind::getAllEpcRelationships() const

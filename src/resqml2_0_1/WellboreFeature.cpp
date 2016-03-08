@@ -49,7 +49,7 @@ WellboreFeature::WellboreFeature(soap* soapContext, const string & guid, const s
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFeature(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreFeature(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -62,8 +62,8 @@ void WellboreFeature::setWitsmlWellbore(witsml1_4_1_1::Wellbore * wellbore)
 
 	if (updateXml)
 	{
-		resqml2__obj_USCOREWellboreFeature* resqmlWellbore = static_cast<resqml2__obj_USCOREWellboreFeature*>(gsoapProxy);
-		resqmlWellbore->WitsmlWellbore = soap_new_resqml2__WitsmlWellboreReference(gsoapProxy->soap, 1);
+		resqml2__obj_USCOREWellboreFeature* resqmlWellbore = static_cast<resqml2__obj_USCOREWellboreFeature*>(gsoapProxy2_0_1);
+		resqmlWellbore->WitsmlWellbore = soap_new_resqml2__WitsmlWellboreReference(gsoapProxy2_0_1->soap, 1);
 		resqmlWellbore->WitsmlWellbore->WitsmlWellbore = wellbore->newResqmlReference();
 		resqmlWellbore->WitsmlWellbore->WitsmlWell = wellbore->getWell()->newResqmlReference();
 	}
@@ -89,7 +89,7 @@ vector<Relationship> WellboreFeature::getAllEpcRelationships() const
 
 void WellboreFeature::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	resqml2__obj_USCOREWellboreFeature* resqmlWellbore = static_cast<resqml2__obj_USCOREWellboreFeature*>(gsoapProxy);
+	resqml2__obj_USCOREWellboreFeature* resqmlWellbore = static_cast<resqml2__obj_USCOREWellboreFeature*>(gsoapProxy2_0_1);
 
 	if (resqmlWellbore->WitsmlWellbore && resqmlWellbore->WitsmlWellbore->WitsmlWellbore)
 	{

@@ -54,8 +54,8 @@ const char* WellboreFrameRepresentation::XML_TAG = "WellboreFrameRepresentation"
 WellboreFrameRepresentation::WellboreFrameRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj) :
 	AbstractRepresentation(interp, traj->getLocalCrs()), trajectory(traj), witsmlLog(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(interp->getGsoapContext(), 1);	
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(interp->getGsoapContext(), 1);	
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 
 	setInterpretation(interp);
 
@@ -83,7 +83,7 @@ void WellboreFrameRepresentation::getXyzPointsOfPatch(const unsigned int & patch
 
 vector<Relationship> WellboreFrameRepresentation::getAllEpcRelationships() const
 {
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 	
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
 
@@ -109,7 +109,7 @@ vector<Relationship> WellboreFrameRepresentation::getAllEpcRelationships() const
 
 void WellboreFrameRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	_resqml2__WellboreFrameRepresentation* rep = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* rep = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 
 	// need to do that before AbstractRepresentation::importRelationshipSetFromEpc because the trajectory is used for finding the local crs relationship.
 	trajectory = static_cast<WellboreTrajectoryRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->Trajectory->UUID));
@@ -140,11 +140,11 @@ void WellboreFrameRepresentation::setMdValues(double * mdValues, const unsigned 
 {
 	setHdfProxy(proxy);
 
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 
 	// XML
-	resqml2__DoubleHdf5Array* xmlMdValues = soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
-	xmlMdValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	resqml2__DoubleHdf5Array* xmlMdValues = soap_new_resqml2__DoubleHdf5Array(gsoapProxy2_0_1->soap, 1);
+	xmlMdValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	xmlMdValues->Values->HdfProxy = hdfProxy->newResqmlReference();
 	xmlMdValues->Values->PathInHdfFile = "/RESQML/" + frame->uuid + "/mdValues";
 
@@ -163,12 +163,12 @@ void WellboreFrameRepresentation::setMdValues(double * mdValues, const unsigned 
 
 void WellboreFrameRepresentation::setMdValues(const double & firstMdValue, const double & incrementMdValue, const unsigned int & mdValueCount)
 {
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 
 	// XML
-	resqml2__DoubleLatticeArray* xmlMdValues = soap_new_resqml2__DoubleLatticeArray(gsoapProxy->soap, 1);
+	resqml2__DoubleLatticeArray* xmlMdValues = soap_new_resqml2__DoubleLatticeArray(gsoapProxy2_0_1->soap, 1);
 	xmlMdValues->StartValue = firstMdValue;
-	xmlMdValues->Offset.push_back(soap_new_resqml2__DoubleConstantArray(gsoapProxy->soap, 1));
+	xmlMdValues->Offset.push_back(soap_new_resqml2__DoubleConstantArray(gsoapProxy2_0_1->soap, 1));
 	xmlMdValues->Offset[0]->Count = mdValueCount - 1;
 	xmlMdValues->Offset[0]->Value = incrementMdValue;
 
@@ -179,7 +179,7 @@ void WellboreFrameRepresentation::setMdValues(const double & firstMdValue, const
 
 bool WellboreFrameRepresentation::areMdValuesRegularlySpaced() const
 {
-	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy)->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray;
+	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1)->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray;
 }
 
 double WellboreFrameRepresentation::getMdConstantIncrementValue() const
@@ -187,12 +187,12 @@ double WellboreFrameRepresentation::getMdConstantIncrementValue() const
 	if (!areMdValuesRegularlySpaced())
 		throw invalid_argument("The MD values are not regularly spaced.");
 
-	return static_cast<resqml2__DoubleLatticeArray*>(static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy)->NodeMd)->Offset[0]->Value;
+	return static_cast<resqml2__DoubleLatticeArray*>(static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1)->NodeMd)->Offset[0]->Value;
 }
 
 double WellboreFrameRepresentation::getMdFirstValue() const
 {
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		if (hdfProxy == nullptr)
@@ -215,12 +215,12 @@ double WellboreFrameRepresentation::getMdFirstValue() const
 
 unsigned int WellboreFrameRepresentation::getMdValuesCount() const
 {
-	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy)->NodeCount;
+	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1)->NodeCount;
 }
 
 AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDatatype() const
 {
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		if (hdfProxy == nullptr)
@@ -257,7 +257,7 @@ AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDat
 }
 
 void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)
-{	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+{	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{	
 		if (hdfProxy == nullptr)
@@ -278,7 +278,7 @@ void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)
 
 void WellboreFrameRepresentation::getMdAsFloatValues(float *  values)
 {
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		if (hdfProxy == nullptr)
@@ -299,7 +299,7 @@ void WellboreFrameRepresentation::getMdAsFloatValues(float *  values)
 
 std::string WellboreFrameRepresentation::getWellboreTrajectoryUuid() const
 {
-	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy)->Trajectory->UUID;
+	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1)->Trajectory->UUID;
 }
 
 std::string WellboreFrameRepresentation::getLocalCrsUuid() const
@@ -309,7 +309,7 @@ std::string WellboreFrameRepresentation::getLocalCrsUuid() const
 
 std::string WellboreFrameRepresentation::getHdfProxyUuid() const
 {
-	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		return static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->HdfProxy->UUID;
@@ -325,7 +325,7 @@ void WellboreFrameRepresentation::setWitsmlLog(witsml1_4_1_1::Log * witsmlLogToS
 
 	if (updateXml)
 	{
-		resqml2__obj_USCOREWellboreFrameRepresentation* resqmlLog = static_cast<resqml2__obj_USCOREWellboreFrameRepresentation*>(gsoapProxy);
+		resqml2__obj_USCOREWellboreFrameRepresentation* resqmlLog = static_cast<resqml2__obj_USCOREWellboreFrameRepresentation*>(gsoapProxy2_0_1);
 		resqmlLog->WitsmlLogReference = witsmlLog->newResqmlReference();
 	}
 }

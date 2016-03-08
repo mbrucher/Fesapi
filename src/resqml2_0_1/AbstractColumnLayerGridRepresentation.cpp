@@ -38,11 +38,11 @@ using namespace resqml2_0_1;
 
 unsigned int AbstractColumnLayerGridRepresentation::getKCellCount() const
 {
-	return static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy)->Nk;
+	return static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk;
 }
 
 void AbstractColumnLayerGridRepresentation::setKCellCount(const unsigned int & kCount)
 {
-	static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy)->Nk = kCount;
+	static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk = kCount;
 }
 

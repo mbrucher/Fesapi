@@ -51,9 +51,9 @@ void LocalDepth3dCrs::init(soap* soapContext, const std::string & guid, const st
 	if (!soapContext)
 		throw invalid_argument("The soap context where the local CRS will be instantiated must exist.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORELocalDepth3dCrs(soapContext, 1);
-	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy);
-	local3dCrs->ArealRotation = soap_new_eml__PlaneAngleMeasure(gsoapProxy->soap, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORELocalDepth3dCrs(soapContext, 1);
+	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy2_0_1);
+	local3dCrs->ArealRotation = soap_new_eml__PlaneAngleMeasure(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->ArealRotation->__item = arealRotation;
 	local3dCrs->ArealRotation->uom = eml__PlaneAngleUom__rad;
 	local3dCrs->XOffset = originOrdinal1;
@@ -74,15 +74,15 @@ LocalDepth3dCrs::LocalDepth3dCrs(soap* soapContext, const std::string & guid, co
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
 	init(soapContext, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, verticalUom, isUpOriented);
-	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy);
+	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy2_0_1);
 
 	// Projected CRS
-	eml__ProjectedCrsEpsgCode* projCrs = soap_new_eml__ProjectedCrsEpsgCode(gsoapProxy->soap, 1);
+	eml__ProjectedCrsEpsgCode* projCrs = soap_new_eml__ProjectedCrsEpsgCode(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->ProjectedCrs = projCrs;
 	projCrs->EpsgCode = projectedEpsgCode;
 
 	// Vertical CRS
-	eml__VerticalCrsEpsgCode* vertCrs = soap_new_eml__VerticalCrsEpsgCode(gsoapProxy->soap, 1);
+	eml__VerticalCrsEpsgCode* vertCrs = soap_new_eml__VerticalCrsEpsgCode(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->VerticalCrs = vertCrs;
 	vertCrs->EpsgCode = verticalEpsgCode;
 }
@@ -94,15 +94,15 @@ LocalDepth3dCrs::LocalDepth3dCrs(soap* soapContext, const std::string & guid, co
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
 {
 	init(soapContext, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, verticalUom, isUpOriented);
-	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy);
+	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy2_0_1);
 
 	// Projected CRS
-	eml__ProjectedUnknownCrs* projCrs = soap_new_eml__ProjectedUnknownCrs(gsoapProxy->soap, 1);
+	eml__ProjectedUnknownCrs* projCrs = soap_new_eml__ProjectedUnknownCrs(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->ProjectedCrs = projCrs;
 	projCrs->Unknown = projectedUnknownReason;
 
 	// Vertical CRS
-	eml__VerticalUnknownCrs* vertCrs = soap_new_eml__VerticalUnknownCrs(gsoapProxy->soap, 1);
+	eml__VerticalUnknownCrs* vertCrs = soap_new_eml__VerticalUnknownCrs(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->VerticalCrs = vertCrs;
 	vertCrs->Unknown = verticalUnknownReason;
 }
@@ -114,15 +114,15 @@ LocalDepth3dCrs::LocalDepth3dCrs(soap* soapContext, const std::string & guid, co
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const std::string & verticalUnknownReason, const bool & isUpOriented)
 {
 	init(soapContext, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, verticalUom, isUpOriented);
-	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy);
+	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy2_0_1);
 
 	// Projected CRS
-	eml__ProjectedCrsEpsgCode* projCrs = soap_new_eml__ProjectedCrsEpsgCode(gsoapProxy->soap, 1);
+	eml__ProjectedCrsEpsgCode* projCrs = soap_new_eml__ProjectedCrsEpsgCode(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->ProjectedCrs = projCrs;
 	projCrs->EpsgCode = projectedEpsgCode;
 
 	// Vertical CRS
-	eml__VerticalUnknownCrs* vertCrs = soap_new_eml__VerticalUnknownCrs(gsoapProxy->soap, 1);
+	eml__VerticalUnknownCrs* vertCrs = soap_new_eml__VerticalUnknownCrs(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->VerticalCrs = vertCrs;
 	vertCrs->Unknown = verticalUnknownReason;
 }
@@ -134,15 +134,15 @@ LocalDepth3dCrs::LocalDepth3dCrs(soap* soapContext, const std::string & guid, co
 			const gsoap_resqml2_0_1::eml__LengthUom & verticalUom, const unsigned int & verticalEpsgCode, const bool & isUpOriented)
 {
 	init(soapContext, guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation, projectedUom, verticalUom, isUpOriented);
-	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy);
+	_resqml2__LocalDepth3dCrs* local3dCrs = static_cast<_resqml2__LocalDepth3dCrs*>(gsoapProxy2_0_1);
 
 	// Projected CRS
-	eml__ProjectedUnknownCrs* projCrs = soap_new_eml__ProjectedUnknownCrs(gsoapProxy->soap, 1);
+	eml__ProjectedUnknownCrs* projCrs = soap_new_eml__ProjectedUnknownCrs(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->ProjectedCrs = projCrs;
 	projCrs->Unknown = projectedUnknownReason;
 
 	// Vertical CRS
-	eml__VerticalCrsEpsgCode* vertCrs = soap_new_eml__VerticalCrsEpsgCode(gsoapProxy->soap, 1);
+	eml__VerticalCrsEpsgCode* vertCrs = soap_new_eml__VerticalCrsEpsgCode(gsoapProxy2_0_1->soap, 1);
 	local3dCrs->VerticalCrs = vertCrs;
 	vertCrs->EpsgCode = verticalEpsgCode;
 }

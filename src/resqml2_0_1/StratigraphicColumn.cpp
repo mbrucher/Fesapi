@@ -47,7 +47,7 @@ StratigraphicColumn::StratigraphicColumn(soap* soapContext, const std::string & 
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicColumn(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREStratigraphicColumn(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -62,7 +62,7 @@ void StratigraphicColumn::pushBackStratiColumnRank(StratigraphicColumnRankInterp
 	// XML
 	if (updateXml)
 	{
-		static_cast<_resqml2__StratigraphicColumn*>(gsoapProxy)->Ranks.push_back(stratiColumnRank->newResqmlReference());
+		static_cast<_resqml2__StratigraphicColumn*>(gsoapProxy2_0_1)->Ranks.push_back(stratiColumnRank->newResqmlReference());
 	}
 }
 
@@ -84,7 +84,7 @@ void StratigraphicColumn::importRelationshipSetFromEpc(common::EpcDocument* epcD
 {
 	updateXml = false;
 
-	_resqml2__StratigraphicColumn* stratCol= static_cast<_resqml2__StratigraphicColumn*>(gsoapProxy);
+	_resqml2__StratigraphicColumn* stratCol= static_cast<_resqml2__StratigraphicColumn*>(gsoapProxy2_0_1);
 
 	for (unsigned int i = 0; i < stratCol->Ranks.size(); i++)
 	{

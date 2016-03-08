@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractObject.h"
+#include "resqml2/AbstractObject.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT EpcExternalPartReference : public AbstractObject
+	class DLL_IMPORT_OR_EXPORT EpcExternalPartReference : public resqml2::AbstractObject
 	{
 	public:
 		/**

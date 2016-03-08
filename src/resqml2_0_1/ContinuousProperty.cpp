@@ -49,13 +49,13 @@ const char* ContinuousProperty::XML_TAG = "ContinuousProperty";
 ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 	prop->UOM = uom;
 
-	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy->soap, 1);
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlStandardPropKind->Kind = energisticsPropertyKind;
 	prop->PropertyKind = xmlStandardPropKind;
 
@@ -68,8 +68,8 @@ ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const strin
 ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 	prop->UOM = uom;
@@ -84,12 +84,12 @@ ContinuousProperty::ContinuousProperty(AbstractRepresentation * rep, const strin
 
 const gsoap_resqml2_0_1::resqml2__ResqmlUom & ContinuousProperty::getUom() const
 {
-	return static_cast<_resqml2__ContinuousProperty*>(gsoapProxy)->UOM;
+	return static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->UOM;
 }
 
 std::string ContinuousProperty::getUomAsString() const
 {
-	return gsoap_resqml2_0_1::soap_resqml2__ResqmlUom2s(gsoapProxy->soap, getUom());
+	return gsoap_resqml2_0_1::soap_resqml2__ResqmlUom2s(gsoapProxy2_0_1->soap, getUom());
 }
 
 void ContinuousProperty::pushBackDoubleHdf5Array1dOfValues(double * values, const unsigned int & valueCount, AbstractHdfProxy * proxy,
@@ -145,7 +145,7 @@ void ContinuousProperty::pushBackDoubleHdf5ArrayOfValues(double * values, hsize_
 {
 	pushBackXmlPartOfArrayNdOfExplicitValues(values, numValues, numArrayDimensions, proxy, minimumValue, maximumValue);
 
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	ostringstream oss;
 	oss << "values_patch" << prop->PatchOfValues.size() - 1;
 
@@ -241,7 +241,7 @@ void ContinuousProperty::pushBackFloatHdf5ArrayOfValues(float * values, hsize_t 
 {
 	pushBackXmlPartOfArrayNdOfExplicitValues(values, numValues, numArrayDimensions, proxy, minimumValue, maximumValue);
 
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	ostringstream oss;
 	oss << "values_patch" << prop->PatchOfValues.size() - 1;
 
@@ -259,15 +259,15 @@ void ContinuousProperty::createFloatHdf5ArrayOfValues(
 	AbstractHdfProxy* proxy)
 {
 	setHdfProxy(proxy);
-	gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy);
+	gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 
-	gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
 	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
 
 	// XML
-	gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
-	xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy2_0_1->soap, 1);
+	xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
 	std::ostringstream ossForHdf;
 	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
@@ -299,7 +299,7 @@ void ContinuousProperty::pushBackFloatHdf5SlabArrayOfValues(
 {
 
 	_resqml2__ContinuousProperty* prop = 
-		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 
 	setPropertyMinMax(
 		values,
@@ -325,7 +325,7 @@ void ContinuousProperty::getDoubleValuesOfPatch(const unsigned int & patchIndex,
 	if (hdfProxy == nullptr)
 		return;
 
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	resqml2__DoubleHdf5Array* hdfValues = static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
 
 	hdfProxy->readArrayNdOfDoubleValues(hdfValues->Values->PathInHdfFile, values);
@@ -336,7 +336,7 @@ void ContinuousProperty::getFloatValuesOfPatch(const unsigned int & patchIndex, 
 	if (hdfProxy == nullptr)
 		return;
 
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	resqml2__DoubleHdf5Array* hdfValues = static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
 
 	hdfProxy->readArrayNdOfFloatValues(hdfValues->Values->PathInHdfFile, values);
@@ -354,7 +354,7 @@ void ContinuousProperty::getFloatValuesOfPatch(
 	}
 
 	_resqml2__ContinuousProperty* prop = 
-		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	resqml2__DoubleHdf5Array* hdfValues = 
 		static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
 
@@ -392,14 +392,14 @@ void ContinuousProperty::getFloatValuesOf3dPatch(
 
 double ContinuousProperty::getMinimumValue()
 {
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 
 	return prop->MinimumValue[0];
 }
 
 double ContinuousProperty::getMaximumValue()
 {
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 
 	return prop->MaximumValue[0];
 }

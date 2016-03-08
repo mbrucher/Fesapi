@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractObject.h"
+#include "resqml2/AbstractObject.h"
 
 #if defined(_WIN32) || defined(__APPLE__)
 #include <unordered_map>
@@ -43,14 +43,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractResqmlDataObject : public AbstractObject
+	class DLL_IMPORT_OR_EXPORT AbstractResqmlDataObject : public resqml2::AbstractObject
 	{
 	protected:
 
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractResqmlDataObject(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractObject(epcDoc, partialObject) {}
+		AbstractResqmlDataObject(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractObject(epcDoc, partialObject) {}
 
 		/**
 		* Default constructor
@@ -104,10 +104,5 @@ namespace resqml2_0_1
 		* Get the string value of a string value pair at a particular index in the extra metadata set
 		*/
 		std::string getExtraMetadataStringValueAtIndex(const unsigned int & index) const;
-
-		/**
-		* Get the XML namesspace for the XML tags.
-		*/
-		std::string getXmlNamespace() const {return "resqml2";}
 	};
 }

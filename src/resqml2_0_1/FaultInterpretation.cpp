@@ -52,8 +52,8 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 	if (!fault)
 		throw invalid_argument("The interpreted fault cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);
-	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);
+	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy2_0_1);
 	interp->Domain = resqml2__Domain__mixed;
 	setInterpretedFeature(fault);
 
@@ -64,8 +64,8 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, const string & title,
 										GeneticBoundaryFeature * chronoTop, GeneticBoundaryFeature * chronoBtm)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);	
-	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);	
+	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy2_0_1);
 	interp->Domain = resqml2__Domain__mixed;
 	interp->InterpretedFeature = fault->newResqmlReference();
 
@@ -100,9 +100,9 @@ vector<Relationship> FaultInterpretation::getAllEpcRelationships() const
 
 void FaultInterpretation::pushBackThrowInterpretation(const gsoap_resqml2_0_1::resqml2__ThrowKind & throwKind)
 {
-	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy);
+	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy2_0_1);
 
-	resqml2__FaultThrow * throwInterp = soap_new_resqml2__FaultThrow(gsoapProxy->soap, 1);
+	resqml2__FaultThrow * throwInterp = soap_new_resqml2__FaultThrow(gsoapProxy2_0_1->soap, 1);
 	throwInterp->Throw.push_back(throwKind);
 
 	interp->ThrowInterpretation.push_back(throwInterp);

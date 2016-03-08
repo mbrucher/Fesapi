@@ -52,8 +52,8 @@ MdDatum::MdDatum(soap* soapContext, const string & guid, const string & title,
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context must exist");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREMdDatum(soapContext, 1);
-	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREMdDatum(soapContext, 1);
+	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
 	
 	mdInfo->LocalCrs = locCrs->newResqmlReference();
 	locCrs->addMdDatum(this);
@@ -70,7 +70,7 @@ MdDatum::MdDatum(soap* soapContext, const string & guid, const string & title,
 
 void MdDatum::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy);
+	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
 
 	localCrs = static_cast<AbstractLocal3dCrs*>(epcDoc->getResqmlAbstractObjectByUuid(mdInfo->LocalCrs->UUID));
 	if (localCrs)
@@ -79,7 +79,7 @@ void MdDatum::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 
 vector<Relationship> MdDatum::getAllEpcRelationships() const
 {
-	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy);
+	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
 
 	vector<Relationship> result;
 
@@ -106,7 +106,7 @@ vector<Relationship> MdDatum::getAllEpcRelationships() const
 
 double MdDatum::getX() const
 {
-	return static_cast<_resqml2__MdDatum*>(gsoapProxy)->Location->Coordinate1;
+	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->Location->Coordinate1;
 }
 
 double MdDatum::getXInGlobalCrs() const
@@ -122,7 +122,7 @@ double MdDatum::getXInGlobalCrs() const
 
 double MdDatum::getY() const
 {
-	return static_cast<_resqml2__MdDatum*>(gsoapProxy)->Location->Coordinate2;
+	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->Location->Coordinate2;
 }
 
 double MdDatum::getYInGlobalCrs() const
@@ -138,7 +138,7 @@ double MdDatum::getYInGlobalCrs() const
 
 double MdDatum::getZ() const
 {
-	return static_cast<_resqml2__MdDatum*>(gsoapProxy)->Location->Coordinate3;
+	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->Location->Coordinate3;
 }
 
 double MdDatum::getZInGlobalCrs() const
@@ -151,11 +151,11 @@ double MdDatum::getZInGlobalCrs() const
 
 gsoap_resqml2_0_1::resqml2__MdReference MdDatum::getOriginKind() const
 {
-	return static_cast<_resqml2__MdDatum*>(gsoapProxy)->MdReference;
+	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->MdReference;
 }
 
 std::string MdDatum::getLocalCrsUuid() const
 {
-	return static_cast<_resqml2__MdDatum*>(gsoapProxy)->LocalCrs->UUID;
+	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->LocalCrs->UUID;
 }
 

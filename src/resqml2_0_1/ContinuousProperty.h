@@ -325,7 +325,7 @@ namespace resqml2_0_1
 			const unsigned int& numArrayDimensions
 		) {
 			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = 
-				static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy);
+				static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 			if (prop->Count == 1) {
 
 				unsigned long long nValues = numValuesInEachDimension[0];
@@ -380,7 +380,7 @@ namespace resqml2_0_1
 			double * minimumValue = nullptr, double * maximumValue = nullptr)
 		{
 			setHdfProxy(proxy);
-			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy);
+			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 
 			if (prop->Count == 1)
 			{
@@ -441,13 +441,13 @@ namespace resqml2_0_1
 				}
 			}
 
-			gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
-			patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+			gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
+			patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
 			*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
 
 			// XML
-			gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
-			xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+			gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy2_0_1->soap, 1);
+			xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 			xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
 			std::ostringstream ossForHdf;
 			ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);

@@ -46,8 +46,8 @@ FrontierFeature::FrontierFeature(soap* soapContext, const std::string & guid, co
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREFrontierFeature(soapContext, 1);
-	_resqml2__FrontierFeature* frontier = static_cast<_resqml2__FrontierFeature*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREFrontierFeature(soapContext, 1);
+	_resqml2__FrontierFeature* frontier = static_cast<_resqml2__FrontierFeature*>(gsoapProxy2_0_1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

@@ -50,7 +50,7 @@ void AbstractOrganizationInterpretation::pushBackBinaryContact(const gsoap_resqm
 	if (!directObject)
 		throw invalid_argument("The direct object of the binary contact cannot be null.");
 
-	resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy);
+	resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy2_0_1);
 
 	resqml2__BinaryContactInterpretationPart* contact = soap_new_resqml2__BinaryContactInterpretationPart(org->soap, 1);
 	contact->Index = org->ContactInterpretation.size();
@@ -65,11 +65,11 @@ void AbstractOrganizationInterpretation::pushBackBinaryContact(const gsoap_resqm
 void AbstractOrganizationInterpretation::pushBackBinaryContact(const gsoap_resqml2_0_1::resqml2__ContactRelationship & kind, AbstractFeatureInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactVerb & verb, AbstractFeatureInterpretation* directObject,
 		const gsoap_resqml2_0_1::resqml2__ContactSide & directObjectQualifier)
 {
-	resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy);
+	resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy2_0_1);
 
 	pushBackBinaryContact(kind, subject, verb, directObject);
 	resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(org->ContactInterpretation[org->ContactInterpretation.size() - 1]);
-	contact->DirectObject->Qualifier = static_cast<resqml2__ContactSide*>(soap_malloc(gsoapProxy->soap, sizeof(resqml2__ContactSide)));
+	contact->DirectObject->Qualifier = static_cast<resqml2__ContactSide*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(resqml2__ContactSide)));
 	*(contact->DirectObject->Qualifier) = directObjectQualifier;
 }
 
@@ -77,12 +77,12 @@ void AbstractOrganizationInterpretation::pushBackBinaryContact(const gsoap_resqm
         const gsoap_resqml2_0_1::resqml2__ContactVerb & verb,
         AbstractFeatureInterpretation* directObject, const gsoap_resqml2_0_1::resqml2__ContactSide & directObjectQualifier)
 {
-    resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy);
+    resqml2__AbstractOrganizationInterpretation* org = static_cast<resqml2__AbstractOrganizationInterpretation*>(gsoapProxy2_0_1);
 
     pushBackBinaryContact(kind, subject, verb, directObject);
     resqml2__BinaryContactInterpretationPart* contact = static_cast<resqml2__BinaryContactInterpretationPart*>(org->ContactInterpretation[org->ContactInterpretation.size() - 1]);
-    contact->DirectObject->Qualifier = static_cast<resqml2__ContactSide*>(soap_malloc(gsoapProxy->soap, sizeof(resqml2__ContactSide)));
+    contact->DirectObject->Qualifier = static_cast<resqml2__ContactSide*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(resqml2__ContactSide)));
     *(contact->DirectObject->Qualifier) = directObjectQualifier;
-    contact->Subject->Qualifier = static_cast<resqml2__ContactSide*>(soap_malloc(gsoapProxy->soap, sizeof(resqml2__ContactSide)));
+    contact->Subject->Qualifier = static_cast<resqml2__ContactSide*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(resqml2__ContactSide)));
     *(contact->Subject->Qualifier) = subjectQualifier;
 }

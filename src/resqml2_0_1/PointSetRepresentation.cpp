@@ -51,8 +51,8 @@ PointSetRepresentation::PointSetRepresentation(AbstractFeatureInterpretation* in
 		const std::string & guid, const std::string & title):
 	AbstractRepresentation(interp, crs)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPointSetRepresentation(interp->getGsoapContext(), 1);
-	_resqml2__PointSetRepresentation* rep = static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPointSetRepresentation(interp->getGsoapContext(), 1);
+	_resqml2__PointSetRepresentation* rep = static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy2_0_1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -68,15 +68,15 @@ void PointSetRepresentation::pushBackGeometryPatch(
 				const unsigned int & xyzPointCount, double * xyzPoints,
 				AbstractHdfProxy * proxy)
 {
-	resqml2__NodePatch* patch = soap_new_resqml2__NodePatch(gsoapProxy->soap, 1);
-	patch->PatchIndex = static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.size();
+	resqml2__NodePatch* patch = soap_new_resqml2__NodePatch(gsoapProxy2_0_1->soap, 1);
+	patch->PatchIndex = static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy2_0_1)->NodePatch.size();
 	patch->Count = xyzPointCount;
 
 	// XYZ points
 	hsize_t pointCountDims[] = {xyzPointCount};
 	patch->Geometry = createPointGeometryPatch(patch->PatchIndex, xyzPoints, pointCountDims, 1, proxy);
 
-	static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.push_back(patch);
+	static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy2_0_1)->NodePatch.push_back(patch);
 }
 
 string PointSetRepresentation::getHdfProxyUuid() const
@@ -86,8 +86,8 @@ string PointSetRepresentation::getHdfProxyUuid() const
 
 resqml2__PointGeometry* PointSetRepresentation::getPointGeometry(const unsigned int & patchIndex) const
 {
-	if (patchIndex < static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.size())
-			return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch[patchIndex]->Geometry;
+	if (patchIndex < static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy2_0_1)->NodePatch.size())
+			return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy2_0_1)->NodePatch[patchIndex]->Geometry;
 	else
 		return nullptr;
 }
@@ -97,7 +97,7 @@ ULONG64 PointSetRepresentation::getXyzPointCountOfPatch(const unsigned int & pat
 	if (patchIndex >= getPatchCount())
 		throw range_error("The index of the patch is not in the allowed range of patch.");
 
-	return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch[patchIndex]->Count;
+	return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy2_0_1)->NodePatch[patchIndex]->Count;
 }
 
 void PointSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
@@ -116,6 +116,6 @@ void PointSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex
 
 unsigned int PointSetRepresentation::getPatchCount() const
 {
-    return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy)->NodePatch.size();
+    return static_cast<_resqml2__PointSetRepresentation*>(gsoapProxy2_0_1)->NodePatch.size();
 }
 

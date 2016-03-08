@@ -33,78 +33,57 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2/ActivityTemplate.h"
+#include "resqml2_0_1/Activity.h"
 
-namespace resqml2_0_1
+namespace resqml2
 {
-	class DLL_IMPORT_OR_EXPORT ActivityTemplate : public resqml2::ActivityTemplate
+	class DLL_IMPORT_OR_EXPORT ActivityTemplate : public AbstractObject
 	{
+	protected:
+		ActivityTemplate() : AbstractObject() {}
+
+		ActivityTemplate(gsoap_resqml2_0_1::_resqml2__ActivityTemplate* fromGsoap) : AbstractObject(fromGsoap) {}
+
 	public:
 
-		/**
-		* Creates an instance of this class in a gsoap context.
-		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
-		* @param guid			The guid to set to the boundary horizon. If empty then a new guid will be generated.
-		* @param title			A title for the instance to create.
-		*/
-		ActivityTemplate(soap* soapContext, const std::string & guid, const std::string & title);
-
-		ActivityTemplate(gsoap_resqml2_0_1::_resqml2__ActivityTemplate* fromGsoap) : resqml2::ActivityTemplate(fromGsoap) {}
 		virtual ~ActivityTemplate() {}
 		
 		/**
 		* Push back a parameter in the activity template instance.
 		* This parameter has an unconstrained type.
 		*/
-		void pushBackParameter(const std::string title,
+		virtual void pushBackParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
-			const unsigned int & minOccurs, const int & maxOccurs);
-
-		/**
-		* Push back a parameter in the activity template instance.
-		* This parameter must not be of a data object kind.
-		*/
-		void pushBackParameter(const std::string title,
-			const gsoap_resqml2_0_1::resqml2__ParameterKind & kind,
-			const bool & isInput, const bool isOutput,
-			const unsigned int & minOccurs, const int & maxOccurs);
+			const unsigned int & minOccurs, const int & maxOccurs) = 0;
 
 		/**
 		* Push back a parameter in the activity template instance.
 		* This parameter must be of a data object kind.
 		* @param resqmlObjectContentType	If empty, there is no constraint on the content type of this parameter.
 		*/
-		void pushBackParameter(const std::string title,
+		virtual void pushBackParameter(const std::string title,
 			const bool & isInput, const bool isOutput,
 			const unsigned int & minOccurs, const int & maxOccurs,
-			const std::string & resqmlObjectContentType);
+			const std::string & resqmlObjectContentType) = 0;
 
 		/**
 		* Check if the instance contains a parameter with a particular title
 		* @param paramTitle	The title of the parameter we are looking for into the instance
 		*/
-		bool isAnExistingParameter(const std::string & paramTitle) const;
+		virtual bool isAnExistingParameter(const std::string & paramTitle) const = 0;
 
-		const unsigned int getParameterCount() const;
-		const std::string & getParameterTitle(const unsigned int & index) const;
-		const std::vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & getParameterAllowedKinds(const unsigned int & index) const;
-		const std::vector<gsoap_resqml2_0_1::resqml2__ParameterKind> & getParameterAllowedKinds(const std::string & paramTitle) const;
-		const bool & getParameterIsInput(const unsigned int & index) const;
-		const bool & getParameterIsInput(const std::string & paramTitle) const;
-		const bool & getParameterIsOutput(const unsigned int & index) const;
-		const bool & getParameterIsOutput(const std::string & paramTitle) const;
-		const LONG64 getParameterMinOccurences(const unsigned int & index) const;
-		const LONG64 getParameterMinOccurences(const std::string & paramTitle) const;
-		const LONG64 getParameterMaxOccurences(const unsigned int & index) const;
-		const LONG64 getParameterMaxOccurences(const std::string & paramTitle) const;
+		virtual const unsigned int getParameterCount() const = 0;
+		virtual const std::string & getParameterTitle(const unsigned int & index) const = 0;
+		virtual const bool & getParameterIsInput(const unsigned int & index) const = 0;
+		virtual const bool & getParameterIsInput(const std::string & paramTitle) const = 0;
+		virtual const bool & getParameterIsOutput(const unsigned int & index) const = 0;
+		virtual const bool & getParameterIsOutput(const std::string & paramTitle) const = 0;
+		virtual const LONG64 getParameterMinOccurences(const unsigned int & index) const = 0;
+		virtual const LONG64 getParameterMinOccurences(const std::string & paramTitle) const = 0;
+		virtual const LONG64 getParameterMaxOccurences(const unsigned int & index) const = 0;
+		virtual const LONG64 getParameterMaxOccurences(const std::string & paramTitle) const = 0;
 
 		const std::vector<Activity*> & getActivityInstanceSet() const { return activityInstanceSet; }
-
-		//******************************************************************
-		//******************** MANDATORY FOR GsoapWrapper ******************
-		//******************************************************************
-		
-		std::string getResqmlVersion() const;
 
 		static const char* XML_TAG;
 		std::string getXmlTag() const {return XML_TAG;}
@@ -113,9 +92,9 @@ namespace resqml2_0_1
 	private:
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument * epcDoc) {}
-
-		gsoap_resqml2_0_1::resqml2__ParameterTemplate* getParameterFromTitle(const std::string & paramTitle) const;
 		
         std::vector<Activity*> activityInstanceSet;
+
+		friend void resqml2_0_1::Activity::setActivityTemplate(resqml2::ActivityTemplate* activityTemplate);
 	};
 }

@@ -51,19 +51,19 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
 			class TimeSeries * ts, const bool & useInterval)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapContext(), 1);	
-	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapContext(), 1);	
+	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 	prop->UOM = uom;
 
-	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy->soap, 1);
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlStandardPropKind->Kind = energisticsPropertyKind;
 	prop->PropertyKind = xmlStandardPropKind;
 
 	setRepresentation(rep);
 
-	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
+	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy2_0_1->soap, 1);
 	prop->SeriesTimeIndices->TimeIndexCount = ts->getTimestampCount();
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
@@ -77,15 +77,15 @@ ContinuousPropertySeries::ContinuousPropertySeries(AbstractRepresentation * rep,
 			const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropKind,
 			class TimeSeries * ts, const bool & useInterval)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapContext(), 1);	
-	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREContinuousPropertySeries(rep->getGsoapContext(), 1);	
+	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 	prop->UOM = uom;
 
 	setRepresentation(rep);
 
-	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy->soap, 1);
+	prop->SeriesTimeIndices = soap_new_resqml2__TimeIndices(gsoapProxy2_0_1->soap, 1);
 	prop->SeriesTimeIndices->TimeIndexCount = ts->getTimestampCount();
 	prop->SeriesTimeIndices->UseInterval = useInterval;
 	setTimeSeries(ts);
@@ -100,7 +100,7 @@ void ContinuousPropertySeries::importRelationshipSetFromEpc(common::EpcDocument*
 {
 	ContinuousProperty:: importRelationshipSetFromEpc(epcDoc);
 
-	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy);
+	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy2_0_1);
 	if (prop->SeriesTimeIndices != nullptr)
 	{
 		updateXml = false;

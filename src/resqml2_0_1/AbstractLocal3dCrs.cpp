@@ -47,7 +47,7 @@ using namespace epc;
 
 vector<Relationship> AbstractLocal3dCrs::getAllEpcRelationships() const
 {
-	resqml2__AbstractLocal3dCrs* local3dCrs = static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy);
+	resqml2__AbstractLocal3dCrs* local3dCrs = static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1);
 
 	vector<Relationship> result;
 
@@ -72,42 +72,42 @@ vector<Relationship> AbstractLocal3dCrs::getAllEpcRelationships() const
 
 double AbstractLocal3dCrs::getOriginOrdinal1() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->XOffset;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->XOffset;
 }
 
 double AbstractLocal3dCrs::getOriginOrdinal2() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->YOffset;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->YOffset;
 }
 
 double AbstractLocal3dCrs::getOriginDepthOrElevation() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ZOffset;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ZOffset;
 }
 
 double AbstractLocal3dCrs::getArealRotation() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ArealRotation->__item;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ArealRotation->__item;
 }
 
 gsoap_resqml2_0_1::eml__PlaneAngleUom AbstractLocal3dCrs::getArealRotationUom() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ArealRotation->uom;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ArealRotation->uom;
 }
 
 bool AbstractLocal3dCrs::isDepthOriented() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ZIncreasingDownward;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ZIncreasingDownward;
 }
 
 bool AbstractLocal3dCrs::isProjectedCrsDefinedWithEpsg() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__ProjectedCrsEpsgCode;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ProjectedCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__ProjectedCrsEpsgCode;
 }
 
 bool AbstractLocal3dCrs::isProjectedCrsUnknown() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__ProjectedUnknownCrs;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ProjectedCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__ProjectedUnknownCrs;
 }
 
 const std::string & AbstractLocal3dCrs::getProjectedCrsUnknownReason() const
@@ -115,7 +115,7 @@ const std::string & AbstractLocal3dCrs::getProjectedCrsUnknownReason() const
 	if (isProjectedCrsUnknown() == false)
 		throw invalid_argument("The associated projected Crs is not unknown.");
 
-	return static_cast<eml__ProjectedUnknownCrs*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs)->Unknown;
+	return static_cast<eml__ProjectedUnknownCrs*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ProjectedCrs)->Unknown;
 }
 
 unsigned long long AbstractLocal3dCrs::getProjectedCrsEpsgCode() const
@@ -123,17 +123,17 @@ unsigned long long AbstractLocal3dCrs::getProjectedCrsEpsgCode() const
 	if (isProjectedCrsDefinedWithEpsg() == false)
 		throw invalid_argument("The associated projected Crs is not an EPSG one.");
 
-	return static_cast<eml__ProjectedCrsEpsgCode*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedCrs)->EpsgCode;
+	return static_cast<eml__ProjectedCrsEpsgCode*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ProjectedCrs)->EpsgCode;
 }
 
 bool AbstractLocal3dCrs::isVerticalCrsDefinedWithEpsg() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__VerticalCrsEpsgCode;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->VerticalCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__VerticalCrsEpsgCode;
 }
 
 bool AbstractLocal3dCrs::isVerticalCrsUnknown() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__VerticalUnknownCrs;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->VerticalCrs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_eml__VerticalUnknownCrs;
 }
 
 const std::string & AbstractLocal3dCrs::getVerticalCrsUnknownReason() const
@@ -141,7 +141,7 @@ const std::string & AbstractLocal3dCrs::getVerticalCrsUnknownReason() const
 	if (isVerticalCrsUnknown() == false)
 		throw invalid_argument("The associated vertical Crs is not unknown.");
 
-	return static_cast<eml__VerticalUnknownCrs*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs)->Unknown;
+	return static_cast<eml__VerticalUnknownCrs*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->VerticalCrs)->Unknown;
 }
 		
 unsigned long long AbstractLocal3dCrs::getVerticalCrsEpsgCode() const
@@ -149,32 +149,32 @@ unsigned long long AbstractLocal3dCrs::getVerticalCrsEpsgCode() const
 	if (isVerticalCrsDefinedWithEpsg() == false)
 		throw invalid_argument("The associated vertical Crs is not an EPSG one.");
 
-	return static_cast<eml__VerticalCrsEpsgCode*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalCrs)->EpsgCode;
+	return static_cast<eml__VerticalCrsEpsgCode*>(static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->VerticalCrs)->EpsgCode;
 }
 
 gsoap_resqml2_0_1::eml__LengthUom AbstractLocal3dCrs::getProjectedCrsUnit() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedUom;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ProjectedUom;
 }
 
 string AbstractLocal3dCrs::getProjectedCrsUnitAsString() const
 {
-	return soap_eml__LengthUom2s(gsoapProxy->soap, static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedUom);
+	return soap_eml__LengthUom2s(gsoapProxy2_0_1->soap, static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ProjectedUom);
 }
 
 gsoap_resqml2_0_1::eml__LengthUom AbstractLocal3dCrs::getVerticalCrsUnit() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalUom;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->VerticalUom;
 }
 
 string AbstractLocal3dCrs::getVerticalCrsUnitAsString() const
 {
-	return soap_eml__LengthUom2s(gsoapProxy->soap, static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->VerticalUom);
+	return soap_eml__LengthUom2s(gsoapProxy2_0_1->soap, static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->VerticalUom);
 }
 
 eml__AxisOrder2d AbstractLocal3dCrs::getAxisOrder() const
 {
-	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy)->ProjectedAxisOrder;
+	return static_cast<resqml2__AbstractLocal3dCrs*>(gsoapProxy2_0_1)->ProjectedAxisOrder;
 }
 
 void AbstractLocal3dCrs::convertXyzPointsToGlobalCrs(double * xyzPoints, const ULONG64 & xyzPointCount, bool withoutTranslation) const

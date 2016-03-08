@@ -53,7 +53,7 @@ void AbstractValuesProperty::importRelationshipSetFromEpc(common::EpcDocument* e
 {
 	AbstractProperty::importRelationshipSetFromEpc(epcDoc);
 
-	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy);
+	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1);
 
 	resqml2__PatchOfValues* firstPatch = prop->PatchOfValues[0];
 	int valuesType = firstPatch->Values->soap_type();
@@ -85,7 +85,7 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 	if (hdfProxy == nullptr)
 		return AbstractValuesProperty::UNKNOWN;
 
-	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy);
+	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1);
 
 	resqml2__PatchOfValues* firstPatch = prop->PatchOfValues[0];
 	int valuesType = firstPatch->Values->soap_type();
@@ -135,14 +135,14 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 
 void AbstractValuesProperty::pushBackRefToExistingDataset(AbstractHdfProxy * hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset)
 {
-	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy);
+	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1);
 
-	gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
 	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
 
 	// XML
-	eml__Hdf5Dataset* datasetRef = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	eml__Hdf5Dataset* datasetRef = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	datasetRef->HdfProxy = hdfProxy->newResqmlReference();
 	if (dataset.empty() == true)
 	{
@@ -156,14 +156,14 @@ void AbstractValuesProperty::pushBackRefToExistingDataset(AbstractHdfProxy * hdf
 	}
 	if (isAnIntegerDataset == true)
 	{
-		gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+		gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 		xmlValues->Values = datasetRef;
 		xmlValues->NullValue = (std::numeric_limits<long>::max)();
 		patch->Values = xmlValues;
 	}
 	else
 	{
-		gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy->soap, 1);
+		gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy2_0_1->soap, 1);
 		xmlValues->Values = datasetRef;
 		patch->Values = xmlValues;
 	}
@@ -176,7 +176,7 @@ long AbstractValuesProperty::getLongValuesOfPatch(const unsigned int & patchInde
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 	
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -205,7 +205,7 @@ long AbstractValuesProperty::getLongValuesOfPatch(const unsigned int & patchInde
 
 long AbstractValuesProperty::getNullValueOfPatch(const unsigned int & patchIndex)
 {
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 	if (patch->Values->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		throw invalid_argument("The patch does not contain integer values.");
 	else
@@ -217,7 +217,7 @@ unsigned long AbstractValuesProperty::getULongValuesOfPatch(const unsigned int &
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -249,7 +249,7 @@ int AbstractValuesProperty::getIntValuesOfPatch(const unsigned int & patchIndex,
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -281,7 +281,7 @@ unsigned int AbstractValuesProperty::getUIntValuesOfPatch(const unsigned int & p
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -313,7 +313,7 @@ short AbstractValuesProperty::getShortValuesOfPatch(const unsigned int & patchIn
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -345,7 +345,7 @@ unsigned short AbstractValuesProperty::getUShortValuesOfPatch(const unsigned int
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -377,7 +377,7 @@ char AbstractValuesProperty::getCharValuesOfPatch(const unsigned int & patchInde
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -409,7 +409,7 @@ unsigned char AbstractValuesProperty::getUCharValuesOfPatch(const unsigned int &
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 
 	int valuesType = patch->Values->soap_type();
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -441,7 +441,7 @@ unsigned int AbstractValuesProperty::getValuesCountOfDimensionOfPatch(const unsi
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 	std::vector<hsize_t> dims;
 	
 	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
@@ -472,7 +472,7 @@ unsigned int AbstractValuesProperty::getDimensionsCountOfPatch(const unsigned in
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
 		return hdfProxy->getDimensionCount(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile);
@@ -495,29 +495,29 @@ unsigned int AbstractValuesProperty::getDimensionsCountOfPatch(const unsigned in
 
 void AbstractValuesProperty::pushBackFacet(const gsoap_resqml2_0_1::resqml2__Facet & facet, const std::string & facetValue)
 {
-	resqml2__PropertyKindFacet* newFacet = soap_new_resqml2__PropertyKindFacet(gsoapProxy->soap, 1);
+	resqml2__PropertyKindFacet* newFacet = soap_new_resqml2__PropertyKindFacet(gsoapProxy2_0_1->soap, 1);
 	newFacet->Facet = facet;
 	newFacet->Value = facetValue;
-	static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet.push_back(newFacet);
+	static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->Facet.push_back(newFacet);
 }
 
 unsigned int AbstractValuesProperty::getFacetCount() const
 {
-	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet.size();
+	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->Facet.size();
 }
 
 gsoap_resqml2_0_1::resqml2__Facet AbstractValuesProperty::getFacet(const unsigned int & index) const
 {
 	if (index >= getFacetCount())
 		throw out_of_range("The facet index is out of range");
-	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet[index]->Facet;
+	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->Facet[index]->Facet;
 }
 
 std::string AbstractValuesProperty::getFacetValue(const unsigned int & index) const
 {
 	if (index >= getFacetCount())
 		throw out_of_range("The facet index is out of range");
-	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->Facet[index]->Value;
+	return static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->Facet[index]->Value;
 }
 
 unsigned int AbstractValuesProperty::getValuesCountOfPatch (const unsigned int & patchIndex)
@@ -525,7 +525,7 @@ unsigned int AbstractValuesProperty::getValuesCountOfPatch (const unsigned int &
 	if (hdfProxy == nullptr)
 		throw invalid_argument("The Hdf proxy cannot be nullptr.");
 
-	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy)->PatchOfValues[patchIndex];
+	resqml2__PatchOfValues* patch = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1)->PatchOfValues[patchIndex];
 	if (patch->Values->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
 		return hdfProxy->getElementCount(static_cast<resqml2__BooleanHdf5Array*>(patch->Values)->Values->PathInHdfFile);
@@ -583,15 +583,15 @@ void AbstractValuesProperty::createLongHdf5ArrayOfValues(
 	AbstractHdfProxy* proxy)
 {
 	setHdfProxy(proxy);
-	gsoap_resqml2_0_1::_resqml2__CategoricalProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__CategoricalProperty*>(gsoapProxy);
+	gsoap_resqml2_0_1::_resqml2__CategoricalProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 
-	gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
 	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
 
 	// XML
-	gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
-	xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
+	xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
 	std::ostringstream ossForHdf;
 	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
@@ -615,7 +615,7 @@ void AbstractValuesProperty::pushBackLongHdf5SlabArrayOfValues(
 	hsize_t* offsetInEachDimension, const unsigned int& numArrayDimensions, 
 	AbstractHdfProxy* proxy)
 {
-	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
+	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 	ostringstream oss;
 	oss << "values_patch" << prop->PatchOfValues.size() - 1;
 
@@ -640,7 +640,7 @@ void AbstractValuesProperty::getLongValuesOfPatch(
 	}
 
 	_resqml2__CategoricalProperty* prop = 
-		static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
+		static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 	resqml2__IntegerHdf5Array* hdfValues = 
 		static_cast<resqml2__IntegerHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
 

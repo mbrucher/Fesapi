@@ -47,8 +47,8 @@ SeismicLineSetFeature::SeismicLineSetFeature(soap* soapContext, const std::strin
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLineSetFeature(soapContext, 1);
-	_resqml2__SeismicLineSetFeature* seismicLineSet = static_cast<_resqml2__SeismicLineSetFeature*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORESeismicLineSetFeature(soapContext, 1);
+	_resqml2__SeismicLineSetFeature* seismicLineSet = static_cast<_resqml2__SeismicLineSetFeature*>(gsoapProxy2_0_1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

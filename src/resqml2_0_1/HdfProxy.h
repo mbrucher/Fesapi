@@ -85,16 +85,20 @@ namespace resqml2_0_1
 		* @param groupName				The name of the group where to create the itemized list of list.
 		*								This name must not contain '/' character and must be directly contained in RESQML group.
 		* @param name					The name of the itemized list of list hdf group.
-		* @param cumulativeLength		1d array of positive integers containing for each list the sum of all the previous list lengths including the current one
-		* @param cumulativeLengthSize	Size of the cumulativeLength array.
-		* @param elements				1d array of elements containing the aggregation of individual list content.
-		* @param elementsSize			Size of the elements array.
+		* @param cumulativeLengthDatatype	The datatype of the cumulative length to write.
+		* @param cumulativeLength			1d array of positive integers containing for each list the sum of all the previous list lengths including the current one
+		* @param cumulativeLengthSize		Size of the cumulativeLength array.
+		* @param elementsDatatype			The datatype of the elements to write.
+		* @param elements					1d array of elements containing the aggregation of individual list content.
+		* @param elementsSize				Size of the elements array.
 		*/
-		void writeItemizedListOfUnsignedInt(const std::string & groupName,
+		void writeItemizedListOfList(const std::string & groupName,
 			const std::string & name,
-			unsigned int * cumulativeLength,
+			const int & cumulativeLengthDatatype,
+			void * cumulativeLength,
 			const unsigned long long & cumulativeLengthSize,
-			unsigned int * elements,
+			const int & elementsDatatype,
+			void * elements,
 			const unsigned long long & elementsSize);
 
 		/**
@@ -186,7 +190,7 @@ namespace resqml2_0_1
 		* @param groupName						The name of the group where to create the array of values.
 		*										This name must not contain '/' character and must be directly contained in RESQML group.
 		* @param name							The name of the array (potentially with multi dimensions) of a specific datatype hdf dataset. It must not already exist.
-		* @param datatype						The specific datatype of the valeus to write.
+		* @param datatype						The specific datatype of the values to write.
 		* @param values							1d array of specific datatype ordered firstly by fastest direction.
 		* @param numValuesInEachDimension		Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
 		* @param numDimensions					The number of the dimensions of the array to write

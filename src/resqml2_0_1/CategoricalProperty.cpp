@@ -55,12 +55,12 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 			StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 		: stringLookup(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
-	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
+	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 
-	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy->soap, 1);
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlStandardPropKind->Kind = energisticsPropertyKind;
 	prop->PropertyKind = xmlStandardPropKind;
 
@@ -78,8 +78,8 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 			StringTableLookup* strLookup, PropertyKind * localPropKind)
 	:stringLookup(strLookup)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
-	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
+	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 
@@ -98,7 +98,7 @@ vector<Relationship> CategoricalProperty::getAllEpcRelationships() const
 {
 	vector<Relationship> result = AbstractValuesProperty::getAllEpcRelationships();
 
-	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
+	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 
 	if (stringLookup)
 	{
@@ -116,7 +116,7 @@ void CategoricalProperty::importRelationshipSetFromEpc(common::EpcDocument* epcD
 {
 	AbstractValuesProperty:: importRelationshipSetFromEpc(epcDoc);
 
-	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
+	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 	stringLookup = static_cast<StringTableLookup*>(epcDoc->getResqmlAbstractObjectByUuid(prop->Lookup->UUID));
 	if (stringLookup)
 		stringLookup->addCategoricalPropertyValues(this);
@@ -143,17 +143,17 @@ void CategoricalProperty::pushBackLongHdf5Array3dOfValues(long * values, const u
 void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, AbstractHdfProxy * proxy, const long & nullValue)
 {
 	setHdfProxy(proxy);
-	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy);
+	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 
-	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
 	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
 
 	// XML
 	ostringstream oss;
-	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	xmlValues->NullValue = nullValue;
-	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();;
 	ostringstream ossForHdf;
 	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
@@ -172,6 +172,6 @@ void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t *
 
 std::string CategoricalProperty::getStringLookupUuid() const
 {
-	return static_cast<_resqml2__CategoricalProperty*>(gsoapProxy)->Lookup->UUID;
+	return static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1)->Lookup->UUID;
 }
 

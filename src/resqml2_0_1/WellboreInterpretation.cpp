@@ -44,8 +44,8 @@ const char* WellboreInterpretation::XML_TAG = "WellboreInterpretation";
 
 WellboreInterpretation::WellboreInterpretation(WellboreFeature * WellboreFeature, const string & guid, const string & title, bool isDrilled)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreInterpretation(WellboreFeature->getGsoapContext(), 1);
-	_resqml2__WellboreInterpretation* wbInterp = static_cast<_resqml2__WellboreInterpretation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreInterpretation(WellboreFeature->getGsoapContext(), 1);
+	_resqml2__WellboreInterpretation* wbInterp = static_cast<_resqml2__WellboreInterpretation*>(gsoapProxy2_0_1);
 	wbInterp->Domain = resqml2__Domain__mixed;
 
 	wbInterp->IsDrilled = isDrilled;
@@ -58,7 +58,7 @@ WellboreInterpretation::WellboreInterpretation(WellboreFeature * WellboreFeature
 
 bool WellboreInterpretation::isDrilled() const
 {
-	return static_cast<_resqml2__WellboreInterpretation*>(gsoapProxy)->IsDrilled;
+	return static_cast<_resqml2__WellboreInterpretation*>(gsoapProxy2_0_1)->IsDrilled;
 }
 
 std::vector<WellboreTrajectoryRepresentation*> WellboreInterpretation::getWellboreTrajectoryRepresentationSet() const

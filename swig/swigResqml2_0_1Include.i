@@ -930,6 +930,8 @@ namespace resqml2_0_1
 			AbstractHdfProxy * proxy);
 			
 		void addParentTrajectory(const double & kickoffMd, const double & parentMd, WellboreTrajectoryRepresentation* parentTrajRep);
+		WellboreTrajectoryRepresentation* getParentTrajectory() const;
+		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
 
 		int getGeometryKind() const;
 
@@ -1049,12 +1051,12 @@ namespace resqml2_0_1
 		ULONG64 * getNodeIndicesOfFaceOfCell(const ULONG64 & cellIndex, const unsigned int & localFaceIndex) const;
 		void unloadGeometry();
 		
-		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy,
-				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
-				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
-				const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
-		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class AbstractHdfProxy * proxy,
-						unsigned int * faceIndicesPerCell, unsigned int * nodeIndicesPerFace);
+		void setGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, class AbstractHdfProxy * proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell, ULONG64 faceCount,
+			ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace, ULONG64 nodeCount,
+			const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
+		void setTetrahedraOnlyGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, class AbstractHdfProxy * proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace);
 	};
 	
 	class AbstractIjkGridRepresentation : public AbstractColumnLayerGridRepresentation

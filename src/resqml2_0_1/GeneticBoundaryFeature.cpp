@@ -37,3 +37,8 @@ using namespace std;
 using namespace resqml2_0_1;
 
 const char* GeneticBoundaryFeature::XML_TAG = "GeneticBoundaryFeature";
+
+bool GeneticBoundaryFeature::isAnHorizon() const
+{
+	return static_cast<gsoap_resqml2_0_1::_resqml2__GeneticBoundaryFeature*>(gsoapProxy2_0_1)->GeneticBoundaryKind == gsoap_resqml2_0_1::resqml2__GeneticBoundaryKind__horizon;
+}

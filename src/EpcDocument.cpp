@@ -160,9 +160,9 @@ soap* EpcDocument::getGsoapContext() const { return s; }
 PropertyKindMapper* EpcDocument::getPropertyKindMapper() const { return propertyKindMapper; }
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-const std::unordered_map< std::string, resqml2_0_1::AbstractObject* > & EpcDocument::getResqmlAbstractObjectSet() const { return resqmlAbstractObjectSet; }
+const std::unordered_map< std::string, resqml2::AbstractObject* > & EpcDocument::getResqmlAbstractObjectSet() const { return resqmlAbstractObjectSet; }
 #else
-const std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > & EpcDocument::getResqmlAbstractObjectSet() const { return resqmlAbstractObjectSet; }
+const std::tr1::unordered_map< std::string, resqml2::AbstractObject* > & EpcDocument::getResqmlAbstractObjectSet() const { return resqmlAbstractObjectSet; }
 #endif
 
 const std::vector<resqml2_0_1::LocalDepth3dCrs*> & EpcDocument::getLocalDepth3dCrsSet() const { return localDepth3dCrsSet; }
@@ -234,9 +234,9 @@ void EpcDocument::close()
 	}
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
+	for (std::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #else
-	for (std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
+	for (std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #endif
 	{
 	  delete it->second;
@@ -368,18 +368,18 @@ std::string EpcDocument::getWitsmlPlaneAngleUom(const gsoap_witsml1_4_1_1::witsm
 	return gsoap_witsml1_4_1_1::soap_witsml1__PlaneAngleUom2s(s, witsmlUom);
 }
 
-void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
+void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 {
 	if (proxy->getXmlTag().compare(TectonicBoundaryFeature::XML_TAG) == 0)
 	{
-		if (static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(proxy->getGsoapProxy())->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fault)
+		if (!static_cast<TectonicBoundaryFeature*>(proxy)->isAFracture())
 			faultSet.push_back(static_cast<Fault*>(proxy));
-		else if (static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(proxy->getGsoapProxy())->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture)
+		else
 			fractureSet.push_back(static_cast<Fracture*>(proxy));
 	}
 	else if (proxy->getXmlTag().compare(GeneticBoundaryFeature::XML_TAG) == 0)
 	{
-		if (static_cast<gsoap_resqml2_0_1::_resqml2__GeneticBoundaryFeature*>(proxy->getGsoapProxy())->GeneticBoundaryKind == gsoap_resqml2_0_1::resqml2__GeneticBoundaryKind__horizon)
+		if (static_cast<GeneticBoundaryFeature*>(proxy)->isAnHorizon())
 			horizonSet.push_back(static_cast<Horizon*>(proxy));
 	}
 	else if (proxy->getXmlTag().compare(SeismicLineFeature::XML_TAG) == 0)
@@ -462,7 +462,7 @@ void EpcDocument::addGsoapProxy(resqml2_0_1::AbstractObject* proxy)
 	proxy->epcDocument = this;
 }
 
-void EpcDocument::addGsoapProxyAndDeleteItIfException(resqml2_0_1::AbstractObject* proxy)
+void EpcDocument::addGsoapProxyAndDeleteItIfException(resqml2::AbstractObject* proxy)
 {
 	try {
 		addGsoapProxy(proxy);
@@ -517,9 +517,9 @@ void EpcDocument::serialize(bool useZip64)
 
 	package->openForWriting(filePath, useZip64);
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
+	for (std::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #else
-	for (std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
+	for (std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #endif
 	{
 		if (it->second->isPartial() == false)
@@ -574,7 +574,7 @@ string EpcDocument::deserialize()
 				throw invalid_argument("The EPC document contains the file " + it->second.getExtensionOrPartName().substr(1) + " in its contentType file which cannot be found or cannot be unzipped or is empty.");
 			istringstream iss(fileStr);
 			s->is = &iss;
-			resqml2_0_1::AbstractObject* wrapper = nullptr;
+			resqml2::AbstractObject* wrapper = nullptr;
 			size_t lastEqualCharPos = it->second.getContentTypeString().find_last_of('_'); // The XML tag is after "obj_"
 			string resqmlContentType = it->second.getContentTypeString().substr(lastEqualCharPos+1);
 			if (resqmlContentType.compare(MdDatum::XML_TAG) == 0)
@@ -1014,9 +1014,9 @@ string EpcDocument::deserialize()
 	return string();
 }
 
-resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const
+resqml2::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const
 {
-	resqml2_0_1::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid);
+	resqml2::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid);
 	if (result != nullptr)
 	{
 		gsoapType = result->getGsoapType();
@@ -1024,12 +1024,12 @@ resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const st
 	return result;
 }
 
-resqml2_0_1::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const string & uuid) const
+resqml2::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const string & uuid) const
 {
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-	std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
+	std::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
 #else
-	std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
+	std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
 #endif
 	if (it == resqmlAbstractObjectSet.end())
 	{
@@ -1447,9 +1447,9 @@ string EpcDocument::getName() const
 void EpcDocument::updateAllRelationships()
 {
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-	for (std::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
+	for (std::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #else
-	for (std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
+	for (std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #endif
 	{
 		if (it->second->isPartial() == false)
@@ -2296,7 +2296,7 @@ ActivityTemplate* EpcDocument::createActivityTemplate(const std::string & guid, 
 	return result;
 }
 		
-Activity* EpcDocument::createActivity(ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title)
+Activity* EpcDocument::createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title)
 {
 	Activity* result = new Activity(activityTemplate, guid, title);
 	addGsoapProxyAndDeleteItIfException(result);

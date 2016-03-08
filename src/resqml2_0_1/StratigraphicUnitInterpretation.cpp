@@ -50,8 +50,8 @@ StratigraphicUnitInterpretation::StratigraphicUnitInterpretation(StratigraphicUn
 	if (!feature)
 		throw invalid_argument("The interpreted feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicUnitInterpretation(feature->getGsoapContext(), 1);
-	static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREStratigraphicUnitInterpretation(feature->getGsoapContext(), 1);
+	static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy2_0_1)->Domain = resqml2__Domain__mixed;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -80,7 +80,7 @@ vector<Relationship> StratigraphicUnitInterpretation::getAllEpcRelationships() c
 
 bool StratigraphicUnitInterpretation::hasDepositionMode() const
 {
-	return static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy)->DepositionMode != nullptr;
+	return static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy2_0_1)->DepositionMode != nullptr;
 }
 
 gsoap_resqml2_0_1::resqml2__DepositionMode StratigraphicUnitInterpretation::getDepositionMode() const
@@ -88,5 +88,5 @@ gsoap_resqml2_0_1::resqml2__DepositionMode StratigraphicUnitInterpretation::getD
 	if (hasDepositionMode() == false)
 		throw invalid_argument("The stratigraphic unit interpretation has not any deposition mode.");
 
-	return *static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy)->DepositionMode;
+	return *static_cast<_resqml2__StratigraphicUnitInterpretation*>(gsoapProxy2_0_1)->DepositionMode;
 }

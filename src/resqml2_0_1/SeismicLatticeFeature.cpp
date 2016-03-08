@@ -47,8 +47,8 @@ SeismicLatticeFeature::SeismicLatticeFeature(soap* soapContext, const string & g
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLatticeFeature(soapContext, 1);
-	_resqml2__SeismicLatticeFeature* seismicLattice = static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORESeismicLatticeFeature(soapContext, 1);
+	_resqml2__SeismicLatticeFeature* seismicLattice = static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy2_0_1);
 
 	seismicLattice->InlineIndexIncrement = inlineIncrement;
 	seismicLattice->CrosslineIndexIncrement = crosslineIncrement;
@@ -63,21 +63,21 @@ SeismicLatticeFeature::SeismicLatticeFeature(soap* soapContext, const string & g
 
 int SeismicLatticeFeature::getCrosslineIncrement() const
 {
-	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy)->CrosslineIndexIncrement;
+	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy2_0_1)->CrosslineIndexIncrement;
 }
 		
 int SeismicLatticeFeature::getInlineIncrement() const
 {
-	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy)->InlineIndexIncrement;
+	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy2_0_1)->InlineIndexIncrement;
 }
 		
 int SeismicLatticeFeature::getOriginCrossline() const
 {
-	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy)->FirstCrosslineIndex;
+	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy2_0_1)->FirstCrosslineIndex;
 }
 		
 int SeismicLatticeFeature::getOriginInline() const
 {
-	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy)->FirstInlineIndex;
+	return static_cast<_resqml2__SeismicLatticeFeature*>(gsoapProxy2_0_1)->FirstInlineIndex;
 }
 

@@ -49,8 +49,8 @@ SeismicLineFeature::SeismicLineFeature(soap* soapContext, const std::string & gu
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORESeismicLineFeature(soapContext, 1);
-	_resqml2__SeismicLineFeature* seismicLine = static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORESeismicLineFeature(soapContext, 1);
+	_resqml2__SeismicLineFeature* seismicLine = static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy2_0_1);
 
 	seismicLine->TraceIndexIncrement = traceIndexIncrement;
 	seismicLine->FirstTraceIndex = firstTraceIndex;
@@ -62,17 +62,17 @@ SeismicLineFeature::SeismicLineFeature(soap* soapContext, const std::string & gu
 
 int SeismicLineFeature::getTraceIndexIncrement() const
 {
-	return static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy)->TraceIndexIncrement;
+	return static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy2_0_1)->TraceIndexIncrement;
 }
 		
 int SeismicLineFeature::getFirstTraceIndex() const
 {
-	return static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy)->FirstTraceIndex;
+	return static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy2_0_1)->FirstTraceIndex;
 }
 		
 unsigned int SeismicLineFeature::getTraceCount() const
 {
-	return static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy)->TraceCount;
+	return static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy2_0_1)->TraceCount;
 }
 
 void SeismicLineFeature::setSeismicLineSet(SeismicLineSetFeature * seisLineSet)
@@ -84,7 +84,7 @@ void SeismicLineFeature::setSeismicLineSet(SeismicLineSetFeature * seisLineSet)
 	// XML
 	if (updateXml)
 	{
-		static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy)->IsPartOf = seisLineSet->newResqmlReference();
+		static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy2_0_1)->IsPartOf = seisLineSet->newResqmlReference();
 	}
 }
 
@@ -106,7 +106,7 @@ void SeismicLineFeature::importRelationshipSetFromEpc(common::EpcDocument* epcDo
 {
 	updateXml = false;
 
-	_resqml2__SeismicLineFeature* seismicLine = static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy);
+	_resqml2__SeismicLineFeature* seismicLine = static_cast<_resqml2__SeismicLineFeature*>(gsoapProxy2_0_1);
 
 	if (seismicLine->IsPartOf)
 	{

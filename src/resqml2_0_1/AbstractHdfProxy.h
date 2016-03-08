@@ -78,21 +78,25 @@ namespace resqml2_0_1
 		virtual int getHdfDatatypeInDataset(const std::string & groupName) = 0;
 
 		/**
-		 * Write an itemized list of list into the HDF file by means of a single group containing 2 datasets.
-		 * @param groupName				The name of the group where to create the itemized list of list.
-		 *								This name must not contain '/' character and must be directly contained in RESQML group.
-		 * @param name					The name of the itemized list of list hdf group.
-		 * @param cumulativeLength		1d array of positive integers containing for each list the sum of all the previous list lengths including the current one
-		 * @param cumulativeLengthSize	Size of the cumulativeLength array.
-		 * @param elements				1d array of elements containing the aggregation of individual list content.
-		 * @param elementsSize			Size of the elements array.
-		 */
-		virtual void writeItemizedListOfUnsignedInt(const std::string & groupName,
-		  const std::string & name,
-		  unsigned int * cumulativeLength,
-		  const unsigned long long & cumulativeLengthSize,
-		  unsigned int * elements,
-		  const unsigned long long & elementsSize) = 0;
+		* Write an itemized list of list into the HDF file by means of a single group containing 2 datasets.
+		* @param groupName					The name of the group where to create the itemized list of list.
+		*									This name must not contain '/' character and must be directly contained in RESQML group.
+		* @param name						The name of the itemized list of list hdf group.
+		* @param cumulativeLengthDatatype	The datatype of the cumulative length to write.
+		* @param cumulativeLength			1d array of positive integers containing for each list the sum of all the previous list lengths including the current one
+		* @param cumulativeLengthSize		Size of the cumulativeLength array.
+		* @param elementsDatatype			The datatype of the elements to write.
+		* @param elements					1d array of elements containing the aggregation of individual list content.
+		* @param elementsSize				Size of the elements array.
+		*/
+		virtual void writeItemizedListOfList(const std::string & groupName,
+			const std::string & name,
+			const int & cumulativeLengthDatatype,
+			void * cumulativeLength,
+			const unsigned long long & cumulativeLengthSize,
+			const int & elementsDatatype,
+			void * elements,
+			const unsigned long long & elementsSize) = 0;
 
 		/**
 		 * Get the number of dimensions in an HDF dataset of the proxy.

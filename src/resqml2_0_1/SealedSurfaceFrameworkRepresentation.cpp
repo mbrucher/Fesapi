@@ -60,10 +60,10 @@ SealedSurfaceFrameworkRepresentation::SealedSurfaceFrameworkRepresentation(
         throw invalid_argument("The structural organization interpretation cannot be null.");
 
     // proxy constructor
-    gsoapProxy = soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(interp->getGsoapContext(), 1);
-    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+    gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(interp->getGsoapContext(), 1);
+    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
-    orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);
+    orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy2_0_1->soap, 1);
     orgRep->RepresentedInterpretation->UUID.assign(interp->getUuid());
 
     initMandatoryMetadata();
@@ -75,9 +75,9 @@ SealedSurfaceFrameworkRepresentation::SealedSurfaceFrameworkRepresentation(
 
 void SealedSurfaceFrameworkRepresentation::pushBackSealedContactRepresentation(const gsoap_resqml2_0_1::resqml2__IdentityKind & kind)
 {
-    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
-    resqml2__SealedContactRepresentationPart* contactRep = soap_new_resqml2__SealedContactRepresentationPart(gsoapProxy->soap, 1);
+    resqml2__SealedContactRepresentationPart* contactRep = soap_new_resqml2__SealedContactRepresentationPart(gsoapProxy2_0_1->soap, 1);
     contactRep->Index = orgRep->SealedContactRepresentation.size();
     contactRep->IdentityKind = kind;
     orgRep->SealedContactRepresentation.push_back(contactRep);
@@ -100,23 +100,23 @@ void SealedSurfaceFrameworkRepresentation::pushBackSealedContactRepresentation(
         throw invalid_argument("The HDF proxy cannot be null.");
 
     setHdfProxy(proxy);
-    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
-    resqml2__SealedContactRepresentationPart* contactRep = soap_new_resqml2__SealedContactRepresentationPart(gsoapProxy->soap, 1);
+    resqml2__SealedContactRepresentationPart* contactRep = soap_new_resqml2__SealedContactRepresentationPart(gsoapProxy2_0_1->soap, 1);
     contactRep->Index = orgRep->SealedContactRepresentation.size();
     orgRep->SealedContactRepresentation.push_back(contactRep);
 
-    resqml2__IntegerHdf5Array * xmlListOfIdenticalNodes = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+    resqml2__IntegerHdf5Array * xmlListOfIdenticalNodes = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
     xmlListOfIdenticalNodes->NullValue = (std::numeric_limits<int>::max)();
-    xmlListOfIdenticalNodes->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+    xmlListOfIdenticalNodes->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
     xmlListOfIdenticalNodes->Values->HdfProxy = proxy->newResqmlReference();
     ostringstream ossForHdf;
     ossForHdf << "listOfIdenticalNodes_contact" << contactRep->Index;
-    xmlListOfIdenticalNodes->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/" + ossForHdf.str();
+    xmlListOfIdenticalNodes->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/" + ossForHdf.str();
     contactRep->IdenticalNodeIndices = xmlListOfIdenticalNodes;
     // ************ HDF *************
     hsize_t dim[2] = {identicalNodesCount, patchCount};
-    proxy->writeArrayNd(gsoapProxy->uuid,
+    proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
         ossForHdf.str(), H5T_NATIVE_UINT,
         identicalNodes,
         dim, 2);
@@ -136,7 +136,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
         throw invalid_argument("The supporting representation cannot be null.");
 
     setHdfProxy(proxy);
-    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
     if (contactIndex >= orgRep->SealedContactRepresentation.size())
         throw invalid_argument("Invalid contact index.");
@@ -154,22 +154,22 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
     if (representationIndex == -1)
         throw invalid_argument("The supporting representation is not referenced by the sealed surface framework");
 
-    resqml2__ContactPatch* contactPatch = soap_new_resqml2__ContactPatch(gsoapProxy->soap, 1);
+    resqml2__ContactPatch* contactPatch = soap_new_resqml2__ContactPatch(gsoapProxy2_0_1->soap, 1);
     contactPatch->PatchIndex = contactRep->Contact.size();
     contactPatch->Count = NodeCount;
     contactPatch->RepresentationIndex = representationIndex;
 
-    resqml2__IntegerHdf5Array* xmlSupportingRepresentationNodes = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+    resqml2__IntegerHdf5Array* xmlSupportingRepresentationNodes = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
     xmlSupportingRepresentationNodes->NullValue = (std::numeric_limits<int>::max)();
-    xmlSupportingRepresentationNodes->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+    xmlSupportingRepresentationNodes->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
     xmlSupportingRepresentationNodes->Values->HdfProxy = proxy->newResqmlReference();
     ostringstream ossForHdf;
     ossForHdf << "SupportingRepresentationNodes_contact" << contactIndex << "_patch" << contactPatch->PatchIndex;
-    xmlSupportingRepresentationNodes->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/" + ossForHdf.str();
+    xmlSupportingRepresentationNodes->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/" + ossForHdf.str();
     contactPatch->SupportingRepresentationNodes = xmlSupportingRepresentationNodes;
     // ************ HDF *************
     hsize_t dim[1] = {NodeCount};
-    proxy->writeArrayNd(gsoapProxy->uuid,
+    proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
                         ossForHdf.str(), H5T_NATIVE_UINT,
                         nodeIndicesOnSupportingRepresentation,
                         dim, 1);
@@ -183,23 +183,23 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
         const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
         AbstractHdfProxy * proxy)
 {
-    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
-    resqml2__ContactIdentity * contactIdentity = soap_new_resqml2__ContactIdentity(gsoapProxy->soap, 1);
+    resqml2__ContactIdentity * contactIdentity = soap_new_resqml2__ContactIdentity(gsoapProxy2_0_1->soap, 1);
     contactIdentity->IdentityKind = kind;
 
     // ListOfContactRepresentations handling
-    resqml2__IntegerHdf5Array * xmlListOfContactRepresentations = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+    resqml2__IntegerHdf5Array * xmlListOfContactRepresentations = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
     xmlListOfContactRepresentations->NullValue = (std::numeric_limits<int>::max)();
-    xmlListOfContactRepresentations->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+    xmlListOfContactRepresentations->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
     xmlListOfContactRepresentations->Values->HdfProxy = proxy->newResqmlReference();
     ostringstream ossForHdfContactRepresentations;
     ossForHdfContactRepresentations << "contactIdentity_listOfContactRep_" << orgRep->ContactIdentity.size() ;
-    xmlListOfContactRepresentations->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/" + ossForHdfContactRepresentations.str();
+    xmlListOfContactRepresentations->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/" + ossForHdfContactRepresentations.str();
     contactIdentity->ListOfContactRepresentations = xmlListOfContactRepresentations;
     // ************ HDF *************
     hsize_t dimContactRepresentations[1] = {sealedContactRepresentationsCount};
-    proxy->writeArrayNd(gsoapProxy->uuid,
+    proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
         ossForHdfContactRepresentations.str(), H5T_NATIVE_UINT,
         sealedContactRepresentationsIndexes,
         dimContactRepresentations, 1);
@@ -212,39 +212,39 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
         const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
         const unsigned int & identicalNodesCount, int * identicalNodesIndexes, AbstractHdfProxy * proxy)
 {
-    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
-    resqml2__ContactIdentity * contactIdentity = soap_new_resqml2__ContactIdentity(gsoapProxy->soap, 1);
+    resqml2__ContactIdentity * contactIdentity = soap_new_resqml2__ContactIdentity(gsoapProxy2_0_1->soap, 1);
     contactIdentity->IdentityKind = kind;
 
     // ListOfContactRepresentations handling
-    resqml2__IntegerHdf5Array * xmlListOfContactRepresentations = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+    resqml2__IntegerHdf5Array * xmlListOfContactRepresentations = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
     xmlListOfContactRepresentations->NullValue = (std::numeric_limits<int>::max)();
-    xmlListOfContactRepresentations->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+    xmlListOfContactRepresentations->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
     xmlListOfContactRepresentations->Values->HdfProxy = proxy->newResqmlReference();
     ostringstream ossForHdfContactRepresentations;
     ossForHdfContactRepresentations << "contactIdentity_listOfContactRep_" << orgRep->ContactIdentity.size() ;
-    xmlListOfContactRepresentations->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/" + ossForHdfContactRepresentations.str();
+    xmlListOfContactRepresentations->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/" + ossForHdfContactRepresentations.str();
     contactIdentity->ListOfContactRepresentations = xmlListOfContactRepresentations;
     // ************ HDF *************
     hsize_t dimContactRepresentations[1] = {sealedContactRepresentationsCount};
-    proxy->writeArrayNd(gsoapProxy->uuid,
+    proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
         ossForHdfContactRepresentations.str(), H5T_NATIVE_UINT,
         sealedContactRepresentationsIndexes,
         dimContactRepresentations, 1);
 
     // ListOfIdenticalNodes handling
-    resqml2__IntegerHdf5Array * xmlListOfIdenticalNodes = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+    resqml2__IntegerHdf5Array * xmlListOfIdenticalNodes = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
     xmlListOfIdenticalNodes->NullValue = (std::numeric_limits<int>::max)();
-    xmlListOfIdenticalNodes->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+    xmlListOfIdenticalNodes->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
     xmlListOfIdenticalNodes->Values->HdfProxy = proxy->newResqmlReference();
     ostringstream ossForHdfIdenticalNodes;
     ossForHdfIdenticalNodes << "contactIdentity_listOfIdenticalNodes_" << orgRep->ContactIdentity.size() ;
-    xmlListOfIdenticalNodes->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/" + ossForHdfIdenticalNodes.str();
+    xmlListOfIdenticalNodes->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/" + ossForHdfIdenticalNodes.str();
     contactIdentity->ListOfIdenticalNodes = xmlListOfIdenticalNodes;
     // ************ HDF *************
     hsize_t dimIdenticalNodes[2] = {identicalNodesCount, sealedContactRepresentationsCount};
-    proxy->writeArrayNd(gsoapProxy->uuid,
+    proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
         ossForHdfIdenticalNodes.str(), H5T_NATIVE_UINT,
         identicalNodesIndexes,
         dimIdenticalNodes, 2);
@@ -255,7 +255,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
 std::string SealedSurfaceFrameworkRepresentation::getHdfProxyUuid() const
 {
     string result = "";
-    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+    _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
     if (orgRep->SealedContactRepresentation.size() > 0 && static_cast<resqml2__SealedContactRepresentationPart*>(orgRep->SealedContactRepresentation[0])->IdenticalNodeIndices != nullptr)
     {

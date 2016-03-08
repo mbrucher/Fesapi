@@ -44,7 +44,7 @@ TectonicBoundaryFeature::TectonicBoundaryFeature(soap* soapContext, const string
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context must exist");
 
-	gsoapProxy = soap_new_resqml2__obj_USCORETectonicBoundaryFeature(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORETectonicBoundaryFeature(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -52,5 +52,5 @@ TectonicBoundaryFeature::TectonicBoundaryFeature(soap* soapContext, const string
 
 bool TectonicBoundaryFeature::isAFracture() const
 {
-	return static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(gsoapProxy)->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture;
+	return static_cast<gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature*>(gsoapProxy2_0_1)->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture;
 }

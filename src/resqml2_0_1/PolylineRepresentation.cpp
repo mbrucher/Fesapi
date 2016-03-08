@@ -53,8 +53,8 @@ const char* PolylineRepresentation::XML_TAG = "PolylineRepresentation";
 void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getGsoapContext(), 1);
-	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getGsoapContext(), 1);
+	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1);
 
 	polylineRep->IsClosed = isClosed;
 
@@ -89,8 +89,8 @@ PolylineRepresentation::PolylineRepresentation(AbstractFeatureInterpretation* in
 	AbstractRepresentation(interp, crs)
 {
 	init(interp, crs, guid, title, isClosed);
-	static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole = (resqml2__LineRole*)soap_malloc(gsoapProxy->soap, sizeof(resqml2__LineRole));
-	(*static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole) = roleKind;
+	static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->LineRole = (resqml2__LineRole*)soap_malloc(gsoapProxy2_0_1->soap, sizeof(resqml2__LineRole));
+	(*static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->LineRole) = roleKind;
 }
 
 std::string PolylineRepresentation::getHdfProxyUuid() const
@@ -101,7 +101,7 @@ std::string PolylineRepresentation::getHdfProxyUuid() const
 resqml2__PointGeometry* PolylineRepresentation::getPointGeometry(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
-		return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->NodePatch->Geometry;
+		return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->NodePatch->Geometry;
 	else
 		return nullptr;
 }
@@ -111,7 +111,7 @@ ULONG64 PolylineRepresentation::getXyzPointCountOfPatch(const unsigned int & pat
 	if (patchIndex >= getPatchCount())
 		throw range_error("The index of the patch is not in the allowed range of patch.");
 
-	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->NodePatch->Count;
+	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->NodePatch->Count;
 }
 
 void PolylineRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
@@ -130,8 +130,8 @@ void PolylineRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex
 
 void PolylineRepresentation::setGeometry(double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy)
 {
-	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy);
-	polylineRep->NodePatch = soap_new_resqml2__NodePatch(gsoapProxy->soap, 1);
+	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1);
+	polylineRep->NodePatch = soap_new_resqml2__NodePatch(gsoapProxy2_0_1->soap, 1);
 	polylineRep->NodePatch->Count = pointCount;
 	polylineRep->NodePatch->PatchIndex = 0;
 
@@ -141,12 +141,12 @@ void PolylineRepresentation::setGeometry(double * points, const unsigned int & p
 
 bool PolylineRepresentation::isClosed() const
 {
-	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->IsClosed;
+	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->IsClosed;
 }
 
 bool PolylineRepresentation::hasALineRole() const
 {
-	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole;
+	return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->LineRole;
 }
 
 gsoap_resqml2_0_1::resqml2__LineRole PolylineRepresentation::getLineRole() const
@@ -154,7 +154,7 @@ gsoap_resqml2_0_1::resqml2__LineRole PolylineRepresentation::getLineRole() const
 	if (!hasALineRole())
 		throw invalid_argument("The polyline doesn't have any role");
 
-	return *(static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole);
+	return *(static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->LineRole);
 }
 
 bool PolylineRepresentation::isASeismicLine() const
@@ -223,7 +223,7 @@ vector<Relationship> PolylineRepresentation::getAllEpcRelationships() const
 void PolylineRepresentation::setLineRole(const gsoap_resqml2_0_1::resqml2__LineRole & lineRole)
 {
 	if (hasALineRole() == false)
-		static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole = (resqml2__LineRole*)soap_malloc(gsoapProxy->soap, sizeof(resqml2__LineRole));
+		static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->LineRole = (resqml2__LineRole*)soap_malloc(gsoapProxy2_0_1->soap, sizeof(resqml2__LineRole));
 
-	(*static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy)->LineRole) = lineRole;
+	(*static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->LineRole) = lineRole;
 }

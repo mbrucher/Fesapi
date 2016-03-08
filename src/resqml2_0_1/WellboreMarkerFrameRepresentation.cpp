@@ -63,8 +63,8 @@ const char* WellboreMarkerFrameRepresentation::XML_TAG = "WellboreMarkerFrameRep
 WellboreMarkerFrameRepresentation::WellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj):
 	WellboreFrameRepresentation(interp, nullptr), stratigraphicOccurrenceInterpretation(nullptr)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getGsoapContext(), 1);	
-	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(interp->getGsoapContext(), 1);	
+	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 
 	setInterpretation(interp);
 
@@ -87,7 +87,7 @@ WellboreMarker* WellboreMarkerFrameRepresentation::pushBackNewWellboreMarker(con
 	WellboreMarker* marker = new WellboreMarker(this, guid, title);
 	markerSet.push_back(marker);
 
-	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 	frame->WellboreMarker.push_back(static_cast<resqml2__WellboreMarker*>(marker->getGsoapProxy()));	
 
 	return marker;
@@ -98,7 +98,7 @@ WellboreMarker* WellboreMarkerFrameRepresentation::pushBackNewWellboreMarker(con
 	WellboreMarker* marker = new WellboreMarker(this, guid, title, geologicBoundaryKind);
 	markerSet.push_back(marker);
 
-	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 	frame->WellboreMarker.push_back(static_cast<resqml2__WellboreMarker*>(marker->getGsoapProxy()));	
 
 	return marker;
@@ -106,7 +106,7 @@ WellboreMarker* WellboreMarkerFrameRepresentation::pushBackNewWellboreMarker(con
 
 unsigned int WellboreMarkerFrameRepresentation::getWellboreMarkerCount()
 {
-	return static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy)->WellboreMarker.size();
+	return static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1)->WellboreMarker.size();
 }
 
 void WellboreMarkerFrameRepresentation::setStratigraphicOccurrenceInterpretation( StratigraphicOccurrenceInterpretation * stratiOccurenceInterp)
@@ -118,7 +118,7 @@ void WellboreMarkerFrameRepresentation::setStratigraphicOccurrenceInterpretation
 	// XML
 	if (updateXml)
 	{
-		_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+		_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 		frame->IntervalStratigraphiUnits = soap_new_resqml2__IntervalStratigraphicUnits(frame->soap, 1);
 		frame->IntervalStratigraphiUnits->StratigraphicOrganization = stratiOccurenceInterp->newResqmlReference();
 	}
@@ -131,11 +131,11 @@ void WellboreMarkerFrameRepresentation::setIntervalStratigraphicUnits(unsigned i
 
 	setStratigraphicOccurrenceInterpretation(stratiOccurenceInterp);
 
-	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 
 	resqml2__IntegerHdf5Array* xmlDataset = soap_new_resqml2__IntegerHdf5Array(frame->soap, 1);
 	xmlDataset->NullValue = nullValue;
-	xmlDataset->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	xmlDataset->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	xmlDataset->Values->HdfProxy = hdfProxy->newResqmlReference();
 	xmlDataset->Values->PathInHdfFile = "/RESQML/" + frame->uuid + "/IntervalStratigraphicUnits";
 	frame->IntervalStratigraphiUnits->UnitIndices = xmlDataset;
@@ -147,7 +147,7 @@ void WellboreMarkerFrameRepresentation::setIntervalStratigraphicUnits(unsigned i
 
 void WellboreMarkerFrameRepresentation::setWitsmlFormationMarker(const unsigned int & resqmlMarkerIndex, witsml1_4_1_1::FormationMarker * witsmlFormationMarker)
 {
-	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 	if (frame->WellboreMarker.size() <= resqmlMarkerIndex)
 		throw out_of_range("The marker index is not valid");
 
@@ -163,7 +163,7 @@ void WellboreMarkerFrameRepresentation::setWitsmlFormationMarker(const unsigned 
 
 vector<Relationship> WellboreMarkerFrameRepresentation::getAllEpcRelationships() const
 {
-	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreMarkerFrameRepresentation* frame = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 	
 	vector<Relationship> result = WellboreFrameRepresentation::getAllEpcRelationships();
 
@@ -207,7 +207,7 @@ void WellboreMarkerFrameRepresentation::importRelationshipSetFromEpc(common::Epc
 
 	updateXml = false;
 
-	_resqml2__WellboreMarkerFrameRepresentation* rep = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy);
+	_resqml2__WellboreMarkerFrameRepresentation* rep = static_cast<_resqml2__WellboreMarkerFrameRepresentation*>(gsoapProxy2_0_1);
 
 	updateXml = false;
 

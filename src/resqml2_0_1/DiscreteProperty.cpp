@@ -52,12 +52,12 @@ const char* DiscreteProperty::XML_TAG = "DiscreteProperty";
 DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
-	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
+	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 
-	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy->soap, 1);
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlStandardPropKind->Kind = energisticsPropertyKind;
 	prop->PropertyKind = xmlStandardPropKind;
 
@@ -70,8 +70,8 @@ DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & 
 DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & guid, const string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropKind)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
-	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
+	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
 
@@ -170,7 +170,7 @@ void DiscreteProperty::pushBackIntHdf5Array3dOfValues(int * values, const unsign
 string DiscreteProperty::pushBackOnlyXmlPartOfArrayOfValues(class AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue)
 {
 	setHdfProxy(proxy);
-	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy);
+	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy2_0_1);
 
 	if (prop->Count == 1)
 	{
@@ -185,14 +185,14 @@ string DiscreteProperty::pushBackOnlyXmlPartOfArrayOfValues(class AbstractHdfPro
 			prop->MaximumValue[0] = maximumValue;
 	}
 
-	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
 	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
 
 	// XML
-	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	xmlValues->NullValue = nullValue;
-	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
 	ostringstream ossForHdf;
 	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
@@ -210,7 +210,7 @@ void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t * nu
 	string datasetName = pushBackOnlyXmlPartOfArrayOfValues(proxy, nullValue, minimumValue, maximumValue);
 
 	// HDF
-	hdfProxy->writeArrayNd(gsoapProxy->uuid,
+	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid,
 		datasetName,
 		H5T_NATIVE_LONG,
 		values,
@@ -233,7 +233,7 @@ void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, hsize_t * numV
 	string datasetName = pushBackOnlyXmlPartOfArrayOfValues(proxy, nullValue, minimumValue, maximumValue);
 
 	// HDF
-	hdfProxy->writeArrayNd(gsoapProxy->uuid,
+	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid,
 		datasetName,
 		H5T_NATIVE_LONG,
 		values,

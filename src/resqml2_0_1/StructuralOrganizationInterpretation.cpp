@@ -50,10 +50,10 @@ const char* StructuralOrganizationInterpretation::XML_TAG = "StructuralOrganizat
 StructuralOrganizationInterpretation::StructuralOrganizationInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title,
 		const gsoap_resqml2_0_1::resqml2__OrderingCriteria & orderingCriteria)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREStructuralOrganizationInterpretation(orgFeat->getGsoapContext(), 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREStructuralOrganizationInterpretation(orgFeat->getGsoapContext(), 1);
 	
-	static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy)->OrderingCriteria = orderingCriteria;
-	static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
+	static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1)->OrderingCriteria = orderingCriteria;
+	static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1)->Domain = resqml2__Domain__mixed;
 
     initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -71,7 +71,7 @@ void StructuralOrganizationInterpretation::pushBackFaultInterpretation(FaultInte
 	if (updateXml)
 	{
         eml__DataObjectReference* faultInterpRef = faultInterpretation->newResqmlReference();
-        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy);
+        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
 		structuralOrganization->Faults.push_back(faultInterpRef);
 	}
 }
@@ -93,10 +93,10 @@ void StructuralOrganizationInterpretation::pushBackHorizonInterpretation(Horizon
     // XML
 	if (updateXml)
 	{
-		_resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy);
+		_resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
 
-		resqml2__HorizonInterpretationIndex* horizonInterpListElement = soap_new_resqml2__HorizonInterpretationIndex(gsoapProxy->soap, 1);
-		horizonInterpListElement->StratigraphicRank = static_cast<ULONG64*>(soap_malloc(gsoapProxy->soap, sizeof(ULONG64)));
+		resqml2__HorizonInterpretationIndex* horizonInterpListElement = soap_new_resqml2__HorizonInterpretationIndex(gsoapProxy2_0_1->soap, 1);
+		horizonInterpListElement->StratigraphicRank = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
 		*(horizonInterpListElement->StratigraphicRank) = stratigraphicRank;
 		horizonInterpListElement->Index = structuralOrganization->Horizons.size();
         eml__DataObjectReference* horizonInterpRef = horizonInterpretation->newResqmlReference();
@@ -115,7 +115,7 @@ void StructuralOrganizationInterpretation::pushBackTopFrontierInterpretation(Abs
 	if (updateXml)
 	{
         eml__DataObjectReference* interpRef = topFrontierInterpretation->newResqmlReference();
-        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy);
+        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
 		structuralOrganization->TopFrontier.push_back(interpRef);
 	}
 }
@@ -130,7 +130,7 @@ void StructuralOrganizationInterpretation::pushBackBottomFrontierInterpretation(
 	if (updateXml)
 	{
         eml__DataObjectReference* interpRef = bottomFrontierInterpretation->newResqmlReference();
-        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy);
+        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
 		structuralOrganization->BottomFrontier.push_back(interpRef);
 	}
 }
@@ -145,7 +145,7 @@ void StructuralOrganizationInterpretation::pushBackSideFrontierInterpretation(Ab
 	if (updateXml)
 	{
         eml__DataObjectReference* interpRef = sideFrontierInterpretation->newResqmlReference();
-        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy);
+        _resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
 		structuralOrganization->Sides.push_back(interpRef);
 	}
 }
@@ -205,7 +205,7 @@ void StructuralOrganizationInterpretation::importRelationshipSetFromEpc(common::
 
 	updateXml = false;
 
-	_resqml2__StructuralOrganizationInterpretation* interp = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy);
+	_resqml2__StructuralOrganizationInterpretation* interp = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
 
 	for (unsigned int i = 0; i < interp->Faults.size(); i++)
 	{

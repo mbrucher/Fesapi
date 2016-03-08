@@ -115,12 +115,14 @@ int HdfProxy::getHdfDatatypeInDataset(const std::string & datasetName)
 	return native_datatype;
 }
 
-void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
+void HdfProxy::writeItemizedListOfList(const string & groupName,
 			const string & name,
-			unsigned int * cumulativeLength,
-			const hsize_t & cumulativeLengthSize,
-			unsigned int * elements,
-			const hsize_t & elementsSize)
+			const int & cumulativeLengthDatatype,
+			void * cumulativeLength,
+			const unsigned long long & cumulativeLengthSize,
+			const int & elementsDatatype,
+			void * elements,
+			const unsigned long long & elementsSize)
 {
 	if (!isOpened())
 		open();
@@ -141,16 +143,16 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 		H5Pset_deflate (dcpl, compressionLevel);
 		H5Pset_chunk (dcpl, 1, &cumulativeLengthSize);
 
-		datasetCL = H5Dcreate (grp, CUMULATIVE_LENGTH_DS_NAME, H5T_NATIVE_UINT, fspaceCL, H5P_DEFAULT, dcpl, H5P_DEFAULT);
+		datasetCL = H5Dcreate(grp, CUMULATIVE_LENGTH_DS_NAME, cumulativeLengthDatatype, fspaceCL, H5P_DEFAULT, dcpl, H5P_DEFAULT);
 
 		H5Pclose(dcpl);
 	}
 	else
 	{
-		datasetCL = H5Dcreate (grp, CUMULATIVE_LENGTH_DS_NAME, H5T_NATIVE_UINT, fspaceCL, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+		datasetCL = H5Dcreate(grp, CUMULATIVE_LENGTH_DS_NAME, cumulativeLengthDatatype, fspaceCL, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	}
 
-	H5Dwrite(datasetCL, H5T_NATIVE_UINT, H5S_ALL, H5S_ALL, H5P_DEFAULT, cumulativeLength);
+	H5Dwrite(datasetCL, cumulativeLengthDatatype, H5S_ALL, H5S_ALL, H5P_DEFAULT, cumulativeLength);
 	H5Sclose(fspaceCL);
 	H5Dclose(datasetCL);
 
@@ -166,16 +168,16 @@ void HdfProxy::writeItemizedListOfUnsignedInt(const string & groupName,
 		H5Pset_deflate (dcpl, compressionLevel);
 		H5Pset_chunk (dcpl, 1, &elementsSize);
 
-		datasetE = H5Dcreate (grp, CUMULATIVE_LENGTH_DS_NAME, H5T_NATIVE_UINT, fspaceE, H5P_DEFAULT, dcpl, H5P_DEFAULT);
+		datasetE = H5Dcreate(grp, CUMULATIVE_LENGTH_DS_NAME, elementsDatatype, fspaceE, H5P_DEFAULT, dcpl, H5P_DEFAULT);
 
 		H5Pclose(dcpl);
 	}
 	else
 	{
-		datasetE = H5Dcreate (grp, ELEMENTS_DS_NAME, H5T_NATIVE_UINT, fspaceE, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+		datasetE = H5Dcreate(grp, ELEMENTS_DS_NAME, elementsDatatype, fspaceE, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	}
 
-	H5Dwrite(datasetE, H5T_NATIVE_UINT, H5S_ALL, H5S_ALL, H5P_DEFAULT, elements);
+	H5Dwrite(datasetE, elementsDatatype, H5S_ALL, H5S_ALL, H5P_DEFAULT, elements);
 	H5Sclose(fspaceE);
 	H5Dclose(datasetE);
 

@@ -58,6 +58,13 @@ knowledge of the CeCILL-B license and that you accept its terms.
 	#define DLL_IMPORT_OR_EXPORT
 #endif
 
+namespace resqml2
+{
+	class AbstractObject;
+	class Activity;
+	class ActivityTemplate;
+}
+
 namespace resqml2_0_1
 {
 	class Activity;
@@ -66,7 +73,6 @@ namespace resqml2_0_1
 	class LocalDepth3dCrs;
 	class LocalTime3dCrs;
 	class MdDatum;
-	class AbstractObject;
 	class Fault;
 	class Fracture;
 	class Horizon;
@@ -200,7 +206,7 @@ namespace common
 		/**
 		* Add a gsoap proxy to serialize with the package
 		*/
-		void addGsoapProxy(resqml2_0_1::AbstractObject* proxy);
+		void addGsoapProxy(resqml2::AbstractObject* proxy);
 
 		/**
 		* Add a gsoap proxy to serialize with the package
@@ -274,38 +280,33 @@ namespace common
 		std::string getWitsmlPlaneAngleUom(const gsoap_witsml1_4_1_1::witsml1__PlaneAngleUom & witsmlUom) const;
 
 		/**
-		* Add a resqml2 object in the package which is described as an xml string.
-		*/
-		resqml2_0_1::AbstractObject* addResqmlObject(const std::string & xml);
-
-		/**
 		* Get all the resqml gsoap wrappers from the epc document
 		*/
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		const std::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const;
+		const std::unordered_map< std::string, resqml2::AbstractObject* > & getResqmlAbstractObjectSet() const;
 #else
-		const std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > & getResqmlAbstractObjectSet() const;
+		const std::tr1::unordered_map< std::string, resqml2::AbstractObject* > & getResqmlAbstractObjectSet() const;
 #endif
 
 		/**
 		* Get the Gsoap type  by means of its uuid
 		*/
-		resqml2_0_1::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const;
+		resqml2::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const;
 
 		/**
 		* Get a gsoap wrapper from the epc document by means of its uuid
 		*/
-		resqml2_0_1::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid) const;
+		resqml2::AbstractObject* getResqmlAbstractObjectByUuid(const std::string & uuid) const;
 
 		/**
 		* Get a gsoap wrapper from the epc document by means of its uuid
-		* and try to cast it to a child class of resqml2_0_1::AbstractObject
+		* and try to cast it to a child class of resqml2::AbstractObject
 		*/
 		template <class valueType>
 		valueType* getResqmlAbstractObjectByUuid(const std::string & uuid)
 		{
 			int gsoapType = -1;
-			resqml2_0_1::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid, gsoapType);
+			resqml2::AbstractObject* result = getResqmlAbstractObjectByUuid(uuid, gsoapType);
 			if (gsoapType == valueType::GSOAP_TYPE)
 				return static_cast<valueType*>(result);
 			else
@@ -956,7 +957,7 @@ namespace common
 
 		resqml2_0_1::ActivityTemplate* createActivityTemplate(const std::string & guid, const std::string & title);
 		
-		resqml2_0_1::Activity* createActivity(resqml2_0_1::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
+		resqml2_0_1::Activity* createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
 		
 		//************************************
 		//*************** WITSML *************
@@ -1012,9 +1013,9 @@ namespace common
 
 		epc::Package* package;
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		std::unordered_map< std::string, resqml2_0_1::AbstractObject* > resqmlAbstractObjectSet;
+		std::unordered_map< std::string, resqml2::AbstractObject* > resqmlAbstractObjectSet;
 #else
-		std::tr1::unordered_map< std::string, resqml2_0_1::AbstractObject* > resqmlAbstractObjectSet;
+		std::tr1::unordered_map< std::string, resqml2::AbstractObject* > resqmlAbstractObjectSet;
 #endif
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 		std::unordered_map< std::string, witsml1_4_1_1::AbstractObject* > witsmlAbstractObjectSet;
@@ -1052,7 +1053,7 @@ namespace common
 		HdfProxyBuilder* make_hdf_proxy; // the builder for HDF proxy in writing mode of the epc document
 		HdfProxyBuilderFromSOAP* make_hdf_proxy_from_soap; // the builder for HDF proxy in reading mode of the epc document
 
-		void addGsoapProxyAndDeleteItIfException(resqml2_0_1::AbstractObject* proxy);
+		void addGsoapProxyAndDeleteItIfException(resqml2::AbstractObject* proxy);
 		void addGsoapProxyAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy);
 	};
 }

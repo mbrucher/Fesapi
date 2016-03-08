@@ -231,17 +231,19 @@ namespace resqml2_0_1
 
 		/**
 		 * Set the geometry
+		 * @param isRightHanded	Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
 		 */
-		void setGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, class AbstractHdfProxy * proxy,
-				unsigned int * faceIndicesPerCell, unsigned int * faceIndicesCumulativeCountPerCell, const unsigned int & faceCount,
-				unsigned int * nodeIndicesPerFace, unsigned int * nodeIndicesCumulativeCountPerFace, const unsigned int & nodeCount,
-				const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
+		void setGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, class AbstractHdfProxy * proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell, ULONG64 faceCount,
+			ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace, ULONG64 nodeCount,
+			const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
 
 		/**
 		 * Set a geometry which is only defined using tetrahedra.
+		 * @param isRightHanded	Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
 		 */
-		void setTetrahedraOnlyGeometry(const bool & isRightHanded, double * points, const unsigned int & pointCount, const unsigned int & faceCount, class AbstractHdfProxy * proxy,
-						unsigned int * faceIndicesPerCell, unsigned int * nodeIndicesPerFace);
+		void setTetrahedraOnlyGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, class AbstractHdfProxy * proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace);
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}

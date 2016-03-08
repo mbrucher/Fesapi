@@ -527,9 +527,10 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	// Tetra grid
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "", "One tetrahedron grid", 1);
 	double tetraGridPoints[12] = {0,0,300, 375,0,300, 0,150,300, 0,0,500};
-	unsigned int faceIndicesPerCell[4] = {0,1,2,3};
-	unsigned int nodeIndicesPerCell[12] = {0,1,2, 1,2,3, 0,1,3, 0,2,3};
-	tetraGrid->setTetrahedraOnlyGeometry(true, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerCell);
+	ULONG64 faceIndicesPerCell[4] = {0,1,2,3};
+	char faceRightHandness[4] = { 0, 0, 1, 1 };
+	ULONG64 nodeIndicesPerCell[12] = { 0, 1, 2, 1, 2, 3, 0, 1, 3, 0, 2, 3 };
+	tetraGrid->setTetrahedraOnlyGeometry(faceRightHandness, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerCell);
 #endif
 }
 
@@ -992,14 +993,14 @@ void serializeActivities(common::EpcDocument * epcDoc)
 	* Activity Template
 	********************/
 
-	ActivityTemplate* genericCreationActivityTemplate = epcDoc->createActivityTemplate("a41c63bf-78cb-454b-8018-c9df060c5cf3", "GenericCreationActivity");
+	resqml2::ActivityTemplate* genericCreationActivityTemplate = epcDoc->createActivityTemplate("a41c63bf-78cb-454b-8018-c9df060c5cf3", "GenericCreationActivity");
 	genericCreationActivityTemplate->pushBackParameter("CreationInput", true, false, 0, -1);
 	genericCreationActivityTemplate->pushBackParameter("CreationOutput", false, true, 1, -1);
 
 	/********************
 	* Activities
 	********************/
-	Activity* pickingActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Seismic picking");
+	resqml2::Activity* pickingActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Seismic picking");
 	pickingActivity->pushBackParameter("CreationOutput", horizon1);
 	pickingActivity->pushBackParameter("CreationOutput", horizon1Interp1);
 	pickingActivity->pushBackParameter("CreationOutput", h1i1SingleGrid2dRep);
@@ -1007,15 +1008,15 @@ void serializeActivities(common::EpcDocument * epcDoc)
 	pickingActivity->pushBackParameter("CreationOutput", fault1Interp1);
 	pickingActivity->pushBackParameter("CreationOutput", f1i1PolyLineRep);
 	
-	Activity* h1triangulationActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
+	resqml2::Activity* h1triangulationActivity = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
 	h1triangulationActivity->pushBackParameter("CreationInput", h1i1SingleGrid2dRep);
 	h1triangulationActivity->pushBackParameter("CreationOutput", h1i1triRep);
 	
-	Activity* f1TriangulationActivity1 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
+	resqml2::Activity* f1TriangulationActivity1 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
 	f1TriangulationActivity1->pushBackParameter("CreationInput", f1i1PolyLineRep);
 	f1TriangulationActivity1->pushBackParameter("CreationOutput", f1i1triRepSinglePatch);
 	
-	Activity* f1TriangulationActivity2 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
+	resqml2::Activity* f1TriangulationActivity2 = epcDoc->createActivity(genericCreationActivityTemplate, "", "Triangulation");
 	f1TriangulationActivity2->pushBackParameter("CreationInput", f1i1PolyLineRep);
 	f1TriangulationActivity2->pushBackParameter("CreationOutput", f1i1triRep);
 
@@ -1044,13 +1045,13 @@ void deserializePropertyKindMappingFiles(common::EpcDocument * pck)
 	ptMapper->addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName("Elevation depth", "Petrel");
 }
 
-void deserializeActivity(AbstractObject* resqmlObject)
+void deserializeActivity(resqml2::AbstractObject* resqmlObject)
 {
 	if (resqmlObject->getActivitySet().size())
 		cout << "Activities for object " << resqmlObject->getTitle() << endl;
 	for (unsigned int i = 0; i < resqmlObject->getActivitySet().size(); ++i)
 	{
-		Activity* activity = resqmlObject->getActivitySet()[i];
+		resqml2::Activity* activity = resqmlObject->getActivitySet()[i];
 		cout << "Activity : " << activity->getTitle() << endl;
 		cout << "Activity Template : " << activity->getActivityTemplate()->getTitle() << endl;
 		for (unsigned int j = 0; j < activity->getActivityTemplate()->getParameterCount(); ++j)
@@ -1089,7 +1090,7 @@ void deserializeActivity(AbstractObject* resqmlObject)
 				}
 				else if (activity->isAResqmlObjectParameter(paramTitle) == true)
 				{
-					vector<AbstractObject*> vals = activity->getResqmlObjectParameterValue(paramTitle);
+					vector<resqml2::AbstractObject*> vals = activity->getResqmlObjectParameterValue(paramTitle);
 					for (unsigned int k = 0; k < vals.size(); ++k)
 					{
 						cout << "Object title : " << vals[k] ->getTitle()<< endl;
@@ -1752,8 +1753,10 @@ void deserialize(const string & inputFile)
 			if (unstructuredGridRepSet[i]->getCellCount() > 1)
 				std::cout << "Face count of cell 1 is : " << faceCountOfCells[1] - faceCountOfCells[0] << std::endl;
 			delete [] faceCountOfCells;
+			std::cout << "Reading XYZ points" << std::endl;
 			double * gridPoints = new double[unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) * 3];
 			unstructuredGridRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
+			std::cout << "DONE" << std::endl;
 			std::cout << "--------------------------------------------------" << std::endl;
 			delete [] gridPoints;
 

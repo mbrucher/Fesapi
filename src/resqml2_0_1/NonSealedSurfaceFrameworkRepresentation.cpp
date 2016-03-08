@@ -63,10 +63,10 @@ NonSealedSurfaceFrameworkRepresentation::NonSealedSurfaceFrameworkRepresentation
 		throw invalid_argument("The structural organization interpretation cannot be null.");
 
 	// proxy constructor
-	gsoapProxy = soap_new_resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation(interp->getGsoapContext(), 1);	
-	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORENonSealedSurfaceFrameworkRepresentation(interp->getGsoapContext(), 1);	
+	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
     
-	orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy->soap, 1);
+	orgRep->RepresentedInterpretation = soap_new_eml__DataObjectReference(gsoapProxy2_0_1->soap, 1);
     orgRep->RepresentedInterpretation->UUID.assign(interp->getUuid());
 
 	initMandatoryMetadata();
@@ -91,17 +91,17 @@ void NonSealedSurfaceFrameworkRepresentation::pushBackNonSealedContactRepresenta
 	}
 
 	setHdfProxy(proxy);
-	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
-	resqml2__NonSealedContactRepresentationPart* contactRep = soap_new_resqml2__NonSealedContactRepresentationPart(gsoapProxy->soap, 1);
+	resqml2__NonSealedContactRepresentationPart* contactRep = soap_new_resqml2__NonSealedContactRepresentationPart(gsoapProxy2_0_1->soap, 1);
 	contactRep->Index = orgRep->NonSealedContactRepresentation.size();
 	orgRep->NonSealedContactRepresentation.push_back(contactRep);
-	resqml2__PointGeometry* contactGeom = soap_new_resqml2__PointGeometry(gsoapProxy->soap, 1);
+	resqml2__PointGeometry* contactGeom = soap_new_resqml2__PointGeometry(gsoapProxy2_0_1->soap, 1);
 	contactRep->Geometry = contactGeom;
 	contactGeom->LocalCrs = localCrs->newResqmlReference();
-	resqml2__Point3dHdf5Array* contactGeomPoints = soap_new_resqml2__Point3dHdf5Array(gsoapProxy->soap, 1);
+	resqml2__Point3dHdf5Array* contactGeomPoints = soap_new_resqml2__Point3dHdf5Array(gsoapProxy2_0_1->soap, 1);
 	contactGeom->Points = contactGeomPoints;
-	contactGeomPoints->Coordinates = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	contactGeomPoints->Coordinates = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	contactGeomPoints->Coordinates->HdfProxy = hdfProxy->newResqmlReference();
 	ostringstream oss;
 	oss << "points_contact_representation" << orgRep->NonSealedContactRepresentation.size()-1;
@@ -118,7 +118,7 @@ void NonSealedSurfaceFrameworkRepresentation::pushBackNonSealedContactRepresenta
 std::string NonSealedSurfaceFrameworkRepresentation::getHdfProxyUuid() const
 {
 	string result = "";
-	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy);
+	_resqml2__NonSealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__NonSealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
 	if (orgRep->NonSealedContactRepresentation.size() > 0)
 	{

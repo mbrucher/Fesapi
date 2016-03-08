@@ -59,8 +59,8 @@ void GridConnectionSetRepresentation::init(
         const std::string & guid, const std::string & title,
 		class AbstractGridRepresentation * supportingGridRep)
 {
-	gsoapProxy = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(supportingGridRep->getGsoapContext(), 1);
-    _resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(supportingGridRep->getGsoapContext(), 1);
+    _resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
     initMandatoryMetadata();
     setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -90,14 +90,14 @@ GridConnectionSetRepresentation::GridConnectionSetRepresentation(AbstractFeature
 
 void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy)
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 	rep->Count = cellIndexPairCount;
 
 	setHdfProxy(proxy);
 
 	// XML
-	resqml2__IntegerHdf5Array* integerArray = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
-    eml__Hdf5Dataset * resqmlHDF5dataset = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	resqml2__IntegerHdf5Array* integerArray = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
+    eml__Hdf5Dataset * resqmlHDF5dataset = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
     resqmlHDF5dataset->HdfProxy = hdfProxy->newResqmlReference();
     resqmlHDF5dataset->PathInHdfFile = "/RESQML/" + rep->uuid + "/CellIndexPairs";
 	integerArray->Values = resqmlHDF5dataset;
@@ -111,13 +111,13 @@ void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cel
 
 void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy)
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	setHdfProxy(proxy);
 
 	// XML
-	resqml2__IntegerHdf5Array* integerArray = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
-    eml__Hdf5Dataset * resqmlHDF5dataset = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	resqml2__IntegerHdf5Array* integerArray = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
+    eml__Hdf5Dataset * resqmlHDF5dataset = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
     resqmlHDF5dataset->HdfProxy = hdfProxy->newResqmlReference();
     resqmlHDF5dataset->PathInHdfFile = "/RESQML/" + rep->uuid + "/LocalFacePerCellIndexPairs";
 	integerArray->Values = resqmlHDF5dataset;
@@ -131,7 +131,7 @@ void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsign
 
 string GridConnectionSetRepresentation::getHdfProxyUuid() const
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->CellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -145,14 +145,14 @@ string GridConnectionSetRepresentation::getHdfProxyUuid() const
 
 bool GridConnectionSetRepresentation::isAssociatedToInterpretations() const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->ConnectionInterpretations != nullptr;
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->ConnectionInterpretations != nullptr;
 }
 
 void GridConnectionSetRepresentation::getInterpretationIndexCumulativeCount(unsigned int * cumulativeCount) const
 {
 	if (isAssociatedToInterpretations())
 	{		
-		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 		if (rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
 			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength)->Values->PathInHdfFile, cumulativeCount);
@@ -168,7 +168,7 @@ void GridConnectionSetRepresentation::getInterpretationIndices(unsigned int * in
 {
 	if (isAssociatedToInterpretations())
 	{
-		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
 			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->Values->PathInHdfFile, interpretationIndices);
@@ -184,7 +184,7 @@ LONG64 GridConnectionSetRepresentation::getInterpretationIndexNullValue() const
 {
 	if (isAssociatedToInterpretations())
 	{
-		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 		if (rep->ConnectionInterpretations->InterpretationIndices->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 		{
 			return static_cast<resqml2__IntegerHdf5Array*>(rep->ConnectionInterpretations->InterpretationIndices->Elements)->NullValue;
@@ -198,13 +198,13 @@ LONG64 GridConnectionSetRepresentation::getInterpretationIndexNullValue() const
 
 ULONG64 GridConnectionSetRepresentation::getCellIndexPairCount() const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Count;
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Count;
 }
 
 unsigned int GridConnectionSetRepresentation::getCellIndexPairCountFromInterpretationIndex(const unsigned int & interpretationIndex) const
 {
 	unsigned int result = 0;
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->ConnectionInterpretations)
 	{
@@ -254,7 +254,7 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpr
 		getLocalFacePerCellIndexPairs(totalLocalFaceIndexPairs);
 	}
 
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->ConnectionInterpretations)
 	{
@@ -333,7 +333,7 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpr
 
 std::string GridConnectionSetRepresentation::getInterpretationUuidFromIndex(const unsigned int & interpretationIndex) const
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->ConnectionInterpretations)
 	{
@@ -361,13 +361,13 @@ std::string GridConnectionSetRepresentation::getInterpretationUuidFromIndex(cons
 
 AbstractFeatureInterpretation* GridConnectionSetRepresentation::getInterpretationFromIndex(const unsigned int & interpretationIndex) const
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->ConnectionInterpretations)
 	{
 		if (rep->ConnectionInterpretations->FeatureInterpretation.size() > interpretationIndex)
 		{
-			AbstractObject* result = epcDocument->getResqmlAbstractObjectByUuid(rep->ConnectionInterpretations->FeatureInterpretation[interpretationIndex]->UUID);
+			resqml2::AbstractObject* result = epcDocument->getResqmlAbstractObjectByUuid(rep->ConnectionInterpretations->FeatureInterpretation[interpretationIndex]->UUID);
 			if (dynamic_cast<AbstractFeatureInterpretation*>(result) != nullptr)
 			{
 				return static_cast<AbstractFeatureInterpretation*>(result);
@@ -390,7 +390,7 @@ AbstractFeatureInterpretation* GridConnectionSetRepresentation::getInterpretatio
 
 unsigned int GridConnectionSetRepresentation::getInterpretationCount() const
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->ConnectionInterpretations)
 	{
@@ -404,7 +404,7 @@ unsigned int GridConnectionSetRepresentation::getInterpretationCount() const
 
 void GridConnectionSetRepresentation::getCellIndexPairs(ULONG64 * cellIndexPairs) const
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->CellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -416,8 +416,8 @@ void GridConnectionSetRepresentation::getCellIndexPairs(ULONG64 * cellIndexPairs
 
 bool GridConnectionSetRepresentation::isBasedOnMultiGrids() const 
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->GridIndexPairs != nullptr && 
-		static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Grid.size() > 1;
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->GridIndexPairs != nullptr && 
+		static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.size() > 1;
 }
 
 void GridConnectionSetRepresentation::getGridIndexPairs(unsigned int * gridIndexPairs) const
@@ -425,7 +425,7 @@ void GridConnectionSetRepresentation::getGridIndexPairs(unsigned int * gridIndex
 	if (isBasedOnMultiGrids() == false)
 		throw std::invalid_argument("This representation has no multiple grid support.");
 
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->GridIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -437,7 +437,7 @@ void GridConnectionSetRepresentation::getGridIndexPairs(unsigned int * gridIndex
 
 bool GridConnectionSetRepresentation::hasLocalFacePerCell() const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->LocalFacePerCellIndexPairs != nullptr;
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->LocalFacePerCellIndexPairs != nullptr;
 }
 
 void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(unsigned int * localFaceCellIndexPairs) const
@@ -445,7 +445,7 @@ void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(unsigned int
 	if (hasLocalFacePerCell() == false)
 		throw std::invalid_argument("This representation has no local face per cell.");
 
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (rep->LocalFacePerCellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
@@ -463,7 +463,7 @@ vector<Relationship> GridConnectionSetRepresentation::getAllEpcRelationships() c
 	rel.setDestinationObjectType();
 	result.push_back(rel);
     
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 	if (rep->ConnectionInterpretations != nullptr)
 	{
 		for (size_t i = 0; i < rep->ConnectionInterpretations->FeatureInterpretation.size(); ++i)
@@ -489,42 +489,42 @@ void GridConnectionSetRepresentation::setSupportingGridRepresentation(AbstractGr
 	// XMl
 	if (updateXml)
 	{
-		static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Grid.push_back(supportingGridRep->newResqmlReference());
+		static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.push_back(supportingGridRep->newResqmlReference());
 	}
 }
 
 std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid() const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Grid[0]->UUID;
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid[0]->UUID;
 }
 
 void GridConnectionSetRepresentation::setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy)
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 	if (rep->ConnectionInterpretations == nullptr)
-		rep->ConnectionInterpretations = soap_new_resqml2__ConnectionInterpretations(gsoapProxy->soap, 1);
-	rep->ConnectionInterpretations->InterpretationIndices = soap_new_resqml2__ResqmlJaggedArray(gsoapProxy->soap, 1);
+		rep->ConnectionInterpretations = soap_new_resqml2__ConnectionInterpretations(gsoapProxy2_0_1->soap, 1);
+	rep->ConnectionInterpretations->InterpretationIndices = soap_new_resqml2__ResqmlJaggedArray(gsoapProxy2_0_1->soap, 1);
 	
 	// Cumulative
-	resqml2__IntegerHdf5Array* cumulativeLength = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+	resqml2__IntegerHdf5Array* cumulativeLength = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	rep->ConnectionInterpretations->InterpretationIndices->CumulativeLength = cumulativeLength;
 	cumulativeLength->NullValue = nullValue;
-	cumulativeLength->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	cumulativeLength->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	cumulativeLength->Values->HdfProxy = proxy->newResqmlReference();
-	cumulativeLength->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/InterpretationIndices/" + CUMULATIVE_LENGTH_DS_NAME;
+	cumulativeLength->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/InterpretationIndices/" + CUMULATIVE_LENGTH_DS_NAME;
 	// Elements
-	resqml2__IntegerHdf5Array* elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy->soap, 1);
+	resqml2__IntegerHdf5Array* elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	rep->ConnectionInterpretations->InterpretationIndices->Elements = elements;
 	elements->NullValue = nullValue;
-	elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy->soap, 1);
+	elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	elements->Values->HdfProxy = proxy->newResqmlReference();
-	elements->Values->PathInHdfFile = "/RESQML/" + gsoapProxy->uuid + "/InterpretationIndices/" + ELEMENTS_DS_NAME;
+	elements->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/InterpretationIndices/" + ELEMENTS_DS_NAME;
 
 	// HDF
 	unsigned int * cumulative = new unsigned int[interpretationIndiceCount];
 	for (unsigned int i = 0; i < interpretationIndiceCount; ++i)
 		cumulative[i] = i+1;
-	hdfProxy->writeItemizedListOfUnsignedInt(gsoapProxy->uuid, "InterpretationIndices", cumulative, interpretationIndiceCount, interpretationIndices, interpretationIndiceCount);
+	hdfProxy->writeItemizedListOfList(gsoapProxy2_0_1->uuid, "InterpretationIndices", H5T_NATIVE_UINT, cumulative, interpretationIndiceCount, H5T_NATIVE_UINT, interpretationIndices, interpretationIndiceCount);
 	delete [] cumulative;
 }
 
@@ -532,9 +532,9 @@ void GridConnectionSetRepresentation::pushBackInterpretation(AbstractFeatureInte
 {
 	if (updateXml)
 	{
-		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 		if (rep->ConnectionInterpretations == nullptr)
-			rep->ConnectionInterpretations = soap_new_resqml2__ConnectionInterpretations(gsoapProxy->soap, 1);
+			rep->ConnectionInterpretations = soap_new_resqml2__ConnectionInterpretations(gsoapProxy2_0_1->soap, 1);
 
 		rep->ConnectionInterpretations->FeatureInterpretation.push_back(interp->newResqmlReference());
 	}
@@ -547,7 +547,7 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 {
 	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
 
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy);
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	// Supporting grid representation
 	// TODO :for (unsigned int i = 0; i < rep->Grid.size(); ++i)
@@ -581,5 +581,5 @@ void GridConnectionSetRepresentation::getXyzPointsOfPatch(const unsigned int & p
 
 unsigned int GridConnectionSetRepresentation::getSupportingGridRepresentationCount() const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy)->Grid.size(); 
+	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.size(); 
 }

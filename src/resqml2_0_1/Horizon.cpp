@@ -44,8 +44,8 @@ Horizon::Horizon(soap* soapContext, const string & guid, const string & title)
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREGeneticBoundaryFeature(soapContext, 1);
-	_resqml2__GeneticBoundaryFeature* horizon = static_cast<_resqml2__GeneticBoundaryFeature*>(gsoapProxy);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREGeneticBoundaryFeature(soapContext, 1);
+	_resqml2__GeneticBoundaryFeature* horizon = static_cast<_resqml2__GeneticBoundaryFeature*>(gsoapProxy2_0_1);
 	horizon->GeneticBoundaryKind = resqml2__GeneticBoundaryKind__horizon;
 
 	initMandatoryMetadata();

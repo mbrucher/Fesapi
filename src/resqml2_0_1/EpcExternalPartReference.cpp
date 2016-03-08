@@ -50,7 +50,7 @@ const char* EpcExternalPartReference::XML_TAG = "EpcExternalPartReference";
 EpcExternalPartReference::EpcExternalPartReference(soap* soapContext, const string & guid, const std::string & title, const string & packageDirAbsolutePath, const string & externalFilePath) :
 		packageDirectoryAbsolutePath(packageDirAbsolutePath), relativeFilePath(externalFilePath)
 {
-	gsoapProxy = soap_new_eml__obj_USCOREEpcExternalPartReference(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_eml__obj_USCOREEpcExternalPartReference(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");

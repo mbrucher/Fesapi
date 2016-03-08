@@ -33,14 +33,19 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2/Activity.h"
+
+namespace resqml2
+{
+	class ActivityTemplate;
+}
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT Activity : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT Activity : public resqml2::Activity
 	{
 	protected:
-		Activity() :AbstractResqmlDataObject(), activityTemplate(nullptr) {}
+		Activity() : resqml2::Activity() {}
 
 	public:
 
@@ -49,9 +54,9 @@ namespace resqml2_0_1
 		* @param guid		The guid to set to the boundary horizon. If empty then a new guid will be generated.
 		* @param title		A title for the instance to create.
 		*/
-		Activity(class ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
+		Activity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
 
-		Activity(gsoap_resqml2_0_1::_resqml2__Activity* fromGsoap): AbstractResqmlDataObject(fromGsoap), activityTemplate(nullptr) {}
+		Activity(gsoap_resqml2_0_1::_resqml2__Activity* fromGsoap) : resqml2::Activity(fromGsoap) {}
 		virtual ~Activity() {}
 
 		/**
@@ -119,26 +124,14 @@ namespace resqml2_0_1
 		/**
 		* Set the activity template of the activity
 		**/
-		void setActivityTemplate(class ActivityTemplate* activityTemplate);
-
-		/**
-		* Get the activity template of the activity
-		**/
-		class ActivityTemplate* getActivityTemplate() const {return activityTemplate;}
+		void setActivityTemplate(resqml2::ActivityTemplate* activityTemplate);
 
 		std::string getResqmlVersion() const;
 
-		static const char* XML_TAG;
-		std::string getXmlTag() const {return XML_TAG;}
-
 	private:
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		std::vector<gsoap_resqml2_0_1::resqml2__AbstractActivityParameter*> getParameterFromTitle(const std::string & paramTitle) const;
-		
-        class ActivityTemplate* activityTemplate;
-		std::vector<AbstractObject*> resqmlObjectSet;
 	};
 }

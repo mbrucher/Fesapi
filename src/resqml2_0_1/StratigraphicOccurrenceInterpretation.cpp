@@ -52,9 +52,9 @@ StratigraphicOccurrenceInterpretation::StratigraphicOccurrenceInterpretation(Org
 	if (!orgFeat)
 		throw invalid_argument("The interpreted organization feature cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREStratigraphicOccurrenceInterpretation(orgFeat->getGsoapContext(), 1);
-	static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy)->Domain = resqml2__Domain__mixed;
-	static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy)->OrderingCriteria = orderingCriteria;
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREStratigraphicOccurrenceInterpretation(orgFeat->getGsoapContext(), 1);
+	static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy2_0_1)->Domain = resqml2__Domain__mixed;
+	static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy2_0_1)->OrderingCriteria = orderingCriteria;
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -71,14 +71,14 @@ void StratigraphicOccurrenceInterpretation::setStratigraphicColumnRankInterpreta
     // XML
 	if (updateXml)
 	{
-		_resqml2__StratigraphicOccurrenceInterpretation* interp = static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy);
+		_resqml2__StratigraphicOccurrenceInterpretation* interp = static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy2_0_1);
 		interp->IsOccurrenceOf = stratiColumnRankInterp->newResqmlReference();
 	}
 }
 
 std::string StratigraphicOccurrenceInterpretation::getStratigraphicColumnRankInterpretationUuid() const
 {
-	return static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy)->IsOccurrenceOf->UUID;
+	return static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy2_0_1)->IsOccurrenceOf->UUID;
 }
 
 vector<Relationship> StratigraphicOccurrenceInterpretation::getAllEpcRelationships() const
@@ -115,7 +115,7 @@ void StratigraphicOccurrenceInterpretation::importRelationshipSetFromEpc(common:
 
 	updateXml = false;
 
-	_resqml2__StratigraphicOccurrenceInterpretation* interp = static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy); 
+	_resqml2__StratigraphicOccurrenceInterpretation* interp = static_cast<_resqml2__StratigraphicOccurrenceInterpretation*>(gsoapProxy2_0_1); 
 
 	if (interp->IsOccurrenceOf)
 	{

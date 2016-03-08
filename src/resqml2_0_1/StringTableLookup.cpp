@@ -49,7 +49,7 @@ StringTableLookup::StringTableLookup(soap* soapContext, const string & guid, con
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
-	gsoapProxy = soap_new_resqml2__obj_USCOREStringTableLookup(soapContext, 1);
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREStringTableLookup(soapContext, 1);
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
@@ -57,7 +57,7 @@ StringTableLookup::StringTableLookup(soap* soapContext, const string & guid, con
 
 vector<Relationship> StringTableLookup::getAllEpcRelationships() const
 {
-	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy);
+	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1);
 
 	vector<Relationship> result;
 
@@ -74,7 +74,7 @@ vector<Relationship> StringTableLookup::getAllEpcRelationships() const
 
 unsigned int StringTableLookup::getItemCount() const
 {
-	return static_cast<_resqml2__StringTableLookup*>(gsoapProxy)->Value.size();
+	return static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1)->Value.size();
 }
 
 long StringTableLookup::getKeyAtIndex(const unsigned int & index) const
@@ -82,7 +82,7 @@ long StringTableLookup::getKeyAtIndex(const unsigned int & index) const
 	if (getItemCount() <= index)
 		throw out_of_range("The index is out of range.");
 
-	return (static_cast<_resqml2__StringTableLookup*>(gsoapProxy)->Value)[index]->Key;
+	return (static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1)->Value)[index]->Key;
 }
 
 std::string StringTableLookup::getStringValueAtIndex(const unsigned int & index) const
@@ -90,12 +90,12 @@ std::string StringTableLookup::getStringValueAtIndex(const unsigned int & index)
 	if (getItemCount() <= index)
 		throw out_of_range("The index is out of range.");
 
-	return (static_cast<_resqml2__StringTableLookup*>(gsoapProxy)->Value)[index]->Value;
+	return (static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1)->Value)[index]->Value;
 }
 
 bool StringTableLookup::containsKey(const long & longValue)
 {
-	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy);
+	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1);
 
 	for (unsigned int i = 0; i < stringLookup->Value.size(); i++)
 	{
@@ -110,7 +110,7 @@ bool StringTableLookup::containsKey(const long & longValue)
 
 std::string StringTableLookup::getStringValue(const long & longValue)
 {
-	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy);
+	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1);
 
 	for (unsigned int i = 0; i < stringLookup->Value.size(); i++)
 	{
@@ -125,9 +125,9 @@ std::string StringTableLookup::getStringValue(const long & longValue)
 
 void StringTableLookup::addValue(const string & strValue, const long & longValue)
 {
-	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy);
+	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1);
 
-	resqml2__StringLookup* xmlValue = soap_new_resqml2__StringLookup(gsoapProxy->soap, 1);
+	resqml2__StringLookup* xmlValue = soap_new_resqml2__StringLookup(gsoapProxy2_0_1->soap, 1);
 	xmlValue->Key = longValue;
 	xmlValue->Value = strValue;
 	stringLookup->Value.push_back(xmlValue);
@@ -135,7 +135,7 @@ void StringTableLookup::addValue(const string & strValue, const long & longValue
 
 void StringTableLookup::setValue(const string & strValue, const long & longValue)
 {
-	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy);
+	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1);
 
 	for (unsigned int i = 0; i < stringLookup->Value.size(); i++)
 	{
@@ -157,7 +157,7 @@ std::tr1::unordered_map<long, string> StringTableLookup::getMap() const
 	std::tr1::unordered_map<long, string> result;
 #endif
 
-	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy);
+	_resqml2__StringTableLookup* stringLookup = static_cast<_resqml2__StringTableLookup*>(gsoapProxy2_0_1);
 
 	for (unsigned int i = 0; i < stringLookup->Value.size(); i++)
 	{
