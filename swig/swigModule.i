@@ -373,8 +373,10 @@ namespace common
 			const std::string & guid, const std::string & title,
 			resqml2_0_1::AbstractRepresentation * supportingRep);
 		
-		resqml2_0_1::GridConnectionSetRepresentation* createGridConnectionSetRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, const std::string & guid, const std::string & title,
-			resqml2_0_1::AbstractGridRepresentation * supportingGridRep);
+		resqml2_0_1::GridConnectionSetRepresentation* createGridConnectionSetRepresentation(const std::string & guid, const std::string & title);
+
+		resqml2_0_1::GridConnectionSetRepresentation* createGridConnectionSetRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp,
+                const std::string & guid, const std::string & title);
 
 		//************************************
 		//************* PROPERTIES ***********

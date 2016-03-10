@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 namespace misc
 {
 	/**
-	* Convert an angle into radians
+	* Get the part name of an object in the epc document based on one of its reference.
 	*/
 	std::string getPartNameFromReference(gsoap_resqml2_0_1::eml__DataObjectReference * reference);
 }

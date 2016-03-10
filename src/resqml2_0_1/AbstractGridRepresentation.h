@@ -255,7 +255,7 @@ namespace resqml2_0_1
 
 		std::vector<GridConnectionSetRepresentation*> gridConnectionSetRepresentationSet;
 
-		friend void GridConnectionSetRepresentation::setSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
+		friend void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
 
 	};
 }

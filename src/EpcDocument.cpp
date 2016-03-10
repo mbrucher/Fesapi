@@ -2100,11 +2100,17 @@ SubRepresentation* EpcDocument::createSubRepresentation(AbstractFeatureInterpret
 	return result;
 }
 
-GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,
-        const std::string & guid, const std::string & title,
-		AbstractGridRepresentation * supportingGridRep)
+resqml2_0_1::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(const std::string & guid, const std::string & title)
 {
-	GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(interp, guid, title, supportingGridRep);
+	GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(getGsoapContext(), guid, title);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
+}
+
+GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,
+        const std::string & guid, const std::string & title)
+{
+	GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(interp, guid, title);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }

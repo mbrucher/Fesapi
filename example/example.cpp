@@ -444,7 +444,8 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	if (earthModelInterp != nullptr)
 	{
-		GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "", "GridConnectionSetRepresentation", ijkgrid);
+		GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "", "GridConnectionSetRepresentation");
+		gridConnSet->pushBackSupportingGridRepresentation(ijkgrid);
 		ULONG64 cellConn[2] = { 0, 1 };
 		gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
 		unsigned int localFacePerCellIndexPairs[2] = { 3, 5 };
@@ -1439,7 +1440,7 @@ void deserialize(const string & inputFile)
 		{
 			for (size_t gsrIndex = 0; gsrIndex < faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet().size(); ++gsrIndex)
 			{
-				cout << "This fault polyline rep is linked to " << faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet()[gsrIndex]->getSupportingGridRepresentation()->getTitle() << endl;
+				cout << "This fault polyline rep is linked to a grid connection set." << endl;
 			}
 		}
 	}

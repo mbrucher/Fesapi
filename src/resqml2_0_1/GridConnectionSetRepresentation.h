@@ -40,9 +40,8 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT GridConnectionSetRepresentation : public AbstractRepresentation
 	{
 	private:
-		void init(
-                const std::string & guid, const std::string & title,
-				class AbstractGridRepresentation * supportingGridRep);
+		void init(soap* soapContext,
+                const std::string & guid, const std::string & title);
 
 	public:
 		/**
@@ -53,17 +52,15 @@ namespace resqml2_0_1
         * @param numIndexPerPatch The number of referenced element by each patch of the instance.
 		*/
 		GridConnectionSetRepresentation(class AbstractFeatureInterpretation* interp,
-                const std::string & guid, const std::string & title,
-				class AbstractGridRepresentation * supportingGridRep);
+                const std::string & guid, const std::string & title);
 
-		GridConnectionSetRepresentation(
-			const std::string & guid, const std::string & title,
-			class AbstractGridRepresentation * supportingGridRep);
+		GridConnectionSetRepresentation(soap* soapContext,
+			const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		GridConnectionSetRepresentation(gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), supportingGridRepresentation(nullptr) {}
+		GridConnectionSetRepresentation(gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -169,6 +166,10 @@ namespace resqml2_0_1
 		*/
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 
+		/**
+		* Optional 2 x #Connections array of local face-per-cell indices for (Cell1,Cell2) for each connection. Local face-per-cell indices are used because global face indices need not have been defined.
+		* If no face-per-cell definition occurs as part of the grid representation, e.g., for a block-centered grid, then this array need not appear.
+		*/
 		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 
 		/**
@@ -187,22 +188,20 @@ namespace resqml2_0_1
 		void pushBackInterpretation(class AbstractFeatureInterpretation* interp);
 	
 		/**
-		 * Set the grid representation which is the support of this representation.
-		 * And push back this representation as a grid connetion information of the grid representation as well.
+		 * Pushes back a grid representation which is one of the support of this representation.
+		 * And push back this representation as a grid connection information of the grid representation as well.
 		 */
-		void setSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
+		void pushBackSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
 		
 		/**
 		* Get the count of the supporting grid representations of this grid connection representation.
-		* TODO: Support more than only one suporting grid representation in this class
 		*/
 		unsigned int getSupportingGridRepresentationCount() const;
 
 		/**
 		* Get the first supporting grid representation of this grid connection representation.
-		* TODO: Support more than only one suporting grid representation in this class
 		*/
-		class AbstractGridRepresentation* getSupportingGridRepresentation() {return supportingGridRepresentation;}
+		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index);
 		
 		/**
 		* Get the first supporting grid representation uuid of this grid connection representation.
@@ -230,7 +229,5 @@ namespace resqml2_0_1
 
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-		class AbstractGridRepresentation* supportingGridRepresentation; // TODO: Support more than only one suporting grid representation in this class
 	};
 }
