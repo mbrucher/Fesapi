@@ -1077,6 +1077,8 @@ namespace resqml2_0_1
 		bool isBasedOnMultiGrids() const;
 		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
 		
+		void pushBackSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
+		
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
 		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
@@ -1087,7 +1089,7 @@ namespace resqml2_0_1
 		unsigned int getInterpretationCount() const;
 		
 		unsigned int getSupportingGridRepresentationCount() const;
-		AbstractGridRepresentation* getSupportingGridRepresentation();
+		AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index);
 		std::string getSupportingGridRepresentationUuid() const;
 	};
 
