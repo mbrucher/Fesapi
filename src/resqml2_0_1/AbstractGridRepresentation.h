@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/GridConnectionSetRepresentation.h"
+#include "resqml2_0_1/BlockedWellboreRepresentation.h"
 
 namespace resqml2_0_1
 {
@@ -254,8 +255,10 @@ namespace resqml2_0_1
 		std::vector<AbstractGridRepresentation*> childGridSet;
 
 		std::vector<GridConnectionSetRepresentation*> gridConnectionSetRepresentationSet;
+		std::vector<BlockedWellboreRepresentation*> blockedWellboreRepresentationSet;
 
 		friend void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
+		friend void BlockedWellboreRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
 
 	};
 }

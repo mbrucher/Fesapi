@@ -47,13 +47,18 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param interp	The interpretation the instance represents.
-		* @param title A title for the instance to create.
-        * @param indexSetPerPatch The indexes of the elements referenced by each patch of the instance.
-        * @param numIndexPerPatch The number of referenced element by each patch of the instance.
+		* @param guid	A guid for the instance to create.
+		* @param title	A title for the instance to create.
 		*/
 		GridConnectionSetRepresentation(class AbstractFeatureInterpretation* interp,
                 const std::string & guid, const std::string & title);
 
+		/**
+		* Creates an instance of this class in a gsoap context.
+		* @param interp	The interpretation the instance represents.
+		* @param guid	A guid for the instance to create.
+		* @param title	A title for the instance to create.
+		*/
 		GridConnectionSetRepresentation(soap* soapContext,
 			const std::string & guid, const std::string & title);
 
@@ -199,15 +204,14 @@ namespace resqml2_0_1
 		unsigned int getSupportingGridRepresentationCount() const;
 
 		/**
-		* Get the first supporting grid representation of this grid connection representation.
+		* Get the supporting grid representation located at a specific index of this grid connection representation.
 		*/
 		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index);
 		
 		/**
 		* Get the first supporting grid representation uuid of this grid connection representation.
-		* TODO: Support more than only one suporting grid representation in this class
 		*/
-		std::string getSupportingGridRepresentationUuid() const;
+		std::string getSupportingGridRepresentationUuid(unsigned int index) const;
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
 

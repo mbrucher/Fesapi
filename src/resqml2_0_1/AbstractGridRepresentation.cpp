@@ -55,14 +55,16 @@ vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 	
 	for (unsigned int i = 0; i < gridConnectionSetRepresentationSet.size(); ++i)
 	{
-		if (gridConnectionSetRepresentationSet[i] != nullptr)
-		{
-			Relationship relRep(gridConnectionSetRepresentationSet[i]->getPartNameInEpcDocument(), "", gridConnectionSetRepresentationSet[i]->getUuid());
-			relRep.setSourceObjectType();
-			result.push_back(relRep);
-		}
-		else
-			throw domain_error("The grid Connections Representation associated to the grid cannot be nullptr.");
+		Relationship relRep(gridConnectionSetRepresentationSet[i]->getPartNameInEpcDocument(), "", gridConnectionSetRepresentationSet[i]->getUuid());
+		relRep.setSourceObjectType();
+		result.push_back(relRep);
+	}
+
+	for (unsigned int i = 0; i < blockedWellboreRepresentationSet.size(); ++i)
+	{
+		Relationship relBlockedWell(blockedWellboreRepresentationSet[i]->getPartNameInEpcDocument(), "", blockedWellboreRepresentationSet[i]->getUuid());
+		relBlockedWell.setSourceObjectType();
+		result.push_back(relBlockedWell);
 	}
 
 	if (getParentGrid() != nullptr)
@@ -76,14 +78,9 @@ vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 	for (unsigned int i = 0; i < cildGridCount; ++i)
 	{
 		AbstractGridRepresentation* childGrid = getChildGrid(i);
-		if (childGrid != nullptr)
-		{
-			Relationship relChild(childGrid->getPartNameInEpcDocument(), "", childGrid->getUuid());
-			relChild.setSourceObjectType();
-			result.push_back(relChild);
-		}
-		else
-			throw domain_error("The child grid cannot be nullptr.");
+		Relationship relChild(childGrid->getPartNameInEpcDocument(), "", childGrid->getUuid());
+		relChild.setSourceObjectType();
+		result.push_back(relChild);
 	}
 
 	return result;

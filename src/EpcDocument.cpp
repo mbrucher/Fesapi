@@ -778,6 +778,12 @@ string EpcDocument::deserialize()
 				soap_read_resqml2__obj_USCORETriangulatedSetRepresentation(s, read);
 				wrapper = new TriangulatedSetRepresentation(read);
 			}
+			else if (resqmlContentType.compare(BlockedWellboreRepresentation::XML_TAG) == 0)
+			{
+				gsoap_resqml2_0_1::_resqml2__BlockedWellboreRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREBlockedWellboreRepresentation(s, 1);
+				soap_read_resqml2__obj_USCOREBlockedWellboreRepresentation(s, read);
+				wrapper = new BlockedWellboreRepresentation(read);
+			}
 			else if (resqmlContentType.compare(AbstractIjkGridRepresentation::XML_TAG) == 0)
 			{
 				gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREIjkGridRepresentation(s, 1);

@@ -493,9 +493,15 @@ void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(Abstr
 	}
 }
 
-std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid() const
+std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid(unsigned int index) const
 {
-	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid[0]->UUID;
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
+
+	if (index >= rep->Grid.size())
+	{
+		throw range_error("The requested index is out of range of the available supporting grid representations.");
+	}
+	return rep->Grid[index]->UUID;
 }
 
 void GridConnectionSetRepresentation::setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy)
@@ -597,11 +603,5 @@ unsigned int GridConnectionSetRepresentation::getSupportingGridRepresentationCou
 
 AbstractGridRepresentation* GridConnectionSetRepresentation::getSupportingGridRepresentation(unsigned int index)
 {
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
-
-	if (index >= rep->Grid.size())
-	{
-		throw range_error("The requested index is out of range of the available supporting grid representations.");
-	}
-	return static_cast<AbstractGridRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(rep->Grid[index]->UUID));
+	return static_cast<AbstractGridRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingGridRepresentationUuid(index)));
 }

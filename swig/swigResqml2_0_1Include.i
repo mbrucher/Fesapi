@@ -1088,7 +1088,7 @@ namespace resqml2_0_1
 		AbstractFeatureInterpretation * getInterpretationFromIndex(const unsigned int & interpretationIndex) const;
 		unsigned int getInterpretationCount() const;
 		
-		unsigned int getSupportingGridRepresentationCount() const;
+		unsigned int getSupportingGridRepresentationCount(unsigned int index) const;
 		AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index);
 		std::string getSupportingGridRepresentationUuid() const;
 	};
