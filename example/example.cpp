@@ -1678,11 +1678,14 @@ void deserialize(const string & inputFile)
 				std::cout << "This 3d grid has a lattice geometry." << std::endl;
 			}
 
-			std::cout << "Node count is : " << ijkGrid->getXyzPointCountOfPatch(0) << std::endl;
-			double * gridPoints = new double[ijkGrid->getXyzPointCountOfPatch(0) * 3];
-			ijkGrid->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);
-			std::cout << "--------------------------------------------------" << std::endl;
-			delete [] gridPoints;
+			// read points
+			ULONG64 xyzPointCount = ijkGrid->getXyzPointCountOfAllPatches();
+			std::cout << "\t XYZ points count :" << xyzPointCount << std::endl;
+			std::cout << "\t Start reading XYZ points :" << std::endl;
+			double* xyzPoints = new double[xyzPointCount*3];
+			ijkGrid->getXyzPointsOfAllPatches(xyzPoints);
+			delete [] xyzPoints;
+			std::cout << "\t Stop reading XYZ points :" << std::endl;
 
 			std::cout << "Split coordinate line count is : " << ijkGrid->getSplitCoordinateLineCount() << std::endl;
 		}
@@ -1835,6 +1838,7 @@ int main(int argc, char **argv)
 // filepath is defined in a macro to better check memory leak
 #define filePath "../../testingPackageCpp.epc"
 //#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
+//#define filePath "/data_local/philippeVerney/resqmlExchangedModel/v2_0/eage2016/test4rob.epc"
 int main(int argc, char **argv)
 {
 	serialize(filePath);

@@ -62,7 +62,6 @@ namespace resqml2
 		AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* proxy = nullptr) : partialObject(nullptr), gsoapProxy2_0_1(proxy), epcDocument (nullptr), updateXml(true) {}
 
 		friend void common::EpcDocument::addGsoapProxy(AbstractObject* proxy);
-		friend resqml2_0_1::Activity; // necessary cause of cyclic include if we try : friend class Activity::pushBackResqmlObjectParameter(const std::string title, AbstractObject* resqmlObject);
 
 		void initMandatoryMetadata();
 		
@@ -203,6 +202,6 @@ namespace resqml2
 		/**
 		* Get all the activities where the instance is involved.
 		*/
-		const std::vector<resqml2::Activity*> & getActivitySet() const { return activitySet; }
+		std::vector<resqml2::Activity*> & getActivitySet() { return activitySet; }
 	};
 }

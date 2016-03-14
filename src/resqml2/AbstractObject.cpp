@@ -36,7 +36,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 #include <string>
 #include <sstream>
+#if (defined(_WIN32) || (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9))))
 #include <regex>
+#endif
 
 #include "tools/GuidTools.h"
 

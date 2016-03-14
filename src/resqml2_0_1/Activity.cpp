@@ -147,10 +147,10 @@ void Activity::pushBackParameter(const std::string title,
 	{		
 		resqmlObjectSet.push_back(resqmlObject);
 	}
-	alreadyInserted = (std::find(resqmlObject->activitySet.begin(), resqmlObject->activitySet.end(), this) != resqmlObject->activitySet.end()); // In case the resqml object is both input and output of the activity
+	alreadyInserted = (std::find(resqmlObject->getActivitySet().begin(), resqmlObject->getActivitySet().end(), this) != resqmlObject->getActivitySet().end()); // In case the resqml object is both input and output of the activity
 	if (!alreadyInserted)
 	{
-		resqmlObject->activitySet.push_back(this);
+		resqmlObject->getActivitySet().push_back(this);
 	}
 
 	// XML
