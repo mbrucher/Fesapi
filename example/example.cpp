@@ -529,7 +529,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "", "One tetrahedron grid", 1);
 	double tetraGridPoints[12] = {0,0,300, 375,0,300, 0,150,300, 0,0,500};
 	ULONG64 faceIndicesPerCell[4] = {0,1,2,3};
-	char faceRightHandness[4] = { 0, 0, 1, 1 };
+	unsigned char faceRightHandness[4] = { 0, 0, 1, 1 };
 	ULONG64 nodeIndicesPerCell[12] = { 0, 1, 2, 1, 2, 3, 0, 1, 3, 0, 2, 3 };
 	tetraGrid->setTetrahedraOnlyGeometry(faceRightHandness, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerCell);
 #endif

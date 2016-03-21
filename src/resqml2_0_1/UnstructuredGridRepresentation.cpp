@@ -365,22 +365,29 @@ unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
 		return 0;
 }
 
-void UnstructuredGridRepresentation::getCellFaceIsRightHanded(char* cellFaceIsRightHanded) const
+void UnstructuredGridRepresentation::getCellFaceIsRightHanded(unsigned char* cellFaceIsRightHanded) const
 {
   _resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
   if (grid->Geometry == nullptr)
     throw invalid_argument("There is no geometry in this grid.");
   if (grid->Geometry->CellFaceIsRightHanded->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
   {
-    hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellFaceIsRightHanded)->Values->PathInHdfFile, cellFaceIsRightHanded);
+    hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->CellFaceIsRightHanded)->Values->PathInHdfFile, cellFaceIsRightHanded);
+  }
+  else if (grid->Geometry->CellFaceIsRightHanded->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanConstantArray)
+  {
+	  for (size_t i = 0; i < static_cast<resqml2__BooleanConstantArray*>(grid->Geometry->CellFaceIsRightHanded)->Count; ++i)
+	  {
+		  cellFaceIsRightHanded[i] = static_cast<resqml2__BooleanConstantArray*>(grid->Geometry->CellFaceIsRightHanded)->Value;
+	  }
   }
   else
 	  throw logic_error("Not yet implemented.");
 }
 
-void UnstructuredGridRepresentation::setGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, AbstractHdfProxy * proxy,
-	ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell, ULONG64 faceCount,
-	ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace, ULONG64 nodeCount,
+void UnstructuredGridRepresentation::setGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, AbstractHdfProxy * proxy,
+	ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell,
+	ULONG64 faceCount, ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace,
 	const gsoap_resqml2_0_1::resqml2__CellShape & cellShape)
 {
 	if (cellFaceIsRightHanded == nullptr)
@@ -399,14 +406,14 @@ void UnstructuredGridRepresentation::setGeometry(char * cellFaceIsRightHanded, d
 		throw invalid_argument("The definition of the node indices count per face is incomplete.");
 
 	setHdfProxy(proxy);
-	unsigned long cellCount = getSpecializedGsoapProxy()->CellCount;
+	ULONG64 cellCount = getSpecializedGsoapProxy()->CellCount;
 
 	resqml2__UnstructuredGridGeometry* geom = soap_new_resqml2__UnstructuredGridGeometry(gsoapProxy2_0_1->soap, 1);
 	getSpecializedGsoapProxy()->Geometry = geom;
 	getSpecializedGsoapProxy()->Geometry->LocalCrs = localCrs->newResqmlReference();
 
 	geom->FaceCount = faceCount;
-	geom->NodeCount = nodeCount;
+	geom->NodeCount = pointCount;
 	geom->CellShape = cellShape;
 
 	// Face Right handness
@@ -417,8 +424,8 @@ void UnstructuredGridRepresentation::setGeometry(char * cellFaceIsRightHanded, d
 	cellFaceIsRightHandedForHdf5->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded";
 	geom->CellFaceIsRightHanded = cellFaceIsRightHandedForHdf5;
 	// HDF
-	unsigned long long faceCountTmp = faceCount; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
-	hdfProxy->writeArrayNdOfCharValues(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", cellFaceIsRightHanded, &faceCountTmp, 1);
+	unsigned long long faceCountTmp = faceIndicesCumulativeCountPerCell[cellCount - 1]; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
+	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", H5T_NATIVE_UCHAR, cellFaceIsRightHanded, &faceCountTmp, 1);
 
 	// Face indices
 	//XML
@@ -453,7 +460,7 @@ void UnstructuredGridRepresentation::setGeometry(char * cellFaceIsRightHanded, d
 	// Elements
 	elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->NodesPerFace->Elements = elements;
-	elements->NullValue = nodeCount;
+	elements->NullValue = pointCount;
 	elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	elements->Values->HdfProxy = proxy->newResqmlReference();
 	elements->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/NodesPerFace/" + ELEMENTS_DS_NAME;
@@ -474,7 +481,7 @@ void UnstructuredGridRepresentation::setGeometry(char * cellFaceIsRightHanded, d
 	delete [] numValues;
 }
 
-void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, AbstractHdfProxy * proxy,
+void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, AbstractHdfProxy * proxy,
 	ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace)
 {
 	if (cellFaceIsRightHanded == nullptr)
@@ -489,7 +496,7 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(char * cellFaceIs
 		throw invalid_argument("The definition of the node indices per face is incomplete.");
 
 	setHdfProxy(proxy);
-	unsigned long cellCount = getSpecializedGsoapProxy()->CellCount;
+	ULONG64 cellCount = getSpecializedGsoapProxy()->CellCount;
 
 	resqml2__UnstructuredGridGeometry* geom = soap_new_resqml2__UnstructuredGridGeometry(gsoapProxy2_0_1->soap, 1);
 	getSpecializedGsoapProxy()->Geometry = geom;
@@ -507,8 +514,8 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(char * cellFaceIs
 	cellFaceIsRightHandedForHdf5->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded";
 	geom->CellFaceIsRightHanded = cellFaceIsRightHandedForHdf5;
 	// HDF
-	unsigned long long faceCountTmp = faceCount; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
-	hdfProxy->writeArrayNdOfCharValues(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", cellFaceIsRightHanded, &faceCountTmp, 1);
+	unsigned long long faceCountTmp = 4*cellCount - 1; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
+	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", H5T_NATIVE_UCHAR, cellFaceIsRightHanded, &faceCountTmp, 1);
 
 	// Face indices
 	//XML

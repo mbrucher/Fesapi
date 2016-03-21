@@ -921,6 +921,8 @@ namespace resqml2_0_1
 	class UnstructuredGridRepresentation : public AbstractGridRepresentation
 	{
 	public:
+		void getCellFaceIsRightHanded(unsigned char* cellFaceIsRightHanded) const;
+	
 		ULONG64 getFaceCount() const;
 		void getFaceIndicesOfCells(ULONG64 * faceIndices) const;
 		void getCumulativeFaceCountPerCell(ULONG64 * faceCountPerCell) const;
@@ -940,11 +942,11 @@ namespace resqml2_0_1
 		ULONG64 * getNodeIndicesOfFaceOfCell(const ULONG64 & cellIndex, const unsigned int & localFaceIndex) const;
 		void unloadGeometry();
 		
-		void setGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, class AbstractHdfProxy * proxy,
-			ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell, ULONG64 faceCount,
-			ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace, ULONG64 nodeCount,
+		void setGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, class AbstractHdfProxy * proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell,
+			ULONG64 faceCount, ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace,
 			const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
-		void setTetrahedraOnlyGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, class AbstractHdfProxy * proxy,
+		void setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, class AbstractHdfProxy * proxy,
 			ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace);
 	};
 	

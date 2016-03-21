@@ -227,22 +227,31 @@ namespace resqml2_0_1
     	/**
 	    * Retrieves orientation i.e. if each cell face is right handed or not
     	*/
-    	void getCellFaceIsRightHanded(char* cellFaceIsRightHanded) const;
+    	void getCellFaceIsRightHanded(unsigned char* cellFaceIsRightHanded) const;
 
 		/**
 		 * Set the geometry
-		 * @param isRightHanded	Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		 * @param isRightHanded						Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		 * @param points							All the XYZ points defining the nodes of the unstructured grid. There must a double count of pointCount * 3.
+		 * @param pointCount						The count of points defining the nodes of this unstructured grid.
+		 * @param proxy								The hdf proxy which will store all the numerical values of this unstructured grid.
+		 * @param faceIndicesPerCell				Each item defines the index of the face of a cell. There must be a count of the last value in faceIndicesCumulativeCountPerCell.
+		 * @param faceIndicesCumulativeCountPerCell	Each item defines the cumulative count of faces. The count of this array must be eqaul to the count of cells in this unstructured grid. For example if the first cell a 4 faces, the second cell 5 faces and the third cell 6 faces then the array would be {4, 9, 15}
+		 * @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		 * @param nodeIndicesPerFace				Each item defines the index of the node of a face. There must be a count of the last value in nodeIndicesCumulativeCountPerFace.
+		 * @param nodeIndicesCumulativeCountPerFace	Each item defines the cumulative count of nodes. The count of this array must be eqaul to faceCount.
+		 * @param cellShape							A denormalization of the information which gives quick access to the most complex shape of polyhedron encountered in this unstructured grid.
 		 */
-		void setGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, class AbstractHdfProxy * proxy,
-			ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell, ULONG64 faceCount,
-			ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace, ULONG64 nodeCount,
+		void setGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, class AbstractHdfProxy * proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell,
+			ULONG64 faceCount, ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace,
 			const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
 
 		/**
 		 * Set a geometry which is only defined using tetrahedra.
 		 * @param isRightHanded	Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
 		 */
-		void setTetrahedraOnlyGeometry(char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, class AbstractHdfProxy * proxy,
+		void setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, class AbstractHdfProxy * proxy,
 			ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace);
 
 		static const char* XML_TAG;
