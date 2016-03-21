@@ -40,8 +40,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT BlockedWellboreRepresentation : public WellboreFrameRepresentation
 	{
 	private:
-		void init(soap* soapContext,
-			const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj);
+		void init(const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj);
 
 	public:
 		/**
@@ -78,6 +77,17 @@ namespace resqml2_0_1
 		* @param hdfProxy								The hdf proxy where the numerical values will be stored.
 		*/
 		void setIntevalGridCells(unsigned int * gridIndices, unsigned int gridIndicesNullValue, unsigned int cellCount, ULONG64* cellIndices, unsigned char* localFacePairPerCellIndices, unsigned char localFacePairPerCellIndicesNullValue, AbstractHdfProxy * hdfProxy);
+
+		/**
+		* The number of non-null entries in the grid indices array.
+		*/
+		unsigned int getCellCount() const;
+
+		/**
+		* Size of array = IntervalCount on the wellbore frame rep. The grids (and there indices) are defined using pushBackSupportingGridRepresentation method.
+		* @return nullValue
+		*/
+		unsigned int getGridIndices(unsigned int * gridIndices) const;
 
 		/**
 		 * Pushes back a grid representation which is one of the support of this representation.

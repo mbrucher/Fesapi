@@ -135,6 +135,7 @@ namespace resqml2_0_1
 	class FrontierFeature;
 	class PlaneSetRepresentation;
 	class FluidBoundaryFeature;
+	class BlockedWellboreRepresentation;
 }
 
 namespace witsml1_4_1_1
@@ -814,6 +815,9 @@ namespace common
 		resqml2_0_1::WellboreFrameRepresentation* createWellboreFrameRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);
 
 		resqml2_0_1::WellboreMarkerFrameRepresentation* createWellboreMarkerFrameRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);
+
+		resqml2_0_1::BlockedWellboreRepresentation* createBlockedWellboreRepresentation(resqml2_0_1::WellboreInterpretation* interp,
+			const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);
 
 		resqml2_0_1::RepresentationSetRepresentation* createRepresentationSetRepresentation(
                 resqml2_0_1::AbstractOrganizationInterpretation* interp,

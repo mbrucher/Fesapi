@@ -478,7 +478,7 @@ vector<Relationship> GridConnectionSetRepresentation::getAllEpcRelationships() c
 
 void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep)
 {
-	if (!supportingGridRep)
+	if (supportingGridRep == nullptr)
 	{
 		throw invalid_argument("The supporting Grid Representation cannot be null.");
 	}

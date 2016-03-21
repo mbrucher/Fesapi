@@ -51,10 +51,14 @@ using namespace gsoap_resqml2_0_1;
 
 const char* BlockedWellboreRepresentation::XML_TAG = "BlockedWellboreRepresentation";
 
-void BlockedWellboreRepresentation::init(soap* soapContext,
-	const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
+void BlockedWellboreRepresentation::init(const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
-	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREBlockedWellboreRepresentation(soapContext, 1);
+	if (traj == nullptr)
+	{
+		throw invalid_argument("The wellbore trajectory of a blocked wellbore cannot be null.");
+	}
+
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREBlockedWellboreRepresentation(traj->getGsoapContext(), 1);
 	_resqml2__BlockedWellboreRepresentation* frame = static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1);
 
 	frame->Trajectory = traj->newResqmlReference();
@@ -63,6 +67,18 @@ void BlockedWellboreRepresentation::init(soap* soapContext,
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+}
+
+BlockedWellboreRepresentation::BlockedWellboreRepresentation(WellboreInterpretation* interp,
+	const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj) :
+	WellboreFrameRepresentation(interp, nullptr)
+{
+	init(guid, title, traj);
+
+	if (interp != nullptr)
+	{
+		setInterpretation(interp);
+	}
 }
 
 vector<Relationship> BlockedWellboreRepresentation::getAllEpcRelationships() const
@@ -156,12 +172,41 @@ void BlockedWellboreRepresentation::setIntevalGridCells(unsigned int * gridIndic
 		H5T_NATIVE_UCHAR,
 		localFacePairPerCellIndices,
 		dimLocalFacePerCellIndicesNullValue, 1);
+}
 
+unsigned int BlockedWellboreRepresentation::getCellCount() const
+{
+	return static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1)->CellCount;
+}
+
+unsigned int BlockedWellboreRepresentation::getGridIndices(unsigned int * gridIndices) const
+{
+	_resqml2__BlockedWellboreRepresentation* rep = static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1);
+
+	if (rep->GridIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->GridIndices)->Values->PathInHdfFile, gridIndices);
+		return static_cast<resqml2__IntegerHdf5Array*>(rep->GridIndices)->NullValue;
+	}
+	else if (rep->GridIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
+	{
+		unsigned int intervalCount = getMdValuesCount() - 1;
+		for (unsigned int i = 0; i < intervalCount; ++i)
+		{
+			gridIndices[i] = static_cast<resqml2__IntegerConstantArray*>(rep->GridIndices)->Value;
+		}
+	}
+	else
+	{
+		throw std::logic_error("Not yet implemented");
+	}
+
+	return (numeric_limits<unsigned int>::max)();
 }
 
 void BlockedWellboreRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep)
 {
-	if (!supportingGridRep)
+	if (supportingGridRep == nullptr)
 	{
 		throw invalid_argument("The supporting Grid Representation cannot be null.");
 	}

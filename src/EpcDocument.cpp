@@ -78,6 +78,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/SeismicLineSetFeature.h"
 #include "resqml2_0_1/OrganizationFeature.h"
 
+#include "resqml2_0_1/BlockedWellboreRepresentation.h"
+
 #include "resqml2_0_1/EarthModelInterpretation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 #include "resqml2_0_1/NonSealedSurfaceFrameworkRepresentation.h"
@@ -1954,6 +1956,14 @@ WellboreFrameRepresentation* EpcDocument::createWellboreFrameRepresentation(Well
 WellboreMarkerFrameRepresentation* EpcDocument::createWellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
 	WellboreMarkerFrameRepresentation* result = new WellboreMarkerFrameRepresentation(interp, guid, title, traj);
+	addGsoapProxyAndDeleteItIfException(result);
+	return result;
+}
+
+BlockedWellboreRepresentation* EpcDocument::createBlockedWellboreRepresentation(WellboreInterpretation* interp,
+	const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
+{
+	BlockedWellboreRepresentation* result = new BlockedWellboreRepresentation(interp, guid, title, traj);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }

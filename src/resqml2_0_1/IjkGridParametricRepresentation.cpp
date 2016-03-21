@@ -543,7 +543,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 	setGeometryAsParametricSplittedPillarNodes(kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, 2, hdfProxy,
 		splitCoordinateLineCount, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
-	resqml2__IjkGridGeometry* geom = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1)->Geometry = geom;
+	resqml2__IjkGridGeometry* geom = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1)->Geometry;
 	geom->PillarShape = mostComplexPillarGeometry;
 
 	// XML Pillar defined
