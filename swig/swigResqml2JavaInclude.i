@@ -205,7 +205,7 @@
     return ret;
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateConcreteProperty(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_0_1_instantiateConcreteProperty(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
@@ -243,7 +243,7 @@
 		return null;
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
@@ -261,7 +261,7 @@
 		return null;
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractObject resqml2_0_1_instantiateConcreteLocal3dCrs(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_0_1_instantiateConcreteLocal3dCrs(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
