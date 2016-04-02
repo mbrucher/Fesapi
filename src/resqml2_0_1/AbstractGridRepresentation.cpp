@@ -84,6 +84,15 @@ vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 		result.push_back(relChild);
 	}
 
+	// Strati unit
+	if (hasCellStratigraphicUnitIndices())
+	{
+		AbstractStratigraphicOrganizationInterpretation* stratiOrg = getAssociatedStratigraphicOrganizationInterpretation();
+		Relationship relStrati(stratiOrg->getPartNameInEpcDocument(), "", stratiOrg->getUuid());
+		relStrati.setDestinationObjectType();
+		result.push_back(relStrati);
+	}
+
 	return result;
 }
 

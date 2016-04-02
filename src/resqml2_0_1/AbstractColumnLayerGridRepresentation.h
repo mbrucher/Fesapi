@@ -53,6 +53,9 @@ namespace resqml2_0_1
 		*/
 		AbstractColumnLayerGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractColumnLayerGridRepresentation* fromGsoap): AbstractGridRepresentation(fromGsoap) {}
 
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
+		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
 	public:
 
 		/**
@@ -76,8 +79,28 @@ namespace resqml2_0_1
 		virtual gsoap_resqml2_0_1::resqml2__KDirection getKDirection() const = 0;
 
 		/**
+		* Set the stratigraphic organization interpretation which is associated to this grid representation.
+		* @param stratiUnitIndices	Index of the stratigraphic unit of a given stratigraphic column for each interval of this grid representation. Array length is the number of interval in the grids. Intervals = layers + K gaps.
+		* @param nullValue			The value which is used to tell the association between a grid interval and strati unit is unavailable.
+		* @param stratiOrgInterp	The stratigraphic organization interpretation which is associated to this grid representation.
+		*/
+		void setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, class AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
+
+		/**
 		* @return	nullptr if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the associated stratigraphic organization interpretation;
 		*/
 		class AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
+
+		/**
+		* @return	true if this grid representation has got some association between stratigraphic unit indices and interval. Intervals = layers + K gaps.
+		*/
+		bool hasIntervalStratigraphicUnitIndices() const;
+
+		/**
+		* Get the stratigraphic unit indices (regarding the associated stratigraphic organization interpretation) of each interval of this grid representation.
+		* @param stratiUnitIndices	This array must be allocated with a count equal to the count of interval in this grid. It will be filled in with the stratigraphic unit indices ordered as grid intervals are ordered.
+		* @return					The null value is returned. The null value is used to tell the association between a grid interval and strati unit is unavailable.
+		*/
+		ULONG64 getIntervalStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
 	};
 }

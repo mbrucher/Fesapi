@@ -963,6 +963,11 @@ namespace resqml2_0_1
 	public:
 		unsigned int getKCellCount() const;
 		void setKCellCount(const unsigned int & kCount);
+		
+		void setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
+		AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
+		bool hasIntervalStratigraphicUnitIndices() const;
+		ULONG64 getIntervalStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
 	};
 
 	class UnstructuredGridRepresentation : public AbstractGridRepresentation

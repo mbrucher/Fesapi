@@ -21,6 +21,11 @@
 		return ret;
 	}
 	
+	ret = resqml2_0_1_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+	
     String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
     if (type.equals("Activity"))
     {
@@ -300,6 +305,25 @@
       return new com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
     }
   }
+  
+  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractStratigraphicOrganizationInterpretation resqml2_0_1_instantiateConcreteStratigraphicOrganizationInterpretation(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) {
+      return null;
+    }
+    String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
+	
+    if (type.equals("StratigraphicOccurrenceInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicOccurrenceInterpretation(cPtr, owner);
+    }
+    else if (type.equals("StratigraphicColumnRankInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumnRankInterpretation(cPtr, owner);
+    }
+	else
+		return null;
+  }
 %}
 
 namespace resqml2
@@ -344,6 +368,12 @@ namespace resqml2_0_1
 	%typemap(javaout) AbstractProperty*, AbstractValuesProperty*  {
 		long cPtr = $jnicall;
 		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteProperty(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractStratigraphicOrganizationInterpretation*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, $owner);
 		return ret;
 	}
 

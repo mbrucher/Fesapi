@@ -33,10 +33,17 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/AbstractColumnLayerGridRepresentation.h"
 
+#include <stdexcept>
+
+#include "hdf5.h"
+
 #include "resqml2_0_1/AbstractStratigraphicOrganizationInterpretation.h"
+#include "resqml2_0_1\AbstractHdfProxy.h"
 
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
+using namespace std;
+using namespace epc;
 
 unsigned int AbstractColumnLayerGridRepresentation::getKCellCount() const
 {
@@ -46,6 +53,34 @@ unsigned int AbstractColumnLayerGridRepresentation::getKCellCount() const
 void AbstractColumnLayerGridRepresentation::setKCellCount(const unsigned int & kCount)
 {
 	static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk = kCount;
+}
+
+void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation * stratiOrgInterp)
+{
+	// Backward rel
+	if (!stratiOrgInterp->isAssociatedToGridRepresentation(this))
+	{
+		stratiOrgInterp->gridRepresentationSet.push_back(this);
+	}
+
+	// XML
+	if (updateXml)
+	{
+		resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+		rep->IntervalStratigraphicUnits = soap_new_resqml2__IntervalStratigraphicUnits(rep->soap, 1);
+		rep->IntervalStratigraphicUnits->StratigraphicOrganization = stratiOrgInterp->newResqmlReference();
+
+		resqml2__IntegerHdf5Array* xmlDataset = soap_new_resqml2__IntegerHdf5Array(rep->soap, 1);
+		xmlDataset->NullValue = nullValue;
+		xmlDataset->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
+		xmlDataset->Values->HdfProxy = hdfProxy->newResqmlReference();
+		xmlDataset->Values->PathInHdfFile = "/RESQML/" + rep->uuid + "/IntervalStratigraphicUnits";
+		rep->IntervalStratigraphicUnits->UnitIndices = xmlDataset;
+
+		// ************ HDF *************
+		hsize_t dim = getKCellCount();
+		hdfProxy->writeArrayNd(rep->uuid, "IntervalStratigraphicUnits", H5T_NATIVE_ULLONG, stratiUnitIndices, &dim, 1);
+	}
 }
 
 AbstractStratigraphicOrganizationInterpretation* AbstractColumnLayerGridRepresentation::getAssociatedStratigraphicOrganizationInterpretation() const
@@ -62,4 +97,62 @@ AbstractStratigraphicOrganizationInterpretation* AbstractColumnLayerGridRepresen
 		return nullptr;
 
 	return static_cast<AbstractStratigraphicOrganizationInterpretation*>(getEpcDocument()->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID));
+}
+
+
+bool AbstractColumnLayerGridRepresentation::hasIntervalStratigraphicUnitIndices() const
+{
+	return static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->IntervalStratigraphicUnits != nullptr;
+}
+
+ULONG64 AbstractColumnLayerGridRepresentation::getIntervalStratigraphicUnitIndices(ULONG64 * stratiUnitIndices)
+{
+	resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+	if (!hasIntervalStratigraphicUnitIndices())
+	{
+		throw invalid_argument("This grid has no Interval StratigraphicUnits information");
+	}
+
+	if (rep->IntervalStratigraphicUnits->UnitIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(rep->IntervalStratigraphicUnits->UnitIndices)->Values->PathInHdfFile, stratiUnitIndices);
+		return static_cast<resqml2__IntegerHdf5Array*>(rep->IntervalStratigraphicUnits->UnitIndices)->NullValue;
+	}
+
+	throw logic_error("Not implemented yet.");
+}
+
+vector<Relationship> AbstractColumnLayerGridRepresentation::getAllEpcRelationships() const
+{
+	vector<Relationship> result = AbstractGridRepresentation::getAllEpcRelationships();
+
+	// Strati unit
+	if (!hasCellStratigraphicUnitIndices() && hasIntervalStratigraphicUnitIndices())
+	{
+		AbstractStratigraphicOrganizationInterpretation* stratiOrg = getAssociatedStratigraphicOrganizationInterpretation();
+		Relationship relStrati(stratiOrg->getPartNameInEpcDocument(), "", stratiOrg->getUuid());
+		relStrati.setDestinationObjectType();
+		result.push_back(relStrati);
+	}
+
+	return result;
+}
+
+void AbstractColumnLayerGridRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
+{
+	AbstractGridRepresentation::importRelationshipSetFromEpc(epcDoc);
+
+	// Strati org backward relationships
+	resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+	if (rep->IntervalStratigraphicUnits != nullptr)
+	{
+		AbstractObject* stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID);
+		if (dynamic_cast<AbstractStratigraphicOrganizationInterpretation*>(stratiOrg) != nullptr)
+		{
+			updateXml = false;
+			setIntervalAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, static_cast<AbstractStratigraphicOrganizationInterpretation*>(stratiOrg));
+			updateXml = true;
+		}
+	}
 }

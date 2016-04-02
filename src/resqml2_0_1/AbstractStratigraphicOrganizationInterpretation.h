@@ -49,6 +49,8 @@ namespace resqml2_0_1
 		*/
 		AbstractStratigraphicOrganizationInterpretation(gsoap_resqml2_0_1::resqml2__AbstractStratigraphicOrganizationInterpretation* fromGsoap) : AbstractOrganizationInterpretation(fromGsoap) {}
 
+		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
+
 	public:
 
 		/**
@@ -80,5 +82,6 @@ namespace resqml2_0_1
 		std::vector<AbstractGridRepresentation *> gridRepresentationSet;
 
 		friend void AbstractGridRepresentation::setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation * stratiOrgInterp);
+		friend void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
 	};
 }

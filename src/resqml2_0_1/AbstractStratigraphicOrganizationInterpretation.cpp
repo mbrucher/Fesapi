@@ -46,10 +46,6 @@ unsigned int AbstractStratigraphicOrganizationInterpretation::getGridRepresentat
 	return gridRepresentationSet.size();
 }
 
-/**
-* Get a grid representation associated to this strati org interp by means of its index.
-* @param index	The index of the grid representation to get in the array of grid representaitons of this strati org interp.
-*/
 AbstractGridRepresentation* AbstractStratigraphicOrganizationInterpretation::getGridRepresentation(const unsigned int & index) const
 {
 	if (index >= getGridRepresentationCount())
@@ -60,12 +56,21 @@ AbstractGridRepresentation* AbstractStratigraphicOrganizationInterpretation::get
 	return gridRepresentationSet[index];
 }
 
-/**
-* Check if a grid representation is wether associated to this strati org interp or not.
-* @param gridRep	The grid representation to check its assocaition with this strati org interp.
-* @return			True or false.
-*/
 bool AbstractStratigraphicOrganizationInterpretation::isAssociatedToGridRepresentation(AbstractGridRepresentation* gridRep) const
 {
 	return find(gridRepresentationSet.begin(), gridRepresentationSet.end(), gridRep) != gridRepresentationSet.end();
+}
+
+vector<Relationship> AbstractStratigraphicOrganizationInterpretation::getAllEpcRelationships() const
+{
+	vector<Relationship> result = AbstractOrganizationInterpretation::getAllEpcRelationships();
+
+	for (unsigned int i = 0; i < gridRepresentationSet.size(); ++i)
+	{
+		Relationship relRep(gridRepresentationSet[i]->getPartNameInEpcDocument(), "", gridRepresentationSet[i]->getUuid());
+		relRep.setSourceObjectType();
+		result.push_back(relRep);
+	}
+
+	return result;
 }
