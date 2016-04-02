@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractOrganizationInterpretation.h"
+#include "resqml2_0_1/AbstractStratigraphicOrganizationInterpretation.h"
 #include "resqml2_0_1/EarthModelInterpretation.h"
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 
@@ -42,7 +42,7 @@ namespace resqml2_0_1
 	/**
 	* This class is a container for other organizations that are consistent to each others.
 	*/
-	class DLL_IMPORT_OR_EXPORT StratigraphicOccurrenceInterpretation : public AbstractOrganizationInterpretation
+	class DLL_IMPORT_OR_EXPORT StratigraphicOccurrenceInterpretation : public AbstractStratigraphicOrganizationInterpretation
 	{
 	public:
 		static int GSOAP_TYPE;
@@ -58,8 +58,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-
-		StratigraphicOccurrenceInterpretation(gsoap_resqml2_0_1::_resqml2__StratigraphicOccurrenceInterpretation* fromGsoap): AbstractOrganizationInterpretation(fromGsoap), stratigraphicColumnRankInterpretation(nullptr) {}
+		StratigraphicOccurrenceInterpretation(gsoap_resqml2_0_1::_resqml2__StratigraphicOccurrenceInterpretation* fromGsoap) : AbstractStratigraphicOrganizationInterpretation(fromGsoap), stratigraphicColumnRankInterpretation(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

@@ -33,6 +33,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/AbstractColumnLayerGridRepresentation.h"
 
+#include "resqml2_0_1/AbstractStratigraphicOrganizationInterpretation.h"
+
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
@@ -46,3 +48,18 @@ void AbstractColumnLayerGridRepresentation::setKCellCount(const unsigned int & k
 	static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk = kCount;
 }
 
+AbstractStratigraphicOrganizationInterpretation* AbstractColumnLayerGridRepresentation::getAssociatedStratigraphicOrganizationInterpretation() const
+{
+	AbstractStratigraphicOrganizationInterpretation* result = AbstractGridRepresentation::getAssociatedStratigraphicOrganizationInterpretation();
+	if (result != nullptr)
+	{
+		return result;
+	}
+
+	resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+	if (rep->IntervalStratigraphicUnits == nullptr)
+		return nullptr;
+
+	return static_cast<AbstractStratigraphicOrganizationInterpretation*>(getEpcDocument()->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID));
+}

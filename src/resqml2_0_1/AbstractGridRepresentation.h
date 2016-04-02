@@ -245,6 +245,31 @@ namespace resqml2_0_1
 		*/
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
 
+		/**
+		* Set the stratigraphic organization interpretation which is associated to this grid representation.
+		* @param stratiUnitIndices	Index of the stratigraphic unit of a given stratigraphic column for each cell. Array length is the number of cells in the grid or the blocked well.
+		* @param nullValue			The value which is used to tell the association between a cell and strati unit is unavailable.
+		* @param stratiOrgInterp	The stratigraphic organization interpretation which is associated to this grid representation.
+		*/
+		void setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, class AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
+
+		/**
+		* @return	nullptr if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the associated stratigraphic organization interpretation;
+		*/
+		virtual class AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
+		
+		/**
+		* @return	true if this grid representation has got some association between stratigraphic unit indices and cell.
+		*/
+		bool hasCellStratigraphicUnitIndices() const;
+
+		/**
+		* Get the stratigraphic unit indices (regarding the associated stratigraphic organization interpretation) of each cell of this grid representation.
+		* @param stratiUnitIndices	This array must be allocated with a count equal to getCellCount(). It will be filled in with the stratigraphic unit indices ordered as grid cells are ordered.
+		* @return					The null value is returned. The null value is used to tell the association between a cell and strati unit is unavailable.
+		*/
+		ULONG64 getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
+
 		static const char* XML_TAG;
 
 	protected:

@@ -38,6 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
+#include "resqml2_0_1/AbstractStratigraphicOrganizationInterpretation.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/AbstractIjkGridRepresentation.h"
@@ -887,4 +888,80 @@ void AbstractGridRepresentation::importRelationshipSetFromEpc(common::EpcDocumen
 	{
 		parentGrid->childGridSet.push_back(this);
 	}
+
+	// Strati org backward relationships
+	resqml2__AbstractGridRepresentation* rep = static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
+	if (rep->CellStratigraphicUnits != nullptr)
+	{
+		AbstractObject* stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid(rep->CellStratigraphicUnits->StratigraphicOrganization->UUID);
+		if (dynamic_cast<AbstractStratigraphicOrganizationInterpretation*>(stratiOrg) != nullptr)
+		{
+			updateXml = false;
+			setCellAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, static_cast<AbstractStratigraphicOrganizationInterpretation*>(stratiOrg));
+			updateXml = true;
+		}
+	}
+}
+
+void AbstractGridRepresentation::setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation * stratiOrgInterp)
+{
+	// Backward rel
+	if (!stratiOrgInterp->isAssociatedToGridRepresentation(this))
+	{
+		stratiOrgInterp->gridRepresentationSet.push_back(this);
+	}
+
+	// XML
+	if (updateXml)
+	{
+		resqml2__AbstractGridRepresentation* rep = static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
+		rep->CellStratigraphicUnits = soap_new_resqml2__CellStratigraphicUnits(rep->soap, 1);
+		rep->CellStratigraphicUnits->StratigraphicOrganization = stratiOrgInterp->newResqmlReference();
+
+		resqml2__IntegerHdf5Array* xmlDataset = soap_new_resqml2__IntegerHdf5Array(rep->soap, 1);
+		xmlDataset->NullValue = nullValue;
+		xmlDataset->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
+		xmlDataset->Values->HdfProxy = hdfProxy->newResqmlReference();
+		xmlDataset->Values->PathInHdfFile = "/RESQML/" + rep->uuid + "/CellStratigraphicUnits";
+		rep->CellStratigraphicUnits->UnitIndices = xmlDataset;
+
+		// ************ HDF *************
+		hsize_t dim = getCellCount();
+		hdfProxy->writeArrayNd(rep->uuid, "CellStratigraphicUnits", H5T_NATIVE_ULLONG, stratiUnitIndices, &dim, 1);
+	}
+}
+
+AbstractStratigraphicOrganizationInterpretation* AbstractGridRepresentation::getAssociatedStratigraphicOrganizationInterpretation() const
+{
+	resqml2__AbstractGridRepresentation* rep = static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
+
+	if (rep->CellStratigraphicUnits == nullptr)
+	{
+		return nullptr;
+	}
+
+	return static_cast<AbstractStratigraphicOrganizationInterpretation*>(getEpcDocument()->getResqmlAbstractObjectByUuid(rep->CellStratigraphicUnits->StratigraphicOrganization->UUID));
+}
+
+bool AbstractGridRepresentation::hasCellStratigraphicUnitIndices() const
+{
+	return static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1)->CellStratigraphicUnits != nullptr;
+}
+
+ULONG64 AbstractGridRepresentation::getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices)
+{
+	resqml2__AbstractGridRepresentation* rep = static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
+
+	if (!hasCellStratigraphicUnitIndices())
+	{
+		throw invalid_argument("This grid has no CellStratigraphicUnits information");
+	}
+
+	if (rep->CellStratigraphicUnits->UnitIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(rep->CellStratigraphicUnits->UnitIndices)->Values->PathInHdfFile, stratiUnitIndices);
+		return static_cast<resqml2__IntegerHdf5Array*>(rep->CellStratigraphicUnits->UnitIndices)->NullValue;
+	}
+		
+	throw logic_error("Not implemented yet.");
 }

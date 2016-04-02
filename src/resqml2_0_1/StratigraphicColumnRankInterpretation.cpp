@@ -185,7 +185,7 @@ void StratigraphicColumnRankInterpretation::pushBackStratigraphicBinaryContact(S
 		
 void StratigraphicColumnRankInterpretation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	AbstractOrganizationInterpretation::importRelationshipSetFromEpc(epcDoc);
+	AbstractStratigraphicOrganizationInterpretation::importRelationshipSetFromEpc(epcDoc);
 
 	updateXml = false;
 
@@ -212,7 +212,7 @@ void StratigraphicColumnRankInterpretation::importRelationshipSetFromEpc(common:
 
 vector<Relationship> StratigraphicColumnRankInterpretation::getAllEpcRelationships() const
 {
-	vector<Relationship> result = AbstractOrganizationInterpretation::getAllEpcRelationships();
+	vector<Relationship> result = AbstractStratigraphicOrganizationInterpretation::getAllEpcRelationships();
 
 	// forward relationships
 	for (unsigned int i = 0; i < stratigraphicUnitSet.size(); i++)

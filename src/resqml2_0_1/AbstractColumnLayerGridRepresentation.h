@@ -74,5 +74,10 @@ namespace resqml2_0_1
 		* Get the K direction of the grid.
 		*/
 		virtual gsoap_resqml2_0_1::resqml2__KDirection getKDirection() const = 0;
+
+		/**
+		* @return	nullptr if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the associated stratigraphic organization interpretation;
+		*/
+		class AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
 	};
 }

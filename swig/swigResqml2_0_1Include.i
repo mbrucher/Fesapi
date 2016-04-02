@@ -214,6 +214,7 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::StructuralOrganizationInterpretation;
 	%nspace resqml2_0_1::StratigraphicUnitFeature;
 	%nspace resqml2_0_1::StratigraphicUnitInterpretation;
+	%nspace resqml2_0_1::AbstractStratigraphicOrganizationInterpretation;
 	%nspace resqml2_0_1::StratigraphicColumnRankInterpretation;
 	%nspace resqml2_0_1::StratigraphicOccurrenceInterpretation;
 	%nspace resqml2_0_1::StratigraphicColumn;
@@ -542,8 +543,17 @@ namespace resqml2_0_1
 		FaultInterpretation* getFaultInterpretation(const unsigned int & index);
 	};
 	
+	class AbstractGridRepresentation;
+	class AbstractStratigraphicOrganizationInterpretation : public AbstractOrganizationInterpretation
+	{
+	public:
+		unsigned int getGridRepresentationCount() const;
+		AbstractGridRepresentation* getGridRepresentation(const unsigned int & index) const;
+		bool isAssociatedToGridRepresentation(AbstractGridRepresentation* gridRep) const;
+	};
+	
 	class StratigraphicOccurrenceInterpretation;
-	class StratigraphicColumnRankInterpretation : public AbstractOrganizationInterpretation
+	class StratigraphicColumnRankInterpretation : public AbstractStratigraphicOrganizationInterpretation
 	{
 	public:
 		void pushBackStratiUnitInterpretation(StratigraphicUnitInterpretation * stratiUnitInterpretation);
@@ -563,7 +573,7 @@ namespace resqml2_0_1
 		std::vector<StratigraphicOccurrenceInterpretation*> getStratigraphicOccurrenceInterpretationSet() const;
 	};
 	
-	class StratigraphicOccurrenceInterpretation : public AbstractOrganizationInterpretation
+	class StratigraphicOccurrenceInterpretation : public AbstractStratigraphicOrganizationInterpretation
 	{
 	public:
 		void setStratigraphicColumnRankInterpretation(StratigraphicColumnRankInterpretation * stratiColumnRankInterp);
@@ -903,12 +913,49 @@ namespace resqml2_0_1
 	};
 
 	class GridConnectionSetRepresentation;
+	class AbstractColumnLayerGridRepresentation;
+	class AbstractIjkGridRepresentation;
 	class AbstractGridRepresentation : public AbstractRepresentation
 	{
 	public:
 		unsigned int getGridConnectionSetRepresentationCount() const;
 		GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
 		virtual ULONG64 getCellCount() const = 0;
+		
+		AbstractGridRepresentation* getParentGrid() const;
+		unsigned int getChildGridCount() const;
+		AbstractGridRepresentation* getChildGrid(const unsigned int & index) const;
+		void setParentWindow(ULONG64 * cellIndices, const ULONG64 & cellIndexCount, class UnstructuredGridRepresentation* parentGrid);
+		void setParentWindow(unsigned int * columnIndices, const unsigned int & columnIndexCount,
+			const unsigned int & kLayerIndexRegridStart,
+			unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount,
+			AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = nullptr);
+		void setParentWindow(
+			const unsigned int & iCellIndexRegridStart, unsigned int * childCellCountPerIInterval, unsigned int * parentCellCountPerIInterval,  const unsigned int & iIntervalCount,
+			const unsigned int & jCellIndexRegridStart, unsigned int * childCellCountPerJInterval, unsigned int * parentCellCountPerJInterval,  const unsigned int & jIntervalCount,
+			const unsigned int & kCellIndexRegridStart, unsigned int * childCellCountPerKInterval, unsigned int * parentCellCountPerKInterval,  const unsigned int & kIntervalCount,
+			AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
+		void setParentWindow(
+			const unsigned int & iCellIndexRegridStart, unsigned int iChildCellCount, unsigned int iParentCellCount,
+			const unsigned int & jCellIndexRegridStart, unsigned int jChildCellCount, unsigned int jParentCellCount,
+			const unsigned int & kCellIndexRegridStart, unsigned int kChildCellCount, unsigned int kParentCellCount,
+			AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
+		void setForcedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount);	
+		LONG64 getParentCellIndexCount() const;
+		void getParentCellIndices(ULONG64 * parentCellIndices) const;
+		LONG64 getParentColumnIndexCount() const;
+		void getParentColumnIndices(ULONG64 * parentColumnIndices) const;
+		ULONG64 getRegridStartIndexOnParentGrid(const char & dimension) const;
+		ULONG64 getRegridIntervalCount(const char & dimension) const;
+		void getRegridChildCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval) const;
+		void getRegridParentCellCountPerInterval(const char & dimension, ULONG64 * parentCellCountPerInterval) const;
+		bool hasRegridChildCellWeights(const char & dimension) const;
+		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
+
+		void setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
+		virtual class AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
+		bool hasCellStratigraphicUnitIndices() const;
+		ULONG64 getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
 	};
 
 	class AbstractColumnLayerGridRepresentation : public AbstractGridRepresentation

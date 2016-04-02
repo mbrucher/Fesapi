@@ -26,6 +26,11 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return ret;
 	}
 	
+	ret = resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+	
     string type = $modulePINVOKE.resqml2_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
 	if (type == "Activity")
     {
@@ -314,6 +319,24 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
         return new f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation(cPtr, owner);
     }
   }
+  
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractStratigraphicOrganizationInterpretation resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(global::System.IntPtr cPtr, bool owner)
+  {
+    if (cPtr == global::System.IntPtr.Zero) {
+      return null;
+    }
+    string type = $modulePINVOKE.resqml2_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+	if (type == "StratigraphicOccurrenceInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicOccurrenceInterpretation(cPtr, owner);
+    }
+	else if (type == "StratigraphicColumnRankInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumnRankInterpretation(cPtr, owner);
+    }
+	else
+		return null;
+  }
 %}
 
 namespace resqml2
@@ -354,6 +377,12 @@ namespace resqml2_0_1
 	%typemap(csout, excode=SWIGEXCODE) AbstractProperty*, AbstractValuesProperty*   {
 		global::System.IntPtr cPtr = $imcall;
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteProperty(cPtr, $owner);$excode
+		return ret;
+	}
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractStratigraphicOrganizationInterpretation*   {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, $owner);$excode
 		return ret;
 	}
 }

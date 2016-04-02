@@ -83,7 +83,7 @@ std::string StratigraphicOccurrenceInterpretation::getStratigraphicColumnRankInt
 
 vector<Relationship> StratigraphicOccurrenceInterpretation::getAllEpcRelationships() const
 {
-	vector<Relationship> result = AbstractOrganizationInterpretation::getAllEpcRelationships();
+	vector<Relationship> result = AbstractStratigraphicOrganizationInterpretation::getAllEpcRelationships();
 
 	if (stratigraphicColumnRankInterpretation)
 	{
@@ -111,7 +111,7 @@ vector<Relationship> StratigraphicOccurrenceInterpretation::getAllEpcRelationshi
 	
 void StratigraphicOccurrenceInterpretation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	AbstractOrganizationInterpretation::importRelationshipSetFromEpc(epcDoc);
+	AbstractStratigraphicOrganizationInterpretation::importRelationshipSetFromEpc(epcDoc);
 
 	updateXml = false;
 
