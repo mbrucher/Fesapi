@@ -953,7 +953,7 @@ namespace resqml2_0_1
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
 
 		void setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
-		virtual class AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
+		virtual class AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
 		bool hasCellStratigraphicUnitIndices() const;
 		ULONG64 getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
 	};
@@ -965,7 +965,7 @@ namespace resqml2_0_1
 		void setKCellCount(const unsigned int & kCount);
 		
 		void setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
-		AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
+		AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
 		bool hasIntervalStratigraphicUnitIndices() const;
 		ULONG64 getIntervalStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
 	};

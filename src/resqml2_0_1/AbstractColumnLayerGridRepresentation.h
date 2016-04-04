@@ -89,7 +89,7 @@ namespace resqml2_0_1
 		/**
 		* @return	nullptr if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the associated stratigraphic organization interpretation;
 		*/
-		class AbstractStratigraphicOrganizationInterpretation* getAssociatedStratigraphicOrganizationInterpretation() const;
+		class AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
 
 		/**
 		* @return	true if this grid representation has got some association between stratigraphic unit indices and interval. Intervals = layers + K gaps.

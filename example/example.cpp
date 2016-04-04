@@ -119,6 +119,7 @@ WellboreTrajectoryRepresentation* w1i1TrajRep;
 LocalDepth3dCrs* local3dCrs;
 LocalTime3dCrs* localTime3dCrs;
 WellboreInterpretation* wellbore1Interp1;
+StratigraphicColumnRankInterpretation* stratiColumnRank;
 
 witsml1_4_1_1::Wellbore* witsmlWellbore = NULL;
 
@@ -217,8 +218,20 @@ void serializeStratigraphicModel(common::EpcDocument * pck, AbstractHdfProxy* hd
 	witsml1_4_1_1::FormationMarker* witsmlFormationMarker0 = NULL;
 	witsml1_4_1_1::FormationMarker* witsmlFormationMarker1 = NULL;
 
+	StratigraphicColumn* stratiColumn = pck->createStratigraphicColumn("7f6666a0-fa3b-11e5-a509-0002a5d5c51b", "Stratigraphic column");
 	OrganizationFeature* stratiModelFeature = pck->createStratigraphicModel("", "stratiModel");
 	StratigraphicOccurrenceInterpretation* stratiOccurence = pck->createStratigraphicOccurrenceInterpretationInApparentDepth(stratiModelFeature, "", "stratiModel Interp");
+	stratiColumnRank = pck->createStratigraphicColumnRankInterpretationInApparentDepth(stratiModelFeature, "ba06f220-fa3b-11e5-928c-0002a5d5c51b", "Stratigraphic column rank", 0);
+	stratiColumn->pushBackStratiColumnRank(stratiColumnRank);
+	StratigraphicUnitFeature* stratiUnit0Feature = pck->createStratigraphicUnit("0426c6a0-fa3c-11e5-8b9c-0002a5d5c51b", "Unit 0");
+	StratigraphicUnitInterpretation* stratiUnit0Interp = pck->createStratigraphicUnitInterpretation(stratiUnit0Feature, "1a919b40-fa3c-11e5-a72c-0002a5d5c51b", "Unit 0 interp");
+	StratigraphicUnitFeature* stratiUnit1Feature = pck->createStratigraphicUnit("273a92c0-fa3c-11e5-85f8-0002a5d5c51b", "Unit 1");
+	StratigraphicUnitInterpretation* stratiUnit1Interp = pck->createStratigraphicUnitInterpretation(stratiUnit1Feature, "2b9169c0-fa3c-11e5-ae2c-0002a5d5c51b", "Unit 1 interp");
+
+	// Build the stratigraphic column rank
+	stratiColumnRank->pushBackStratiUnitInterpretation(stratiUnit0Interp);
+	stratiColumnRank->pushBackStratiUnitInterpretation(stratiUnit1Interp);
+	stratiColumnRank->pushBackStratigraphicBinaryContact(stratiUnit0Interp, gsoap_resqml2_0_1::resqml2__ContactMode__proportional, stratiUnit1Interp, gsoap_resqml2_0_1::resqml2__ContactMode__proportional, horizon2Interp1);
 	
 	// WellboreFeature marker frame
 	WellboreMarkerFrameRepresentation* wmf = pck->createWellboreMarkerFrameRepresentation(wellbore1Interp1, "", "Wellbore Marker Frame", w1i1TrajRep);
@@ -402,17 +415,17 @@ void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 
 void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 {
-	OrganizationFeature * earthModel = pck->createEarthModel("", "Grid");
-	EarthModelInterpretation * earthModelInterp = pck->createEarthModelInterpretation(earthModel, "", "Grid interp");
+	OrganizationFeature * earthModel = pck->createEarthModel("f2060ce0-fa3d-11e5-8620-0002a5d5c51b", "Grid");
+	EarthModelInterpretation * earthModelInterp = pck->createEarthModelInterpretation(earthModel, "f5cd7520-fa3d-11e5-b65b-0002a5d5c51b", "Grid interp");
 
 	// ONE SUGAR
-	IjkGridExplicitRepresentation* singleCellIjkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "One unfaulted sugar cube", 1, 1, 1);
+	IjkGridExplicitRepresentation* singleCellIjkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "e69bfe00-fa3d-11e5-b5eb-0002a5d5c51b", "One unfaulted sugar cube", 1, 1, 1);
 	double singleCellIjkgridNodes[24] = { 0, 0, 300, 700, 0, 350, 0, 150, 300, 700, 150, 350,
 		0, 0, 500, 700, 0, 550, 0, 150, 500, 700, 150, 550 };
 	singleCellIjkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, singleCellIjkgridNodes, hdfProxy);
 
 	// TWO SUGARS EXPLICIT
-	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "Two faulted sugar cubes (explicit geometry)", 2, 1, 1);
+	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "df2103a0-fa3d-11e5-b8d4-0002a5d5c51b", "Two faulted sugar cubes (explicit geometry)", 2, 1, 1);
 	double nodes[48] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350, /* SPLIT*/ 375, 0, 350, 375, 150, 350,
 		0, 0, 500, 375, 0, 500, 700, 0, 550, 0, 150, 500, 375, 150, 500, 700, 150, 550, /* SPLIT*/ 375, 0, 550, 375, 150, 550 };
 	unsigned int pillarOfCoordinateLine[2] = { 1, 4 };
@@ -422,7 +435,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
 	// TWO SUGARS PARAMETRIC
-	IjkGridParametricRepresentation* ijkgridParametric = pck->createIjkGridParametricRepresentation(local3dCrs, "", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
+	IjkGridParametricRepresentation* ijkgridParametric = pck->createIjkGridParametricRepresentation(local3dCrs, "37c45c00-fa3e-11e5-a21e-0002a5d5c51b", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
 	double parameters[16] = { 300, 300, 350, 300, 300, 350, /* SPLIT*/ 350, 350,
 		500, 500, 550, 500, 500, 550, /* SPLIT*/ 550, 550 };
 	double controlPoints[18] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350 };
@@ -434,7 +447,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	if (fault1Interp1 != nullptr)
 	{
-		SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "", "Fault Subrep In Grid", ijkgrid);
+		SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "ff248280-fa3d-11e5-a35c-0002a5d5c51b", "Fault Subrep In Grid", ijkgrid);
 		unsigned int faultPillar[2] = { 1, 4 };
 		faultSubRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__pillars, 2, faultPillar, hdfProxy);
 	}
@@ -444,7 +457,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	if (earthModelInterp != nullptr)
 	{
-		GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "", "GridConnectionSetRepresentation");
+		GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "03bb6fc0-fa3e-11e5-8c09-0002a5d5c51b", "GridConnectionSetRepresentation");
 		gridConnSet->pushBackSupportingGridRepresentation(ijkgrid);
 		ULONG64 cellConn[2] = { 0, 1 };
 		gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
@@ -460,7 +473,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	// Properties
 	//**************
-	PropertyKind * propType1 = pck->createPropertyKind("", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
+	PropertyKind * propType1 = pck->createPropertyKind("0a5f4400-fa3e-11e5-80a4-0002a5d5c51b", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 	DiscreteProperty* discreteProp1 = pck->createDiscreteProperty(ijkgrid, "ee0857fe-23ad-4dd9-8300-21fa2e9fb572", "Two faulted sugar cubes cellIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
 	long prop1Values[2] = {0,1};
@@ -470,21 +483,21 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	// Time Series
 	//**************
-	TimeSeries * timeSeries = pck->createTimeSeries("", "Testing time series");
+	TimeSeries * timeSeries = pck->createTimeSeries("1187d8a0-fa3e-11e5-ac3a-0002a5d5c51b", "Testing time series");
 	timeSeries->pushBackTimestamp(1378217895);
 	timeSeries->pushBackTimestamp(1409753895);
 	timeSeries->pushBackTimestamp(1441289895);
-	ContinuousProperty* continuousPropTime0 = pck->createContinuousProperty(ijkgrid, "", "Time 0", 1,
+	ContinuousProperty* continuousPropTime0 = pck->createContinuousProperty(ijkgrid, "18027a00-fa3e-11e5-8255-0002a5d5c51b", "Time 0", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime0->setTimeIndex(0, timeSeries);
 	double valuesTime0[2] = {0,1};
 	continuousPropTime0->pushBackDoubleHdf5Array3dOfValues(valuesTime0, 2, 1, 1, hdfProxy);
-	ContinuousProperty* continuousPropTime1 = pck->createContinuousProperty(ijkgrid, "", "Time 1", 1,
+	ContinuousProperty* continuousPropTime1 = pck->createContinuousProperty(ijkgrid, "1ba54340-fa3e-11e5-9534-0002a5d5c51b", "Time 1", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime1->setTimeIndex(1, timeSeries);
 	double valuesTime1[2] = {2,3};
 	continuousPropTime1->pushBackDoubleHdf5Array3dOfValues(valuesTime1, 2, 1, 1, hdfProxy);
-	ContinuousProperty* continuousPropTime2 = pck->createContinuousProperty(ijkgrid, "", "Time 2", 1,
+	ContinuousProperty* continuousPropTime2 = pck->createContinuousProperty(ijkgrid, "203db720-fa3e-11e5-bf9d-0002a5d5c51b", "Time 2", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime2->setTimeIndex(2, timeSeries);
 	double valuesTime2[2] = {3,4};
@@ -492,7 +505,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 
 	ContinuousPropertySeries* continuousPropertySeries = pck->createContinuousPropertySeries(
 		ijkgrid,
-		"", "Testing continuous property series",
+		"2648f4e0-fa3e-11e5-ab1c-0002a5d5c51b", "Testing continuous property series",
 		1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells,
 		gsoap_resqml2_0_1::resqml2__ResqmlUom__m,
@@ -505,12 +518,18 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	// LGR
 	//**************
 	
-	IjkGridExplicitRepresentation* lgrGrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "", "LGR", 2, 1, 3);
+	IjkGridExplicitRepresentation* lgrGrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "2aec1720-fa3e-11e5-a116-0002a5d5c51b", "LGR", 2, 1, 3);
 	lgrGrid->setParentWindow(
 		0, 2, 1,
 		0, 1, 1,
 		0, 3, 1,
 		ijkgrid);
+
+	//**************
+	// Stratigraphy
+	//**************
+	ULONG64 stratiUnitIndice = 0;
+	ijkgrid->setIntervalAssociationWithStratigraphicOrganizationInterpretation(&stratiUnitIndice, 1000, stratiColumnRank);
 	
 #if !defined(OFFICIAL)
 	// Partial transfer
@@ -1134,15 +1153,13 @@ void serialize(const string & filePath)
 #endif
 
 	// Comment or uncomment below domains/lines you want wether to test or not
+	serializeWells(&pck, hdfProxy);
 	serializeBoundaries(&pck, hdfProxy);
 	serializeStructualModel(pck, hdfProxy);
-	serializeGrid(&pck, hdfProxy);
-#if !defined(OFFICIAL)
-	serializeWells(&pck, hdfProxy);
 	serializeStratigraphicModel(&pck, hdfProxy);
+	serializeGrid(&pck, hdfProxy);
 	serializeActivities(&pck);
 	serializeRepresentationSetRepresentation(&pck, hdfProxy);
-#endif
 
 	// Add an extended core property before to serialize
 	pck.setExtendedCoreProperty("F2I-ExtendedCoreProp", "TestingVersion");
@@ -1716,6 +1733,9 @@ void deserialize(const string & inputFile)
 			delete [] enabledCells;
 		}
 
+		//*****************************
+		// GRID CONNECTION SET 
+		//*****************************
 		unsigned int gridConnectionSetCount = ijkGrid->getGridConnectionSetRepresentationCount();
 		std::cout << "Grid Connection Count is : " << gridConnectionSetCount << std::endl;
 		if (gridConnectionSetCount > 0)
@@ -1730,26 +1750,49 @@ void deserialize(const string & inputFile)
 			}
 		}
 
+		//*****************************
+		// LGR 
+		//*****************************
 		if (ijkGrid->getParentGrid() != NULL)
 		{
 			std::cout << "\t PARENT WINDOW" << std::endl;
 			if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREIjkGridRepresentation)
 			{
-				std::cout << "\t Regrid I start at :" << ijkGrid->getRegridStartIndexOnParentGrid('i') << std::endl;
-				std::cout << "\t Regrid J start at :" << ijkGrid->getRegridStartIndexOnParentGrid('j') << std::endl;
-				std::cout << "\t Regrid K start at :" << ijkGrid->getRegridStartIndexOnParentGrid('k') << std::endl;
-				std::cout << "\t I Interval count is :" << ijkGrid->getRegridIntervalCount('i') << std::endl;
-				std::cout << "\t J Interval count is :" << ijkGrid->getRegridIntervalCount('j') << std::endl;
-				std::cout << "\t K Interval count is :" << ijkGrid->getRegridIntervalCount('k') << std::endl;
+				std::cout << "\t\t Regrid I start at :" << ijkGrid->getRegridStartIndexOnParentGrid('i') << std::endl;
+				std::cout << "\t\t Regrid J start at :" << ijkGrid->getRegridStartIndexOnParentGrid('j') << std::endl;
+				std::cout << "\t\t Regrid K start at :" << ijkGrid->getRegridStartIndexOnParentGrid('k') << std::endl;
+				std::cout << "\t\t I Interval count is :" << ijkGrid->getRegridIntervalCount('i') << std::endl;
+				std::cout << "\t\t J Interval count is :" << ijkGrid->getRegridIntervalCount('j') << std::endl;
+				std::cout << "\t\t K Interval count is :" << ijkGrid->getRegridIntervalCount('k') << std::endl;
 			}
 			else if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREUnstructuredColumnLayerGridRepresentation)
 			{
-				std::cout << "\t Refined columns count :" << ijkGrid->getParentColumnIndexCount() << std::endl;
+				std::cout << "\t\t Refined columns count :" << ijkGrid->getParentColumnIndexCount() << std::endl;
 			}
 			else if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREUnstructuredGridRepresentation)
 			{
-				std::cout << "\t Refined cells count :" << ijkGrid->getParentCellIndexCount() << std::endl;
+				std::cout << "\t\t Refined cells count :" << ijkGrid->getParentCellIndexCount() << std::endl;
 			}
+		}
+
+		//*****************************
+		// STRATIGRAPHY 
+		//*****************************
+		cout << "\t STRATIGRAPHY" << std::endl;
+		if (ijkGrid->hasIntervalStratigraphicUnitIndices())
+		{
+			cout << "\t\t Linked with strati : " << ijkGrid->getStratigraphicOrganizationInterpretation()->getTitle() << endl;
+			ULONG64* stratiIndices = new ULONG64[ijkGrid->getKCellCount()];
+			ijkGrid->getIntervalStratigraphicUnitIndices(stratiIndices);
+			for (size_t i = 0; i < ijkGrid->getKCellCount(); ++i)
+			{
+				cout << "\t\t K layer " << i << " is linked to strati layer " << stratiIndices[i] << endl;
+			}
+			delete[] stratiIndices;
+		}
+		else
+		{
+			cout << "\t\t No link with stratigraphy." << endl;
 		}
 	
 		showAllProperties(ijkGrid);

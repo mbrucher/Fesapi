@@ -83,9 +83,9 @@ void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigrap
 	}
 }
 
-AbstractStratigraphicOrganizationInterpretation* AbstractColumnLayerGridRepresentation::getAssociatedStratigraphicOrganizationInterpretation() const
+AbstractStratigraphicOrganizationInterpretation* AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationInterpretation() const
 {
-	AbstractStratigraphicOrganizationInterpretation* result = AbstractGridRepresentation::getAssociatedStratigraphicOrganizationInterpretation();
+	AbstractStratigraphicOrganizationInterpretation* result = AbstractGridRepresentation::getStratigraphicOrganizationInterpretation();
 	if (result != nullptr)
 	{
 		return result;
@@ -130,7 +130,7 @@ vector<Relationship> AbstractColumnLayerGridRepresentation::getAllEpcRelationshi
 	// Strati unit
 	if (!hasCellStratigraphicUnitIndices() && hasIntervalStratigraphicUnitIndices())
 	{
-		AbstractStratigraphicOrganizationInterpretation* stratiOrg = getAssociatedStratigraphicOrganizationInterpretation();
+		AbstractStratigraphicOrganizationInterpretation* stratiOrg = getStratigraphicOrganizationInterpretation();
 		Relationship relStrati(stratiOrg->getPartNameInEpcDocument(), "", stratiOrg->getUuid());
 		relStrati.setDestinationObjectType();
 		result.push_back(relStrati);

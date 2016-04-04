@@ -87,7 +87,7 @@ vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 	// Strati unit
 	if (hasCellStratigraphicUnitIndices())
 	{
-		AbstractStratigraphicOrganizationInterpretation* stratiOrg = getAssociatedStratigraphicOrganizationInterpretation();
+		AbstractStratigraphicOrganizationInterpretation* stratiOrg = getStratigraphicOrganizationInterpretation();
 		Relationship relStrati(stratiOrg->getPartNameInEpcDocument(), "", stratiOrg->getUuid());
 		relStrati.setDestinationObjectType();
 		result.push_back(relStrati);
@@ -940,7 +940,7 @@ void AbstractGridRepresentation::setCellAssociationWithStratigraphicOrganization
 	}
 }
 
-AbstractStratigraphicOrganizationInterpretation* AbstractGridRepresentation::getAssociatedStratigraphicOrganizationInterpretation() const
+AbstractStratigraphicOrganizationInterpretation* AbstractGridRepresentation::getStratigraphicOrganizationInterpretation() const
 {
 	resqml2__AbstractGridRepresentation* rep = static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
 
