@@ -960,9 +960,9 @@ namespace common
 		//************* ACTIVITIES ***********
 		//************************************
 
-		resqml2_0_1::ActivityTemplate* createActivityTemplate(const std::string & guid, const std::string & title);
+		resqml2::ActivityTemplate* createActivityTemplate(const std::string & guid, const std::string & title);
 		
-		resqml2_0_1::Activity* createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
+		resqml2::Activity* createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
 		
 		//************************************
 		//*************** WITSML *************

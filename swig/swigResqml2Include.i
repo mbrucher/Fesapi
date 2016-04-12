@@ -23,9 +23,11 @@ namespace resqml2 {
 	class Activity;
 }
 
-namespace common
-{
-	class EpcDocument;
+// Don't try to create vector of polymorphic data unless you really know what you are doing.
+// Use C array approach instead.
+%include "std_vector.i"
+namespace std {
+   %template(ActivityVector) vector<resqml2::Activity*>;
 }
 
 #ifdef SWIGPYTHON
@@ -33,7 +35,7 @@ namespace resqml2
 {
 	%typemap(out) AbstractObject* {
 		// Check potential downcasting
-		swig_type_info * const outtype = SWIG_TypeQuery(("resqml2_0_1::" + result->getXmlTag() + " *").c_str());
+		swig_type_info * const outtype = SWIG_TypeQuery(("resqml2::" + result->getXmlTag() + " *").c_str());
 		resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), outtype, 0);
 	}
 }
@@ -75,8 +77,7 @@ namespace resqml2
 		std::string getFormat() const;
 		std::string getDescriptiveKeywords() const;
 		
-		void setUuid(const std::string & uuid);
-		void setMetadata(const std::string & guid, const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
+		void setMetadata(const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
 				const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords);
 		void setTitle(const std::string & title);
 		void setEditor(const std::string & editor);
@@ -93,6 +94,8 @@ namespace resqml2
 		unsigned int getAliasCount() const;
 		std::string getAliasAuthorityAtIndex(const unsigned int & index) const;
 		std::string getAliasTitleAtIndex(const unsigned int & index) const;
+		
+		const std::vector<resqml2::Activity*> & getActivitySet() const;
 	};
 	
 	//************************************

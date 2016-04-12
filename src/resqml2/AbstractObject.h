@@ -43,6 +43,12 @@ namespace resqml2
 	private:
 		gsoap_resqml2_0_1::eml__DataObjectReference* partialObject; // only in case of partial transfer
 
+		/**
+		* Set a uuid. If the input uuid is empty then a random uuid will be set.
+		* It is too dangerous for now to modify the uuid because too much things depend on it. That's why this method is private
+		*/
+		void setUuid(const std::string & uuid);
+
 	protected:
 		
 		gsoap_resqml2_0_1::eml__AbstractCitedDataObject* gsoapProxy2_0_1;
@@ -77,6 +83,17 @@ namespace resqml2
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const = 0;
 		friend void common::EpcDocument::serialize(bool useZip64);
 
+		// Only for Activity. Can not use friendness between AbstractObject and Activity for circular dependencies reason.
+		static void addActivityToResqmlObject(resqml2::Activity* activity, AbstractObject* resqmlObject);
+
+		/**
+		* It is too dangerous for now to modify the uuid because too much things depend on it. That's why this method is only portected : it is only used by derived class constructor.
+		* Set a title and other common metadata for the resqml instance. Set to empty string or zero if you don't want to use.
+		* @param title				The title to set to the resqml instance. Set to empty string if you don't want to set it.
+		*/
+		void setMetadata(const std::string & guid, const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
+			const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords);
+
 	public:
 		virtual ~AbstractObject() {}
 
@@ -97,10 +114,6 @@ namespace resqml2
 		std::string getFormat() const;
 		std::string getDescriptiveKeywords() const;
 
-		/**
-		* Set a uuid. If the input uuid is emepty then a random uuid will be set.
-		*/
-		void setUuid(const std::string & uuid);
 		void setTitle(const std::string & title);
 		void setEditor(const std::string & editor);
 		void setCreation(const time_t & creation);
@@ -111,13 +124,11 @@ namespace resqml2
 		void setDescriptiveKeywords(const std::string & descriptiveKeywords);
 
 		/**
-		* Create a new GUID for the resqml instance.
-		* Set a title and other default metadata for the resqml instance.
-		* @param guid				The guid to set to the resqml instance. If empty then a new guid will be generated.
-		* @apram title				The title to set to the resqml instance
+		* Set a title and other common metadata for the resqml instance. Set to empty string or zero if you don't want to use.
+		* @param title				The title to set to the resqml instance. Set to empty string if you don't want to set it.
 		*/
-		void setMetadata(const std::string & guid, const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
-				const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords);
+		void setMetadata(const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
+			const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords);
 
 		/**
 		* Serialize the instance into a stream.
@@ -202,6 +213,6 @@ namespace resqml2
 		/**
 		* Get all the activities where the instance is involved.
 		*/
-		std::vector<resqml2::Activity*> & getActivitySet() { return activitySet; }
+		const std::vector<resqml2::Activity*> & getActivitySet() const;
 	};
 }

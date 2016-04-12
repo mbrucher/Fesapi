@@ -40,9 +40,9 @@ namespace resqml2
 	class DLL_IMPORT_OR_EXPORT Activity : public AbstractObject
 	{
 	protected:
-		Activity() : AbstractObject(), activityTemplate(nullptr) {}
+		Activity() : AbstractObject() {}
 
-		Activity(gsoap_resqml2_0_1::_resqml2__Activity* fromGsoap) : AbstractObject(fromGsoap), activityTemplate(nullptr) {}
+		Activity(gsoap_resqml2_0_1::_resqml2__Activity* fromGsoap) : AbstractObject(fromGsoap) {}
 
 	public:
 
@@ -109,7 +109,12 @@ namespace resqml2
 		/**
 		* Get the activity template of the activity
 		**/
-		class ActivityTemplate* getActivityTemplate() const { return activityTemplate; }
+		virtual class ActivityTemplate* getActivityTemplate() const = 0;
+
+		/**
+		* Get all objects which are either input or output of this acitivty
+		**/
+		std::vector<AbstractObject*> getResqmlObjectSet() const;
 
 		static const char* XML_TAG;
 		std::string getXmlTag() const {return XML_TAG;}
@@ -117,8 +122,5 @@ namespace resqml2
 	protected:
 
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		
-        class ActivityTemplate* activityTemplate;
-		std::vector<AbstractObject*> resqmlObjectSet;
 	};
 }

@@ -47,6 +47,7 @@ vector<Relationship> Activity::getAllEpcRelationships() const
 {
 	vector<Relationship> result;
 
+	resqml2::ActivityTemplate* activityTemplate = getActivityTemplate();
 	if (activityTemplate)
 	{
 		Relationship rel(activityTemplate->getPartNameInEpcDocument(), "", activityTemplate->getUuid());
@@ -56,16 +57,33 @@ vector<Relationship> Activity::getAllEpcRelationships() const
 	else
 		throw domain_error("The activity template associated to the activity cannot be nullptr.");
 
+	std::vector<AbstractObject*> resqmlObjectSet = getResqmlObjectSet();
 	for (unsigned int i = 0; i < resqmlObjectSet.size(); ++i)
 	{
-		if (resqmlObjectSet[i])
+		Relationship relResqmlObject(resqmlObjectSet[i]->getPartNameInEpcDocument(), "", resqmlObjectSet[i]->getUuid());
+		relResqmlObject.setDestinationObjectType();
+		result.push_back(relResqmlObject);
+	}
+
+	return result;
+}
+
+std::vector<AbstractObject*> Activity::getResqmlObjectSet() const
+{
+	std::vector<AbstractObject*> result;
+
+	unsigned int paramCount = getParameterCount();
+
+	for (unsigned int index=0; index < paramCount; ++index)
+	{
+		if (isAResqmlObjectParameter(index))
 		{
-			Relationship relResqmlObject(resqmlObjectSet[i]->getPartNameInEpcDocument(), "", resqmlObjectSet[i]->getUuid());
-			relResqmlObject.setDestinationObjectType();
-			result.push_back(relResqmlObject);
+			AbstractObject* obj = getResqmlObjectParameterValue(index);
+			if (std::find(result.begin(), result.end(), obj) == result.end())
+			{
+				result.push_back(obj);
+			}
 		}
-		else
-			throw domain_error("The resqml Object associated to the activity cannot be nullptr.");
 	}
 
 	return result;

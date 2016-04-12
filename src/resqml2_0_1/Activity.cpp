@@ -59,6 +59,7 @@ Activity::Activity(resqml2::ActivityTemplate* activityTemplate, const string & g
 void Activity::pushBackParameter(const std::string title,
 			const double & value, const resqml2__ResqmlUom & uom)
 {
+	resqml2::ActivityTemplate* activityTemplate = getActivityTemplate();
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
 	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
@@ -82,6 +83,7 @@ void Activity::pushBackParameter(const std::string title,
 
 void Activity::pushBackParameter(const std::string title, const std::string & value)
 {
+	resqml2::ActivityTemplate* activityTemplate = getActivityTemplate();
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
 	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
@@ -104,6 +106,7 @@ void Activity::pushBackParameter(const std::string title, const std::string & va
 
 void Activity::pushBackParameter(const std::string title, const LONG64 & value)
 {
+	resqml2::ActivityTemplate* activityTemplate = getActivityTemplate();
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
 	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
@@ -124,11 +127,11 @@ void Activity::pushBackParameter(const std::string title, const LONG64 & value)
 	activity->Parameter.push_back(iqp);
 }
 
-void Activity::pushBackParameter(const std::string title,
-			AbstractObject* resqmlObject)
+void Activity::pushBackParameter(const std::string title, AbstractObject* resqmlObject)
 {
 	if (resqmlObject == nullptr)
 		throw invalid_argument("The resqml object must be non null.");
+	resqml2::ActivityTemplate* activityTemplate = getActivityTemplate();
 	if (activityTemplate->isAnExistingParameter(title) == false)
 		throw invalid_argument("The parameter " + title + " does not exist in the associated activity template.");
 	LONG64 maxOccurs = activityTemplate->getParameterMaxOccurences(title);
@@ -141,17 +144,8 @@ void Activity::pushBackParameter(const std::string title,
 			throw invalid_argument("The parameter template " + title + " does not allow a data object datatype.");
 	}
 
-	//EPC
-	bool alreadyInserted = (std::find(resqmlObjectSet.begin(), resqmlObjectSet.end(), resqmlObject) != resqmlObjectSet.end()); // In case the resqml object is both input and output of the activity
-	if (!alreadyInserted)
-	{		
-		resqmlObjectSet.push_back(resqmlObject);
-	}
-	alreadyInserted = (std::find(resqmlObject->getActivitySet().begin(), resqmlObject->getActivitySet().end(), this) != resqmlObject->getActivitySet().end()); // In case the resqml object is both input and output of the activity
-	if (!alreadyInserted)
-	{
-		resqmlObject->getActivitySet().push_back(this);
-	}
+	//Backward relationship
+	resqml2::AbstractObject::addActivityToResqmlObject(this, resqmlObject);
 
 	// XML
 	if (updateXml)
@@ -500,8 +494,7 @@ void Activity::setActivityTemplate(resqml2::ActivityTemplate * activityTemplate)
 		return;
 	}
 
-	// EPC
-	this->activityTemplate = activityTemplate;
+	// Backward relationship
 	activityTemplate->activityInstanceSet.push_back(this);
 
 	// XML
@@ -509,6 +502,12 @@ void Activity::setActivityTemplate(resqml2::ActivityTemplate * activityTemplate)
 	{
 		static_cast<_resqml2__Activity*>(gsoapProxy2_0_1)->ActivityDescriptor = activityTemplate->newResqmlReference();
 	}
+}
+
+resqml2::ActivityTemplate* Activity::getActivityTemplate() const
+{
+	string uuidActTemplate = static_cast<_resqml2__Activity*>(gsoapProxy2_0_1)->ActivityDescriptor->UUID;
+	return static_cast<resqml2::ActivityTemplate*>(getEpcDocument()->getResqmlAbstractObjectByUuid(uuidActTemplate));
 }
 
 std::string Activity::getResqmlVersion() const
@@ -520,14 +519,18 @@ void Activity::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
 	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy2_0_1);
 
-	if (activity->ActivityDescriptor)
+	// Activity template
+	AbstractObject* activityTemplate = epcDoc->getResqmlAbstractObjectByUuid(activity->ActivityDescriptor->UUID);
+	if (dynamic_cast<resqml2::ActivityTemplate*>(activityTemplate) != nullptr)
 	{
 		updateXml = false;
-		setActivityTemplate(static_cast<resqml2::ActivityTemplate*>(epcDoc->getResqmlAbstractObjectByUuid(activity->ActivityDescriptor->UUID)));
+		setActivityTemplate(static_cast<resqml2::ActivityTemplate*>(activityTemplate));
 		updateXml = true;
 	}
-	if (activityTemplate == nullptr)
-		throw domain_error("The activity template associated to the activity " + activity->uuid + " cannot be nullptr.");
+	else
+	{
+		throw logic_error("The referenced activity template does not look to be an activity template.");
+	}
 
 	for (unsigned int i = 0; i < activity->Parameter.size(); ++i)
 	{

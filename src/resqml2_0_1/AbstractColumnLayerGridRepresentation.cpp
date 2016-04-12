@@ -154,5 +154,9 @@ void AbstractColumnLayerGridRepresentation::importRelationshipSetFromEpc(common:
 			setIntervalAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, static_cast<AbstractStratigraphicOrganizationInterpretation*>(stratiOrg));
 			updateXml = true;
 		}
+		else
+		{
+			throw logic_error("The referenced strati organization interpretation does not look to be a strati organization interpretation.");
+		}
 	}
 }

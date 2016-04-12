@@ -275,8 +275,8 @@ void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//BoundaryFeature* bf = pck->createBoundaryFeature("", "testingBoundaryFeature");
     horizon1 = pck->createHorizon("", "Horizon1");
     horizon2 = pck->createHorizon("", "Horizon2");
-    fault1 = pck->createFault("", "Fault1");
-    fault1->setMetadata("1424bcc2-3d9d-4f30-b1f9-69dcb897e33b", "", "philippe", 148526020, "philippe", "", 148526100, "F2I", "");
+    fault1 = pck->createFault("1424bcc2-3d9d-4f30-b1f9-69dcb897e33b", "Fault1");
+    fault1->setMetadata("", "philippe", 148526020, "philippe", "", 148526100, "F2I", "");
 
     // Interpretations
 	//BoundaryFeatureInterpretation* bfi = pck->createBoundaryFeatureInterpretation(bf, "", "testingBoundaryFeatureInterp");

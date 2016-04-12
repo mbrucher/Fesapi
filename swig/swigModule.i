@@ -325,6 +325,12 @@ namespace common
 		resqml2_0_1::RepresentationSetRepresentation* createRepresentationSetRepresentation(
 			const std::string & guid,
 			const std::string & title);
+                
+        resqml2_0_1::NonSealedSurfaceFrameworkRepresentation* createNonSealedSurfaceFrameworkRepresentation(
+                resqml2_0_1::StructuralOrganizationInterpretation* interp, 
+                const std::string & guid, 
+                const std::string & title,
+                const bool & isSealed);
 
 		resqml2_0_1::SealedSurfaceFrameworkRepresentation* createSealedSurfaceFrameworkRepresentation(
 		        resqml2_0_1::StructuralOrganizationInterpretation* interp,
@@ -452,9 +458,9 @@ namespace common
 		//************* ACTIVITIES ***********
 		//************************************
 
-		resqml2_0_1::ActivityTemplate* createActivityTemplate(const std::string & guid, const std::string & title);
+		resqml2::ActivityTemplate* createActivityTemplate(const std::string & guid, const std::string & title);
 		
-		resqml2_0_1::Activity* createActivity(resqml2_0_1::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
+		resqml2::Activity* createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title);
 			
 
 		//************************************

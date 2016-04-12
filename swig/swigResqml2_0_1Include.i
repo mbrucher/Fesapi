@@ -71,7 +71,6 @@
 //************************
 
 namespace resqml2_0_1 {
-	class Activity;
 	class LocalDepth3dCrs;
 	class LocalTime3dCrs;
 	class StratigraphicColumn;
@@ -103,9 +102,7 @@ namespace resqml2_0_1 {
 
 // Don't try to create vector of polymorphic data unless you really know what you are doing.
 // Use C array approach instead.
-%include "std_vector.i"
 namespace std {
-   %template(ActivityVector) vector<resqml2_0_1::Activity*>;
    %template(LocalDepth3dCrsVector) vector<resqml2_0_1::LocalDepth3dCrs*>;
    %template(LocalTime3dCrsVector) vector<resqml2_0_1::LocalTime3dCrs*>;
    %template(StratigraphicColumnVector) vector<resqml2_0_1::StratigraphicColumn*>;
@@ -170,7 +167,7 @@ namespace witsml1_4_1_1 {
 #ifdef SWIGPYTHON
 namespace resqml2_0_1
 {
-	%typemap(out) AbstractObject*, AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*, AbstractValuesProperty*, WellboreFrameRepresentation*, AbstractLocal3dCrs* {
+	%typemap(out) AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*, AbstractValuesProperty*, WellboreFrameRepresentation*, AbstractLocal3dCrs* {
 		// Check potential downcasting
 		swig_type_info * const outtype = SWIG_TypeQuery(("resqml2_0_1::" + result->getXmlTag() + " *").c_str());
 		resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), outtype, 0);
@@ -178,7 +175,6 @@ namespace resqml2_0_1
 }
 #endif
 #if defined(SWIGJAVA) || defined(SWIGCSHARP)
-	%nspace resqml2_0_1::AbstractObject;
 	%nspace resqml2_0_1::AbstractResqmlDataObject;
 	%nspace resqml2_0_1::Activity;
 	%nspace resqml2_0_1::ActivityTemplate;

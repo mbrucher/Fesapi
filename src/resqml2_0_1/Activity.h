@@ -125,6 +125,7 @@ namespace resqml2_0_1
 		* Set the activity template of the activity
 		**/
 		void setActivityTemplate(resqml2::ActivityTemplate* activityTemplate);
+		resqml2::ActivityTemplate* getActivityTemplate() const;
 
 		std::string getResqmlVersion() const;
 

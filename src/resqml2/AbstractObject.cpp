@@ -47,6 +47,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <pwd.h>
 #endif
 
+#include "resqml2/Activity.h"
+
 using namespace std;
 using namespace resqml2;
 using namespace gsoap_resqml2_0_1;
@@ -311,11 +313,17 @@ void AbstractObject::initMandatoryMetadata()
 void AbstractObject::setMetadata(const std::string & guid, const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
 				const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords)
 {
-	if (gsoapProxy2_0_1 == nullptr)
-		throw invalid_argument("The wrapped gsoap proxy must not be null");
+	setMetadata(title, editor, creation, originator, description, lastUpdate, format, descriptiveKeywords);
 
 	if (!guid.empty())
 		setUuid(guid);
+}
+
+void AbstractObject::setMetadata(const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
+	const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords)
+{
+	if (gsoapProxy2_0_1 == nullptr)
+		throw invalid_argument("The wrapped gsoap proxy must not be null");
 
 	if (!title.empty())
 		gsoapProxy2_0_1->Citation->Title = title;
@@ -356,7 +364,6 @@ void AbstractObject::setMetadata(const std::string & guid, const std::string & t
 			gsoapProxy2_0_1->Citation->DescriptiveKeywords = soap_new_std__string(gsoapProxy2_0_1->soap, 1);
 		*(gsoapProxy2_0_1->Citation->DescriptiveKeywords) = descriptiveKeywords;
 	}
-
 }
 
 void AbstractObject::serializeIntoStream(ostream * stream)
@@ -498,4 +505,27 @@ std::string AbstractObject::getAliasTitleAtIndex(const unsigned int & index) con
 		throw out_of_range("The index is out of range.");
 
 	return (static_cast<eml__AbstractCitedDataObject*>(gsoapProxy2_0_1)->Aliases)[index]->Identifier;
+}
+
+const std::vector<Activity*> & AbstractObject::getActivitySet() const
+{
+	return activitySet;
+}
+
+void AbstractObject::addActivityToResqmlObject(resqml2::Activity* activity, AbstractObject* resqmlObject)
+{
+	if (activity == nullptr)
+	{
+		throw invalid_argument("The activity cannot be null");
+	}
+	if (resqmlObject == nullptr)
+	{
+		throw invalid_argument("The resqml object to add cannot be null");
+	}
+
+	bool alreadyInserted = (std::find(resqmlObject->activitySet.begin(), resqmlObject->activitySet.end(), activity) != resqmlObject->activitySet.end()); // In case the resqml object is both input and output of the activity
+	if (!alreadyInserted)
+	{
+		resqmlObject->activitySet.push_back(activity);
+	}
 }

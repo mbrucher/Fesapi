@@ -119,13 +119,14 @@ const char* EpcDocument::DOCUMENT_EXTENSION = ".epc";
 namespace // anonymous namespace. Use only in that file.
 {
 	resqml2_0_1::AbstractHdfProxy* default_builder(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
-  {
+	{
 	  return new HdfProxy(soapContext, guid, title, packageDirAbsolutePath, externalFilePath);
-  }
-  resqml2_0_1::AbstractHdfProxy* default_builder(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
-  {
-    return new HdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath);
-  }
+	}
+
+	resqml2_0_1::AbstractHdfProxy* default_builder(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+	{
+		return new HdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath);
+	}
 }
 
 EpcDocument::EpcDocument(const string & fileName, bool overwriteH5File) :
@@ -2311,14 +2312,14 @@ CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(Abstract
 //************* ACTIVITIES ***********
 //************************************
 
-ActivityTemplate* EpcDocument::createActivityTemplate(const std::string & guid, const std::string & title)
+resqml2::ActivityTemplate* EpcDocument::createActivityTemplate(const std::string & guid, const std::string & title)
 {
 	ActivityTemplate* result = new ActivityTemplate(getGsoapContext(), guid, title);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 		
-Activity* EpcDocument::createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title)
+resqml2::Activity* EpcDocument::createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title)
 {
 	Activity* result = new Activity(activityTemplate, guid, title);
 	addGsoapProxyAndDeleteItIfException(result);
