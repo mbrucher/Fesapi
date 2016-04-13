@@ -545,12 +545,12 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	subRepOfUnstructuredGrid->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, 2, nodeIndex, hdfProxy);
 
 	// Tetra grid
-	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "", "One tetrahedron grid", 1);
+	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "9283cd33-5e52-4110-b7b1-616abde2b303", "One tetrahedron grid", 1);
 	double tetraGridPoints[12] = {0,0,300, 375,0,300, 0,150,300, 0,0,500};
 	ULONG64 faceIndicesPerCell[4] = {0,1,2,3};
 	unsigned char faceRightHandness[4] = { 0, 0, 1, 1 };
-	ULONG64 nodeIndicesPerCell[12] = { 0, 1, 2, 1, 2, 3, 0, 1, 3, 0, 2, 3 };
-	tetraGrid->setTetrahedraOnlyGeometry(faceRightHandness, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerCell);
+	ULONG64 nodeIndicesPerFace[12] = { 0, 1, 2, 1, 2, 3, 0, 1, 3, 0, 2, 3 };
+	tetraGrid->setTetrahedraOnlyGeometry(faceRightHandness, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerFace);
 #endif
 }
 

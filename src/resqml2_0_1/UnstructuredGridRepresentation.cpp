@@ -548,7 +548,7 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(unsigned char * c
 	hsize_t * numValues = new hsize_t[2];
 	numValues[0] = cellCount;
 	numValues[1] = 4;
-	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "FacesPerCell", H5T_NATIVE_UINT, faceIndicesPerCell, numValues, 2);
+	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "FacesPerCell", H5T_NATIVE_ULLONG, faceIndicesPerCell, numValues, 2);
 	delete [] numValues;
 
 	// Node indices
@@ -572,7 +572,7 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(unsigned char * c
 	numValues = new hsize_t[2];
 	numValues[0] = faceCount;
 	numValues[1] = 3;
-	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "NodesPerFace", H5T_NATIVE_UINT, nodeIndicesPerFace, numValues, 2);
+	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "NodesPerFace", H5T_NATIVE_ULLONG, nodeIndicesPerFace, numValues, 2);
 	delete [] numValues;
 
 	// XML points
