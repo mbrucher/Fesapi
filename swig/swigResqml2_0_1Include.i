@@ -564,9 +564,10 @@ namespace resqml2_0_1
 		bool isAChronoStratiRank() const;
 		StratigraphicUnitInterpretation* getSubjectOfContact(const unsigned int & contactIndex) const;
 		StratigraphicUnitInterpretation* getDirectObjectOfContact(const unsigned int & contactIndex) const;
-		std::vector<StratigraphicUnitInterpretation*> getStratigraphicUnitInterpretationSet() const;
-        std::vector<HorizonInterpretation*> getHorizonInterpretationSet() const;
-		std::vector<StratigraphicOccurrenceInterpretation*> getStratigraphicOccurrenceInterpretationSet() const;
+		const std::vector<StratigraphicUnitInterpretation*>& getStratigraphicUnitInterpretationSet() const;
+        const std::vector<HorizonInterpretation*>& getHorizonInterpretationSet() const;
+		const std::vector<StratigraphicOccurrenceInterpretation*>& getStratigraphicOccurrenceInterpretationSet() const;
+		const std::vector<StratigraphicColumn*> & getStratigraphicColumnSet() const;
 	};
 	
 	class StratigraphicOccurrenceInterpretation : public AbstractStratigraphicOrganizationInterpretation

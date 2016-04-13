@@ -124,18 +124,23 @@ namespace resqml2_0_1
 		/**
 		* Get all the stratigraphic unit interpretations contained in this StratigraphicColumnRankInterpretation.
 		*/
-		std::vector<class StratigraphicUnitInterpretation*> getStratigraphicUnitInterpretationSet() const {return stratigraphicUnitSet;}
+		const std::vector<class StratigraphicUnitInterpretation*> & getStratigraphicUnitInterpretationSet() const;
 
 		/**
 		* Get all the stratigraphic occurence interpretations associated with this StratigraphicColumnRankInterpretation.
 		*/
-		std::vector<class StratigraphicOccurrenceInterpretation*> getStratigraphicOccurrenceInterpretationSet() const { return stratigraphicOccurrenceInterpretationSet; }
+		const std::vector<class StratigraphicOccurrenceInterpretation*> & getStratigraphicOccurrenceInterpretationSet() const;
 
 		/**
 		* Get all the horizon interpretations contained in this StratigraphicColumnRankInterpretation.
 		*/
-        std::vector<class HorizonInterpretation*> getHorizonInterpretationSet() const {return horizonInterpretationSet;}
-                
+		const std::vector<class HorizonInterpretation*> & getHorizonInterpretationSet() const;
+
+		/**
+		* Get all the stratigraphic column this strati column rank belongs to.
+		*/
+		const std::vector<StratigraphicColumn*> & getStratigraphicColumnSet() const;
+
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
 

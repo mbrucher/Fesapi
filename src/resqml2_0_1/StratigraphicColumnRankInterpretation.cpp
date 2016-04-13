@@ -246,3 +246,23 @@ vector<Relationship> StratigraphicColumnRankInterpretation::getAllEpcRelationshi
         
     return result;
 }
+
+const std::vector<class StratigraphicUnitInterpretation*> & StratigraphicColumnRankInterpretation::getStratigraphicUnitInterpretationSet() const
+{
+	return stratigraphicUnitSet;
+}
+
+const std::vector<class StratigraphicOccurrenceInterpretation*> & StratigraphicColumnRankInterpretation::getStratigraphicOccurrenceInterpretationSet() const
+{
+	return stratigraphicOccurrenceInterpretationSet;
+}
+
+const std::vector<class HorizonInterpretation*> & StratigraphicColumnRankInterpretation::getHorizonInterpretationSet() const
+{
+	return horizonInterpretationSet;
+}
+
+const std::vector<StratigraphicColumn*> & StratigraphicColumnRankInterpretation::getStratigraphicColumnSet() const
+{
+	return stratigraphicColumnSet;
+}

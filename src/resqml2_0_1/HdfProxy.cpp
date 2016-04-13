@@ -261,11 +261,11 @@ void HdfProxy::writeArrayNdOfGSoapULong64Values(const std::string & groupName,
 	writeArrayNd(groupName, name, H5T_NATIVE_ULLONG, ulong64Values, numValuesInEachDimension, numDimensions);
 }
 
-void HdfProxy::writeArrayNd(const string & groupName,
-			const string & name,
-			const hid_t & datatype,
+void HdfProxy::writeArrayNd(const std::string & groupName,
+			const std::string & name,
+			const int & datatype,
 			void * values,
-			hsize_t * numValuesInEachDimension,
+			unsigned long long * numValuesInEachDimension,
 			const unsigned int & numDimensions)
 {
 	if (!isOpened())
@@ -301,11 +301,11 @@ void HdfProxy::writeArrayNd(const string & groupName,
 }
 
 void HdfProxy::createArrayNd(
-	const string& groupName,
-	const string& datasetName,
-	const hid_t & datatype,
-	hsize_t* numValuesInEachDimension,
-	const unsigned int& numDimensions
+	const std::string& groupName,
+			const std::string& datasetName,
+			const int & datatype,
+			unsigned long long* numValuesInEachDimension,
+			const unsigned int& numDimensions
 ) {
 	if (!isOpened()) {
 		open();
