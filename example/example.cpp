@@ -1512,6 +1512,7 @@ void deserialize(const string & inputFile)
 		horizonGrid2dSet[i]->getZValuesInGlobalCrs(zValues);
 		std::cout << "First zValue is : " << zValues[0] << std::endl;
 		delete [] zValues;
+		cout << "XIOffset : " << horizonGrid2dSet[i]->getXIOffsetInGlobalCrs() << endl;
 		
 		deserializeActivity(horizonGrid2dSet[i]);
 		showAllProperties(horizonGrid2dSet[i]);

@@ -247,34 +247,38 @@ double Grid2dRepresentation::getXJOffset() const
 {
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
-	if (arrayLatticeOfPoints3d)
+	if (arrayLatticeOfPoints3d != nullptr)
 	{
 		return arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 * getJSpacing()/
 			sqrt(arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2);
 	}
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getXJOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(0);
+		return supportingRepresentation->getXJOffset() * getIndexOffsetOnSupportingRepresentation(0);
 	}
 	else
-		return std::numeric_limits<double>::signaling_NaN();
+	{
+		throw invalid_argument("No lattice array have been found for this 2d grid.");
+	}
 }
 
 double Grid2dRepresentation::getYJOffset() const
 {
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
-	if (arrayLatticeOfPoints3d)
+	if (arrayLatticeOfPoints3d != nullptr)
 	{
 		return arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2 * getJSpacing()/
 			sqrt(arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[0]->Offset->Coordinate2);
 	}
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getYJOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(0);
+		return supportingRepresentation->getYJOffset() * getIndexOffsetOnSupportingRepresentation(0);
 	}
 	else
-		return std::numeric_limits<double>::signaling_NaN();
+	{
+		throw invalid_argument("No lattice array have been found for this 2d grid.");
+	}
 }
 
 // TODO rotation
@@ -305,30 +309,38 @@ double Grid2dRepresentation::getXIOffset() const
 {
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
-	if (arrayLatticeOfPoints3d)
-		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 * getISpacing()/
+	if (arrayLatticeOfPoints3d != nullptr)
+	{
+		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 * getISpacing() /
 			sqrt(arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2);
+	}
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getXIOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(1);
+		return supportingRepresentation->getXIOffset() * getIndexOffsetOnSupportingRepresentation(1);
 	}
 	else
-		return std::numeric_limits<double>::signaling_NaN();
+	{
+		throw invalid_argument("No lattice array have been found for this 2d grid.");
+	}
 }
 
 double Grid2dRepresentation::getYIOffset() const
 {
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
-	if (arrayLatticeOfPoints3d)
-		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2 * getISpacing()/
+	if (arrayLatticeOfPoints3d != nullptr)
+	{
+		return arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2 * getISpacing() /
 			sqrt(arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate1 + arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2 * arrayLatticeOfPoints3d->Offset[1]->Offset->Coordinate2);
+	}
 	else if (getSupportingRepresentationUuid().size())
 	{
-		return supportingRepresentation->getYIOffset() * supportingRepresentation->getIndexOffsetOnSupportingRepresentation(1);
+		return supportingRepresentation->getYIOffset() * getIndexOffsetOnSupportingRepresentation(1);
 	}
 	else
-		return std::numeric_limits<double>::signaling_NaN();
+	{
+		throw invalid_argument("No lattice array have been found for this 2d grid.");
+	}
 }
 
 // TODO rotation
@@ -566,6 +578,16 @@ void Grid2dRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epc
 
 	// Base representation
 	string supportingRepUuid = getSupportingRepresentationUuid();
-	if (supportingRepUuid.empty() == false)
-		setSupportingRepresentation(static_cast<Grid2dRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(supportingRepUuid)));
+	if (!supportingRepUuid.empty())
+	{
+		AbstractObject* obj = epcDoc->getResqmlAbstractObjectByUuid(supportingRepUuid);
+		if (dynamic_cast<Grid2dRepresentation*>(obj) != nullptr)
+		{
+			setSupportingRepresentation(static_cast<Grid2dRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(supportingRepUuid)));
+		}
+		else
+		{
+			throw logic_error("The referenced supporting representation does not look to be a 2d grid.");
+		}
+	}
 }

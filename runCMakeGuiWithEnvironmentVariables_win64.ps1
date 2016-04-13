@@ -23,7 +23,7 @@ if ($Env:MINIZIP_DIR)
 else
 {
 	'Need to set MINIZIP_DIR'
-	$Env:MINIZIP_DIR = Join-Path (Get-Location) "..\dependencies\minizip-win64-vs2013-static"
+	$Env:MINIZIP_DIR = Join-Path (Get-Location) "../dependencies/minizip-win64-vs2013-static"
 }
 
 # Please modify the path to cmake-gui according to your configuration
