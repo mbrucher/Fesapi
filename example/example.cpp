@@ -1042,11 +1042,6 @@ void serializeActivities(common::EpcDocument * epcDoc)
 
 }
 
-void serializePropertyKindMappingFiles(common::EpcDocument * pck)
-{
-
-}
-
 void deserializePropertyKindMappingFiles(common::EpcDocument * pck)
 {
 	PropertyKindMapper* ptMapper = pck->getPropertyKindMapper();
@@ -1139,7 +1134,7 @@ void deserializeActivity(resqml2::AbstractObject* resqmlObject)
 	}
 }
 
-void serialize(const string & filePath)
+bool serialize(const string & filePath)
 {
 	common::EpcDocument pck(filePath, true);
 
@@ -1164,13 +1159,17 @@ void serialize(const string & filePath)
 	// Add an extended core property before to serialize
 	pck.setExtendedCoreProperty("F2I-ExtendedCoreProp", "TestingVersion");
 
-	pck.serialize();
-
 	hdfProxy->close();
 
-#if !defined(OFFICIAL)
-	serializePropertyKindMappingFiles(&pck);
-#endif
+	try {
+		pck.serialize();
+		return true;
+	}
+	catch (const std::exception & Exp)
+	{
+		cerr << "Error : " << Exp.what() << endl;
+		return false;
+	}
 }
 
 void showAllMetadata(AbstractResqmlDataObject * obj, const std::string & prefix = "")
@@ -1885,8 +1884,9 @@ int main(int argc, char **argv)
 //#define filePath "/data_local/philippeVerney/resqmlExchangedModel/v2_0/eage2016/test4rob.epc"
 int main(int argc, char **argv)
 {
-	serialize(filePath);
-	deserialize(filePath);
+	if (serialize(filePath)) {
+		deserialize(filePath);
+	}
 
 	cout << "Press enter to continue..." << endl;
 	cin.get();

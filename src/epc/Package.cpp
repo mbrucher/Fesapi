@@ -247,10 +247,16 @@ void Package::openForWriting(const std::string & pkgPathName, bool useZip64)
 	addRelationship(relToCoreProp);
 
 	d_ptr->isZip64 = useZip64;
-    if( useZip64 )
+	if (useZip64) {
 		d_ptr->zf = zipOpen64(d_ptr->pathName.c_str(), 0);
-    else
+	}
+	else {
 		d_ptr->zf = zipOpen(d_ptr->pathName.c_str(), 0);
+	}
+
+	if (d_ptr->zf == nullptr) {
+		throw invalid_argument("The file " + pkgPathName + " could not be opened");
+	}
 }
 
 void Package::openForReading(const std::string & pkgPathName)
@@ -522,20 +528,21 @@ void Package::writeStringIntoNewPart(const std::string &input, const std::string
 		Z_DEFLATED,						// method
 		Z_DEFAULT_COMPRESSION,				// level
 		d_ptr->isZip64);								// Zip64
-	if (err != ZIP_OK)
-		cerr << "error in opening " << partPath << " in zipfile" << endl;
+	if (err != ZIP_OK) {
+		throw invalid_argument("Could not open " + partPath + " in the zipfile");
+	}
 
 	// Write the content of the content type part
 	err = zipWriteInFileInZip(d_ptr->zf, input.c_str(), input.size());
-	if (err<0)
-	{
-		cerr << "error in writing " << partPath << " in the zipfile" << endl;
+	if (err < 0) {
+		throw invalid_argument("Could not write " + partPath + " in the zipfile");
 	}
 
 	// Close the content type part
 	err = zipCloseFileInZip(d_ptr->zf);
-	if (err!=ZIP_OK)
-		cerr << "error in closing " << partPath << " in the zipfile" << endl;
+	if (err != ZIP_OK) {
+		throw invalid_argument("Could not close " + partPath + " in the zipfile");
+	}
 }
 
 void Package::writePackage() 
@@ -596,8 +603,9 @@ void Package::writePackage()
 
 	// Close the zip archive
 	int err = zipClose(d_ptr->zf, nullptr, d_ptr->isZip64);
-	if (err != ZIP_OK)
-		cerr << "error in closing " << d_ptr->pathName.substr(0, d_ptr->pathName.size() - 4).c_str() << endl;
+	if (err != ZIP_OK) {
+		throw invalid_argument("Could not close " + d_ptr->pathName.substr(0, d_ptr->pathName.size() - 4));
+	}
 }
 
 string do_extract_currentfile(unzFile uf, const char* password)
