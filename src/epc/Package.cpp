@@ -36,6 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <iostream> 
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 
 #ifdef WIN32
 #include <windows.h>
@@ -260,8 +261,7 @@ void Package::openForReading(const std::string & pkgPathName)
 
 	if (d_ptr->unzipped == nullptr)
     {
-		cerr << "Cannot open " << d_ptr->pathName << endl;
-        return;
+		throw invalid_argument("Cannot unzip " + pkgPathName);
     }
 
 #ifdef CACHE_FILE_DESCRIPTOR
@@ -600,8 +600,7 @@ void Package::writePackage()
 		cerr << "error in closing " << d_ptr->pathName.substr(0, d_ptr->pathName.size() - 4).c_str() << endl;
 }
 
-string do_extract_currentfile(unzFile uf,
-    const char* password)
+string do_extract_currentfile(unzFile uf, const char* password)
 {
     int err=UNZ_OK;
     void* buf;
@@ -609,40 +608,41 @@ string do_extract_currentfile(unzFile uf,
 
     size_buf = WRITEBUFFERSIZE;
     buf = (void*)malloc(size_buf);
-    if (buf==nullptr)
+    if (buf == nullptr)
     {
-        printf("Error allocating memory\n");
-        return "";
+		throw invalid_argument("Error allocating memory " + size_buf);
     }
 
     err = unzOpenCurrentFilePassword(uf,password);
-    if (err!=UNZ_OK)
+    if (err != UNZ_OK)
     {
-        printf("error %d with zipfile in unzOpenCurrentFilePassword\n",err);
+		free(buf);
+		throw invalid_argument("Error with zipfile in unzOpenCurrentFilePassword");
     }
 
 	ostringstream oss;
     do
     {
         err = unzReadCurrentFile(uf,buf,size_buf);
-        if (err<0)
+        if (err < 0)
         {
-            printf("error %d with zipfile in unzReadCurrentFile\n",err);
-            break;
+			free(buf);
+			throw invalid_argument("Error with zipfile in unzReadCurrentFile");
         }
-		if (err>0)
+		if (err > 0)
 		{
 			oss.write((char*)buf, err);
 		}
     }
-    while (err>0);
+    while (err > 0);
 
-    if (err==UNZ_OK)
+    if (err == UNZ_OK)
     {
         err = unzCloseCurrentFile (uf);
-        if (err!=UNZ_OK)
+        if (err != UNZ_OK)
         {
-            printf("error %d with zipfile in unzCloseCurrentFile\n",err);
+			free(buf);
+			throw invalid_argument("Error with zipfile in unzCloseCurrentFile");
         }
     }
     else
@@ -654,17 +654,14 @@ string do_extract_currentfile(unzFile uf,
 
 bool Package::fileExists(const string & filename) const
 {
-	if (d_ptr->unzipped == nullptr){
-        return false;
-    }
+	if (d_ptr->unzipped == nullptr) {
+		throw logic_error("The EPC document must be opened first.");
+	}
 	return unzLocateFile(d_ptr->unzipped, filename.c_str(), CASESENSITIVITY) == UNZ_OK;
 }
 
 string Package::extractFile(const string & filename, const string & password)
 {
-	if (d_ptr->unzipped == nullptr)
-		return "";
-
 #ifdef CACHE_FILE_DESCRIPTOR
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	std::unordered_map< std::string, unz64_s >::const_iterator it = d_ptr->name2file.find(filename);
@@ -673,9 +670,9 @@ string Package::extractFile(const string & filename, const string & password)
 #endif
 	if (it == d_ptr->name2file.end())
 	{
-		if (unzLocateFile(d_ptr->unzipped, filename.c_str(), CASESENSITIVITY) != UNZ_OK)
+		if (!fileExists(filename))
 		{
-			return "";
+			throw invalid_argument("The file " + filename + " does not exist in the EPC document.");
 		}
 		d_ptr->name2file[filename] = *(unz64_s*)d_ptr->unzipped;
 	}
@@ -684,9 +681,9 @@ string Package::extractFile(const string & filename, const string & password)
 		*(unz64_s*)d_ptr->unzipped = it->second;
 	}
 #else
-	if (unzLocateFile(unzipped,filename.c_str(),CASESENSITIVITY) != UNZ_OK)
+	if (!fileExists(filename))
     {
-        return "";
+		throw invalid_argument("The file " + filename + " does not exist in the EPC document.");
     }
 #endif
 
