@@ -1172,7 +1172,7 @@ bool serialize(const string & filePath)
 	}
 }
 
-void showAllMetadata(AbstractResqmlDataObject * obj, const std::string & prefix = "")
+void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix = "")
 {
 	std::cout << prefix << "Title is : " << obj->getTitle() << std::endl;
 	std::cout << prefix << "Guid is : " << obj->getUuid() << std::endl;

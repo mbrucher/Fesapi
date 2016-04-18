@@ -35,21 +35,26 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/GridConnectionSetRepresentation.h"
 
+namespace resqml2
+{
+	class AbstractFeature;
+}
+
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractFeatureInterpretation : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT AbstractFeatureInterpretation : public resqml2::AbstractObject
 	{
 	protected:
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr.
 		*/
-		AbstractFeatureInterpretation(): interpretedFeature(nullptr) {}
+		AbstractFeatureInterpretation() {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractFeatureInterpretation(gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation* fromGsoap): AbstractResqmlDataObject(fromGsoap), interpretedFeature(nullptr) {}
+		AbstractFeatureInterpretation(gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation* fromGsoap) : AbstractObject(fromGsoap) {}
 
 	public:
 
@@ -61,12 +66,12 @@ namespace resqml2_0_1
 		/**
 		 * Set the feature which is interpreted by the current instance.
 		 */
-		void setInterpretedFeature(class AbstractFeature * feature);
+		void setInterpretedFeature(resqml2::AbstractFeature* feature);
 
 		/**
 		* Get the feature this instance interprets
 		*/
-		class AbstractFeature* getInterpretedFeature() const;
+		resqml2::AbstractFeature* getInterpretedFeature() const;
 
 		/**
 		* Get the feature uuid this instance interprets
@@ -116,9 +121,6 @@ namespace resqml2_0_1
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
 		
 		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-		// XML Forward relationship
-		class AbstractFeature *										interpretedFeature;
 
 		// XML backward relationship
 		std::vector<AbstractRepresentation *>						representationSet;

@@ -48,9 +48,15 @@ namespace resqml2
 #endif
 #if defined(SWIGJAVA) || defined(SWIGCSHARP)
 	%nspace resqml2::AbstractObject;
+	%nspace resqml2::AbstractFeature;
 	%nspace resqml2::Activity;
 	%nspace resqml2::ActivityTemplate;
 #endif
+
+namespace resqml2_0_1
+{
+	class AbstractFeatureInterpretation;
+}
 
 namespace resqml2
 {
@@ -94,6 +100,13 @@ namespace resqml2
 		unsigned int getAliasCount() const;
 		std::string getAliasAuthorityAtIndex(const unsigned int & index) const;
 		std::string getAliasTitleAtIndex(const unsigned int & index) const;
+		
+		void addOrSetExtraMetadata(const std::string & key, const std::string & value);
+		std::string getExtraMetadata(const std::string & key);
+		
+		unsigned int getExtraMetadataCount() const;
+		std::string getExtraMetadataKeyAtIndex(const unsigned int & index) const;
+		std::string getExtraMetadataStringValueAtIndex(const unsigned int & index) const;
 		
 		const std::vector<resqml2::Activity*> & getActivitySet() const;
 	};
@@ -158,5 +171,16 @@ namespace resqml2
 
 		void setActivityTemplate(ActivityTemplate* activityTemplate);
 		ActivityTemplate* getActivityTemplate() const;
+	};
+	
+	//************************************
+	//************ FEATURE ***************
+	//************************************
+
+	class AbstractFeature : public AbstractObject
+	{
+	public:
+		unsigned int getInterpretationCount() const;
+		resqml2_0_1::AbstractFeatureInterpretation* getInterpretation(const unsigned int & index) const;
 	};
 }

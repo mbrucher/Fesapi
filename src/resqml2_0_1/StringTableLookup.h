@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2/AbstractObject.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT StringTableLookup : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT StringTableLookup : public resqml2::AbstractObject
 	{
 	public:
 		/**
@@ -56,7 +56,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		StringTableLookup(gsoap_resqml2_0_1::_resqml2__StringTableLookup* fromGsoap): AbstractResqmlDataObject(fromGsoap) {}
+		StringTableLookup(gsoap_resqml2_0_1::_resqml2__StringTableLookup* fromGsoap) : AbstractObject(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

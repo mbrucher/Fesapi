@@ -529,3 +529,153 @@ void AbstractObject::addActivityToResqmlObject(resqml2::Activity* activity, Abst
 		resqmlObject->activitySet.push_back(activity);
 	}
 }
+
+void AbstractObject::addOrSetExtraMetadataV2_0_1(const std::string & key, const std::string & value)
+{
+	for (unsigned int i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); i++)
+	{
+		if (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Name.compare(key) == 0)
+		{
+			static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Value = value;
+			return;
+		}
+	}
+
+	resqml2__NameValuePair* stringPair = soap_new_resqml2__NameValuePair(gsoapProxy2_0_1->soap, 1);
+	stringPair->Name = key;
+	stringPair->Value = value;
+	static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.push_back(stringPair);
+}
+
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
+std::unordered_map< std::string, std::string > AbstractObject::getExtraMetadataSetV2_0_1() const
+{
+	std::unordered_map< std::string, std::string > result;
+#else
+std::tr1::unordered_map< std::string, std::string > AbstractObject::getExtraMetadataSetV2_0_1() const
+{
+	std::tr1::unordered_map< std::string, std::string > result;
+#endif
+	for (unsigned int i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); i++)
+	{
+		result[static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Name] = static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Value;
+	}
+
+	return result;
+}
+
+string AbstractObject::getExtraMetadataV2_0_1(const std::string & key)
+{
+	string result = "";
+
+	for (unsigned int i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); i++)
+	{
+		if (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Name.compare(key) == 0)
+		{
+			return static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Value;
+		}
+	}
+
+	return result;
+}
+
+unsigned int AbstractObject::getExtraMetadataCountV2_0_1() const
+{
+	return static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size();
+}
+
+std::string AbstractObject::getExtraMetadataKeyAtIndexV2_0_1(const unsigned int & index) const
+{
+	if (getExtraMetadataCount() <= index)
+		throw out_of_range("The index is out of range.");
+
+	return (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata)[index]->Name;
+}
+
+std::string AbstractObject::getExtraMetadataStringValueAtIndexV2_0_1(const unsigned int & index) const
+{
+	if (getExtraMetadataCount() <= index)
+		throw out_of_range("The index is out of range.");
+
+	return (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata)[index]->Value;
+}
+
+void AbstractObject::addOrSetExtraMetadata(const std::string & key, const std::string & value)
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		addOrSetExtraMetadataV2_0_1(key, value);
+	}
+	else {
+		throw logic_error("Not implemented yet.");
+	}
+}
+
+/**
+* Getter (in read only mode) of all the extra metadata
+*/
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
+std::unordered_map< std::string, std::string > AbstractObject::getExtraMetadataSet() const
+#else
+std::tr1::unordered_map< std::string, std::string > AbstractObject::getExtraMetadataSet() const
+#endif
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		return getExtraMetadataSetV2_0_1();
+	}
+	else {
+		throw logic_error("Not implemented yet.");
+	}
+}
+
+/**
+* Get an extra metadata according its key.
+* @return An empty string if the extra metadata does not exist. Or the extra metadata value if it exists
+*/
+std::string AbstractObject::getExtraMetadata(const std::string & key)
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		return getExtraMetadataV2_0_1(key);
+	}
+	else {
+		throw logic_error("Not implemented yet.");
+	}
+}
+
+/**
+* Get the count of extra metadata in the instance.
+*/
+unsigned int AbstractObject::getExtraMetadataCount() const
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		return getExtraMetadataCountV2_0_1();
+	}
+	else {
+		throw logic_error("Not implemented yet.");
+	}
+}
+
+/**
+* Get the key of a string value pair at a particular index in the extra metadata set
+*/
+std::string AbstractObject::getExtraMetadataKeyAtIndex(const unsigned int & index) const
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		return getExtraMetadataKeyAtIndexV2_0_1(index);
+	}
+	else {
+		throw logic_error("Not implemented yet.");
+	}
+}
+
+/**
+* Get the string value of a string value pair at a particular index in the extra metadata set
+*/
+std::string AbstractObject::getExtraMetadataStringValueAtIndex(const unsigned int & index) const
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		return getExtraMetadataStringValueAtIndexV2_0_1(index);
+	}
+	else {
+		throw logic_error("Not implemented yet.");
+	}
+}

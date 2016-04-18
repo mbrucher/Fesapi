@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2/AbstractObject.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractLocal3dCrs : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT AbstractLocal3dCrs : public resqml2::AbstractObject
 	{
 	protected:
 
@@ -47,7 +47,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		AbstractLocal3dCrs(gsoap_resqml2_0_1::resqml2__AbstractLocal3dCrs* fromGsoap):
-			AbstractResqmlDataObject(fromGsoap)/*, global2dCrs(nullptr), global1dCrs(nullptr), globalTimeCrs(nullptr)*/ {}
+			AbstractObject(fromGsoap)/*, global2dCrs(nullptr), global1dCrs(nullptr), globalTimeCrs(nullptr)*/ {}
 
 		/**
 		* Get the Z offset which is always equal to zero for a time CRS.

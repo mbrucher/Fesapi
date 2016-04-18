@@ -11,22 +11,27 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
       return ret;
     }
 	
+	ret = resqml2_instantiateConcreteFeature(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+	
+	ret = resqml2_instantiateConcreteInterpretation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+	
+	ret = resqml2_instantiateConcreteRepresentation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+	
 	ret = resqml2_instantiateConcreteProperty(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
 	
-	ret = resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
-	if (ret != null) {
-		return ret;
-	}
-	
 	ret = resqml2_instantiateConcreteLocal3dCrs(cPtr, owner);
-	if (ret != null) {
-		return ret;
-	}
-	
-	ret = resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
@@ -40,177 +45,29 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.ActivityTemplate(cPtr, owner);
     }
-	else if (type == "BoundaryFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeature(cPtr, owner);
-    }
-    else if (type == "BoundaryFeatureInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeatureInterpretation(cPtr, owner);
-    }
-    else if (type == "EarthModelInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.EarthModelInterpretation(cPtr, owner);
-    }
     else if (type == "EpcExternalPartReference")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.HdfProxy(cPtr, owner);
-    }
-    else if (type == "FaultInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.FaultInterpretation(cPtr, owner);
-    }
-    else if (type == "FluidBoundaryFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.FluidBoundaryFeature(cPtr, owner);
-    }
-    else if (type == "FrontierFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.FrontierFeature(cPtr, owner);
-    }
-    else if (type == "GenericFeatureInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.GenericFeatureInterpretation(cPtr, owner);
-    }
-    else if (type == "GeneticBoundaryFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.Horizon(cPtr, owner);
-    }
-    else if (type == "GeologicUnitFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.GeologicUnitFeature(cPtr, owner);
-    }
-    else if (type == "Grid2dRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.Grid2dRepresentation(cPtr, owner);
-    }
-    else if (type == "Grid2dSetRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.Grid2dSetRepresentation(cPtr, owner);
-    }
-    else if (type == "GridConnectionSetRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.GridConnectionSetRepresentation(cPtr, owner);
-    }
-    else if (type == "HorizonInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.HorizonInterpretation(cPtr, owner);
-    }
-    else if (type == "IjkGridRepresentation")
-    {
-		ret = resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
     }
     else if (type == "MdDatum")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.MdDatum(cPtr, owner);
     }
-    else if (type == "NonSealedSurfaceFrameworkRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.NonSealedSurfaceFrameworkRepresentation(cPtr, owner);
-    }
-    else if (type == "OrganizationFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.OrganizationFeature(cPtr, owner);
-    }
-    else if (type == "PlaneSetRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.PlaneSetRepresentation(cPtr, owner);
-    }
-    else if (type == "PointSetRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.PointSetRepresentation(cPtr, owner);
-    }
-    else if (type == "PolylineRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.PolylineRepresentation(cPtr, owner);
-    }
-    else if (type == "PolylineSetRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.PolylineSetRepresentation(cPtr, owner);
-    }
     else if (type == "PropertyKind")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.PropertyKind(cPtr, owner);
-    }
-    else if (type == "RepresentationSetRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.RepresentationSetRepresentation(cPtr, owner);
-    }
-    else if (type == "SeismicLatticeFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.SeismicLatticeFeature(cPtr, owner);
-    }
-    else if (type == "SeismicLineFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineFeature(cPtr, owner);
-    }
-    else if (type == "SeismicLineSetFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineSetFeature(cPtr, owner);
     }
     else if (type == "StratigraphicColumn")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumn(cPtr, owner);
     }
-    else if (type == "StratigraphicColumnRankInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumnRankInterpretation(cPtr, owner);
-    }
-    else if (type == "StratigraphicOccurrenceInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicOccurrenceInterpretation(cPtr, owner);
-    }
-    else if (type == "StratigraphicUnitFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitFeature(cPtr, owner);
-    }
-    else if (type == "StratigraphicUnitInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitInterpretation(cPtr, owner);
-    }
     else if (type == "StringTableLookup")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.StringTableLookup(cPtr, owner);
     }
-    else if (type == "StructuralOrganizationInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.StructuralOrganizationInterpretation(cPtr, owner);
-    }
-    else if (type == "SubRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.SubRepresentation(cPtr, owner);
-    }
-    else if (type == "TectonicBoundaryFeature")
-    {
-		f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature tmp = new f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
-		if (tmp.isAFracture() == true)
-			ret = new f2i.energisticsStandardsApi.resqml2_0_1.Fracture(cPtr, owner);
-		else
-			ret = new f2i.energisticsStandardsApi.resqml2_0_1.Fault(cPtr, owner);
-    }
     else if (type == "TimeSeries")
     {
         ret = new f2i.energisticsStandardsApi.resqml2_0_1.TimeSeries(cPtr, owner);
-    }
-    else if (type == "TriangulatedSetRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.TriangulatedSetRepresentation(cPtr, owner);
-    }
-    else if (type == "UnstructuredGridRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.UnstructuredGridRepresentation(cPtr, owner);
-    }
-    else if (type == "WellboreFeature")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.WellboreFeature(cPtr, owner);
-    }
-    else if (type == "WellboreInterpretation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.WellboreInterpretation(cPtr, owner);
-    }
-    else if (type == "WellboreTrajectoryRepresentation")
-    {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.WellboreTrajectoryRepresentation(cPtr, owner);
     }
 	else
 	{
@@ -220,7 +77,196 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 	return ret;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instantiateConcreteProperty(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2.AbstractFeature resqml2_instantiateConcreteFeature(global::System.IntPtr cPtr, bool owner)
+  {
+    if (cPtr == global::System.IntPtr.Zero) {
+      return null;
+    }
+    string type = $modulePINVOKE.resqml2_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+	if (type == "BoundaryFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeature(cPtr, owner);
+    }  
+    else if (type == "FluidBoundaryFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.FluidBoundaryFeature(cPtr, owner);
+    }
+    else if (type == "FrontierFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.FrontierFeature(cPtr, owner);
+    }
+    else if (type == "GeneticBoundaryFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.Horizon(cPtr, owner);
+    }
+    else if (type == "GeologicUnitFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.GeologicUnitFeature(cPtr, owner);
+    }
+    else if (type == "OrganizationFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.OrganizationFeature(cPtr, owner);
+    }
+    else if (type == "SeismicLatticeFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.SeismicLatticeFeature(cPtr, owner);
+    }
+    else if (type == "SeismicLineFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineFeature(cPtr, owner);
+    }
+    else if (type == "SeismicLineSetFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineSetFeature(cPtr, owner);
+    }
+    else if (type == "StratigraphicUnitFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitFeature(cPtr, owner);
+    }
+    else if (type == "TectonicBoundaryFeature")
+    {
+		f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature tmp = new f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
+		if (tmp.isAFracture() == true)
+			return new f2i.energisticsStandardsApi.resqml2_0_1.Fracture(cPtr, owner);
+		else
+			return new f2i.energisticsStandardsApi.resqml2_0_1.Fault(cPtr, owner);
+    }
+    else if (type == "WellboreFeature")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.WellboreFeature(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractFeatureInterpretation resqml2_instantiateConcreteInterpretation(global::System.IntPtr cPtr, bool owner)
+  {
+	f2i.energisticsStandardsApi.resqml2_0_1.AbstractFeatureInterpretation ret = resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+  
+    if (cPtr == global::System.IntPtr.Zero) {
+      return null;
+    }
+    string type = $modulePINVOKE.resqml2_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+	if (type == "BoundaryFeatureInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeatureInterpretation(cPtr, owner);
+    }
+    else if (type == "EarthModelInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.EarthModelInterpretation(cPtr, owner);
+    }
+    else if (type == "FaultInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.FaultInterpretation(cPtr, owner);
+    }
+    else if (type == "GenericFeatureInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.GenericFeatureInterpretation(cPtr, owner);
+    }
+    else if (type == "HorizonInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.HorizonInterpretation(cPtr, owner);
+    }
+    else if (type == "StratigraphicColumnRankInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumnRankInterpretation(cPtr, owner);
+    }
+    else if (type == "StratigraphicOccurrenceInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicOccurrenceInterpretation(cPtr, owner);
+    }
+    else if (type == "StratigraphicUnitInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitInterpretation(cPtr, owner);
+    }
+    else if (type == "StructuralOrganizationInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.StructuralOrganizationInterpretation(cPtr, owner);
+    }
+    else if (type == "WellboreInterpretation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.WellboreInterpretation(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractRepresentation resqml2_instantiateConcreteRepresentation(global::System.IntPtr cPtr, bool owner)
+  {
+	f2i.energisticsStandardsApi.resqml2_0_1.AbstractRepresentation ret = resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+  
+    if (cPtr == global::System.IntPtr.Zero) {
+      return null;
+    }
+    string type = $modulePINVOKE.resqml2_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+	
+    if (type == "Grid2dRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.Grid2dRepresentation(cPtr, owner);
+    }
+    else if (type == "Grid2dSetRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.Grid2dSetRepresentation(cPtr, owner);
+    }
+    else if (type == "GridConnectionSetRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.GridConnectionSetRepresentation(cPtr, owner);
+    }
+    else if (type == "IjkGridRepresentation")
+    {
+		return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
+    }
+    else if (type == "NonSealedSurfaceFrameworkRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.NonSealedSurfaceFrameworkRepresentation(cPtr, owner);
+    }
+    else if (type == "PlaneSetRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.PlaneSetRepresentation(cPtr, owner);
+    }
+    else if (type == "PointSetRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.PointSetRepresentation(cPtr, owner);
+    }
+    else if (type == "PolylineRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.PolylineRepresentation(cPtr, owner);
+    }
+    else if (type == "PolylineSetRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.PolylineSetRepresentation(cPtr, owner);
+    }
+    else if (type == "RepresentationSetRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.RepresentationSetRepresentation(cPtr, owner);
+    }
+    else if (type == "SubRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.SubRepresentation(cPtr, owner);
+    }
+    else if (type == "TriangulatedSetRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.TriangulatedSetRepresentation(cPtr, owner);
+    }
+    else if (type == "UnstructuredGridRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.UnstructuredGridRepresentation(cPtr, owner);
+    }
+    else if (type == "WellboreTrajectoryRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.WellboreTrajectoryRepresentation(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractProperty resqml2_instantiateConcreteProperty(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
@@ -258,7 +304,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instantiateConcreteWellboreFrameRepresentation(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2_0_1.WellboreFrameRepresentation resqml2_instantiateConcreteWellboreFrameRepresentation(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
@@ -276,7 +322,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instantiateConcreteLocal3dCrs(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractLocal3dCrs resqml2_instantiateConcreteLocal3dCrs(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
@@ -346,13 +392,26 @@ namespace resqml2
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteObject(cPtr, $owner);$excode
 		return ret;
 	}
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractFeature*  {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteFeature(cPtr, $owner);$excode
+		return ret;
+	}
 }
 
 namespace resqml2_0_1
 {	
-	%typemap(csout, excode=SWIGEXCODE) AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*  {
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractFeatureInterpretation*  {
 		global::System.IntPtr cPtr = $imcall;
-		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteObject(cPtr, $owner);$excode
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteInterpretation(cPtr, $owner);$excode
+		return ret;
+	}
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractRepresentation*  {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteRepresentation(cPtr, $owner);$excode
 		return ret;
 	}
 	

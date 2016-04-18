@@ -37,14 +37,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractRepresentation : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT AbstractRepresentation : public resqml2::AbstractObject
 	{
 	protected:
 
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractResqmlDataObject(epcDoc, partialObject), interpretation (nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
+		AbstractRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :AbstractObject(epcDoc, partialObject), interpretation(nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
 
 		// Set the domain of the interpretation according to the local CRS
 		// Does not set relationship with interp and crs because the gsoap proxy is not allocated yet. This must be done at concrete class level.
@@ -53,7 +53,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractRepresentation(gsoap_resqml2_0_1::resqml2__AbstractRepresentation* fromGsoap): AbstractResqmlDataObject(fromGsoap), interpretation (nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
+		AbstractRepresentation(gsoap_resqml2_0_1::resqml2__AbstractRepresentation* fromGsoap) : AbstractObject(fromGsoap), interpretation(nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
 		
 		/**
 		* Creates a point geometry patch.

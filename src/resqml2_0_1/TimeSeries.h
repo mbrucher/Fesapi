@@ -37,14 +37,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT TimeSeries : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT TimeSeries : public resqml2::AbstractObject
 	{
 	public:
 		/**
 		* Only to be used in partial transfer context
 		*/
 		TimeSeries(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractResqmlDataObject(nullptr, partialObject)
+			AbstractObject(nullptr, partialObject)
 		{
 		}
 
@@ -59,7 +59,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		TimeSeries(gsoap_resqml2_0_1::_resqml2__TimeSeries* fromGsoap): AbstractResqmlDataObject(fromGsoap) {}
+		TimeSeries(gsoap_resqml2_0_1::_resqml2__TimeSeries* fromGsoap) : AbstractObject(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

@@ -40,7 +40,7 @@ namespace resqml2_0_1
 	/**
 	* This class is a container for other organizations that are consistent to each others.
 	*/
-	class DLL_IMPORT_OR_EXPORT StratigraphicColumn : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT StratigraphicColumn : public resqml2::AbstractObject
 	{
 	public:
 		/**
@@ -55,7 +55,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 
-		StratigraphicColumn(gsoap_resqml2_0_1::_resqml2__StratigraphicColumn* fromGsoap): AbstractResqmlDataObject(fromGsoap), earthModel(nullptr) {}
+		StratigraphicColumn(gsoap_resqml2_0_1::_resqml2__StratigraphicColumn* fromGsoap) : AbstractObject(fromGsoap), earthModel(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

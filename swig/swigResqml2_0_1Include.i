@@ -175,7 +175,6 @@ namespace resqml2_0_1
 }
 #endif
 #if defined(SWIGJAVA) || defined(SWIGCSHARP)
-	%nspace resqml2_0_1::AbstractResqmlDataObject;
 	%nspace resqml2_0_1::Activity;
 	%nspace resqml2_0_1::ActivityTemplate;
 	%nspace resqml2_0_1::EpcExternalPartReference;
@@ -261,17 +260,6 @@ namespace resqml2_0_1
 namespace resqml2_0_1
 {
 	%nodefaultctor; // Disable creation of default constructors
-
-	class AbstractResqmlDataObject : public resqml2::AbstractObject
-	{
-	public:
-		void addOrSetExtraMetadata(const std::string & key, const std::string & value);
-		std::string getExtraMetadata(const std::string & key);
-		
-		unsigned int getExtraMetadataCount() const;
-		std::string getExtraMetadataKeyAtIndex(const unsigned int & index) const;
-		std::string getExtraMetadataStringValueAtIndex(const unsigned int & index) const;
-	};
 	
 	//************************************
 	//************ Activity **************
@@ -320,7 +308,7 @@ namespace resqml2_0_1
 	//************ CRS *******************
 	//************************************
 	
-	class AbstractLocal3dCrs : public AbstractResqmlDataObject
+	class AbstractLocal3dCrs : public resqml2::AbstractObject
 	{
 	public:
 		double getOriginOrdinal1() const;
@@ -358,7 +346,7 @@ namespace resqml2_0_1
 		std::string getUnitAsString() const;
 	};
 	
-	class MdDatum : public AbstractResqmlDataObject
+	class MdDatum : public resqml2::AbstractObject
 	{
 	public:
 		std::string getLocalCrsUuid() const;
@@ -378,15 +366,7 @@ namespace resqml2_0_1
 	//************ FEATURE ***************
 	//************************************
 
-	class AbstractFeatureInterpretation;
-	class AbstractFeature : public AbstractResqmlDataObject
-	{
-	public:
-		unsigned int getInterpretationCount() const;
-		AbstractFeatureInterpretation* getInterpretation(const unsigned int & index) const;
-	};
-
-	class AbstractGeologicFeature : public AbstractFeature
+	class AbstractGeologicFeature : public resqml2::AbstractFeature
 	{
 	};
 
@@ -420,7 +400,7 @@ namespace resqml2_0_1
 	{
 	};
 
-	class AbstractTechnicalFeature : public AbstractFeature
+	class AbstractTechnicalFeature : public resqml2::AbstractFeature
 	{
 	};
 	
@@ -479,11 +459,11 @@ namespace resqml2_0_1
 
 	class AbstractRepresentation;
 	class WellboreMarkerFrameRepresentation;
-	class AbstractFeatureInterpretation : public AbstractResqmlDataObject
+	class AbstractFeatureInterpretation : public resqml2::AbstractObject
 	{
 	public:
 		unsigned int			getRepresentationCount() const;
-		AbstractFeature*		getInterpretedFeature();
+		resqml2::AbstractFeature*		getInterpretedFeature();
 		AbstractRepresentation* getRepresentation(const unsigned int & index) const;
 		std::string 			getInterpretedFeatureUuid() const;
 	};
@@ -580,7 +560,7 @@ namespace resqml2_0_1
 		std::vector<class WellboreMarkerFrameRepresentation*> getWellboreMarkerFrameRepresentationSet() const;
 	};
 	
-	class StratigraphicColumn : public AbstractResqmlDataObject
+	class StratigraphicColumn : public resqml2::AbstractObject
 	{
 	public:
 		void pushBackStratiColumnRank(StratigraphicColumnRankInterpretation * stratiColumnRank);
@@ -601,7 +581,7 @@ namespace resqml2_0_1
 	class AbstractValuesProperty;
 	class SubRepresentation;
 	class RepresentationSetRepresentation;
-	class AbstractRepresentation : public AbstractResqmlDataObject
+	class AbstractRepresentation : public resqml2::AbstractObject
 	{
 	public:
 		AbstractFeatureInterpretation* getInterpretation() const;
@@ -865,7 +845,7 @@ namespace resqml2_0_1
 		witsml1_4_1_1::Log* getWitsmlLog();
 	};
 	
-	class WellboreMarker : public AbstractResqmlDataObject
+	class WellboreMarker : public resqml2::AbstractObject
 	{
 	public:
 		bool hasAGeologicBoundaryKind();
@@ -1148,7 +1128,7 @@ namespace resqml2_0_1
 	//************** PROPERTY ************
 	//************************************
 	
-	class TimeSeries : public AbstractResqmlDataObject
+	class TimeSeries : public resqml2::AbstractObject
 	{
 	public:
 		void pushBackTimestamp(const time_t & timestamp);
@@ -1157,7 +1137,7 @@ namespace resqml2_0_1
 		time_t getTimestamp(const unsigned int & index) const;
 	};
 	
-	class PropertyKind : public AbstractResqmlDataObject
+	class PropertyKind : public resqml2::AbstractObject
 	{
 	public:
 		const std::string & getNamingSystem() const;
@@ -1166,7 +1146,7 @@ namespace resqml2_0_1
 		std::string getUomAsString() const;
 	};
 	
-	class StringTableLookup : public AbstractResqmlDataObject
+	class StringTableLookup : public resqml2::AbstractObject
 	{
 	public:
 		unsigned int getItemCount() const;
@@ -1178,7 +1158,7 @@ namespace resqml2_0_1
 		void setValue(const std::string & strValue, const long & longValue);
 	};
 	
-	class AbstractProperty: public AbstractResqmlDataObject
+	class AbstractProperty: public resqml2::AbstractObject
 	{
 	public:
 		std::string getRepresentationUuid() const;

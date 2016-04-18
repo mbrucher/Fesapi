@@ -61,6 +61,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 namespace resqml2
 {
 	class AbstractObject;
+	class AbstractFeature;
 	class Activity;
 	class ActivityTemplate;
 }
@@ -127,7 +128,6 @@ namespace resqml2_0_1
 	class CategoricalPropertySeries;
 	class AbstractRepresentation;
 	class AbstractFeatureInterpretation;
-	class AbstractFeature;
 	class AbstractOrganizationInterpretation;
 	class AbstractGridRepresentation;
 	class OrganizationFeature;
@@ -753,7 +753,7 @@ namespace common
 		//************ INTERPRETATION ********
 		//************************************
 
-		resqml2_0_1::GenericFeatureInterpretation* createGenericFeatureInterpretation(resqml2_0_1::AbstractFeature * feature, const std::string & guid, const std::string & title);
+		resqml2_0_1::GenericFeatureInterpretation* createGenericFeatureInterpretation(resqml2::AbstractFeature * feature, const std::string & guid, const std::string & title);
 		
 		resqml2_0_1::BoundaryFeatureInterpretation* createBoundaryFeatureInterpretation(resqml2_0_1::BoundaryFeature * feature, const std::string & guid, const std::string & title);
 

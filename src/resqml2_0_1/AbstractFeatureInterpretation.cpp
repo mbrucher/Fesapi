@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractFeature.h"
+#include "resqml2/AbstractFeature.h"
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 #include "resqml2_0_1/GridConnectionSetRepresentation.h"
@@ -45,13 +45,12 @@ using namespace gsoap_resqml2_0_1;
 using namespace std;
 using namespace epc;
 
-void AbstractFeatureInterpretation::setInterpretedFeature(AbstractFeature * feature)
+void AbstractFeatureInterpretation::setInterpretedFeature(resqml2::AbstractFeature * feature)
 {
 	if (!feature)
 		throw invalid_argument("The interpreted feature cannot be null.");
 
 	// EPC
-	interpretedFeature = feature;
 	feature->interpretationSet.push_back(this);
 
 	// XMl
@@ -64,12 +63,16 @@ void AbstractFeatureInterpretation::setInterpretedFeature(AbstractFeature * feat
 void AbstractFeatureInterpretation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
 	resqml2__AbstractFeatureInterpretation* interp = static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1);
-	interpretedFeature = static_cast<AbstractFeature*>(epcDoc->getResqmlAbstractObjectByUuid(interp->InterpretedFeature->UUID));
-	if (interpretedFeature)
+	resqml2::AbstractObject* interpretedFeature = epcDoc->getResqmlAbstractObjectByUuid(interp->InterpretedFeature->UUID);
+	if (dynamic_cast<resqml2::AbstractFeature*>(interpretedFeature)!= nullptr)
 	{
 		updateXml = false;
-		setInterpretedFeature(interpretedFeature);
+		setInterpretedFeature(static_cast<resqml2::AbstractFeature*>(interpretedFeature));
 		updateXml = true;
+	}
+	else
+	{
+		throw logic_error("The referenced feature does not look to be a feature.");
 	}
 }
 
@@ -77,14 +80,10 @@ vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() con
 {
 	vector<Relationship> result;
 
-	if (interpretedFeature)
-	{
-		Relationship rel(interpretedFeature->getPartNameInEpcDocument(), "", interpretedFeature->getUuid());
-		rel.setDestinationObjectType();
-		result.push_back(rel);
-	}
-	else
-		throw domain_error("The feature associated to the interpretation cannot be nullptr.");
+	resqml2::AbstractFeature* interpretedFeature = getInterpretedFeature();
+	Relationship rel(interpretedFeature->getPartNameInEpcDocument(), "", interpretedFeature->getUuid());
+	rel.setDestinationObjectType();
+	result.push_back(rel);
 	
 	for (size_t i = 0; i < representationSet.size(); i++)
 	{
@@ -149,9 +148,9 @@ gsoap_resqml2_0_1::resqml2__Domain AbstractFeatureInterpretation::getDomain() co
 	return static_cast<resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain;
 }
 
-AbstractFeature* AbstractFeatureInterpretation::getInterpretedFeature() const
+resqml2::AbstractFeature* AbstractFeatureInterpretation::getInterpretedFeature() const
 {
-	return interpretedFeature;
+	return static_cast<resqml2::AbstractFeature*>(epcDocument->getResqmlAbstractObjectByUuid(getInterpretedFeatureUuid()));
 }
 
 vector<AbstractRepresentation*> AbstractFeatureInterpretation::getRepresentationSet() const

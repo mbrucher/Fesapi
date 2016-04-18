@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractFeature.h"
+#include "resqml2_0_1/AbstractFeatureInterpretation.h"
 
 namespace resqml2_0_1
 {
@@ -47,7 +47,7 @@ namespace resqml2_0_1
 		* @param guid		The guid to set to the interpretation. If empty then a new guid will be generated.
 		* @param title		A title for the instance to create.
 		*/
-		GenericFeatureInterpretation(AbstractFeature * feature, const std::string & guid, const std::string & title);
+		GenericFeatureInterpretation(resqml2::AbstractFeature * feature, const std::string & guid, const std::string & title);
 
 		GenericFeatureInterpretation(gsoap_resqml2_0_1::_resqml2__GenericFeatureInterpretation* fromGsoap): AbstractFeatureInterpretation(fromGsoap) {}
 

@@ -264,7 +264,7 @@ namespace common
 		//************ INTERPRETATION ********
 		//************************************
 
-		resqml2_0_1::GenericFeatureInterpretation* createGenericFeatureInterpretation(resqml2_0_1::AbstractFeature * feature, const std::string & guid, const std::string & title);
+		resqml2_0_1::GenericFeatureInterpretation* createGenericFeatureInterpretation(resqml2::AbstractFeature * feature, const std::string & guid, const std::string & title);
 		
 		resqml2_0_1::BoundaryFeatureInterpretation* createBoundaryFeatureInterpretation(resqml2_0_1::BoundaryFeature * feature, const std::string & guid, const std::string & title);
 

@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2/AbstractObject.h"
 
 namespace resqml2_0_1
 {
@@ -41,7 +41,7 @@ namespace resqml2_0_1
 	* This class is one of the only one to be a ResqmlDataObject which is not exported into a single file i.e. not a top level element.
 	* Consequently its behaviour is slightly different than other class. Especially there is no integration of the instances into an EPC document.
 	*/
-	class DLL_IMPORT_OR_EXPORT WellboreMarker : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT WellboreMarker : public resqml2::AbstractObject
 	{
 	public:
 
@@ -63,7 +63,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		WellboreMarker(gsoap_resqml2_0_1::resqml2__WellboreMarker* fromGsoap, class WellboreMarkerFrameRepresentation* wellboreMarkerFrame): AbstractResqmlDataObject(fromGsoap), boundaryFeatureInterpretation(nullptr), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)  {}
+		WellboreMarker(gsoap_resqml2_0_1::resqml2__WellboreMarker* fromGsoap, class WellboreMarkerFrameRepresentation* wellboreMarkerFrame) : AbstractObject(fromGsoap), boundaryFeatureInterpretation(nullptr), wellboreMarkerFrameRepresentation(wellboreMarkerFrame)  {}
 
 		/**
 		* Destructor

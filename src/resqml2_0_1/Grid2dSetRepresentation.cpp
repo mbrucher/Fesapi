@@ -36,7 +36,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 #include <algorithm>
 
-#include "resqml2_0_1/AbstractFeature.h"
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/Grid2dRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"

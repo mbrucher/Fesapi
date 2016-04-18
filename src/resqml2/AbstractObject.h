@@ -49,6 +49,41 @@ namespace resqml2
 		*/
 		void setUuid(const std::string & uuid);
 
+		/**
+		* Add or set (if already exists) an extra metadata (not a standard one)
+		*/
+		void addOrSetExtraMetadataV2_0_1(const std::string & key, const std::string & value);
+
+		/**
+		* Getter (in read only mode) of all the extra metadata
+		*/
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
+		std::unordered_map< std::string, std::string > getExtraMetadataSetV2_0_1() const;
+#else
+		std::tr1::unordered_map< std::string, std::string > getExtraMetadataSetV2_0_1() const;
+#endif
+
+		/**
+		* Get an extra metadata according its key.
+		* @return An empty string if the extra metadata does not exist. Or the extra metadata value if it exists
+		*/
+		std::string getExtraMetadataV2_0_1(const std::string & key);
+
+		/**
+		* Get the count of extra metadata in the instance.
+		*/
+		unsigned int getExtraMetadataCountV2_0_1() const;
+
+		/**
+		* Get the key of a string value pair at a particular index in the extra metadata set
+		*/
+		std::string getExtraMetadataKeyAtIndexV2_0_1(const unsigned int & index) const;
+
+		/**
+		* Get the string value of a string value pair at a particular index in the extra metadata set
+		*/
+		std::string getExtraMetadataStringValueAtIndexV2_0_1(const unsigned int & index) const;
+
 	protected:
 		
 		gsoap_resqml2_0_1::eml__AbstractCitedDataObject* gsoapProxy2_0_1;
@@ -214,5 +249,40 @@ namespace resqml2
 		* Get all the activities where the instance is involved.
 		*/
 		const std::vector<resqml2::Activity*> & getActivitySet() const;
+
+		/**
+		* Add or set (if already exists) an extra metadata (not a standard one)
+		*/
+		void addOrSetExtraMetadata(const std::string & key, const std::string & value);
+
+		/**
+		* Getter (in read only mode) of all the extra metadata
+		*/
+#if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
+		std::unordered_map< std::string, std::string > getExtraMetadataSet() const;
+#else
+		std::tr1::unordered_map< std::string, std::string > getExtraMetadataSet() const;
+#endif
+
+		/**
+		* Get an extra metadata according its key.
+		* @return An empty string if the extra metadata does not exist. Or the extra metadata value if it exists
+		*/
+		std::string getExtraMetadata(const std::string & key);
+
+		/**
+		* Get the count of extra metadata in the instance.
+		*/
+		unsigned int getExtraMetadataCount() const;
+
+		/**
+		* Get the key of a string value pair at a particular index in the extra metadata set
+		*/
+		std::string getExtraMetadataKeyAtIndex(const unsigned int & index) const;
+
+		/**
+		* Get the string value of a string value pair at a particular index in the extra metadata set
+		*/
+		std::string getExtraMetadataStringValueAtIndex(const unsigned int & index) const;
 	};
 }

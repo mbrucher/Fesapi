@@ -1751,7 +1751,7 @@ FluidBoundaryFeature* EpcDocument::createFluidBoundaryFeature(const std::string 
 //************ INTERPRETATION ********
 //************************************
 
-GenericFeatureInterpretation* EpcDocument::createGenericFeatureInterpretation(AbstractFeature * feature, const std::string & guid, const std::string & title)
+GenericFeatureInterpretation* EpcDocument::createGenericFeatureInterpretation(resqml2::AbstractFeature * feature, const std::string & guid, const std::string & title)
 {
 	GenericFeatureInterpretation* result = new GenericFeatureInterpretation(feature, guid, title);
 	addGsoapProxyAndDeleteItIfException(result);

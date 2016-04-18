@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractFeature.h"
+#include "resqml2/AbstractFeature.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractGeologicFeature : public AbstractFeature
+	class DLL_IMPORT_OR_EXPORT AbstractGeologicFeature : public resqml2::AbstractFeature
 	{
 	public:
 		/**
@@ -46,7 +46,7 @@ namespace resqml2_0_1
 		*/
 		AbstractGeologicFeature() {}
 
-		AbstractGeologicFeature(gsoap_resqml2_0_1::resqml2__AbstractGeologicFeature* fromGsoap): AbstractFeature(fromGsoap) {}
+		AbstractGeologicFeature(gsoap_resqml2_0_1::resqml2__AbstractGeologicFeature* fromGsoap) : resqml2::AbstractFeature(fromGsoap) {}
 		virtual ~AbstractGeologicFeature() {}
 
 	};

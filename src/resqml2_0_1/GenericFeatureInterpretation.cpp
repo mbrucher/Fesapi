@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractFeature.h"
+#include "resqml2/AbstractFeature.h"
 
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
@@ -44,7 +44,7 @@ using namespace epc;
 
 const char* GenericFeatureInterpretation::XML_TAG = "GenericFeatureInterpretation";
 
-GenericFeatureInterpretation::GenericFeatureInterpretation(AbstractFeature * feature, const string & guid, const string & title)
+GenericFeatureInterpretation::GenericFeatureInterpretation(resqml2::AbstractFeature * feature, const string & guid, const string & title)
 {
 	if (!feature)
 		throw invalid_argument("The interpreted feature cannot be null.");

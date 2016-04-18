@@ -38,13 +38,13 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT PropertyKind : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT PropertyKind : public resqml2::AbstractObject
 	{
 	public:
 		/**
 		* Only to be used in partial transfer context
 		*/
-		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractResqmlDataObject(nullptr, partialObject) {}
+		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(nullptr, partialObject) {}
 
 		/**
 		* Creates a local property type which derives from a standard Energistics property type.
@@ -73,7 +73,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		PropertyKind(gsoap_resqml2_0_1::_resqml2__PropertyKind* fromGsoap):AbstractResqmlDataObject(fromGsoap), parentPropertyKind(nullptr) {}
+		PropertyKind(gsoap_resqml2_0_1::_resqml2__PropertyKind* fromGsoap) :AbstractObject(fromGsoap), parentPropertyKind(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

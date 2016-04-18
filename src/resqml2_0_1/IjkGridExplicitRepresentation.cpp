@@ -39,7 +39,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractFeature.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
 #include "resqml2_0_1/AbstractHdfProxy.h"
 

@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2/AbstractObject.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT MdDatum : public AbstractResqmlDataObject
+	class DLL_IMPORT_OR_EXPORT MdDatum : public resqml2::AbstractObject
 	{
 	public:
 		/**
@@ -58,7 +58,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap):AbstractResqmlDataObject(fromGsoap), localCrs(nullptr) {}
+		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap) :AbstractObject(fromGsoap), localCrs(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
