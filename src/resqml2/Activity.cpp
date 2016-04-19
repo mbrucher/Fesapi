@@ -36,6 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2/ActivityTemplate.h"
 
 #include <stdexcept>
+#include <algorithm>
 
 using namespace std;
 using namespace resqml2;

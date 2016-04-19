@@ -39,6 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #if (defined(_WIN32) || (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9))))
 #include <regex>
 #endif
+#include <algorithm>
 
 #include "tools/GuidTools.h"
 
