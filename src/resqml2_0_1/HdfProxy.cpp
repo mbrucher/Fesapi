@@ -53,20 +53,33 @@ void HdfProxy::open()
 	hdfFile = H5Fcreate( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_EXCL, H5P_DEFAULT, H5P_DEFAULT);
 	if (hdfFile < 0) // It generally means the file already exists
 	{
-		if (getEpcDocument()->isOverwritingH5FileIfNeeded())
+		htri_t isHdf5 = 0;
+		switch (getEpcDocument()->getHdf5PermissionAccess())
 		{
-			hdfFile = H5Fcreate((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
-			needUuidAttribute = true;
-		}
-		else
-		{
-			htri_t isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str());
+		case common::EpcDocument::READ_ONLY:
+			isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str());
+			if (isHdf5 > 0)
+			{
+				hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
+			}
+			else
+				throw invalid_argument("The indicated HDF5 file already exists and is not a valid HDF5 file.");
+			break;
+		case common::EpcDocument::READ_WRITE:
+			isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str());
 			if (isHdf5 > 0)
 			{
 				hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
 			}
 			else
 				throw invalid_argument("The indicated HDF5 file already exists and is not a valid HDF5 file.");
+			break;
+		case common::EpcDocument::OVERWRITE:
+			hdfFile = H5Fcreate((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+			needUuidAttribute = true;
+			break;
+		default:
+			throw invalid_argument("The HDF5 permission access is unknown.");
 		}
 	}
 	else
@@ -272,11 +285,19 @@ void HdfProxy::writeArrayNd(const std::string & groupName,
 		open();
 
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName);
+	if (grp < 0) {
+		throw invalid_argument("The group " + groupName + " could not be created.");
+	}
 
 	// Create the data space
 	hid_t space = H5Screate_simple(numDimensions, numValuesInEachDimension, nullptr);
+	if (space < 0) {
+		H5Gclose(grp);
+		throw invalid_argument("The dataspace for the dataset " + name + " could not be created.");
+	}
 
     // Create the dataset.
+	herr_t error;
 	hid_t dataset;
 	if (compressionLevel)
 	{
@@ -284,16 +305,33 @@ void HdfProxy::writeArrayNd(const std::string & groupName,
 		H5Pset_deflate (dcpl, compressionLevel);
 		H5Pset_chunk (dcpl, numDimensions, numValuesInEachDimension);
 
-		dataset = H5Dcreate (grp, name.c_str(), datatype, space, H5P_DEFAULT, dcpl, H5P_DEFAULT);
+		dataset = H5Dcreate(grp, name.c_str(), datatype, space, H5P_DEFAULT, dcpl, H5P_DEFAULT);
+		if (dataset < 0) {
+			H5Pclose(dcpl);
+			H5Sclose(space);
+			H5Gclose(grp);
+			throw invalid_argument("The dataset " + name + " could not be created.");
+		}
 
 		H5Pclose(dcpl);
 	}
 	else
 	{
 		dataset = H5Dcreate (grp, name.c_str(), datatype, space, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+		if (dataset < 0) {
+			H5Sclose(space);
+			H5Gclose(grp);
+			throw invalid_argument("The dataset " + name + " could not be created.");
+		}
 	}
 
-	H5Dwrite(dataset, datatype, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
+	error = H5Dwrite(dataset, datatype, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
+	if (error < 0) {
+		H5Sclose(space);
+		H5Dclose(dataset);
+		H5Gclose(grp);
+		throw invalid_argument("The data could not be written in dataset " + name);
+	}
 
 	H5Sclose(space);
 	H5Dclose(dataset);
@@ -570,6 +608,9 @@ int HdfProxy::openOrCreateHdfResqmlGroup()
 int HdfProxy::openOrCreateGroupInResqmlGroup(const string & groupName)
 {
 	hid_t resqmlGroup = openOrCreateHdfResqmlGroup();
+	if (resqmlGroup < 0) {
+		throw invalid_argument("The resqml group could not be opended or created in the hdf file.");
+	}
 
 	H5O_info_t info;
 	herr_t status = H5Oget_info_by_name(resqmlGroup, groupName.c_str(), &info, H5P_DEFAULT);

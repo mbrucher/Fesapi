@@ -1136,7 +1136,7 @@ void deserializeActivity(resqml2::AbstractObject* resqmlObject)
 
 bool serialize(const string & filePath)
 {
-	common::EpcDocument pck(filePath, true);
+	common::EpcDocument pck(filePath, common::EpcDocument::OVERWRITE);
 
 	AbstractHdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
 	
@@ -1335,7 +1335,7 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 
 void deserialize(const string & inputFile)
 {
-	common::EpcDocument pck(inputFile);
+	common::EpcDocument pck(inputFile, common::EpcDocument::READ_ONLY);
     //common::EpcDocument pck(inputFile, "/home/philippe/dev/fesapi/resources");
 	string resqmlResult = pck.deserialize();
 	if (!resqmlResult.empty())
