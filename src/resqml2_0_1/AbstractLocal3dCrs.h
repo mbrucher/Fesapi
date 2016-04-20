@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2/AbstractObject.h"
+#include "resqml2_0_1/MdDatum.h"
 
 namespace resqml2_0_1
 {
@@ -47,7 +47,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		AbstractLocal3dCrs(gsoap_resqml2_0_1::resqml2__AbstractLocal3dCrs* fromGsoap):
-			AbstractObject(fromGsoap)/*, global2dCrs(nullptr), global1dCrs(nullptr), globalTimeCrs(nullptr)*/ {}
+			AbstractObject(fromGsoap) {}
 
 		/**
 		* Get the Z offset which is always equal to zero for a time CRS.
@@ -67,12 +67,6 @@ namespace resqml2_0_1
 		* Does not add the inverse relationship i.e. from the geometrical representation to this local CRS.
 		*/
 		void addRepresentation(class AbstractRepresentation* rep) {repSet.push_back(rep);}
-
-		/**
-		* Add a md information which is based on this local CRS
-		* Does not add the inverse relationship i.e. from the md information to this local CRS.
-		*/
-		void addMdDatum(class MdDatum* mdInfo) {MdDatumSet.push_back(mdInfo);}
 
 		/**
 		* Get the first origin ordinal (usually called X) of the local CRS in the global projected CRS.
@@ -183,6 +177,15 @@ namespace resqml2_0_1
 
 		// XML backward relationship
 		std::vector<class AbstractRepresentation*> repSet;
-		std::vector<class MdDatum*> MdDatumSet;
+		std::vector<class MdDatum*> mdDatumSet;
+
+	private:
+		/**
+		* Add a md information which is based on this local CRS
+		* Does not add the inverse relationship i.e. from the md information to this local CRS.
+		*/
+		void addMdDatum(class MdDatum* mdInfo);
+
+		friend void MdDatum::setLocalCrs(class AbstractLocal3dCrs * localCrs);
 	};
 }

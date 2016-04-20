@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 
 #include <stdexcept>
+#include <algorithm>
 
 #include "resqml2_0_1/MdDatum.h"
 #include "resqml2_0_1/AbstractRepresentation.h"
@@ -60,9 +61,9 @@ vector<Relationship> AbstractLocal3dCrs::getAllEpcRelationships() const
 	}
 
 	// MD information set
-	for (unsigned int i = 0; i < MdDatumSet.size(); i++)
+	for (unsigned int i = 0; i < mdDatumSet.size(); i++)
 	{
-		Relationship rel(MdDatumSet[i]->getPartNameInEpcDocument(), "", MdDatumSet[i]->getUuid());
+		Relationship rel(mdDatumSet[i]->getPartNameInEpcDocument(), "", mdDatumSet[i]->getUuid());
 		rel.setSourceObjectType();
 		result.push_back(rel);
 	}
@@ -207,4 +208,10 @@ void AbstractLocal3dCrs::convertXyzPointsToGlobalCrs(double * xyzPoints, const U
 			xyzPoints[i+2] += originOrdinal3;
 		}
 	}
+}
+
+void AbstractLocal3dCrs::addMdDatum(MdDatum* mdInfo)
+{
+	if (find(mdDatumSet.begin(), mdDatumSet.end(), mdInfo) != mdDatumSet.end())
+		mdDatumSet.push_back(mdInfo);
 }

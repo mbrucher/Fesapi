@@ -58,7 +58,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap) :AbstractObject(fromGsoap), localCrs(nullptr) {}
+		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap) :AbstractObject(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -75,9 +75,14 @@ namespace resqml2_0_1
 		void addWellboreTrajectoryRepresentation(class WellboreTrajectoryRepresentation* traj) {wellboreTrajectoryRepresentationSet.push_back(traj);}
 
 		/**
+		* Set the local CR Swhere the reference point ordinals are given
+		*/
+		void setLocalCrs(class AbstractLocal3dCrs * localCrs);
+
+		/**
 		* Get the Local 3d CRS where the reference point ordinals are given
 		*/
-		class AbstractLocal3dCrs * getLocalCrs() {return localCrs;}
+		class AbstractLocal3dCrs * getLocalCrs() const;
 
 		/**
 		* Get the Local 3d CRS uuid where the reference point ordinals are given
@@ -111,9 +116,6 @@ namespace resqml2_0_1
 
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-		// XML forward relationship
-		class AbstractLocal3dCrs * localCrs;
 
 		// XML backward relationship
 		std::vector<class WellboreTrajectoryRepresentation*> wellboreTrajectoryRepresentationSet;

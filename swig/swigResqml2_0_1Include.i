@@ -2246,7 +2246,7 @@ namespace resqml2_0_1
 	{
 	public:
 		std::string getLocalCrsUuid() const;
-		AbstractLocal3dCrs * getLocalCrs();
+		AbstractLocal3dCrs * getLocalCrs() const;
 		
 		double getX() const;
 		double getXInGlobalCrs() const;

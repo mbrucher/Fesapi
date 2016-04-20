@@ -47,7 +47,7 @@ const char* MdDatum::XML_TAG = "MdDatum";
 
 MdDatum::MdDatum(soap* soapContext, const string & guid, const string & title,
 			AbstractLocal3dCrs * locCrs, const resqml2__MdReference & originKind,
-			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3) : localCrs(locCrs)
+			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3)
 {
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context must exist");
@@ -55,8 +55,7 @@ MdDatum::MdDatum(soap* soapContext, const string & guid, const string & title,
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREMdDatum(soapContext, 1);
 	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
 	
-	mdInfo->LocalCrs = locCrs->newResqmlReference();
-	locCrs->addMdDatum(this);
+	setLocalCrs(locCrs);
 
 	mdInfo->MdReference = originKind;
 	mdInfo->Location = soap_new_resqml2__Point3d(soapContext, 1);
@@ -72,9 +71,17 @@ void MdDatum::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
 	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
 
-	localCrs = static_cast<AbstractLocal3dCrs*>(epcDoc->getResqmlAbstractObjectByUuid(mdInfo->LocalCrs->UUID));
-	if (localCrs)
-		localCrs->addMdDatum(this);
+	AbstractObject* localCrs = epcDoc->getResqmlAbstractObjectByUuid(mdInfo->LocalCrs->UUID);
+	if (dynamic_cast<AbstractLocal3dCrs*>(localCrs) != nullptr)
+	{
+		updateXml = false;
+		setLocalCrs(static_cast<AbstractLocal3dCrs*>(localCrs));
+		updateXml = true;
+	}
+	else
+	{
+		throw logic_error("The referenced local crs does not look to be a local crs.");
+	}
 }
 
 vector<Relationship> MdDatum::getAllEpcRelationships() const
@@ -84,9 +91,10 @@ vector<Relationship> MdDatum::getAllEpcRelationships() const
 	vector<Relationship> result;
 
 	// local 3d CRS
+	AbstractLocal3dCrs* localCrs = getLocalCrs();
 	if (localCrs)
 	{
-		Relationship relLocalCrs(localCrs->getPartNameInEpcDocument(), "", mdInfo->LocalCrs->UUID);
+		Relationship relLocalCrs(localCrs->getPartNameInEpcDocument(), "", getLocalCrsUuid());
 		relLocalCrs.setDestinationObjectType();
 		result.push_back(relLocalCrs);
 	}
@@ -104,6 +112,22 @@ vector<Relationship> MdDatum::getAllEpcRelationships() const
 	return result;
 }
 
+void MdDatum::setLocalCrs(AbstractLocal3dCrs * localCrs)
+{
+	localCrs->addMdDatum(this);
+
+	if (updateXml) {
+		_resqml2__MdDatum* mdDatum = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
+		mdDatum->LocalCrs = localCrs->newResqmlReference();
+	}
+}
+
+AbstractLocal3dCrs * MdDatum::getLocalCrs() const
+{
+	string uuidLocalCrs = getLocalCrsUuid();
+	return static_cast<AbstractLocal3dCrs*>(epcDocument->getResqmlAbstractObjectByUuid(uuidLocalCrs));
+}
+
 double MdDatum::getX() const
 {
 	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->Location->Coordinate1;
@@ -115,7 +139,7 @@ double MdDatum::getXInGlobalCrs() const
 	if (result[0] != result[0])
 		return result[0];
 
-	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+	getLocalCrs()->convertXyzPointsToGlobalCrs(result, 1);
 
 	return result[0];
 }
@@ -131,7 +155,7 @@ double MdDatum::getYInGlobalCrs() const
 	if (result[0] != result[0])
 		return result[0];
 
-	localCrs->convertXyzPointsToGlobalCrs(result, 1);
+	getLocalCrs()->convertXyzPointsToGlobalCrs(result, 1);
 
 	return result[1];
 }
@@ -144,6 +168,7 @@ double MdDatum::getZ() const
 double MdDatum::getZInGlobalCrs() const
 {
 	double originOrdinal3 = .0;
+	AbstractLocal3dCrs* localCrs = getLocalCrs();
 	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 		originOrdinal3 = localCrs->getOriginDepthOrElevation();
 	return getZ() + originOrdinal3;
@@ -158,4 +183,3 @@ std::string MdDatum::getLocalCrsUuid() const
 {
 	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->LocalCrs->UUID;
 }
-
