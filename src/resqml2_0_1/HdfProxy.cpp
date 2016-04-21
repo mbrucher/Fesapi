@@ -393,7 +393,6 @@ void HdfProxy::writeArrayNdSlab(
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName);
 	hid_t dataset = H5Dopen(grp, datasetName.c_str(), H5P_DEFAULT);
 	
-
 	hid_t filespace = H5Dget_space(dataset);
 	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, nullptr, numValuesInEachDimension, nullptr);
 
@@ -404,7 +403,7 @@ void HdfProxy::writeArrayNdSlab(
 	hid_t memspace = H5Screate_simple(1, &slab_size, nullptr);
 
 	hid_t datatype = H5Dget_type(dataset);
-	H5Dwrite(dataset, datatype, datatype, memspace, H5P_DEFAULT, values);
+	H5Dwrite(dataset, datatype, memspace, filespace, H5P_DEFAULT, values);
 
 	H5Tclose(datatype);
 	H5Sclose(memspace);

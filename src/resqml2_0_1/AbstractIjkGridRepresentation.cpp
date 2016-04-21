@@ -258,44 +258,63 @@ ULONG64 AbstractIjkGridRepresentation::getSplitNodeCount() const
 void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis, bool reverseJAxis) const
 {
 	_resqml2__IjkGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry)
+	if (grid->Geometry != nullptr)
 	{
 		unsigned int pillarCount = (getJCellCount() + 1) * (getICellCount() + 1);
 		if (grid->Geometry->PillarGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 		{
-			if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_CHAR)
+			hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile);
+			if (H5Tequal(dt, H5T_NATIVE_CHAR) > 0)
 			{
 				char* tmp = new char[pillarCount];
 				hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile, tmp);
-				for (unsigned int i = 0; i < pillarCount; i++)
+				for (unsigned int i = 0; i < pillarCount; ++i)
+				{
 					if (tmp[i] == 0) pillarGeometryIsDefined[i] = false; else pillarGeometryIsDefined[i] = true;
-				delete [] tmp;
+				}
+				delete[] tmp;
 			}
-			else if (hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile) == H5T_NATIVE_UCHAR)
+			else if (H5Tequal(dt, H5T_NATIVE_UCHAR) > 0)
 			{
 				unsigned char* tmp = new unsigned char[pillarCount];
 				hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(grid->Geometry->PillarGeometryIsDefined)->Values->PathInHdfFile, tmp);
-				for (unsigned int i = 0; i < pillarCount; i++)
+				for (unsigned int i = 0; i < pillarCount; ++i)
+				{
 					if (tmp[i] == 0) pillarGeometryIsDefined[i] = false; else pillarGeometryIsDefined[i] = true;
-				delete [] tmp;
+				}
+				delete[] tmp;
 			}
 			else
+			{
 				throw std::logic_error("Not yet implemented");
+			}
 		}
 		else if (grid->Geometry->PillarGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanConstantArray)
 		{
 			if (static_cast<resqml2__BooleanConstantArray*>(grid->Geometry->PillarGeometryIsDefined)->Value == true)
-				for (unsigned int i = 0; i < pillarCount; i++)
+			{
+				for (unsigned int i = 0; i < pillarCount; ++i)
+				{
 					pillarGeometryIsDefined[i] = true;
+				}
+			}
 			else
-				for (unsigned int i = 0; i < pillarCount; i++)
+			{
+				for (unsigned int i = 0; i < pillarCount; ++i)
+				{
 					pillarGeometryIsDefined[i] = false;
+				}
+			}
 		}
 		else
+		{
 			throw std::logic_error("Not yet implemented");
 		}
+	}
 	else
+	{
 		throw invalid_argument("The grid has no geometry.");
+	}
 
 	
 

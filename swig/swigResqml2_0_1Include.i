@@ -2711,6 +2711,7 @@ namespace resqml2_0_1
 			
 		void addParentTrajectory(const double & kickoffMd, const double & parentMd, WellboreTrajectoryRepresentation* parentTrajRep);
 		WellboreTrajectoryRepresentation* getParentTrajectory() const;
+		const double& WellboreTrajectoryRepresentation::getParentTrajectoryMd() const;
 		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
 
 		int getGeometryKind() const;

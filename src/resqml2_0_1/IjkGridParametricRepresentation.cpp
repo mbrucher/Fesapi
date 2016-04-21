@@ -536,10 +536,10 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {
-	if (!pillarKind)
+	if (pillarKind == nullptr)
 		throw invalid_argument("The kind of the coordinate lines cannot be null.");
 
-	setGeometryAsParametricSplittedPillarNodes(kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, 2, hdfProxy,
+	setGeometryAsParametricSplittedPillarNodes(kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, 2, proxy,
 		splitCoordinateLineCount, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
 	resqml2__IjkGridGeometry* geom = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1)->Geometry;
@@ -604,18 +604,24 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 	const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 	unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {
-	if (!proxy)
+	if (proxy == nullptr) {
 		throw invalid_argument("The hdf proxy cannot be null.");
-	if (!parameters)
+	}
+	if (parameters == nullptr) {
 		throw invalid_argument("The parameters of the nodes of the ijk grid cannot be null.");
-	if (!controlPoints)
+	}
+	if (controlPoints == nullptr) {
 		throw invalid_argument("The control points of the coordinate lines of the ijk grid cannot be null.");
-	if (controlPointCountPerPillar<1)
+	}
+	if (controlPointCountPerPillar < 1) {
 		throw invalid_argument("The max count of control points per coordinate line of the ijk grid cannot be less than one.");
-	if (pillarKind < 0 || pillarKind > 5)
+	}
+	if (pillarKind < 0 || pillarKind > 5) {
 		throw range_error("The kind of the coordinate lines is out of range.");
-	if (splitCoordinateLineCount != 0 && (!pillarOfCoordinateLine || !splitCoordinateLineColumnCumulativeCount || !splitCoordinateLineColumns))
+	}
+	if (splitCoordinateLineCount != 0 && (pillarOfCoordinateLine == nullptr || splitCoordinateLineColumnCumulativeCount == nullptr || splitCoordinateLineColumns == nullptr)) {
 		throw invalid_argument("The definition of the split coordinate lines is incomplete.");
+	}
 
 	setHdfProxy(proxy);
 

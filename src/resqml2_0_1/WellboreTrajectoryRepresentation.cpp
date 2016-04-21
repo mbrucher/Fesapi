@@ -268,6 +268,15 @@ WellboreTrajectoryRepresentation* WellboreTrajectoryRepresentation::getParentTra
 		throw invalid_argument("The parent trajectory (or its reference) of this wellbore trajectory does not look valid regarding EPC/XML");
 }
 
+const double& WellboreTrajectoryRepresentation::getParentTrajectoryMd() const
+{
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
+	if (rep->ParentIntersection != nullptr)
+		return rep->ParentIntersection->ParentMd;
+	else
+		throw logic_error("This wellbore trajectory has no parent trajecory.");
+}
+
 const std::vector<WellboreTrajectoryRepresentation*> & WellboreTrajectoryRepresentation::getChildrenTrajectorySet() const
 {
 	return childrenTrajSet;

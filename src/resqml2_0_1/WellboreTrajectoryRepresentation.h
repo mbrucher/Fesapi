@@ -173,6 +173,11 @@ namespace resqml2_0_1
 		WellboreTrajectoryRepresentation* getParentTrajectory() const;
 
 		/**
+		* Get the MD on the parent wellbore trajectory where this trajectory is starting.
+		*/
+		const double& WellboreTrajectoryRepresentation::getParentTrajectoryMd() const;
+
+		/**
 		* Get a set of all children trajecotries of this trajectory
 		*/
 		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
