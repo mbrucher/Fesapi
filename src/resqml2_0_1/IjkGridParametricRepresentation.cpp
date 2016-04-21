@@ -578,8 +578,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 
 	resqml2__Point3dParametricArray* xmlPoints = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 
-	resqml2__ParametricLineArray* paramLines = soap_new_resqml2__ParametricLineArray(gsoapProxy2_0_1->soap, 1);
-	xmlPoints->ParametricLines = paramLines;
+	resqml2__ParametricLineArray* paramLines = static_cast<resqml2__ParametricLineArray*>(xmlPoints->ParametricLines);
 	paramLines->KnotCount = controlPointMaxCountPerPillar;
 
 	// XML Line kinds

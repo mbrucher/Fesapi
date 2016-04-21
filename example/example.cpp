@@ -442,6 +442,16 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	ijkgridParametric->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPoints, NULL, 1, 0, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
+	// TWO SUGARS PARAMETRIC different line kind
+	IjkGridParametricRepresentation* ijkgridParametricNotSameLineKind = pck->createIjkGridParametricRepresentation(local3dCrs, "3ce91933-4f6f-4f35-b0ac-4ba4672f0a87", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
+	double nan = numeric_limits<double>::quiet_NaN();
+	double controlPointsNotSameLineKind[36] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350,
+		50, 30, 1000, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan };
+	double controlPointParametersNotSameLineKind[12] = { 300, 300, 350, 300, 300, 350, 1000, nan, nan, nan, nan, nan };
+	short pillarKind[6] = { 1, 0, 0, 0, 0, 0 };
+	ijkgridParametricNotSameLineKind->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__PillarShape__straight, gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPointsNotSameLineKind, controlPointParametersNotSameLineKind, 2, pillarKind, hdfProxy,
+		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
+
 	//**************
 	// Subrepresentations
 	//**************
