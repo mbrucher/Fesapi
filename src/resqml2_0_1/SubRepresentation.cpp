@@ -55,7 +55,7 @@ void SubRepresentation::init(
 		AbstractRepresentation * supportingRep)
 {
 	if (supportingRep == nullptr)
-		throw invalid_argument("The supportng representation of the subrepresentation cannot be null.");
+		throw invalid_argument("The supporting representation of the subrepresentation cannot be null.");
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORESubRepresentation(supportingRep->getGsoapContext(), 1);
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
@@ -64,7 +64,6 @@ void SubRepresentation::init(
     setMetadata(guid, title, "", -1, "", "", -1, "", "");
 	
 	rep->SupportingRepresentation = supportingRep->newResqmlReference();
-	supportingRepresentation = supportingRep;
 	supportingRep->addSubRepresentation(this);
 }
 
@@ -96,17 +95,6 @@ _resqml2__SubRepresentation* SubRepresentation::getSpecializedGsoapProxy() const
 		throw logic_error("Partial object");
 
 	return static_cast<_resqml2__SubRepresentation*>(gsoapProxy2_0_1);
-}
-
-bool SubRepresentation::isElementPairBased(const unsigned int & patchIndex) const
-{
-	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
-	if (rep->SubRepresentationPatch.size() > patchIndex)
-	{
-		return rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() == 2;
-	}
-	else
-		throw range_error("The patch does not exist at this index.");
 }
 
 void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & originIndex,
@@ -286,26 +274,41 @@ ULONG64 SubRepresentation::getElementCountOfPatch(const unsigned int & patchInde
 		throw range_error("The patch does not exist at this index.");
 }
 
-bool SubRepresentation::areElementPairwise(const unsigned int & patchIndex) const
+bool SubRepresentation::areElementIndicesPairwise(const unsigned int & patchIndex) const
 {
-	return getSpecializedGsoapProxy()->SubRepresentationPatch[patchIndex]->ElementIndices.size() > 1;
+	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
+	if (rep->SubRepresentationPatch.size() > patchIndex)
+	{
+		return rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() == 2;
+	}
+	else
+		throw range_error("The patch does not exist at this index.");
 }
 
 bool SubRepresentation::areElementIndicesBasedOnLattice(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const
 {
-	return getSpecializedGsoapProxy()->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray;
+	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
+	if (rep->SubRepresentationPatch.size() > patchIndex)
+	{
+		return rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray;
+	}
+	else
+		throw range_error("The patch does not exist at this index.");
 }
 
 LONG64 SubRepresentation::getLatticeElementIndicesStartValue(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 
-	if (areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex) == false)
+	if (areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex) == false) {
 		throw invalid_argument("The element indices are not based on a lattice.");
-	if (rep->SubRepresentationPatch.size() <= patchIndex)
+	}
+	if (rep->SubRepresentationPatch.size() <= patchIndex) {
 		throw range_error("The subrepresentation patch index is out of range.");
-	if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex)
+	}
+	if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex) {
 		throw range_error("The element indices index is out of range.");
+	}
 
 	resqml2__IntegerLatticeArray* lattice = static_cast<resqml2__IntegerLatticeArray*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices);
 	return lattice->StartValue;
@@ -385,9 +388,13 @@ vector<Relationship> SubRepresentation::getAllEpcRelationships() const
 {
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
 
-	Relationship rel(supportingRepresentation->getPartNameInEpcDocument(), "", supportingRepresentation->getUuid());
-	rel.setDestinationObjectType();
-	result.push_back(rel);
+	AbstractRepresentation* supportingRep = getSupportingRepresentation();
+	if (!supportingRep->isPartial())
+	{
+		Relationship rel(supportingRep->getPartNameInEpcDocument(), "", supportingRep->getUuid());
+		rel.setDestinationObjectType();
+		result.push_back(rel);
+	}
     
 	return result;
 }
@@ -399,16 +406,25 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 	_resqml2__SubRepresentation* subRep = getSpecializedGsoapProxy();
 
 	// Supporting representation
-	supportingRepresentation = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(subRep->SupportingRepresentation->UUID));
-	if (supportingRepresentation == nullptr) // partial transfer
+	resqml2::AbstractObject* supportingRepInEpc = epcDoc->getResqmlAbstractObjectByUuid(subRep->SupportingRepresentation->UUID);
+	AbstractRepresentation* supportingRep = nullptr;
+	if (supportingRepInEpc == nullptr) // partial transfer
 	{
 		getEpcDocument()->addWarning("The referenced grid \"" + subRep->SupportingRepresentation->Title + "\" (" + subRep->SupportingRepresentation->UUID + ") is missing.");
 		if (subRep->SupportingRepresentation->ContentType.find("UnstructuredGridRepresentation") != 0)
-			supportingRepresentation = epcDoc->createPartialUnstructuredGridRepresentation(subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
+			supportingRep = epcDoc->createPartialUnstructuredGridRepresentation(subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
 		else if (subRep->SupportingRepresentation->ContentType.find("IjkGridRepresentation") != 0)
-			supportingRepresentation = epcDoc->createPartialIjkGridRepresentation(subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
+			supportingRep = epcDoc->createPartialIjkGridRepresentation(subRep->SupportingRepresentation->UUID, subRep->SupportingRepresentation->Title);
 	}
-	supportingRepresentation->addSubRepresentation(this);
+	else if (dynamic_cast<AbstractRepresentation*>(supportingRepInEpc) != nullptr)
+	{
+		supportingRep = static_cast<AbstractRepresentation*>(supportingRepInEpc);
+	}
+	else
+	{
+		throw logic_error("The referenced supporting representation does not look to be a representation.");
+	}
+	supportingRep->addSubRepresentation(this);
 }
 
 ULONG64 SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
@@ -433,4 +449,10 @@ void SubRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, dou
 unsigned int SubRepresentation::getPatchCount() const
 {
 	return getSpecializedGsoapProxy()->SubRepresentationPatch.size();
+}
+
+AbstractRepresentation* SubRepresentation::getSupportingRepresentation() const
+{
+	_resqml2__SubRepresentation* subRep = getSpecializedGsoapProxy();
+	return static_cast<AbstractRepresentation*>(getEpcDocument()->getResqmlAbstractObjectByUuid(subRep->SupportingRepresentation->UUID));
 }

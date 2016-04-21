@@ -76,7 +76,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		SubRepresentation(gsoap_resqml2_0_1::_resqml2__SubRepresentation* fromGsoap): AbstractRepresentation(fromGsoap), supportingRepresentation(nullptr) {}
+		SubRepresentation(gsoap_resqml2_0_1::_resqml2__SubRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
@@ -87,11 +87,6 @@ namespace resqml2_0_1
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		std::string getHdfProxyUuid() const;
-
-		/**
-		* Indicates if the instance contains elements which are pair of elements.
-		*/
-		bool isElementPairBased(const unsigned int & patchIndex) const;
 
 		/**
 		* Get the kind of the selected elements for a particular patch of this subrepresentation.
@@ -111,7 +106,7 @@ namespace resqml2_0_1
 		/**
 		* Check if the element of a particular patch are pairwise or not.
 		*/
-		bool areElementPairwise(const unsigned int & patchIndex) const;
+		bool areElementIndicesPairwise(const unsigned int & patchIndex) const;
 
 		/**
 		* Check if the element indices of a particular patch are based on a lattice or not.
@@ -182,13 +177,13 @@ namespace resqml2_0_1
 
 		unsigned int getPatchCount() const;
 
+		AbstractRepresentation* getSupportingRepresentation() const;
+
 	private:
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
 		
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-		class AbstractRepresentation* supportingRepresentation;
 	};
 }

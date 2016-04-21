@@ -2528,11 +2528,19 @@ namespace resqml2_0_1
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
 			AbstractHdfProxy * proxy);
 		
-		bool isElementPairBased(const unsigned int & patchIndex) const;
+		bool areElementIndicesPairwise(const unsigned int & patchIndex) const;
+		bool areElementIndicesBasedOnLattice(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+
+		LONG64 getLatticeElementIndicesStartValue(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+		unsigned int getLatticeElementIndicesDimensionCount(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+		LONG64 getLatticeElementIndicesOffsetValue(const unsigned int & latticeDimensionIndex, const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
+		ULONG64 getLatticeElementIndicesOffsetCount(const unsigned int & latticeDimensionIndex, const unsigned int & patchIndex, const unsigned int & elementIndicesIndex = 0) const;
 		
 		gsoap_resqml2_0_1::resqml2__IndexableElements getElementKindOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const;
 		ULONG64 getElementCountOfPatch(const unsigned int & patchIndex) const;
 		void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, unsigned int * elementIndices) const;
+		
+		AbstractRepresentation* getSupportingRepresentation() const;
 	};
 
 	class PolylineSetRepresentation : public AbstractRepresentation
