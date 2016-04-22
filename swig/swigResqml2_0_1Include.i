@@ -2699,7 +2699,7 @@ namespace resqml2_0_1
 		WellboreFrameRepresentation* getWellboreFrameRepresentation(const unsigned int & index) const;
 		
 		std::string getMdDatumUuid() const;
-		MdDatum * getMdDatum();
+		MdDatum * getMdDatum() const;
 		
 		void setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, class AbstractHdfProxy * proxy);
 		void setGeometry(double * controlPoints,
@@ -2711,7 +2711,7 @@ namespace resqml2_0_1
 			
 		void addParentTrajectory(const double & kickoffMd, const double & parentMd, WellboreTrajectoryRepresentation* parentTrajRep);
 		WellboreTrajectoryRepresentation* getParentTrajectory() const;
-		const double& WellboreTrajectoryRepresentation::getParentTrajectoryMd() const;
+		const double& getParentTrajectoryMd() const;
 		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
 
 		int getGeometryKind() const;

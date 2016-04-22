@@ -54,7 +54,7 @@ using namespace common;
 const char* WellboreTrajectoryRepresentation::XML_TAG = "WellboreTrajectoryRepresentation";
 
 WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, MdDatum * mdInfo) :
-	AbstractRepresentation(interp, mdInfo->getLocalCrs()), mdDatum(mdInfo), witsmlTrajectory(nullptr)
+	AbstractRepresentation(interp, mdInfo->getLocalCrs()), witsmlTrajectory(nullptr)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getGsoapContext(), 1);	
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
@@ -171,9 +171,10 @@ vector<Relationship> WellboreTrajectoryRepresentation::getAllEpcRelationships() 
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
 
 	// XML forward relationship
+	MdDatum* mdDatum = getMdDatum();
 	if (mdDatum)
 	{
-		Relationship relMdInfo(mdDatum->getPartNameInEpcDocument(), "", rep->MdDatum->UUID);
+		Relationship relMdInfo(mdDatum->getPartNameInEpcDocument(), "", getMdDatumUuid());
 		relMdInfo.setDestinationObjectType();
 		result.push_back(relMdInfo);
 	}
@@ -219,9 +220,15 @@ void WellboreTrajectoryRepresentation::importRelationshipSetFromEpc(common::EpcD
 
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 
-	mdDatum = static_cast<MdDatum*>(epcDoc->getResqmlAbstractObjectByUuid(rep->MdDatum->UUID));
-	if (mdDatum)
-		mdDatum->addWellboreTrajectoryRepresentation(this);
+	AbstractObject* mdDatum = epcDoc->getResqmlAbstractObjectByUuid(getMdDatumUuid());
+	if (dynamic_cast<MdDatum*>(mdDatum) != nullptr)
+	{
+		static_cast<MdDatum*>(mdDatum)->addWellboreTrajectoryRepresentation(this);
+	}
+	else
+	{
+		throw logic_error("The referenced wellbore trajectory does not look to be a wellbore trajectory.");
+	}
 
 	if (rep->ParentIntersection)
 	{
@@ -368,6 +375,11 @@ void WellboreTrajectoryRepresentation::getTangentVectors(double* tangentVectors)
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 	resqml2__Point3dHdf5Array* xmlTangentVectors = static_cast<resqml2__Point3dHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->TangentVectors);
 	hdfProxy->readArrayNdOfDoubleValues(xmlTangentVectors->Coordinates->PathInHdfFile, tangentVectors);
+}
+
+MdDatum * WellboreTrajectoryRepresentation::getMdDatum() const
+{
+	return static_cast<MdDatum*>(getEpcDocument()->getResqmlAbstractObjectByUuid(getMdDatumUuid()));
 }
 
 std::string WellboreTrajectoryRepresentation::getMdDatumUuid() const

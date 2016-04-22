@@ -62,7 +62,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		WellboreTrajectoryRepresentation(gsoap_resqml2_0_1::_resqml2__WellboreTrajectoryRepresentation* fromGsoap): AbstractRepresentation(fromGsoap),
-				mdDatum(nullptr), witsmlTrajectory(nullptr) {}
+				witsmlTrajectory(nullptr) {}
 
 		~WellboreTrajectoryRepresentation() {}
 
@@ -111,7 +111,7 @@ namespace resqml2_0_1
 		/**
 		* Getter of the md information associated to this WellboreFeature trajectory representation.
 		*/
-		class MdDatum * getMdDatum() {return mdDatum;}
+		class MdDatum * getMdDatum() const;
 
 		/**
 		* Getter of the md information uuid associated to this WellboreFeature trajectory representation.
@@ -178,7 +178,7 @@ namespace resqml2_0_1
 		const double& getParentTrajectoryMd() const;
 
 		/**
-		* Get a set of all children trajecotries of this trajectory
+		* Get a set of all children trajectories of this trajectory
 		*/
 		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
 
@@ -195,7 +195,7 @@ namespace resqml2_0_1
 
 		/**
 		 * Get the count of wellbore frame representation which are associated with this wellbore trajectory.
-		* Necessary for now in SWIG context because I ma not sure if I can always wrap a vector of polymorphic class yet.
+		* Necessary for now in SWIG context because I am not sure if I can always wrap a vector of polymorphic class yet.
 		 */
 		unsigned int getWellboreFrameRepresentationCount() const {return wellboreFrameRepresentationSet.size();}
 
@@ -230,7 +230,6 @@ namespace resqml2_0_1
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 
 		// XML forward relationships
-		class MdDatum * mdDatum;
 		witsml1_4_1_1::Trajectory * witsmlTrajectory;
 		
 		// XML backward relationships
