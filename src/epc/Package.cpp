@@ -299,10 +299,10 @@ void Package::openForReading(const std::string & pkgPathName)
 		}
 	}
 
-	// Package relationships : extended core properties
-	string extendedCpRelFilePath = extractFile("docProps/_rels/core.xml.rels", "");
-	if (!extendedCpRelFilePath.empty())
+	// Package relationships : extended core properties	
+	if (fileExists("docProps/_rels/core.xml.rels"))
 	{
+		string extendedCpRelFilePath = extractFile("docProps/_rels/core.xml.rels", "");
 		FileRelationship extendedCpRelFile;
 		extendedCpRelFile.readFromString(extendedCpRelFilePath);
 		vector<Relationship> extendedCpRelSet = extendedCpRelFile.getAllRelationship();

@@ -1338,6 +1338,7 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 					else
 						cout << "NaN" << endl;
 				}
+				delete[] doubleMds;
 			}
 		}
 	}
@@ -1602,8 +1603,8 @@ void deserialize(const string & inputFile)
 					vector<WellboreMarker*> marketSet = wmf->getWellboreMarkerSet();
 					for (size_t markerIndex = 0; markerIndex < marketSet.size(); ++markerIndex)
 					{
-						std::cout << "marker : " << marketSet[i]->getTitle() << std::endl;
-						std::cout << "marker boundary feature : " << marketSet[i]->getBoundaryFeatureInterpretation()->getTitle() << std::endl;
+						std::cout << "marker : " << marketSet[markerIndex]->getTitle() << std::endl;
+						std::cout << "marker boundary feature : " << marketSet[markerIndex]->getBoundaryFeatureInterpretation()->getTitle() << std::endl;
 					}
 
 					for (size_t l = 0; l < wmf->getPropertySet().size(); l++)
