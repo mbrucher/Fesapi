@@ -2080,7 +2080,6 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::LocalDepth3dCrs;
 	%nspace resqml2_0_1::LocalTime3dCrs ;
 	%nspace resqml2_0_1::MdDatum;
-	%nspace resqml2_0_1::AbstractFeature;
 	%nspace resqml2_0_1::AbstractGeologicFeature;
 	%nspace resqml2_0_1::GeologicUnitFeature;
 	%nspace resqml2_0_1::BoundaryFeature;
