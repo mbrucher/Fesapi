@@ -32,6 +32,10 @@
 		<description>Amplitude of the acoustic signal recorded. It is not a physical property, only a standardEnergisticsPropertyType.</description>
 		<isAbstract>false</isAbstract>
 		<parentKind>unitless</parentKind>
+		<equivalentPropertyType>
+			<name>Seismic (default)</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>angle per length</name>
@@ -174,6 +178,10 @@
 		<name>cross section absorption</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
+		<equivalentPropertyType>
+			<name>Photoelectric factor</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>current density</name>
@@ -412,6 +420,10 @@
 		<name>frequency</name>
 		<isAbstract>false</isAbstract>
 		<parentKind>quantity</parentKind>
+		<equivalentPropertyType>
+			<name>Seismic - Frequency</name>
+			<namingSystem>Petrel</namingSystem>
+		</equivalentPropertyType>
 	</standardEnergisticsPropertyType>
 	<standardEnergisticsPropertyType>
 		<name>frequency interval</name>
