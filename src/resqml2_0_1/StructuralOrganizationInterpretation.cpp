@@ -40,6 +40,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/HorizonInterpretation.h"
 #include "resqml2_0_1/EarthModelInterpretation.h"
 
+#include "tools/Misc.h"
+
 using namespace std;
 using namespace epc;
 using namespace resqml2_0_1;
@@ -64,7 +66,6 @@ StructuralOrganizationInterpretation::StructuralOrganizationInterpretation(Organ
 void StructuralOrganizationInterpretation::pushBackFaultInterpretation(FaultInterpretation * faultInterpretation)
 {
     // EPC
-	faultInterpretationSet.push_back(faultInterpretation);
 	faultInterpretation->structuralOrganizationInterpretationSet.push_back(this);
 
     // XML
@@ -76,18 +77,25 @@ void StructuralOrganizationInterpretation::pushBackFaultInterpretation(FaultInte
 	}
 }
 
+unsigned int StructuralOrganizationInterpretation::getFaultInterpretationCount() const
+{
+	return static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1)->Faults.size();
+}
+
 FaultInterpretation* StructuralOrganizationInterpretation::getFaultInterpretation(const unsigned int & index)
 {
-	if (index < faultInterpretationSet.size())
-		return faultInterpretationSet[index];
-	else
+	_resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
+	if (index < structuralOrganization->Faults.size()) {
+		return static_cast<FaultInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(structuralOrganization->Faults[index]->UUID));
+	}
+	else {
 		throw std::out_of_range("The fault index is out of range.");
+	}
 }
 
 void StructuralOrganizationInterpretation::pushBackHorizonInterpretation(HorizonInterpretation * horizonInterpretation, const int & stratigraphicRank)
 {
     // EPC
-    horizonInterpretationSet.push_back(horizonInterpretation);
 	horizonInterpretation->structuralOrganizationInterpretationSet.push_back(this);
 
     // XML
@@ -108,7 +116,6 @@ void StructuralOrganizationInterpretation::pushBackHorizonInterpretation(Horizon
 void StructuralOrganizationInterpretation::pushBackTopFrontierInterpretation(AbstractFeatureInterpretation * topFrontierInterpretation)
 {
     // EPC
-	topFrontierInterpretationSet.push_back(topFrontierInterpretation);
 	topFrontierInterpretation->setTopFrontierOf(this);
 
     // XML
@@ -123,7 +130,6 @@ void StructuralOrganizationInterpretation::pushBackTopFrontierInterpretation(Abs
 void StructuralOrganizationInterpretation::pushBackBottomFrontierInterpretation(AbstractFeatureInterpretation * bottomFrontierInterpretation)
 {
     // EPC
-	bottomFrontierInterpretationSet.push_back(bottomFrontierInterpretation);
 	bottomFrontierInterpretation->setBottomFrontierOf(this);
 
     // XML
@@ -138,7 +144,6 @@ void StructuralOrganizationInterpretation::pushBackBottomFrontierInterpretation(
 void StructuralOrganizationInterpretation::pushBackSideFrontierInterpretation(AbstractFeatureInterpretation * sideFrontierInterpretation)
 {
     // EPC
-	sideFrontierInterpretationSet.push_back(sideFrontierInterpretation);
 	sideFrontierInterpretation->setSideFrontierOf(this);
 
     // XML
@@ -154,42 +159,43 @@ vector<Relationship> StructuralOrganizationInterpretation::getAllEpcRelationship
 {
 	vector<Relationship> result = AbstractOrganizationInterpretation::getAllEpcRelationships();
 
-	for (unsigned int i = 0; i < faultInterpretationSet.size(); i++)
+	_resqml2__StructuralOrganizationInterpretation* structuralOrganization = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
+	for (size_t i = 0; i < structuralOrganization->Faults.size(); i++)
 	{
-		Relationship rel(faultInterpretationSet[i]->getPartNameInEpcDocument(), "", faultInterpretationSet[i]->getUuid());
+		Relationship rel(misc::getPartNameFromReference(structuralOrganization->Faults[i]), "", structuralOrganization->Faults[i]->UUID);
 		rel.setDestinationObjectType();
 		result.push_back(rel);
 	}
         
-    for (unsigned int i = 0; i < horizonInterpretationSet.size(); i++)
+	for (size_t i = 0; i < structuralOrganization->Horizons.size(); i++)
 	{
-		Relationship rel(horizonInterpretationSet[i]->getPartNameInEpcDocument(), "", horizonInterpretationSet[i]->getUuid());
+		Relationship rel(misc::getPartNameFromReference(structuralOrganization->Horizons[i]->Horizon), "", structuralOrganization->Horizons[i]->Horizon->UUID);
 		rel.setDestinationObjectType();
 		result.push_back(rel);
 	}
         
-    for (unsigned int i = 0; i < bottomFrontierInterpretationSet.size(); i++)
+	for (size_t i = 0; i < structuralOrganization->BottomFrontier.size(); i++)
 	{
-		Relationship rel(bottomFrontierInterpretationSet[i]->getPartNameInEpcDocument(), "", bottomFrontierInterpretationSet[i]->getUuid());
+		Relationship rel(misc::getPartNameFromReference(structuralOrganization->BottomFrontier[i]), "", structuralOrganization->BottomFrontier[i]->UUID);
 		rel.setDestinationObjectType();
 		result.push_back(rel);
 	}
         
-    for (unsigned int i = 0; i < topFrontierInterpretationSet.size(); i++)
+	for (size_t i = 0; i < structuralOrganization->TopFrontier.size(); i++)
 	{
-		Relationship rel(topFrontierInterpretationSet[i]->getPartNameInEpcDocument(), "", topFrontierInterpretationSet[i]->getUuid());
+		Relationship rel(misc::getPartNameFromReference(structuralOrganization->TopFrontier[i]), "", structuralOrganization->TopFrontier[i]->UUID);
 		rel.setDestinationObjectType();
 		result.push_back(rel);
 	}
         
-    for (unsigned int i = 0; i < sideFrontierInterpretationSet.size(); i++)
+	for (size_t i = 0; i < structuralOrganization->Sides.size(); i++)
 	{
-		Relationship rel(sideFrontierInterpretationSet[i]->getPartNameInEpcDocument(), "", sideFrontierInterpretationSet[i]->getUuid());
+		Relationship rel(misc::getPartNameFromReference(structuralOrganization->Sides[i]), "", structuralOrganization->Sides[i]->UUID);
 		rel.setDestinationObjectType();
 		result.push_back(rel);
 	}
         
-    for (unsigned int i = 0; i < earthModelSet.size(); i++)
+	for (size_t i = 0; i < earthModelSet.size(); i++)
     {
         Relationship rel(earthModelSet[i]->getPartNameInEpcDocument(), "", earthModelSet[i]->getUuid());
 		rel.setSourceObjectType();
@@ -207,29 +213,62 @@ void StructuralOrganizationInterpretation::importRelationshipSetFromEpc(common::
 
 	_resqml2__StructuralOrganizationInterpretation* interp = static_cast<_resqml2__StructuralOrganizationInterpretation*>(gsoapProxy2_0_1);
 
-	for (unsigned int i = 0; i < interp->Faults.size(); i++)
+	resqml2::AbstractObject* obj = nullptr;
+	for (size_t i = 0; i < interp->Faults.size(); ++i)
 	{
-		pushBackFaultInterpretation(static_cast<FaultInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(interp->Faults[i]->UUID)));
+		obj = epcDoc->getResqmlAbstractObjectByUuid(interp->Faults[i]->UUID);
+		if (dynamic_cast<FaultInterpretation*>(obj) != nullptr) {
+			pushBackFaultInterpretation(static_cast<FaultInterpretation*>(obj));
+		}
+		else {
+			throw logic_error("The referenced fault interpretation does not look to be a fault interpretation.");
+		}
 	}
-	for (unsigned int i = 0; i < interp->Horizons.size(); i++)
+	for (size_t i = 0; i < interp->Horizons.size(); ++i)
 	{
-		if (interp->Horizons[i]->StratigraphicRank)
-			pushBackHorizonInterpretation(static_cast<HorizonInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(interp->Horizons[i]->Horizon->UUID)), *(interp->Horizons[i]->StratigraphicRank));
-		else
+		if (interp->Horizons[i]->StratigraphicRank != nullptr) {
+			obj = epcDoc->getResqmlAbstractObjectByUuid(interp->Horizons[i]->Horizon->UUID);
+			if (dynamic_cast<HorizonInterpretation*>(obj) != nullptr) {
+				pushBackHorizonInterpretation(static_cast<HorizonInterpretation*>(obj), *(interp->Horizons[i]->StratigraphicRank));
+			}
+			else {
+				throw logic_error("The referenced horizon interpretation does not look to be a horizon interpretation.");
+			}
+		}
+		else {
 			throw logic_error("Not yet implemented");
+		}
 	}
 
-	for (unsigned int i = 0; i < interp->TopFrontier.size(); i++)
+	for (size_t i = 0; i < interp->TopFrontier.size(); ++i)
 	{
-		pushBackTopFrontierInterpretation(static_cast<FaultInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(interp->TopFrontier[i]->UUID)));
+		obj = epcDoc->getResqmlAbstractObjectByUuid(interp->TopFrontier[i]->UUID);
+		if (dynamic_cast<AbstractFeatureInterpretation*>(obj) != nullptr) {
+			pushBackTopFrontierInterpretation(static_cast<AbstractFeatureInterpretation*>(obj));
+		}
+		else {
+			throw logic_error("The referenced top frontier does not look to be an interpretation.");
+		}
 	}
-	for (unsigned int i = 0; i < interp->BottomFrontier.size(); i++)
+	for (size_t i = 0; i < interp->BottomFrontier.size(); ++i)
 	{
-		pushBackBottomFrontierInterpretation(static_cast<FaultInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(interp->BottomFrontier[i]->UUID)));
+		obj = epcDoc->getResqmlAbstractObjectByUuid(interp->BottomFrontier[i]->UUID);
+		if (dynamic_cast<AbstractFeatureInterpretation*>(obj) != nullptr) {
+			pushBackBottomFrontierInterpretation(static_cast<AbstractFeatureInterpretation*>(obj));
+		}
+		else {
+			throw logic_error("The referenced bottom frontier does not look to be an interpretation.");
+		}
 	}
-	for (unsigned int i = 0; i < interp->Sides.size(); i++)
+	for (size_t i = 0; i < interp->Sides.size(); ++i)
 	{
-		pushBackSideFrontierInterpretation(static_cast<FaultInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(interp->Sides[i]->UUID)));
+		obj = epcDoc->getResqmlAbstractObjectByUuid(interp->Sides[i]->UUID);
+		if (dynamic_cast<AbstractFeatureInterpretation*>(obj) != nullptr) {
+			pushBackSideFrontierInterpretation(static_cast<AbstractFeatureInterpretation*>(obj));
+		}
+		else {
+			throw logic_error("The referenced side frontier does not look to be an interpretation.");
+		}
 	}
 
 	updateXml = true;

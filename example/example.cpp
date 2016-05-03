@@ -594,8 +594,8 @@ void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfPro
     StructuralOrganizationInterpretation * structuralOrganizationInterpretation = pck.createStructuralOrganizationInterpretationInApparentDepth(structOrg1, "", "StructuralOrg1 Interp1");
 	structuralOrganizationInterpretation->setOriginator("Geosiris");
 	structuralOrganizationInterpretation->pushBackFaultInterpretation(fault1Interp1);
-    structuralOrganizationInterpretation->pushBackHorizonInterpretation(horizon1Interp1, 1);
-    structuralOrganizationInterpretation->pushBackHorizonInterpretation(horizon2Interp1, 1);
+    structuralOrganizationInterpretation->pushBackHorizonInterpretation(horizon1Interp1, 0);
+    structuralOrganizationInterpretation->pushBackHorizonInterpretation(horizon2Interp1, 0);
 
     // =========================================================================
     // =========================================================================

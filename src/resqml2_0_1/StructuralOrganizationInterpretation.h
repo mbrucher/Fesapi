@@ -69,9 +69,7 @@ namespace resqml2_0_1
         */
         void pushBackFaultInterpretation(class FaultInterpretation * faultInterpretation);
 
-		unsigned int getFaultInterpretationCount() const {return faultInterpretationSet.size();}
-
-		std::vector<class FaultInterpretation*> getFaultInterpretationSet() {return faultInterpretationSet;}
+		unsigned int getFaultInterpretationCount() const;
 
 		class FaultInterpretation* getFaultInterpretation(const unsigned int & index);
 
@@ -105,13 +103,6 @@ namespace resqml2_0_1
 
         std::vector<epc::Relationship> getAllEpcRelationships() const;	
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-        // forward relationships
-        std::vector<class FaultInterpretation*> faultInterpretationSet;
-        std::vector<class HorizonInterpretation*> horizonInterpretationSet;
-		std::vector<AbstractFeatureInterpretation*> bottomFrontierInterpretationSet;
-        std::vector<AbstractFeatureInterpretation*> topFrontierInterpretationSet;
-        std::vector<AbstractFeatureInterpretation*> sideFrontierInterpretationSet;
 
         // backward relationships
         std::vector<EarthModelInterpretation *> earthModelSet;
