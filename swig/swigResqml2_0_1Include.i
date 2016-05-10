@@ -2622,7 +2622,11 @@ namespace resqml2_0_1
 		double getYIOffset() const;
 		double getXIOffsetInGlobalCrs() const;
 		double getYIOffsetInGlobalCrs() const;
+		bool isJSpacingConstant() const;
+		bool isISpacingConstant() const;
+		void getJSpacing(double* const jSpacings) const;
 		double getJSpacing() const;
+		void getISpacing(double* const iSpacings) const;
 		double getISpacing() const;
 		
 		void getZValues(double * values) const;

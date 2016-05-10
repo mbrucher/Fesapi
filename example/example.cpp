@@ -194,7 +194,7 @@ void serializeWells(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	// WellboreFeature frame
 	WellboreFrameRepresentation* w1i1FrameRep = pck->createWellboreFrameRepresentation(wellbore1Interp1, "", "Wellbore1 Interp1 FrameRep", w1i1TrajRep);
 	double logMds[5] = {0, 250, 500, 750, 1000};
-	w1i1FrameRep->setMdValues(trajectoryMds, 5, hdfProxy);
+	w1i1FrameRep->setMdValues(logMds, 5, hdfProxy);
 
 	WellboreFrameRepresentation* w1i1RegularFrameRep = pck->createWellboreFrameRepresentation(wellbore1Interp1, "a54b8399-d3ba-4d4b-b215-8d4f8f537e66", "Wellbore1 Interp1 Regular FrameRep", w1i1TrajRep);
 	w1i1RegularFrameRep->setMdValues(0, 200, 6);
@@ -203,11 +203,7 @@ void serializeWells(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 
 	DiscreteProperty* discreteProp = pck->createDiscreteProperty(w1i1FrameRep,"","Wellbore1 Interp1 FrameRep IntervalIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__intervals, unitNumberPropType);
-	long unitNumbers[4];
-	unitNumbers[0] = 0; 
-	unitNumbers[1] = 1; 
-	unitNumbers[2] = 2;
-	unitNumbers[3] = 3;
+	long unitNumbers[5] = { 0, 1, 2, 3, 4 };
 	discreteProp->pushBackLongHdf5Array1dOfValues(unitNumbers, 4, hdfProxy, -1);
 	if (witsmlLog)
 		w1i1FrameRep->setWitsmlLog(witsmlLog);
@@ -425,7 +421,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	singleCellIjkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, singleCellIjkgridNodes, hdfProxy);
 
 	// TWO SUGARS EXPLICIT
-	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "df2103a0-fa3d-11e5-b8d4-0002a5d5c51b", "Two faulted sugar cubes (explicit geometry)", 2, 1, 1);
+	IjkGridExplicitRepresentation* ijkgrid = pck->createIjkGridExplicitRepresentation(earthModelInterp, local3dCrs, "df2103a0-fa3d-11e5-b8d4-0002a5d5c51b", "Two faulted sugar cubes (explicit geometry)", 2, 1, 1);
 	double nodes[48] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350, /* SPLIT*/ 375, 0, 350, 375, 150, 350,
 		0, 0, 500, 375, 0, 500, 700, 0, 550, 0, 150, 500, 375, 150, 500, 700, 150, 550, /* SPLIT*/ 375, 0, 550, 375, 150, 550 };
 	unsigned int pillarOfCoordinateLine[2] = { 1, 4 };
@@ -435,7 +431,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
 	// TWO SUGARS PARAMETRIC
-	IjkGridParametricRepresentation* ijkgridParametric = pck->createIjkGridParametricRepresentation(local3dCrs, "37c45c00-fa3e-11e5-a21e-0002a5d5c51b", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
+	IjkGridParametricRepresentation* ijkgridParametric = pck->createIjkGridParametricRepresentation(earthModelInterp, local3dCrs, "37c45c00-fa3e-11e5-a21e-0002a5d5c51b", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
 	double parameters[16] = { 300, 300, 350, 300, 300, 350, /* SPLIT*/ 350, 350,
 		500, 500, 550, 500, 500, 550, /* SPLIT*/ 550, 550 };
 	double controlPoints[18] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350 };
@@ -452,6 +448,62 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	ijkgridParametricNotSameLineKind->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__PillarShape__straight, gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPointsNotSameLineKind, controlPointParametersNotSameLineKind, 2, pillarKind, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
+	// 4*3*2 explicit grid Left Handed
+	IjkGridExplicitRepresentation* ijkgrid432 = pck->createIjkGridExplicitRepresentation(local3dCrs, "e96c2bde-e3ae-4d51-b078-a8e57fb1e667", "Four by Three by Two Left Handed", 4, 3, 2);
+	double nodes432[216] = {
+		0, 0, 300, 150, 0, 300, 375, 0, 300, 550, 0, 350, 700, 0, 350, //IJ0K0
+		0, 50, 300, 150, 50, 300, 375, 50, 300, 550, 50, 350, 700, 50, 350, //IJ1K0
+		0, 100, 300, 150, 100, 300, 375, 100, 300, 550, 100, 350, 700, 100, 350, //IJ2K0
+		0, 150, 300, 150, 150, 300, 375, 150, 300, 550, 150, 350, 700, 150, 350, //IJ3K0
+		375, 0, 350, 375, 50, 350, 375, 100, 350, 375, 150, 350, // SPLIT K0
+		0, 0, 400, 150, 0, 400, 375, 0, 400, 550, 0, 450, 700, 0, 450, //IJ0K1
+		0, 50, 400, 150, 50, 400, 375, 50, 400, 550, 50, 450, 700, 50, 450, //IJ1K1
+		0, 100, 400, 150, 100, 400, 375, 100, 400, 550, 100, 450, 700, 100, 450, //IJ2K1
+		0, 150, 400, 150, 150, 400, 375, 150, 400, 550, 150, 450, 700, 150, 450, //IJ3K1
+		375, 0, 450, 375, 50, 450, 375, 100, 450, 375, 150, 450, // SPLIT K1
+		0, 0, 500, 150, 0, 500, 375, 0, 500, 550, 0, 550, 700, 0, 550, //IJ0K2
+		0, 50, 500, 150, 50, 500, 375, 50, 500, 550, 50, 550, 700, 50, 550, //IJ1K2
+		0, 100, 500, 150, 100, 500, 375, 100, 500, 550, 100, 550, 700, 100, 550, //IJ2K2
+		0, 150, 500, 150, 150, 500, 375, 150, 500, 550, 150, 550, 700, 150, 550, //IJ3K2
+		375, 0, 550, 375, 50, 550, 375, 100, 550, 375, 150, 550 // SPLIT K2
+	};
+	unsigned int pillarOfCoordinateLine432[4] = { 2, 7, 12, 17 };
+	unsigned int splitCoordinateLineColumnCumulativeCount432[4] = { 1, 3, 5, 6 };
+	unsigned int splitCoordinateLineColumns432[6] = { 2, 2, 6, 6, 10, 10 };
+	ijkgrid432->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes432, hdfProxy,
+		4, pillarOfCoordinateLine432, splitCoordinateLineColumnCumulativeCount432, splitCoordinateLineColumns432);
+
+
+	// 4*3*2 explicit grid Right Handed
+	IjkGridExplicitRepresentation* ijkgrid432rh = pck->createIjkGridExplicitRepresentation(local3dCrs, "4fc004e1-0f7d-46a8-935e-588f790a6f84", "Four by Three by Two Right Handed", 4, 3, 2);
+	double nodes432rh[216] = {
+		0, 150, 300, 150, 150, 300, 375, 150, 300, 550, 150, 350, 700, 150, 350, //IJ0K0
+		0, 100, 300, 150, 100, 300, 375, 100, 300, 550, 100, 350, 700, 100, 350, //IJ1K0
+		0, 50, 300, 150, 50, 300, 375, 50, 300, 550, 50, 350, 700, 50, 350, //IJ2K0
+		0, 0, 300, 150, 0, 300, 375, 0, 300, 550, 0, 350, 700, 0, 350, //IJ3K0
+		375, 0, 350, 375, 50, 350, 375, 100, 350, 375, 150, 350, // SPLIT K0
+		0, 150, 400, 150, 150, 400, 375, 150, 400, 550, 150, 450, 700, 150, 450, //IJ0K1
+		0, 100, 400, 150, 100, 400, 375, 100, 400, 550, 100, 450, 700, 100, 450, //IJ1K1
+		0, 50, 400, 150, 50, 400, 375, 50, 400, 550, 50, 450, 700, 50, 450, //IJ2K1
+		0, 0, 400, 150, 0, 400, 375, 0, 400, 550, 0, 450, 700, 0, 450, //IJ3K1
+		375, 0, 450, 375, 50, 450, 375, 100, 450, 375, 150, 450, // SPLIT K1
+		0, 150, 500, 150, 150, 500, 375, 150, 500, 550, 150, 550, 700, 150, 550, //IJ0K2
+		0, 100, 500, 150, 100, 500, 375, 100, 500, 550, 100, 550, 700, 100, 550, //IJ1K2
+		0, 50, 500, 150, 50, 500, 375, 50, 500, 550, 50, 550, 700, 50, 550, //IJ2K2
+		0, 0, 500, 150, 0, 500, 375, 0, 500, 550, 0, 550, 700, 0, 550, //IJ3K2
+		375, 0, 550, 375, 50, 550, 375, 100, 550, 375, 150, 550 // SPLIT K2
+	};
+	unsigned int pillarOfCoordinateLine432rh[4] = { 17, 12, 7, 2 };
+	unsigned int splitCoordinateLineColumnCumulativeCount432rh[4] = { 1, 3, 5, 6 };
+	unsigned int splitCoordinateLineColumns432rh[6] = { 10, 10, 6, 6, 2, 2 };
+	ijkgrid432rh->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes432rh, hdfProxy,
+		4, pillarOfCoordinateLine432rh, splitCoordinateLineColumnCumulativeCount432rh, splitCoordinateLineColumns432rh);
+	unsigned char enabledCells32rh[24] = {
+		0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0
+	};
+	ijkgrid432rh->setEnabledCells(enabledCells32rh);
+
 	//**************
 	// Subrepresentations
 	//**************
@@ -462,23 +514,54 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		faultSubRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__pillars, 2, faultPillar, hdfProxy);
 	}
 
+	SubRepresentation * actnum = pck->createSubRepresentation("323001d0-468c-41d7-abec-7d12c3c9428b", "ACTNUM", ijkgrid432);
+	unsigned int actnumValues[21] = { 
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+		12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
+	};
+	actnum->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__cells, 21, actnumValues, hdfProxy);
+
 	//**************
 	// Grid Connection
 	//**************
-	if (earthModelInterp != nullptr)
-	{
-		GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation(earthModelInterp, "03bb6fc0-fa3e-11e5-8c09-0002a5d5c51b", "GridConnectionSetRepresentation");
-		gridConnSet->pushBackSupportingGridRepresentation(ijkgrid);
-		ULONG64 cellConn[2] = { 0, 1 };
-		gridConnSet->setCellIndexPairs(1, cellConn, 9999, hdfProxy);
-		unsigned int localFacePerCellIndexPairs[2] = { 3, 5 };
-		gridConnSet->setLocalFacePerCellIndexPairs(1, localFacePerCellIndexPairs, 9999, hdfProxy);
+	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation("03bb6fc0-fa3e-11e5-8c09-0002a5d5c51b", "GridConnectionSetRepresentation");
+	gridConnSet->pushBackSupportingGridRepresentation(ijkgrid);
+	ULONG64 cellConn[6] = { 0, 9999, 0, 1, 9999, 1 };
+	gridConnSet->setCellIndexPairs(3, cellConn, 9999, hdfProxy);
+	unsigned int localFacePerCellIndexPairs[6] = { 3, 9999, 3, 5, 9999, 5 };
+	gridConnSet->setLocalFacePerCellIndexPairs(3, localFacePerCellIndexPairs, 9999, hdfProxy);
 
-		/// link to fault
+	if (fault1Interp1 != nullptr)
+	{
+		// link to fault
 		gridConnSet->pushBackInterpretation(fault1Interp1);
 		unsigned int faultIndices = 0;
 		gridConnSet->setConnectionInterpretationIndices(&faultIndices, 1, 9999, hdfProxy);
 	}
+
+	GridConnectionSetRepresentation * gridConnSet432 = pck->createGridConnectionSetRepresentation("20b480a8-5e3b-4336-8f6e-1b3099c2c60f", "GridConnectionSetRepresentation");
+	gridConnSet432->pushBackSupportingGridRepresentation(ijkgrid432);
+	ULONG64 cellConn432[30] = {
+		1, 9999, 5, 9999, 9, 9999,
+		1, 2, 5, 6, 9, 10,
+		13, 2, 17, 6, 21, 10,
+		13, 14, 17, 18, 21, 22,
+		9999, 14, 9999, 18, 9999, 22
+	};
+	gridConnSet432->setCellIndexPairs(15, cellConn432, 9999, hdfProxy);
+	unsigned int localFacePerCellIndexPairs432[30] = {
+		3, 9999, 3, 9999, 3, 9999,
+		3, 5, 3, 5, 3, 5,
+		3, 5, 3, 5, 3, 5,
+		3, 5, 3, 5, 3, 5,
+		9999, 5, 9999, 5, 9999, 5
+	};
+	gridConnSet432->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, 9999, hdfProxy);
+
+	GridConnectionSetRepresentation * gridConnSet432rh = pck->createGridConnectionSetRepresentation("a3d1462a-04e3-4374-921b-a4a1e9ba3ea3", "GridConnectionSetRepresentation");
+	gridConnSet432rh->pushBackSupportingGridRepresentation(ijkgrid432rh);
+	gridConnSet432rh->setCellIndexPairs(15, cellConn432, 9999, hdfProxy);
+	gridConnSet432rh->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, 9999, hdfProxy);
 
 	//**************
 	// Properties
@@ -527,21 +610,19 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	// LGR
 	//**************
-	
+	/*
 	IjkGridExplicitRepresentation* lgrGrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "2aec1720-fa3e-11e5-a116-0002a5d5c51b", "LGR", 2, 1, 3);
 	lgrGrid->setParentWindow(
 		0, 2, 1,
 		0, 1, 1,
 		0, 3, 1,
 		ijkgrid);
-
 	//**************
 	// Stratigraphy
 	//**************
 	ULONG64 stratiUnitIndice = 0;
 	ijkgrid->setIntervalAssociationWithStratigraphicOrganizationInterpretation(&stratiUnitIndice, 1000, stratiColumnRank);
 	
-#if !defined(OFFICIAL)
 	// Partial transfer
 	UnstructuredGridRepresentation* partialGrid = pck->createPartialUnstructuredGridRepresentation("27290b9a-ff46-47b7-befd-cf6b7836045c", "Partial Grid");
 	ContinuousProperty* continuousProp1 = pck->createContinuousProperty(partialGrid, "cd627946-0f89-48fa-b99c-bdb35d8ac4aa", "Testing partial property", 1,
@@ -553,7 +634,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	SubRepresentation * subRepOfUnstructuredGrid = pck->createSubRepresentation("", "Subrep On Partial grid", partialGrid);
 	unsigned int nodeIndex[2] = { 0, 1 };
 	subRepOfUnstructuredGrid->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, 2, nodeIndex, hdfProxy);
-
+	*/
 	// Tetra grid
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "9283cd33-5e52-4110-b7b1-616abde2b303", "One tetrahedron grid", 1);
 	double tetraGridPoints[12] = {0,0,300, 375,0,300, 0,150,300, 0,0,500};
@@ -561,7 +642,6 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	unsigned char faceRightHandness[4] = { 0, 0, 1, 1 };
 	ULONG64 nodeIndicesPerFace[12] = { 0, 1, 2, 1, 2, 3, 0, 1, 3, 0, 2, 3 };
 	tetraGrid->setTetrahedraOnlyGeometry(faceRightHandness, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerFace);
-#endif
 }
 
 void serializeRepresentationSetRepresentation(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
@@ -1158,16 +1238,16 @@ bool serialize(const string & filePath)
 #endif
 
 	// Comment or uncomment below domains/lines you want wether to test or not
-	serializeWells(&pck, hdfProxy);
-	serializeBoundaries(&pck, hdfProxy);
-	serializeStructualModel(pck, hdfProxy);
-	serializeStratigraphicModel(&pck, hdfProxy);
+	//serializeWells(&pck, hdfProxy);
+	//serializeBoundaries(&pck, hdfProxy);
+	//serializeStructualModel(pck, hdfProxy);
+	//serializeStratigraphicModel(&pck, hdfProxy);
 	serializeGrid(&pck, hdfProxy);
-	serializeActivities(&pck);
-	serializeRepresentationSetRepresentation(&pck, hdfProxy);
+	//serializeActivities(&pck);
+	//serializeRepresentationSetRepresentation(&pck, hdfProxy);
 
 	// Add an extended core property before to serialize
-	pck.setExtendedCoreProperty("F2I-ExtendedCoreProp", "TestingVersion");
+	//pck.setExtendedCoreProperty("F2I-ExtendedCoreProp", "TestingVersion");
 
 	hdfProxy->close();
 
@@ -1890,8 +1970,8 @@ int main(int argc, char **argv)
 */
 
 // filepath is defined in a macro to better check memory leak
-#define filePath "../../testingPackageCpp.epc"
-//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
+#define filePath "../../testingPackageCpp_simple.epc"
+//#define filePath "C:/Users/Philippe/dev/testingPackageCpp_full.epc"
 //#define filePath "/data_local/philippeVerney/resqmlExchangedModel/v2_0/eage2016/test4rob.epc"
 int main(int argc, char **argv)
 {

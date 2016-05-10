@@ -514,7 +514,7 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(unsigned char * c
 	cellFaceIsRightHandedForHdf5->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded";
 	geom->CellFaceIsRightHanded = cellFaceIsRightHandedForHdf5;
 	// HDF
-	unsigned long long faceCountTmp = 4*cellCount - 1; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
+	unsigned long long faceCountTmp = 4*cellCount; // For GCC : ULONG64 is not exactly an unsigned long long with GCC but an uint64_t {aka long unsigned int}
 	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "CellFaceIsRightHanded", H5T_NATIVE_UCHAR, cellFaceIsRightHanded, &faceCountTmp, 1);
 
 	// Face indices

@@ -343,7 +343,6 @@ double Grid2dRepresentation::getYIOffset() const
 	}
 }
 
-// TODO rotation
 double Grid2dRepresentation::getXIOffsetInGlobalCrs() const
 {
 	double result[] = {getXIOffset(), getYIOffset(), .0};
@@ -355,7 +354,6 @@ double Grid2dRepresentation::getXIOffsetInGlobalCrs() const
 	return result[0];
 }
 
-// TODO rotation
 double Grid2dRepresentation::getYIOffsetInGlobalCrs() const
 {
 	double result[] = {getXIOffset(), getYIOffset(), .0};
@@ -367,39 +365,183 @@ double Grid2dRepresentation::getYIOffsetInGlobalCrs() const
 	return result[1];
 }
 
+bool Grid2dRepresentation::isJSpacingConstant() const
+{
+	const resqml2__Point3dLatticeArray* const arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+
+	if (arrayLatticeOfPoints3d != nullptr) {
+		if (arrayLatticeOfPoints3d->Offset[0]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray) {
+			return true;
+		}
+	}
+	else if (getSupportingRepresentationUuid().size())
+	{
+		return supportingRepresentation->isJSpacingConstant();
+	}
+	else
+		throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
+}
+
+bool Grid2dRepresentation::isISpacingConstant() const
+{
+	const resqml2__Point3dLatticeArray* const arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+
+	if (arrayLatticeOfPoints3d != nullptr) {
+		if (arrayLatticeOfPoints3d->Offset.size() > 1) {
+			if (arrayLatticeOfPoints3d->Offset[1]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray) {
+				return true;
+			}
+		}
+		else {
+			throw invalid_argument("This 2d grid representation dees not look to have (at least) 2 dimensions.");
+		}
+	}
+	else if (getSupportingRepresentationUuid().size())
+	{
+		return supportingRepresentation->isISpacingConstant();
+	}
+	else
+		throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
+}
 
 double Grid2dRepresentation::getJSpacing() const
 {
-	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+	if (!isJSpacingConstant()) {
+		throw invalid_argument("The J spacing of this 2d grid does not look to be constant.");
+	}
 
-	if (arrayLatticeOfPoints3d && arrayLatticeOfPoints3d->Offset[0]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray)
+	const resqml2__Point3dLatticeArray* const arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+
+	if (arrayLatticeOfPoints3d != nullptr) {
 		return static_cast<resqml2__DoubleConstantArray*>(arrayLatticeOfPoints3d->Offset[0]->Spacing)->Value;
-	else if (getSupportingRepresentationUuid().size())
+	}
+	else
 	{
-		int jIndexOffset = getIndexOffsetOnSupportingRepresentation(0);
-		double jSpacingOnSupportingRep = supportingRepresentation->getJSpacing();
+		const int jIndexOffset = getIndexOffsetOnSupportingRepresentation(0);
+		const double jSpacingOnSupportingRep = supportingRepresentation->getJSpacing();
 
 		return jIndexOffset * jSpacingOnSupportingRep;
 	}
+}
+
+void Grid2dRepresentation::getJSpacing(double* const jSpacings) const
+{
+	const resqml2__Point3dLatticeArray* const arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+
+	const ULONG64 jSpacingCount = getNodeCountAlongJAxis() - 1;
+
+	if (arrayLatticeOfPoints3d != nullptr) {
+		if (arrayLatticeOfPoints3d->Offset[0]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray) {
+			const double constantSpacing = static_cast<resqml2__DoubleConstantArray*>(arrayLatticeOfPoints3d->Offset[0]->Spacing)->Value;
+			for (ULONG64 j = 0; j < jSpacingCount; ++j) {
+				jSpacings[j] = constantSpacing;
+			}
+		}
+		else if (arrayLatticeOfPoints3d->Offset[0]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array) {
+			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(arrayLatticeOfPoints3d->Offset[0]->Spacing)->Values->PathInHdfFile, jSpacings);
+		}
+		else {
+			throw logic_error("Not implemented yet.");
+		}
+	}
+	else if (getSupportingRepresentationUuid().size())
+	{
+		const int jIndexOrigin = getIndexOriginOnSupportingRepresentation(0);
+		const int jIndexOffset = getIndexOffsetOnSupportingRepresentation(0);
+		double* const jSpacingsOnSupportingRep = new double[jSpacingCount];
+		supportingRepresentation->getJSpacing(jSpacingsOnSupportingRep);
+		
+		for (ULONG64 j = 0; j < jSpacingCount; ++j) {
+			jSpacings[j] = .0;
+			if (jIndexOffset > 0) {
+				for (size_t tmp = 0; tmp < jIndexOffset; ++tmp) {
+					jSpacings[j] += jSpacingsOnSupportingRep[jIndexOrigin + j * jIndexOffset + tmp];
+				}
+			}
+			else if (jIndexOffset < 0) {
+				for (size_t tmp = 0; tmp > jIndexOffset; --tmp) {
+					jSpacings[j] += jSpacingsOnSupportingRep[jIndexOrigin - 1 + j * jIndexOffset + tmp];
+				}
+			}
+			else {
+				throw invalid_argument("The index offset on supporting representation cannot be 0.");
+			}
+		}
+
+		delete[] jSpacingsOnSupportingRep;
+	}
 	else
-		return std::numeric_limits<double>::signaling_NaN();
+		throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
 }
 
 double Grid2dRepresentation::getISpacing() const
 {
-	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+	if (!isISpacingConstant()) {
+		throw invalid_argument("The I spacing of this 2d grid does not look to be constant.");
+	}
 
-	if (arrayLatticeOfPoints3d && arrayLatticeOfPoints3d->Offset[1]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray)
+	const resqml2__Point3dLatticeArray* const arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+
+	if (arrayLatticeOfPoints3d != nullptr) {
 		return static_cast<resqml2__DoubleConstantArray*>(arrayLatticeOfPoints3d->Offset[1]->Spacing)->Value;
-	else if (getSupportingRepresentationUuid().size())
+	}
+	else
 	{
-		int iIndexOffset = getIndexOffsetOnSupportingRepresentation(1);
-		double iSpacingOnSupportingRep = supportingRepresentation->getISpacing();
+		const int iIndexOffset = getIndexOffsetOnSupportingRepresentation(1);
+		const double iSpacingOnSupportingRep = supportingRepresentation->getISpacing();
 
 		return iIndexOffset * iSpacingOnSupportingRep;
 	}
+}
+
+void Grid2dRepresentation::getISpacing(double* const iSpacings) const
+{
+	const resqml2__Point3dLatticeArray* const arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
+
+	const ULONG64 iSpacingCount = getNodeCountAlongIAxis() - 1;
+
+	if (arrayLatticeOfPoints3d != nullptr) {
+		if (arrayLatticeOfPoints3d->Offset[1]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray) {
+			const double constantSpacing = static_cast<resqml2__DoubleConstantArray*>(arrayLatticeOfPoints3d->Offset[1]->Spacing)->Value;
+			for (ULONG64 i = 0; i < iSpacingCount; ++i) {
+				iSpacings[i] = constantSpacing;
+			}
+		}
+		else if (arrayLatticeOfPoints3d->Offset[1]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array) {
+			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(arrayLatticeOfPoints3d->Offset[1]->Spacing)->Values->PathInHdfFile, iSpacings);
+		}
+		else {
+			throw logic_error("Not implemented yet.");
+		}
+	}
+	else if (getSupportingRepresentationUuid().size())
+	{
+		const int iIndexOrigin = getIndexOriginOnSupportingRepresentation(1);
+		const int iIndexOffset = getIndexOffsetOnSupportingRepresentation(1);
+		double* const iSpacingsOnSupportingRep = new double[iSpacingCount];
+		supportingRepresentation->getISpacing(iSpacingsOnSupportingRep);
+
+		for (ULONG64 i = 0; i < iSpacingCount; ++i) {
+			iSpacings[i] = .0;
+			if (iIndexOffset > 0) {
+				for (size_t tmp = 0; tmp < iIndexOffset; ++tmp) {
+					iSpacings[i] += iSpacingsOnSupportingRep[iIndexOrigin + i * iIndexOffset + tmp];
+				}
+			}
+			else if (iIndexOffset < 0) {
+				for (size_t tmp = 0; tmp > iIndexOffset; --tmp) {
+					iSpacings[i] += iSpacingsOnSupportingRep[iIndexOrigin - 1 + i * iIndexOffset + tmp];
+				}
+			}
+			else {
+				throw invalid_argument("The index offset on supporting representation cannot be 0.");
+			}
+		}
+
+		delete[] iSpacingsOnSupportingRep;
+	}
 	else
-		return std::numeric_limits<double>::signaling_NaN();
+		throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
 }
 
 void Grid2dRepresentation::setGeometryAsArray2dOfLatticePoints3d(

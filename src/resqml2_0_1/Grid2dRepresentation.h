@@ -195,20 +195,42 @@ namespace resqml2_0_1
 		* @return				A double.NAN coordinate if something's wrong. The Y offset point otherwise.
 		*/
 		double getYIOffsetInGlobalCrs() const;
+
+		/**
+		* Checkes wether the spacing between nodes on J dimension is constant or not.
+		*/
+		bool isJSpacingConstant() const;
+
+		/**
+		* Checkes wether the spacing between nodes on I dimension is constant or not.
+		*/
+		bool isISpacingConstant() const;
 		
 		/**
-		* Get the first spacing of an Array2dOfLatticePoints3d located at a specific index in this geometry.
-		* @param	patchIndex	The patch index where the Array2dOfLatticePoints3d is located in this geometry.
-		* @return				A double.NAN if something's wrong. The first spacing otherwise.
+		* Get the constant J (fastest) spacing of this 2d grid representation.
+		* @return	The constant spacing in the J direction of the 2d grid representation.
 		*/
 		double getJSpacing() const;
 
 		/**
-		* Get the second spacing of an Array2dOfLatticePoints3d located at a specific index in this geometry.
-		* @param	patchIndex	The patch index where the Array2dOfLatticePoints3d is located in this geometry.
-		* @return				A double.NAN if something's wrong. The second spacing otherwise.
+		* Get all the J (fastest) spacings of this 2d grid representation.
+		* @param jSpacings	The count of this array souhld be JCellCount - 1. It must be preallocated.
+		* @return			All the spacings in the J direction of the 2d grid representation.
+		*/
+		void getJSpacing(double* const jSpacings) const;
+
+		/**
+		* Get the constant I (slowest) spacing of this 2d grid representation.
+		* @return	The constant spacing in the I direction of the 2d grid representation.
 		*/
 		double getISpacing() const;
+
+		/**
+		* Get all the I (fastest) spacings of this 2d grid representation.
+		* @param iSpacings	The count of this array souhld be ICellCount - 1. It must be preallocated.
+		* @return			All the spacings in the I direction of the 2d grid representation.
+		*/
+		void getISpacing(double* const iSpacings) const;
 
 		/**
 		* Set the geometry patch for a lattice 2d grid.
