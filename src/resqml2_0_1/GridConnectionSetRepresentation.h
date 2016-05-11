@@ -85,7 +85,7 @@ namespace resqml2_0_1
 		/**
 		* Get the cell index pair count of this grid connection representation
 		*/
-		void getCellIndexPairs(ULONG64 * cellIndexPairs) const;
+		ULONG64 getCellIndexPairs(ULONG64 * cellIndexPairs) const;
 
 		/**
 		* Get the cell index pairs count which correspond to a particular interpretation.
@@ -150,7 +150,7 @@ namespace resqml2_0_1
 		* Get the local face cell index pairs of this grid connection representation
 		* The count of localFacePerCellIndexPairs must be getCellIndexPairCount()*2.
 		*/
-		void getLocalFacePerCellIndexPairs(unsigned int * localFacePerCellIndexPairs) const;
+		void getLocalFacePerCellIndexPairs(int * localFacePerCellIndexPairs) const;
 
 		/**
 		* Indicates if the grid connection set representation is based on several grids.
@@ -174,8 +174,9 @@ namespace resqml2_0_1
 		/**
 		* Optional 2 x #Connections array of local face-per-cell indices for (Cell1,Cell2) for each connection. Local face-per-cell indices are used because global face indices need not have been defined.
 		* If no face-per-cell definition occurs as part of the grid representation, e.g., for a block-centered grid, then this array need not appear.
+		* Null value = -1 by dcoumentation
 		*/
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, AbstractHdfProxy * proxy);
 
 		/**
 		* For each connection in the grid connection set representation, allow to map zero or one feature interpretation. TODO: Resqml allows to map with more than one feature interpretation.

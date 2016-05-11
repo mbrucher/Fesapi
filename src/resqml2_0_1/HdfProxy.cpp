@@ -63,7 +63,7 @@ void HdfProxy::open()
 				hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
 			}
 			else
-				throw invalid_argument("The indicated HDF5 file already exists and is not a valid HDF5 file.");
+				throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " is not a valid HDF5 file.");
 			break;
 		case common::EpcDocument::READ_WRITE:
 			isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str());
@@ -72,7 +72,7 @@ void HdfProxy::open()
 				hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
 			}
 			else
-				throw invalid_argument("The indicated HDF5 file already exists and is not a valid HDF5 file.");
+				throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " is not a valid HDF5 file.");
 			break;
 		case common::EpcDocument::OVERWRITE:
 			hdfFile = H5Fcreate((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
@@ -101,7 +101,7 @@ void HdfProxy::open()
 	}
 
 	if (hdfFile < 0)
-		throw invalid_argument("The HDF5 file could not have been opened.");
+		throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " could not have been opened.");
 }
 
 void HdfProxy::close()

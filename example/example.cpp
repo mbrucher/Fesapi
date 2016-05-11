@@ -496,7 +496,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	unsigned int pillarOfCoordinateLine432rh[4] = { 17, 12, 7, 2 };
 	unsigned int splitCoordinateLineColumnCumulativeCount432rh[4] = { 1, 3, 5, 6 };
 	unsigned int splitCoordinateLineColumns432rh[6] = { 10, 10, 6, 6, 2, 2 };
-	ijkgrid432rh->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes432rh, hdfProxy,
+	ijkgrid432rh->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, true, nodes432rh, hdfProxy,
 		4, pillarOfCoordinateLine432rh, splitCoordinateLineColumnCumulativeCount432rh, splitCoordinateLineColumns432rh);
 	unsigned char enabledCells32rh[24] = {
 		0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
@@ -528,8 +528,8 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	gridConnSet->pushBackSupportingGridRepresentation(ijkgrid);
 	ULONG64 cellConn[6] = { 0, 9999, 0, 1, 9999, 1 };
 	gridConnSet->setCellIndexPairs(3, cellConn, 9999, hdfProxy);
-	unsigned int localFacePerCellIndexPairs[6] = { 3, 9999, 3, 5, 9999, 5 };
-	gridConnSet->setLocalFacePerCellIndexPairs(3, localFacePerCellIndexPairs, 9999, hdfProxy);
+	int localFacePerCellIndexPairs[6] = { 3, 9999, 3, 5, 9999, 5 };
+	gridConnSet->setLocalFacePerCellIndexPairs(3, localFacePerCellIndexPairs, hdfProxy);
 
 	if (fault1Interp1 != nullptr)
 	{
@@ -549,19 +549,19 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		9999, 14, 9999, 18, 9999, 22
 	};
 	gridConnSet432->setCellIndexPairs(15, cellConn432, 9999, hdfProxy);
-	unsigned int localFacePerCellIndexPairs432[30] = {
+	int localFacePerCellIndexPairs432[30] = {
 		3, 9999, 3, 9999, 3, 9999,
 		3, 5, 3, 5, 3, 5,
 		3, 5, 3, 5, 3, 5,
 		3, 5, 3, 5, 3, 5,
 		9999, 5, 9999, 5, 9999, 5
 	};
-	gridConnSet432->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, 9999, hdfProxy);
+	gridConnSet432->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, hdfProxy);
 
 	GridConnectionSetRepresentation * gridConnSet432rh = pck->createGridConnectionSetRepresentation("a3d1462a-04e3-4374-921b-a4a1e9ba3ea3", "GridConnectionSetRepresentation");
 	gridConnSet432rh->pushBackSupportingGridRepresentation(ijkgrid432rh);
 	gridConnSet432rh->setCellIndexPairs(15, cellConn432, 9999, hdfProxy);
-	gridConnSet432rh->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, 9999, hdfProxy);
+	gridConnSet432rh->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, hdfProxy);
 
 	//**************
 	// Properties
@@ -610,7 +610,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	//**************
 	// LGR
 	//**************
-	/*
+	
 	IjkGridExplicitRepresentation* lgrGrid = pck->createIjkGridExplicitRepresentation(local3dCrs, "2aec1720-fa3e-11e5-a116-0002a5d5c51b", "LGR", 2, 1, 3);
 	lgrGrid->setParentWindow(
 		0, 2, 1,
@@ -634,7 +634,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	SubRepresentation * subRepOfUnstructuredGrid = pck->createSubRepresentation("", "Subrep On Partial grid", partialGrid);
 	unsigned int nodeIndex[2] = { 0, 1 };
 	subRepOfUnstructuredGrid->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, 2, nodeIndex, hdfProxy);
-	*/
+	
 	// Tetra grid
 	UnstructuredGridRepresentation* tetraGrid = pck->createUnstructuredGridRepresentation(local3dCrs, "9283cd33-5e52-4110-b7b1-616abde2b303", "One tetrahedron grid", 1);
 	double tetraGridPoints[12] = {0,0,300, 375,0,300, 0,150,300, 0,0,500};
@@ -1238,16 +1238,16 @@ bool serialize(const string & filePath)
 #endif
 
 	// Comment or uncomment below domains/lines you want wether to test or not
-	//serializeWells(&pck, hdfProxy);
-	//serializeBoundaries(&pck, hdfProxy);
-	//serializeStructualModel(pck, hdfProxy);
-	//serializeStratigraphicModel(&pck, hdfProxy);
+	serializeWells(&pck, hdfProxy);
+	serializeBoundaries(&pck, hdfProxy);
+	serializeStructualModel(pck, hdfProxy);
+	serializeStratigraphicModel(&pck, hdfProxy);
 	serializeGrid(&pck, hdfProxy);
-	//serializeActivities(&pck);
-	//serializeRepresentationSetRepresentation(&pck, hdfProxy);
+	serializeActivities(&pck);
+	serializeRepresentationSetRepresentation(&pck, hdfProxy);
 
 	// Add an extended core property before to serialize
-	//pck.setExtendedCoreProperty("F2I-ExtendedCoreProp", "TestingVersion");
+	pck.setExtendedCoreProperty("F2I-ExtendedCoreProp", "TestingVersion");
 
 	hdfProxy->close();
 
@@ -1970,8 +1970,8 @@ int main(int argc, char **argv)
 */
 
 // filepath is defined in a macro to better check memory leak
-#define filePath "../../testingPackageCpp_simple.epc"
-//#define filePath "C:/Users/Philippe/dev/testingPackageCpp_full.epc"
+#define filePath "../../testingPackageCpp_full.epc"
+//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/roxar/emerald_grid_AI.epc"
 //#define filePath "/data_local/philippeVerney/resqmlExchangedModel/v2_0/eage2016/test4rob.epc"
 int main(int argc, char **argv)
 {

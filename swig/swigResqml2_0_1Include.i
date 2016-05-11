@@ -3009,17 +3009,17 @@ namespace resqml2_0_1
 		ULONG64 getCellIndexPairCount() const;
 		unsigned int getCellIndexPairCountFromInterpretationIndex(const unsigned int & interpretationIndex) const;
 		
-		void getCellIndexPairs(ULONG64 * cellIndexPairs) const;
+		ULONG64 getCellIndexPairs(ULONG64 * cellIndexPairs) const;
 		void getGridConnectionSetInformationFromInterpretationIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
 		bool hasLocalFacePerCell() const;
-		void getLocalFacePerCellIndexPairs(unsigned int * localFacePerCellIndexPairs) const;
+		void getLocalFacePerCellIndexPairs(int * localFacePerCellIndexPairs) const;
 		bool isBasedOnMultiGrids() const;
 		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
 		
 		void pushBackSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
 		
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, unsigned int * localFacePerCellIndexPair, const unsigned int & nullValue, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, AbstractHdfProxy * proxy);
 		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
 		void pushBackInterpretation(class AbstractFeatureInterpretation* interp);
 		
