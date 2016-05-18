@@ -294,7 +294,11 @@ void Package::openForReading(const std::string & pkgPathName)
 	{
 		if (pckRelset[i].getType().compare(CORE_PROP_REL_TYPE) == 0)
 		{
-			string corePropFile = extractFile(pckRelset[i].getTarget().c_str(), "");
+			std::string target = pckRelset[i].getTarget();
+			if (target.size() > 1 && target[0] == '/' && target[1] != '/') { // Rule 8 of A.3 paragraph Open Packaging Conventions (ECMA version)
+				target = target.substr(1);
+			}
+			string corePropFile = extractFile(target.c_str(), "");
 			d_ptr->fileCoreProperties.readFromString(corePropFile);
 		}
 	}
@@ -307,8 +311,12 @@ void Package::openForReading(const std::string & pkgPathName)
 		extendedCpRelFile.readFromString(extendedCpRelFilePath);
 		vector<Relationship> extendedCpRelSet = extendedCpRelFile.getAllRelationship();
 		for (unsigned int i = 0; i < extendedCpRelSet.size(); i++)
-		{			
-			string extendedCorePropFile = extractFile(extendedCpRelSet[i].getTarget().c_str(), "");
+		{
+			std::string target = extendedCpRelSet[i].getTarget();
+			if (target.size() > 1 && target[0] == '/' && target[1] != '/') { // Rule 8 of A.3 paragraph Open Packaging Conventions (ECMA version)
+				target = target.substr(1);
+			}
+			string extendedCorePropFile = extractFile(target.c_str(), "");
 			std::istringstream iss(extendedCorePropFile);
 
 			std::string line;

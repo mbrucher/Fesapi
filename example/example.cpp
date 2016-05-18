@@ -1266,14 +1266,32 @@ void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix =
 {
 	std::cout << prefix << "Title is : " << obj->getTitle() << std::endl;
 	std::cout << prefix << "Guid is : " << obj->getUuid() << std::endl;
-	if (obj->isPartial() == false)
+	if (!obj->isPartial())
 	{
-		for (unsigned int i = 0; i < obj->getAliasCount(); ++i)
+		for (unsigned int i = 0; i < obj->getAliasCount(); ++i) {
 			std::cout << prefix << "Alias is : " << obj->getAliasAuthorityAtIndex(i) << ":" << obj->getAliasTitleAtIndex(i) << std::endl;
-		for (unsigned int i = 0; i < obj->getExtraMetadataCount(); ++i)
+		}
+		for (unsigned int i = 0; i < obj->getExtraMetadataCount(); ++i) {
 			std::cout << prefix << "Extrametadata is : " << obj->getExtraMetadataKeyAtIndex(i) << ":" << obj->getExtraMetadataStringValueAtIndex(i) << std::endl;
+		}
 	}
 	std::cout << prefix << "--------------------------------------------------" << std::endl;
+}
+
+void showAllSubRepresentations(AbstractRepresentation * rep)
+{
+	const unsigned int subRepresentationCount = rep->getSubRepresentationCount();
+	if (subRepresentationCount > 0)
+		cout << "SUBREPRESENTATIONS" << std::endl;
+	std::cout << "\t--------------------------------------------------" << std::endl;
+	for (unsigned int subRepIndex = 0 ; subRepIndex < subRepresentationCount; ++subRepIndex)
+	{
+		showAllMetadata(rep->getSubRepresentation(subRepIndex), "\t");
+		const long indiceCount = rep->getSubRepresentation(subRepIndex)->getElementCountOfPatch(0);
+		unsigned int * elementIndices = new unsigned int [indiceCount];
+		rep->getSubRepresentation(subRepIndex)->getElementIndicesOfPatch(0, 0, elementIndices);
+		delete [] elementIndices;
+	}
 }
 
 void showAllProperties(AbstractRepresentation * rep)
@@ -1816,6 +1834,8 @@ void deserialize(const string & inputFile)
 			std::cout << "Fault Subrep is : " << ijkGrid->getFaultSubRepresentation(subRepIndex)->getTitle() << std::endl;
 		}
 
+		showAllSubRepresentations(ijkGrid);
+
 		if (ijkGrid->hasEnabledCellInformation() == true)
 		{
 			std::cout << "Has enabled/disabled cell information" << std::endl;
@@ -1914,16 +1934,18 @@ void deserialize(const string & inputFile)
 			std::cout << "(in memory) Face count of cell 0 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(0) << std::endl;
 			if (unstructuredGridRepSet[i]->getCellCount() > 1)
 				std::cout << "(in memory) Face count of cell 1 is : " << unstructuredGridRepSet[i]->getFaceCountOfCell(1) << std::endl;	
-			std::cout << "(in memory) Node  count of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeCountOfFaceOfCell(0, 0) << std::endl;
-			std::cout << "(in memory) Node  indice 0 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[0] << std::endl;
-			std::cout << "(in memory) Node  indice 1 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[1] << std::endl;
-			std::cout << "(in memory) Node  indice 2 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[2] << std::endl;
-			std::cout << "(in memory) Node  indice 0 of face 1 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 1)[0] << std::endl;
+			std::cout << "(in memory) Node count of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeCountOfFaceOfCell(0, 0) << std::endl;
+			std::cout << "(in memory) Node indice 0 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[0] << std::endl;
+			std::cout << "(in memory) Node indice 1 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[1] << std::endl;
+			std::cout << "(in memory) Node indice 2 of face 0 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 0)[2] << std::endl;
+			std::cout << "(in memory) Node indice 0 of face 1 of cell 0 is : " << unstructuredGridRepSet[i]->getNodeIndicesOfFaceOfCell(0, 1)[0] << std::endl;
 
 			unstructuredGridRepSet[i]->unloadGeometry();
 
 			showAllProperties(unstructuredGridRepSet[i]);
 		}
+
+		showAllSubRepresentations(unstructuredGridRepSet[i]);
 	}
 
 	std::cout << endl << "TIME SERIES" << endl;
@@ -1970,9 +1992,8 @@ int main(int argc, char **argv)
 */
 
 // filepath is defined in a macro to better check memory leak
-#define filePath "../../testingPackageCpp_full.epc"
-//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/roxar/emerald_grid_AI.epc"
-//#define filePath "/data_local/philippeVerney/resqmlExchangedModel/v2_0/eage2016/test4rob.epc"
+#define filePath "../../testingPackageCpp.epc"
+//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
 int main(int argc, char **argv)
 {
 	if (serialize(filePath)) {
