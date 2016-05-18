@@ -224,7 +224,7 @@ bool EpcDocument::open(const std::string & fileName)
 
 	setFilePath(fileName);
 
-	s = soap_new2(SOAP_XML_STRICT | SOAP_C_UTFSTRING, SOAP_XML_GRAPH | SOAP_XML_INDENT | SOAP_XML_CANONICAL | SOAP_C_UTFSTRING); // new context with option
+	s = soap_new2(SOAP_XML_STRICT | SOAP_C_UTFSTRING, SOAP_XML_TREE | SOAP_XML_INDENT | SOAP_XML_CANONICAL | SOAP_C_UTFSTRING); // new context with option
 
 	package = new Package();
 
