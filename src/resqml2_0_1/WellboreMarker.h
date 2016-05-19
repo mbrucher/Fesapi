@@ -47,13 +47,15 @@ namespace resqml2_0_1
 
 		/**
 		* Creates an instance of this class in a gsoap context.
-		* @param guid		The guid to set to the new instance. If empty then a new guid will be generated.
-		* @param title		A title for the instance to create.
+		* @param wellboreMarkerFrame	The wellbore marker frame which contains the wellbore marker to contruct.
+		* @param guid					The guid to set to the new instance. If empty then a new guid will be generated.
+		* @param title					A title for the instance to create.
 		*/
 		WellboreMarker(class WellboreMarkerFrameRepresentation* wellboreMarkerFrame, const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class in a gsoap context.
+		* @param wellboreMarkerFrame	The wellbore marker frame which contains the wellbore marker to contruct.
 		* @param guid					The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title					A title for the instance to create.
 		* @param geologicBoundaryKind	The type of the feature which the marker intersects.

@@ -50,6 +50,7 @@ namespace resqml2
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
+		* @param fromGsoap	The gsoap proxy which shold be wrapped by the constructed feature.
 		*/
 		AbstractFeature(gsoap_resqml2_0_1::resqml2__AbstractFeature* fromGsoap) : AbstractObject(fromGsoap) {}
 

@@ -580,17 +580,17 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	timeSeries->pushBackTimestamp(1378217895);
 	timeSeries->pushBackTimestamp(1409753895);
 	timeSeries->pushBackTimestamp(1441289895);
-	ContinuousProperty* continuousPropTime0 = pck->createContinuousProperty(ijkgrid, "18027a00-fa3e-11e5-8255-0002a5d5c51b", "Time 0", 1,
+	ContinuousProperty* continuousPropTime0 = pck->createContinuousProperty(ijkgrid, "18027a00-fa3e-11e5-8255-0002a5d5c51b", "Time Series Property", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime0->setTimeIndex(0, timeSeries);
 	double valuesTime0[2] = {0,1};
 	continuousPropTime0->pushBackDoubleHdf5Array3dOfValues(valuesTime0, 2, 1, 1, hdfProxy);
-	ContinuousProperty* continuousPropTime1 = pck->createContinuousProperty(ijkgrid, "1ba54340-fa3e-11e5-9534-0002a5d5c51b", "Time 1", 1,
+	ContinuousProperty* continuousPropTime1 = pck->createContinuousProperty(ijkgrid, "1ba54340-fa3e-11e5-9534-0002a5d5c51b", "Time Series Property", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime1->setTimeIndex(1, timeSeries);
 	double valuesTime1[2] = {2,3};
 	continuousPropTime1->pushBackDoubleHdf5Array3dOfValues(valuesTime1, 2, 1, 1, hdfProxy);
-	ContinuousProperty* continuousPropTime2 = pck->createContinuousProperty(ijkgrid, "203db720-fa3e-11e5-bf9d-0002a5d5c51b", "Time 2", 1,
+	ContinuousProperty* continuousPropTime2 = pck->createContinuousProperty(ijkgrid, "203db720-fa3e-11e5-bf9d-0002a5d5c51b", "Time Series Property ", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
 	continuousPropTime2->setTimeIndex(2, timeSeries);
 	double valuesTime2[2] = {3,4};
@@ -1535,7 +1535,7 @@ void deserialize(const string & inputFile)
 		ULONG64 nodeCount = faultPolyRep[i]->getXyzPointCountOfAllPatches();
 		double* allXyzPoints = new double[nodeCount * 3];
 		faultPolyRep[i]->getXyzPointsOfAllPatchesInGlobalCrs(allXyzPoints);
-		for (ULONG64 nodeIndex = 0; nodeIndex < nodeCount * 3; nodeIndex += 3)
+		for (ULONG64 nodeIndex = 0; nodeIndex < 6; nodeIndex += 3)
 		{
 			std::cout << allXyzPoints[nodeIndex] << " " << allXyzPoints[nodeIndex+1] << " " << allXyzPoints[nodeIndex+2] << endl;
 		}
@@ -1611,16 +1611,20 @@ void deserialize(const string & inputFile)
 	{
 		showAllMetadata(horizonGrid2dSet[i]);
 
-		cout << horizonGrid2dSet[i]->getXOriginInGlobalCrs() << endl;
-		cout << horizonGrid2dSet[i]->getYOriginInGlobalCrs() << endl;
+		cout << "X origin " << horizonGrid2dSet[i]->getXOriginInGlobalCrs() << endl;
+		cout << "Y origin " << horizonGrid2dSet[i]->getYOriginInGlobalCrs() << endl;
 
 		cout << "I Node Count " << horizonGrid2dSet[i]->getNodeCountAlongIAxis() << endl;
 		cout << "J Node Count " << horizonGrid2dSet[i]->getNodeCountAlongJAxis() << endl;
 		double* zValues = new double [horizonGrid2dSet[i]->getNodeCountAlongIAxis() * horizonGrid2dSet[i]->getNodeCountAlongJAxis()];
 		horizonGrid2dSet[i]->getZValuesInGlobalCrs(zValues);
 		std::cout << "First zValue is : " << zValues[0] << std::endl;
+		std::cout << "Second zValue is : " << zValues[1] << std::endl;
 		delete [] zValues;
 		cout << "XIOffset : " << horizonGrid2dSet[i]->getXIOffsetInGlobalCrs() << endl;
+		cout << "YIOffset : " << horizonGrid2dSet[i]->getYIOffsetInGlobalCrs() << endl;
+		cout << "XJOffset : " << horizonGrid2dSet[i]->getXJOffsetInGlobalCrs() << endl;
+		cout << "YJOffset : " << horizonGrid2dSet[i]->getYJOffsetInGlobalCrs() << endl;
 		
 		deserializeActivity(horizonGrid2dSet[i]);
 		showAllProperties(horizonGrid2dSet[i]);
@@ -1993,7 +1997,6 @@ int main(int argc, char **argv)
 
 // filepath is defined in a macro to better check memory leak
 #define filePath "../../testingPackageCpp.epc"
-//#define filePath "C:/Users/Philippe/data/resqml/resqmlExchangedModel/v2_0/paradigm/unstructured.epc"
 int main(int argc, char **argv)
 {
 	if (serialize(filePath)) {

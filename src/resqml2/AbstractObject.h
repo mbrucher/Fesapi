@@ -45,7 +45,7 @@ namespace resqml2
 
 		/**
 		* Set a uuid. If the input uuid is empty then a random uuid will be set.
-		* It is too dangerous for now to modify the uuid because too much things depend on it. That's why this method is private
+		* It is too dangerous for now to modify the uuid because too much things depend on it. That's why this method is private.
 		*/
 		void setUuid(const std::string & uuid);
 

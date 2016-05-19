@@ -89,8 +89,7 @@ void HdfProxy::open()
 	{
 		hid_t aid  = H5Screate(H5S_SCALAR);
 		hid_t atype = H5Tcopy(H5T_C_S1);
-		H5Tset_size(atype, getUuid().size() + 1);
-		H5Tset_strpad(atype, H5T_STR_NULLTERM);
+		H5Tset_size(atype, getUuid().size());
 		hid_t attribute_id = H5Acreate2(hdfFile, "uuid", atype, aid, H5P_DEFAULT, H5P_DEFAULT);
 		int status = H5Awrite(attribute_id, atype, getUuid().c_str());
 
