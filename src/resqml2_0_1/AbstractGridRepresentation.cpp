@@ -586,172 +586,84 @@ ULONG64 AbstractGridRepresentation::getRegridIntervalCount(const char & dimensio
 		throw invalid_argument("There is no parent window on this grid.");
 }
 
-void AbstractGridRepresentation::getRegridChildCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval) const
-{
-	resqml2__AbstractGridRepresentation* rep = static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
-	if (rep->ParentWindow != nullptr)
-	{
-		if (rep->ParentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IjkParentWindow)
-		{
-			resqml2__IjkParentWindow* ijkpw = static_cast<resqml2__IjkParentWindow*>(rep->ParentWindow);
-			if (dimension == 'i' || dimension == 'I')
-			{
-				if (ijkpw->IRegrid->Intervals != nullptr)
-				{
-					if (ijkpw->IRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(ijkpw->IRegrid->Intervals->ChildCountPerInterval)->Values->PathInHdfFile, childCellCountPerInterval);
-					else if (ijkpw->IRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(ijkpw->IRegrid->Intervals->ChildCountPerInterval)->Count; ++i)
-							childCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(ijkpw->IRegrid->Intervals->ChildCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for I regrid.");
+gsoap_resqml2_0_1::resqml2__AbstractIntegerArray* AbstractGridRepresentation::getCellCountPerInterval(const char & dimension, const bool & childVsParentCellCount) const {
+	const resqml2__AbstractGridRepresentation* const rep = static_cast<const resqml2__AbstractGridRepresentation* const>(gsoapProxy2_0_1);
+	if (rep->ParentWindow != nullptr) {
+		if (rep->ParentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IjkParentWindow) {
+			const resqml2__IjkParentWindow* const ijkpw = static_cast<const resqml2__IjkParentWindow* const>(rep->ParentWindow);
+			const resqml2__Regrid* regrid = nullptr;
+			if (dimension == 'i' || dimension == 'I') {
+				regrid = ijkpw->IRegrid;
 			}
-			else if (dimension == 'j' || dimension == 'J')
-			{
-				if (ijkpw->JRegrid->Intervals != nullptr)
-				{
-					if (ijkpw->JRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(ijkpw->JRegrid->Intervals->ChildCountPerInterval)->Values->PathInHdfFile, childCellCountPerInterval);
-					else if (ijkpw->JRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(ijkpw->JRegrid->Intervals->ChildCountPerInterval)->Count; ++i)
-							childCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(ijkpw->JRegrid->Intervals->ChildCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for J regrid.");
+			else if (dimension == 'j' || dimension == 'J') {
+				regrid = ijkpw->JRegrid;
 			}
-			else if (dimension == 'k' || dimension == 'K')
-			{
-				if (ijkpw->KRegrid->Intervals != nullptr)
-				{
-					if (ijkpw->KRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(ijkpw->KRegrid->Intervals->ChildCountPerInterval)->Values->PathInHdfFile, childCellCountPerInterval);
-					else if (ijkpw->KRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(ijkpw->KRegrid->Intervals->ChildCountPerInterval)->Count; ++i)
-							childCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(ijkpw->KRegrid->Intervals->ChildCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for K regrid.");
+			else if (dimension == 'k' || dimension == 'K') {
+				regrid = ijkpw->KRegrid;
 			}
-			else
+			else {
 				throw invalid_argument("Only i, j or k dimension can be accessed for an IJK Parent Window.");
-		}
-		else if  (rep->ParentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ColumnLayerParentWindow)
-		{
-			if (dimension == 'k' || dimension == 'K')
-			{
-				resqml2__ColumnLayerParentWindow* clpw = static_cast<resqml2__ColumnLayerParentWindow*>(rep->ParentWindow);
-				if (clpw->KRegrid->Intervals != nullptr )
-				{
-					if (clpw->KRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(clpw->KRegrid->Intervals->ChildCountPerInterval)->Values->PathInHdfFile, childCellCountPerInterval);
-					else if (clpw->KRegrid->Intervals->ChildCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(clpw->KRegrid->Intervals->ChildCountPerInterval)->Count; ++i)
-							childCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(clpw->KRegrid->Intervals->ChildCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for K regrid.");
 			}
-			else
-				throw invalid_argument("Only k dimension can be accessed for a ColumnLayer Parent Window.");
+
+			if (regrid->Intervals != nullptr) {
+				return regrid->Intervals->ChildCountPerInterval;
+			}
+			else {
+				throw invalid_argument("No interval for this regrid.");
+			}
 		}
-		else
+		else if (rep->ParentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ColumnLayerParentWindow) {
+			if (dimension == 'k' || dimension == 'K') {
+				const resqml2__ColumnLayerParentWindow* const clpw = static_cast<const resqml2__ColumnLayerParentWindow* const>(rep->ParentWindow);
+				if (clpw->KRegrid->Intervals != nullptr) {
+					return clpw->KRegrid->Intervals->ChildCountPerInterval;
+				}
+				else {
+					throw invalid_argument("No interval for K regrid.");
+				}
+			}
+			else {
+				throw invalid_argument("Only k dimension can be accessed for a ColumnLayer Parent Window.");
+			}
+		}
+		else {
 			throw invalid_argument("The parent window has not got any regrid information.");
+		}
 	}
-	else
+	else {
 		throw invalid_argument("There is no parent window on this grid.");
+	}
 }
 
-void AbstractGridRepresentation::getRegridParentCellCountPerInterval(const char & dimension, ULONG64 * parentCellCountPerInterval) const
-{
-	resqml2__AbstractGridRepresentation* rep = static_cast<resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
-	if (rep->ParentWindow != nullptr)
-	{
-		if (rep->ParentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IjkParentWindow)
-		{
-			resqml2__IjkParentWindow* ijkpw = static_cast<resqml2__IjkParentWindow*>(rep->ParentWindow);
-			if (dimension == 'i' || dimension == 'I')
-			{
-				if (ijkpw->IRegrid->Intervals != nullptr)
-				{
-					if (ijkpw->IRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(ijkpw->IRegrid->Intervals->ParentCountPerInterval)->Values->PathInHdfFile, parentCellCountPerInterval);
-					else if (ijkpw->IRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(ijkpw->IRegrid->Intervals->ParentCountPerInterval)->Count; ++i)
-							parentCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(ijkpw->IRegrid->Intervals->ParentCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for I regrid.");
-			}
-			else if (dimension == 'j' || dimension == 'J')
-			{
-				if (ijkpw->JRegrid->Intervals != nullptr)
-				{
-					if (ijkpw->JRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(ijkpw->JRegrid->Intervals->ParentCountPerInterval)->Values->PathInHdfFile, parentCellCountPerInterval);
-					else if (ijkpw->JRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(ijkpw->JRegrid->Intervals->ParentCountPerInterval)->Count; ++i)
-							parentCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(ijkpw->JRegrid->Intervals->ParentCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for J regrid.");
-			}
-			else if (dimension == 'k' || dimension == 'K')
-			{
-				if (ijkpw->KRegrid->Intervals != nullptr)
-				{
-					if (ijkpw->KRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(ijkpw->KRegrid->Intervals->ParentCountPerInterval)->Values->PathInHdfFile, parentCellCountPerInterval);
-					else if (ijkpw->KRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(ijkpw->KRegrid->Intervals->ParentCountPerInterval)->Count; ++i)
-							parentCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(ijkpw->KRegrid->Intervals->ParentCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for K regrid.");
-			}
-			else
-				throw invalid_argument("Only i, j or k dimension can be accessed for an IJK Parent Window.");
-		}
-		else if  (rep->ParentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ColumnLayerParentWindow)
-		{
-			if (dimension == 'k' || dimension == 'K')
-			{
-				resqml2__ColumnLayerParentWindow* clpw = static_cast<resqml2__ColumnLayerParentWindow*>(rep->ParentWindow);
-				if (clpw->KRegrid->Intervals != nullptr )
-				{
-					if (clpw->KRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-						hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(clpw->KRegrid->Intervals->ParentCountPerInterval)->Values->PathInHdfFile, parentCellCountPerInterval);
-					else if (clpw->KRegrid->Intervals->ParentCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-					{
-						for (unsigned int i = 0; i < static_cast<resqml2__IntegerConstantArray*>(clpw->KRegrid->Intervals->ParentCountPerInterval)->Count; ++i)
-							parentCellCountPerInterval[i] = static_cast<resqml2__IntegerConstantArray*>(clpw->KRegrid->Intervals->ParentCountPerInterval)->Value;
-					}
-				}
-				else
-					throw invalid_argument("No interval for K regrid.");
-			}
-			else
-				throw invalid_argument("Only k dimension can be accessed for a ColumnLayer Parent Window.");
-		}
-		else
-			throw invalid_argument("The parent window has not got any regrid information.");
+bool AbstractGridRepresentation::isRegridCellCountPerIntervalConstant(const char & dimension, const bool & childVsParentCellCount) const {
+	const resqml2__AbstractIntegerArray* const childCountPerInterval = getCellCountPerInterval(dimension, childVsParentCellCount);
+	return childCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray;
+}
+
+ULONG64 AbstractGridRepresentation::getRegridConstantCellCountPerInterval(const char & dimension, const bool & childVsParentCellCount) const {
+	const resqml2__AbstractIntegerArray* const childCountPerInterval = getCellCountPerInterval(dimension, childVsParentCellCount);
+	if (childCountPerInterval->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray) {
+		throw invalid_argument("The regrid child cell count per interval is not constant.");
 	}
-	else
-		throw invalid_argument("There is no parent window on this grid.");
+
+	return static_cast<const resqml2__IntegerConstantArray* const>(childCountPerInterval)->Value;
+}
+
+void AbstractGridRepresentation::getRegridCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval, const bool & childVsParentCellCount) const
+{
+	const resqml2__AbstractIntegerArray* const childCountPerInterval = getCellCountPerInterval(dimension, childVsParentCellCount);
+
+	if (childCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray) {
+		for (ULONG64 i = 0; i < static_cast<const resqml2__IntegerConstantArray* const>(childCountPerInterval)->Count; ++i) {
+			childCellCountPerInterval[i] = static_cast<const resqml2__IntegerConstantArray* const>(childCountPerInterval)->Value;
+		}
+	}
+	else if (childCountPerInterval->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array) {
+		hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<const resqml2__IntegerHdf5Array* const>(childCountPerInterval)->Values->PathInHdfFile, childCellCountPerInterval);
+	}
+	else  {
+		throw logic_error("Not implemented yet");
+	}
 }
 
 bool AbstractGridRepresentation::hasRegridChildCellWeights(const char & dimension) const

@@ -2832,8 +2832,9 @@ namespace resqml2_0_1
 		void getParentColumnIndices(ULONG64 * parentColumnIndices) const;
 		ULONG64 getRegridStartIndexOnParentGrid(const char & dimension) const;
 		ULONG64 getRegridIntervalCount(const char & dimension) const;
-		void getRegridChildCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval) const;
-		void getRegridParentCellCountPerInterval(const char & dimension, ULONG64 * parentCellCountPerInterval) const;
+		bool isRegridCellCountPerIntervalConstant(const char & dimension, const bool & childVsParentCellCount) const;
+		ULONG64 getRegridConstantCellCountPerInterval(const char & dimension, const bool & childVsParentCellCount) const;
+		void getRegridCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval, const bool & childVsParentCellCount) const;
 		bool hasRegridChildCellWeights(const char & dimension) const;
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
 

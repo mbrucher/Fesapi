@@ -62,30 +62,33 @@ string IjkGridNoGeometryRepresentation::getHdfProxyUuid() const
 
 ULONG64 IjkGridNoGeometryRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex >= getPatchCount())
+	if (patchIndex >= getPatchCount()) {
 		throw range_error("An ijk grid has a maximum of one patch.");
+	}
 
-	if (getParentGrid() != nullptr && getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREIjkGridRepresentation)
-	{
-		ULONG64 kIntervalCount =  getRegridIntervalCount('k');
-		ULONG64* kChildCellCountPerInterval = new ULONG64[kIntervalCount];
-		getRegridChildCellCountPerInterval('k', kChildCellCountPerInterval);
-		ULONG64 jIntervalCount =  getRegridIntervalCount('j');
-		ULONG64* jChildCellCountPerInterval = new ULONG64[jIntervalCount];
-		getRegridChildCellCountPerInterval('j', jChildCellCountPerInterval);
-		ULONG64 iIntervalCount =  getRegridIntervalCount('i');
-		ULONG64* iChildCellCountPerInterval = new ULONG64[iIntervalCount];
-		getRegridChildCellCountPerInterval('i', iChildCellCountPerInterval);
+	if (getParentGrid() != nullptr && getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREIjkGridRepresentation) {
+		const ULONG64 kIntervalCount =  getRegridIntervalCount('k');
+		ULONG64* const kChildCellCountPerInterval = new ULONG64[kIntervalCount];
+		getRegridCellCountPerInterval('k', kChildCellCountPerInterval, true);
+		const ULONG64 jIntervalCount = getRegridIntervalCount('j');
+		ULONG64* const jChildCellCountPerInterval = new ULONG64[jIntervalCount];
+		getRegridCellCountPerInterval('j', jChildCellCountPerInterval, true);
+		const ULONG64 iIntervalCount = getRegridIntervalCount('i');
+		ULONG64* const iChildCellCountPerInterval = new ULONG64[iIntervalCount];
+		getRegridCellCountPerInterval('i', iChildCellCountPerInterval, true);
 		
 		ULONG64 kCount = 1;
 		ULONG64 jCount = 1;
 		ULONG64 iCount = 1;
-		for (unsigned int kInterval = 0; kInterval < kIntervalCount; ++kInterval)
+		for (ULONG64 kInterval = 0; kInterval < kIntervalCount; ++kInterval) {
 			kCount += kChildCellCountPerInterval[kInterval];
-		for (unsigned int jInterval = 0; jInterval < jIntervalCount; ++jInterval)
+		}
+		for (ULONG64 jInterval = 0; jInterval < jIntervalCount; ++jInterval) {
 			jCount += jChildCellCountPerInterval[jInterval];
-		for (unsigned int iInterval = 0; iInterval < iIntervalCount; ++iInterval)
+		}
+		for (ULONG64 iInterval = 0; iInterval < iIntervalCount; ++iInterval) {
 			iCount += iChildCellCountPerInterval[iInterval];
+		}
 
 		delete [] kChildCellCountPerInterval;
 		delete [] jChildCellCountPerInterval;
@@ -93,12 +96,12 @@ ULONG64 IjkGridNoGeometryRepresentation::getXyzPointCountOfPatch(const unsigned 
 
 		return iCount * jCount * kCount;
 	}
-	else if (getParentGrid() == nullptr)
-	{
+	else if (getParentGrid() == nullptr) {
 		return getCellCount(); // There should be only one XYZ (center) per cell
 	}
-	else
+	else {
 		throw logic_error("Not yet implemented. Please use parent window information or geometrical property information.");
+	}
 }
 
 void IjkGridNoGeometryRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const

@@ -44,6 +44,12 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::resqml2__Regrid* createRegrid(const unsigned int & indexRegridStart, unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount, double * childCellWeights,
 														  const std::string & dimension);
 
+		/*
+		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		* @param	childVsParentCellCount		If true return the child cell count per interval. If false return the parent cell count per interval.
+		*/
+		gsoap_resqml2_0_1::resqml2__AbstractIntegerArray* getCellCountPerInterval(const char & dimension, const bool & childVsParentCellCount) const;
+
 	protected:
 
 		/**
@@ -219,18 +225,28 @@ namespace resqml2_0_1
 		ULONG64 getRegridIntervalCount(const char & dimension) const;
 
 		/**
+		* Check if the cell count per interval is constant against a particular dimension.
 		* Only run this method for an ijk parent grid or a strict column layer parent grid.
 		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
-		* @param	childCellCountPerInterval	This array must have been preallocated with a size of getRegridIntervalCount().
+		* @param	childVsParentCellCount		If true return the child cell count per interval. If false return the parent cell count per interval.
 		*/
-		void getRegridChildCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval) const;
+		bool isRegridCellCountPerIntervalConstant(const char & dimension, const bool & childVsParentCellCount) const;
+
+		/*
+		* Get the constant cell count per interval
+		* Only run this method for an ijk parent grid or a strict column layer parent grid.
+		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
+		* @param	childVsParentCellCount		If true return the child cell count per interval. If false return the parent cell count per interval.
+		*/
+		ULONG64 getRegridConstantCellCountPerInterval(const char & dimension, const bool & childVsParentCellCount) const;
 
 		/**
 		* Only run this method for an ijk parent grid or a strict column layer parent grid.
 		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
-		* @param	parentCellCountPerInterval	This array must have been preallocated with a size of getRegridIntervalCount().
+		* @param	childCellCountPerInterval	This array must have been preallocated with a size of getRegridIntervalCount().
+		* @param	childVsParentCellCount		If true return the child cell count per interval. If false return the parent cell count per interval.
 		*/
-		void getRegridParentCellCountPerInterval(const char & dimension, ULONG64 * parentCellCountPerInterval) const;
+		void getRegridCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval, const bool & childVsParentCellCount) const;
 
 		/**
 		* Only run this method for an ijk parent grid or a strict column layer parent grid.

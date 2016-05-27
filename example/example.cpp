@@ -1873,12 +1873,23 @@ void deserialize(const string & inputFile)
 			std::cout << "\t PARENT WINDOW" << std::endl;
 			if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREIjkGridRepresentation)
 			{
-				std::cout << "\t\t Regrid I start at :" << ijkGrid->getRegridStartIndexOnParentGrid('i') << std::endl;
-				std::cout << "\t\t Regrid J start at :" << ijkGrid->getRegridStartIndexOnParentGrid('j') << std::endl;
-				std::cout << "\t\t Regrid K start at :" << ijkGrid->getRegridStartIndexOnParentGrid('k') << std::endl;
-				std::cout << "\t\t I Interval count is :" << ijkGrid->getRegridIntervalCount('i') << std::endl;
-				std::cout << "\t\t J Interval count is :" << ijkGrid->getRegridIntervalCount('j') << std::endl;
-				std::cout << "\t\t K Interval count is :" << ijkGrid->getRegridIntervalCount('k') << std::endl;
+				for (char dimension = 'i'; dimension < 'l'; ++dimension) {
+					std::cout << "\t\t DIMENSION :" << dimension << std::endl;
+					std::cout << "\t\t Regrid start at :" << ijkGrid->getRegridStartIndexOnParentGrid(dimension) << std::endl;
+					std::cout << "\t\t Interval count is :" << ijkGrid->getRegridIntervalCount(dimension) << std::endl;
+					if (ijkGrid->isRegridCellCountPerIntervalConstant('i', false)) {
+						std::cout << "\t\t Constant parent cell count per interval :" << ijkGrid->getRegridConstantCellCountPerInterval(dimension, false) << std::endl;
+					}
+					else {
+						std::cout << "\t\t Non constant parent cell count per interval" << std::endl;
+					}
+					if (ijkGrid->isRegridCellCountPerIntervalConstant('i', true)) {
+						std::cout << "\t\t Constant child cell count per interval :" << ijkGrid->getRegridConstantCellCountPerInterval(dimension, true) << std::endl;
+					}
+					else {
+						std::cout << "\t\t Non constant child cell count per interval" << std::endl;
+					}
+				}
 			}
 			else if (ijkGrid->getParentGrid()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREUnstructuredColumnLayerGridRepresentation)
 			{
