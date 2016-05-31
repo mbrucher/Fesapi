@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "hdf5.h"
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/AbstractIjkGridRepresentation.h"
 
@@ -134,7 +134,7 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 	integerArray->Offset.push_back(offset);
 }
 
-void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, AbstractHdfProxy * proxy)
+void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 
@@ -166,7 +166,7 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 }
 
 void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
-			const LONG64 & nullValue, AbstractHdfProxy * proxy)
+			const LONG64 & nullValue, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 	
@@ -201,9 +201,9 @@ void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::re
 }
 
 void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
-			const ULONG64 & elementCount,
-			unsigned int * elementIndices0, unsigned int * elementIndices1,
-			AbstractHdfProxy * proxy)
+	const ULONG64 & elementCount,
+	unsigned int * elementIndices0, unsigned int * elementIndices1,
+	resqml2::AbstractHdfProxy * proxy)
 {
 	pushBackSubRepresentationPatch(elementKind0, elementCount, elementIndices0, proxy);
 

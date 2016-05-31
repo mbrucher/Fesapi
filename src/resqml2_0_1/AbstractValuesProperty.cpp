@@ -42,7 +42,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
@@ -60,22 +60,22 @@ void AbstractValuesProperty::importRelationshipSetFromEpc(common::EpcDocument* e
 	
 	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
 	{
-		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<resqml2::AbstractHdfProxy* const>(epcDoc->getResqmlAbstractObjectByUuid(
 			static_cast<resqml2__BooleanHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
-		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<resqml2::AbstractHdfProxy* const>(epcDoc->getResqmlAbstractObjectByUuid(
 				static_cast<resqml2__DoubleHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
 	{
-		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<resqml2::AbstractHdfProxy* const>(epcDoc->getResqmlAbstractObjectByUuid(
 				static_cast<resqml2__IntegerHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 	else if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StringHdf5Array)
 	{
-		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(
+		setHdfProxy(static_cast<resqml2::AbstractHdfProxy* const>(epcDoc->getResqmlAbstractObjectByUuid(
 				static_cast<resqml2__StringHdf5Array*>(firstPatch->Values)->Values->HdfProxy->UUID)));
 	}
 }
@@ -133,7 +133,7 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 	return AbstractValuesProperty::UNKNOWN; // unknwown datatype...
 }
 
-void AbstractValuesProperty::pushBackRefToExistingDataset(AbstractHdfProxy * hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset)
+void AbstractValuesProperty::pushBackRefToExistingDataset(resqml2::AbstractHdfProxy * hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset)
 {
 	resqml2__AbstractValuesProperty* prop = static_cast<resqml2__AbstractValuesProperty*>(gsoapProxy2_0_1);
 
@@ -550,7 +550,7 @@ void AbstractValuesProperty::createLongHdf5Array3dOfValues(
 	const unsigned int& valueCountInFastestDim, 
 	const unsigned int& valueCountInMiddleDim, 
 	const unsigned int& valueCountInSlowestDim, 
-	AbstractHdfProxy* proxy)
+	resqml2::AbstractHdfProxy* proxy)
 {
 	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
 	createLongHdf5ArrayOfValues(valueCountPerDimension, 3, proxy);
@@ -564,7 +564,7 @@ void AbstractValuesProperty::pushBackLongHdf5SlabArray3dOfValues(
 	const unsigned int& offsetInFastestDim, 
 	const unsigned int& offsetInMiddleDim, 
 	const unsigned int& offsetInSlowestDim,
-	AbstractHdfProxy * proxy)
+	resqml2::AbstractHdfProxy * proxy)
 {
 	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
 	hsize_t offsetPerDimension[3] = {offsetInSlowestDim, offsetInMiddleDim, offsetInFastestDim};
@@ -580,7 +580,7 @@ void AbstractValuesProperty::pushBackLongHdf5SlabArray3dOfValues(
 void AbstractValuesProperty::createLongHdf5ArrayOfValues(
 	hsize_t* numValues, 
 	const unsigned int& numArrayDimensions, 
-	AbstractHdfProxy* proxy)
+	resqml2::AbstractHdfProxy* proxy)
 {
 	setHdfProxy(proxy);
 	gsoap_resqml2_0_1::_resqml2__CategoricalProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
@@ -613,7 +613,7 @@ void AbstractValuesProperty::createLongHdf5ArrayOfValues(
 void AbstractValuesProperty::pushBackLongHdf5SlabArrayOfValues(
 	long* values, hsize_t* numValuesInEachDimension,
 	hsize_t* offsetInEachDimension, const unsigned int& numArrayDimensions, 
-	AbstractHdfProxy* proxy)
+	resqml2::AbstractHdfProxy* proxy)
 {
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
 	ostringstream oss;

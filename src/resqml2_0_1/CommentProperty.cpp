@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -83,7 +83,7 @@ CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & gu
 }
 
 void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values,
-													   AbstractHdfProxy * proxy)
+	resqml2::AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
     _resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy2_0_1);

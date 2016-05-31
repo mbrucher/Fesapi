@@ -118,25 +118,38 @@ const char* EpcDocument::DOCUMENT_EXTENSION = ".epc";
 
 namespace // anonymous namespace. Use only in that file.
 {
-	resqml2_0_1::AbstractHdfProxy* default_builder(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+	resqml2::AbstractHdfProxy* default_builder(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
 	{
-	  return new HdfProxy(soapContext, guid, title, packageDirAbsolutePath, externalFilePath);
+	  return new resqml2_0_1::HdfProxy(soapContext, guid, title, packageDirAbsolutePath, externalFilePath);
 	}
 
-	resqml2_0_1::AbstractHdfProxy* default_builder(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+	resqml2::AbstractHdfProxy* default_builder(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
 	{
-		return new HdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath);
+		return new resqml2::HdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath);
 	}
+
+#ifdef WITH_RESQML2_1
+	resqml2::AbstractHdfProxy* default_builder(gsoap_resqml2_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+	{
+		return new resqml2::HdfProxy(fromGsoap, packageDirAbsolutePath, externalFilePath);
+	}
+#endif
 }
 
 EpcDocument::EpcDocument(const string & fileName, const openingMode & hdf5PermissionAccess) :
-	hdf5PermissionAccess(hdf5PermissionAccess), package(nullptr), s(nullptr), propertyKindMapper(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
+	hdf5PermissionAccess(hdf5PermissionAccess), package(nullptr), s(nullptr), propertyKindMapper(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_gsoap_proxy_2_0_1(&default_builder)
+#ifdef WITH_RESQML2_1
+	, make_hdf_proxy_from_gsoap_proxy_2_1(&default_builder)
+#endif
 {
 	open(fileName);
 }
 
 EpcDocument::EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, const openingMode & hdf5PermissionAccess) :
-	hdf5PermissionAccess(hdf5PermissionAccess), package(nullptr), s(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_soap(&default_builder)
+	hdf5PermissionAccess(hdf5PermissionAccess), package(nullptr), s(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_gsoap_proxy_2_0_1(&default_builder)
+#ifdef WITH_RESQML2_1
+	, make_hdf_proxy_from_gsoap_proxy_2_1(&default_builder)
+#endif
 {
 	open(fileName);
 
@@ -209,7 +222,7 @@ const std::vector<resqml2_0_1::OrganizationFeature*> & EpcDocument::getOrganizat
 
 const std::vector<resqml2_0_1::TimeSeries*> & EpcDocument::getTimeSeriesSet() const { return timeSeriesSet; }
 
-std::vector<resqml2_0_1::AbstractHdfProxy*> EpcDocument::getHdfProxySet() const { return hdfProxySet; }
+std::vector<resqml2::AbstractHdfProxy*> EpcDocument::getHdfProxySet() const { return hdfProxySet; }
 unsigned int EpcDocument::getHdfProxyCount() const { return hdfProxySet.size(); }
 
 std::vector<witsml1_4_1_1::Trajectory*> EpcDocument::getWitsmlTrajectorySet() const { return witsmlTrajectorySet; }
@@ -392,9 +405,9 @@ void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 	{
 		seismicLineSet.push_back(static_cast<SeismicLineFeature*>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(EpcExternalPartReference::XML_TAG) == 0)
+	else if (proxy->getXmlTag().compare(resqml2::EpcExternalPartReference::XML_TAG) == 0)
 	{
-		hdfProxySet.push_back(static_cast<AbstractHdfProxy*>(proxy));
+		hdfProxySet.push_back(static_cast<resqml2::AbstractHdfProxy*>(proxy));
 	}
 	else if (proxy->getXmlTag().compare(WellboreFeature::XML_TAG) == 0)
 	{
@@ -575,14 +588,15 @@ string EpcDocument::deserialize()
 		if (it->second.getContentTypeString().find("application/x-resqml+xml;version=2.0;type=") == 0 ||
 			it->second.getContentTypeString().find("application/x-resqml+xml;version=2.0.1;type=") == 0)
 		{
-			string fileStr = package->extractFile(it->second.getExtensionOrPartName().substr(1));
-			if (fileStr.empty() == true)
+			const string fileStr = package->extractFile(it->second.getExtensionOrPartName().substr(1));
+			if (fileStr.empty()) {
 				throw invalid_argument("The EPC document contains the file " + it->second.getExtensionOrPartName().substr(1) + " in its contentType file which cannot be found or cannot be unzipped or is empty.");
+			}
 			istringstream iss(fileStr);
 			s->is = &iss;
 			resqml2::AbstractObject* wrapper = nullptr;
-			size_t lastEqualCharPos = it->second.getContentTypeString().find_last_of('_'); // The XML tag is after "obj_"
-			string resqmlContentType = it->second.getContentTypeString().substr(lastEqualCharPos+1);
+			const size_t lastEqualCharPos = it->second.getContentTypeString().find_last_of('_'); // The XML tag is after "obj_"
+			const string resqmlContentType = it->second.getContentTypeString().substr(lastEqualCharPos+1);
 			if (resqmlContentType.compare(MdDatum::XML_TAG) == 0)
 			{
 				gsoap_resqml2_0_1::_resqml2__MdDatum* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREMdDatum(s, 1);
@@ -924,7 +938,7 @@ string EpcDocument::deserialize()
 				soap_read_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(s, read);
 				wrapper = new SealedSurfaceFrameworkRepresentation(read);
 			}
-			else if (resqmlContentType.compare(EpcExternalPartReference::XML_TAG) == 0)
+			else if (resqmlContentType.compare(resqml2::EpcExternalPartReference::XML_TAG) == 0)
 			{
 				// Look for the relative path of the HDF file
 				string relFilePath = "";
@@ -949,7 +963,7 @@ string EpcDocument::deserialize()
 				// Common initialization
 				gsoap_resqml2_0_1::_eml__EpcExternalPartReference* read = gsoap_resqml2_0_1::soap_new_eml__obj_USCOREEpcExternalPartReference(s, 1);
 				soap_read_eml__obj_USCOREEpcExternalPartReference(s, read);
-				wrapper = make_hdf_proxy_from_soap(read, getStorageDirectory(), hdfRelativeFilePath);
+				wrapper = make_hdf_proxy_from_gsoap_proxy_2_0_1(read, getStorageDirectory(), hdfRelativeFilePath);
 			}
 			
 			if (wrapper)
@@ -1428,7 +1442,7 @@ vector<IjkGridLatticeRepresentation*> EpcDocument::getIjkSeismicCubeGridRepresen
 	return result;
 }
 
-resqml2_0_1::AbstractHdfProxy* EpcDocument::getHdfProxy(const unsigned int & index) const
+resqml2::AbstractHdfProxy* EpcDocument::getHdfProxy(const unsigned int & index) const
 {
 	if (index >= hdfProxySet.size())
 		throw range_error("The index of the requested hdf proxy is out of range");
@@ -1506,9 +1520,9 @@ std::string EpcDocument::getExtendedCoreProperty(const std::string & key)
 //************ HDF *******************
 //************************************
 
-AbstractHdfProxy* EpcDocument::createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
+resqml2::AbstractHdfProxy* EpcDocument::createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
 {
-	AbstractHdfProxy* result = make_hdf_proxy(getGsoapContext(), guid, title, packageDirAbsolutePath, externalFilePath);
+	resqml2::AbstractHdfProxy* result = make_hdf_proxy(getGsoapContext(), guid, title, packageDirAbsolutePath, externalFilePath);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
@@ -2383,7 +2397,14 @@ void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilder builder)
   make_hdf_proxy = builder;
 }
 
-void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilderFromSOAP builder)
+void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilderFromGsoapProxy2_0_1 builder)
 {
-  make_hdf_proxy_from_soap = builder;
+	make_hdf_proxy_from_gsoap_proxy_2_0_1 = builder;
 }
+
+#ifdef WITH_RESQML2_1
+void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilderFromGsoapProxy2_1 builder)
+{
+	make_hdf_proxy_from_gsoap_proxy_2_1 = builder;
+}
+#endif

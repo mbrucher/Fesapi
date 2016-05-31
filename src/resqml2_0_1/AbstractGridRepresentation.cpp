@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "hdf5.h"
 
 #include "resqml2_0_1/AbstractStratigraphicOrganizationInterpretation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/AbstractIjkGridRepresentation.h"
 

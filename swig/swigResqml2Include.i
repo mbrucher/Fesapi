@@ -2,6 +2,7 @@
 #define SWIG_FILE_WITH_INIT // In case we use Python Swig Wrapping
 
 #include "resqml2/ActivityTemplate.h"
+#include "resqml2/HdfProxy.h"
 
 %}
 typedef long long					LONG64;
@@ -49,8 +50,11 @@ namespace resqml2
 #if defined(SWIGJAVA) || defined(SWIGCSHARP)
 	%nspace resqml2::AbstractObject;
 	%nspace resqml2::AbstractFeature;
+	%nspace resqml2::AbstractHdfProxy;
 	%nspace resqml2::Activity;
 	%nspace resqml2::ActivityTemplate;
+	%nspace resqml2::EpcExternalPartReference;
+	%nspace resqml2::HdfProxy;
 #endif
 
 namespace resqml2_0_1
@@ -182,5 +186,25 @@ namespace resqml2
 	public:
 		unsigned int getInterpretationCount() const;
 		resqml2_0_1::AbstractFeatureInterpretation* getInterpretation(const unsigned int & index) const;
+	};
+	
+	//************************************
+	//************ HDF *******************
+	//************************************
+	class EpcExternalPartReference : public AbstractObject
+	{
+	};
+	
+	class AbstractHdfProxy : public EpcExternalPartReference
+	{
+	public:
+		virtual bool isOpened() = 0;
+		virtual void close() = 0;
+	};
+	
+	class HdfProxy : public AbstractHdfProxy
+	{
+	public:
+		void setCompressionLevel(const unsigned int & newCompressionLevel);
 	};
 }

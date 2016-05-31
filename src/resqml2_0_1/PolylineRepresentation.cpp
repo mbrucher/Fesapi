@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -128,7 +128,7 @@ void PolylineRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex
 		throw invalid_argument("The geometry of the representation either does not exist or it is not an explicit one.");
 }
 
-void PolylineRepresentation::setGeometry(double * points, const unsigned int & pointCount, AbstractHdfProxy * proxy)
+void PolylineRepresentation::setGeometry(double * points, const unsigned int & pointCount, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1);
 	polylineRep->NodePatch = soap_new_resqml2__NodePatch(gsoapProxy2_0_1->soap, 1);

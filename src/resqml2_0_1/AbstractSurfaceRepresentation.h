@@ -80,7 +80,7 @@ namespace resqml2_0_1
 		*/
 		gsoap_resqml2_0_1::resqml2__PointGeometry* createArray2dOfExplicitZ(
 			const unsigned int & patchIndex, double * zValues,
-			const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
+			const unsigned int & numI, const unsigned int & numJ, resqml2::AbstractHdfProxy* proxy,
 			class Grid2dRepresentation * supportingRepresentation,
 			const unsigned int & startGlobalIndex = 0,
 			const int & indexIncrementI = 1, const int & indexIncrementJ = 1);
@@ -94,7 +94,7 @@ namespace resqml2_0_1
 		*/
 		gsoap_resqml2_0_1::resqml2__PointGeometry* createArray2dOfExplicitZ(
 			const unsigned int & patchIndex, double * zValues,
-			const unsigned int & numI, const unsigned int & numJ, class AbstractHdfProxy * proxy,
+			const unsigned int & numI, const unsigned int & numJ, resqml2::AbstractHdfProxy* proxy,
 			const double & originX, const double & originY, const double & originZ,
 			const double & offsetIX, const double & offsetIY, const double & offsetIZ, const double & spacingI,
 			const double & offsetJX, const double & offsetJY, const double & offsetJZ, const double & spacingJ);

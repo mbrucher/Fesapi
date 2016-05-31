@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
@@ -524,7 +524,7 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & p
 
 void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy)
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, resqml2::AbstractHdfProxy* proxy)
 {
 	setGeometryAsParametricSplittedPillarNodes(mostComplexPillarGeometry, kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, pillarKind, proxy,
 		0, nullptr, nullptr, nullptr);
@@ -532,7 +532,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNo
 
 void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, class AbstractHdfProxy * proxy,
+			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, resqml2::AbstractHdfProxy * proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {
@@ -599,7 +599,7 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 
 void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes(
 	const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
-	double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointCountPerPillar, short pillarKind, class AbstractHdfProxy * proxy,
+	double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointCountPerPillar, short pillarKind, resqml2::AbstractHdfProxy * proxy,
 	const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 	unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {

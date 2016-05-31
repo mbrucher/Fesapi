@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/IjkGridLatticeRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 #include "resqml2_0_1/TimeSeries.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
 
@@ -394,7 +394,7 @@ std::string AbstractProperty::getRepresentationUuid() const
 	return static_cast<resqml2__AbstractProperty*>(gsoapProxy2_0_1)->SupportingRepresentation->UUID;
 }
 
-void AbstractProperty::setHdfProxy(AbstractHdfProxy * proxy)
+void AbstractProperty::setHdfProxy(resqml2::AbstractHdfProxy * proxy)
 {
 	if (!hdfProxy)
 	{

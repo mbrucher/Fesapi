@@ -77,7 +77,7 @@ namespace resqml2_0_1
 		* @param proxy							The HDF proxy which indicates in which HDF5 file the control points and its parameters will be stored.
 		*										It must be already opened for writing and won't be closed.
 		*/
-		void setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, class AbstractHdfProxy * proxy);
+		void setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, resqml2::AbstractHdfProxy* proxy);
 
 		/*
 		*  Set the geometry of the representation by means of one natural cubic parametric line.
@@ -88,7 +88,7 @@ namespace resqml2_0_1
 		*										It must be already opened for writing and won't be closed.
 		*/
 		void setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
-			class AbstractHdfProxy * proxy);
+			resqml2::AbstractHdfProxy* proxy);
 
 		/*
 		*  Set the geometry of the representation by means of one cubic parametric line.
@@ -101,7 +101,7 @@ namespace resqml2_0_1
 		*/
 		void setGeometry(double * controlPoints,
 			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
-			class AbstractHdfProxy * proxy);
+			resqml2::AbstractHdfProxy* proxy);
 
 		/**
 		* 0 for vertical, 1 for linear spline, 2 for natural cubic spline, 3 for cubic spline, 4 for z linear cubic spline, 5 for minimum-curvature spline, (-1) for null: no line

@@ -138,7 +138,7 @@ namespace resqml2_0_1
         * @param elementIndices		The indices of the elements of the instance in the supporting representation.
         * @param proxy				The HDF proxy where the numerical values (indices) are stored.
 		*/
-		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, class AbstractHdfProxy * proxy);
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, resqml2::AbstractHdfProxy* proxy);
 
 		/**
 		* Push back a new patch in the subrepresentation which is constituted by means of pairwise elements.
@@ -152,7 +152,7 @@ namespace resqml2_0_1
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 			const ULONG64 & elementCount,
 			unsigned int * elementIndices0, unsigned int * elementIndices1,
-			class AbstractHdfProxy * proxy);
+			resqml2::AbstractHdfProxy* proxy);
 
 		/**
 		* Push back a new patch (without pairwise elements) in the subrepresentation where the indice values have not to be written in the HDF file.
@@ -164,7 +164,7 @@ namespace resqml2_0_1
 		* @param	hdfProxy			The HDF5 proxy where the values are already or will be stored.
 		*/
 		void pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
-			const LONG64 & nullValue, AbstractHdfProxy * proxy);
+			const LONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 

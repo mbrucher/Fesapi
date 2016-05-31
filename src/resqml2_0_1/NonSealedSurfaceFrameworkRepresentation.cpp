@@ -42,7 +42,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractRepresentation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 
 using namespace std;
@@ -75,7 +75,7 @@ NonSealedSurfaceFrameworkRepresentation::NonSealedSurfaceFrameworkRepresentation
 	setInterpretation(interp);
 }
 
-void NonSealedSurfaceFrameworkRepresentation::pushBackNonSealedContactRepresentation(const unsigned int & pointCount, double * points, AbstractLocal3dCrs* crs, AbstractHdfProxy * proxy)
+void NonSealedSurfaceFrameworkRepresentation::pushBackNonSealedContactRepresentation(const unsigned int & pointCount, double * points, AbstractLocal3dCrs* crs, resqml2::AbstractHdfProxy * proxy)
 {
 	if (pointCount == 0)
 		throw invalid_argument("Contact point count cannot be zero.");

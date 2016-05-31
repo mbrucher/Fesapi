@@ -42,7 +42,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/FaultInterpretation.h"
 #include "resqml2_0_1/AbstractGridRepresentation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
@@ -84,7 +84,7 @@ GridConnectionSetRepresentation::GridConnectionSetRepresentation(AbstractFeature
 	}
 }
 
-void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy)
+void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 	rep->Count = cellIndexPairCount;
@@ -105,7 +105,7 @@ void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cel
 	hdfProxy->writeArrayNd(rep->uuid, "CellIndexPairs", H5T_NATIVE_ULLONG, cellIndexPair, numValues, 2);
 }
 
-void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, AbstractHdfProxy * proxy)
+void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
@@ -505,7 +505,7 @@ std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid
 	return rep->Grid[index]->UUID;
 }
 
-void GridConnectionSetRepresentation::setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy)
+void GridConnectionSetRepresentation::setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 	if (rep->ConnectionInterpretations == nullptr)

@@ -100,7 +100,7 @@ namespace resqml2
 		*/
 		AbstractObject(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject);
 
-		AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* proxy = nullptr) : partialObject(nullptr), gsoapProxy2_0_1(proxy), epcDocument (nullptr), updateXml(true) {}
+		AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* proxy = nullptr);
 
 		friend void common::EpcDocument::addGsoapProxy(AbstractObject* proxy);
 
@@ -184,7 +184,7 @@ namespace resqml2
 		/**
 		* Get the Gsoap type of the wrapped element
 		*/
-		int getGsoapType() const {return getGsoapProxy()->soap_type();}
+		int getGsoapType() const;
 
 		gsoap_resqml2_0_1::eml__DataObjectReference* newResqmlReference() const;
 

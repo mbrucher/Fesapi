@@ -36,6 +36,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2/AbstractObject.h"
 
+namespace resqml2 {
+	class AbstractHdfProxy;
+}
+
 namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT AbstractProperty: public resqml2::AbstractObject
@@ -150,7 +154,7 @@ namespace resqml2_0_1
 		/**
 		* Getter for the hdf proxy which stores this instance values.
 		*/
-		class AbstractHdfProxy* getHdfProxy() {return hdfProxy;}
+		resqml2::AbstractHdfProxy* getHdfProxy() { return hdfProxy; }
 
 		/*
 		 * Getter for the uuid of the hdf proxy which is used for storing the numerical values of this property.
@@ -174,7 +178,7 @@ namespace resqml2_0_1
 		/**
 		* Set the Hdf Proxy where the numerical values are stored.
 		*/
-		void setHdfProxy(class AbstractHdfProxy * proxy);
+		void setHdfProxy(resqml2::AbstractHdfProxy * proxy);
 
 	protected:
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
@@ -182,6 +186,6 @@ namespace resqml2_0_1
 
 		class AbstractRepresentation *	representation;		/// The reresentation which contains this property.
 		class AbstractLocal3dCrs *		local3dCrs;			/// The used local 3D CRS in case the property values need one. 
-		class AbstractHdfProxy *		hdfProxy;	/// The HDF proxy where the umerical values of this property are stored.
+		resqml2::AbstractHdfProxy *		hdfProxy;	/// The HDF proxy where the umerical values of this property are stored.
 	};
 }

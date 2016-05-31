@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace epc;
@@ -88,7 +88,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackSealedContactRepresentation(
         const unsigned int & patchCount,
         const unsigned int & identicalNodesCount,
         int * identicalNodes,
-        AbstractHdfProxy * proxy)
+		resqml2::AbstractHdfProxy * proxy)
 {
     if (patchCount < 2)
         throw invalid_argument("Contact point count cannot be less than two.");
@@ -126,7 +126,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
         const unsigned int & contactIndex,
         int * nodeIndicesOnSupportingRepresentation, const unsigned int & NodeCount,
         AbstractRepresentation * supportingRepresentation,
-        AbstractHdfProxy * proxy)
+		resqml2::AbstractHdfProxy * proxy)
 {
     if (!nodeIndicesOnSupportingRepresentation)
         throw invalid_argument("The array of node indices cannot be null.");
@@ -181,7 +181,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
 void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
         const gsoap_resqml2_0_1::resqml2__IdentityKind & kind,
         const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
-        AbstractHdfProxy * proxy)
+		resqml2::AbstractHdfProxy * proxy)
 {
     _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
@@ -210,7 +210,7 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
 void SealedSurfaceFrameworkRepresentation::pushBackContactIdentity(
         const gsoap_resqml2_0_1::resqml2__IdentityKind & kind,
         const unsigned int & sealedContactRepresentationsCount, int * sealedContactRepresentationsIndexes,
-        const unsigned int & identicalNodesCount, int * identicalNodesIndexes, AbstractHdfProxy * proxy)
+		const unsigned int & identicalNodesCount, int * identicalNodesIndexes, resqml2::AbstractHdfProxy * proxy)
 {
     _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 

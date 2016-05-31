@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractGridRepresentation.h"
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 #include "tools/Misc.h"
 
@@ -96,7 +96,7 @@ vector<Relationship> BlockedWellboreRepresentation::getAllEpcRelationships() con
 	return result;
 }
 
-void BlockedWellboreRepresentation::setIntevalGridCells(unsigned int * gridIndices, unsigned int gridIndicesNullValue, unsigned int cellCount, ULONG64* cellIndices, unsigned char* localFacePairPerCellIndices, unsigned char localFacePairPerCellIndicesNullValue, AbstractHdfProxy * hdfProxy)
+void BlockedWellboreRepresentation::setIntevalGridCells(unsigned int * gridIndices, unsigned int gridIndicesNullValue, unsigned int cellCount, ULONG64* cellIndices, unsigned char* localFacePairPerCellIndices, unsigned char localFacePairPerCellIndicesNullValue, resqml2::AbstractHdfProxy * hdfProxy)
 {
 	// Preconditions
 	if (getXyzPointCountOfAllPatches() == 0)

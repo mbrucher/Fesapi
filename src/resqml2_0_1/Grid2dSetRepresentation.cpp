@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/Grid2dRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -136,10 +136,10 @@ unsigned int Grid2dSetRepresentation::getPatchCount() const
 }
 
 void Grid2dSetRepresentation::pushBackGeometryPatch(double * zValues,
-				const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
-				Grid2dRepresentation * supportingGrid2dRepresentation,
-				const unsigned int & startIndexI, const unsigned int & startIndexJ,
-				const int & indexIncrementI, const int & indexIncrementJ)
+	const unsigned int & numI, const unsigned int & numJ, resqml2::AbstractHdfProxy * proxy,
+	Grid2dRepresentation * supportingGrid2dRepresentation,
+	const unsigned int & startIndexI, const unsigned int & startIndexJ,
+	const int & indexIncrementI, const int & indexIncrementJ)
 {
 	if (updateXml)
 	{

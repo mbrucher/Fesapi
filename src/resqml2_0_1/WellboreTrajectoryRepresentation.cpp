@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/MdDatum.h"
 #include "resqml2_0_1/WellboreFrameRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 #include "witsml1_4_1_1/Trajectory.h"
 
@@ -73,7 +73,7 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 	rep->MdUom = mdInfo->getLocalCrs()->getVerticalCrsUnit();
 }
 
-void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, AbstractHdfProxy * proxy)
+void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, resqml2::AbstractHdfProxy * proxy)
 {
 	if (controlPoints == nullptr)
 		throw invalid_argument("The control points are missing.");
@@ -109,7 +109,7 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, const
 }
 
 void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, double* controlPointParameters, const unsigned int & controlPointCount,
-			AbstractHdfProxy * proxy)
+	resqml2::AbstractHdfProxy * proxy)
 {
 	if (controlPointParameters == nullptr)
 		throw invalid_argument("The control points parameters are missing.");
@@ -131,8 +131,8 @@ void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, doubl
 }
 
 void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints,
-			double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
-			AbstractHdfProxy * proxy)
+	double * tangentVectors, double* controlPointParameters, const unsigned int & controlPointCount,
+	resqml2::AbstractHdfProxy * proxy)
 {
 	setGeometry(controlPoints, controlPointParameters, controlPointCount, proxy);
 

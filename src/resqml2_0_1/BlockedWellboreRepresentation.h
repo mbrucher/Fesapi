@@ -76,7 +76,7 @@ namespace resqml2_0_1
 		* @param localFacePairPerCellIndicesNullValue	The null value used in localFacePerCellIndices in order to indicate that it corresponds to a missing intersection, e.g., when a trajectory originates or terminates within a cell.
 		* @param hdfProxy								The hdf proxy where the numerical values will be stored.
 		*/
-		void setIntevalGridCells(unsigned int * gridIndices, unsigned int gridIndicesNullValue, unsigned int cellCount, ULONG64* cellIndices, unsigned char* localFacePairPerCellIndices, unsigned char localFacePairPerCellIndicesNullValue, AbstractHdfProxy * hdfProxy);
+		void setIntevalGridCells(unsigned int * gridIndices, unsigned int gridIndicesNullValue, unsigned int cellCount, ULONG64* cellIndices, unsigned char* localFacePairPerCellIndices, unsigned char localFacePairPerCellIndicesNullValue, resqml2::AbstractHdfProxy * hdfProxy);
 
 		/**
 		* The number of non-null entries in the grid indices array.

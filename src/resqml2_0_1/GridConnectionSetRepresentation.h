@@ -169,14 +169,14 @@ namespace resqml2_0_1
         * @param cellIndexPair		All the cell index pair in a 1d Array where the cell indices go faster than the pair.
         * @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
 		*/
-		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
 
 		/**
 		* Optional 2 x #Connections array of local face-per-cell indices for (Cell1,Cell2) for each connection. Local face-per-cell indices are used because global face indices need not have been defined.
 		* If no face-per-cell definition occurs as part of the grid representation, e.g., for a block-centered grid, then this array need not appear.
 		* Null value = -1 by dcoumentation
 		*/
-		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, AbstractHdfProxy * proxy);
+		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy);
 
 		/**
 		* For each connection in the grid connection set representation, allow to map zero or one feature interpretation. TODO: Resqml allows to map with more than one feature interpretation.
@@ -185,7 +185,7 @@ namespace resqml2_0_1
 		* @param nullValue					The null value must be used as the corresponding interpretation index for each connection which are not associated to any interpretation.
 		* @param proxy						The Hdf proxy where the numerical values will be stored.
 		*/
-		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, AbstractHdfProxy * proxy);
+		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
 
 		/**
 		* Pushes back an interpretation which can be mapped with some connections.

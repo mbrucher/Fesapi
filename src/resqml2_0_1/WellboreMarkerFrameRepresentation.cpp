@@ -49,7 +49,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/WellboreMarker.h"
 #include "resqml2_0_1/StratigraphicOccurrenceInterpretation.h"
 #include "resqml2_0_1/HorizonInterpretation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 #include "witsml1_4_1_1/FormationMarker.h"
 

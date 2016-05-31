@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/StringTableLookup.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -122,25 +122,25 @@ void CategoricalProperty::importRelationshipSetFromEpc(common::EpcDocument* epcD
 		stringLookup->addCategoricalPropertyValues(this);
 }
 
-void CategoricalProperty::pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, AbstractHdfProxy * proxy, const long & nullValue)
+void CategoricalProperty::pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
 {
 	hsize_t valueCountPerDimension[1] = {valueCount};
 	pushBackLongHdf5ArrayOfValues(values, valueCountPerDimension, 1, proxy, nullValue);
 }
 
-void CategoricalProperty::pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue)
+void CategoricalProperty::pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
 {
 	hsize_t valueCountPerDimension[2] = {valueCountInSlowestDim, valueCountInFastestDim};
 	pushBackLongHdf5ArrayOfValues(values, valueCountPerDimension, 2, proxy, nullValue);
 }
 
-void CategoricalProperty::pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, AbstractHdfProxy * proxy, const long & nullValue)
+void CategoricalProperty::pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
 {
 	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
 	pushBackLongHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
 }
 
-void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, AbstractHdfProxy * proxy, const long & nullValue)
+void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
 {
 	setHdfProxy(proxy);
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);

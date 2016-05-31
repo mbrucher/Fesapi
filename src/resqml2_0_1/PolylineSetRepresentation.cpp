@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -92,7 +92,7 @@ PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretati
 void PolylineSetRepresentation::pushBackGeometryPatch(
 				unsigned int * NodeCountPerPolyline, double * nodes,
 				const unsigned int & polylineCount, const bool & allPolylinesClosedFlag,
-				AbstractHdfProxy * proxy)
+				resqml2::AbstractHdfProxy * proxy)
 {
 	resqml2__PolylineSetPatch* patch = soap_new_resqml2__PolylineSetPatch(gsoapProxy2_0_1->soap, 1);
 	patch->PatchIndex = static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy2_0_1)->LinePatch.size();
@@ -132,7 +132,7 @@ void PolylineSetRepresentation::pushBackGeometryPatch(
 void PolylineSetRepresentation::pushBackGeometryPatch(
 				unsigned int * NodeCountPerPolyline, double * nodes,
 				const unsigned int & polylineCount, bool * polylineClosedFlags,
-				AbstractHdfProxy * proxy)
+				resqml2::AbstractHdfProxy * proxy)
 {
 	resqml2__PolylineSetPatch* patch = soap_new_resqml2__PolylineSetPatch(gsoapProxy2_0_1->soap, 1);
 	patch->PatchIndex = static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy2_0_1)->LinePatch.size();

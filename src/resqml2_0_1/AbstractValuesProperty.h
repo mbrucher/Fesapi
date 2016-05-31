@@ -71,7 +71,7 @@ namespace resqml2_0_1
 		* @param	isAnIntegerDataset	If false, indicates that this dataset contains some floating point values. If true, this dataset contains some integer values.
 		* @param	dataset				If not provided during the method call, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + prop->uuid + "/values_patch" + patchIndex;
 		*/
-		void pushBackRefToExistingDataset(class AbstractHdfProxy * hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset = "");
+		void pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset = "");
 
 		/**
 		* Get all the values of the instance which are supposed to be long ones.
@@ -189,7 +189,7 @@ namespace resqml2_0_1
 		void createLongHdf5ArrayOfValues(
 			unsigned long long* numValues, 
 			const unsigned int& numArrayDimensions, 
-			class AbstractHdfProxy* proxy
+			resqml2::AbstractHdfProxy* proxy
 		);
 
 		/**
@@ -203,7 +203,7 @@ namespace resqml2_0_1
 			const unsigned int& valueCountInFastestDim, 
 			const unsigned int& valueCountInMiddleDim, 
 			const unsigned int& valueCountInSlowestDim, 
-			class AbstractHdfProxy * proxy
+			resqml2::AbstractHdfProxy* proxy
 		);
 
 		/**
@@ -225,7 +225,7 @@ namespace resqml2_0_1
 			const unsigned int& offsetInFastestDim, 
 			const unsigned int& offsetInMiddleDim, 
 			const unsigned int& offsetInSlowestDim, 
-			class AbstractHdfProxy* proxy
+			resqml2::AbstractHdfProxy* proxy
 		);
 
 		/**
@@ -242,7 +242,7 @@ namespace resqml2_0_1
 			unsigned long long * numValues,
 			unsigned long long * offsetValues,
 			const unsigned int & numArrayDimensions, 
-			class AbstractHdfProxy * proxy
+			resqml2::AbstractHdfProxy* proxy
 		);
 
 		/**

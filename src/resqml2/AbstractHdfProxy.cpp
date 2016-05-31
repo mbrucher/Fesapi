@@ -31,14 +31,12 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
-using namespace resqml2_0_1;
-using namespace gsoap_resqml2_0_1;
+using namespace resqml2;
 
 AbstractHdfProxy::AbstractHdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
-EpcExternalPartReference(soapContext, guid, title, packageDirAbsolutePath, externalFilePath)
+	EpcExternalPartReference(soapContext, guid, title, packageDirAbsolutePath, externalFilePath)
 {
-  static_cast<_eml__EpcExternalPartReference*>(gsoapProxy2_0_1)->MimeType = "application/x-hdf5";
 }
 

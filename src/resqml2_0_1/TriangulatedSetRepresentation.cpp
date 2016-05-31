@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -92,7 +92,7 @@ resqml2__PointGeometry* TriangulatedSetRepresentation::getPointGeometry(const un
 void TriangulatedSetRepresentation::pushBackTrianglePatch(
 	const unsigned int & nodeCount, double * nodes,
 	const unsigned int & triangleCount, unsigned int * triangleNodeIndices,
-	AbstractHdfProxy * proxy)
+	resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__TriangulatedSetRepresentation* triRep = static_cast<_resqml2__TriangulatedSetRepresentation*>(gsoapProxy2_0_1);
 

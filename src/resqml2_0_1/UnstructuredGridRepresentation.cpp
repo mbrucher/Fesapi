@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
@@ -385,7 +385,7 @@ void UnstructuredGridRepresentation::getCellFaceIsRightHanded(unsigned char* cel
 	  throw logic_error("Not yet implemented.");
 }
 
-void UnstructuredGridRepresentation::setGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, AbstractHdfProxy * proxy,
+void UnstructuredGridRepresentation::setGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, resqml2::AbstractHdfProxy * proxy,
 	ULONG64 * faceIndicesPerCell, ULONG64 * faceIndicesCumulativeCountPerCell,
 	ULONG64 faceCount, ULONG64 * nodeIndicesPerFace, ULONG64 * nodeIndicesCumulativeCountPerFace,
 	const gsoap_resqml2_0_1::resqml2__CellShape & cellShape)
@@ -481,7 +481,7 @@ void UnstructuredGridRepresentation::setGeometry(unsigned char * cellFaceIsRight
 	delete [] numValues;
 }
 
-void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, AbstractHdfProxy * proxy,
+void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy * proxy,
 	ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace)
 {
 	if (cellFaceIsRightHanded == nullptr)

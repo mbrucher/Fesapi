@@ -82,7 +82,7 @@ namespace resqml2_0_1
 		* @param values					All the property values to set ordered according the topology of the representation it is based on.
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
-		void pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values, class AbstractHdfProxy * proxy);
+		void pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values, resqml2::AbstractHdfProxy* proxy);
 
 		/**
 		* Get all the values of the instance which are supposed to be string ones.

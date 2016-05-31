@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/AbstractValuesProperty.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
@@ -106,7 +106,7 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 	const resqml2__PillarShape & mostComplexPillarGeometry,
 	const resqml2__KDirection & kDirectionKind,
 	const bool & isRightHanded,
-	double * points, AbstractHdfProxy * proxy,
+	double * points, resqml2::AbstractHdfProxy * proxy,
 	const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 	unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {

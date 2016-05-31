@@ -62,6 +62,7 @@ namespace resqml2
 {
 	class AbstractObject;
 	class AbstractFeature;
+	class AbstractHdfProxy;
 	class Activity;
 	class ActivityTemplate;
 }
@@ -91,7 +92,6 @@ namespace resqml2_0_1
 	class IjkGridParametricRepresentation;
 	class IjkGridLatticeRepresentation;
 	class UnstructuredGridRepresentation;
-	class AbstractHdfProxy;
 	class BoundaryFeature;
 	class BoundaryFeatureInterpretation;
 	class TectonicBoundaryFeature;
@@ -163,14 +163,21 @@ namespace common
 		~EpcDocument();
 
 		// A function pointer definition which allows to build an abstract hdf proxy in writing mode of an epc document
-		typedef resqml2_0_1::AbstractHdfProxy* (HdfProxyBuilder)(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
-		// A function pointer which allows to build an abstract hdf proxy in reading mode of an epc document
-		typedef resqml2_0_1::AbstractHdfProxy* (HdfProxyBuilderFromSOAP)(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		typedef resqml2::AbstractHdfProxy* (HdfProxyBuilder)(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		// A function pointer which allows to build a v2.0.1 abstract hdf proxy in reading mode of an epc document
+		typedef resqml2::AbstractHdfProxy* (HdfProxyBuilderFromGsoapProxy2_0_1)(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+#ifdef WITH_RESQML2_1
+		// A function pointer which allows to build a v2.0.1 abstract hdf proxy in reading mode of an epc document
+		typedef resqml2::AbstractHdfProxy* (HdfProxyBuilderFromGsoapProxy2_1)(gsoap_resqml2_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+#endif
 
 		// Allows a fesapi user to set a different builder of Hdf Proxy than the default one in writing mode of an epc document
 		// This is especially useful when the fesapi users wants to use its own builder for example.
 		void set_hdf_proxy_builder(HdfProxyBuilder builder);
-		void set_hdf_proxy_builder(HdfProxyBuilderFromSOAP builder);
+		void set_hdf_proxy_builder(HdfProxyBuilderFromGsoapProxy2_0_1 builder);
+#ifdef WITH_RESQML2_1
+		void set_hdf_proxy_builder(HdfProxyBuilderFromGsoapProxy2_1 builder);
+#endif
 
 		/**
 		 * Open an epc document
@@ -494,9 +501,9 @@ namespace common
 		/**
 		* Get all the Hdf proxies used with this EPC document
 		*/
-		std::vector<resqml2_0_1::AbstractHdfProxy*> getHdfProxySet() const;
+		std::vector<resqml2::AbstractHdfProxy*> getHdfProxySet() const;
 		unsigned int getHdfProxyCount() const;
-		resqml2_0_1::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
+		resqml2::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
 
 		/**
 		* Get the absolute path of the directory where the epc document is stored.
@@ -536,7 +543,7 @@ namespace common
 		//************ HDF *******************
 		//************************************
 
-		resqml2_0_1::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		resqml2::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		//************************************
 		//************ CRS *******************
@@ -1041,7 +1048,7 @@ namespace common
 		std::vector<resqml2_0_1::Fracture*>							fractureSet;
 		std::vector<resqml2_0_1::Horizon*>							horizonSet;
 		std::vector<resqml2_0_1::SeismicLineFeature*>				seismicLineSet;
-		std::vector<resqml2_0_1::AbstractHdfProxy*>					hdfProxySet;
+		std::vector<resqml2::AbstractHdfProxy*>						hdfProxySet;
 		std::vector<resqml2_0_1::WellboreFeature*>					wellboreSet;
 		std::vector<resqml2_0_1::RepresentationSetRepresentation*>	representationSetRepresentationSet;
 		std::vector<witsml1_4_1_1::Trajectory*>						witsmlTrajectorySet;
@@ -1058,8 +1065,11 @@ namespace common
 
 		std::vector<std::string> warnings;
 
-		HdfProxyBuilder* make_hdf_proxy; // the builder for HDF proxy in writing mode of the epc document
-		HdfProxyBuilderFromSOAP* make_hdf_proxy_from_soap; // the builder for HDF proxy in reading mode of the epc document
+		HdfProxyBuilder* make_hdf_proxy; /// the builder for HDF proxy in writing mode of the epc document
+		HdfProxyBuilderFromGsoapProxy2_0_1* make_hdf_proxy_from_gsoap_proxy_2_0_1; /// the builder for a v2.0.1 HDF proxy in reading mode of the epc document
+#ifdef WITH_RESQML2_1
+		HdfProxyBuilderFromGsoapProxy2_1* make_hdf_proxy_from_gsoap_proxy_2_1; /// the builder for a v2.1 HDF proxy in reading mode of the epc document
+#endif
 
 		void addGsoapProxyAndDeleteItIfException(resqml2::AbstractObject* proxy);
 		void addGsoapProxyAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy);

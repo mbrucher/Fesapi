@@ -62,7 +62,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/TriangulatedSetRepresentation.h"
 #include "resqml2_0_1/PolylineSetRepresentation.h"
 #include "resqml2_0_1/PointSetRepresentation.h"
-#include "resqml2_0_1/HdfProxy.h"
+#include "resqml2/HdfProxy.h"
 #include "resqml2_0_1/OrganizationFeature.h"
 #include "resqml2_0_1/EarthModelInterpretation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
@@ -125,7 +125,7 @@ witsml1_4_1_1::Wellbore* witsmlWellbore = NULL;
 
 witsml1_4_1_1::CoordinateReferenceSystem* witsmlCrs;
 
-void serializeWells(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
+void serializeWells(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
 	witsml1_4_1_1::Trajectory* witsmlTraj = NULL;
 	witsml1_4_1_1::Log* witsmlLog = NULL;
@@ -209,7 +209,7 @@ void serializeWells(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 		w1i1FrameRep->setWitsmlLog(witsmlLog);
 }
 
-void serializeStratigraphicModel(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
+void serializeStratigraphicModel(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
 	witsml1_4_1_1::FormationMarker* witsmlFormationMarker0 = NULL;
 	witsml1_4_1_1::FormationMarker* witsmlFormationMarker1 = NULL;
@@ -248,7 +248,7 @@ void serializeStratigraphicModel(common::EpcDocument * pck, AbstractHdfProxy* hd
 		wmf->setWitsmlFormationMarker(1, witsmlFormationMarker1);
 }
 
-void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
+void serializeBoundaries(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
 	// Seismic Lattice
     SeismicLatticeFeature* seismicLattice = pck->createSeismicLattice("", "Seismic lattice", 2, 2, 150, 152, 4, 2);
@@ -409,7 +409,7 @@ void serializeBoundaries(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 #endif
 }
 
-void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
+void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
 	OrganizationFeature * earthModel = pck->createEarthModel("f2060ce0-fa3d-11e5-8620-0002a5d5c51b", "Grid");
 	EarthModelInterpretation * earthModelInterp = pck->createEarthModelInterpretation(earthModel, "f5cd7520-fa3d-11e5-b65b-0002a5d5c51b", "Grid interp");
@@ -644,7 +644,7 @@ void serializeGrid(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
 	tetraGrid->setTetrahedraOnlyGeometry(faceRightHandness, tetraGridPoints, 4, 4, hdfProxy, faceIndicesPerCell, nodeIndicesPerFace);
 }
 
-void serializeRepresentationSetRepresentation(common::EpcDocument * pck, AbstractHdfProxy* hdfProxy)
+void serializeRepresentationSetRepresentation(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
 	RepresentationSetRepresentation* result = pck->createRepresentationSetRepresentation("", "Testing Representation set");
 	cout << "is homogeneous : " << result->isHomogeneous() << endl;
@@ -660,7 +660,7 @@ void serializeRepresentationSetRepresentation(common::EpcDocument * pck, Abstrac
 	cout << "is homogeneous : " << result->isHomogeneous() << endl;
 }
 
-void serializeStructualModel(common::EpcDocument & pck, AbstractHdfProxy* hdfProxy)
+void serializeStructualModel(common::EpcDocument & pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
     // =========================================================================
     // =========================================================================
@@ -1228,7 +1228,7 @@ bool serialize(const string & filePath)
 {
 	common::EpcDocument pck(filePath, common::EpcDocument::OVERWRITE);
 
-	AbstractHdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
+	resqml2::AbstractHdfProxy* hdfProxy = pck.createHdfProxy("", "Hdf Proxy", pck.getStorageDirectory(), pck.getName() + ".h5");
 	
 	//CRS
 	local3dCrs = pck.createLocalDepth3dCrs("", "Default local CRS", .0, .0, .0, .0, gsoap_resqml2_0_1::eml__LengthUom__m, 23031, gsoap_resqml2_0_1::eml__LengthUom__m, "Unknown", false);

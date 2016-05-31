@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/Grid2dRepresentation.h"
 #include "resqml2_0_1/PolylineRepresentation.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
 
 using namespace std;
@@ -131,7 +131,7 @@ resqml2__PointGeometry* AbstractSurfaceRepresentation::createArray2dOfLatticePoi
 
 resqml2__PointGeometry* AbstractSurfaceRepresentation::createArray2dOfExplicitZ(
 		const unsigned int & patchIndex,double * zValues,
-		const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
+		const unsigned int & numI, const unsigned int & numJ, resqml2::AbstractHdfProxy * proxy,
 		Grid2dRepresentation * supportingRepresentation,
 		const unsigned int & startGlobalIndex,
 		const int & indexIncrementI, const int & indexIncrementJ)
@@ -183,7 +183,7 @@ resqml2__PointGeometry* AbstractSurfaceRepresentation::createArray2dOfExplicitZ(
 
 resqml2__PointGeometry* AbstractSurfaceRepresentation::createArray2dOfExplicitZ(
 		const unsigned int & patchIndex, double * zValues,
-		const unsigned int & numI, const unsigned int & numJ, AbstractHdfProxy * proxy,
+		const unsigned int & numI, const unsigned int & numJ, resqml2::AbstractHdfProxy * proxy,
 		const double & originX, const double & originY, const double & originZ,
 		const double & offsetIX, const double & offsetIY, const double & offsetIZ, const double & spacingI,
 		const double & offsetJX, const double & offsetJY, const double & offsetJZ, const double & spacingJ)

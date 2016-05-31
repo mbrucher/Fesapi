@@ -33,26 +33,27 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/EpcExternalPartReference.h"
+#include "resqml2/EpcExternalPartReference.h"
 #include "resqml2_0_1/AbstractRepresentation.h"
 
 #define CUMULATIVE_LENGTH_DS_NAME "cumulativeLength"
 #define ELEMENTS_DS_NAME "elements"
 
-namespace resqml2_0_1
+namespace resqml2
 {
-	class DLL_IMPORT_OR_EXPORT AbstractHdfProxy : public EpcExternalPartReference
+	class DLL_IMPORT_OR_EXPORT AbstractHdfProxy : public resqml2::EpcExternalPartReference
 	{
-	public:
+	protected:
 
 		/**
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		*/
 		AbstractHdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
-		AbstractHdfProxy(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath):
+		AbstractHdfProxy(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
 			EpcExternalPartReference(fromGsoap, packageDirAbsolutePath, externalFilePath) {}
-    
+
+	public:  
 		virtual ~AbstractHdfProxy() {}
 
 		/**
@@ -352,8 +353,8 @@ namespace resqml2_0_1
 		 */
 		virtual std::vector<unsigned long long> readArrayDimensions(const std::string & datasetName) = 0;
   
-		friend void AbstractRepresentation::setHdfProxy(AbstractHdfProxy * proxy);
-		friend void AbstractProperty::setHdfProxy(AbstractHdfProxy * proxy);
+		friend void resqml2_0_1::AbstractRepresentation::setHdfProxy(resqml2::AbstractHdfProxy * proxy);
+		friend void resqml2_0_1::AbstractProperty::setHdfProxy(resqml2::AbstractHdfProxy * proxy);
 
 	};
 }

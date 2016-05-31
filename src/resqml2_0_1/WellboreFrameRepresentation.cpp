@@ -40,7 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
 #include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractHdfProxy.h"
+#include "resqml2/AbstractHdfProxy.h"
 
 #include "witsml1_4_1_1/Log.h"
 
@@ -109,26 +109,24 @@ vector<Relationship> WellboreFrameRepresentation::getAllEpcRelationships() const
 
 void WellboreFrameRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	_resqml2__WellboreFrameRepresentation* rep = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
+	const _resqml2__WellboreFrameRepresentation* const rep = static_cast<const _resqml2__WellboreFrameRepresentation* const>(gsoapProxy2_0_1);
 
 	// need to do that before AbstractRepresentation::importRelationshipSetFromEpc because the trajectory is used for finding the local crs relationship.
-	trajectory = static_cast<WellboreTrajectoryRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->Trajectory->UUID));
-	if (trajectory)
+	trajectory = static_cast<WellboreTrajectoryRepresentation* const>(epcDoc->getResqmlAbstractObjectByUuid(rep->Trajectory->UUID));
+	if (trajectory != nullptr) {
 		trajectory->addWellboreFrameRepresentation(this);
+	}
 
 	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
 
 	int valuesType = rep->NodeMd->soap_type();
-	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
-	{
-		setHdfProxy(static_cast<AbstractHdfProxy*>(epcDoc->getResqmlAbstractObjectByUuid(static_cast<resqml2__DoubleHdf5Array*>(rep->NodeMd)->Values->HdfProxy->UUID)));
+	if (valuesType == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array) {
+		setHdfProxy(static_cast<resqml2::AbstractHdfProxy* const>(epcDoc->getResqmlAbstractObjectByUuid(static_cast<resqml2__DoubleHdf5Array* const>(rep->NodeMd)->Values->HdfProxy->UUID)));
 	}
 
-	if (rep->WitsmlLogReference)
-	{
-		witsml1_4_1_1::Log* tmp = static_cast<witsml1_4_1_1::Log*>(epcDoc->getWitsmlAbstractObjectByUuid(rep->WitsmlLogReference->UUID));
-		if (tmp)
-		{
+	if (rep->WitsmlLogReference) {
+		witsml1_4_1_1::Log* tmp = static_cast<witsml1_4_1_1::Log* const>(epcDoc->getWitsmlAbstractObjectByUuid(rep->WitsmlLogReference->UUID));
+		if (tmp != nullptr) {
 			updateXml = false;
 			setWitsmlLog(tmp);
 			updateXml = true;
@@ -136,7 +134,7 @@ void WellboreFrameRepresentation::importRelationshipSetFromEpc(common::EpcDocume
 	}
 }
 
-void WellboreFrameRepresentation::setMdValues(double * mdValues, const unsigned int & mdValueCount, AbstractHdfProxy * proxy)
+void WellboreFrameRepresentation::setMdValues(double * mdValues, const unsigned int & mdValueCount, resqml2::AbstractHdfProxy * proxy)
 {
 	setHdfProxy(proxy);
 
