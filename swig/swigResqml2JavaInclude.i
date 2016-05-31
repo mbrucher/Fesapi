@@ -1,9 +1,14 @@
+/**********************************************************************
+This file add special SWIG management of the C++ polymorphic datatype.
+Basically this file add methods resqml2_0_instantiate* which will create the right Java instance according to what it is exactly.
+**********************************************************************/
+
 %pragma(java) jniclasscode=%{
   public static com.f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instantiateConcreteObject(long cPtr, boolean owner)
   {
 	com.f2i.energisticsStandardsApi.resqml2.AbstractObject ret = null;
 	if (cPtr == 0) {
-	return ret;
+		return ret;
 	}
 	
 	ret = resqml2_0_1_instantiateConcreteProperty(cPtr, owner);
@@ -49,7 +54,7 @@
     }
     else if (type.equals("EpcExternalPartReference"))
     {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.HdfProxy(cPtr, owner);
+        ret = new com.f2i.energisticsStandardsApi.resqml2.HdfProxy(cPtr, owner);
     }
     else if (type.equals("FaultInterpretation"))
     {

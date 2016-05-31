@@ -47,7 +47,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
     else if (type == "EpcExternalPartReference")
     {
-        ret = new f2i.energisticsStandardsApi.resqml2_0_1.HdfProxy(cPtr, owner);
+        ret = new f2i.energisticsStandardsApi.resqml2.HdfProxy(cPtr, owner);
     }
     else if (type == "MdDatum")
     {
