@@ -198,13 +198,13 @@ const std::vector<resqml2_0_1::Fracture*> & EpcDocument::getFractureSet() const 
 
 const std::vector<resqml2_0_1::TriangulatedSetRepresentation*> & EpcDocument::getAllTriangulatedSetRepSet() const { return triangulatedSetRepresentationSet; }
 
-std::vector<resqml2_0_1::SeismicLineFeature*> EpcDocument::getSeismicLineSet() const { return seismicLineSet; }
+const std::vector<resqml2_0_1::SeismicLineFeature*> & EpcDocument::getSeismicLineSet() const { return seismicLineSet; }
 
-std::vector<resqml2_0_1::WellboreFeature*> EpcDocument::getWellboreSet() const { return wellboreSet; }
+const std::vector<resqml2_0_1::WellboreFeature*> & EpcDocument::getWellboreSet() const { return wellboreSet; }
 
 std::vector<resqml2_0_1::PolylineRepresentation*> EpcDocument::getPolylineRepresentationSet() const { return polylineRepresentationSet; }
 
-std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> EpcDocument::getIjkGridRepresentationSet() const { return ijkGridRepresentationSet; }
+const std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> & EpcDocument::getIjkGridRepresentationSet() const { return ijkGridRepresentationSet; }
 unsigned int EpcDocument::getIjkGridRepresentationCount() const { return ijkGridRepresentationSet.size(); }
 resqml2_0_1::AbstractIjkGridRepresentation* EpcDocument::getIjkGridRepresentation(const unsigned int & i) const
 {
@@ -214,7 +214,7 @@ resqml2_0_1::AbstractIjkGridRepresentation* EpcDocument::getIjkGridRepresentatio
 		return ijkGridRepresentationSet[i];
 }
 
-std::vector<resqml2_0_1::UnstructuredGridRepresentation*> EpcDocument::getUnstructuredGridRepresentationSet() const { return unstructuredGridRepresentationSet; }
+const std::vector<resqml2_0_1::UnstructuredGridRepresentation*> & EpcDocument::getUnstructuredGridRepresentationSet() const { return unstructuredGridRepresentationSet; }
 
 const std::vector<resqml2_0_1::FrontierFeature*> & EpcDocument::getFrontierSet() const { return frontierSet; }
 
@@ -222,7 +222,9 @@ const std::vector<resqml2_0_1::OrganizationFeature*> & EpcDocument::getOrganizat
 
 const std::vector<resqml2_0_1::TimeSeries*> & EpcDocument::getTimeSeriesSet() const { return timeSeriesSet; }
 
-std::vector<resqml2::AbstractHdfProxy*> EpcDocument::getHdfProxySet() const { return hdfProxySet; }
+const std::vector<resqml2_0_1::SubRepresentation*> & EpcDocument::getSubRepresentationSet() const { return subRepresentationSet; }
+
+const std::vector<resqml2::AbstractHdfProxy*> & EpcDocument::getHdfProxySet() const { return hdfProxySet; }
 unsigned int EpcDocument::getHdfProxyCount() const { return hdfProxySet.size(); }
 
 std::vector<witsml1_4_1_1::Trajectory*> EpcDocument::getWitsmlTrajectorySet() const { return witsmlTrajectorySet; }
@@ -389,93 +391,78 @@ std::string EpcDocument::getWitsmlPlaneAngleUom(const gsoap_witsml1_4_1_1::witsm
 
 void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 {
-	if (proxy->getXmlTag().compare(TectonicBoundaryFeature::XML_TAG) == 0)
-	{
-		if (!static_cast<TectonicBoundaryFeature*>(proxy)->isAFracture())
-			faultSet.push_back(static_cast<Fault*>(proxy));
-		else
-			fractureSet.push_back(static_cast<Fracture*>(proxy));
+	if (proxy->getXmlTag().compare(TectonicBoundaryFeature::XML_TAG) == 0) {
+		if (!static_cast<const TectonicBoundaryFeature* const>(proxy)->isAFracture()) {
+			faultSet.push_back(static_cast<Fault* const>(proxy));
+		}
+		else {
+			fractureSet.push_back(static_cast<Fracture* const>(proxy));
+		}
 	}
-	else if (proxy->getXmlTag().compare(GeneticBoundaryFeature::XML_TAG) == 0)
-	{
-		if (static_cast<GeneticBoundaryFeature*>(proxy)->isAnHorizon())
-			horizonSet.push_back(static_cast<Horizon*>(proxy));
+	else if (proxy->getXmlTag().compare(GeneticBoundaryFeature::XML_TAG) == 0) {
+		if (static_cast<const GeneticBoundaryFeature* const>(proxy)->isAnHorizon()) {
+			horizonSet.push_back(static_cast<Horizon* const>(proxy));
+		}
 	}
-	else if (proxy->getXmlTag().compare(SeismicLineFeature::XML_TAG) == 0)
-	{
-		seismicLineSet.push_back(static_cast<SeismicLineFeature*>(proxy));
+	else if (proxy->getXmlTag().compare(SeismicLineFeature::XML_TAG) == 0) {
+		seismicLineSet.push_back(static_cast<SeismicLineFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(resqml2::EpcExternalPartReference::XML_TAG) == 0)
-	{
-		hdfProxySet.push_back(static_cast<resqml2::AbstractHdfProxy*>(proxy));
+	else if (proxy->getXmlTag().compare(resqml2::EpcExternalPartReference::XML_TAG) == 0) {
+		hdfProxySet.push_back(static_cast<resqml2::AbstractHdfProxy* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(WellboreFeature::XML_TAG) == 0)
-	{
-		wellboreSet.push_back(static_cast<WellboreFeature*>(proxy));
+	else if (proxy->getXmlTag().compare(WellboreFeature::XML_TAG) == 0) {
+		wellboreSet.push_back(static_cast<WellboreFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(PolylineRepresentation::XML_TAG) == 0)
-	{
-		polylineRepresentationSet.push_back(static_cast<PolylineRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(PolylineRepresentation::XML_TAG) == 0) {
+		polylineRepresentationSet.push_back(static_cast<PolylineRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(AbstractIjkGridRepresentation::XML_TAG) == 0)
-	{
-		ijkGridRepresentationSet.push_back(static_cast<AbstractIjkGridRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(AbstractIjkGridRepresentation::XML_TAG) == 0) {
+		ijkGridRepresentationSet.push_back(static_cast<AbstractIjkGridRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(UnstructuredGridRepresentation::XML_TAG) == 0)
-	{
-		unstructuredGridRepresentationSet.push_back(static_cast<UnstructuredGridRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(UnstructuredGridRepresentation::XML_TAG) == 0) {
+		unstructuredGridRepresentationSet.push_back(static_cast<UnstructuredGridRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(LocalDepth3dCrs::XML_TAG) == 0)
-	{
-		localDepth3dCrsSet.push_back(static_cast<LocalDepth3dCrs*>(proxy));
+	else if (proxy->getXmlTag().compare(LocalDepth3dCrs::XML_TAG) == 0) {
+		localDepth3dCrsSet.push_back(static_cast<LocalDepth3dCrs* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(LocalTime3dCrs::XML_TAG) == 0)
-	{
-		localTime3dCrsSet.push_back(static_cast<LocalTime3dCrs*>(proxy));
+	else if (proxy->getXmlTag().compare(LocalTime3dCrs::XML_TAG) == 0) {
+		localTime3dCrsSet.push_back(static_cast<LocalTime3dCrs* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(StratigraphicColumn::XML_TAG) == 0)
-	{
-		stratigraphicColumnSet.push_back(static_cast<StratigraphicColumn*>(proxy));
+	else if (proxy->getXmlTag().compare(StratigraphicColumn::XML_TAG) == 0) {
+		stratigraphicColumnSet.push_back(static_cast<StratigraphicColumn* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(TriangulatedSetRepresentation::XML_TAG) == 0)
-	{
-		triangulatedSetRepresentationSet.push_back(static_cast<TriangulatedSetRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(TriangulatedSetRepresentation::XML_TAG) == 0) {
+		triangulatedSetRepresentationSet.push_back(static_cast<TriangulatedSetRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(FrontierFeature::XML_TAG) == 0)
-	{
-		frontierSet.push_back(static_cast<FrontierFeature*>(proxy));
+	else if (proxy->getXmlTag().compare(FrontierFeature::XML_TAG) == 0) {
+		frontierSet.push_back(static_cast<FrontierFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(OrganizationFeature::XML_TAG) == 0)
-	{
-		organizationSet.push_back(static_cast<OrganizationFeature*>(proxy));
+	else if (proxy->getXmlTag().compare(OrganizationFeature::XML_TAG) == 0) {
+		organizationSet.push_back(static_cast<OrganizationFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(RepresentationSetRepresentation::XML_TAG) == 0)
-	{
-		representationSetRepresentationSet.push_back(static_cast<RepresentationSetRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(RepresentationSetRepresentation::XML_TAG) == 0) {
+		representationSetRepresentationSet.push_back(static_cast<RepresentationSetRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(NonSealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
-	{
-		representationSetRepresentationSet.push_back(static_cast<NonSealedSurfaceFrameworkRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(NonSealedSurfaceFrameworkRepresentation::XML_TAG) == 0) {
+		representationSetRepresentationSet.push_back(static_cast<NonSealedSurfaceFrameworkRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
-	{
-		representationSetRepresentationSet.push_back(static_cast<SealedSurfaceFrameworkRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0) {
+		representationSetRepresentationSet.push_back(static_cast<SealedSurfaceFrameworkRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(SealedVolumeFrameworkRepresentation::XML_TAG) == 0)
-	{
-		representationSetRepresentationSet.push_back(static_cast<SealedVolumeFrameworkRepresentation*>(proxy));
+	else if (proxy->getXmlTag().compare(SealedVolumeFrameworkRepresentation::XML_TAG) == 0) {
+		representationSetRepresentationSet.push_back(static_cast<SealedVolumeFrameworkRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(TimeSeries::XML_TAG) == 0)
-	{
+	else if (proxy->getXmlTag().compare(TimeSeries::XML_TAG) == 0) {
 		timeSeriesSet.push_back(static_cast<TimeSeries*>(proxy));
 	}
+	else if (proxy->getXmlTag().compare(SubRepresentation::XML_TAG) == 0) {
+		subRepresentationSet.push_back(static_cast<SubRepresentation* const>(proxy));
+	}
 
-	if (getResqmlAbstractObjectByUuid(proxy->getUuid()) == nullptr)
-	{
+	if (getResqmlAbstractObjectByUuid(proxy->getUuid()) == nullptr) {
 		resqmlAbstractObjectSet[proxy->getUuid()] = proxy;
 	}
-	else
-	{
+	else {
 		throw invalid_argument("You cannot have twice the same UUID " + proxy->getUuid() + " for two different Resqml objects in an EPC document");
 	}
 	proxy->epcDocument = this;

@@ -35,6 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
+#include "resqml2_0_1/SubRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/IjkGridExplicitRepresentation.h"
 #include "resqml2_0_1/IjkGridParametricRepresentation.h"
@@ -111,10 +112,18 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 	if (rep == nullptr) // partial transfer
 	{
 		epcDoc->addWarning("The referenced grid \"" + prop->SupportingRepresentation->Title + "\" (" + prop->SupportingRepresentation->UUID + ") is missing.");
-		if (prop->SupportingRepresentation->ContentType.find("UnstructuredGridRepresentation") != 0)
+		if (prop->SupportingRepresentation->ContentType.find(UnstructuredGridRepresentation::XML_TAG) != string::npos) {
 			rep = epcDoc->createPartialUnstructuredGridRepresentation(prop->SupportingRepresentation->UUID, prop->SupportingRepresentation->Title);
-		else if (prop->SupportingRepresentation->ContentType.find("IjkGridRepresentation") != 0)
+		}
+		else if (prop->SupportingRepresentation->ContentType.find(AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
 			rep = epcDoc->createPartialIjkGridRepresentation(prop->SupportingRepresentation->UUID, prop->SupportingRepresentation->Title);
+		}
+		else if (prop->SupportingRepresentation->ContentType.find(SubRepresentation::XML_TAG) != string::npos) {
+			rep = epcDoc->createPartialSubRepresentation(prop->SupportingRepresentation->UUID, prop->SupportingRepresentation->Title);
+		}
+		else {
+			throw logic_error("The partial supporting representation of property " + getTitle() + " is not supported yet.");
+		}
 	}
 	setRepresentation(rep);
 	updateXml = true;

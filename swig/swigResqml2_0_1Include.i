@@ -97,6 +97,7 @@ namespace resqml2_0_1 {
 	class IjkGridParametricRepresentation;
 	class IjkGridLatticeRepresentation;
 	class IjkGridNoGeometryRepresentation;
+	class SubRepresentation;
 }
 
 // Don't try to create vector of polymorphic data unless you really know what you are doing.
@@ -129,6 +130,7 @@ namespace std {
    %template(IjkGridParametricRepresentationVector) vector<resqml2_0_1::IjkGridParametricRepresentation*>;
    %template(IjkGridLatticeRepresentationVector) vector<resqml2_0_1::IjkGridLatticeRepresentation*>;
    %template(IjkGridNoGeometryRepresentationVector) vector<resqml2_0_1::IjkGridNoGeometryRepresentation*>;
+   %template(SubRepresentationVector) vector<resqml2_0_1::SubRepresentation*>;
 }
 
 namespace gsoap_resqml2_0_1

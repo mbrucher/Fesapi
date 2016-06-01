@@ -132,9 +132,9 @@ namespace common
 		const std::vector<resqml2_0_1::TriangulatedSetRepresentation*> & getAllTriangulatedSetRepSet() const;
 		std::vector<resqml2_0_1::TriangulatedSetRepresentation*> getUnclassifiedTriangulatedSetRepSet() const;
 		
-		std::vector<resqml2_0_1::SeismicLineFeature*> getSeismicLineSet() const;
+		const std::vector<resqml2_0_1::SeismicLineFeature*> & getSeismicLineSet() const;
 		
-		std::vector<resqml2_0_1::WellboreFeature*> getWellboreSet() const;
+		const std::vector<resqml2_0_1::WellboreFeature*> & getWellboreSet() const;
 		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreCubicParamLineTrajRepSet() const;
 		
 		unsigned int getRepresentationSetRepresentationCount() const;
@@ -151,7 +151,9 @@ namespace common
 		std::vector<resqml2_0_1::PolylineRepresentation*> getSeismicLinePolylineRepSet() const;
 		std::vector<resqml2_0_1::IjkGridLatticeRepresentation*> getIjkSeismicCubeGridRepresentationSet() const;
 		
-		std::vector<resqml2_0_1::UnstructuredGridRepresentation*> getUnstructuredGridRepresentationSet() const;
+		const std::vector<resqml2_0_1::UnstructuredGridRepresentation*> & getUnstructuredGridRepresentationSet() const;
+		
+		const std::vector<resqml2_0_1::SubRepresentation*> & getSubRepresentationSet() const;
 		
 		void setExtendedCoreProperty(const std::string & key, const std::string & value);
 		std::string getExtendedCoreProperty(const std::string & key);

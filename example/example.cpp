@@ -1266,8 +1266,7 @@ void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix =
 {
 	std::cout << prefix << "Title is : " << obj->getTitle() << std::endl;
 	std::cout << prefix << "Guid is : " << obj->getUuid() << std::endl;
-	if (!obj->isPartial())
-	{
+	if (!obj->isPartial()) {
 		for (unsigned int i = 0; i < obj->getAliasCount(); ++i) {
 			std::cout << prefix << "Alias is : " << obj->getAliasAuthorityAtIndex(i) << ":" << obj->getAliasTitleAtIndex(i) << std::endl;
 		}
@@ -1275,22 +1274,26 @@ void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix =
 			std::cout << prefix << "Extrametadata is : " << obj->getExtraMetadataKeyAtIndex(i) << ":" << obj->getExtraMetadataStringValueAtIndex(i) << std::endl;
 		}
 	}
+	else {
+		std::cout << prefix << "IS PARTIAL!" << std::endl;
+	}
 	std::cout << prefix << "--------------------------------------------------" << std::endl;
 }
 
-void showAllSubRepresentations(AbstractRepresentation * rep)
+void showAllSubRepresentations(const vector<SubRepresentation*> & subRepSet)
 {
-	const unsigned int subRepresentationCount = rep->getSubRepresentationCount();
-	if (subRepresentationCount > 0)
+	if (subRepSet.size() > 0)
 		cout << "SUBREPRESENTATIONS" << std::endl;
 	std::cout << "\t--------------------------------------------------" << std::endl;
-	for (unsigned int subRepIndex = 0 ; subRepIndex < subRepresentationCount; ++subRepIndex)
+	for (unsigned int subRepIndex = 0 ; subRepIndex < subRepSet.size(); ++subRepIndex)
 	{
-		showAllMetadata(rep->getSubRepresentation(subRepIndex), "\t");
-		const long indiceCount = rep->getSubRepresentation(subRepIndex)->getElementCountOfPatch(0);
-		unsigned int * elementIndices = new unsigned int [indiceCount];
-		rep->getSubRepresentation(subRepIndex)->getElementIndicesOfPatch(0, 0, elementIndices);
-		delete [] elementIndices;
+		showAllMetadata(subRepSet[subRepIndex], "\t");
+		if (!subRepSet[subRepIndex]->isPartial()) {
+			const long indiceCount = subRepSet[subRepIndex]->getElementCountOfPatch(0);
+			unsigned int * elementIndices = new unsigned int [indiceCount];
+			subRepSet[subRepIndex]->getElementIndicesOfPatch(0, 0, elementIndices);
+			delete [] elementIndices;
+		}
 	}
 }
 
@@ -1511,6 +1514,7 @@ void deserialize(const string & inputFile)
 	std::vector<TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
 	std::vector<StratigraphicColumn*> stratiColumnSet = pck.getStratigraphicColumnSet();
 	std::vector<RepresentationSetRepresentation*> representationSetRepresentationSet = pck.getRepresentationSetRepresentationSet();
+	std::vector<SubRepresentation*> subRepresentationSet = pck.getSubRepresentationSet();
 
 	std::cout << "RepresentationSetRepresentation" << endl;
 	for (unsigned int i = 0; i < representationSetRepresentationSet.size(); i++)
@@ -1838,7 +1842,7 @@ void deserialize(const string & inputFile)
 			std::cout << "Fault Subrep is : " << ijkGrid->getFaultSubRepresentation(subRepIndex)->getTitle() << std::endl;
 		}
 
-		showAllSubRepresentations(ijkGrid);
+		showAllSubRepresentations(ijkGrid->getSubRepresentationSet());
 
 		if (ijkGrid->hasEnabledCellInformation() == true)
 		{
@@ -1960,8 +1964,17 @@ void deserialize(const string & inputFile)
 			showAllProperties(unstructuredGridRepSet[i]);
 		}
 
-		showAllSubRepresentations(unstructuredGridRepSet[i]);
+		showAllSubRepresentations(unstructuredGridRepSet[i]->getSubRepresentationSet());
 	}
+
+	std::cout << endl << "ONLY PARTIAL SUBREPRESENTATIONS" << endl;
+	vector<SubRepresentation*> onlyPartialSubReps;
+	for (size_t i = 0; i < subRepresentationSet.size(); ++i) {
+		if (subRepresentationSet[i]->isPartial()) {
+			onlyPartialSubReps.push_back(subRepresentationSet[i]);
+		}
+	}
+	showAllSubRepresentations(onlyPartialSubReps);
 
 	std::cout << endl << "TIME SERIES" << endl;
 	for (size_t i = 0; i < timeSeriesSet.size(); ++i)

@@ -419,12 +419,12 @@ namespace common
 		/**
 		* Get all the seismic line contained into the EPC document
 		*/
-		std::vector<resqml2_0_1::SeismicLineFeature*> getSeismicLineSet() const;
+		const std::vector<resqml2_0_1::SeismicLineFeature*> & getSeismicLineSet() const;
 
 		/**
 		* Get all the wellbores contained into the EPC document
 		*/
-		std::vector<resqml2_0_1::WellboreFeature*> getWellboreSet() const;
+		const std::vector<resqml2_0_1::WellboreFeature*> & getWellboreSet() const;
 
 		/**
 		* Get all the individual representations of wellbores which uses a cubic parametric line geometry.
@@ -459,7 +459,7 @@ namespace common
 		/**
 		* Get all the ijk grid contained into the EPC document.
 		*/
-		std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> getIjkGridRepresentationSet() const;
+		const std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> & getIjkGridRepresentationSet() const;
 		unsigned int getIjkGridRepresentationCount() const;
 		resqml2_0_1::AbstractIjkGridRepresentation* getIjkGridRepresentation(const unsigned int & i) const;
 
@@ -481,7 +481,7 @@ namespace common
 		/**
 		* Get all the unstructured grid contained into the EPC document
 		*/
-		std::vector<resqml2_0_1::UnstructuredGridRepresentation*> getUnstructuredGridRepresentationSet() const;
+		const std::vector<resqml2_0_1::UnstructuredGridRepresentation*> & getUnstructuredGridRepresentationSet() const;
 
 		/**
 		* Get all the frontier features contained into the EPC document
@@ -499,9 +499,14 @@ namespace common
 		const std::vector<resqml2_0_1::TimeSeries*> & getTimeSeriesSet() const;
 
 		/**
+		 * Get all the subrepresentaiton contained into the EPC document
+		 */
+		const std::vector<resqml2_0_1::SubRepresentation*> & getSubRepresentationSet() const;
+
+		/**
 		* Get all the Hdf proxies used with this EPC document
 		*/
-		std::vector<resqml2::AbstractHdfProxy*> getHdfProxySet() const;
+		const std::vector<resqml2::AbstractHdfProxy*> & getHdfProxySet() const;
 		unsigned int getHdfProxyCount() const;
 		resqml2::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
 
@@ -1060,6 +1065,7 @@ namespace common
 		std::vector<resqml2_0_1::FrontierFeature*>					frontierSet;
 		std::vector<resqml2_0_1::OrganizationFeature*> 				organizationSet;
 		std::vector<resqml2_0_1::TimeSeries*> 						timeSeriesSet;
+		std::vector<resqml2_0_1::SubRepresentation*>				subRepresentationSet;
 
 		resqml2_0_1::PropertyKindMapper* propertyKindMapper;
 
