@@ -37,8 +37,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "tools/GuidTools.h"
 
-#include "resqml2_0_1/AbstractRepresentation.h"
-#include "resqml2_0_1/AbstractProperty.h"
+#include "resqml2/AbstractRepresentation.h"
+#include "resqml2/AbstractProperty.h"
 
 using namespace std;
 using namespace resqml2;
@@ -55,9 +55,9 @@ vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const
 {
 	vector<Relationship> result;
 
-	for (unsigned int i = 0; i < representationSourceObject.size(); i++)
+	for (size_t i = 0; i < representationSourceObject.size(); ++i)
 	{
-		if (representationSourceObject[i])
+		if (representationSourceObject[i] != nullptr)
 		{
 			Relationship rel(representationSourceObject[i]->getPartNameInEpcDocument(), "", representationSourceObject[i]->getUuid());
 			rel.setExternalPartProxyToMlType();
@@ -67,9 +67,9 @@ vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const
 			throw domain_error("The representation associated to the external EPC reference cannot be nullptr.");
 	}
 
-	for (unsigned int i = 0; i < propertySourceObject.size(); i++)
+	for (size_t i = 0; i < propertySourceObject.size(); ++i)
 	{
-		if (propertySourceObject[i])
+		if (propertySourceObject[i] != nullptr)
 		{
 			Relationship rel(propertySourceObject[i]->getPartNameInEpcDocument(), "", propertySourceObject[i]->getUuid());
 			rel.setExternalPartProxyToMlType();
@@ -86,4 +86,3 @@ vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const
 
 	return result;
 }
-

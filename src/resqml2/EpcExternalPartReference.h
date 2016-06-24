@@ -35,11 +35,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2/AbstractObject.h"
 
-namespace resqml2_0_1 {
-	class AbstractRepresentation;
-	class AbstractProperty;
-}
-
 namespace resqml2
 {
 	class DLL_IMPORT_OR_EXPORT EpcExternalPartReference : public AbstractObject
@@ -74,8 +69,8 @@ namespace resqml2
 		*/
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
 
-		std::vector<resqml2_0_1::AbstractRepresentation*> representationSourceObject;					/// All the representations that use this external reference.
-		std::vector<resqml2_0_1::AbstractProperty*> propertySourceObject;								/// All the properties that use this external reference.
+		std::vector<class AbstractRepresentation*> representationSourceObject;					/// All the representations that use this external reference.
+		std::vector<class AbstractProperty*> propertySourceObject;								/// All the properties that use this external reference.
 		std::string packageDirectoryAbsolutePath;												/// The directory where the EPC document is stored.
 		std::string relativeFilePath;															/// Must be relative to the location of the package
 	};

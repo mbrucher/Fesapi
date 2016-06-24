@@ -96,12 +96,13 @@ vector<Relationship> AbstractGridRepresentation::getAllEpcRelationships() const
 	return result;
 }
 
-GridConnectionSetRepresentation* AbstractGridRepresentation::getGridConnectionSetRepresentation(const unsigned int & index) const
+resqml2::GridConnectionSetRepresentation* AbstractGridRepresentation::getGridConnectionSetRepresentation(const unsigned int & index) const
 {
-	if (gridConnectionSetRepresentationSet.size() > index)
+	if (gridConnectionSetRepresentationSet.size() > index) {
 		return gridConnectionSetRepresentationSet[index];
-	else
-		throw std::out_of_range("No GridConnectionSetRepresentation at this index.");
+	}
+	
+	throw std::out_of_range("No GridConnectionSetRepresentation at this index.");
 }
 
 AbstractGridRepresentation* AbstractGridRepresentation::getParentGrid() const

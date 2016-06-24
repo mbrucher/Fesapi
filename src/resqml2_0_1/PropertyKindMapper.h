@@ -93,12 +93,25 @@ namespace resqml2_0_1
 		/**
 		 * Get the title of the parent of a Resqml Standard PropertyKind.
 		 */
-		std::string getPropertyKindParentOfResqmlStandardPropertyKindNameAsString(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const;
+		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getPropertyKindParentOfResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const;
 
 		/**
 		 * Get the description of a Resqml Standard PropertyKind.
 		 */
 		std::string getDescriptionOfResqmlStandardPropertyKindName(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & resqmlStandardPropertyKindName) const;
+
+		/**
+		* Check if a resqml property kind is a child of another one.
+		* @param child	The resqml property kind which is supposed to be the child
+		* @param parent	The resqml property kind which is supposed to be the parent
+		*/
+		bool isChildOf(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind child, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind parent) const;
+
+		/**
+		* Check if a resqml property kind is an abstract one or not.
+		* @param resqmlStandardPropertyKindName	The resqml property kind to test
+		*/
+		bool isAbstract(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind resqmlStandardPropertyKindName) const;
 
 	private:
 		common::EpcDocument * epcDocument;

@@ -35,19 +35,18 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractValuesProperty.h"
 
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 using namespace epc;
 
-const char* TimeSeries::XML_TAG = "TimeSeries";
-
 TimeSeries::TimeSeries(soap* soapContext, const string & guid, const string & title)
 {
-	if (soapContext == nullptr)
+	if (soapContext == nullptr) {
 		throw invalid_argument("The soap context cannot be null.");
+	}
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORETimeSeries(soapContext, 1);
 	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
@@ -62,53 +61,4 @@ _resqml2__TimeSeries* TimeSeries::getSpecializedGsoapProxy() const
 		throw logic_error("Partial object");
 
 	return static_cast<_resqml2__TimeSeries*>(gsoapProxy2_0_1);
-}
-
-void TimeSeries::pushBackTimestamp(const time_t & timestamp)
-{
-	resqml2__Timestamp* ts = soap_new_resqml2__Timestamp(gsoapProxy2_0_1->soap, 1);
-	ts->DateTime = timestamp;
-	getSpecializedGsoapProxy()->Time.push_back(ts);
-}
-
-unsigned int TimeSeries::getTimestampIndex(const time_t & timestamp) const
-{
-	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
-
-	for (unsigned int result = 0; result < timeSeries->Time.size(); ++result)
-	{
-		if (timeSeries->Time[result]->DateTime == timestamp)
-			return result;
-	}
-	throw out_of_range("The timestamp has not been found in the allowed range.");
-}
-
-unsigned int TimeSeries::getTimestampCount() const
-{
-	return getSpecializedGsoapProxy()->Time.size();
-}
-
-time_t TimeSeries::getTimestamp(const unsigned int & index) const
-{
-	_resqml2__TimeSeries* timeSeries = getSpecializedGsoapProxy();
-
-	if (timeSeries->Time.size() > index)
-		return timeSeries->Time[index]->DateTime;
-	else
-		throw out_of_range("The index is out of range");
-}
-
-vector<Relationship> TimeSeries::getAllEpcRelationships() const
-{
-	vector<Relationship> result;
-
-	// backward relationships
-	for (unsigned int i = 0; i < propertySet.size(); i++)
-	{
-		Relationship rel(propertySet[i]->getPartNameInEpcDocument(), "", propertySet[i]->getUuid());
-		rel.setSourceObjectType();
-		result.push_back(rel);
-	}
-
-	return result;
 }

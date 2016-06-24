@@ -47,50 +47,34 @@ HdfProxy::HdfProxy(soap* soapContext, const std::string & guid, const std::strin
 void HdfProxy::open()
 {
 	H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
-	if (hdfFile != -1)
-	{
+	if (hdfFile != -1) {
 		close();
 	}
 
-	bool needUuidAttribute = false;
-	hdfFile = H5Fcreate( (packageDirectoryAbsolutePath+relativeFilePath).c_str(), H5F_ACC_EXCL, H5P_DEFAULT, H5P_DEFAULT);
-	if (hdfFile < 0) // It generally means the file already exists
+	switch (getEpcDocument()->getHdf5PermissionAccess())
 	{
-		htri_t isHdf5 = 0;
-		switch (getEpcDocument()->getHdf5PermissionAccess())
-		{
-		case common::EpcDocument::READ_ONLY:
-			isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str());
-			if (isHdf5 > 0)
-			{
-				hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
-			}
-			else
-				throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " is not a valid HDF5 file.");
-			break;
-		case common::EpcDocument::READ_WRITE:
-			isHdf5 = H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str());
-			if (isHdf5 > 0)
-			{
-				hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
-			}
-			else
-				throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " is not a valid HDF5 file.");
-			break;
-		case common::EpcDocument::OVERWRITE:
-			hdfFile = H5Fcreate((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
-			needUuidAttribute = true;
-			break;
-		default:
-			throw invalid_argument("The HDF5 permission access is unknown.");
+	case common::EpcDocument::READ_ONLY:
+		if (H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str()) > 0) {
+			hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
 		}
-	}
-	else
-		needUuidAttribute = true;
-
-	if (needUuidAttribute)// create an attribute at the file level to store the uuid of the corresponding resqml hdf proxy.
+		else {
+			throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " does not exist or is not a valid HDF5 file.");
+		}
+		break;
+	case common::EpcDocument::READ_WRITE:
+		if (H5Fis_hdf5((packageDirectoryAbsolutePath + relativeFilePath).c_str()) > 0) {
+			hdfFile = H5Fopen((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+		}
+		else {
+			throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " is not a valid HDF5 file.");
+		}
+		break;
+	case common::EpcDocument::OVERWRITE:
 	{
-		hid_t aid  = H5Screate(H5S_SCALAR);
+		hdfFile = H5Fcreate((packageDirectoryAbsolutePath + relativeFilePath).c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+
+		// create an attribute at the file level to store the uuid of the corresponding resqml hdf proxy.
+		hid_t aid = H5Screate(H5S_SCALAR);
 		hid_t atype = H5Tcopy(H5T_C_S1);
 		H5Tset_size(atype, getUuid().size());
 		hid_t attribute_id = H5Acreate2(hdfFile, "uuid", atype, aid, H5P_DEFAULT, H5P_DEFAULT);
@@ -100,10 +84,16 @@ void HdfProxy::open()
 		status = H5Sclose(aid);
 		status = H5Tclose(atype);
 		status = H5Aclose(attribute_id);
+
+		break;
+	}
+	default:
+		throw invalid_argument("The HDF5 permission access is unknown.");
 	}
 
-	if (hdfFile < 0)
-		throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " could not have been opened.");
+	if (hdfFile < 0) {
+		throw invalid_argument("The HDF5 file " + packageDirectoryAbsolutePath + relativeFilePath + " could not have been created or opened.");
+	}
 }
 
 void HdfProxy::close()

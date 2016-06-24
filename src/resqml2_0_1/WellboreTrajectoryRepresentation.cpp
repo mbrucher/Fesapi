@@ -38,9 +38,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "H5public.h"
 
 #include "resqml2_0_1/WellboreInterpretation.h"
-#include "resqml2_0_1/MdDatum.h"
+#include "resqml2/MdDatum.h"
 #include "resqml2_0_1/WellboreFrameRepresentation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 #include "witsml1_4_1_1/Trajectory.h"
@@ -53,7 +53,7 @@ using namespace common;
 
 const char* WellboreTrajectoryRepresentation::XML_TAG = "WellboreTrajectoryRepresentation";
 
-WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, MdDatum * mdInfo) :
+WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, resqml2::MdDatum * mdInfo) :
 	AbstractRepresentation(interp, mdInfo->getLocalCrs()), witsmlTrajectory(nullptr)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getGsoapContext(), 1);	
@@ -70,7 +70,9 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 	localCrs = mdInfo->getLocalCrs();
 	localCrs->addRepresentation(this);
 
-	rep->MdUom = mdInfo->getLocalCrs()->getVerticalCrsUnit();
+	if (dynamic_cast<resqml2::AbstractLocal3dCrs*>(mdInfo->getLocalCrs()) != nullptr) {
+		rep->MdUom = static_cast<resqml2::AbstractLocal3dCrs*>(mdInfo->getLocalCrs())->getVerticalCrsUnit();
+	}
 }
 
 void WellboreTrajectoryRepresentation::setGeometry(double * controlPoints, const double & startMd, const double & endMd, const unsigned int & controlPointCount, const int & lineKind, resqml2::AbstractHdfProxy * proxy)
@@ -171,8 +173,8 @@ vector<Relationship> WellboreTrajectoryRepresentation::getAllEpcRelationships() 
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
 
 	// XML forward relationship
-	MdDatum* mdDatum = getMdDatum();
-	if (mdDatum)
+	resqml2::MdDatum* mdDatum = getMdDatum();
+	if (mdDatum != nullptr)
 	{
 		Relationship relMdInfo(mdDatum->getPartNameInEpcDocument(), "", getMdDatumUuid());
 		relMdInfo.setDestinationObjectType();
@@ -197,14 +199,14 @@ vector<Relationship> WellboreTrajectoryRepresentation::getAllEpcRelationships() 
 	}
 
 	// XML backward relationship
-	for (unsigned int i = 0 ; i < childrenTrajSet.size(); i++)
+	for (size_t i = 0 ; i < childrenTrajSet.size(); i++)
 	{
 		Relationship relChildrenTraj(childrenTrajSet[i]->getPartNameInEpcDocument(), "", childrenTrajSet[i]->getUuid());
 		relChildrenTraj.setSourceObjectType();
 		result.push_back(relChildrenTraj);
 	}
 
-	for (unsigned int i = 0 ; i < wellboreFrameRepresentationSet.size(); i++)
+	for (size_t i = 0; i < wellboreFrameRepresentationSet.size(); i++)
 	{
 		Relationship relFrame(wellboreFrameRepresentationSet[i]->getPartNameInEpcDocument(), "", wellboreFrameRepresentationSet[i]->getUuid());
 		relFrame.setSourceObjectType();
@@ -221,9 +223,9 @@ void WellboreTrajectoryRepresentation::importRelationshipSetFromEpc(common::EpcD
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 
 	AbstractObject* mdDatum = epcDoc->getResqmlAbstractObjectByUuid(getMdDatumUuid());
-	if (dynamic_cast<MdDatum*>(mdDatum) != nullptr)
+	if (dynamic_cast<resqml2::MdDatum*>(mdDatum) != nullptr)
 	{
-		static_cast<MdDatum*>(mdDatum)->addWellboreTrajectoryRepresentation(this);
+		static_cast<resqml2::MdDatum*>(mdDatum)->addWellboreTrajectoryRepresentation(this);
 	}
 	else
 	{
@@ -377,9 +379,9 @@ void WellboreTrajectoryRepresentation::getTangentVectors(double* tangentVectors)
 	hdfProxy->readArrayNdOfDoubleValues(xmlTangentVectors->Coordinates->PathInHdfFile, tangentVectors);
 }
 
-MdDatum * WellboreTrajectoryRepresentation::getMdDatum() const
+resqml2::MdDatum * WellboreTrajectoryRepresentation::getMdDatum() const
 {
-	return static_cast<MdDatum*>(getEpcDocument()->getResqmlAbstractObjectByUuid(getMdDatumUuid()));
+	return static_cast<resqml2::MdDatum*>(getEpcDocument()->getResqmlAbstractObjectByUuid(getMdDatumUuid()));
 }
 
 std::string WellboreTrajectoryRepresentation::getMdDatumUuid() const
@@ -404,10 +406,12 @@ std::string WellboreTrajectoryRepresentation::getHdfProxyUuid() const
 std::string WellboreTrajectoryRepresentation::getLocalCrsUuid() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->Geometry)
+	if (rep->Geometry != nullptr) {
 		return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LocalCrs->UUID;
-	else
+	}
+	else {
 		return "";
+	}
 }
 
 bool WellboreTrajectoryRepresentation::hasGeometry() const

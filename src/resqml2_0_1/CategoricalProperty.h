@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractValuesProperty.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT CategoricalProperty : public AbstractValuesProperty
+	class DLL_IMPORT_OR_EXPORT CategoricalProperty : public resqml2::AbstractValuesProperty
 	{
 	public:
 
@@ -53,7 +53,7 @@ namespace resqml2_0_1
 		* @param strLookup					The string lookup which defines the possible string values and their keys.
 		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
-		CategoricalProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		CategoricalProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			class StringTableLookup* strLookup, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
 
@@ -67,9 +67,9 @@ namespace resqml2_0_1
 		* @param strLookup					The string lookup which defines the possible string values and their keys.
 		* @param localPropKind				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
-		CategoricalProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		CategoricalProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			class StringTableLookup* strLookup, class PropertyKind * localPropKind);
+			class StringTableLookup* strLookup, resqml2::PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -129,6 +129,8 @@ namespace resqml2_0_1
 		* Get the string lookup uuid which is associated to this categorical property values.
 		*/
 		std::string getStringLookupUuid() const;
+
+		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
 
 	protected:
 		std::vector<epc::Relationship> getAllEpcRelationships() const;

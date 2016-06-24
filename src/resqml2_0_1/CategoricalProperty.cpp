@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/StringTableLookup.h"
 #include "resqml2/AbstractHdfProxy.h"
@@ -50,10 +50,10 @@ using namespace epc;
 
 const char* CategoricalProperty::XML_TAG = "CategoricalProperty";
 
-CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
-		: stringLookup(strLookup)
+CategoricalProperty::CategoricalProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
+	: stringLookup(strLookup)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
@@ -73,9 +73,9 @@ CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const str
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
-CategoricalProperty::CategoricalProperty(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			StringTableLookup* strLookup, PropertyKind * localPropKind)
+CategoricalProperty::CategoricalProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	StringTableLookup* strLookup, resqml2::PropertyKind * localPropKind)
 	:stringLookup(strLookup)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECategoricalProperty(rep->getGsoapContext(), 1);	
@@ -154,14 +154,14 @@ void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t *
 	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	xmlValues->NullValue = nullValue;
 	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();;
+	xmlValues->Values->HdfProxy = proxy->newResqmlReference();;
 	ostringstream ossForHdf;
 	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
 	xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
 	patch->Values = xmlValues;
 
 	// HDF
-	hdfProxy->writeArrayNd(prop->uuid,
+	proxy->writeArrayNd(prop->uuid,
 			ossForHdf.str(),
 			H5T_NATIVE_LONG,
 			values,
@@ -175,3 +175,7 @@ std::string CategoricalProperty::getStringLookupUuid() const
 	return static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1)->Lookup->UUID;
 }
 
+gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind CategoricalProperty::getFirstAllowedPropertyKindParent() const
+{
+	return gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__categorical;
+}

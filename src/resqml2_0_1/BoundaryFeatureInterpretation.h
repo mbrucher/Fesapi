@@ -33,12 +33,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/WellboreMarker.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT BoundaryFeatureInterpretation : public AbstractFeatureInterpretation
+	class DLL_IMPORT_OR_EXPORT BoundaryFeatureInterpretation : public resqml2::AbstractFeatureInterpretation
 	{
 	public:
 		/**
@@ -55,7 +55,7 @@ namespace resqml2_0_1
 		*/
 		BoundaryFeatureInterpretation(class BoundaryFeature * feature, const std::string & guid, const std::string & title);
 
-		BoundaryFeatureInterpretation(gsoap_resqml2_0_1::_resqml2__BoundaryFeatureInterpretation* fromGsoap): AbstractFeatureInterpretation(fromGsoap) {}
+		BoundaryFeatureInterpretation(gsoap_resqml2_0_1::_resqml2__BoundaryFeatureInterpretation* fromGsoap) : resqml2::AbstractFeatureInterpretation(fromGsoap) {}
 		virtual ~BoundaryFeatureInterpretation() {}
 
 		static const char* XML_TAG;

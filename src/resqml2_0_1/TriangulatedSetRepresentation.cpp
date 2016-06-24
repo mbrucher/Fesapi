@@ -38,8 +38,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
@@ -49,7 +49,7 @@ using namespace epc;
 
 const char* TriangulatedSetRepresentation::XML_TAG = "TriangulatedSetRepresentation";
 
-TriangulatedSetRepresentation::TriangulatedSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+TriangulatedSetRepresentation::TriangulatedSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title):
 	AbstractSurfaceRepresentation(interp, crs)
 {
@@ -76,10 +76,10 @@ string TriangulatedSetRepresentation::getHdfProxyUuid() const
 		return static_cast<resqml2__IntegerHdf5Array*>(patch->Triangles)->Values->HdfProxy->UUID;
 	}
 
-	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
+	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry2_0_1(0));
 }
 
-resqml2__PointGeometry* TriangulatedSetRepresentation::getPointGeometry(const unsigned int & patchIndex) const
+resqml2__PointGeometry* TriangulatedSetRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const
 {
 	_resqml2__TriangulatedSetRepresentation* triRep = static_cast<_resqml2__TriangulatedSetRepresentation*>(gsoapProxy2_0_1);
 	
@@ -102,7 +102,7 @@ void TriangulatedSetRepresentation::pushBackTrianglePatch(
 
 	hsize_t pointCountDims[] = {nodeCount};
 	patch->NodeCount = nodeCount;
-	patch->Geometry = createPointGeometryPatch(patch->PatchIndex, nodes, pointCountDims, 1, proxy);
+	patch->Geometry = createPointGeometryPatch2_0_1(patch->PatchIndex, nodes, pointCountDims, 1, proxy);
 	patch->Geometry->LocalCrs = localCrs->newResqmlReference();
 
 	patch->Count = triangleCount;
@@ -136,7 +136,7 @@ void TriangulatedSetRepresentation::getXyzPointsOfPatch(const unsigned int & pat
 	if (patchIndex >= getPatchCount())
 		throw range_error("The index of the patch is not in the allowed range of patch.");
 
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
 	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
 	{
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);

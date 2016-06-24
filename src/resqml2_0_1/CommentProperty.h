@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractValuesProperty.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT CommentProperty : public AbstractValuesProperty
+	class DLL_IMPORT_OR_EXPORT CommentProperty : public resqml2::AbstractValuesProperty
 	{
 	public:
 		/**
@@ -49,7 +49,7 @@ namespace resqml2_0_1
 		* @param attachmentKind				The topological orbit which support each value.
 		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
-		CommentProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		CommentProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
 
 		/**
@@ -61,8 +61,8 @@ namespace resqml2_0_1
 		* @param attachmentKind				The topological orbit which support each value.
 		* @param localPropKind				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
-		CommentProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, class PropertyKind * localPropKind);
+		CommentProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

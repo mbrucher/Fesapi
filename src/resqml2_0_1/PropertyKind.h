@@ -33,18 +33,18 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractProperty.h"
+#include "resqml2/PropertyKind.h"
 #include "resqml2_0_1/PropertyKindMapper.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT PropertyKind : public resqml2::AbstractObject
+	class DLL_IMPORT_OR_EXPORT PropertyKind : public resqml2::PropertyKind
 	{
 	public:
 		/**
 		* Only to be used in partial transfer context
 		*/
-		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(nullptr, partialObject) {}
+		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::PropertyKind(partialObject) {}
 
 		/**
 		* Creates a local property type which derives from a standard Energistics property type.
@@ -68,80 +68,28 @@ namespace resqml2_0_1
 		* @param parentPropType					The local parent property type in the EPC document.
 		*/
 		PropertyKind(soap* soapContext, const std::string & guid, const std::string & title,
-			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * parentPropType);
+			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		PropertyKind(gsoap_resqml2_0_1::_resqml2__PropertyKind* fromGsoap) :AbstractObject(fromGsoap), parentPropertyKind(nullptr) {}
+		PropertyKind(gsoap_resqml2_0_1::_resqml2__PropertyKind* fromGsoap) :resqml2::PropertyKind(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		~PropertyKind() {}
 
-		/**
-		* Getter (in read only mode) of the naming system of this property type
-		*/
-		const std::string & getNamingSystem() const;
+		bool isChildOf(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind standardPropKind) const;
 
-		/**
-		* Get the unit of measure of the values of this property kind.
-		*/
-		const gsoap_resqml2_0_1::resqml2__ResqmlUom & getUom() const;
-
-		/**
-		* Get the unit of measure of the values of this property kind as a string.
-		*/
-		std::string getUomAsString() const;
-
-		/**
-		 * Get the title of the parent of this property kind.
-		 */
-		std::string getParentAsString() const;
-
-		/**
-		* Indicates if the property kind which is the parent of this property kind is either from the standard catalog of Energistics or from another local property kind.
-		*/
-		bool isParentAnEnergisticsPropertyKind() const;
-
-		/**
-		* Getter for the energistics property kind which is associated to this intance.
-		*/
-		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getParentEnergisticsPropertyKind() const;
-
-		std::string getParentLocalPropertyKindUuid() const;
-
-		/**
-		* Getter for the local property kind which is the parent of this instance.
-		* If nullptr is returned then it means this instance is associated to an energistics property kind.
-		*/
-		class PropertyKind* getParentLocalPropertyKind() const {return parentPropertyKind;}
-
-		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		/**
-		* Add a representation values object which uses this property type.
-		* Does not add the inverse relationship i.e. from the representation values object to this property type.
-		*/
-		void addProperty(class AbstractProperty* repVal) {propertySet.push_back(repVal);}
+		bool isAbstract() const;
 
 	protected:
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+		void setXmlParentPropertyKind(resqml2::PropertyKind* parentPropertyKind);
 		
 		gsoap_resqml2_0_1::_resqml2__PropertyKind* getSpecializedGsoapProxy() const;
 
-		// XML forward relationship
-		PropertyKind* parentPropertyKind;
-
-		// XML backward relationship
-		std::vector<class AbstractProperty*> propertySet;
-		std::vector<PropertyKind*> childPropertyKind;
-
-		friend void AbstractProperty::setLocalPropertyKind(PropertyKind* propKind);
-		friend PropertyKind* PropertyKindMapper::addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName(const std::string & applicationPropertyKindName, const std::string & application);
+		friend resqml2_0_1::PropertyKind* PropertyKindMapper::addResqmlLocalPropertyKindToEpcDocumentFromApplicationPropertyKindName(const std::string & applicationPropertyKindName, const std::string & application);
 	};
 }
 

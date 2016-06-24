@@ -33,18 +33,23 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/SubRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT SubRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT SubRepresentation : public resqml2::SubRepresentation
 	{
 	private :
 		void init(
                 const std::string & guid, const std::string & title,
-				class AbstractRepresentation * supportingRep);
+				resqml2::AbstractRepresentation * supportingRep);
 
 		gsoap_resqml2_0_1::_resqml2__SubRepresentation* getSpecializedGsoapProxy() const;
+
+		/**
+		* Get a patch of the current subrepresentation at a particluar index.
+		*/
+		gsoap_resqml2_0_1::resqml2__SubRepresentationPatch* getSubRepresentationPatch(const unsigned int & index) const;
 
 	public:
 
@@ -52,7 +57,7 @@ namespace resqml2_0_1
 		* Only to be used in partial transfer context
 		*/
 		SubRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractRepresentation(nullptr, partialObject)
+			resqml2::SubRepresentation(partialObject)
 		{
 		}
 
@@ -62,36 +67,33 @@ namespace resqml2_0_1
 		*/
 		SubRepresentation(
                 const std::string & guid, const std::string & title,
-				class AbstractRepresentation * supportingRep);
+				resqml2::AbstractRepresentation * supportingRep);
 
 		/**
 		* Creates an instance of this class in a gsoap context. This instance must be linked to an interpretation.
 		* @param interp	The interpretation the instance represents.
 		* @param title A title for the instance to create.
 		*/
-		SubRepresentation(class AbstractFeatureInterpretation* interp,
+		SubRepresentation(resqml2::AbstractFeatureInterpretation* interp,
                 const std::string & guid, const std::string & title,
-				class AbstractRepresentation * supportingRep);
+				resqml2::AbstractRepresentation * supportingRep);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		SubRepresentation(gsoap_resqml2_0_1::_resqml2__SubRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		SubRepresentation(gsoap_resqml2_0_1::_resqml2__SubRepresentation* fromGsoap) : resqml2::SubRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		~SubRepresentation() {}
-        
-		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		std::string getHdfProxyUuid() const;
 
 		/**
 		* Get the kind of the selected elements for a particular patch of this subrepresentation.
 		*/
-		gsoap_resqml2_0_1::resqml2__IndexableElements getElementKindOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const;
+		resqml2::AbstractRepresentation::indexableElement getElementKindOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex) const;
 
 		/**
 		* Get the count of the selected elements for a particular patch of this subrepresentation.
@@ -166,24 +168,10 @@ namespace resqml2_0_1
 		void pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
 			const LONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
 
-		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
-
-		/**
-		* Get all the XYZ points of a particular patch of this representation.
-		* XYZ points are given in the local CRS.
-		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
-		*/
-		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
-
 		unsigned int getPatchCount() const;
 
-		AbstractRepresentation* getSupportingRepresentation() const;
-
-	private:
-
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
-		
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+		std::string getSupportingRepresentationUuid() const;
+		std::string getSupportingRepresentationTitle() const;
+		std::string getSupportingRepresentationContentType() const;
 	};
 }

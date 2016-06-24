@@ -33,24 +33,19 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "resqml2_0_1/RepresentationSetRepresentation.h"
 
-#include <stdexcept>
-
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
-#include "resqml2_0_1/AbstractOrganizationInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 
 using namespace std;
 using namespace epc;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 
-const char* RepresentationSetRepresentation::XML_TAG = "RepresentationSetRepresentation";
-
-RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractFeatureInterpretation* interp, const std::string & guid, const string & title) :
-	AbstractRepresentation(interp, nullptr)
+RepresentationSetRepresentation::RepresentationSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, const std::string & guid, const string & title) :
+	resqml2::RepresentationSetRepresentation(interp)
 {
-	if (interp == nullptr)
-		throw invalid_argument("The linked interpretation cannot be NULL. Please use another constructor.");
+	if (interp == nullptr) {
+		throw invalid_argument("The linked interpretation cannot be null. Please use another constructor.");
+	}
 
 	// proxy constructor
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(interp->getGsoapContext(), 1);
@@ -63,10 +58,11 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(AbstractFeature
 	setInterpretation(interp);
 }
 
-RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title) : AbstractRepresentation(nullptr, static_cast<AbstractLocal3dCrs*>(nullptr))
+RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title)
 {
-	if (epcDoc == nullptr)
+	if (epcDoc == nullptr) {
 		throw invalid_argument("The epc document cannot be NULL.");
+	}
 
 	// proxy constructor
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORERepresentationSetRepresentation(epcDoc->getGsoapContext(), 1);
@@ -74,72 +70,4 @@ RepresentationSetRepresentation::RepresentationSetRepresentation(common::EpcDocu
 
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-}
-
-vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() const
-{
-	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
-
-	for (size_t i = 0; i < representationSet.size(); ++i)
-	{
-		Relationship rel(representationSet[i]->getPartNameInEpcDocument(), "", representationSet[i]->getUuid());
-		rel.setDestinationObjectType();
-		result.push_back(rel);
-	}
-
-	return result;
-}
-
-void RepresentationSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
-{
-	_resqml2__RepresentationSetRepresentation* rsr = static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1);
-	for (size_t i = 0; i < rsr->Representation.size(); ++i)
-	{
-		AbstractRepresentation* rep = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rsr->Representation[i]->UUID));
-		if (rep != nullptr)
-			rep->pushBackIntoRepresentationSet(this, false);
-	}
-}
-
-ULONG64 RepresentationSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
-{
-	throw logic_error("Not yet implemented.");
-}
-
-void RepresentationSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
-{
-	if (patchIndex >= getPatchCount())
-		throw range_error("The index patch is not in the allowed range of patch.");
-
-	throw logic_error("Please use getXyzPointsOfPatch on each included representation.");
-}
-
-bool RepresentationSetRepresentation::isHomogeneous() const
-{
-	return static_cast<_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1)->IsHomogeneous;
-}
-
-
-std::vector<AbstractRepresentation*> RepresentationSetRepresentation::getRepresentationSet() const
-{
-	return representationSet;
-}
-
-/**
-* Get the count of representations in this representation set.
-*/
-unsigned int 						RepresentationSetRepresentation::getRepresentationCount() const
-{
-	return representationSet.size();
-}
-
-/**
-* Get a particular representation of this representation set according to its position.
-*/
-AbstractRepresentation*				RepresentationSetRepresentation::getRepresentation(const unsigned int & index) const
-{
-	if (representationSet.size() > index)
-		return representationSet[index];
-	else
-		throw range_error("The index of the representation to get is out of range in this representaiton set representation");
 }

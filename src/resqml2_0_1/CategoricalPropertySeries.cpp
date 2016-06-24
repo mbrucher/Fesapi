@@ -36,7 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2_0_1/TimeSeries.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2_0_1/StringTableLookup.h"
 #include "resqml2/AbstractHdfProxy.h"
@@ -48,11 +48,11 @@ using namespace epc;
 
 const char* CategoricalPropertySeries::XML_TAG = "CategoricalPropertySeries";
 
-CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			TimeSeries * ts, const bool & useInterval)
-		: CategoricalProperty(strLookup)
+CategoricalPropertySeries::CategoricalPropertySeries(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
+	resqml2::TimeSeries * ts, const bool & useInterval)
+	: CategoricalProperty(strLookup)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapContext(), 1);	
 	_resqml2__CategoricalPropertySeries* prop = static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy2_0_1);
@@ -77,10 +77,10 @@ CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * re
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
-CategoricalPropertySeries::CategoricalPropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			StringTableLookup* strLookup, PropertyKind * localPropKind,
-			class TimeSeries * ts, const bool & useInterval)
+CategoricalPropertySeries::CategoricalPropertySeries(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	StringTableLookup* strLookup, resqml2::PropertyKind * localPropKind,
+	resqml2::TimeSeries * ts, const bool & useInterval)
 	:CategoricalProperty(strLookup)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECategoricalPropertySeries(rep->getGsoapContext(), 1);	

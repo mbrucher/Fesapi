@@ -35,13 +35,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-
 using namespace resqml2;
 using namespace std;
 using namespace epc;
 
-std::vector<resqml2_0_1::AbstractFeatureInterpretation*> AbstractFeature::getInterpretationSet() const
+std::vector<AbstractFeatureInterpretation*> AbstractFeature::getInterpretationSet() const
 {
 	return interpretationSet;
 }
@@ -51,7 +49,7 @@ unsigned int AbstractFeature::getInterpretationCount() const
 	return interpretationSet.size();
 }
 
-resqml2_0_1::AbstractFeatureInterpretation*	AbstractFeature::getInterpretation(const unsigned int & index) const
+AbstractFeatureInterpretation*	AbstractFeature::getInterpretation(const unsigned int & index) const
 {
 	if (interpretationSet.size() > index) {
 		return interpretationSet[index];
@@ -65,16 +63,15 @@ vector<Relationship> AbstractFeature::getAllEpcRelationships() const
 {
 	vector<Relationship> result;
 
-	for (unsigned int i = 0; i < interpretationSet.size(); ++i)
-	{
-		if (interpretationSet[i] != nullptr)
-		{
+	for (unsigned int i = 0; i < interpretationSet.size(); ++i) {
+		if (interpretationSet[i] != nullptr) {
 			Relationship rel(interpretationSet[i]->getPartNameInEpcDocument(), "", interpretationSet[i]->getUuid());
 			rel.setSourceObjectType();
 			result.push_back(rel);
 		}
-		else
+		else {
 			throw domain_error("The interpretation associated to the feature cannot be nullptr.");
+		}
 	}
 
 	return result;

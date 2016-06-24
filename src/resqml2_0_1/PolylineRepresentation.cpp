@@ -31,16 +31,16 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#include "PolylineRepresentation.h"
+#include "resqml2_0_1/PolylineRepresentation.h"
 
 #include <stdexcept>
 
 #include "H5public.h"
 
 #include "resqml2/AbstractFeature.h"
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractValuesProperty.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
@@ -50,7 +50,7 @@ using namespace epc;
 
 const char* PolylineRepresentation::XML_TAG = "PolylineRepresentation";
 
-void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+void PolylineRepresentation::init(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getGsoapContext(), 1);
@@ -69,21 +69,21 @@ void PolylineRepresentation::init(AbstractFeatureInterpretation* interp, Abstrac
 	localCrs->addRepresentation(this);
 }
 
-PolylineRepresentation::PolylineRepresentation(AbstractLocal3dCrs * crs,
+PolylineRepresentation::PolylineRepresentation(resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed):
 	AbstractRepresentation(nullptr, crs)
 {
 	init(nullptr, crs, guid, title, isClosed);
 }
 
-PolylineRepresentation::PolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineRepresentation::PolylineRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed):
 	AbstractRepresentation(interp, crs)
 {
 	init(interp, crs, guid, title, isClosed);
 }
 
-PolylineRepresentation::PolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineRepresentation::PolylineRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind,
 			bool isClosed):
 	AbstractRepresentation(interp, crs)
@@ -95,10 +95,10 @@ PolylineRepresentation::PolylineRepresentation(AbstractFeatureInterpretation* in
 
 std::string PolylineRepresentation::getHdfProxyUuid() const
 {
-	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
+	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry2_0_1(0));
 }
 
-resqml2__PointGeometry* PolylineRepresentation::getPointGeometry(const unsigned int & patchIndex) const
+resqml2__PointGeometry* PolylineRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 		return static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1)->NodePatch->Geometry;
@@ -119,7 +119,7 @@ void PolylineRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex
 	if (patchIndex >= getPatchCount())
 		throw range_error("The index of the patch is not in the allowed range of patch.");
 
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
 	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
 	{
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
@@ -136,7 +136,7 @@ void PolylineRepresentation::setGeometry(double * points, const unsigned int & p
 	polylineRep->NodePatch->PatchIndex = 0;
 
 	hsize_t pointCountDims[] = {pointCount};
-	polylineRep->NodePatch->Geometry = createPointGeometryPatch(0, points, pointCountDims, 1, proxy);
+	polylineRep->NodePatch->Geometry = createPointGeometryPatch2_0_1(0, points, pointCountDims, 1, proxy);
 }
 
 bool PolylineRepresentation::isClosed() const
@@ -162,7 +162,7 @@ bool PolylineRepresentation::isASeismicLine() const
 	// A Seismic line is defined by an PolylineRepresentation that has a feature of type SeismicLineFeature and that
 	// has at least one continuous property (amplitude).
 	bool atLeastOneContProp = false;
-    vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
+	vector<resqml2::AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
         if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
@@ -182,7 +182,7 @@ bool PolylineRepresentation::isAFaciesLine() const
 	// A Facies line is defined by an PolylineRepresentation that has a feature of type SeismicLineFeature and that
 	// has at least one categorical property (facies).
 	bool atLeastOneCateProp = false;
-    vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
+	vector<resqml2::AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
         if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)

@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
@@ -48,7 +48,7 @@ IjkGridNoGeometryRepresentation::IjkGridNoGeometryRepresentation(soap* soapConte
 {
 }
 
-IjkGridNoGeometryRepresentation::IjkGridNoGeometryRepresentation(AbstractFeatureInterpretation* interp,
+IjkGridNoGeometryRepresentation::IjkGridNoGeometryRepresentation(resqml2::AbstractFeatureInterpretation* interp,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractIjkGridRepresentation(interp, nullptr, guid, title, iCount, jCount, kCount)

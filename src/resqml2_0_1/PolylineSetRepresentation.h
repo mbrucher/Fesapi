@@ -33,15 +33,15 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT PolylineSetRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT PolylineSetRepresentation : public resqml2::AbstractRepresentation
 	{
 	private :
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
-		void init(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
+		void init(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 				  const std::string & guid, const std::string & title);
 
 	public:
@@ -52,7 +52,7 @@ namespace resqml2_0_1
 		* @param guid							The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title							A title for the instance to create.
 		*/
-		PolylineSetRepresentation(class AbstractLocal3dCrs * crs,
+		PolylineSetRepresentation(resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title);
 
 		/**
@@ -62,7 +62,7 @@ namespace resqml2_0_1
 		* @param guid							The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title							A title for the instance to create.
 		*/
-		PolylineSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		PolylineSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title);
 
 		/**
@@ -73,13 +73,13 @@ namespace resqml2_0_1
 		* @param title							A title for the instance to create.
 		* @param roleKind						Indicates the role of this representation.
 		*/
-		PolylineSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		PolylineSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__LineRole & roleKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		PolylineSetRepresentation(gsoap_resqml2_0_1::_resqml2__PolylineSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		PolylineSetRepresentation(gsoap_resqml2_0_1::_resqml2__PolylineSetRepresentation* fromGsoap) : resqml2::AbstractRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

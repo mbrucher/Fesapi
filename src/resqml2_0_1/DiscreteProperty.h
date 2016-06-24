@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractValuesProperty.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT DiscreteProperty : public AbstractValuesProperty
+	class DLL_IMPORT_OR_EXPORT DiscreteProperty : public resqml2::AbstractValuesProperty
 	{
 	public:
 
@@ -52,7 +52,7 @@ namespace resqml2_0_1
 		* @param attachmentKind				The topological orbit which support each value.
 		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
-		DiscreteProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		DiscreteProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
 
 		/**
@@ -64,8 +64,8 @@ namespace resqml2_0_1
 		* @param attachmentKind				The topological orbit which support each value.
 		* @param localPropType				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
-		DiscreteProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, class PropertyKind * localPropKind);
+		DiscreteProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -135,6 +135,8 @@ namespace resqml2_0_1
 		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
 		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
 		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+
+		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
 
 	private:
 		std::string pushBackOnlyXmlPartOfArrayOfValues(resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);

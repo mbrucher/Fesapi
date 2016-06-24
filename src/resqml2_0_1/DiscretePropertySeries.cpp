@@ -36,7 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2_0_1/TimeSeries.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 
 using namespace std;
@@ -46,10 +46,10 @@ using namespace epc;
 
 const char* DiscretePropertySeries::XML_TAG = "DiscretePropertySeries";
 
-DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			class TimeSeries * ts, const bool & useInterval)
+DiscretePropertySeries::DiscretePropertySeries(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREDiscretePropertySeries(rep->getGsoapContext(), 1);	
 	_resqml2__DiscretePropertySeries* prop = static_cast<_resqml2__DiscretePropertySeries*>(gsoapProxy2_0_1);
@@ -71,10 +71,10 @@ DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, con
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
-DiscretePropertySeries::DiscretePropertySeries(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			PropertyKind * localPropKind,
-			class TimeSeries * ts, const bool & useInterval)
+DiscretePropertySeries::DiscretePropertySeries(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
+	resqml2::PropertyKind * localPropKind,
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREDiscretePropertySeries(rep->getGsoapContext(), 1);	
 	_resqml2__DiscretePropertySeries* prop = static_cast<_resqml2__DiscretePropertySeries*>(gsoapProxy2_0_1);

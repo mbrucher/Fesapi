@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 #include "resqml2/AbstractHdfProxy.h"
 
@@ -128,31 +128,37 @@ void SealedSurfaceFrameworkRepresentation::pushBackContactPatchInSealedContactRe
         AbstractRepresentation * supportingRepresentation,
 		resqml2::AbstractHdfProxy * proxy)
 {
-    if (!nodeIndicesOnSupportingRepresentation)
-        throw invalid_argument("The array of node indices cannot be null.");
-    if (NodeCount <=0)
-        throw invalid_argument("The nodes count cannot be lesser or equal to zero.");
-    if (!supportingRepresentation)
-        throw invalid_argument("The supporting representation cannot be null.");
+	if (nodeIndicesOnSupportingRepresentation == nullptr) {
+		throw invalid_argument("The array of node indices cannot be null.");
+	}
+	if (NodeCount <= 0) {
+		throw invalid_argument("The nodes count cannot be lesser or equal to zero.");
+	}
+	if (supportingRepresentation == nullptr) {
+		throw invalid_argument("The supporting representation cannot be null.");
+	}
 
     setHdfProxy(proxy);
     _resqml2__SealedSurfaceFrameworkRepresentation* orgRep = static_cast<_resqml2__SealedSurfaceFrameworkRepresentation*>(gsoapProxy2_0_1);
 
-    if (contactIndex >= orgRep->SealedContactRepresentation.size())
-        throw invalid_argument("Invalid contact index.");
+	if (contactIndex >= orgRep->SealedContactRepresentation.size()) {
+		throw invalid_argument("Invalid contact index.");
+	}
 
     resqml2__SealedContactRepresentationPart* contactRep = static_cast<resqml2__SealedContactRepresentationPart*>(orgRep->SealedContactRepresentation[contactIndex]);
 
     // we look for the supporting representation index
     int representationIndex = -1;
-    for (unsigned int i=0; i<this->representationSet.size(); i++)
-        if (representationSet[i]->getUuid() == supportingRepresentation->getUuid())
-        {
-            representationIndex = i;
-            break;
-        }
-    if (representationIndex == -1)
-        throw invalid_argument("The supporting representation is not referenced by the sealed surface framework");
+	const unsigned int representationCount = getRepresentationCount();
+	for (unsigned int i = 0; i < representationCount; ++i) {
+		if (getRepresentation(i)->getUuid() == supportingRepresentation->getUuid()) {
+			representationIndex = i;
+			break;
+		}
+	}
+	if (representationIndex == -1) {
+		throw invalid_argument("The supporting representation is not referenced by the sealed surface framework");
+	}
 
     resqml2__ContactPatch* contactPatch = soap_new_resqml2__ContactPatch(gsoapProxy2_0_1->soap, 1);
     contactPatch->PatchIndex = contactRep->Contact.size();

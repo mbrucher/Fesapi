@@ -39,8 +39,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
@@ -49,7 +49,7 @@ using namespace gsoap_resqml2_0_1;
 
 const char* PolylineSetRepresentation::XML_TAG = "PolylineSetRepresentation";
 
-void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+void PolylineSetRepresentation::init(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 									 const std::string & guid, const std::string & title)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPolylineSetRepresentation(crs->getGsoapContext(), 1);
@@ -66,20 +66,20 @@ void PolylineSetRepresentation::init(AbstractFeatureInterpretation* interp, Abst
 	localCrs->addRepresentation(this);
 }
 
-PolylineSetRepresentation::PolylineSetRepresentation(AbstractLocal3dCrs * crs, const string & guid, const string & title) :
+PolylineSetRepresentation::PolylineSetRepresentation(resqml2::AbstractLocal3dCrs * crs, const string & guid, const string & title) :
 	AbstractRepresentation(nullptr, crs)
 {
 	init(nullptr, crs, guid, title);
 }
 
-PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineSetRepresentation::PolylineSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 													 const std::string & guid, const std::string & title):
 	AbstractRepresentation(interp, crs)
 {
 	init(interp, crs, guid, title);
 }
 
-PolylineSetRepresentation::PolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineSetRepresentation::PolylineSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 													 const std::string & guid, const std::string & title,
 													 const resqml2__LineRole & roleKind):
 	AbstractRepresentation(interp, crs)
@@ -124,7 +124,7 @@ void PolylineSetRepresentation::pushBackGeometryPatch(
 	for (unsigned int i = 0; i < polylineCount; ++i)
 		NodeCount += NodeCountPerPolyline[i];
 	hsize_t pointCountDims[] = {NodeCount};
-	patch->Geometry = createPointGeometryPatch(patch->PatchIndex, nodes, pointCountDims, 1, proxy);
+	patch->Geometry = createPointGeometryPatch2_0_1(patch->PatchIndex, nodes, pointCountDims, 1, proxy);
 
 	static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy2_0_1)->LinePatch.push_back(patch);
 }
@@ -173,7 +173,7 @@ void PolylineSetRepresentation::pushBackGeometryPatch(
 	for (unsigned int i = 0; i < polylineCount; ++i)
 		NodeCount += NodeCountPerPolyline[i];
 	hsize_t pointCountDims[] = {NodeCount};
-	patch->Geometry = createPointGeometryPatch(patch->PatchIndex, nodes, pointCountDims, 1, proxy);
+	patch->Geometry = createPointGeometryPatch2_0_1(patch->PatchIndex, nodes, pointCountDims, 1, proxy);
 
 	static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy2_0_1)->LinePatch.push_back(patch);
 }
@@ -195,10 +195,10 @@ string PolylineSetRepresentation::getHdfProxyUuid() const
 		return static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->HdfProxy->UUID;
 	}
 
-	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
+	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry2_0_1(0));
 }
 
-resqml2__PointGeometry* PolylineSetRepresentation::getPointGeometry(const unsigned int & patchIndex) const
+resqml2__PointGeometry* PolylineSetRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const
 {
 	if (patchIndex < static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy2_0_1)->LinePatch.size() &&
 		static_cast<_resqml2__PolylineSetRepresentation*>(gsoapProxy2_0_1)->LinePatch[patchIndex]->Geometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__PointGeometry)
@@ -286,7 +286,7 @@ void PolylineSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIn
 	if (patchIndex >= getPatchCount())
 		throw range_error("The index of the patch is not in the allowed range of patch.");
 
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
 	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
 	{
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
@@ -554,7 +554,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 		hid_t datatype = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile);
 
 		bool result = true;
-		if (datatype == H5T_NATIVE_CHAR)
+		if (H5Tequal(datatype, H5T_NATIVE_CHAR) > 0)
 		{
 			char* tmp = new char[polylineCount];
 			hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
@@ -562,7 +562,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 				closedFlagPerPolyline[i] = tmp[i];
 			delete [] tmp;
 		}
-		else if (datatype == H5T_NATIVE_UCHAR)
+		else if (H5Tequal(datatype, H5T_NATIVE_UCHAR) > 0)
 		{
 			unsigned char* tmp = new unsigned char[polylineCount];
 			hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
@@ -570,7 +570,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 				closedFlagPerPolyline[i] = tmp[i];
 			delete [] tmp;
 		}
-		else if (datatype == H5T_NATIVE_SHORT)
+		else if (H5Tequal(datatype, H5T_NATIVE_SHORT) > 0)
 		{
 			short* tmp = new short[polylineCount];
 			hdfProxy->readArrayNdOfShortValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
@@ -578,7 +578,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 				closedFlagPerPolyline[i] = tmp[i];
 			delete [] tmp;
 		}
-		else if (datatype == H5T_NATIVE_USHORT)
+		else if (H5Tequal(datatype, H5T_NATIVE_USHORT) > 0)
 		{
 			unsigned short* tmp = new unsigned short[polylineCount];
 			hdfProxy->readArrayNdOfUShortValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
@@ -586,7 +586,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 				closedFlagPerPolyline[i] = tmp[i];
 			delete [] tmp;
 		}
-		else if (datatype == H5T_NATIVE_INT)
+		else if (H5Tequal(datatype, H5T_NATIVE_INT) > 0)
 		{
 			int* tmp = new int[polylineCount];
 			hdfProxy->readArrayNdOfIntValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
@@ -594,7 +594,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 				closedFlagPerPolyline[i] = tmp[i];
 			delete [] tmp;
 		}
-		else if (datatype == H5T_NATIVE_UINT)
+		else if (H5Tequal(datatype, H5T_NATIVE_UINT) > 0)
 		{
 			unsigned int* tmp = new unsigned int[polylineCount];
 			hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
@@ -602,7 +602,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 				closedFlagPerPolyline[i] = tmp[i];
 			delete [] tmp;
 		}
-		else if (datatype == H5T_NATIVE_LONG)
+		else if (H5Tequal(datatype, H5T_NATIVE_LONG) > 0)
 		{
 			long* tmp = new long[polylineCount];
 			hdfProxy->readArrayNdOfLongValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);
@@ -610,7 +610,7 @@ void PolylineSetRepresentation::getClosedFlagPerPolylineOfPatch(const unsigned i
 				closedFlagPerPolyline[i] = tmp[i];
 			delete [] tmp;
 		}
-		else if (datatype == H5T_NATIVE_ULONG)
+		else if (H5Tequal(datatype, H5T_NATIVE_ULONG) > 0)
 		{
 			unsigned long* tmp = new unsigned long[polylineCount];
 			hdfProxy->readArrayNdOfULongValues(static_cast<resqml2__BooleanHdf5Array*>(patch->ClosedPolylines)->Values->PathInHdfFile, tmp);

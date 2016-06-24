@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2/AbstractHdfProxy.h"
 
@@ -48,8 +48,8 @@ using namespace gsoap_resqml2_0_1;
 
 const char* CommentProperty::XML_TAG = "CommentProperty";
 
-CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
+CommentProperty::CommentProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECommentProperty(rep->getGsoapContext(), 1);	
 	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy2_0_1);
@@ -66,8 +66,8 @@ CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & gu
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
-CommentProperty::CommentProperty(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropKind)
+CommentProperty::CommentProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropKind)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCORECommentProperty(rep->getGsoapContext(), 1);	
 	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy2_0_1);
@@ -96,7 +96,7 @@ void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::str
 	ostringstream oss;
     resqml2__StringHdf5Array* xmlValues = soap_new_resqml2__StringHdf5Array(gsoapProxy2_0_1->soap, 1);
 	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();;
+	xmlValues->Values->HdfProxy = proxy->newResqmlReference();;
 	ostringstream ossForHdf;
 	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
 	xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
@@ -128,7 +128,7 @@ void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::str
 	const unsigned int nbDimensions = 2;
 
     // HDF
-    hdfProxy->writeArrayNd(prop->uuid,
+	proxy->writeArrayNd(prop->uuid,
                     ossForHdf.str(),
                     H5T_NATIVE_UCHAR,
                     cTab,
@@ -142,11 +142,13 @@ void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::str
 
 std::vector<std::string> CommentProperty::getStringValuesOfPatch(const unsigned int & patchIndex)
 {
+	resqml2::AbstractHdfProxy* hdfProxy = getHdfProxy();
+	if (hdfProxy == nullptr) {
+		throw invalid_argument("The hdf proxy does not exist");
+	}
+
 	std::list<std::string> shpLabels; // use list because of the push_front method (performance reason)
 	std::vector<std::string> result;
-
-	if (hdfProxy == nullptr)
-		return result;
 
 	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy2_0_1);
 	resqml2__StringHdf5Array* hdfValues = static_cast<resqml2__StringHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);

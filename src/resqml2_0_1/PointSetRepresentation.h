@@ -33,14 +33,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT PointSetRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT PointSetRepresentation : public resqml2::AbstractRepresentation
 	{
 	private :
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 
 	public:
 		/**
@@ -50,13 +50,13 @@ namespace resqml2_0_1
 		* @param guid							The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title							A title for the instance to create.
 		*/
-		PointSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		PointSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		PointSetRepresentation(gsoap_resqml2_0_1::_resqml2__PointSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		PointSetRepresentation(gsoap_resqml2_0_1::_resqml2__PointSetRepresentation* fromGsoap) : resqml2::AbstractRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

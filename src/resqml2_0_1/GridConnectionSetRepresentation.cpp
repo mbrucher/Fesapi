@@ -43,7 +43,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/FaultInterpretation.h"
 #include "resqml2_0_1/AbstractGridRepresentation.h"
 #include "resqml2/AbstractHdfProxy.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
 #include "tools/Misc.h"
@@ -53,10 +53,7 @@ using namespace epc;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 
-const char* GridConnectionSetRepresentation::XML_TAG = "GridConnectionSetRepresentation";
-
-void GridConnectionSetRepresentation::init(soap* soapContext,
-        const std::string & guid, const std::string & title)
+void GridConnectionSetRepresentation::init(soap* soapContext, const std::string & guid, const std::string & title)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(soapContext, 1);
     _resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
@@ -66,15 +63,15 @@ void GridConnectionSetRepresentation::init(soap* soapContext,
 }
 
 GridConnectionSetRepresentation::GridConnectionSetRepresentation(soap* soapContext,
-		                const std::string & guid, const std::string & title):
-	AbstractRepresentation(static_cast<AbstractFeatureInterpretation*>(nullptr), nullptr)
+	const std::string & guid, const std::string & title):
+	resqml2::GridConnectionSetRepresentation(static_cast<resqml2::AbstractFeatureInterpretation*>(nullptr))
 {
 	init(soapContext, guid, title);
 }
 
-GridConnectionSetRepresentation::GridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,
-        const string & guid, const string & title):
-	AbstractRepresentation(interp, nullptr)
+GridConnectionSetRepresentation::GridConnectionSetRepresentation(resqml2::AbstractFeatureInterpretation* interp,
+	const string & guid, const string & title):
+	resqml2::GridConnectionSetRepresentation(interp)
 {
 	init(interp->getGsoapContext(), guid, title);
 
@@ -82,6 +79,20 @@ GridConnectionSetRepresentation::GridConnectionSetRepresentation(AbstractFeature
 	{
 		setInterpretation(interp);
 	}
+}
+
+string GridConnectionSetRepresentation::getHdfProxyUuid() const
+{
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
+
+	if (rep->CellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+	{
+		return static_cast<resqml2__IntegerHdf5Array*>(rep->CellIndexPairs)->Values->HdfProxy->UUID;
+	}
+	else
+		throw std::logic_error("Not implemented yet");
+
+	return "";
 }
 
 void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy)
@@ -123,20 +134,6 @@ void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsign
 	// ************ HDF ************		
 	hsize_t numValues[] = {cellIndexPairCount,2};
 	hdfProxy->writeArrayNd(rep->uuid, "LocalFacePerCellIndexPairs", H5T_NATIVE_INT, localFacePerCellIndexPair, numValues, 2);
-}
-
-string GridConnectionSetRepresentation::getHdfProxyUuid() const
-{
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
-
-	if (rep->CellIndexPairs->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-	{
-		return static_cast<resqml2__IntegerHdf5Array*>(rep->CellIndexPairs)->Values->HdfProxy->UUID;
-	}
-	else
-		throw std::logic_error("Not yet implemented");
-
-	return "";
 }
 
 bool GridConnectionSetRepresentation::isAssociatedToInterpretations() const
@@ -355,35 +352,6 @@ std::string GridConnectionSetRepresentation::getInterpretationUuidFromIndex(cons
 	}
 }
 
-AbstractFeatureInterpretation* GridConnectionSetRepresentation::getInterpretationFromIndex(const unsigned int & interpretationIndex) const
-{
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
-
-	if (rep->ConnectionInterpretations)
-	{
-		if (rep->ConnectionInterpretations->FeatureInterpretation.size() > interpretationIndex)
-		{
-			resqml2::AbstractObject* result = epcDocument->getResqmlAbstractObjectByUuid(rep->ConnectionInterpretations->FeatureInterpretation[interpretationIndex]->UUID);
-			if (dynamic_cast<AbstractFeatureInterpretation*>(result) != nullptr)
-			{
-				return static_cast<AbstractFeatureInterpretation*>(result);
-			}
-			else
-			{
-				throw invalid_argument("The associated feature interpretation is not a fault one. Legal but not yet implemented.");
-			}
-		}
-		else
-		{
-			throw range_error("The fault index is out of range in this grid connection context.");
-		}
-	}
-	else
-	{
-		throw invalid_argument("The grid connection does not contain any fault association.");
-	}
-}
-
 unsigned int GridConnectionSetRepresentation::getInterpretationCount() const
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
@@ -452,46 +420,9 @@ void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(int * localF
 		throw std::logic_error("Not yet implemented");
 }
 
-vector<Relationship> GridConnectionSetRepresentation::getAllEpcRelationships() const
+void GridConnectionSetRepresentation::pushBackXmlSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep)
 {
-	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
-
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
-	for (size_t i = 0; i < rep->Grid.size(); ++i)
-	{
-		Relationship relSupportingGrid(misc::getPartNameFromReference(rep->Grid[i]), "", rep->Grid[i]->UUID);
-		relSupportingGrid.setDestinationObjectType();
-		result.push_back(relSupportingGrid);
-	}
-    
-	if (rep->ConnectionInterpretations != nullptr)
-	{
-		for (size_t i = 0; i < rep->ConnectionInterpretations->FeatureInterpretation.size(); ++i)
-		{
-			Relationship relInterp(misc::getPartNameFromReference(rep->ConnectionInterpretations->FeatureInterpretation[i]), "", rep->ConnectionInterpretations->FeatureInterpretation[i]->UUID);
-			relInterp.setDestinationObjectType();
-			result.push_back(relInterp);
-		}
-	}
-
-	return result;
-}
-
-void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep)
-{
-	if (supportingGridRep == nullptr)
-	{
-		throw invalid_argument("The supporting Grid Representation cannot be null.");
-	}
-
-	// EPC
-	supportingGridRep->gridConnectionSetRepresentationSet.push_back(this);
-
-	// XML
-	if (updateXml)
-	{
-		static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.push_back(supportingGridRep->newResqmlReference());
-	}
+	static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.push_back(supportingGridRep->newResqmlReference());
 }
 
 std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid(unsigned int index) const
@@ -535,74 +466,16 @@ void GridConnectionSetRepresentation::setConnectionInterpretationIndices(unsigne
 	delete [] cumulative;
 }
 
-void GridConnectionSetRepresentation::pushBackInterpretation(AbstractFeatureInterpretation* interp)
+void GridConnectionSetRepresentation::pushBackXmlInterpretation(resqml2::AbstractFeatureInterpretation* interp)
 {
-	if (updateXml)
-	{
-		_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
-		if (rep->ConnectionInterpretations == nullptr)
-			rep->ConnectionInterpretations = soap_new_resqml2__ConnectionInterpretations(gsoapProxy2_0_1->soap, 1);
-
-		rep->ConnectionInterpretations->FeatureInterpretation.push_back(interp->newResqmlReference());
-	}
-
-	if (std::find(interp->gridConnectionSetRepresentationSet.begin(), interp->gridConnectionSetRepresentationSet.end(), this) == interp->gridConnectionSetRepresentationSet.end())
-		interp->gridConnectionSetRepresentationSet.push_back(this);
-}
-
-void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
-{
-	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
-
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
+	if (rep->ConnectionInterpretations == nullptr)
+		rep->ConnectionInterpretations = soap_new_resqml2__ConnectionInterpretations(gsoapProxy2_0_1->soap, 1);
 
-	// Supporting grid representation
-	updateXml = false;
-	for (size_t i = 0; i < rep->Grid.size(); ++i)
-	{
-		resqml2::AbstractObject* supportingGridRep = epcDocument->getResqmlAbstractObjectByUuid(rep->Grid[i]->UUID);
-		if (dynamic_cast<AbstractGridRepresentation*>(supportingGridRep) == nullptr)
-		{
-			throw logic_error("The referenced supporting grid rep does not look to be a grid rep.");
-		}
-
-		pushBackSupportingGridRepresentation(static_cast<AbstractGridRepresentation*>(supportingGridRep));
-	}
-	updateXml = true;
-
-	if (rep->ConnectionInterpretations != nullptr)
-	{
-		updateXml = false;
-		for (size_t i = 0; i < rep->ConnectionInterpretations->FeatureInterpretation.size(); ++i)
-		{
-			resqml2::AbstractObject* interp = epcDocument->getResqmlAbstractObjectByUuid(rep->ConnectionInterpretations->FeatureInterpretation[i]->UUID);
-			if (dynamic_cast<AbstractFeatureInterpretation*>(interp) == nullptr)
-			{
-				throw logic_error("The referenced interpretation rep does not look to be an interpretation");
-			}
-
-			pushBackInterpretation(static_cast<AbstractFeatureInterpretation*>(interp));
-		}
-		updateXml = true;
-	}
-}
-
-ULONG64 GridConnectionSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
-{
-	throw logic_error("Not yet implemented.");
-}
-
-void GridConnectionSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
-{
-	throw logic_error("Not yet implemented.");
+	rep->ConnectionInterpretations->FeatureInterpretation.push_back(interp->newResqmlReference());
 }
 
 unsigned int GridConnectionSetRepresentation::getSupportingGridRepresentationCount() const
 {
 	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.size(); 
-}
-
-AbstractGridRepresentation* GridConnectionSetRepresentation::getSupportingGridRepresentation(unsigned int index)
-{
-	return static_cast<AbstractGridRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingGridRepresentationUuid(index)));
 }

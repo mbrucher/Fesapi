@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT LocalTime3dCrs : public AbstractLocal3dCrs
+	class DLL_IMPORT_OR_EXPORT LocalTime3dCrs : public resqml2::AbstractLocal3dCrs
 	{
 	private:
 		void init(soap* soapContext, const std::string & guid, const std::string & title,
@@ -64,7 +64,7 @@ namespace resqml2_0_1
 		* @param timeUom			The unit of measure of the Z offset of this instance.
 		* @param verticalUom		The unit of measure of the vertical axis of this instance.
 		* @param verticalEpsgCode	The epsg code of the associated vertical CRS.
-		* @param isUpOriented		If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		* @param isUpOriented		If true, indicates that the Z offset if an elevation when positive. If false, the Z offset is a depth when positive.
 		*/
 		LocalTime3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
@@ -87,7 +87,7 @@ namespace resqml2_0_1
 		* @param timeUom				The unit of measure of the Z offset of this instance.
 		* @param verticalUom			The unit of measure of the vertical axis of this instance.
 		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
-		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset is a depth when positive.
 		*/
 		LocalTime3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
@@ -110,7 +110,7 @@ namespace resqml2_0_1
 		* @param projectedEpsgCode		The epsg code of the associated projected CRS.
 		* @param verticalUom			The unit of measure of the vertical axis of this instance.
 		* @param verticalUnknownReason	Indicates why the vertical CRS cannot be provided using EPSG or GML.
-		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset is a depth when positive.
 		*/
 		LocalTime3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,
@@ -133,7 +133,7 @@ namespace resqml2_0_1
 		* @param timeUom				The unit of measure of the Z offset of this instance.
 		* @param verticalUom			The unit of measure of the vertical axis of this instance.
 		* @param verticalEpsgCode		The epsg code of the associated vertical CRS.
-		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset if a depth when positive.
+		* @param isUpOriented			If true, indicates that the Z offset if an elevation when positive. If false, the Z offset is a depth when positive.
 		*/
 		LocalTime3dCrs(soap* soapContext, const std::string & guid, const std::string & title,
 			const double & originOrdinal1, const double & originOrdinal2, const double & originOrdinal3,

@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT GenericFeatureInterpretation : public AbstractFeatureInterpretation
+	class DLL_IMPORT_OR_EXPORT GenericFeatureInterpretation : public resqml2::AbstractFeatureInterpretation
 	{
 	public:
 
@@ -49,7 +49,7 @@ namespace resqml2_0_1
 		*/
 		GenericFeatureInterpretation(resqml2::AbstractFeature * feature, const std::string & guid, const std::string & title);
 
-		GenericFeatureInterpretation(gsoap_resqml2_0_1::_resqml2__GenericFeatureInterpretation* fromGsoap): AbstractFeatureInterpretation(fromGsoap) {}
+		GenericFeatureInterpretation(gsoap_resqml2_0_1::_resqml2__GenericFeatureInterpretation* fromGsoap) : resqml2::AbstractFeatureInterpretation(fromGsoap) {}
 
 		~GenericFeatureInterpretation() {}
 	

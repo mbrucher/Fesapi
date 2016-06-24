@@ -33,14 +33,16 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/RepresentationSetRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT RepresentationSetRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT RepresentationSetRepresentation : public resqml2::RepresentationSetRepresentation
 	{
 	protected:
-		RepresentationSetRepresentation(class AbstractFeatureInterpretation* interp): AbstractRepresentation(interp, nullptr) {}
+		RepresentationSetRepresentation(resqml2::AbstractFeatureInterpretation* interp) : resqml2::RepresentationSetRepresentation(interp) {}
+
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const { return nullptr; }
 
 	public:
 		/**
@@ -48,7 +50,7 @@ namespace resqml2_0_1
 		* @param horizon the feature the instance interprets.
 		* @param title A title for the instance to create.
 		*/
-		RepresentationSetRepresentation(class AbstractFeatureInterpretation* interp, const std::string & guid, const std::string & title);
+		RepresentationSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, const std::string & guid, const std::string & title);
 
 		// To use if the representation set representation is not linked to any interpretation
 		RepresentationSetRepresentation(common::EpcDocument* epcDoc, const std::string & guid, const std::string & title);
@@ -56,55 +58,11 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		RepresentationSetRepresentation(gsoap_resqml2_0_1::_resqml2__RepresentationSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		RepresentationSetRepresentation(gsoap_resqml2_0_1::_resqml2__RepresentationSetRepresentation* fromGsoap) : resqml2::RepresentationSetRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		~RepresentationSetRepresentation() {}
-
-		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		std::string getHdfProxyUuid() const {return "";}
-
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
-
-		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
-
-		/**
-		* Get all the XYZ points of a particular patch of this representation.
-		* XYZ points are given in the local CRS.
-		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
-		*/
-		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
-
-		unsigned int getPatchCount() const {return 0;}
-
-		bool isHomogeneous() const;
-
-		/**
-		* Get all the representations of this representation set
-		*/
-		std::vector<AbstractRepresentation*> getRepresentationSet() const;
-
-		/**
-		* Get the count of representations in this representation set.
-		*/
-		unsigned int 						getRepresentationCount() const;
-
-		/**
-		* Get a particular representation of this representation set according to its position.
-		*/
-		AbstractRepresentation*				getRepresentation(const unsigned int & index) const;
-
-    protected:
-
-		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
-		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
-
-		std::vector<AbstractRepresentation*> representationSet;
-
-		friend void AbstractRepresentation::pushBackIntoRepresentationSet(RepresentationSetRepresentation * repSet, bool xml);
 	};
 }

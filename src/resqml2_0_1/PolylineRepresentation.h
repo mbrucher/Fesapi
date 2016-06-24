@@ -37,10 +37,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT PolylineRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT PolylineRepresentation : public resqml2::AbstractRepresentation
 	{
 	private :
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 
 		/**
 		 * Push back a representation for which the current instance is it outer ring.
@@ -59,7 +59,7 @@ namespace resqml2_0_1
 		std::vector<AbstractSurfaceRepresentation*> outerRingOfSet;
 		std::vector<AbstractSurfaceRepresentation*> innerRingOfSet;
 
-		void init(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		void init(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed = false);
 
 	public:
@@ -72,7 +72,7 @@ namespace resqml2_0_1
 		* @param roleKind				Indicates the role of this representation.
 		* @param isClosed				Indicates wether this line representaiton is closed or not.
 		*/
-		PolylineRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		PolylineRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__LineRole & roleKind,
 			bool isClosed = false);
 
@@ -83,7 +83,7 @@ namespace resqml2_0_1
 		* @param title					A title for the instance to create.
 		* @param isClosed				Indicates wether this line representaiton is closed or not.
 		*/
-		PolylineRepresentation(class AbstractLocal3dCrs * crs,
+		PolylineRepresentation(resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed = false);
 
 		/**
@@ -94,13 +94,13 @@ namespace resqml2_0_1
 		* @param title					A title for the instance to create.
 		* @param isClosed				Indicates wether this line representaiton is closed or not.
 		*/
-		PolylineRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		PolylineRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed = false);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		PolylineRepresentation(gsoap_resqml2_0_1::_resqml2__PolylineRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		PolylineRepresentation(gsoap_resqml2_0_1::_resqml2__PolylineRepresentation* fromGsoap) : resqml2::AbstractRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

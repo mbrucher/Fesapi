@@ -220,9 +220,9 @@ const std::vector<resqml2_0_1::FrontierFeature*> & EpcDocument::getFrontierSet()
 
 const std::vector<resqml2_0_1::OrganizationFeature*> & EpcDocument::getOrganizationSet() const { return organizationSet; }
 
-const std::vector<resqml2_0_1::TimeSeries*> & EpcDocument::getTimeSeriesSet() const { return timeSeriesSet; }
+const std::vector<resqml2::TimeSeries*> & EpcDocument::getTimeSeriesSet() const { return timeSeriesSet; }
 
-const std::vector<resqml2_0_1::SubRepresentation*> & EpcDocument::getSubRepresentationSet() const { return subRepresentationSet; }
+const std::vector<resqml2::SubRepresentation*> & EpcDocument::getSubRepresentationSet() const { return subRepresentationSet; }
 
 const std::vector<resqml2::AbstractHdfProxy*> & EpcDocument::getHdfProxySet() const { return hdfProxySet; }
 unsigned int EpcDocument::getHdfProxyCount() const { return hdfProxySet.size(); }
@@ -534,7 +534,7 @@ void EpcDocument::serialize(bool useZip64)
 
 			epc::FilePart* fp = package->createPart(str, it->second->getPartNameInEpcDocument());
 			std::vector<epc::Relationship> relSet = it->second->getAllEpcRelationships();
-			for (unsigned int relIndex = 0; relIndex < relSet.size(); relIndex++)
+			for (size_t relIndex = 0; relIndex < relSet.size(); relIndex++)
 				fp->addRelationship(relSet[relIndex]);
 
 			epc::ContentType contentType(false, it->second->getContentType(), it->second->getPartNameInEpcDocument());
@@ -553,7 +553,7 @@ void EpcDocument::serialize(bool useZip64)
 
 		epc::FilePart* fp = package->createPart(str, it->second->getPartNameInEpcDocument());
 		std::vector<epc::Relationship> relSet = it->second->getAllEpcRelationships();
-		for (unsigned int relIndex = 0; relIndex < relSet.size(); relIndex++)
+		for (size_t relIndex = 0; relIndex < relSet.size(); relIndex++)
 			fp->addRelationship(relSet[relIndex]);
 
 		epc::ContentType contentType(false, it->second->getContentType(), it->second->getPartNameInEpcDocument());
@@ -1079,10 +1079,10 @@ vector<PolylineSetRepresentation*> EpcDocument::getFaultPolylineSetRepSet() cons
 	vector<Fault*> faultSet = getFaultSet();
 	for (unsigned int featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
@@ -1103,10 +1103,10 @@ vector<PolylineSetRepresentation*> EpcDocument::getFracturePolylineSetRepSet() c
 	vector<Fracture*> fractureSet = getFractureSet();
 	for (unsigned int featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
@@ -1127,10 +1127,10 @@ vector<PolylineSetRepresentation*> EpcDocument::getFrontierPolylineSetRepSet() c
 	vector<FrontierFeature*> frontierSet = getFrontierSet();
 	for (unsigned int featureIndex = 0; featureIndex < frontierSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = frontierSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = frontierSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
@@ -1151,10 +1151,10 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFaultTriangulatedSetRepSe
 	vector<Fault*> faultSet = getFaultSet();
 	for (unsigned int featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
@@ -1175,10 +1175,10 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFractureTriangulatedSetRe
 	vector<Fracture*> fractureSet = getFractureSet();
 	for (unsigned int featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
@@ -1199,10 +1199,10 @@ vector<Grid2dSetRepresentation*> EpcDocument::getHorizonGrid2dSetRepSet() const
 	vector<Horizon*> horizonSet = getHorizonSet();
 	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dSetRepresentation)
@@ -1223,10 +1223,10 @@ vector<Grid2dRepresentation*> EpcDocument::getHorizonGrid2dRepSet() const
 	vector<Horizon*> horizonSet = getHorizonSet();
 	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dRepresentation)
@@ -1247,10 +1247,10 @@ std::vector<PolylineRepresentation*> EpcDocument::getHorizonPolylineRepSet() con
 	vector<Horizon*> horizonSet = getHorizonSet();
 	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation)
@@ -1271,10 +1271,10 @@ std::vector<PolylineSetRepresentation*> EpcDocument::getHorizonPolylineSetRepSet
 	vector<Horizon*> horizonSet = getHorizonSet();
 	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
@@ -1295,10 +1295,10 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getHorizonTriangulatedSetRep
 	vector<Horizon*> horizonSet = getHorizonSet();
 	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
@@ -1335,10 +1335,10 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 
 	for (unsigned int featureIndex = 0; featureIndex < wellboreSet.size(); featureIndex++)
 	{
-		vector<AbstractFeatureInterpretation*> interpSet = wellboreSet[featureIndex]->getInterpretationSet();
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = wellboreSet[featureIndex]->getInterpretationSet();
 		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
-			vector<AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
 			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreTrajectoryRepresentation)
@@ -1630,8 +1630,8 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 	return result;
 }
 
-MdDatum* EpcDocument::createMdDatum(const std::string & guid, const std::string & title,
-			class AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,
+resqml2::MdDatum* EpcDocument::createMdDatum(const std::string & guid, const std::string & title,
+			resqml2::AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,
 			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3)
 {
 	MdDatum* result = new MdDatum(getGsoapContext(), guid, title, locCrs, originKind, referenceLocationOrdinal1, referenceLocationOrdinal2, referenceLocationOrdinal3);
@@ -1864,7 +1864,7 @@ StratigraphicOccurrenceInterpretation* EpcDocument::createStratigraphicOccurrenc
 //************ REPRESENTATION ********
 //************************************
 
-TriangulatedSetRepresentation* EpcDocument::createTriangulatedSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+TriangulatedSetRepresentation* EpcDocument::createTriangulatedSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
 	TriangulatedSetRepresentation* result = new TriangulatedSetRepresentation(interp, crs, guid, title);
@@ -1872,7 +1872,7 @@ TriangulatedSetRepresentation* EpcDocument::createTriangulatedSetRepresentation(
 	return result;
 }
 
-PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractLocal3dCrs * crs,
+PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
 	PolylineSetRepresentation* result = new PolylineSetRepresentation(crs, guid, title);
@@ -1880,7 +1880,7 @@ PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(Abstract
 	return result;
 }
 
-PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
 	PolylineSetRepresentation* result = new PolylineSetRepresentation(interp, crs, guid, title);
@@ -1888,7 +1888,7 @@ PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(Abstract
 	return result;
 }
 
-PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind)
 {
 	PolylineSetRepresentation* result = new PolylineSetRepresentation(interp, crs, guid, title, roleKind);
@@ -1896,7 +1896,7 @@ PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(Abstract
 	return result;
 }
 
-PointSetRepresentation* EpcDocument::createPointSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PointSetRepresentation* EpcDocument::createPointSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
 	PointSetRepresentation* result = new PointSetRepresentation(interp, crs, guid, title);
@@ -1904,7 +1904,7 @@ PointSetRepresentation* EpcDocument::createPointSetRepresentation(AbstractFeatur
 	return result;
 }
 
-PlaneSetRepresentation* EpcDocument::createPlaneSetRepresentation(resqml2_0_1::AbstractFeatureInterpretation* interp, resqml2_0_1::AbstractLocal3dCrs * crs,
+PlaneSetRepresentation* EpcDocument::createPlaneSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
 	PlaneSetRepresentation* result = new PlaneSetRepresentation(interp, crs, guid, title);
@@ -1912,7 +1912,7 @@ PlaneSetRepresentation* EpcDocument::createPlaneSetRepresentation(resqml2_0_1::A
 	return result;
 }
 
-PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractLocal3dCrs * crs,
+PolylineRepresentation* EpcDocument::createPolylineRepresentation(resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
 	PolylineRepresentation* result = new PolylineRepresentation(crs, guid, title, isClosed);
@@ -1920,7 +1920,7 @@ PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractLocal3
 	return result;
 }
 
-PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineRepresentation* EpcDocument::createPolylineRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
 	PolylineRepresentation* result = new PolylineRepresentation(interp, crs, guid, title, isClosed);
@@ -1928,7 +1928,7 @@ PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatur
 	return result;
 }
 
-PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PolylineRepresentation* EpcDocument::createPolylineRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind, bool isClosed)
 {
 	PolylineRepresentation* result = new PolylineRepresentation(interp, crs, guid, title, roleKind, isClosed);
@@ -1936,7 +1936,7 @@ PolylineRepresentation* EpcDocument::createPolylineRepresentation(AbstractFeatur
 	return result;
 }
 
-Grid2dRepresentation* EpcDocument::createGrid2dRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+Grid2dRepresentation* EpcDocument::createGrid2dRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title)
 {
 	Grid2dRepresentation* result = new Grid2dRepresentation(interp, crs, guid, title);
@@ -1944,7 +1944,7 @@ Grid2dRepresentation* EpcDocument::createGrid2dRepresentation(AbstractFeatureInt
 	return result;
 }
 
-WellboreTrajectoryRepresentation* EpcDocument::createWellboreTrajectoryRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, MdDatum * mdInfo)
+WellboreTrajectoryRepresentation* EpcDocument::createWellboreTrajectoryRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2::MdDatum * mdInfo)
 {
 	WellboreTrajectoryRepresentation* result = new WellboreTrajectoryRepresentation(interp, guid, title, mdInfo);
 	addGsoapProxyAndDeleteItIfException(result);
@@ -2023,7 +2023,7 @@ AbstractIjkGridRepresentation* EpcDocument::createPartialIjkGridRepresentation(c
 	return result;
 }
 
-IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(AbstractLocal3dCrs * crs,
+IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
@@ -2032,7 +2032,7 @@ IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(
 	return result;
 }
 
-IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
@@ -2041,7 +2041,7 @@ IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(
 	return result;
 }
 
-IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(AbstractLocal3dCrs * crs,
+IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
@@ -2050,7 +2050,7 @@ IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentat
 	return result;
 }
 
-IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
@@ -2059,7 +2059,7 @@ IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentat
 	return result;
 }
 
-IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(AbstractLocal3dCrs * crs,
+IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
@@ -2068,7 +2068,7 @@ IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(Ab
 	return result;
 }
 
-IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
@@ -2087,7 +2087,7 @@ UnstructuredGridRepresentation* EpcDocument::createPartialUnstructuredGridRepres
 	return result;
 }
 
-UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentation(AbstractLocal3dCrs * crs,
+UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentation(resqml2::AbstractLocal3dCrs * crs,
 	const std::string & guid, const std::string & title,
 	const ULONG64 & cellCount)
 {
@@ -2096,42 +2096,42 @@ UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentatio
 	return result;
 }
 
-resqml2_0_1::SubRepresentation* EpcDocument::createPartialSubRepresentation(const std::string & guid, const std::string & title)
+resqml2::SubRepresentation* EpcDocument::createPartialSubRepresentation(const std::string & guid, const std::string & title)
 {
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
 	dor->UUID = guid;
 	dor->Title = title;
-	SubRepresentation* result = new SubRepresentation(dor);
+	resqml2::SubRepresentation* result = new SubRepresentation(dor);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
+resqml2::SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title, resqml2::AbstractRepresentation * supportingRep)
 {
-	SubRepresentation* result = new SubRepresentation(guid, title, supportingRep);
+	resqml2::SubRepresentation* result = new SubRepresentation(guid, title, supportingRep);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-SubRepresentation* EpcDocument::createSubRepresentation(AbstractFeatureInterpretation* interp,
-			const std::string & guid, const std::string & title, AbstractRepresentation * supportingRep)
+resqml2::SubRepresentation* EpcDocument::createSubRepresentation(resqml2::AbstractFeatureInterpretation* interp,
+			const std::string & guid, const std::string & title, resqml2::AbstractRepresentation * supportingRep)
 {
-	SubRepresentation* result = new SubRepresentation(interp, guid, title, supportingRep);
+	resqml2::SubRepresentation* result = new SubRepresentation(interp, guid, title, supportingRep);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-resqml2_0_1::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(const std::string & guid, const std::string & title)
+resqml2::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(const std::string & guid, const std::string & title)
 {
-	GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(getGsoapContext(), guid, title);
+	resqml2::GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(getGsoapContext(), guid, title);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(AbstractFeatureInterpretation* interp,
+resqml2::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(resqml2::AbstractFeatureInterpretation* interp,
         const std::string & guid, const std::string & title)
 {
-	GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(interp, guid, title);
+	resqml2::GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(interp, guid, title);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
@@ -2140,19 +2140,19 @@ GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentat
 //************* PROPERTIES ***********
 //************************************
 
-TimeSeries* EpcDocument::createTimeSeries(const std::string & guid, const std::string & title)
+resqml2::TimeSeries* EpcDocument::createTimeSeries(const std::string & guid, const std::string & title)
 {
-	TimeSeries* result = new TimeSeries(getGsoapContext(), guid, title);
+	resqml2::TimeSeries* result = new resqml2_0_1::TimeSeries(getGsoapContext(), guid, title);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-resqml2_0_1::TimeSeries* EpcDocument::createPartialTimeSeries(const std::string & guid, const std::string & title)
+resqml2::TimeSeries* EpcDocument::createPartialTimeSeries(const std::string & guid, const std::string & title)
 {
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
 	dor->UUID = guid;
 	dor->Title = title;
-	TimeSeries* result = new TimeSeries(dor);
+	resqml2::TimeSeries* result = new resqml2_0_1::TimeSeries(dor);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
@@ -2164,33 +2164,33 @@ StringTableLookup* EpcDocument::createStringTableLookup(const std::string & guid
 	return result;
 }
 
-PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
+resqml2::PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
 	const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
 {
-	PropertyKind* result = new PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentEnergisticsPropertyKind);
+	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentEnergisticsPropertyKind);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
-	const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * parentPropType)
+resqml2::PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
+	const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType)
 {
-	PropertyKind* result = new PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentPropType);
+	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentPropType);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-resqml2_0_1::PropertyKind* EpcDocument::createPartialPropertyKind(const std::string & guid, const std::string & title)
+resqml2::PropertyKind* EpcDocument::createPartialPropertyKind(const std::string & guid, const std::string & title)
 {
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
 	dor->UUID = guid;
 	dor->Title = title;
-	PropertyKind* result = new PropertyKind(dor);
+	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(dor);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-CommentProperty* EpcDocument::createCommentProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+CommentProperty* EpcDocument::createCommentProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	CommentProperty* result = new CommentProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
@@ -2198,15 +2198,15 @@ CommentProperty* EpcDocument::createCommentProperty(AbstractRepresentation * rep
 	return result;
 }
 
-CommentProperty* EpcDocument::createCommentProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType)
+CommentProperty* EpcDocument::createCommentProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropType)
 {
 	CommentProperty* result = new CommentProperty(rep, guid, title, dimension, attachmentKind, localPropType);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 	
-ContinuousProperty* EpcDocument::createContinuousProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+ContinuousProperty* EpcDocument::createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind);
@@ -2214,33 +2214,33 @@ ContinuousProperty* EpcDocument::createContinuousProperty(AbstractRepresentation
 	return result;
 }
 
-ContinuousProperty* EpcDocument::createContinuousProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropType)
+ContinuousProperty* EpcDocument::createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropType)
 {
 	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, localPropType);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-	TimeSeries * ts, const bool & useInterval)
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	ContinuousPropertySeries* result = new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind, ts, useInterval);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, PropertyKind * localPropType,
-	class TimeSeries * ts, const bool & useInterval)
+ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropType,
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	ContinuousPropertySeries* result = new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, localPropType, ts, useInterval);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 	
-DiscreteProperty* EpcDocument::createDiscreteProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	DiscreteProperty* EpcDocument::createDiscreteProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	DiscreteProperty* result = new DiscreteProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
@@ -2248,33 +2248,33 @@ DiscreteProperty* EpcDocument::createDiscreteProperty(AbstractRepresentation * r
 	return result;
 }
 
-DiscreteProperty* EpcDocument::createDiscreteProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType)
+DiscreteProperty* EpcDocument::createDiscreteProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropType)
 {
 	DiscreteProperty* result = new DiscreteProperty(rep, guid, title, dimension, attachmentKind, localPropType);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 	
-DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-	class TimeSeries * ts, const bool & useInterval)
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	DiscretePropertySeries* result = new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind, ts, useInterval);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropType,
-	class TimeSeries * ts, const bool & useInterval)
+DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropType,
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	DiscretePropertySeries* result = new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, localPropType, ts, useInterval);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+CategoricalProperty* EpcDocument::createCategoricalProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
@@ -2283,29 +2283,29 @@ CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentati
 	return result;
 }
 	
-CategoricalProperty* EpcDocument::createCategoricalProperty(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+CategoricalProperty* EpcDocument::createCategoricalProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-	StringTableLookup* strLookup, PropertyKind * localPropType)
+	StringTableLookup* strLookup, resqml2::PropertyKind * localPropType)
 {
 	CategoricalProperty* result = new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, localPropType);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-	class TimeSeries * ts, const bool & useInterval)
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	CategoricalPropertySeries* result = new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind, ts, useInterval);
 	addGsoapProxyAndDeleteItIfException(result);
 	return result;
 }
 
-CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-	StringTableLookup* strLookup, PropertyKind * localPropType,
-	class TimeSeries * ts, const bool & useInterval)
+	StringTableLookup* strLookup, resqml2::PropertyKind * localPropType,
+	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	CategoricalPropertySeries* result = new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, localPropType, ts, useInterval);
 	addGsoapProxyAndDeleteItIfException(result);

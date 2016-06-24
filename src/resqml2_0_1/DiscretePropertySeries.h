@@ -52,10 +52,10 @@ namespace resqml2_0_1
 		* @param ts							The associated time series.
 		* @param useInterval				Indicates wether the property values will be attached to the time index or to the interval between consecutive time index. 
 		*/
-		DiscretePropertySeries(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		DiscretePropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			class TimeSeries * ts, const bool & useInterval = false);
+			resqml2::TimeSeries * ts, const bool & useInterval = false);
 
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -68,10 +68,10 @@ namespace resqml2_0_1
 		* @param ts							The associated time series.
 		* @param useInterval				Indicates wether the property values will be attached to the time index or to the interval between consecutive time index. 
 		*/
-		DiscretePropertySeries(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		DiscretePropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			class PropertyKind * localPropKind,
-			class TimeSeries * ts, const bool & useInterval = false);
+			resqml2::PropertyKind * localPropKind,
+			resqml2::TimeSeries * ts, const bool & useInterval = false);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

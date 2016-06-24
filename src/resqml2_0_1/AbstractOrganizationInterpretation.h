@@ -33,14 +33,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 
 namespace resqml2_0_1
 {
 	/**
 	* This class defines the behaviour of all Resqml2 organizations
 	*/
-	class DLL_IMPORT_OR_EXPORT AbstractOrganizationInterpretation : public AbstractFeatureInterpretation
+	class DLL_IMPORT_OR_EXPORT AbstractOrganizationInterpretation : public resqml2::AbstractFeatureInterpretation
 	{
 	protected:
 
@@ -49,7 +49,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractOrganizationInterpretation(gsoap_resqml2_0_1::resqml2__AbstractOrganizationInterpretation* fromGsoap): AbstractFeatureInterpretation(fromGsoap) {}
+		AbstractOrganizationInterpretation(gsoap_resqml2_0_1::resqml2__AbstractOrganizationInterpretation* fromGsoap) : resqml2::AbstractFeatureInterpretation(fromGsoap) {}
 
 	public:
 
@@ -61,19 +61,19 @@ namespace resqml2_0_1
 		/**
 		 * Add a binary contact to the organization interpretation by means of a simple sentence.
 		 */
-		void pushBackBinaryContact(const gsoap_resqml2_0_1::resqml2__ContactRelationship & kind, AbstractFeatureInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactVerb & verb, AbstractFeatureInterpretation* directObject);
+		void pushBackBinaryContact(const gsoap_resqml2_0_1::resqml2__ContactRelationship & kind, resqml2::AbstractFeatureInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactVerb & verb, resqml2::AbstractFeatureInterpretation* directObject);
 
 		/**
 		 * Add a binary contact to the organization itnerpretation by means of a sentence where the direct object can be qualified.
 		 */
-		void pushBackBinaryContact(const gsoap_resqml2_0_1::resqml2__ContactRelationship & kind, AbstractFeatureInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactVerb & verb, AbstractFeatureInterpretation* directObject,
+		void pushBackBinaryContact(const gsoap_resqml2_0_1::resqml2__ContactRelationship & kind, resqml2::AbstractFeatureInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactVerb & verb, resqml2::AbstractFeatureInterpretation* directObject,
 				const gsoap_resqml2_0_1::resqml2__ContactSide & directObjectQualifier);
 
         /**
          * Add a binary contact to the organization interpretation by means of a sentence where both the subject and the direct object can be qualified.
          */
-        void pushBackBinaryContact(const gsoap_resqml2_0_1::resqml2__ContactRelationship & kind, AbstractFeatureInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactSide & subjectQualifier,
+		void pushBackBinaryContact(const gsoap_resqml2_0_1::resqml2__ContactRelationship & kind, resqml2::AbstractFeatureInterpretation* subject, const gsoap_resqml2_0_1::resqml2__ContactSide & subjectQualifier,
                                    const gsoap_resqml2_0_1::resqml2__ContactVerb & verb,
-                                   AbstractFeatureInterpretation* directObject, const gsoap_resqml2_0_1::resqml2__ContactSide & directObjectQualifier);
+								   resqml2::AbstractFeatureInterpretation* directObject, const gsoap_resqml2_0_1::resqml2__ContactSide & directObjectQualifier);
 	};
 }

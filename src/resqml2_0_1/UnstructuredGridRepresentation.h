@@ -44,13 +44,13 @@ namespace resqml2_0_1
 		/**
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		*/
-		void init(soap* soapContext, class AbstractLocal3dCrs * crs,
+		void init(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const ULONG64 & cellCount);
 		
 		gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* getSpecializedGsoapProxy() const;
 
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 
 		unsigned int constantNodeCountPerFace;
 		unsigned int constantFaceCountPerCell;
@@ -74,11 +74,11 @@ namespace resqml2_0_1
 		/**
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		*/
-		UnstructuredGridRepresentation(soap* soapContext, class AbstractLocal3dCrs * crs,
+		UnstructuredGridRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const ULONG64 & cellCount);
 
-		UnstructuredGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		UnstructuredGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const ULONG64 & cellCount);
 

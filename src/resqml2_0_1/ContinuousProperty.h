@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractValuesProperty.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 #include <stdexcept>
@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT ContinuousProperty : public AbstractValuesProperty
+	class DLL_IMPORT_OR_EXPORT ContinuousProperty : public resqml2::AbstractValuesProperty
 	{
 	public:
 
@@ -57,7 +57,7 @@ namespace resqml2_0_1
 		* @apram uom						The uom of the values
 		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
-		ContinuousProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
 
 		/**
@@ -70,8 +70,8 @@ namespace resqml2_0_1
 		* @apram uom						The uom of the values
 		* @param localPropType				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
-		ContinuousProperty(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, class PropertyKind * localPropKind);
+		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -310,6 +310,8 @@ namespace resqml2_0_1
 		double getMinimumValue();
 		double getMaximumValue();
 
+		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
+
 	private:
 
 		/**
@@ -448,7 +450,7 @@ namespace resqml2_0_1
 			// XML
 			gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy2_0_1->soap, 1);
 			xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-			xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
+			xmlValues->Values->HdfProxy = proxy->newResqmlReference();
 			std::ostringstream ossForHdf;
 			ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
 			xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();

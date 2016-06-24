@@ -18573,7 +18573,7 @@ inline ptm__standardEnergisticsPropertyType * soap_new_set_ptm__standardEnergist
 	std::string *deprecated,
 	std::string *replacedBy,
 	bool *isAbstract,
-	std::string *parentKind,
+	enum resqml2__ResqmlPropertyKind *parentKind,
 	const std::vector<ptm__equivalentPropertyType *> & equivalentPropertyType)
 {
 	ptm__standardEnergisticsPropertyType *_p = soap_new_ptm__standardEnergisticsPropertyType(soap);
@@ -56873,6 +56873,15 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToptm__equivalentPropertyType(struct s
 SOAP_FMAC3 ptm__equivalentPropertyType ** SOAP_FMAC4 soap_in_PointerToptm__equivalentPropertyType(struct soap*, const char*, ptm__equivalentPropertyType **, const char*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToptm__equivalentPropertyType(struct soap*, ptm__equivalentPropertyType *const*, const char*, const char*);
 SOAP_FMAC3 ptm__equivalentPropertyType ** SOAP_FMAC4 soap_get_PointerToptm__equivalentPropertyType(struct soap*, ptm__equivalentPropertyType **, const char*, const char*);
+#endif
+
+#ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ResqmlPropertyKind_DEFINED
+#define SOAP_TYPE_gsoap_resqml2_0_1_PointerToresqml2__ResqmlPropertyKind_DEFINED
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToresqml2__ResqmlPropertyKind(struct soap*, enum resqml2__ResqmlPropertyKind *const*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToresqml2__ResqmlPropertyKind(struct soap*, const char *, int, enum resqml2__ResqmlPropertyKind *const*, const char *);
+SOAP_FMAC3 enum resqml2__ResqmlPropertyKind ** SOAP_FMAC4 soap_in_PointerToresqml2__ResqmlPropertyKind(struct soap*, const char*, enum resqml2__ResqmlPropertyKind **, const char*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToresqml2__ResqmlPropertyKind(struct soap*, enum resqml2__ResqmlPropertyKind *const*, const char*, const char*);
+SOAP_FMAC3 enum resqml2__ResqmlPropertyKind ** SOAP_FMAC4 soap_get_PointerToresqml2__ResqmlPropertyKind(struct soap*, enum resqml2__ResqmlPropertyKind **, const char*, const char*);
 #endif
 
 #ifndef SOAP_TYPE_gsoap_resqml2_0_1_PointerTobool_DEFINED

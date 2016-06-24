@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT WellboreInterpretation : public AbstractFeatureInterpretation
+	class DLL_IMPORT_OR_EXPORT WellboreInterpretation : public resqml2::AbstractFeatureInterpretation
 	{
 	public:
 		/**
@@ -52,7 +52,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		WellboreInterpretation(gsoap_resqml2_0_1::_resqml2__WellboreInterpretation* fromGsoap): AbstractFeatureInterpretation(fromGsoap) {}
+		WellboreInterpretation(gsoap_resqml2_0_1::_resqml2__WellboreInterpretation* fromGsoap) : resqml2::AbstractFeatureInterpretation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

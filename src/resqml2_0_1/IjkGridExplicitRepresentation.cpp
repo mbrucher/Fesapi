@@ -37,23 +37,23 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractValuesProperty.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
-IjkGridExplicitRepresentation::IjkGridExplicitRepresentation(soap* soapContext, AbstractLocal3dCrs * crs,
+IjkGridExplicitRepresentation::IjkGridExplicitRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 			AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount)
 {
 }
 
-IjkGridExplicitRepresentation::IjkGridExplicitRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+IjkGridExplicitRepresentation::IjkGridExplicitRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractIjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount)
@@ -62,7 +62,7 @@ IjkGridExplicitRepresentation::IjkGridExplicitRepresentation(AbstractFeatureInte
 
 string IjkGridExplicitRepresentation::getHdfProxyUuid() const
 {
-	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
+	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry2_0_1(0));
 }
 
 ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
@@ -93,7 +93,7 @@ void IjkGridExplicitRepresentation::getXyzPointsOfPatch(const unsigned int & pat
 	if (patchIndex >= getPatchCount())
 		throw range_error("An ijk grid has a maximum of one patch.");
 
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
 	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
 	{
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);

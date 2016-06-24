@@ -106,7 +106,7 @@ namespace resqml2_0_1
 
         // backward relationships
         std::vector<EarthModelInterpretation *> earthModelSet;
-		std::vector<GridConnectionSetRepresentation *> gridConnectionSet;
+		std::vector<resqml2::GridConnectionSetRepresentation *> gridConnectionSet;
 
 		friend void EarthModelInterpretation::setStructuralOrganizationInterpretation(StructuralOrganizationInterpretation * structOrganization);
 	};

@@ -33,18 +33,18 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractProperty.h"
+#include "resqml2/TimeSeries.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT TimeSeries : public resqml2::AbstractObject
+	class DLL_IMPORT_OR_EXPORT TimeSeries : public resqml2::TimeSeries
 	{
 	public:
 		/**
 		* Only to be used in partial transfer context
 		*/
 		TimeSeries(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractObject(nullptr, partialObject)
+			resqml2::TimeSeries(partialObject)
 		{
 		}
 
@@ -59,56 +59,14 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		TimeSeries(gsoap_resqml2_0_1::_resqml2__TimeSeries* fromGsoap) : AbstractObject(fromGsoap) {}
+		TimeSeries(gsoap_resqml2_0_1::_resqml2__TimeSeries* fromGsoap) : resqml2::TimeSeries(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		~TimeSeries() {}
 
-		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		/**
-		* Add a representation values object which uses this property type.
-		* Does not add the inverse relationship i.e. from the representation values object to this property type.
-		*/
-		void pushBackTimestamp(const time_t & timestamp);
-
-		/**
-		* Get the index of a timestamp in the time series.
-		* @return	uint.max if this timestamps has not been found in this time series.
-		*/
-		unsigned int getTimestampIndex(const time_t & timestamp) const;
-
-		/**
-		* Get the count of timestamps in this time series.
-		*/
-		unsigned int getTimestampCount() const;
-
-		/**
-		* Get a timestamp at a particular index of this timeseries.
-		*/
-		time_t getTimestamp(const unsigned int & index) const;
-
-		/**
-		* Get all the properties which use this time series
-		*/
-		const std::vector<AbstractProperty*>& getPropertySet() const {return propertySet;}
-
-	protected:
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		/**
-		* Does nothing since StringTableLookup has not got any forward relationship.
-		*/
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
-		
+	protected:		
 		gsoap_resqml2_0_1::_resqml2__TimeSeries* getSpecializedGsoapProxy() const;
-
-		// XML backward relationship
-		std::vector<AbstractProperty*> propertySet;
-
-		friend void AbstractProperty::setTimeSeries(TimeSeries * ts);
 	};
 }

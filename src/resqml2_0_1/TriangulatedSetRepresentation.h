@@ -44,7 +44,7 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT TriangulatedSetRepresentation : public AbstractSurfaceRepresentation
 	{
 	private :
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 	public:
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -53,7 +53,7 @@ namespace resqml2_0_1
 		* @param guid						The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title						A title for the instance to create.
 		*/
-		TriangulatedSetRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		TriangulatedSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title);
 
 		/**

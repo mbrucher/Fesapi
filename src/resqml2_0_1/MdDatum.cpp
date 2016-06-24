@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
 
 using namespace std;
@@ -43,10 +43,8 @@ using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 using namespace epc;
 
-const char* MdDatum::XML_TAG = "MdDatum";
-
 MdDatum::MdDatum(soap* soapContext, const string & guid, const string & title,
-			AbstractLocal3dCrs * locCrs, const resqml2__MdReference & originKind,
+			resqml2::AbstractLocal3dCrs * locCrs, const resqml2__MdReference & originKind,
 			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3)
 {
 	if (soapContext == nullptr)
@@ -67,65 +65,10 @@ MdDatum::MdDatum(soap* soapContext, const string & guid, const string & title,
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
-void MdDatum::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
+void MdDatum::setXmlLocalCrs(resqml2::AbstractLocal3dCrs * localCrs)
 {
-	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
-
-	AbstractObject* localCrs = epcDoc->getResqmlAbstractObjectByUuid(mdInfo->LocalCrs->UUID);
-	if (dynamic_cast<AbstractLocal3dCrs*>(localCrs) != nullptr)
-	{
-		updateXml = false;
-		setLocalCrs(static_cast<AbstractLocal3dCrs*>(localCrs));
-		updateXml = true;
-	}
-	else
-	{
-		throw logic_error("The referenced local crs does not look to be a local crs.");
-	}
-}
-
-vector<Relationship> MdDatum::getAllEpcRelationships() const
-{
-	_resqml2__MdDatum* mdInfo = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
-
-	vector<Relationship> result;
-
-	// local 3d CRS
-	AbstractLocal3dCrs* localCrs = getLocalCrs();
-	if (localCrs)
-	{
-		Relationship relLocalCrs(localCrs->getPartNameInEpcDocument(), "", getLocalCrsUuid());
-		relLocalCrs.setDestinationObjectType();
-		result.push_back(relLocalCrs);
-	}
-	else
-		throw domain_error("The local CRS associated to the MD information cannot be nullptr.");
-
-	// WellboreFeature trajectories
-	for (unsigned int i = 0; i < wellboreTrajectoryRepresentationSet.size(); i++)
-	{
-		Relationship rel(wellboreTrajectoryRepresentationSet[i]->getPartNameInEpcDocument(), "", wellboreTrajectoryRepresentationSet[i]->getUuid());
-		rel.setSourceObjectType();
-		result.push_back(rel);
-	}
-
-	return result;
-}
-
-void MdDatum::setLocalCrs(AbstractLocal3dCrs * localCrs)
-{
-	localCrs->addMdDatum(this);
-
-	if (updateXml) {
-		_resqml2__MdDatum* mdDatum = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
-		mdDatum->LocalCrs = localCrs->newResqmlReference();
-	}
-}
-
-AbstractLocal3dCrs * MdDatum::getLocalCrs() const
-{
-	string uuidLocalCrs = getLocalCrsUuid();
-	return static_cast<AbstractLocal3dCrs*>(epcDocument->getResqmlAbstractObjectByUuid(uuidLocalCrs));
+	_resqml2__MdDatum* mdDatum = static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1);
+	mdDatum->LocalCrs = localCrs->newResqmlReference();
 }
 
 double MdDatum::getX() const
@@ -168,7 +111,7 @@ double MdDatum::getZ() const
 double MdDatum::getZInGlobalCrs() const
 {
 	double originOrdinal3 = .0;
-	AbstractLocal3dCrs* localCrs = getLocalCrs();
+	resqml2::AbstractLocal3dCrs* localCrs = getLocalCrs();
 	if (localCrs->getGsoapType() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
 		originOrdinal3 = localCrs->getOriginDepthOrElevation();
 	return getZ() + originOrdinal3;

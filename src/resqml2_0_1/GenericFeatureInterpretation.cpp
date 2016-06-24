@@ -46,8 +46,9 @@ const char* GenericFeatureInterpretation::XML_TAG = "GenericFeatureInterpretatio
 
 GenericFeatureInterpretation::GenericFeatureInterpretation(resqml2::AbstractFeature * feature, const string & guid, const string & title)
 {
-	if (!feature)
+	if (feature == nullptr) {
 		throw invalid_argument("The interpreted feature cannot be null.");
+	}
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREGenericFeatureInterpretation(feature->getGsoapContext(), 1);	
 	setInterpretedFeature(feature);

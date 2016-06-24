@@ -33,8 +33,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractRepresentation.h"
+#include "resqml2/AbstractValuesProperty.h"
 
 namespace witsml1_4_1_1
 {
@@ -43,12 +43,12 @@ namespace witsml1_4_1_1
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT WellboreFrameRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT WellboreFrameRepresentation : public resqml2::AbstractRepresentation
 	{
 	protected:
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const {return nullptr;}
 
-		WellboreFrameRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs), trajectory(nullptr), witsmlLog(nullptr) {}
+		WellboreFrameRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : AbstractRepresentation(interp, crs), trajectory(nullptr), witsmlLog(nullptr) {}
 
 	public:
 
@@ -121,7 +121,7 @@ namespace resqml2_0_1
 		/**
 		* Get the Measured Depth datatype in the HDF dataset
 		*/
-		AbstractValuesProperty::hdfDatatypeEnum getMdHdfDatatype() const;
+		resqml2::AbstractValuesProperty::hdfDatatypeEnum getMdHdfDatatype() const;
 
 		/**
 		* Get all the md values of the instance which are supposed to be double ones.

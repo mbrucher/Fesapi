@@ -35,7 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <vector>
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 
 namespace resqml2
 {
@@ -62,7 +62,7 @@ namespace resqml2
 		/**
 		* Get all the interpretations of this feature
 		*/
-		std::vector<resqml2_0_1::AbstractFeatureInterpretation*> 	getInterpretationSet() const;
+		std::vector<AbstractFeatureInterpretation*> 	getInterpretationSet() const;
 
 		/**
 		 * Get the interpretation count of this feature.
@@ -72,7 +72,7 @@ namespace resqml2
 		/**
 		 * Get a particular interpretation of this feature according to its position in the interpretation ordering.
 		 */
-		resqml2_0_1::AbstractFeatureInterpretation*				getInterpretation(const unsigned int & index) const;
+		AbstractFeatureInterpretation*				getInterpretation(const unsigned int & index) const;
 
 	protected:
 
@@ -82,8 +82,8 @@ namespace resqml2
 		*/
 		virtual void importRelationshipSetFromEpc(common::EpcDocument* epcDoc) {}
 
-		std::vector<resqml2_0_1::AbstractFeatureInterpretation*> interpretationSet; /// All the interpretations of the feature
+		std::vector<AbstractFeatureInterpretation*> interpretationSet; /// All the interpretations of the feature
 
-		friend void resqml2_0_1::AbstractFeatureInterpretation::setInterpretedFeature(resqml2::AbstractFeature * feature);
+		friend void AbstractFeatureInterpretation::setInterpretedFeature(resqml2::AbstractFeature * feature);
 	};
 }

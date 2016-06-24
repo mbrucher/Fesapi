@@ -180,7 +180,7 @@ void serializeWells(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfPro
 	wellbore1Interp1 = pck->createWellboreInterpretation(wellbore1, "", "Wellbore1 Interp1", false);
 
 	// Representation
-	MdDatum* mdInfo = pck->createMdDatum("", "md Info", local3dCrs, gsoap_resqml2_0_1::resqml2__MdReference__mean_x0020sea_x0020level, 275, 75, 0);
+	resqml2::MdDatum* mdInfo = pck->createMdDatum("", "md Info", local3dCrs, gsoap_resqml2_0_1::resqml2__MdReference__mean_x0020sea_x0020level, 275, 75, 0);
 
 	//Geometry	
 	w1i1TrajRep = pck->createWellboreTrajectoryRepresentation(wellbore1Interp1, "", "Wellbore1 Interp1 TrajRep", mdInfo);
@@ -199,7 +199,7 @@ void serializeWells(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfPro
 	WellboreFrameRepresentation* w1i1RegularFrameRep = pck->createWellboreFrameRepresentation(wellbore1Interp1, "a54b8399-d3ba-4d4b-b215-8d4f8f537e66", "Wellbore1 Interp1 Regular FrameRep", w1i1TrajRep);
 	w1i1RegularFrameRep->setMdValues(0, 200, 6);
 
-	PropertyKind * unitNumberPropType = pck->createPropertyKind("", "Unit number", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
+	resqml2::PropertyKind * unitNumberPropType = pck->createPropertyKind("", "Unit number", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 
 	DiscreteProperty* discreteProp = pck->createDiscreteProperty(w1i1FrameRep,"","Wellbore1 Interp1 FrameRep IntervalIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__intervals, unitNumberPropType);
@@ -395,13 +395,13 @@ void serializeBoundaries(common::EpcDocument * pck, resqml2::AbstractHdfProxy* h
     //**************
     // Properties
     //**************
-    PropertyKind * propType1 = pck->createPropertyKind("", "propType1", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
+	resqml2::PropertyKind * propType1 = pck->createPropertyKind("", "propType1", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
 	ContinuousProperty* contProp1 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "", "Horizon1 Interp1 Grid2dRep Prop1", 2,
         gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, propType1);
     double prop1Values[16] = {301,302, 301,302, 351,352, 351,352, 301,302, 301,302, 351,352, 351,352};
     contProp1->pushBackDoubleHdf5Array1dOfValues(prop1Values, 8, hdfProxy);
 
-	PropertyKind * propType2 = pck->createPropertyKind("", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
+	resqml2::PropertyKind * propType2 = pck->createPropertyKind("", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
 	ContinuousProperty* contProp2 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "", "Horizon1 Interp1 Grid2dRep Prop2", 1,
         gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__ft, propType2);
     double prop2Values[8] = {302, 302, 352, 352, 302, 302, 352, 352};
@@ -509,12 +509,12 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	//**************
 	if (fault1Interp1 != nullptr)
 	{
-		SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "ff248280-fa3d-11e5-a35c-0002a5d5c51b", "Fault Subrep In Grid", ijkgrid);
+		resqml2::SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "ff248280-fa3d-11e5-a35c-0002a5d5c51b", "Fault Subrep In Grid", ijkgrid);
 		unsigned int faultPillar[2] = { 1, 4 };
 		faultSubRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__pillars, 2, faultPillar, hdfProxy);
 	}
 
-	SubRepresentation * actnum = pck->createSubRepresentation("323001d0-468c-41d7-abec-7d12c3c9428b", "ACTNUM", ijkgrid432);
+	resqml2::SubRepresentation * actnum = pck->createSubRepresentation("323001d0-468c-41d7-abec-7d12c3c9428b", "ACTNUM", ijkgrid432);
 	unsigned int actnumValues[21] = { 
 		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 		12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
@@ -524,7 +524,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	//**************
 	// Grid Connection
 	//**************
-	GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation("03bb6fc0-fa3e-11e5-8c09-0002a5d5c51b", "GridConnectionSetRepresentation");
+	resqml2::GridConnectionSetRepresentation * gridConnSet = pck->createGridConnectionSetRepresentation("03bb6fc0-fa3e-11e5-8c09-0002a5d5c51b", "GridConnectionSetRepresentation");
 	gridConnSet->pushBackSupportingGridRepresentation(ijkgrid);
 	ULONG64 cellConn[6] = { 0, 9999, 0, 1, 9999, 1 };
 	gridConnSet->setCellIndexPairs(3, cellConn, 9999, hdfProxy);
@@ -539,7 +539,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 		gridConnSet->setConnectionInterpretationIndices(&faultIndices, 1, 9999, hdfProxy);
 	}
 
-	GridConnectionSetRepresentation * gridConnSet432 = pck->createGridConnectionSetRepresentation("20b480a8-5e3b-4336-8f6e-1b3099c2c60f", "GridConnectionSetRepresentation");
+	resqml2::GridConnectionSetRepresentation * gridConnSet432 = pck->createGridConnectionSetRepresentation("20b480a8-5e3b-4336-8f6e-1b3099c2c60f", "GridConnectionSetRepresentation");
 	gridConnSet432->pushBackSupportingGridRepresentation(ijkgrid432);
 	ULONG64 cellConn432[30] = {
 		1, 9999, 5, 9999, 9, 9999,
@@ -558,7 +558,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	};
 	gridConnSet432->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, hdfProxy);
 
-	GridConnectionSetRepresentation * gridConnSet432rh = pck->createGridConnectionSetRepresentation("a3d1462a-04e3-4374-921b-a4a1e9ba3ea3", "GridConnectionSetRepresentation");
+	resqml2::GridConnectionSetRepresentation * gridConnSet432rh = pck->createGridConnectionSetRepresentation("a3d1462a-04e3-4374-921b-a4a1e9ba3ea3", "GridConnectionSetRepresentation");
 	gridConnSet432rh->pushBackSupportingGridRepresentation(ijkgrid432rh);
 	gridConnSet432rh->setCellIndexPairs(15, cellConn432, 9999, hdfProxy);
 	gridConnSet432rh->setLocalFacePerCellIndexPairs(15, localFacePerCellIndexPairs432, hdfProxy);
@@ -566,7 +566,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	//**************
 	// Properties
 	//**************
-	PropertyKind * propType1 = pck->createPropertyKind("0a5f4400-fa3e-11e5-80a4-0002a5d5c51b", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
+	resqml2::PropertyKind * propType1 = pck->createPropertyKind("0a5f4400-fa3e-11e5-80a4-0002a5d5c51b", "cellIndex", "urn:resqml:f2i-consulting.com", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 	DiscreteProperty* discreteProp1 = pck->createDiscreteProperty(ijkgrid, "ee0857fe-23ad-4dd9-8300-21fa2e9fb572", "Two faulted sugar cubes cellIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
 	long prop1Values[2] = {0,1};
@@ -576,7 +576,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	//**************
 	// Time Series
 	//**************
-	TimeSeries * timeSeries = pck->createTimeSeries("1187d8a0-fa3e-11e5-ac3a-0002a5d5c51b", "Testing time series");
+	resqml2::TimeSeries * timeSeries = pck->createTimeSeries("1187d8a0-fa3e-11e5-ac3a-0002a5d5c51b", "Testing time series");
 	timeSeries->pushBackTimestamp(1378217895);
 	timeSeries->pushBackTimestamp(1409753895);
 	timeSeries->pushBackTimestamp(1441289895);
@@ -631,7 +631,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	continuousProp1->pushBackDoubleHdf5Array1dOfValues(continuousProp1Values, 6, hdfProxy);
 
 	// sub rep of a partial unstructured grid
-	SubRepresentation * subRepOfUnstructuredGrid = pck->createSubRepresentation("", "Subrep On Partial grid", partialGrid);
+	resqml2::SubRepresentation * subRepOfUnstructuredGrid = pck->createSubRepresentation("", "Subrep On Partial grid", partialGrid);
 	unsigned int nodeIndex[2] = { 0, 1 };
 	subRepOfUnstructuredGrid->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, 2, nodeIndex, hdfProxy);
 	
@@ -1251,15 +1251,8 @@ bool serialize(const string & filePath)
 
 	hdfProxy->close();
 
-	try {
-		pck.serialize();
-		return true;
-	}
-	catch (const std::exception & Exp)
-	{
-		cerr << "Error : " << Exp.what() << endl;
-		return false;
-	}
+	pck.serialize();
+	return true;
 }
 
 void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix = "")
@@ -1280,7 +1273,7 @@ void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix =
 	std::cout << prefix << "--------------------------------------------------" << std::endl;
 }
 
-void showAllSubRepresentations(const vector<SubRepresentation*> & subRepSet)
+void showAllSubRepresentations(const vector<resqml2::SubRepresentation*> & subRepSet)
 {
 	if (subRepSet.size() > 0)
 		cout << "SUBREPRESENTATIONS" << std::endl;
@@ -1297,15 +1290,15 @@ void showAllSubRepresentations(const vector<SubRepresentation*> & subRepSet)
 	}
 }
 
-void showAllProperties(AbstractRepresentation * rep)
+void showAllProperties(resqml2::AbstractRepresentation * rep)
 {
-	std::vector<AbstractValuesProperty*> propertyValuesSet = rep->getValuesPropertySet();
+	std::vector<resqml2::AbstractValuesProperty*> propertyValuesSet = rep->getValuesPropertySet();
 	if (propertyValuesSet.empty() == false)
 		cout << "PROPERTIES" << std::endl;
 	std::cout << "\t--------------------------------------------------" << std::endl;
 	for (size_t propIndex = 0; propIndex < propertyValuesSet.size(); ++propIndex)
 	{
-		AbstractValuesProperty* propVal = propertyValuesSet[propIndex];
+		resqml2::AbstractValuesProperty* propVal = propertyValuesSet[propIndex];
 		showAllMetadata(propVal, "\t");
 
 		std::cout << "\tProperty kind is : " << propVal->getPropertyKindAsString() << std::endl;
@@ -1448,7 +1441,8 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 void deserialize(const string & inputFile)
 {
 	common::EpcDocument pck(inputFile, common::EpcDocument::READ_ONLY);
-    //common::EpcDocument pck(inputFile, "/home/philippe/dev/fesapi/resources");
+	//common::EpcDocument pck(inputFile, "C:/Users/Philippe/dev/fesapi/resources", common::EpcDocument::READ_ONLY);
+    //common::EpcDocument pck(inputFile, "/home/philippe/dev/fesapi/resources", common::EpcDocument::READ_ONLY);
 	string resqmlResult = pck.deserialize();
 	if (!resqmlResult.empty())
 	{
@@ -1511,13 +1505,13 @@ void deserialize(const string & inputFile)
 	std::vector<WellboreFeature*> wellboreSet = pck.getWellboreSet();
 	std::vector<WellboreTrajectoryRepresentation*> wellboreCubicTrajSet = pck.getWellboreCubicParamLineTrajRepSet();
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
-	std::vector<TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
+	std::vector<resqml2::TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
 	std::vector<StratigraphicColumn*> stratiColumnSet = pck.getStratigraphicColumnSet();
 	std::vector<RepresentationSetRepresentation*> representationSetRepresentationSet = pck.getRepresentationSetRepresentationSet();
-	std::vector<SubRepresentation*> subRepresentationSet = pck.getSubRepresentationSet();
+	std::vector<resqml2::SubRepresentation*> subRepresentationSet = pck.getSubRepresentationSet();
 
 	std::cout << "RepresentationSetRepresentation" << endl;
-	for (unsigned int i = 0; i < representationSetRepresentationSet.size(); i++)
+	for (size_t i = 0; i < representationSetRepresentationSet.size(); i++)
 	{
 		showAllMetadata(representationSetRepresentationSet[i]);
 		std::cout << "Is homogeneous : " << representationSetRepresentationSet[i]->isHomogeneous() << std::endl;
@@ -1589,7 +1583,7 @@ void deserialize(const string & inputFile)
 		faultTriRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(xyzPoints);
 		unsigned int * triangleIndices = new unsigned int [triangleCount * 3];
 		faultTriRepSet[i]->getTriangleNodeIndicesOfAllPatches(triangleIndices);
-		for (unsigned int j = 0; j < 5; j++)
+		for (size_t j = 0; j < 5; j++)
 		{
 			std::cout << "\txyzPoints : " << xyzPoints[j] << std::endl;
 			std::cout << "\ttriangleIndices : " << triangleIndices[j] << std::endl;
@@ -1718,7 +1712,7 @@ void deserialize(const string & inputFile)
 						if (wmf->getPropertySet()[l]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
 						{
 							CategoricalProperty* catVal = static_cast<CategoricalProperty*>(wmf->getPropertySet()[l]);
-							if (catVal->getValuesHdfDatatype() == AbstractValuesProperty::LONG)
+							if (catVal->getValuesHdfDatatype() == resqml2::AbstractValuesProperty::LONG)
 							{
 								std::cout << "Hdf datatype is NATIVE LONG" << std::endl;
 								long* tmp = new long[wmf->getMdValuesCount()];
@@ -1727,7 +1721,7 @@ void deserialize(const string & inputFile)
 									std::cout << "Value " << ind << " : " << tmp[ind] << std::endl;
 								delete [] tmp;
 							}
-							else if (catVal->getValuesHdfDatatype() == AbstractValuesProperty::INT)
+							else if (catVal->getValuesHdfDatatype() == resqml2::AbstractValuesProperty::INT)
 							{
 								std::cout << "Hdf datatype is NATIVE INT" << std::endl;
 							}
@@ -1773,11 +1767,11 @@ void deserialize(const string & inputFile)
 			{
 				std::cout << "Iregularly spaced" << std::endl;
 			}
-			if (wellboreFrameSet[j]->getMdHdfDatatype() == AbstractValuesProperty::DOUBLE)
+			if (wellboreFrameSet[j]->getMdHdfDatatype() == resqml2::AbstractValuesProperty::DOUBLE)
 				std::cout << "Hdf datatype is NATIVE DOUBLE" << std::endl;
-			else if (wellboreFrameSet[j]->getMdHdfDatatype() == AbstractValuesProperty::FLOAT)
+			else if (wellboreFrameSet[j]->getMdHdfDatatype() == resqml2::AbstractValuesProperty::FLOAT)
 				std::cout << "Hdf datatype is NATIVE FLOAT" << std::endl;
-			else if (wellboreFrameSet[j]->getMdHdfDatatype() == AbstractValuesProperty::UNKNOWN)
+			else if (wellboreFrameSet[j]->getMdHdfDatatype() == resqml2::AbstractValuesProperty::UNKNOWN)
 				std::cout << "Hdf datatype is UNKNOWN" << std::endl;
 		}
 	}
@@ -1859,12 +1853,12 @@ void deserialize(const string & inputFile)
 		std::cout << "Grid Connection Count is : " << gridConnectionSetCount << std::endl;
 		if (gridConnectionSetCount > 0)
 		{
-			GridConnectionSetRepresentation* gridConnectionSet = ijkGrid->getGridConnectionSetRepresentation(0);
+			resqml2::GridConnectionSetRepresentation* gridConnectionSet = ijkGrid->getGridConnectionSetRepresentation(0);
 			unsigned int faultInterpOfGridConnCount = gridConnectionSet->getInterpretationCount();
 			std::cout << "Interpretation Count of this grid connection set is : " << faultInterpOfGridConnCount << endl;
 			if (faultInterpOfGridConnCount > 0)
 			{
-				AbstractFeatureInterpretation* faultInterpOfGridConn = gridConnectionSet->getInterpretationFromIndex(0);
+				resqml2::AbstractFeatureInterpretation* faultInterpOfGridConn = gridConnectionSet->getInterpretationFromIndex(0);
 				std::cout << "Interpretation of this grid connection set is : " << faultInterpOfGridConn->getTitle()  << " With UUID " << faultInterpOfGridConn->getUuid() << endl;
 			}
 		}
@@ -1968,7 +1962,7 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << endl << "ONLY PARTIAL SUBREPRESENTATIONS" << endl;
-	vector<SubRepresentation*> onlyPartialSubReps;
+	vector<resqml2::SubRepresentation*> onlyPartialSubReps;
 	for (size_t i = 0; i < subRepresentationSet.size(); ++i) {
 		if (subRepresentationSet[i]->isPartial()) {
 			onlyPartialSubReps.push_back(subRepresentationSet[i]);
@@ -2021,11 +2015,11 @@ int main(int argc, char **argv)
 
 // filepath is defined in a macro to better check memory leak
 #define filePath "../../testingPackageCpp.epc"
+
 int main(int argc, char **argv)
 {
-	if (serialize(filePath)) {
+	if (serialize(filePath))
 		deserialize(filePath);
-	}
 
 	cout << "Press enter to continue..." << endl;
 	cin.get();

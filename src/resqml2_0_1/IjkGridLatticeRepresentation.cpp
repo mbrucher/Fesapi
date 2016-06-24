@@ -36,23 +36,23 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2/AbstractFeature.h"
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractValuesProperty.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
-IjkGridLatticeRepresentation::IjkGridLatticeRepresentation(soap* soapContext, AbstractLocal3dCrs * crs,
+IjkGridLatticeRepresentation::IjkGridLatticeRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 			AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount)
 {
 }
 
-IjkGridLatticeRepresentation::IjkGridLatticeRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+IjkGridLatticeRepresentation::IjkGridLatticeRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractIjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount)
@@ -64,7 +64,7 @@ bool IjkGridLatticeRepresentation::isASeismicCube() const
 	// A Seismic cube is defined by an IjkGridRepresentation that has a feature of type SeismicLatticeFeature and that
 	// has at least one continuous property (amplitude).
 	bool atLeastOneContProp = false;
-    vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
+	vector<resqml2::AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
         if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREContinuousProperty)
@@ -84,7 +84,7 @@ bool IjkGridLatticeRepresentation::isAFaciesCube() const
 	// A Facies cube is defined by an IjkGridRepresentation that has a feature of type SeismicLatticeFeature and that
 	// has at least one categorical property (facies).
 	bool atLeastOneCateProp = false;
-    vector<AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
+	vector<resqml2::AbstractValuesProperty*> allValuesProperty = getValuesPropertySet();
     for (unsigned int propIndex = 0; propIndex < allValuesProperty.size(); ++propIndex)
     {
         if (allValuesProperty[propIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORECategoricalProperty)
@@ -101,7 +101,7 @@ bool IjkGridLatticeRepresentation::isAFaciesCube() const
 
 string IjkGridLatticeRepresentation::getHdfProxyUuid() const
 {
-	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
+	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry2_0_1(0));
 }
 
 ULONG64 IjkGridLatticeRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
@@ -129,7 +129,7 @@ resqml2__Point3dLatticeArray* IjkGridLatticeRepresentation::getArrayLatticeOfPoi
 {
     resqml2__Point3dLatticeArray* result = nullptr;
 
-    resqml2__PointGeometry* ptGeom = getPointGeometry(0);
+    resqml2__PointGeometry* ptGeom = getPointGeometry2_0_1(0);
     if (ptGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray)
     {
         result = static_cast<resqml2__Point3dLatticeArray*>(ptGeom->Points);
@@ -502,7 +502,7 @@ void IjkGridLatticeRepresentation::addSeismic3dCoordinatesToPatch(
 								const double & startCrossline, const double & incrCrossline, const unsigned int & countCrossline,
 								const unsigned int & countSample, AbstractRepresentation * seismicSupport)
 {
-	resqml2__PointGeometry* geom = getPointGeometry(patchIndex);
+	resqml2__PointGeometry* geom = getPointGeometry2_0_1(patchIndex);
 	if (!geom)
 		throw invalid_argument("The patchIndex does not identify a point geometry.");
 

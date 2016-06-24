@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "hdf5.h"
 
 #include "tools/Statistics.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 #include "resqml2_0_1/PropertyKind.h"
 #include "resqml2/AbstractHdfProxy.h"
 
@@ -49,8 +49,8 @@ using namespace gsoap_resqml2_0_1;
 
 const char* DiscreteProperty::XML_TAG = "DiscreteProperty";
 
-DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
+DiscreteProperty::DiscreteProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
 	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy2_0_1);
@@ -67,8 +67,8 @@ DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & 
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
-DiscreteProperty::DiscreteProperty(AbstractRepresentation * rep, const string & guid, const string & title,
-			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, PropertyKind * localPropKind)
+DiscreteProperty::DiscreteProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropKind)
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREDiscreteProperty(rep->getGsoapContext(), 1);	
 	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy2_0_1);
@@ -193,7 +193,7 @@ string DiscreteProperty::pushBackOnlyXmlPartOfArrayOfValues(resqml2::AbstractHdf
 	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	xmlValues->NullValue = nullValue;
 	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
+	xmlValues->Values->HdfProxy = proxy->newResqmlReference();
 	ostringstream ossForHdf;
 	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
 	xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
@@ -210,7 +210,7 @@ void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t * nu
 	string datasetName = pushBackOnlyXmlPartOfArrayOfValues(proxy, nullValue, minimumValue, maximumValue);
 
 	// HDF
-	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
 		datasetName,
 		H5T_NATIVE_LONG,
 		values,
@@ -233,7 +233,7 @@ void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, hsize_t * numV
 	string datasetName = pushBackOnlyXmlPartOfArrayOfValues(proxy, nullValue, minimumValue, maximumValue);
 
 	// HDF
-	hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
 		datasetName,
 		H5T_NATIVE_LONG,
 		values,
@@ -249,4 +249,9 @@ void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, hsize_t * numV
 	pair<int, int> minMax = statistics::getMinMax(values, nullValue, numTotalValues);
 	pushBackIntHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
 
+}
+
+gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind DiscreteProperty::getFirstAllowedPropertyKindParent() const
+{
+	return gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete;
 }

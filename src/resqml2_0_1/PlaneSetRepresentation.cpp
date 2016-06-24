@@ -31,14 +31,14 @@ same conditions as regards security.
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
-#include "PlaneSetRepresentation.h"
+#include "resqml2_0_1/PlaneSetRepresentation.h"
 
 #include <stdexcept>
 #include <sstream>
 #include <algorithm>
 
-#include "AbstractFeatureInterpretation.h"
-#include "AbstractLocal3dCrs.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -46,7 +46,7 @@ using namespace gsoap_resqml2_0_1;
 
 const char* PlaneSetRepresentation::XML_TAG = "PlaneSetRepresentation";
 
-PlaneSetRepresentation::PlaneSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+PlaneSetRepresentation::PlaneSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title):
 	AbstractRepresentation(interp, crs)
 {

@@ -37,23 +37,23 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractValuesProperty.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
-IjkGridParametricRepresentation::IjkGridParametricRepresentation(soap* soapContext, AbstractLocal3dCrs * crs,
+IjkGridParametricRepresentation::IjkGridParametricRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 			AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount)
 {
 }
 
-IjkGridParametricRepresentation::IjkGridParametricRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+IjkGridParametricRepresentation::IjkGridParametricRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractIjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount)
@@ -513,7 +513,7 @@ ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned 
 
 void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
 	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
 	{
 		getXyzPointsOfPatchFromParametricPoints(static_cast<resqml2__Point3dParametricArray*>(pointGeom->Points), xyzPoints);

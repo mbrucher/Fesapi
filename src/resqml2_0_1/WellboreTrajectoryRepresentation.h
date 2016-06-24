@@ -33,7 +33,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
+
+namespace resqml2
+{
+	class MdDatum;
+}
 
 namespace witsml1_4_1_1
 {
@@ -42,10 +47,10 @@ namespace witsml1_4_1_1
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT WellboreTrajectoryRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT WellboreTrajectoryRepresentation : public resqml2::AbstractRepresentation
 	{
 	private:
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const {return nullptr;}
 
 	public:
 
@@ -56,7 +61,7 @@ namespace resqml2_0_1
 		* @param title					A title for the instance to create.
 		* @param mdInfo					The MD information of the trajectory, mainly the well reference point.
 		*/
-		WellboreTrajectoryRepresentation(class WellboreInterpretation* interp, const std::string & guid, const std::string & title, class MdDatum * mdInfo);
+		WellboreTrajectoryRepresentation(class WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2::MdDatum * mdInfo);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -111,7 +116,7 @@ namespace resqml2_0_1
 		/**
 		* Getter of the md information associated to this WellboreFeature trajectory representation.
 		*/
-		class MdDatum * getMdDatum() const;
+		resqml2::MdDatum * getMdDatum() const;
 
 		/**
 		* Getter of the md information uuid associated to this WellboreFeature trajectory representation.

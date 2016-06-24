@@ -33,15 +33,27 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/GridConnectionSetRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT GridConnectionSetRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT GridConnectionSetRepresentation : public resqml2::GridConnectionSetRepresentation
 	{
-	private:
-		void init(soap* soapContext,
-                const std::string & guid, const std::string & title);
+	protected:
+		void init(soap* soapContext, const std::string & guid, const std::string & title);
+
+		/**
+		* Pushes back an interpretation which can be mapped with some connections.
+		* @param interp	The interpration to push back.
+		*/
+		void pushBackXmlInterpretation(resqml2::AbstractFeatureInterpretation* interp);
+
+
+		/**
+		* Pushes back a grid representation which is one of the support of this representation.
+		* And push back this representation as a grid connection information of the grid representation as well.
+		*/
+		void pushBackXmlSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
 
 	public:
 		/**
@@ -50,7 +62,7 @@ namespace resqml2_0_1
 		* @param guid	A guid for the instance to create.
 		* @param title	A title for the instance to create.
 		*/
-		GridConnectionSetRepresentation(class AbstractFeatureInterpretation* interp,
+		GridConnectionSetRepresentation(resqml2::AbstractFeatureInterpretation* interp,
                 const std::string & guid, const std::string & title);
 
 		/**
@@ -65,15 +77,12 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		GridConnectionSetRepresentation(gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		GridConnectionSetRepresentation(gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* fromGsoap) : resqml2::GridConnectionSetRepresentation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		~GridConnectionSetRepresentation() {}
-        
-		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		std::string getHdfProxyUuid() const;
 
@@ -131,12 +140,6 @@ namespace resqml2_0_1
 		std::string getInterpretationUuidFromIndex(const unsigned int & interpretationIndex) const;
 
 		/**
-		* Get a particular interpretation of this grid connection set.
-		* @param interpretationIndex The index of the interpretation in the collection of feature interpretation of this grid connection set.
-		*/
-		class AbstractFeatureInterpretation * getInterpretationFromIndex(const unsigned int & interpretationIndex) const;
-
-		/**
 		* Get the count of interpretations in this grid connection set.
 		*/
 		unsigned int getInterpretationCount() const;
@@ -186,53 +189,15 @@ namespace resqml2_0_1
 		* @param proxy						The Hdf proxy where the numerical values will be stored.
 		*/
 		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
-
-		/**
-		* Pushes back an interpretation which can be mapped with some connections.
-		* @param interp	The interpration to push back.
-		*/
-		void pushBackInterpretation(class AbstractFeatureInterpretation* interp);
-	
-		/**
-		 * Pushes back a grid representation which is one of the support of this representation.
-		 * And push back this representation as a grid connection information of the grid representation as well.
-		 */
-		void pushBackSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
 		
 		/**
 		* Get the count of the supporting grid representations of this grid connection representation.
 		*/
 		unsigned int getSupportingGridRepresentationCount() const;
-
-		/**
-		* Get the supporting grid representation located at a specific index of this grid connection representation.
-		*/
-		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index);
 		
 		/**
 		* Get the first supporting grid representation uuid of this grid connection representation.
 		*/
 		std::string getSupportingGridRepresentationUuid(unsigned int index) const;
-
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const {return nullptr;}
-
-		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
-
-		/**
-		* Get all the XYZ points of a particular patch of this representation.
-		* XYZ points are given in the local CRS.
-		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
-		*/
-		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
-
-		/**
-		* Always return one since this representation does not contain patches.
-		*/
-		unsigned int getPatchCount() const {return 1;}
-
-	private:
-
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 	};
 }

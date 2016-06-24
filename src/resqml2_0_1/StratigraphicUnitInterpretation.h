@@ -37,7 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT StratigraphicUnitInterpretation : public AbstractFeatureInterpretation
+	class DLL_IMPORT_OR_EXPORT StratigraphicUnitInterpretation : public resqml2::AbstractFeatureInterpretation
 	{
 	public:
 		/**
@@ -51,7 +51,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		StratigraphicUnitInterpretation(gsoap_resqml2_0_1::_resqml2__StratigraphicUnitInterpretation* fromGsoap): AbstractFeatureInterpretation(fromGsoap) {}
+		StratigraphicUnitInterpretation(gsoap_resqml2_0_1::_resqml2__StratigraphicUnitInterpretation* fromGsoap) : resqml2::AbstractFeatureInterpretation(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

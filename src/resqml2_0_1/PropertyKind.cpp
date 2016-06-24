@@ -35,18 +35,15 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractValuesProperty.h"
+#include "resqml2/AbstractValuesProperty.h"
 
 using namespace std;
 using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 using namespace epc;
 
-const char* PropertyKind::XML_TAG = "PropertyKind";
-
 PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
-			const string & namingSystem, const resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind):
-	parentPropertyKind(nullptr)
+	const string & namingSystem, const resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
 {
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
@@ -66,11 +63,11 @@ PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string 
 }
 
 PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
-			const string & namingSystem, const resqml2__ResqmlUom & uom, PropertyKind * parentPropType):
-	parentPropertyKind(parentPropType)
+	const string & namingSystem, const resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType)
 {
-	if (soapContext == nullptr)
+	if (soapContext == nullptr) {
 		throw invalid_argument("The soap context cannot be null.");
+	}
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
@@ -78,117 +75,49 @@ PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string 
 	propType->NamingSystem = namingSystem;
 	propType->RepresentativeUom = uom;
 
-	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy2_0_1->soap, 1);
-	xmlLocalPropKind->LocalPropertyKind = parentPropType->newResqmlReference();
-	propType->ParentPropertyKind = xmlLocalPropKind;
-	
-	parentPropType->childPropertyKind.push_back(this);
+	setParentPropertyKind(parentPropType);
+
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
 _resqml2__PropertyKind* PropertyKind::getSpecializedGsoapProxy() const
 {
-	if (isPartial() == true)
+	if (isPartial()) {
 		throw logic_error("Partial object");
+	}
 
 	return static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1);
 }
 
-const std::string & PropertyKind::getNamingSystem() const
-{
-	return getSpecializedGsoapProxy()->NamingSystem;
-}
-
-const resqml2__ResqmlUom & PropertyKind::getUom() const
-{
-	return getSpecializedGsoapProxy()->RepresentativeUom;
-}
-
-std::string PropertyKind::getUomAsString() const
-{
-	return gsoap_resqml2_0_1::soap_resqml2__ResqmlUom2s(gsoapProxy2_0_1->soap, getUom());
-}
-
-vector<Relationship> PropertyKind::getAllEpcRelationships() const
+void PropertyKind::setXmlParentPropertyKind(resqml2::PropertyKind* parentPropertyKind)
 {
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
 
-	vector<Relationship> result;
-
-	// forward relationships
-	if (parentPropertyKind)
-	{
-		Relationship rel(parentPropertyKind->getPartNameInEpcDocument(), "", static_cast<resqml2__LocalPropertyKind*>(propType->ParentPropertyKind)->LocalPropertyKind->UUID);
-		rel.setDestinationObjectType();
-		result.push_back(rel);
-	}
-
-	// backwards relationships
-	for (unsigned int i = 0; i < propertySet.size(); i++)
-	{
-		Relationship rel(propertySet[i]->getPartNameInEpcDocument(), "", propertySet[i]->getUuid());
-		rel.setSourceObjectType();
-		result.push_back(rel);
-	}
-
-	for (unsigned int i = 0; i < childPropertyKind.size(); i++)
-	{
-		Relationship rel(childPropertyKind[i]->getPartNameInEpcDocument(), "", childPropertyKind[i]->getUuid());
-		rel.setSourceObjectType();
-		result.push_back(rel);
-	}
-
-	return result;
+	resqml2__LocalPropertyKind* xmlLocalPropKind = soap_new_resqml2__LocalPropertyKind(gsoapProxy2_0_1->soap, 1);
+	xmlLocalPropKind->LocalPropertyKind = parentPropertyKind->newResqmlReference();
+	propType->ParentPropertyKind = xmlLocalPropKind;
 }
 
-std::string PropertyKind::getParentAsString() const
+bool PropertyKind::isChildOf(gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind standardPropKind) const
 {
-	if (parentPropertyKind)
-		return parentPropertyKind->getTitle();
-	else
-	{
-		_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
-		return epcDocument->getEnergisticsPropertyKindName(static_cast<resqml2__StandardPropertyKind*>(propType->ParentPropertyKind)->Kind);
+	if (!isParentAnEnergisticsPropertyKind()) {
+		return getParentLocalPropertyKind()->isChildOf(standardPropKind);
+	}
+	else{
+		if (getParentEnergisticsPropertyKind() == standardPropKind) {
+			return true;
+		}
+		else if (epcDocument->getPropertyKindMapper() != nullptr) {
+			return epcDocument->getPropertyKindMapper()->isChildOf(getParentEnergisticsPropertyKind(), standardPropKind);
+		}
+		else {
+			throw std::invalid_argument("You must load the property kind mapping files if you want to get the standard parent property kind.");
+		}
 	}
 }
 
-bool PropertyKind::isParentAnEnergisticsPropertyKind() const
+bool PropertyKind::isAbstract() const
 {
-	return getSpecializedGsoapProxy()->ParentPropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__StandardPropertyKind;
+	return getSpecializedGsoapProxy()->IsAbstract;
 }
-
-gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind PropertyKind::getParentEnergisticsPropertyKind() const
-{
-	if (isParentAnEnergisticsPropertyKind())
-	{
-		_resqml2__PropertyKind* propKind = getSpecializedGsoapProxy();
-		return static_cast<resqml2__StandardPropertyKind*>(propKind->ParentPropertyKind)->Kind;
-	}
-	else
-		throw invalid_argument("The property kind parent of this property kind is not an Energistics one.");
-}
-
-std::string PropertyKind::getParentLocalPropertyKindUuid() const
-{
-	if (isParentAnEnergisticsPropertyKind() == false)
-	{
-		_resqml2__PropertyKind* propKind = getSpecializedGsoapProxy();
-		return static_cast<resqml2__LocalPropertyKind*>(propKind->ParentPropertyKind)->LocalPropertyKind->UUID;
-	}
-	else
-		throw invalid_argument("The property kind parent of this property kind is not a local one.");
-}
-
-void PropertyKind::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
-{
-	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
-
-	if (propType->ParentPropertyKind->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__LocalPropertyKind)
-	{
-		parentPropertyKind = static_cast<PropertyKind*>(epcDoc->getResqmlAbstractObjectByUuid(static_cast<resqml2__LocalPropertyKind*>(propType->ParentPropertyKind)->LocalPropertyKind->UUID));
-		if (parentPropertyKind)
-			parentPropertyKind->childPropertyKind.push_back(this);
-	}
-}
-

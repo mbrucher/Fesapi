@@ -52,10 +52,10 @@ namespace resqml2_0_1
 		* @param ts							The associated time series.
 		* @param useInterval				Indicates wether the property values will be attached to the time index or to the interval between consecutive time index. 
 		*/
-		CategoricalPropertySeries(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		CategoricalPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
 			class StringTableLookup* strLookup, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,
-			class TimeSeries * ts, const bool & useInterval = false);
+			resqml2::TimeSeries * ts, const bool & useInterval = false);
 
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -69,10 +69,10 @@ namespace resqml2_0_1
 		* @param ts							The associated time series.
 		* @param useInterval				Indicates wether the property values will be attached to the time index or to the interval between consecutive time index. 
 		*/
-		CategoricalPropertySeries(class AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+		CategoricalPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind,
-			class StringTableLookup* strLookup, class PropertyKind * localPropKind,
-			class TimeSeries * ts, const bool & useInterval = false);
+			class StringTableLookup* strLookup, resqml2::PropertyKind * localPropKind,
+			resqml2::TimeSeries * ts, const bool & useInterval = false);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

@@ -43,11 +43,11 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::resqml2__Point3dLatticeArray* getArrayLatticeOfPoints3d() const;
 	public:
 
-		IjkGridLatticeRepresentation(soap* soapContext, class AbstractLocal3dCrs * crs,
+		IjkGridLatticeRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
-		IjkGridLatticeRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		IjkGridLatticeRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 

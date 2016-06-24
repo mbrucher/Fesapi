@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/Grid2dRepresentation.h"
 #include "resqml2_0_1/PolylineRepresentation.h"
 #include "resqml2/AbstractHdfProxy.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 
 using namespace std;
 using namespace resqml2_0_1;

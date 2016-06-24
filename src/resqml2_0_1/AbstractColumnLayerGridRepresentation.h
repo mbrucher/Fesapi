@@ -46,7 +46,7 @@ namespace resqml2_0_1
 		*/
 		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractGridRepresentation(epcDoc, partialObject) {}
 
-		AbstractColumnLayerGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractGridRepresentation(interp, crs) {}
+		AbstractColumnLayerGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : AbstractGridRepresentation(interp, crs) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

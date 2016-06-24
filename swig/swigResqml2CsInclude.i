@@ -47,7 +47,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
     else if (type == "EpcExternalPartReference")
     {
-        ret = new f2i.energisticsStandardsApi.resqml2.HdfProxy(cPtr, owner);
+        ret = new f2i.energisticsStandardsApi.resqml2_0_1.HdfProxy(cPtr, owner);
     }
     else if (type == "MdDatum")
     {
@@ -139,9 +139,9 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractFeatureInterpretation resqml2_instantiateConcreteInterpretation(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2.AbstractFeatureInterpretation resqml2_instantiateConcreteInterpretation(global::System.IntPtr cPtr, bool owner)
   {
-	f2i.energisticsStandardsApi.resqml2_0_1.AbstractFeatureInterpretation ret = resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
+	f2i.energisticsStandardsApi.resqml2.AbstractFeatureInterpretation ret = resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
@@ -194,9 +194,9 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractRepresentation resqml2_instantiateConcreteRepresentation(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2.AbstractRepresentation resqml2_instantiateConcreteRepresentation(global::System.IntPtr cPtr, bool owner)
   {
-	f2i.energisticsStandardsApi.resqml2_0_1.AbstractRepresentation ret = resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
+	f2i.energisticsStandardsApi.resqml2.AbstractRepresentation ret = resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
@@ -266,7 +266,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractProperty resqml2_instantiateConcreteProperty(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2.AbstractProperty resqml2_instantiateConcreteProperty(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
@@ -322,7 +322,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractLocal3dCrs resqml2_instantiateConcreteLocal3dCrs(global::System.IntPtr cPtr, bool owner)
+  public static f2i.energisticsStandardsApi.resqml2.AbstractLocal3dCrs resqml2_instantiateConcreteLocal3dCrs(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
@@ -398,10 +398,6 @@ namespace resqml2
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteFeature(cPtr, $owner);$excode
 		return ret;
 	}
-}
-
-namespace resqml2_0_1
-{	
 	
 	%typemap(csout, excode=SWIGEXCODE) AbstractFeatureInterpretation*  {
 		global::System.IntPtr cPtr = $imcall;
@@ -415,27 +411,30 @@ namespace resqml2_0_1
 		return ret;
 	}
 	
-	%typemap(csout, excode=SWIGEXCODE) WellboreFrameRepresentation*  {
-		global::System.IntPtr cPtr = $imcall;
-		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, $owner);$excode
-		return ret;
-	}
-	
 	%typemap(csout, excode=SWIGEXCODE) AbstractLocal3dCrs*  {
 		global::System.IntPtr cPtr = $imcall;
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteLocal3dCrs(cPtr, $owner);$excode
 		return ret;
 	}
 	
-	%typemap(csout, excode=SWIGEXCODE) AbstractIjkGridRepresentation*  {
-		global::System.IntPtr cPtr = $imcall;
-		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, $owner);$excode
-		return ret;
-	}
-	
 	%typemap(csout, excode=SWIGEXCODE) AbstractProperty*, AbstractValuesProperty*   {
 		global::System.IntPtr cPtr = $imcall;
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteProperty(cPtr, $owner);$excode
+		return ret;
+	}
+}
+
+namespace resqml2_0_1
+{	
+	%typemap(csout, excode=SWIGEXCODE) WellboreFrameRepresentation*  {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, $owner);$excode
+		return ret;
+	}
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractIjkGridRepresentation*  {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, $owner);$excode
 		return ret;
 	}
 	

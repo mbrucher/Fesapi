@@ -39,7 +39,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 #include "witsml1_4_1_1/Log.h"
@@ -72,7 +72,7 @@ void WellboreFrameRepresentation::getXyzPointsOfPatch(const unsigned int & patch
 	if (patchIndex >= getPatchCount())
 		throw range_error("The index of the patch is not in the allowed range of patch.");
 
-	resqml2__PointGeometry* pointGeom = getPointGeometry(patchIndex);
+	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
 	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
 	{
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
@@ -216,42 +216,42 @@ unsigned int WellboreFrameRepresentation::getMdValuesCount() const
 	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1)->NodeCount;
 }
 
-AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDatatype() const
+resqml2::AbstractValuesProperty::hdfDatatypeEnum WellboreFrameRepresentation::getMdHdfDatatype() const
 {
 	_resqml2__WellboreFrameRepresentation* frame = static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1);
 	if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		if (hdfProxy == nullptr)
-			return AbstractValuesProperty::UNKNOWN;
+			return resqml2::AbstractValuesProperty::UNKNOWN;
 
 		hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__DoubleHdf5Array*>(frame->NodeMd)->Values->PathInHdfFile);
 		if (H5Tequal(dt, H5T_NATIVE_DOUBLE) > 0)
-			return AbstractValuesProperty::DOUBLE;
+			return resqml2::AbstractValuesProperty::DOUBLE;
 		else if (H5Tequal(dt, H5T_NATIVE_FLOAT) > 0)
-			return AbstractValuesProperty::FLOAT;
+			return resqml2::AbstractValuesProperty::FLOAT;
 		else if (H5Tequal(dt, H5T_NATIVE_LONG) > 0)
-			return AbstractValuesProperty::LONG;
+			return resqml2::AbstractValuesProperty::LONG;
 		else if (H5Tequal(dt, H5T_NATIVE_ULONG) > 0)
-			return AbstractValuesProperty::ULONG;
+			return resqml2::AbstractValuesProperty::ULONG;
 		else if (H5Tequal(dt, H5T_NATIVE_INT) > 0)
-			return AbstractValuesProperty::INT;
+			return resqml2::AbstractValuesProperty::INT;
 		else if (H5Tequal(dt, H5T_NATIVE_UINT) > 0)
-			return AbstractValuesProperty::UINT;
+			return resqml2::AbstractValuesProperty::UINT;
 		else if (H5Tequal(dt, H5T_NATIVE_SHORT) > 0)
-			return AbstractValuesProperty::SHORT;
+			return resqml2::AbstractValuesProperty::SHORT;
 		else if (H5Tequal(dt, H5T_NATIVE_USHORT) > 0)
-			return AbstractValuesProperty::USHORT;
+			return resqml2::AbstractValuesProperty::USHORT;
 		else if (H5Tequal(dt, H5T_NATIVE_CHAR) > 0)
-			return AbstractValuesProperty::CHAR;
+			return resqml2::AbstractValuesProperty::CHAR;
 		else if (H5Tequal(dt, H5T_NATIVE_UCHAR) > 0)
-			return AbstractValuesProperty::UCHAR;
+			return resqml2::AbstractValuesProperty::UCHAR;
 	}
 	else if (frame->NodeMd->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleLatticeArray)
 	{
-		return AbstractValuesProperty::DOUBLE;
+		return resqml2::AbstractValuesProperty::DOUBLE;
 	}
 
-	return AbstractValuesProperty::UNKNOWN; // unknwown datatype...
+	return resqml2::AbstractValuesProperty::UNKNOWN; // unknwown datatype...
 }
 
 void WellboreFrameRepresentation::getMdAsDoubleValues(double * values)

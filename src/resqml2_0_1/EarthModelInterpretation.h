@@ -33,14 +33,14 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 
 namespace resqml2_0_1
 {
 	/**
 	* This class is a container for other organizations that are consistent to each others.
 	*/
-	class DLL_IMPORT_OR_EXPORT EarthModelInterpretation : public AbstractFeatureInterpretation
+	class DLL_IMPORT_OR_EXPORT EarthModelInterpretation : public resqml2::AbstractFeatureInterpretation
 	{
 	public:
 		/**
@@ -54,7 +54,7 @@ namespace resqml2_0_1
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		EarthModelInterpretation(gsoap_resqml2_0_1::_resqml2__EarthModelInterpretation* fromGsoap): AbstractFeatureInterpretation(fromGsoap), structuralOrganization(nullptr), stratigraphicColumn(nullptr) {}
+		EarthModelInterpretation(gsoap_resqml2_0_1::_resqml2__EarthModelInterpretation* fromGsoap) : resqml2::AbstractFeatureInterpretation(fromGsoap), structuralOrganization(nullptr), stratigraphicColumn(nullptr) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.

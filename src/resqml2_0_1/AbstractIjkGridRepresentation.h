@@ -50,7 +50,7 @@ namespace resqml2_0_1
 		/**
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		*/
-		void init(soap* soapContext, class AbstractLocal3dCrs * crs,
+		void init(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
@@ -63,7 +63,7 @@ namespace resqml2_0_1
 
 		gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* getSpecializedGsoapProxy() const;
 
-		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry(const unsigned int & patchIndex) const;
+		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 
 		std::vector< std::pair< unsigned int, std::vector<unsigned int> > >* splitInformation;
 
@@ -74,11 +74,11 @@ namespace resqml2_0_1
 		/**
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		*/
-		AbstractIjkGridRepresentation(soap* soapContext, class AbstractLocal3dCrs * crs,
+		AbstractIjkGridRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
-		AbstractIjkGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		AbstractIjkGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 

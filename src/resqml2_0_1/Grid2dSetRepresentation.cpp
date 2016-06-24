@@ -36,9 +36,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 #include <algorithm>
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/Grid2dRepresentation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
 
 using namespace std;
@@ -48,7 +48,7 @@ using namespace epc;
 
 const char* Grid2dSetRepresentation::XML_TAG = "Grid2dSetRepresentation";
 
-Grid2dSetRepresentation::Grid2dSetRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+Grid2dSetRepresentation::Grid2dSetRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 	const string & guid, const string & title):
 	AbstractSurfaceRepresentation(interp, crs)
 {
@@ -83,7 +83,7 @@ unsigned int Grid2dSetRepresentation::getNodeCountAlongJAxis(const unsigned int 
 	return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->SlowestAxisCount;
 }
 
-resqml2__PointGeometry* Grid2dSetRepresentation::getPointGeometry(const unsigned int & patchIndex) const
+resqml2__PointGeometry* Grid2dSetRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const
 {
 	if (patchIndex < static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch.size())
 		return static_cast<_resqml2__Grid2dSetRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch[patchIndex]->Geometry;
@@ -93,7 +93,7 @@ resqml2__PointGeometry* Grid2dSetRepresentation::getPointGeometry(const unsigned
 
 string Grid2dSetRepresentation::getHdfProxyUuid() const
 {
-	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
+	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry2_0_1(0));
 }
 
 void Grid2dSetRepresentation::getZValuesOfPatch(const unsigned int & patchIndex, double* values) const

@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT LocalDepth3dCrs : public AbstractLocal3dCrs
+	class DLL_IMPORT_OR_EXPORT LocalDepth3dCrs : public resqml2::AbstractLocal3dCrs
 	{
 	private:
 		void init(soap* soapContext, const std::string & guid, const std::string & title,

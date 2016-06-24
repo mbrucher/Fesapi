@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2/AbstractObject.h"
+#include "resqml2/MdDatum.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT MdDatum : public resqml2::AbstractObject
+	class DLL_IMPORT_OR_EXPORT MdDatum : public resqml2::MdDatum
 	{
 	public:
 		/**
@@ -52,37 +52,18 @@ namespace resqml2_0_1
 		* @param referenceLocationOrdinal3	The location of the MD reference point on the third axis of the local 3d CRS.
 		*/
 		MdDatum(soap* soapContext, const std::string & guid, const std::string & title,
-			class AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,
+			resqml2::AbstractLocal3dCrs * locCrs, const gsoap_resqml2_0_1::resqml2__MdReference & originKind,
 			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap) :AbstractObject(fromGsoap) {}
+		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap) :resqml2::MdDatum(fromGsoap) {}
 
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		~MdDatum() {}
-
-		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		/**
-		* Add a WellboreFeature trajectory which uses this MD information
-		* Does not add the inverse relationship i.e. from the WellboreFeature trajectory to this MD information.
-		*/
-		void addWellboreTrajectoryRepresentation(class WellboreTrajectoryRepresentation* traj) {wellboreTrajectoryRepresentationSet.push_back(traj);}
-
-		/**
-		* Set the local CR Swhere the reference point ordinals are given
-		*/
-		void setLocalCrs(class AbstractLocal3dCrs * localCrs);
-
-		/**
-		* Get the Local 3d CRS where the reference point ordinals are given
-		*/
-		class AbstractLocal3dCrs * getLocalCrs() const;
 
 		/**
 		* Get the Local 3d CRS uuid where the reference point ordinals are given
@@ -114,8 +95,7 @@ namespace resqml2_0_1
 
 	protected:
 
-		std::vector<epc::Relationship> getAllEpcRelationships() const;
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+		void setXmlLocalCrs(resqml2::AbstractLocal3dCrs * localCrs);
 
 		// XML backward relationship
 		std::vector<class WellboreTrajectoryRepresentation*> wellboreTrajectoryRepresentationSet;

@@ -36,10 +36,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <algorithm>
 #include <stdexcept>
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
 #include "resqml2_0_1/SeismicLatticeFeature.h"
 #include "resqml2/AbstractHdfProxy.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -48,7 +48,7 @@ using namespace epc;
 
 const char* Grid2dRepresentation::XML_TAG = "Grid2dRepresentation";
 
-Grid2dRepresentation::Grid2dRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+Grid2dRepresentation::Grid2dRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 	const string & guid, const std::string & title):
 	AbstractSurfaceRepresentation(interp, crs), supportingRepresentation(nullptr)
 {
@@ -69,7 +69,7 @@ Grid2dRepresentation::Grid2dRepresentation(AbstractFeatureInterpretation* interp
 	localCrs->addRepresentation(this);
 }
 
-resqml2__PointGeometry* Grid2dRepresentation::getPointGeometry(const unsigned int & patchIndex) const
+resqml2__PointGeometry* Grid2dRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 		return static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch->Geometry;
@@ -79,7 +79,7 @@ resqml2__PointGeometry* Grid2dRepresentation::getPointGeometry(const unsigned in
 
 string Grid2dRepresentation::getHdfProxyUuid() const
 {
-	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry(0));
+	return getHdfProxyUuidFromPointGeometryPatch(getPointGeometry2_0_1(0));
 }
 
 ULONG64 Grid2dRepresentation::getNodeCountAlongIAxis() const

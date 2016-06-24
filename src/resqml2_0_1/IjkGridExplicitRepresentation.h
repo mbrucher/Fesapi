@@ -44,11 +44,11 @@ namespace resqml2_0_1
 		/**
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		*/
-		IjkGridExplicitRepresentation(soap* soapContext, class AbstractLocal3dCrs * crs,
+		IjkGridExplicitRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
-		IjkGridExplicitRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs,
+		IjkGridExplicitRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
 				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 

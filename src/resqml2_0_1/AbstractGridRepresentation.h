@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractGridRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT AbstractGridRepresentation : public resqml2::AbstractRepresentation
 	{
 	private:
 		gsoap_resqml2_0_1::resqml2__Regrid* createRegrid(const unsigned int & indexRegridStart, unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount, double * childCellWeights,
@@ -57,7 +57,7 @@ namespace resqml2_0_1
 		*/
 		AbstractGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractRepresentation(epcDoc, partialObject)  {}
 
-		AbstractGridRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs) {}
+		AbstractGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : AbstractRepresentation(interp, crs) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -71,7 +71,7 @@ namespace resqml2_0_1
 		*/
 		virtual ~AbstractGridRepresentation() {}
 
-		std::vector<GridConnectionSetRepresentation*> getGridConnectionSetRepresentationSet() const {return gridConnectionSetRepresentationSet;}
+		std::vector<resqml2::GridConnectionSetRepresentation*> getGridConnectionSetRepresentationSet() const {return gridConnectionSetRepresentationSet;}
 
 		/**
 		 * Get the GridConnectionSetRepresentation count into this EPC document which are associated to this grid.
@@ -83,7 +83,7 @@ namespace resqml2_0_1
 		 * Get a particular ijk parametric grid according to its position in the EPC document.
 		 * It is mainly used in SWIG context for parsing the vector from a non C++ language.
 		 */
-		class GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
+		resqml2::GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
 
 		/**
 		* Get the count of (volumic) cells in the grid.
@@ -295,10 +295,10 @@ namespace resqml2_0_1
 
 		std::vector<AbstractGridRepresentation*> childGridSet;
 
-		std::vector<GridConnectionSetRepresentation*> gridConnectionSetRepresentationSet;
+		std::vector<resqml2::GridConnectionSetRepresentation*> gridConnectionSetRepresentationSet;
 		std::vector<BlockedWellboreRepresentation*> blockedWellboreRepresentationSet;
 
-		friend void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
+		friend void resqml2::GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
 		friend void BlockedWellboreRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
 
 	};

@@ -34,7 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2/EpcExternalPartReference.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 
 #define CUMULATIVE_LENGTH_DS_NAME "cumulativeLength"
 #define ELEMENTS_DS_NAME "elements"
@@ -353,8 +353,8 @@ namespace resqml2
 		 */
 		virtual std::vector<unsigned long long> readArrayDimensions(const std::string & datasetName) = 0;
   
-		friend void resqml2_0_1::AbstractRepresentation::setHdfProxy(resqml2::AbstractHdfProxy * proxy);
-		friend void resqml2_0_1::AbstractProperty::setHdfProxy(resqml2::AbstractHdfProxy * proxy);
+		friend void resqml2::AbstractRepresentation::setHdfProxy(resqml2::AbstractHdfProxy * proxy);
+		friend void resqml2::AbstractProperty::setHdfProxy(resqml2::AbstractHdfProxy * proxy);
 
 	};
 }

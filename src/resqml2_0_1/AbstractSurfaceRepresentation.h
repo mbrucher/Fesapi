@@ -33,18 +33,18 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractSurfaceRepresentation : public AbstractRepresentation
+	class DLL_IMPORT_OR_EXPORT AbstractSurfaceRepresentation : public resqml2::AbstractRepresentation
 	{
 	protected:
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr.
 		*/
-		AbstractSurfaceRepresentation(class AbstractFeatureInterpretation* interp, class AbstractLocal3dCrs * crs): AbstractRepresentation(interp, crs) {}
+		AbstractSurfaceRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : AbstractRepresentation(interp, crs) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

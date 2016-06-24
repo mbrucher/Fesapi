@@ -37,8 +37,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractLocal3dCrs.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/DiscreteProperty.h"
@@ -56,7 +56,7 @@ using namespace resqml2_0_1;
 
 const char* AbstractIjkGridRepresentation::XML_TAG = "IjkGridRepresentation";
 
-void AbstractIjkGridRepresentation::init(soap* soapContext, AbstractLocal3dCrs * crs,
+void AbstractIjkGridRepresentation::init(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
@@ -81,7 +81,7 @@ void AbstractIjkGridRepresentation::init(soap* soapContext, AbstractLocal3dCrs *
 	}
 }
 
-AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(soap* soapContext, AbstractLocal3dCrs * crs,
+AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractColumnLayerGridRepresentation(nullptr, crs), splitInformation(nullptr)
@@ -89,7 +89,7 @@ AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(soap* soapContext, 
 	init(soapContext, crs, guid, title, iCount, jCount, kCount);
 }
 
-AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs,
+AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 		const std::string & guid, const std::string & title,
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
 	AbstractColumnLayerGridRepresentation(interp, crs), splitInformation(nullptr)
@@ -111,7 +111,7 @@ _resqml2__IjkGridRepresentation* AbstractIjkGridRepresentation::getSpecializedGs
 	return static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
 }
 
-gsoap_resqml2_0_1::resqml2__PointGeometry* AbstractIjkGridRepresentation::getPointGeometry(const unsigned int & patchIndex) const
+gsoap_resqml2_0_1::resqml2__PointGeometry* AbstractIjkGridRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const
 {
 	if (patchIndex == 0)
 		return getSpecializedGsoapProxy()->Geometry;
