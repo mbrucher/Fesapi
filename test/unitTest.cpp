@@ -34,14 +34,14 @@ using namespace resqml2_0_1test;
 	test->deserialize();\
 	delete test;\
 }
-
+/*
 TEST_CASE( "Deserialize an EPC document", "[epc]")
 {
 	EpcDocumentTest* test = new EpcDocumentTest("../../testingPackageCpp.epc");
 	test->deserialize();
 	delete test;
 }
-
+*/
 FESAPI_TEST("Export and import a local depth 3d crs", "[crs]", LocalDepth3dCrsTest)
 
 FESAPI_TEST("Export and import an horizon", "[feature]", HorizonTest)
@@ -60,7 +60,7 @@ FESAPI_TEST("Export and import an activity", "[activity]", ActivityCreationTest)
 
 FESAPI_TEST("Export and import an unstructured grid", "[grid]", OneTetrahedronUnstructuredGridRepresentationTest)
 
-FESAPI_TEST("Ijk to unstructured grid", "[grid]", UnstructuredFromIjkGridRepresentationTest)
+//FESAPI_TEST("Ijk to unstructured grid", "[grid]", UnstructuredFromIjkGridRepresentationTest)
 
 FESAPI_TEST("Export and import a time series", "[property]", TimeSeriesTest)
 

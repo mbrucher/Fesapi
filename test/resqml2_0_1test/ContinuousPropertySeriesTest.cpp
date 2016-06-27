@@ -4,14 +4,14 @@
 #include "resqml2_0_1test/TimeSeriesTest.h"
 #include "resqml2_0_1test/IjkGridExplicitRepresentationTest.h"
 
-#include "resqml2_0_1/TimeSeries.h"
+#include "resqml2/TimeSeries.h"
 #include "resqml2_0_1/ContinuousPropertySeries.h"
 #include "resqml2_0_1/IjkGridExplicitRepresentation.h"
 
 using namespace std;
 using namespace common;
 using namespace resqml2_0_1test;
-using namespace resqml2_0_1;
+using namespace resqml2;
 
 const char* ContinuousPropertySeriesTest::defaultUuid = "fcb1ba50-afe4-4d87-bc4c-d737a04de048";
 const char* ContinuousPropertySeriesTest::defaultTitle = "Continuous Property Series Test";
@@ -32,7 +32,7 @@ ContinuousPropertySeriesTest::ContinuousPropertySeriesTest(EpcDocument * epcDoc,
 void ContinuousPropertySeriesTest::initEpcDocHandler() {
 	// creating an IJK grid
 	IjkGridExplicitRepresentationTest * ijkGridTest = new IjkGridExplicitRepresentationTest(this->epcDoc, true);
-	IjkGridExplicitRepresentation * ijkGrid = static_cast<IjkGridExplicitRepresentation *>(this->epcDoc->getResqmlAbstractObjectByUuid(IjkGridExplicitRepresentationTest::defaultUuid));
+	resqml2_0_1::IjkGridExplicitRepresentation * ijkGrid = static_cast<resqml2_0_1::IjkGridExplicitRepresentation *>(this->epcDoc->getResqmlAbstractObjectByUuid(IjkGridExplicitRepresentationTest::defaultUuid));
 
 	// creating the TimeSeries
 	TimeSeriesTest * timeSeriesTest = new TimeSeriesTest(this->epcDoc, true);
@@ -42,7 +42,7 @@ void ContinuousPropertySeriesTest::initEpcDocHandler() {
 	AbstractHdfProxy* hdfProxy = this->epcDoc->getHdfProxySet()[0];
 
 	// creating the ContinuousPropertySeries
-	ContinuousPropertySeries* continuousPropertySeries = epcDoc->createContinuousPropertySeries(
+	resqml2_0_1::ContinuousPropertySeries* continuousPropertySeries = epcDoc->createContinuousPropertySeries(
 		ijkGrid, this->uuid, this->title,
 		1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells,
@@ -64,7 +64,7 @@ void ContinuousPropertySeriesTest::readEpcDocHandler() {
 	TimeSeriesTest * timeSeriesTest = new TimeSeriesTest(this->epcDoc, false);
 
 	// getting the ContinuousPropertySeries
-	ContinuousPropertySeries* continuousPropertySeries = static_cast<ContinuousPropertySeries*>(this->epcDoc->getResqmlAbstractObjectByUuid(uuid));
+	resqml2_0_1::ContinuousPropertySeries* continuousPropertySeries = static_cast<resqml2_0_1::ContinuousPropertySeries*>(this->epcDoc->getResqmlAbstractObjectByUuid(uuid));
 
 	// ************************************
 	// reading the ContinuousPropertySeries

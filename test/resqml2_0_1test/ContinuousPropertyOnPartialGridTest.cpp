@@ -3,12 +3,12 @@
 #include "../catch.hpp"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
 #include "resqml2_0_1/ContinuousProperty.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 
 using namespace std;
 using namespace common;
 using namespace resqml2_0_1test;
-using namespace resqml2_0_1;
+using namespace resqml2;
 
 ContinuousPropertyOnPartialGridTest::ContinuousPropertyOnPartialGridTest(const string & epcDocPath)
 	: ContinuousPropertyTest(epcDocPath, uuidContinuousPropertyOnPartialGrid, titleContinuousPropertyOnPartialGrid, uuidPartialUnstructuredGridRepresentation, titlePartialUnstructuredGridRepresentation) {
@@ -26,9 +26,9 @@ void ContinuousPropertyOnPartialGridTest::initEpcDocHandler() {
 	// getting the hdf proxy
 	AbstractHdfProxy* hdfProxy = this->epcDoc->getHdfProxySet()[0];
 
-	UnstructuredGridRepresentation* partialGrid = this->epcDoc->createPartialUnstructuredGridRepresentation(uuidPartialUnstructuredGridRepresentation, titlePartialUnstructuredGridRepresentation);
+	resqml2_0_1::UnstructuredGridRepresentation* partialGrid = this->epcDoc->createPartialUnstructuredGridRepresentation(uuidPartialUnstructuredGridRepresentation, titlePartialUnstructuredGridRepresentation);
 	REQUIRE( partialGrid != nullptr );
-	ContinuousProperty* continuousProperty = this->epcDoc->createContinuousProperty(partialGrid, this->uuid, this->title, 1,
+	resqml2_0_1::ContinuousProperty* continuousProperty = this->epcDoc->createContinuousProperty(partialGrid, this->uuid, this->title, 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, 
 		gsoap_resqml2_0_1::resqml2__ResqmlUom__m, 
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__length);
@@ -39,7 +39,7 @@ void ContinuousPropertyOnPartialGridTest::initEpcDocHandler() {
 
 void ContinuousPropertyOnPartialGridTest::readEpcDocHandler() {
 	// getting the ContinuousPropertySeries
-	ContinuousProperty* continuousProperty = static_cast<ContinuousProperty*>(this->epcDoc->getResqmlAbstractObjectByUuid(this->uuid));
+	resqml2_0_1::ContinuousProperty* continuousProperty = static_cast<resqml2_0_1::ContinuousProperty*>(this->epcDoc->getResqmlAbstractObjectByUuid(this->uuid));
 
 	// ************************************
 	// reading the ContinuousPropertySeries

@@ -4,6 +4,7 @@
 #include "resqml2_0_1/TriangulatedSetRepresentation.h"
 #include "resqml2_0_1/FaultInterpretation.h"
 #include "resqml2_0_1/LocalDepth3dCrs.h"
+#include "resqml2/HdfProxy.h"
 #include "FaultInterpretationTest.h"
 #include "LocalDepth3dCrsTest.h"
 
@@ -42,7 +43,7 @@ void FaultSinglePatchTriangulatedSetRepresentationTest::initEpcDocHandler()
 		3,7,6, 3,4,7, 4,5,7, 5,8,7,
 		6,10,9, 6,7,10, 7,8,10, 8,11,10,
 		9,13,12, 9,10,13, 10,11,13, 11,14,13,
-		12,16,15, 12,13,16, 13,14,16, 14,17,16};
+		12,16,15, 12,13,16, 13,14,16, 14,17,16 };
 	rep->pushBackTrianglePatch(18, this->xyzPointsOfAllPatchesInGlobalCrs, 20, triangleNodeIndexFault, this->epcDoc->getHdfProxySet()[0]);
 
 	// cleaning

@@ -3,13 +3,13 @@
 #include "catch.hpp"
 
 #include "EpcDocument.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
+#include "resqml2/AbstractRepresentation.h"
 
 #include "proxies/stdsoap2.h"
 
 using namespace std;
 using namespace resqml2_0_1test;
-using namespace resqml2_0_1;
+using namespace resqml2;
 
 AbstractRepresentationTest::AbstractRepresentationTest(const std::string & epcDocPath, const string & uuid, const string & title, const ULONG64 & xyzPointCountOfAllPatches, double * xyzPointsOfAllPatchesInGlobalCrs) 
 	: AbstractResqmlDataObjectTest(epcDocPath, uuid, title), xyzPointCountOfAllPatches(xyzPointCountOfAllPatches), xyzPointsOfAllPatchesInGlobalCrs(xyzPointsOfAllPatchesInGlobalCrs) {

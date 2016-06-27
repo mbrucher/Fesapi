@@ -1,12 +1,12 @@
 #include "AbstractPropertyTest.h"
-#include "resqml2_0_1/AbstractRepresentation.h"
-#include "resqml2_0_1/AbstractProperty.h"
+#include "resqml2/AbstractRepresentation.h"
+#include "resqml2/AbstractProperty.h"
 #include "../catch.hpp"
 
 using namespace std;
 using namespace common;
 using namespace resqml2_0_1test;
-using namespace resqml2_0_1;
+using namespace resqml2;
 
 AbstractPropertyTest::AbstractPropertyTest(const string & epcDocPath, const string & uuid, const string & title, const string & uuidRepresentation, const string & titleRepresentation)
 	: AbstractResqmlDataObjectTest(epcDocPath, uuid, title), uuidRepresentation(uuidRepresentation), titleRepresentation(titleRepresentation) {

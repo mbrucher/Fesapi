@@ -1,12 +1,12 @@
 #include "ActivityTemplateTest.h"
-#include "resqml2_0_1/ActivityTemplate.h"
+#include "resqml2/ActivityTemplate.h"
 #include "EpcDocument.h"
 #include "../catch.hpp"
 
 using namespace std;
 using namespace common;
 using namespace resqml2_0_1test;
-using namespace resqml2_0_1;
+using namespace resqml2;
 
 ActivityTemplateTest::ActivityTemplateTest(const string & epcDocPath, const string & uuid, const string & title) 
 	: AbstractResqmlDataObjectTest(epcDocPath, uuid, title) {

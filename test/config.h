@@ -22,7 +22,25 @@ namespace resqml2_0_1test {
 	static const char* uuidFaultSinglePatchTriangulatedSetRepresentation = "321d2b25-66fe-4749-8fad-c5cef401586e";
 	static const char* titleFaultSinglePatchTriangulatedSetRepresentation = "Fault Single Patch Triangulated Set Representation Test";
 	static const ULONG64 nodesCountFaultSinglePatchTriangulatedSetRepresentation = 18;
-	static double nodesFaultSinglePatchTriangulatedSetRepresentation[] = {150, 0, 200, 150, 100, 200, 150, 200, 200, 250, 0, 300, 250, 100, 300, 250, 200, 300, 300, 0, 350, 300, 100, 350, 300, 200, 350, 450, 0, 500, 450, 100, 500, 450, 200, 500, 500, 0, 550, 500, 100, 550 ,500, 200, 550, 600, 0, 650, 600, 100, 650, 600, 200, 650};
+	static double nodesFaultSinglePatchTriangulatedSetRepresentation[] = {
+		150, 0, 200, 
+		150, 100, 200,
+		150, 200, 200,
+		250, 0, 300,
+		250, 100, 300,
+		250, 200, 300,
+		300, 0, 350,
+		300, 100, 350,
+		300, 200, 350,
+		450, 0, 500,
+		450, 100, 500,
+		450, 200, 500,
+		500, 0, 550,
+		500, 100, 550,
+		500, 200, 550,
+		600, 0, 650,
+		600, 100, 650,
+		600, 200, 650};
 	
 	// Multi patches Fault TriangulatedSetRepresentation
 	static const char* uuidFaultMultiPatchTriangulatedSetRepresentation = "c8520931-6a4e-457a-92e6-da0c1fb74ad0";

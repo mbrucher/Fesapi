@@ -9,7 +9,7 @@
 using namespace std;
 using namespace common;
 using namespace resqml2_0_1test;
-using namespace resqml2_0_1;
+using namespace resqml2;
 
 const char* IjkGridExplicitRepresentationTest::defaultUuid = "f889e5d2-249e-4827-8532-ce60a1d05b99";
 const char* IjkGridExplicitRepresentationTest::defaultTitle = "Ijk Grid Representation";
@@ -31,13 +31,13 @@ IjkGridExplicitRepresentationTest::IjkGridExplicitRepresentationTest(EpcDocument
 void IjkGridExplicitRepresentationTest::initEpcDocHandler() {
 	// getting the local depth 3d crs
 	LocalDepth3dCrsTest* crsTest = new LocalDepth3dCrsTest(this->epcDoc, true);
-	LocalDepth3dCrs* crs = static_cast<LocalDepth3dCrs*>(this->epcDoc->getResqmlAbstractObjectByUuid(LocalDepth3dCrsTest::defaultUuid));
+	resqml2_0_1::LocalDepth3dCrs* crs = static_cast<resqml2_0_1::LocalDepth3dCrs*>(this->epcDoc->getResqmlAbstractObjectByUuid(LocalDepth3dCrsTest::defaultUuid));
 
 	// getting the hdf proxy
 	AbstractHdfProxy* hdfProxy = this->epcDoc->getHdfProxySet()[0];
 
 	// creating the ijk grid
-	IjkGridExplicitRepresentation* ijkGrid = this->epcDoc->createIjkGridExplicitRepresentation(crs, uuid, title, 2, 1, 1);
+	resqml2_0_1::IjkGridExplicitRepresentation* ijkGrid = this->epcDoc->createIjkGridExplicitRepresentation(crs, uuid, title, 2, 1, 1);
 	REQUIRE( ijkGrid != nullptr );
 	unsigned int pillarOfCoordinateLine[2] = {1,4};
 	unsigned int splitCoordinateLineColumnCumulativeCount[2] = {1,2};

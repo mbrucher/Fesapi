@@ -1,12 +1,12 @@
 #include "AbstractFeatureInterpretationTest.h"
-#include "resqml2_0_1/AbstractFeatureInterpretation.h"
-#include "resqml2_0_1/AbstractFeature.h"
+#include "resqml2/AbstractFeatureInterpretation.h"
+#include "resqml2/AbstractFeature.h"
 #include "../catch.hpp"
 #include "AbstractObjectTest.h"
 
 using namespace std;
 using namespace resqml2_0_1test;
-using namespace resqml2_0_1;
+using namespace resqml2;
 
 AbstractFeatureInterpretationTest::AbstractFeatureInterpretationTest(const string & epcDocPath, const string & uuid, const string & title, const string & uuidFeature, const string & titleFeature)
 	: AbstractResqmlDataObjectTest(epcDocPath, uuid, title), uuidFeature(uuidFeature), titleFeature(titleFeature) {

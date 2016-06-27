@@ -18,7 +18,7 @@ AbstractTest::AbstractTest(common::EpcDocument* epcDoc) :
 }
 
 void AbstractTest::serialize() {
-	this->epcDoc = new common::EpcDocument(this->epcDocPath);
+	this->epcDoc = new common::EpcDocument(this->epcDocPath, common::EpcDocument::OVERWRITE);
 	epcDoc->createHdfProxy(uuidHdfProxy, titleHdfProxy, this->epcDoc->getStorageDirectory(), epcDoc->getName() + ".h5");
 
 	this->initEpcDoc();

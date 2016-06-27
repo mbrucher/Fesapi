@@ -1,7 +1,7 @@
 #include "AbstractResqmlDataObjectTest.h"
 #include "EpcDocument.h"
 #include "../catch.hpp"
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2/AbstractObject.h"
 
 using namespace std;
 using namespace resqml2_0_1test;

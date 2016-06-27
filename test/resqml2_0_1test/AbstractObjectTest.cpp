@@ -4,11 +4,12 @@
 #include "AbstractTest.h"
 
 #include "EpcDocument.h"
-#include "resqml2_0_1/AbstractResqmlDataObject.h"
+#include "resqml2/AbstractObject.h"
 
 using namespace std;
 using namespace resqml2_0_1test;
 using namespace commontest;
+using namespace resqml2;
 
 AbstractObjectTest::AbstractObjectTest(const string & epcDocPath, const string & uuid, const string & title) :
 	AbstractTest(epcDocPath),
@@ -34,7 +35,7 @@ void AbstractObjectTest::initEpcDoc()
 }
 
 void AbstractObjectTest::readEpcDoc() {
-	resqml2_0_1::AbstractResqmlDataObject* resqmlObject = static_cast<resqml2_0_1::AbstractResqmlDataObject*>(this->epcDoc->getResqmlAbstractObjectByUuid(this->uuid));
+	AbstractObject* resqmlObject = static_cast<AbstractObject*>(this->epcDoc->getResqmlAbstractObjectByUuid(this->uuid));
 	REQUIRE(resqmlObject != nullptr);
 	REQUIRE(resqmlObject->getUuid() == this->uuid);
 	REQUIRE( resqmlObject->getTitle() == this->title );
