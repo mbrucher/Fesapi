@@ -30,7 +30,7 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 //************************
 // POD C ARRAYS
 //************************
-%include "carrays.i"
+%include "carrays_indexing64bits.i"
 %array_class(unsigned long long, ULongLongArray);
 %array_class(unsigned long, ULongArray);
 %array_class(unsigned int, UIntArray);

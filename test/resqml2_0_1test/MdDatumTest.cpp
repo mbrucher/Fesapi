@@ -15,7 +15,7 @@ using namespace common;
 using namespace resqml2;
 
 const char* MdDatumTest::defaultUuid = "aa4da18f-5cc8-4bbb-841a-30e4031376fa";
-const char* MdDatumTest::defaultTitle = "Md Dataum";
+const char* MdDatumTest::defaultTitle = "Md Datum";
 
 MdDatumTest::MdDatumTest(const string & epcDocPath)
 	: AbstractResqmlDataObjectTest(epcDocPath, defaultUuid, defaultTitle) {

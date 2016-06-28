@@ -19,9 +19,9 @@ OneTetrahedronUnstructuredGridRepresentationTest::OneTetrahedronUnstructuredGrid
 OneTetrahedronUnstructuredGridRepresentationTest::OneTetrahedronUnstructuredGridRepresentationTest(EpcDocument * epcDoc, bool init)
 	: UnstructuredGridRepresentationTest(epcDoc, uuidOneTetrahedronUnstructuredGridRepresentation, titleOneTetrahedronUnstructuredGridRepresentation, nodesCountOneTetrahedronUnstructuredGridRepresentation, nodesOneTetrahedronUnstructuredGridRepresentation) {
 	if (init)
-			this->initEpcDoc();
-		else
-			this->readEpcDoc();
+		this->initEpcDoc();
+	else
+		this->readEpcDoc();
 }
 
 void OneTetrahedronUnstructuredGridRepresentationTest::initEpcDocHandler() {
