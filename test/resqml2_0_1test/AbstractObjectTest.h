@@ -41,7 +41,7 @@ namespace resqml2_0_1test {
 		void initEpcDoc();
 
 		/**
-		 * Implementaiton of Abstract::readEpcDoc(). Consistant reading of both uuid and title of the tope level Resqml
+		 * Implementaiton of Abstract::readEpcDoc(). Consistant reading of both uuid and title of the top level Resqml
 		 * object is checked. This method calls readEpcDocHandler().
 		 */
 		void readEpcDoc();

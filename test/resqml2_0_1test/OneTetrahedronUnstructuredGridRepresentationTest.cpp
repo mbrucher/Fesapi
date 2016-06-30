@@ -55,7 +55,7 @@ void OneTetrahedronUnstructuredGridRepresentationTest::readEpcDocHandler() {
 	REQUIRE( unstructuredGrid->getHdfProxyUuid() == uuidHdfProxy);
 
 	// getXyzPointCountOfPatch
-	REQUIRE_THROWS( unstructuredGrid->getXyzPointCountOfPatch(1) == 0);
+	REQUIRE_THROWS( unstructuredGrid->getXyzPointCountOfPatch(1));
 	REQUIRE( unstructuredGrid->getXyzPointCountOfPatch(0) == 4);
 	
 	// getFaceIndicesOfCells

@@ -33,8 +33,11 @@ void TimeSeriesTest::initEpcDocHandler() {
 }
 
 void TimeSeriesTest::readEpcDocHandler() {
+	vector<TimeSeries*> timeSeriesSet = this->epcDoc->getTimeSeriesSet();
+	REQUIRE(timeSeriesSet.size() == 1);
+
 	// getting the TimeSeries
-	TimeSeries* timeSeries = static_cast<TimeSeries*>(this->epcDoc->getResqmlAbstractObjectByUuid(this->uuid));
+	TimeSeries* timeSeries = timeSeriesSet[0];
 
 	// **********************
 	// reading the TimeSeries

@@ -75,7 +75,7 @@ void ActivityCreationTest::readEpcDocHandler() {
 	REQUIRE( activity->getResqmlObjectParameterValue(0) == horizonInterpretation );
 	REQUIRE_FALSE( activity->isAFloatingPointQuantityParameter("CreationOutput") );
 	REQUIRE_FALSE( activity->isAFloatingPointQuantityParameter(0) );
-	REQUIRE_THROWS( activity->getFloatingPointQuantityParameterValue("CreationOutput").size() == 0 );
+	REQUIRE_THROWS( activity->getFloatingPointQuantityParameterValue("CreationOutput").size());
 	REQUIRE_THROWS( activity->getFloatingPointQuantityParameterValue(0) );
 
 	// cleaning

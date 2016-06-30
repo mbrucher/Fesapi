@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AbstractPropertyTest.h"
-#include <iostream>
+#include <string>
 
 namespace common {
 	class EpcDocument;

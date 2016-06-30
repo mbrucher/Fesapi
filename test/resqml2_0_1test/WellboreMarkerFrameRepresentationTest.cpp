@@ -44,7 +44,6 @@ void WellboreMarkerFrameRepresentationTest::initEpcDocHandler() {
 	wmf->pushBackNewWellboreMarker("", "testing Fault", gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
 }
 
-// remark: the deserialization of the origin ijk grid is not handled
 void WellboreMarkerFrameRepresentationTest::readEpcDocHandler() {
 	
 }

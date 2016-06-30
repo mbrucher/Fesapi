@@ -20,9 +20,13 @@
 #include "resqml2_0_1test/OneTetrahedronUnstructuredGridRepresentationTest.h"
 #include "resqml2_0_1test/UnstructuredFromIjkGridRepresentationTest.h"
 #include "resqml2_0_1test/TimeSeriesTest.h"
+#include "resqml2_0_1test/ContinuousPropertyOnWellFrameTest.h"
 #include "resqml2_0_1test/ContinuousPropertySeriesTest.h"
 #include "resqml2_0_1test/ContinuousPropertyOnPartialGridTest.h"
 #include "resqml2_0_1test/WellboreMarkerFrameRepresentationTest.h"
+#include "resqml2_0_1test/WellboreFrameRepresentationTest.h"
+#include "resqml2_0_1test/WellboreRegularFrameRepresentationTest.h"
+#include "resqml2_0_1test/DiscretePropertyUsingLocalKindOnWellFrameTest.h"
 
 using namespace commontest;
 using namespace resqml2_0_1test;
@@ -69,3 +73,9 @@ FESAPI_TEST("Export and import continuous property series", "[property]", Contin
 FESAPI_TEST("Export and import continuous property on partial grid", "[property]", ContinuousPropertyOnPartialGridTest)
 
 FESAPI_TEST("Export and import a wellbore marker frame", "[well][stratigraphy]", WellboreMarkerFrameRepresentationTest)
+
+FESAPI_TEST("Export and import a wellbore frame (regular md spacings)", "[well]", WellboreRegularFrameRepresentationTest)
+
+FESAPI_TEST("Export and import a wellbore frame (irregular md spacings) with a single continuous property on node", "[well][property]", ContinuousPropertyOnWellFrameTest)
+
+FESAPI_TEST("Export and import a wellbore frame (irregular md spacings) with a single discrete property on node using a local property kind", "[well][property]", DiscretePropertyUsingLocalKindOnWellFrameTest)

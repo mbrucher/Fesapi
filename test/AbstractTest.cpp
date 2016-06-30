@@ -40,7 +40,7 @@ void AbstractTest::deserialize() {
 	vector<string> warningSet = this->epcDoc->getWarnings();
 	if (warningSet.size() > 0) {
 		cout << "EPC document " << this->epcDoc->getName() << ".epc deserialized with " << warningSet.size() << " warning(s)" << endl;
-		for (unsigned int i=0; i<warningSet.size(); ++i){
+		for (size_t i=0; i<warningSet.size(); ++i){
 			cout << "Warning " << i+1 << ": " << warningSet[i] << endl;
 		}
 		cout << endl;

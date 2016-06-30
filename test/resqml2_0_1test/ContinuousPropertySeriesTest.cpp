@@ -22,11 +22,10 @@ ContinuousPropertySeriesTest::ContinuousPropertySeriesTest(const string & epcDoc
 
 ContinuousPropertySeriesTest::ContinuousPropertySeriesTest(EpcDocument * epcDoc, bool init)
 	: ContinuousPropertyTest(epcDoc, defaultUuid, defaultTitle, IjkGridExplicitRepresentationTest::defaultUuid, IjkGridExplicitRepresentationTest::defaultTitle) {
-		if (init)
-			this->initEpcDoc();
-		else
-			this->readEpcDoc();
-
+	if (init)
+		this->initEpcDoc();
+	else
+		this->readEpcDoc();
 }
 
 void ContinuousPropertySeriesTest::initEpcDocHandler() {

@@ -22,9 +22,9 @@ WellboreTest::WellboreTest(const string & epcDocPath)
 WellboreTest::WellboreTest(EpcDocument* epcDoc, bool init)
 	: AbstractFeatureTest(epcDoc, defaultUuid, defaultTitle) {
 	if (init)
-			this->initEpcDoc();
-		else
-			this->readEpcDoc();
+		this->initEpcDoc();
+	else
+		this->readEpcDoc();
 }
 
 void WellboreTest::initEpcDocHandler() {
