@@ -31,7 +31,7 @@ IjkGridExplicitRepresentationTest::IjkGridExplicitRepresentationTest(EpcDocument
 void IjkGridExplicitRepresentationTest::initEpcDocHandler() {
 	// getting the local depth 3d crs
 	LocalDepth3dCrsTest* crsTest = new LocalDepth3dCrsTest(this->epcDoc, true);
-	resqml2_0_1::LocalDepth3dCrs* crs = static_cast<resqml2_0_1::LocalDepth3dCrs*>(this->epcDoc->getResqmlAbstractObjectByUuid(LocalDepth3dCrsTest::defaultUuid));
+	resqml2_0_1::LocalDepth3dCrs* crs = epcDoc->getResqmlAbstractObjectByUuid<resqml2_0_1::LocalDepth3dCrs>(LocalDepth3dCrsTest::defaultUuid);
 
 	// getting the hdf proxy
 	AbstractHdfProxy* hdfProxy = this->epcDoc->getHdfProxySet()[0];

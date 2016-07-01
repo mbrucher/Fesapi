@@ -13,10 +13,22 @@ namespace resqml2_0_1test {
 	// Fault
 	static const char* uuidFault = "8e5874d1-c434-46d1-9d6f-7fef83bf7b70";
 	static const char* titleFault = "Fault Test";
+
+	// Horizon
+	static const char* uuidHorizon0 = "35ea54a9-63d8-4520-a4be-8eb7afff3a4f";
+	static const char* titleHorizon0 = "Horizon 0";
+	static const char* uuidHorizon1 = "2012cd8f-9175-4a80-b690-15882d2469cc";
+	static const char* titleHorizon1 = "Horizon 1";
 	
 	// FaultInterpretation
 	static const char* uuidFaultInterpretation = "c6a20f6f-4f12-44c1-b3a9-0a1db83eff7e";
 	static const char* titleFaultInterpretation = "Fault Interpretation Test";
+
+	// Horizon Interp
+	static const char* uuidHorizon0Interp = "4068e875-af33-4a12-87c1-89953cc675cc";
+	static const char* titleHorizon0Interp = "Horizon 0 Interp";
+	static const char* uuidHorizon1Interp = "681d4b48-9355-41a2-998d-dcdc0cad4903";
+	static const char* titleHorizon1Interp = "Horizon 1 Interp";
 	
 	// Single patch Fault TriangulatedSetRepresentation
 	static const char* uuidFaultSinglePatchTriangulatedSetRepresentation = "321d2b25-66fe-4749-8fad-c5cef401586e";

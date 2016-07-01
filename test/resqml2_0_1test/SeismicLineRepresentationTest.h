@@ -1,15 +1,21 @@
 #pragma once
 
-#include "resqml2_0_1test/AbstractFeatureTest.h"
-#include <iostream>
+#include "AbstractSurfaceRepresentationTest.h"
+#include <string>
 
 namespace common {
 	class EpcDocument;
 }
 
 namespace resqml2_0_1test {
-	class HorizonTest : public AbstractFeatureTest {
+	class SeismicLineRepresentationTest : public AbstractSurfaceRepresentationTest {
 	public:
+		static const char* defaultUuidFeatureSet;
+		static const char* defaultTitleFeatureSet;
+		static const char* defaultUuidFeature;
+		static const char* defaultTitleFeature;
+		static const char* defaultUuidInterp;
+		static const char* defaultTitleInterp;
 		static const char* defaultUuid;
 		static const char* defaultTitle;
 
@@ -18,8 +24,7 @@ namespace resqml2_0_1test {
 		* exising .epc file will be erased. 
 		* @param epcDocPath the path of the .epc file (including .epc extension)
 		*/
-		HorizonTest(const std::string & epcDocPath);
-		HorizonTest(const std::string & epcDocPath, const std::string & uuid, const std::string & title);
+		SeismicLineRepresentationTest(const std::string & epcDocPath);
 
 		/**
 		* Creation of a testing object from an existing EPC document.
@@ -27,11 +32,10 @@ namespace resqml2_0_1test {
 		* @param init true if this object is created for initialization purpose else false if it is 
 		* created for reading purpose. According to init value a iniEpcDoc() or readEpcDoc() is called.
 		*/
-		HorizonTest(common::EpcDocument* epcDoc, bool init);
-		HorizonTest(common::EpcDocument* epcDoc, bool init, const std::string & uuid, const std::string & title);
-
+		SeismicLineRepresentationTest(common::EpcDocument * epcDocument, bool init);
 	protected:
 		void initEpcDocHandler();
 		void readEpcDocHandler();
 	};
 }
+

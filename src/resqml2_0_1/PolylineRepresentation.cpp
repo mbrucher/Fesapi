@@ -53,6 +53,10 @@ const char* PolylineRepresentation::XML_TAG = "PolylineRepresentation";
 void PolylineRepresentation::init(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title, bool isClosed)
 {
+	if (crs == nullptr) {
+		throw invalid_argument("The CRS of a polyline representation cannot be null");
+	}
+
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPolylineRepresentation(crs->getGsoapContext(), 1);
 	_resqml2__PolylineRepresentation* polylineRep = static_cast<_resqml2__PolylineRepresentation*>(gsoapProxy2_0_1);
 
@@ -62,8 +66,9 @@ void PolylineRepresentation::init(resqml2::AbstractFeatureInterpretation* interp
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// relationships
-	if (interp != nullptr)
+	if (interp != nullptr) {
 		setInterpretation(interp);
+	}
 
 	localCrs = crs;
 	localCrs->addRepresentation(this);

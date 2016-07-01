@@ -38,7 +38,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <sstream>
 #include <stdexcept>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #else 
 #include <fcntl.h>

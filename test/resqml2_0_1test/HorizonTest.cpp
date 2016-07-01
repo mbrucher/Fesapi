@@ -20,12 +20,21 @@ HorizonTest::HorizonTest(const string & epcDocPath)
 	: AbstractFeatureTest(epcDocPath, defaultUuid, defaultTitle) {
 }
 
+HorizonTest::HorizonTest(const string & epcDocPath, const std::string & uuid, const std::string & title)
+	: AbstractFeatureTest(epcDocPath, uuid, title) {
+}
+
 HorizonTest::HorizonTest(EpcDocument* epcDoc, bool init)
-	: AbstractFeatureTest(epcDoc, defaultUuid, defaultTitle) {
+	: HorizonTest(epcDoc, init, defaultUuid, defaultTitle)
+{
+}
+
+HorizonTest::HorizonTest(EpcDocument* epcDoc, bool init, const std::string & uuid, const std::string & title)
+	: AbstractFeatureTest(epcDoc, uuid, title) {
 	if (init)
-			initEpcDoc();
-		else
-			readEpcDoc();
+		initEpcDoc();
+	else
+		readEpcDoc();
 }
 
 void HorizonTest::initEpcDocHandler() {

@@ -1,5 +1,7 @@
 #include "resqml2_0_1test/WellboreMarkerFrameRepresentationTest.h"
 
+#include "catch.hpp"
+
 #include "config.h"
 #include "resqml2_0_1test/WellboreInterpretationTest.h"
 #include "resqml2_0_1test/WellboreTrajectoryRepresentationTest.h"
@@ -7,6 +9,7 @@
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
+#include "resqml2_0_1/WellboreMarker.h"
 
 using namespace std;
 using namespace common;
@@ -29,8 +32,8 @@ void WellboreMarkerFrameRepresentationTest::initEpcDocHandler() {
 	WellboreInterpretationTest * interpTest = new WellboreInterpretationTest(this->epcDoc, true);
 	WellboreTrajectoryRepresentationTest * trajTest = new WellboreTrajectoryRepresentationTest(this->epcDoc, true);
 
-	WellboreInterpretation * interp = static_cast<WellboreInterpretation*>(this->epcDoc->getResqmlAbstractObjectByUuid(WellboreInterpretationTest::defaultUuid));
-	WellboreTrajectoryRepresentation * traj = static_cast<WellboreTrajectoryRepresentation*>(this->epcDoc->getResqmlAbstractObjectByUuid(WellboreTrajectoryRepresentationTest::defaultUuid));
+	WellboreInterpretation * interp = epcDoc->getResqmlAbstractObjectByUuid<WellboreInterpretation>(WellboreInterpretationTest::defaultUuid);
+	WellboreTrajectoryRepresentation * traj = epcDoc->getResqmlAbstractObjectByUuid<WellboreTrajectoryRepresentation>(WellboreTrajectoryRepresentationTest::defaultUuid);
 
 	// cleaning
 	delete interpTest;
@@ -45,5 +48,9 @@ void WellboreMarkerFrameRepresentationTest::initEpcDocHandler() {
 }
 
 void WellboreMarkerFrameRepresentationTest::readEpcDocHandler() {
-	
+	WellboreMarkerFrameRepresentation* wmf = epcDoc->getResqmlAbstractObjectByUuid<WellboreMarkerFrameRepresentation>(uuid);
+	REQUIRE(wmf != nullptr);
+	REQUIRE(wmf->getWellboreMarkerCount() == 2);
+	REQUIRE((wmf->getWellboreMarkerSet()[0])->getGeologicBoundaryKind() == gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__horizon);
+	REQUIRE((wmf->getWellboreMarkerSet()[1])->getGeologicBoundaryKind() == gsoap_resqml2_0_1::resqml2__GeologicBoundaryKind__fault);
 }

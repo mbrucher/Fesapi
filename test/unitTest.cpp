@@ -27,6 +27,7 @@
 #include "resqml2_0_1test/WellboreFrameRepresentationTest.h"
 #include "resqml2_0_1test/WellboreRegularFrameRepresentationTest.h"
 #include "resqml2_0_1test/DiscretePropertyUsingLocalKindOnWellFrameTest.h"
+#include "resqml2_0_1test/HorizonOnSeismicLine.h"
 
 using namespace commontest;
 using namespace resqml2_0_1test;
@@ -79,3 +80,5 @@ FESAPI_TEST("Export and import a wellbore frame (regular md spacings)", "[well]"
 FESAPI_TEST("Export and import a wellbore frame (irregular md spacings) with a single continuous property on node", "[well][property]", ContinuousPropertyOnWellFrameTest)
 
 FESAPI_TEST("Export and import a wellbore frame (irregular md spacings) with a single discrete property on node using a local property kind", "[well][property]", DiscretePropertyUsingLocalKindOnWellFrameTest)
+
+FESAPI_TEST("Export and import an horizon on a seismic line", "[seismic]", HorizonOnSeismicLine)

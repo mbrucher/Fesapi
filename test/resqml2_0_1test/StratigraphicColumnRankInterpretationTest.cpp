@@ -57,10 +57,10 @@ void StratigraphicColumnRankInterpretationTest::initEpcDocHandler() {
 	StratigraphicUnitInterpretationTest* stratiLayerInterpTest = new StratigraphicUnitInterpretationTest(epcDoc, true);
 	StratigraphicUnitInterpretationTest* underburdenInterpTest = new StratigraphicUnitInterpretationTest(epcDoc, defaultUnderburdenInterpUuid, defaultUnderburdenInterpTitle, defaultUnderburdenUuid, defaultUnderburdenTitle, true);
 
-	OrganizationFeature* stratiOrg = static_cast<OrganizationFeature*>(this->epcDoc->getResqmlAbstractObjectByUuid(StratigraphicOrganizationTest::defaultUuid));
-	StratigraphicUnitInterpretation* overburdenInterp = static_cast<StratigraphicUnitInterpretation*>(this->epcDoc->getResqmlAbstractObjectByUuid(defaultOverburdenInterpUuid));
-	StratigraphicUnitInterpretation* stratiLayerInterp = static_cast<StratigraphicUnitInterpretation*>(this->epcDoc->getResqmlAbstractObjectByUuid(StratigraphicUnitInterpretationTest::defaultUuid));
-	StratigraphicUnitInterpretation* underburdenInterp = static_cast<StratigraphicUnitInterpretation*>(this->epcDoc->getResqmlAbstractObjectByUuid(defaultUnderburdenInterpUuid));
+	OrganizationFeature* stratiOrg = epcDoc->getResqmlAbstractObjectByUuid<OrganizationFeature>(StratigraphicOrganizationTest::defaultUuid);
+	StratigraphicUnitInterpretation* overburdenInterp = epcDoc->getResqmlAbstractObjectByUuid<StratigraphicUnitInterpretation>(defaultOverburdenInterpUuid);
+	StratigraphicUnitInterpretation* stratiLayerInterp = epcDoc->getResqmlAbstractObjectByUuid<StratigraphicUnitInterpretation>(StratigraphicUnitInterpretationTest::defaultUuid);
+	StratigraphicUnitInterpretation* underburdenInterp = epcDoc->getResqmlAbstractObjectByUuid<StratigraphicUnitInterpretation>(defaultUnderburdenInterpUuid);
 
 	// cleaning
 	delete stratiOrgtTest;
@@ -77,7 +77,7 @@ void StratigraphicColumnRankInterpretationTest::initEpcDocHandler() {
 
 void StratigraphicColumnRankInterpretationTest::readEpcDocHandler()
 {
-	// getting the TimeSeries
-	StratigraphicColumnRankInterpretation* stratiColumnRank = static_cast<StratigraphicColumnRankInterpretation*>(this->epcDoc->getResqmlAbstractObjectByUuid(uuid));
+	StratigraphicColumnRankInterpretation* stratiColumnRank = epcDoc->getResqmlAbstractObjectByUuid<StratigraphicColumnRankInterpretation>(uuid);
 	REQUIRE(stratiColumnRank != nullptr);
+	REQUIRE(stratiColumnRank->getStratigraphicUnitInterpretationSet().size() == 3);
 }

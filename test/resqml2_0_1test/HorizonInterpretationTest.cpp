@@ -1,6 +1,7 @@
 #include "resqml2_0_1test/HorizonInterpretationTest.h"
 
 #include "catch.hpp"
+
 #include "AbstractObjectTest.h"
 #include "resqml2_0_1test/HorizonTest.h"
 
@@ -20,8 +21,13 @@ HorizonInterpretationTest::HorizonInterpretationTest(const string & epcDocPath)
 {
 }
 
-HorizonInterpretationTest::HorizonInterpretationTest(EpcDocument * epcDoc, bool init)
-	: BoundaryFeatureInterpretationTest(epcDoc, defaultUuid, defaultTitle, HorizonTest::defaultUuid, HorizonTest::defaultTitle)
+HorizonInterpretationTest::HorizonInterpretationTest(const std::string & epcDocPath, const std::string & uuid, const std::string & title, const std::string & uuidFeature, const std::string & titleFeature)
+	: BoundaryFeatureInterpretationTest(epcDocPath, uuid, title, uuidFeature, titleFeature)
+{
+}
+
+HorizonInterpretationTest::HorizonInterpretationTest(EpcDocument * epcDoc, bool init, const std::string & uuid, const std::string & title, const std::string & uuidFeature, const std::string & titleFeature)
+	: BoundaryFeatureInterpretationTest(epcDoc, uuid, title, uuidFeature, titleFeature)
 {
 	if (init)
 		this->initEpcDoc();
@@ -29,23 +35,33 @@ HorizonInterpretationTest::HorizonInterpretationTest(EpcDocument * epcDoc, bool 
 		this->readEpcDoc();
 }
 
+HorizonInterpretationTest::HorizonInterpretationTest(EpcDocument * epcDoc, bool init)
+	: HorizonInterpretationTest(epcDoc, init, defaultUuid, defaultTitle, HorizonTest::defaultUuid, HorizonTest::defaultTitle)
+{
+}
+
+
 void HorizonInterpretationTest::initEpcDocHandler()
 {
 	// creating dependencies
-	HorizonTest* horizonTest = new HorizonTest(this->epcDoc, true);
+	Horizon* horizon = epcDoc->getResqmlAbstractObjectByUuid<Horizon>(uuidFeature);
+	if (horizon == nullptr) {
+		HorizonTest* horizonTest = new HorizonTest(this->epcDoc, true, uuidFeature, titleFeature);
+		horizon = epcDoc->getResqmlAbstractObjectByUuid<Horizon>(uuidFeature);
+		delete horizonTest;
+	}
 
-	Horizon* horizon = static_cast<Horizon*>(this->epcDoc->getResqmlAbstractObjectByUuid(HorizonTest::defaultUuid));
-	HorizonInterpretation* horizonInterp = this->epcDoc->createHorizonInterpretation(horizon, uuid, title);
+	HorizonInterpretation* horizonInterp = epcDoc->getResqmlAbstractObjectByUuid<HorizonInterpretation>(uuid);
+	if (horizonInterp == nullptr) {
+		horizonInterp = this->epcDoc->createHorizonInterpretation(horizon, uuid, title);
+	}
 	REQUIRE( horizonInterp != nullptr );
-
-	// cleaning
-	delete horizonTest;
 }
 
 void HorizonInterpretationTest::readEpcDocHandler()
 {
 	// reading dependencies
-	HorizonTest* horizonTest = new HorizonTest(this->epcDoc, false);
+	HorizonTest* horizonTest = new HorizonTest(this->epcDoc, false, uuidFeature, titleFeature);
 
 	// cleaning
 	delete horizonTest;

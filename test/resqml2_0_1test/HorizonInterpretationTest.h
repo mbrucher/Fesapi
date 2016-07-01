@@ -19,6 +19,7 @@ namespace resqml2_0_1test {
 		* @param epcDocPath the path of the .epc file (including .epc extension)
 		*/
 		HorizonInterpretationTest(const std::string & epcDocPath);
+		HorizonInterpretationTest(const std::string & epcDocPath, const std::string & uuid, const std::string & title, const std::string & uuidFeature, const std::string & titleFeature);
 
 		/**
 		* Creation of a testing object from an existing EPC document.
@@ -27,6 +28,7 @@ namespace resqml2_0_1test {
 		* created for reading purpose. According to init value a iniEpcDoc() or readEpcDoc() is called.
 		*/
 		HorizonInterpretationTest(common::EpcDocument * epcDocument, bool init);
+		HorizonInterpretationTest(common::EpcDocument * epcDocument, bool init, const std::string & uuid, const std::string & title, const std::string & uuidFeature, const std::string & titleFeature);
 	protected:
 		void initEpcDocHandler();
 		void readEpcDocHandler();
