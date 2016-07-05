@@ -51,6 +51,7 @@ namespace resqml2
 	%nspace resqml2::AbstractObject;
 	%nspace resqml2::AbstractFeature;
 	%nspace resqml2::AbstractFeatureInterpretation;
+	%nspace resqml2::AbstractGridRepresentation;
 	%nspace resqml2::AbstractHdfProxy;
 	%nspace resqml2::AbstractLocal3dCrs;
 	%nspace resqml2::AbstractProperty;
@@ -358,6 +359,53 @@ namespace resqml2
 		AbstractRepresentation* getSupportingRepresentation() const;
 	};
 	
+	class GridConnectionSetRepresentation;
+	class AbstractGridRepresentation : public AbstractRepresentation
+	{
+	public:
+		unsigned int getGridConnectionSetRepresentationCount() const;
+		GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
+		virtual ULONG64 getCellCount() const = 0;
+		
+		std::string getParentGridUuid() const;
+		AbstractGridRepresentation* getParentGrid() const;
+		unsigned int getChildGridCount() const;
+		AbstractGridRepresentation* getChildGrid(const unsigned int & index) const;
+		void setParentWindow(ULONG64 * cellIndices, const ULONG64 & cellIndexCount, resqml2_0_1::UnstructuredGridRepresentation* parentGrid);
+		void setParentWindow(unsigned int * columnIndices, const unsigned int & columnIndexCount,
+			const unsigned int & kLayerIndexRegridStart,
+			unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount,
+			resqml2_0_1::AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = nullptr);
+		void setParentWindow(
+			const unsigned int & iCellIndexRegridStart, unsigned int * childCellCountPerIInterval, unsigned int * parentCellCountPerIInterval,  const unsigned int & iIntervalCount,
+			const unsigned int & jCellIndexRegridStart, unsigned int * childCellCountPerJInterval, unsigned int * parentCellCountPerJInterval,  const unsigned int & jIntervalCount,
+			const unsigned int & kCellIndexRegridStart, unsigned int * childCellCountPerKInterval, unsigned int * parentCellCountPerKInterval,  const unsigned int & kIntervalCount,
+			resqml2_0_1::AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
+		void setParentWindow(
+			const unsigned int & iCellIndexRegridStart, unsigned int iChildCellCount, unsigned int iParentCellCount,
+			const unsigned int & jCellIndexRegridStart, unsigned int jChildCellCount, unsigned int jParentCellCount,
+			const unsigned int & kCellIndexRegridStart, unsigned int kChildCellCount, unsigned int kParentCellCount,
+			resqml2_0_1::AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
+		void setForcedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount);	
+		LONG64 getParentCellIndexCount() const;
+		void getParentCellIndices(ULONG64 * parentCellIndices) const;
+		LONG64 getParentColumnIndexCount() const;
+		void getParentColumnIndices(ULONG64 * parentColumnIndices) const;
+		ULONG64 getRegridStartIndexOnParentGrid(const char & dimension) const;
+		ULONG64 getRegridIntervalCount(const char & dimension) const;
+		bool isRegridCellCountPerIntervalConstant(const char & dimension, const bool & childVsParentCellCount) const;
+		ULONG64 getRegridConstantCellCountPerInterval(const char & dimension, const bool & childVsParentCellCount) const;
+		void getRegridCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval, const bool & childVsParentCellCount) const;
+		bool hasRegridChildCellWeights(const char & dimension) const;
+		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
+
+		void setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
+		virtual std::string getStratigraphicOrganizationInterpretationUuid() const;
+		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
+		bool hasCellStratigraphicUnitIndices() const;
+		ULONG64 getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
+	};
+	
 	class GridConnectionSetRepresentation : public resqml2::AbstractRepresentation
 	{
 	public:
@@ -376,7 +424,7 @@ namespace resqml2
 		bool isBasedOnMultiGrids() const;
 		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
 		
-		void pushBackSupportingGridRepresentation(resqml2_0_1::AbstractGridRepresentation * supportingGridRep);
+		void pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
 		
 		void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
 		void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy);
@@ -388,7 +436,7 @@ namespace resqml2
 		unsigned int getInterpretationCount() const;
 		
 		unsigned int getSupportingGridRepresentationCount() const;
-		resqml2_0_1::AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index);
+		AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index);
 		std::string getSupportingGridRepresentationUuid(unsigned int index) const;
 	};
 

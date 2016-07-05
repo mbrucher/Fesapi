@@ -33,25 +33,25 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractGridRepresentation.h"
+#include "resqml2/AbstractGridRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT AbstractColumnLayerGridRepresentation : public AbstractGridRepresentation
+	class DLL_IMPORT_OR_EXPORT AbstractColumnLayerGridRepresentation : public resqml2::AbstractGridRepresentation
 	{
 	protected:
 
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractGridRepresentation(epcDoc, partialObject) {}
+		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :resqml2::AbstractGridRepresentation(epcDoc, partialObject) {}
 
-		AbstractColumnLayerGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : AbstractGridRepresentation(interp, crs) {}
+		AbstractColumnLayerGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : resqml2::AbstractGridRepresentation(interp, crs) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractColumnLayerGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractColumnLayerGridRepresentation* fromGsoap): AbstractGridRepresentation(fromGsoap) {}
+		AbstractColumnLayerGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractColumnLayerGridRepresentation* fromGsoap) : resqml2::AbstractGridRepresentation(fromGsoap) {}
 
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
@@ -87,9 +87,9 @@ namespace resqml2_0_1
 		void setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, class AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
 
 		/**
-		* @return	nullptr if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the associated stratigraphic organization interpretation;
+		* @return	empty string if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the uuid of the associated stratigraphic organization interpretation.
 		*/
-		class AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
+		std::string getStratigraphicOrganizationInterpretationUuid() const;
 
 		/**
 		* @return	true if this grid representation has got some association between stratigraphic unit indices and interval. Intervals = layers + K gaps.

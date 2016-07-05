@@ -33,11 +33,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractGridRepresentation.h"
+#include "resqml2/AbstractGridRepresentation.h"
 
 namespace resqml2_0_1
 {
-	class DLL_IMPORT_OR_EXPORT UnstructuredGridRepresentation : public AbstractGridRepresentation
+	class DLL_IMPORT_OR_EXPORT UnstructuredGridRepresentation : public resqml2::AbstractGridRepresentation
 	{
 	private :
 
@@ -65,7 +65,7 @@ namespace resqml2_0_1
 		* Only to be used in partial transfer context
 		*/
 		UnstructuredGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractGridRepresentation(nullptr, partialObject), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+			resqml2::AbstractGridRepresentation(nullptr, partialObject), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 		{
@@ -86,7 +86,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		UnstructuredGridRepresentation(gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* fromGsoap):
-			AbstractGridRepresentation(fromGsoap), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+			resqml2::AbstractGridRepresentation(fromGsoap), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr) {}
 

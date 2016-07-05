@@ -35,6 +35,11 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/WellboreFrameRepresentation.h"
 
+namespace resqml2
+{
+	class AbstractGridRepresentation;
+}
+
 namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT BlockedWellboreRepresentation : public WellboreFrameRepresentation
@@ -93,7 +98,7 @@ namespace resqml2_0_1
 		 * Pushes back a grid representation which is one of the support of this representation.
 		 * And push back this representation as a grid connection information of the grid representation as well.
 		 */
-		void pushBackSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
+		void pushBackSupportingGridRepresentation(resqml2::AbstractGridRepresentation * supportingGridRep);
 		
 		/**
 		* Get the count of the supporting grid representations of this grid connection representation.
@@ -103,7 +108,7 @@ namespace resqml2_0_1
 		/**
 		* Get the supporting grid representation located at a specific index of this grid connection representation.
 		*/
-		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
+		resqml2::AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
 		
 		/**
 		* Get the first supporting grid representation uuid of this grid connection representation.

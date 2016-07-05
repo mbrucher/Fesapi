@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "hdf5.h"
 
 #include "resqml2_0_1/FaultInterpretation.h"
-#include "resqml2_0_1/AbstractGridRepresentation.h"
+#include "resqml2/AbstractGridRepresentation.h"
 #include "resqml2/AbstractHdfProxy.h"
 #include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
@@ -60,7 +60,7 @@ vector<Relationship> GridConnectionSetRepresentation::getAllEpcRelationships() c
 	const unsigned int supportingGridCount = getSupportingGridRepresentationCount();
 	for (unsigned int i = 0; i < supportingGridCount; ++i)
 	{
-		resqml2_0_1::AbstractGridRepresentation* grid = getSupportingGridRepresentation(i);
+		AbstractGridRepresentation* grid = getSupportingGridRepresentation(i);
 		Relationship relSupportingGrid(grid->getPartNameInEpcDocument(), "", grid->getUuid());
 		relSupportingGrid.setDestinationObjectType();
 		result.push_back(relSupportingGrid);
@@ -78,7 +78,7 @@ vector<Relationship> GridConnectionSetRepresentation::getAllEpcRelationships() c
 	return result;
 }
 
-void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(resqml2_0_1::AbstractGridRepresentation * supportingGridRep)
+void GridConnectionSetRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep)
 {
 	if (supportingGridRep == nullptr) {
 		throw invalid_argument("The supporting Grid Representation cannot be null.");
@@ -116,12 +116,12 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 	updateXml = false;
 	unsigned int supportingGridCount = getSupportingGridRepresentationCount();
 	for (unsigned int i = 0; i < supportingGridCount; ++i) {
-		resqml2_0_1::AbstractGridRepresentation* supportingGridRep = epcDocument->getResqmlAbstractObjectByUuid<resqml2_0_1::AbstractGridRepresentation>(getSupportingGridRepresentationUuid(i));
+		AbstractGridRepresentation* supportingGridRep = epcDocument->getResqmlAbstractObjectByUuid<AbstractGridRepresentation>(getSupportingGridRepresentationUuid(i));
 		if (supportingGridRep == nullptr) {
 			throw logic_error("Partial transfer not implemented yet for GridConnectionSetRepresentation");
 		}
 		else {
-			pushBackSupportingGridRepresentation(static_cast<resqml2_0_1::AbstractGridRepresentation*>(supportingGridRep));
+			pushBackSupportingGridRepresentation(supportingGridRep);
 		}
 	}
 	updateXml = true;
@@ -135,7 +135,7 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 				throw logic_error("Partial transfer not implemented yet for GridConnectionSetRepresentation");
 			}
 			else {
-				pushBackInterpretation(static_cast<AbstractFeatureInterpretation*>(interp));
+				pushBackInterpretation(interp);
 			}
 		}
 		updateXml = true;
@@ -157,7 +157,7 @@ AbstractFeatureInterpretation * GridConnectionSetRepresentation::getInterpretati
 	return static_cast<AbstractFeatureInterpretation*>(epcDocument->getResqmlAbstractObjectByUuid(getInterpretationUuidFromIndex(interpretationIndex)));
 }
 
-resqml2_0_1::AbstractGridRepresentation* GridConnectionSetRepresentation::getSupportingGridRepresentation(unsigned int index) const 
+AbstractGridRepresentation* GridConnectionSetRepresentation::getSupportingGridRepresentation(unsigned int index) const 
 {
-	return static_cast<resqml2_0_1::AbstractGridRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingGridRepresentationUuid(index)));
+	return static_cast<AbstractGridRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingGridRepresentationUuid(index)));
 }

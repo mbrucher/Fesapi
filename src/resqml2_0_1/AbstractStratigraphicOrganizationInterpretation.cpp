@@ -46,7 +46,7 @@ unsigned int AbstractStratigraphicOrganizationInterpretation::getGridRepresentat
 	return gridRepresentationSet.size();
 }
 
-AbstractGridRepresentation* AbstractStratigraphicOrganizationInterpretation::getGridRepresentation(const unsigned int & index) const
+resqml2::AbstractGridRepresentation* AbstractStratigraphicOrganizationInterpretation::getGridRepresentation(const unsigned int & index) const
 {
 	if (index >= getGridRepresentationCount())
 	{
@@ -56,7 +56,7 @@ AbstractGridRepresentation* AbstractStratigraphicOrganizationInterpretation::get
 	return gridRepresentationSet[index];
 }
 
-bool AbstractStratigraphicOrganizationInterpretation::isAssociatedToGridRepresentation(AbstractGridRepresentation* gridRep) const
+bool AbstractStratigraphicOrganizationInterpretation::isAssociatedToGridRepresentation(resqml2::AbstractGridRepresentation* gridRep) const
 {
 	return find(gridRepresentationSet.begin(), gridRepresentationSet.end(), gridRep) != gridRepresentationSet.end();
 }
@@ -65,8 +65,7 @@ vector<Relationship> AbstractStratigraphicOrganizationInterpretation::getAllEpcR
 {
 	vector<Relationship> result = AbstractOrganizationInterpretation::getAllEpcRelationships();
 
-	for (unsigned int i = 0; i < gridRepresentationSet.size(); ++i)
-	{
+	for (size_t i = 0; i < gridRepresentationSet.size(); ++i) {
 		Relationship relRep(gridRepresentationSet[i]->getPartNameInEpcDocument(), "", gridRepresentationSet[i]->getUuid());
 		relRep.setSourceObjectType();
 		result.push_back(relRep);

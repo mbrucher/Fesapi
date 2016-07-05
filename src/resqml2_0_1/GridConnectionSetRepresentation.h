@@ -53,7 +53,7 @@ namespace resqml2_0_1
 		* Pushes back a grid representation which is one of the support of this representation.
 		* And push back this representation as a grid connection information of the grid representation as well.
 		*/
-		void pushBackXmlSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
+		void pushBackXmlSupportingGridRepresentation(resqml2::AbstractGridRepresentation * supportingGridRep);
 
 	public:
 		/**

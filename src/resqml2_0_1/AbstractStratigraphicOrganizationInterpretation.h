@@ -67,21 +67,21 @@ namespace resqml2_0_1
 		* Get a grid representation associated to this strati org interp by means of its index.
 		* @param index	The index of the grid representation to get in the array of grid representaitons of this strati org interp.
 		*/
-		AbstractGridRepresentation* getGridRepresentation(const unsigned int & index) const;
+		resqml2::AbstractGridRepresentation* getGridRepresentation(const unsigned int & index) const;
 
 		/**
 		* Check if a grid representation is wether associated to this strati org interp or not.
 		* @param gridRep	The grid representation to check its assocaition with this strati org interp.
 		* @return			True or false.
 		*/
-		bool isAssociatedToGridRepresentation(AbstractGridRepresentation* gridRep) const;
+		bool isAssociatedToGridRepresentation(resqml2::AbstractGridRepresentation* gridRep) const;
 
 	private:
 
 		// Backward relationship
-		std::vector<AbstractGridRepresentation *> gridRepresentationSet;
+		std::vector<resqml2::AbstractGridRepresentation *> gridRepresentationSet;
 
-		friend void AbstractGridRepresentation::setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation * stratiOrgInterp);
+		friend void resqml2::AbstractGridRepresentation::setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation * stratiOrgInterp);
 		friend void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
 	};
 }

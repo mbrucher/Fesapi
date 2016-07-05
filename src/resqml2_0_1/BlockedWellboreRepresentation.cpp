@@ -37,7 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "hdf5.h"
 
-#include "resqml2_0_1/AbstractGridRepresentation.h"
+#include "resqml2/AbstractGridRepresentation.h"
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
 #include "resqml2/AbstractHdfProxy.h"
@@ -183,31 +183,26 @@ unsigned int BlockedWellboreRepresentation::getGridIndices(unsigned int * gridIn
 {
 	_resqml2__BlockedWellboreRepresentation* rep = static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1);
 
-	if (rep->GridIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-	{
+	if (rep->GridIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array) {
 		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->GridIndices)->Values->PathInHdfFile, gridIndices);
 		return static_cast<resqml2__IntegerHdf5Array*>(rep->GridIndices)->NullValue;
 	}
-	else if (rep->GridIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
-	{
+	else if (rep->GridIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray) {
 		unsigned int intervalCount = getMdValuesCount() - 1;
-		for (unsigned int i = 0; i < intervalCount; ++i)
-		{
+		for (unsigned int i = 0; i < intervalCount; ++i) {
 			gridIndices[i] = static_cast<resqml2__IntegerConstantArray*>(rep->GridIndices)->Value;
 		}
 	}
-	else
-	{
-		throw std::logic_error("Not yet implemented");
+	else {
+		throw std::logic_error("Not implemented yet");
 	}
 
 	return (numeric_limits<unsigned int>::max)();
 }
 
-void BlockedWellboreRepresentation::pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep)
+void BlockedWellboreRepresentation::pushBackSupportingGridRepresentation(resqml2::AbstractGridRepresentation * supportingGridRep)
 {
-	if (supportingGridRep == nullptr)
-	{
+	if (supportingGridRep == nullptr) {
 		throw invalid_argument("The supporting Grid Representation cannot be null.");
 	}
 
@@ -215,8 +210,7 @@ void BlockedWellboreRepresentation::pushBackSupportingGridRepresentation(Abstrac
 	supportingGridRep->blockedWellboreRepresentationSet.push_back(this);
 
 	// XML
-	if (updateXml)
-	{
+	if (updateXml) {
 		static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1)->Grid.push_back(supportingGridRep->newResqmlReference());
 	}
 }
@@ -225,8 +219,7 @@ std::string BlockedWellboreRepresentation::getSupportingGridRepresentationUuid(u
 {
 	_resqml2__BlockedWellboreRepresentation* rep = static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1);
 
-	if (index >= rep->Grid.size())
-	{
+	if (index >= rep->Grid.size()) {
 		throw range_error("The requested index is out of range of the available supporting grid representations.");
 	}
 	return rep->Grid[index]->UUID;
@@ -240,15 +233,9 @@ void BlockedWellboreRepresentation::importRelationshipSetFromEpc(common::EpcDocu
 
 	// Supporting grid representation
 	updateXml = false;
-	for (size_t i = 0; i < rep->Grid.size(); ++i)
-	{
-		resqml2::AbstractObject* supportingGridRep = epcDocument->getResqmlAbstractObjectByUuid(rep->Grid[i]->UUID);
-		if (dynamic_cast<AbstractGridRepresentation*>(supportingGridRep) == nullptr)
-		{
-			throw logic_error("The referenced supporting grid rep does not look to be a grid rep.");
-		}
-
-		pushBackSupportingGridRepresentation(static_cast<AbstractGridRepresentation*>(supportingGridRep));
+	for (size_t i = 0; i < rep->Grid.size(); ++i) {
+		resqml2::AbstractGridRepresentation* supportingGridRep = epcDocument->getResqmlAbstractObjectByUuid<resqml2::AbstractGridRepresentation>(rep->Grid[i]->UUID);
+		pushBackSupportingGridRepresentation(supportingGridRep);
 	}
 	updateXml = true;
 
@@ -259,7 +246,7 @@ unsigned int BlockedWellboreRepresentation::getSupportingGridRepresentationCount
 	return static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1)->Grid.size();
 }
 
-AbstractGridRepresentation* BlockedWellboreRepresentation::getSupportingGridRepresentation(unsigned int index) const
+resqml2::AbstractGridRepresentation* BlockedWellboreRepresentation::getSupportingGridRepresentation(unsigned int index) const
 {
-	return static_cast<AbstractGridRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingGridRepresentationUuid(index)));
+	return epcDocument->getResqmlAbstractObjectByUuid<resqml2::AbstractGridRepresentation>(getSupportingGridRepresentationUuid(index));
 }

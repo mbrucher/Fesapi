@@ -83,20 +83,19 @@ void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigrap
 	}
 }
 
-AbstractStratigraphicOrganizationInterpretation* AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationInterpretation() const
+std::string AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationInterpretationUuid() const
 {
-	AbstractStratigraphicOrganizationInterpretation* result = AbstractGridRepresentation::getStratigraphicOrganizationInterpretation();
-	if (result != nullptr)
-	{
+	string result = resqml2::AbstractGridRepresentation::getStratigraphicOrganizationInterpretationUuid();
+	if (!result.empty()) {
 		return result;
 	}
 
 	resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+	if (rep->IntervalStratigraphicUnits == nullptr) {
+		return "";
+	}
 
-	if (rep->IntervalStratigraphicUnits == nullptr)
-		return nullptr;
-
-	return static_cast<AbstractStratigraphicOrganizationInterpretation*>(getEpcDocument()->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID));
+	return rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID;
 }
 
 

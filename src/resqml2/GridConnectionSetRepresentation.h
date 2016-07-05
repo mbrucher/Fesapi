@@ -35,11 +35,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2/AbstractRepresentation.h"
 
-namespace resqml2_0_1
-{
-	class AbstractGridRepresentation;
-}
-
 namespace resqml2
 {
 	class DLL_IMPORT_OR_EXPORT GridConnectionSetRepresentation : public AbstractRepresentation
@@ -57,7 +52,7 @@ namespace resqml2
 		GridConnectionSetRepresentation(gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* fromGsoap) : AbstractRepresentation(fromGsoap) {}
 
 		virtual void pushBackXmlInterpretation(class AbstractFeatureInterpretation* interp) = 0;
-		virtual void pushBackXmlSupportingGridRepresentation(resqml2_0_1::AbstractGridRepresentation * supportingGridRep) = 0;
+		virtual void pushBackXmlSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep) = 0;
 
 	public:
 
@@ -191,7 +186,7 @@ namespace resqml2
 		 * Pushes back a grid representation which is one of the support of this representation.
 		 * And push back this representation as a grid connection information of the grid representation as well.
 		 */
-		void pushBackSupportingGridRepresentation(resqml2_0_1::AbstractGridRepresentation * supportingGridRep);
+		void pushBackSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
 		
 		/**
 		* Get the count of the supporting grid representations of this grid connection representation.
@@ -201,7 +196,7 @@ namespace resqml2
 		/**
 		* Get the supporting grid representation located at a specific index of this grid connection representation.
 		*/
-		resqml2_0_1::AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
+		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
 		
 		/**
 		* Get the first supporting grid representation uuid of this grid connection representation.

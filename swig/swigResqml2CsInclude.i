@@ -200,6 +200,11 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 	if (ret != null) {
 		return ret;
 	}
+	
+	ret = resqml2_instantiateConcreteGridRepresentation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
   
     if (cPtr == global::System.IntPtr.Zero) {
       return null;
@@ -217,10 +222,6 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     else if (type == "GridConnectionSetRepresentation")
     {
        return new f2i.energisticsStandardsApi.resqml2_0_1.GridConnectionSetRepresentation(cPtr, owner);
-    }
-    else if (type == "IjkGridRepresentation")
-    {
-		return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
     }
     else if (type == "NonSealedSurfaceFrameworkRepresentation")
     {
@@ -253,10 +254,6 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     else if (type == "TriangulatedSetRepresentation")
     {
        return new f2i.energisticsStandardsApi.resqml2_0_1.TriangulatedSetRepresentation(cPtr, owner);
-    }
-    else if (type == "UnstructuredGridRepresentation")
-    {
-       return new f2i.energisticsStandardsApi.resqml2_0_1.UnstructuredGridRepresentation(cPtr, owner);
     }
     else if (type == "WellboreTrajectoryRepresentation")
     {
@@ -341,6 +338,25 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
+  public static f2i.energisticsStandardsApi.resqml2.AbstractGridRepresentation resqml2_instantiateConcreteGridRepresentation(global::System.IntPtr cPtr, bool owner)
+  {  
+    if (cPtr == global::System.IntPtr.Zero) {
+      return null;
+    }
+    string type = $modulePINVOKE.resqml2_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
+
+    if (type == "UnstructuredGridRepresentation")
+    {
+        return new f2i.energisticsStandardsApi.resqml2_0_1.UnstructuredGridRepresentation(cPtr, owner);
+    }
+	else if (type == "IjkGridRepresentation")
+    {
+		return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
   public static f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation resqml2_0_1_instantiateConcreteIjkGridRepresentation(global::System.IntPtr cPtr, bool owner)
   {
     if (cPtr == global::System.IntPtr.Zero) {
@@ -408,6 +424,12 @@ namespace resqml2
 	%typemap(csout, excode=SWIGEXCODE) AbstractRepresentation*  {
 		global::System.IntPtr cPtr = $imcall;
 		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteRepresentation(cPtr, $owner);$excode
+		return ret;
+	}
+	
+	%typemap(csout, excode=SWIGEXCODE) AbstractGridRepresentation*  {
+		global::System.IntPtr cPtr = $imcall;
+		$csclassname ret = ($csclassname) $modulePINVOKE.resqml2_instantiateConcreteGridRepresentation(cPtr, $owner);$excode
 		return ret;
 	}
 	

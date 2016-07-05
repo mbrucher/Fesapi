@@ -41,7 +41,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "hdf5.h"
 
 #include "resqml2_0_1/FaultInterpretation.h"
-#include "resqml2_0_1/AbstractGridRepresentation.h"
+#include "resqml2/AbstractGridRepresentation.h"
 #include "resqml2/AbstractHdfProxy.h"
 #include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
@@ -420,7 +420,7 @@ void GridConnectionSetRepresentation::getLocalFacePerCellIndexPairs(int * localF
 		throw std::logic_error("Not yet implemented");
 }
 
-void GridConnectionSetRepresentation::pushBackXmlSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep)
+void GridConnectionSetRepresentation::pushBackXmlSupportingGridRepresentation(resqml2::AbstractGridRepresentation * supportingGridRep)
 {
 	static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.push_back(supportingGridRep->newResqmlReference());
 }
