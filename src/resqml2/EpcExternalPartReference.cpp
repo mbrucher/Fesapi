@@ -51,6 +51,11 @@ EpcExternalPartReference::EpcExternalPartReference(soap* soapContext, const stri
 		packageDirectoryAbsolutePath(packageDirAbsolutePath), relativeFilePath(externalFilePath) {
 }
 
+string EpcExternalPartReference::getXmlTag() const
+{
+	return XML_TAG;
+}
+
 vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const
 {
 	vector<Relationship> result;

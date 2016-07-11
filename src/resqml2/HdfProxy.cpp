@@ -102,8 +102,7 @@ void HdfProxy::open()
 
 void HdfProxy::close()
 {
-	if (hdfFile != -1)
-	{
+	if (hdfFile != -1) {
 		H5Fclose(hdfFile);
 		hdfFile = -1;
 	}
@@ -111,8 +110,9 @@ void HdfProxy::close()
 
 int HdfProxy::getHdfDatatypeInDataset(const std::string & datasetName)
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT); 
 	hid_t datatype = H5Dget_type(dataset); 
@@ -133,8 +133,9 @@ void HdfProxy::writeItemizedListOfList(const string & groupName,
 			void * elements,
 			const unsigned long long & elementsSize)
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
 	hid_t parentGrp = openOrCreateGroupInResqmlGroup(groupName);
 	hid_t grp = H5Gcreate(parentGrp, name.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
@@ -145,8 +146,7 @@ void HdfProxy::writeItemizedListOfList(const string & groupName,
 	hid_t fspaceCL = H5Screate_simple(1, &cumulativeLengthSize, nullptr);
 
 	hid_t datasetCL;
-	if (compressionLevel)
-	{
+	if (compressionLevel) {
 		// Create dataset and write it into the file.
 		hid_t dcpl = H5Pcreate (H5P_DATASET_CREATE);
 		H5Pset_deflate (dcpl, compressionLevel);
@@ -156,8 +156,7 @@ void HdfProxy::writeItemizedListOfList(const string & groupName,
 
 		H5Pclose(dcpl);
 	}
-	else
-	{
+	else {
 		datasetCL = H5Dcreate(grp, CUMULATIVE_LENGTH_DS_NAME, cumulativeLengthDatatype, fspaceCL, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	}
 
@@ -170,8 +169,7 @@ void HdfProxy::writeItemizedListOfList(const string & groupName,
 	hid_t fspaceE = H5Screate_simple(1, &elementsSize, nullptr);
 
 	hid_t datasetE;
-	if (compressionLevel)
-	{
+	if (compressionLevel) {
 		// Create dataset and write it into the file.
 		hid_t dcpl = H5Pcreate (H5P_DATASET_CREATE);
 		H5Pset_deflate (dcpl, compressionLevel);
@@ -181,8 +179,7 @@ void HdfProxy::writeItemizedListOfList(const string & groupName,
 
 		H5Pclose(dcpl);
 	}
-	else
-	{
+	else {
 		datasetE = H5Dcreate(grp, ELEMENTS_DS_NAME, elementsDatatype, fspaceE, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	}
 
@@ -195,8 +192,9 @@ void HdfProxy::writeItemizedListOfList(const string & groupName,
 
 unsigned int HdfProxy::getDimensionCount(const std::string & datasetName)
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 
@@ -211,8 +209,9 @@ unsigned int HdfProxy::getDimensionCount(const std::string & datasetName)
 
 hssize_t HdfProxy::getElementCount(const std::string & datasetName)
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
     hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	
@@ -277,8 +276,9 @@ void HdfProxy::writeArrayNd(const std::string & groupName,
 			unsigned long long * numValuesInEachDimension,
 			const unsigned int & numDimensions)
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName);
 	if (grp < 0) {
@@ -295,8 +295,7 @@ void HdfProxy::writeArrayNd(const std::string & groupName,
     // Create the dataset.
 	herr_t error;
 	hid_t dataset;
-	if (compressionLevel)
-	{
+	if (compressionLevel) {
 		hid_t dcpl = H5Pcreate (H5P_DATASET_CREATE);
 		H5Pset_deflate (dcpl, compressionLevel);
 		H5Pset_chunk (dcpl, numDimensions, numValuesInEachDimension);
@@ -311,8 +310,7 @@ void HdfProxy::writeArrayNd(const std::string & groupName,
 
 		H5Pclose(dcpl);
 	}
-	else
-	{
+	else {
 		dataset = H5Dcreate (grp, name.c_str(), datatype, space, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 		if (dataset < 0) {
 			H5Sclose(space);
@@ -353,7 +351,6 @@ void HdfProxy::createArrayNd(
 	// Create the dataset.
 	hid_t dataset;
 	if (compressionLevel) {
-
 		hid_t dcpl = H5Pcreate (H5P_DATASET_CREATE);
 		H5Pset_deflate (dcpl, compressionLevel);
 		H5Pset_chunk (dcpl, numDimensions, numValuesInEachDimension);
@@ -362,8 +359,7 @@ void HdfProxy::createArrayNd(
 
 		H5Pclose(dcpl);
 	}
-	else
-	{
+	else {
 		dataset = H5Dcreate (grp, datasetName.c_str(), datatype, space, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	}
 

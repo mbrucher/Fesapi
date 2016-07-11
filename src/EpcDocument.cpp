@@ -116,6 +116,22 @@ using namespace witsml1_4_1_1;
 
 const char* EpcDocument::DOCUMENT_EXTENSION = ".epc";
 
+#define GET_RESQML_2_0_1_GSOAP_PROXY_FROM_GSOAP_CONTEXT(className)\
+	gsoap_resqml2_0_1::_resqml2__##className* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORE##className(s, 1);\
+	soap_read_resqml2__obj_USCORE##className(s, read);
+
+
+#define GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(className)\
+	GET_RESQML_2_0_1_GSOAP_PROXY_FROM_GSOAP_CONTEXT(className)\
+	wrapper = new className(read);
+
+#define CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(className)\
+	(resqmlContentType.compare(className::XML_TAG) == 0)\
+	{\
+		GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(className);\
+	}
+
+
 namespace // anonymous namespace. Use only in that file.
 {
 	resqml2::AbstractHdfProxy* default_builder(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
@@ -468,7 +484,7 @@ void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 	proxy->epcDocument = this;
 }
 
-void EpcDocument::addGsoapProxyAndDeleteItIfException(resqml2::AbstractObject* proxy)
+void EpcDocument::addFesapiWrapperAndDeleteItIfException(resqml2::AbstractObject* proxy)
 {
 	try {
 		addGsoapProxy(proxy);
@@ -502,7 +518,7 @@ void EpcDocument::addGsoapProxy(witsml1_4_1_1::AbstractObject* proxy)
 	proxy->epcDocument = this;
 }
 
-void EpcDocument::addGsoapProxyAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy)
+void EpcDocument::addFesapiWrapperAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy)
 {
 	try {
 		addGsoapProxy(proxy);
@@ -580,396 +596,58 @@ string EpcDocument::deserialize()
 				throw invalid_argument("The EPC document contains the file " + it->second.getExtensionOrPartName().substr(1) + " in its contentType file which cannot be found or cannot be unzipped or is empty.");
 			}
 			istringstream iss(fileStr);
-			s->is = &iss;
+			setGsoapStream(&iss);
 			resqml2::AbstractObject* wrapper = nullptr;
 			const size_t lastEqualCharPos = it->second.getContentTypeString().find_last_of('_'); // The XML tag is after "obj_"
 			const string resqmlContentType = it->second.getContentTypeString().substr(lastEqualCharPos+1);
-			if (resqmlContentType.compare(MdDatum::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__MdDatum* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREMdDatum(s, 1);
-				soap_read_resqml2__obj_USCOREMdDatum(s, read);
-				wrapper = new MdDatum(read);
-			}
-			else if (resqmlContentType.compare(Activity::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__Activity* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREActivity(s, 1);
-				soap_read_resqml2__obj_USCOREActivity(s, read);
-				wrapper = new Activity(read);
-			}
-			else if (resqmlContentType.compare(ActivityTemplate::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__ActivityTemplate* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREActivityTemplate(s, 1);
-				soap_read_resqml2__obj_USCOREActivityTemplate(s, read);
-				wrapper = new ActivityTemplate(read);
-			}
-			else if (resqmlContentType.compare(SeismicLatticeFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__SeismicLatticeFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESeismicLatticeFeature(s, 1);
-				soap_read_resqml2__obj_USCORESeismicLatticeFeature(s, read);
-				wrapper = new SeismicLatticeFeature(read);
-			}
-			else if (resqmlContentType.compare(SeismicLineFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__SeismicLineFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESeismicLineFeature(s, 1);
-				soap_read_resqml2__obj_USCORESeismicLineFeature(s, read);
-				wrapper = new SeismicLineFeature(read);
-			}
-			else if (resqmlContentType.compare(SeismicLineSetFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__SeismicLineSetFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESeismicLineSetFeature(s, 1);
-				soap_read_resqml2__obj_USCORESeismicLineSetFeature(s, read);
-				wrapper = new SeismicLineSetFeature(read);
-			}
-			else if (resqmlContentType.compare(FrontierFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__FrontierFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREFrontierFeature(s, 1);
-				soap_read_resqml2__obj_USCOREFrontierFeature(s, read);
-				wrapper = new FrontierFeature(read);
-			}
-			else if (resqmlContentType.compare(LocalDepth3dCrs::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__LocalDepth3dCrs* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORELocalDepth3dCrs(s, 1);
-				soap_read_resqml2__obj_USCORELocalDepth3dCrs(s, read);
-				wrapper = new LocalDepth3dCrs(read);
-			}
-			else if (resqmlContentType.compare(LocalTime3dCrs::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__LocalTime3dCrs* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORELocalTime3dCrs(s, 1);
-				soap_read_resqml2__obj_USCORELocalTime3dCrs(s, read);
-				wrapper = new LocalTime3dCrs(read);
-			}
-			else if (resqmlContentType.compare(TectonicBoundaryFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORETectonicBoundaryFeature(s, 1);
-				soap_read_resqml2__obj_USCORETectonicBoundaryFeature(s, read);
-				if (read->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fault)
-					wrapper = new Fault(read);
-				else if (read->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture)
-					wrapper = new Fracture(read);
-			}
-			else if (resqmlContentType.compare(GeneticBoundaryFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__GeneticBoundaryFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREGeneticBoundaryFeature(s, 1);
-				soap_read_resqml2__obj_USCOREGeneticBoundaryFeature(s, read);
-				wrapper = new Horizon(read);
-			}
-			else if (resqmlContentType.compare(BoundaryFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__BoundaryFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREBoundaryFeature(s, 1);
-				soap_read_resqml2__obj_USCOREBoundaryFeature(s, read);
-				wrapper = new BoundaryFeature(read);
-			}
-			else if (resqmlContentType.compare(WellboreFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__WellboreFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREWellboreFeature(s, 1);
-				soap_read_resqml2__obj_USCOREWellboreFeature(s, read);
-				wrapper = new WellboreFeature(read);
-			}
-			else if (resqmlContentType.compare(StratigraphicUnitFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__StratigraphicUnitFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREStratigraphicUnitFeature(s, 1);
-				soap_read_resqml2__obj_USCOREStratigraphicUnitFeature(s, read);
-				wrapper = new StratigraphicUnitFeature(read);
-			}
-			else if (resqmlContentType.compare(StratigraphicColumn::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__StratigraphicColumn* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREStratigraphicColumn(s, 1);
-				soap_read_resqml2__obj_USCOREStratigraphicColumn(s, read);
-				wrapper = new StratigraphicColumn(read);
-			}
-			else if (resqmlContentType.compare(GenericFeatureInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__GenericFeatureInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREGenericFeatureInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREGenericFeatureInterpretation(s, read);
-				wrapper = new GenericFeatureInterpretation(read);
-			}
-			else if (resqmlContentType.compare(BoundaryFeatureInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__BoundaryFeatureInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREBoundaryFeatureInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREBoundaryFeatureInterpretation(s, read);
-				wrapper = new BoundaryFeatureInterpretation(read);
-			}
-			else if (resqmlContentType.compare(WellboreInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__WellboreInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREWellboreInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREWellboreInterpretation(s, read);
-				wrapper = new WellboreInterpretation(read);
-			}
-			else if (resqmlContentType.compare(FaultInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__FaultInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREFaultInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREFaultInterpretation(s, read);
-				wrapper = new FaultInterpretation(read);
-			}
-			else if (resqmlContentType.compare(HorizonInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__HorizonInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREHorizonInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREHorizonInterpretation(s, read);
-				wrapper = new HorizonInterpretation(read);
-			}
-			else if (resqmlContentType.compare(StratigraphicUnitInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__StratigraphicUnitInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREStratigraphicUnitInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREStratigraphicUnitInterpretation(s, read);
-				wrapper = new StratigraphicUnitInterpretation(read);
-			}
-			else if (resqmlContentType.compare(StratigraphicColumnRankInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__StratigraphicColumnRankInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREStratigraphicColumnRankInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREStratigraphicColumnRankInterpretation(s, read);
-				wrapper = new StratigraphicColumnRankInterpretation(read);
-			}
-			else if (resqmlContentType.compare(StratigraphicOccurrenceInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__StratigraphicOccurrenceInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREStratigraphicOccurrenceInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREStratigraphicOccurrenceInterpretation(s, read);
-				wrapper = new StratigraphicOccurrenceInterpretation(read);
-			}
-			else if (resqmlContentType.compare(WellboreFrameRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__WellboreFrameRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREWellboreFrameRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREWellboreFrameRepresentation(s, read);
-				wrapper = new WellboreFrameRepresentation(read);
-			}
-			else if (resqmlContentType.compare(WellboreMarkerFrameRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__WellboreMarkerFrameRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREWellboreMarkerFrameRepresentation(s, read);
-				wrapper = new WellboreMarkerFrameRepresentation(read);
-			}
-			else if (resqmlContentType.compare(WellboreTrajectoryRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__WellboreTrajectoryRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREWellboreTrajectoryRepresentation(s, read);
-				wrapper = new WellboreTrajectoryRepresentation(read);
-			}
-			else if (resqmlContentType.compare(PolylineSetRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__PolylineSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREPolylineSetRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREPolylineSetRepresentation(s, read);
-				wrapper = new PolylineSetRepresentation(read);
-			}
-			else if (resqmlContentType.compare(PointSetRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__PointSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREPointSetRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREPointSetRepresentation(s, read);
-				wrapper = new PointSetRepresentation(read);
-			}
-			else if (resqmlContentType.compare(PlaneSetRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__PlaneSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREPlaneSetRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREPlaneSetRepresentation(s, read);
-				wrapper = new PlaneSetRepresentation(read);
-			}
-			else if (resqmlContentType.compare(PolylineRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__PolylineRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREPolylineRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREPolylineRepresentation(s, read);
-				wrapper = new PolylineRepresentation(read);
-			}
-			else if (resqmlContentType.compare(Grid2dSetRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__Grid2dSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREGrid2dSetRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREGrid2dSetRepresentation(s, read);
-				wrapper = new Grid2dSetRepresentation(read);
-			}
-			else if (resqmlContentType.compare(Grid2dRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__Grid2dRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREGrid2dRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREGrid2dRepresentation(s, read);
-				wrapper = new Grid2dRepresentation(read);
-			}
-			else if (resqmlContentType.compare(TriangulatedSetRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__TriangulatedSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORETriangulatedSetRepresentation(s, 1);
-				soap_read_resqml2__obj_USCORETriangulatedSetRepresentation(s, read);
-				wrapper = new TriangulatedSetRepresentation(read);
-			}
-			else if (resqmlContentType.compare(BlockedWellboreRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__BlockedWellboreRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREBlockedWellboreRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREBlockedWellboreRepresentation(s, read);
-				wrapper = new BlockedWellboreRepresentation(read);
-			}
-			else if (resqmlContentType.compare(AbstractIjkGridRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREIjkGridRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREIjkGridRepresentation(s, read);
-				
-				if (read->Geometry != nullptr)
-				{
-					switch (read->Geometry->Points->soap_type())
-					{
-					case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array :
-						wrapper = new IjkGridExplicitRepresentation(read); break;
-					case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray :
-						wrapper = new IjkGridParametricRepresentation(read); break;
-					case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray :
-						wrapper = new IjkGridLatticeRepresentation(read); break;
-					}
-				}
-				else
-					wrapper = new IjkGridNoGeometryRepresentation(read);
-			}
-			else if (resqmlContentType.compare(UnstructuredGridRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREUnstructuredGridRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREUnstructuredGridRepresentation(s, read);
-				wrapper = new UnstructuredGridRepresentation(read);
-			}
-			else if (resqmlContentType.compare(PropertyKind::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__PropertyKind* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREPropertyKind(s, 1);
-				soap_read_resqml2__obj_USCOREPropertyKind(s, read);
-				wrapper = new PropertyKind(read);
-			}
-			else if (resqmlContentType.compare(ContinuousProperty::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__ContinuousProperty* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREContinuousProperty(s, 1);
-				soap_read_resqml2__obj_USCOREContinuousProperty(s, read);
-				wrapper = new ContinuousProperty(read);
-			}
-			else if (resqmlContentType.compare(ContinuousPropertySeries::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__ContinuousPropertySeries* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREContinuousPropertySeries(s, 1);
-				soap_read_resqml2__obj_USCOREContinuousPropertySeries(s, read);
-				wrapper = new ContinuousPropertySeries(read);
-			}
-			else if (resqmlContentType.compare(CategoricalProperty::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__CategoricalProperty* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORECategoricalProperty(s, 1);
-				soap_read_resqml2__obj_USCORECategoricalProperty(s, read);
-				wrapper = new CategoricalProperty(read);
-			}
-			else if (resqmlContentType.compare(CategoricalPropertySeries::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__CategoricalPropertySeries* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORECategoricalPropertySeries(s, 1);
-				soap_read_resqml2__obj_USCORECategoricalPropertySeries(s, read);
-				wrapper = new CategoricalPropertySeries(read);
-			}
-			else if (resqmlContentType.compare(DiscreteProperty::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__DiscreteProperty* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREDiscreteProperty(s, 1);
-				soap_read_resqml2__obj_USCOREDiscreteProperty(s, read);
-				wrapper = new DiscreteProperty(read);
-			}
-			else if (resqmlContentType.compare(DiscretePropertySeries::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__DiscretePropertySeries* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREDiscretePropertySeries(s, 1);
-				soap_read_resqml2__obj_USCOREDiscretePropertySeries(s, read);
-				wrapper = new DiscretePropertySeries(read);
-			}
-			else if (resqmlContentType.compare(CommentProperty::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__CommentProperty* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORECommentProperty(s, 1);
-				soap_read_resqml2__obj_USCORECommentProperty(s, read);
-				wrapper = new CommentProperty(read);
-			}
-			else if (resqmlContentType.compare(StringTableLookup::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__StringTableLookup* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREStringTableLookup(s, 1);
-				soap_read_resqml2__obj_USCOREStringTableLookup(s, read);
-				wrapper = new StringTableLookup(read);
-			}
-			else if (resqmlContentType.compare(EarthModelInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__EarthModelInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREEarthModelInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREEarthModelInterpretation(s, read);
-				wrapper = new EarthModelInterpretation(read);
-			}
-			else if (resqmlContentType.compare(OrganizationFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__OrganizationFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREOrganizationFeature(s, 1);
-				soap_read_resqml2__obj_USCOREOrganizationFeature(s, read);
-				wrapper = new OrganizationFeature(read);
-			}
-			else if (resqmlContentType.compare(StructuralOrganizationInterpretation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__StructuralOrganizationInterpretation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREStructuralOrganizationInterpretation(s, 1);
-				soap_read_resqml2__obj_USCOREStructuralOrganizationInterpretation(s, read);
-				wrapper = new StructuralOrganizationInterpretation(read);
-			}
-			else if (resqmlContentType.compare(FluidBoundaryFeature::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__FluidBoundaryFeature* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREFluidBoundaryFeature(s, 1);
-				soap_read_resqml2__obj_USCOREFluidBoundaryFeature(s, read);
-				wrapper = new FluidBoundaryFeature(read);
-			}
-			else if (resqmlContentType.compare(SubRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__SubRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESubRepresentation(s, 1);
-				soap_read_resqml2__obj_USCORESubRepresentation(s, read);
-				wrapper = new SubRepresentation(read);
-			}
-			else if (resqmlContentType.compare(GridConnectionSetRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__GridConnectionSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREGridConnectionSetRepresentation(s, 1);
-				soap_read_resqml2__obj_USCOREGridConnectionSetRepresentation(s, read);
-				wrapper = new GridConnectionSetRepresentation(read);
-			}
-			else if (resqmlContentType.compare(TimeSeries::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__TimeSeries* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORETimeSeries(s, 1);
-				soap_read_resqml2__obj_USCORETimeSeries(s, read);
-				wrapper = new TimeSeries(read);
-			}
-			else if (resqmlContentType.compare(RepresentationSetRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__RepresentationSetRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORERepresentationSetRepresentation(s, 1);
-				soap_read_resqml2__obj_USCORERepresentationSetRepresentation(s, read);
-				wrapper = new RepresentationSetRepresentation(read);
-			}
-			else if (resqmlContentType.compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0)
-			{
-				gsoap_resqml2_0_1::_resqml2__SealedSurfaceFrameworkRepresentation* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(s, 1);
-				soap_read_resqml2__obj_USCORESealedSurfaceFrameworkRepresentation(s, read);
-				wrapper = new SealedSurfaceFrameworkRepresentation(read);
-			}
-			else if (resqmlContentType.compare(resqml2::EpcExternalPartReference::XML_TAG) == 0)
+			if (resqmlContentType.compare(resqml2::EpcExternalPartReference::XML_TAG) == 0)
 			{
 				// Look for the relative path of the HDF file
 				string relFilePath = "";
-				size_t slashPos = it->second.getExtensionOrPartName().substr(1).find_last_of("/\\");
-				if (slashPos != string::npos)
-					relFilePath = it->second.getExtensionOrPartName().substr(1).substr(0, slashPos+1);
-				relFilePath += "_rels" + it->second.getExtensionOrPartName().substr(
-						it->second.getExtensionOrPartName().find_last_of("/\\")) + ".rels";
+				const size_t slashPos = it->second.getExtensionOrPartName().substr(1).find_last_of("/\\");
+				if (slashPos != string::npos) {
+					relFilePath = it->second.getExtensionOrPartName().substr(1).substr(0, slashPos + 1);
+				}
+				relFilePath += "_rels" + it->second.getExtensionOrPartName().substr(it->second.getExtensionOrPartName().find_last_of("/\\")) + ".rels";
 				FileRelationship relFile;
 				relFile.readFromString(package->extractFile(relFilePath));
-				vector<Relationship> allRels = relFile.getAllRelationship();
+				const vector<Relationship> allRels = relFile.getAllRelationship();
 				string hdfRelativeFilePath;
-				for (unsigned int relIndex = 0 ; relIndex < allRels.size(); relIndex++)
-				{
-					if (allRels[relIndex].getType().compare("http://schemas.energistics.org/package/2012/relationships/externalResource") == 0)
-					{
+				for (size_t relIndex = 0; relIndex < allRels.size(); relIndex++) {
+					if (allRels[relIndex].getType().compare("http://schemas.energistics.org/package/2012/relationships/externalResource") == 0) {
 						hdfRelativeFilePath = allRels[relIndex].getTarget();
 						break;
 					}
 				}
 
 				// Common initialization
-				gsoap_resqml2_0_1::_eml__EpcExternalPartReference* read = gsoap_resqml2_0_1::soap_new_eml__obj_USCOREEpcExternalPartReference(s, 1);
-				soap_read_eml__obj_USCOREEpcExternalPartReference(s, read);
+				gsoap_resqml2_0_1::_eml__EpcExternalPartReference* read = getEpcExternalPartReferenceGsoapProxyFromGsoapContext();
 				wrapper = make_hdf_proxy_from_gsoap_proxy_2_0_1(read, getStorageDirectory(), hdfRelativeFilePath);
 			}
+			else {
+				wrapper = getResqml2_0_1WrapperFromGsoapContext(resqmlContentType);
+			}
 			
-			if (wrapper)
-			{
-				addGsoapProxyAndDeleteItIfException(wrapper);
+			if (wrapper != nullptr) {
+				addFesapiWrapperAndDeleteItIfException(wrapper);
 				if (s->error != SOAP_OK) {
 					ostringstream oss;
 					soap_stream_fault(s, oss);
 					return oss.str() + " IN " + it->second.getExtensionOrPartName();
 				}
 			}
+			else {
+				warnings.push_back("The content type " + resqmlContentType + "could not be wrapped by fesapi. The related instance will be ignored.");
+			}
 		}
 		else if (it->second.getContentTypeString().find("application/x-witsml+xml;version=1.4.1.1;type=") == 0)
 		{
 			string fileStr = package->extractFile(it->second.getExtensionOrPartName().substr(1));
-			if (fileStr.empty() == true)
+			if (fileStr.empty()) {
 				throw invalid_argument("The EPC document contains the file " + it->second.getExtensionOrPartName().substr(1) + " in its contentType file which cannot be found or cannot be unzipped or is empty.");
+			}
 			istringstream iss(fileStr);
-			s->is = &iss;
+			setGsoapStream(&iss);
 			witsml1_4_1_1::AbstractObject* wrapper = nullptr;
 			string resqmlContentType = "";
 			resqmlContentType = it->second.getContentTypeString().substr(50);
@@ -1010,9 +688,9 @@ string EpcDocument::deserialize()
 				wrapper = new CoordinateReferenceSystem(read);
 			}
 			
-			if (wrapper)
+			if (wrapper != nullptr)
 			{
-				addGsoapProxyAndDeleteItIfException(wrapper);
+				addFesapiWrapperAndDeleteItIfException(wrapper);
 				if (s->error != SOAP_OK) {
 					ostringstream oss;
 					soap_stream_fault(s, oss);
@@ -1025,6 +703,99 @@ string EpcDocument::deserialize()
 	updateAllRelationships();
 
 	return string();
+}
+
+resqml2::AbstractObject* EpcDocument::getResqml2_0_1WrapperFromGsoapContext(const std::string & resqmlContentType)
+{
+	resqml2::AbstractObject* wrapper = nullptr;
+
+	if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(MdDatum)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(Activity)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(ActivityTemplate)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(SeismicLatticeFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(SeismicLineFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(SeismicLineSetFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(FrontierFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(LocalDepth3dCrs)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(LocalTime3dCrs)
+	else if (resqmlContentType.compare(TectonicBoundaryFeature::XML_TAG) == 0)
+	{
+		GET_RESQML_2_0_1_GSOAP_PROXY_FROM_GSOAP_CONTEXT(TectonicBoundaryFeature)
+		if (read->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fault) {
+			wrapper = new Fault(read);
+		}
+		else if (read->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture) {
+			wrapper = new Fracture(read);
+		}
+	}
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(GeneticBoundaryFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(BoundaryFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(WellboreFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(StratigraphicUnitFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(StratigraphicColumn)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(GenericFeatureInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(BoundaryFeatureInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(WellboreInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(FaultInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(HorizonInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(StratigraphicUnitInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(StratigraphicColumnRankInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(StratigraphicOccurrenceInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(WellboreFrameRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(WellboreMarkerFrameRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(WellboreTrajectoryRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(PolylineSetRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(PointSetRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(PlaneSetRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(PolylineRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(Grid2dSetRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(Grid2dRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(TriangulatedSetRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(BlockedWellboreRepresentation)
+	else if (resqmlContentType.compare(AbstractIjkGridRepresentation::XML_TAG) == 0)
+	{
+		GET_RESQML_2_0_1_GSOAP_PROXY_FROM_GSOAP_CONTEXT(IjkGridRepresentation)
+
+		if (read->Geometry != nullptr) {
+			switch (read->Geometry->Points->soap_type()) {
+			case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array:
+				wrapper = new IjkGridExplicitRepresentation(read); break;
+			case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray:
+				wrapper = new IjkGridParametricRepresentation(read); break;
+			case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray:
+				wrapper = new IjkGridLatticeRepresentation(read); break;
+			}
+		}
+		else {
+			wrapper = new IjkGridNoGeometryRepresentation(read);
+		}
+	}
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(UnstructuredGridRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(PropertyKind)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(ContinuousProperty)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(ContinuousPropertySeries)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(CategoricalProperty)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(CategoricalPropertySeries)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(DiscreteProperty)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(DiscretePropertySeries)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(ContinuousProperty)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(CommentProperty)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(StringTableLookup)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(EarthModelInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(OrganizationFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(StructuralOrganizationInterpretation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(FluidBoundaryFeature)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(SubRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(GridConnectionSetRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(TimeSeries)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(RepresentationSetRepresentation)
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(SealedSurfaceFrameworkRepresentation)
+	else if (resqmlContentType.compare(resqml2::EpcExternalPartReference::XML_TAG) == 0)
+	{
+		throw invalid_argument("Please handle this type outside this method since it is not only XML related.");
+	}
+
+	return wrapper;
 }
 
 resqml2::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const std::string & uuid, int & gsoapType) const
@@ -1510,7 +1281,7 @@ std::string EpcDocument::getExtendedCoreProperty(const std::string & key)
 resqml2::AbstractHdfProxy* EpcDocument::createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath)
 {
 	resqml2::AbstractHdfProxy* result = make_hdf_proxy(getGsoapContext(), guid, title, packageDirAbsolutePath, externalFilePath);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1527,7 +1298,7 @@ LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::string & guid, co
 	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedEpsgCode,
 			verticalUom, verticalEpsgCode, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1540,7 +1311,7 @@ resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::stri
 	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedUnknownReason,
 			verticalUom, verticalUnknownReason, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1553,7 +1324,7 @@ resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::stri
 	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedEpsgCode,
 			verticalUom, verticalUnknownReason, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1566,7 +1337,7 @@ resqml2_0_1::LocalDepth3dCrs* EpcDocument::createLocalDepth3dCrs(const std::stri
 	LocalDepth3dCrs* result = new LocalDepth3dCrs(getGsoapContext(), guid, title, originOrdinal1, originOrdinal2, originOrdinal3, arealRotation,
 			projectedUom, projectedUnknownReason,
 			verticalUom, verticalEpsgCode, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1581,7 +1352,7 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			projectedUom, projectedEpsgCode,
 			timeUom,
 			verticalUom, verticalEpsgCode, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1596,7 +1367,7 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			projectedUom, projectedUnknownReason,
 			timeUom,
 			verticalUom, verticalUnknownReason, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1611,7 +1382,7 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			projectedUom, projectedEpsgCode,
 			timeUom,
 			verticalUom, verticalUnknownReason, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1626,7 +1397,7 @@ LocalTime3dCrs* EpcDocument::createLocalTime3dCrs(const std::string & guid, cons
 			projectedUom, projectedUnknownReason,
 			timeUom,
 			verticalUom, verticalEpsgCode, isUpOriented);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1635,7 +1406,7 @@ resqml2::MdDatum* EpcDocument::createMdDatum(const std::string & guid, const std
 			const double & referenceLocationOrdinal1, const double & referenceLocationOrdinal2, const double & referenceLocationOrdinal3)
 {
 	MdDatum* result = new MdDatum(getGsoapContext(), guid, title, locCrs, originKind, referenceLocationOrdinal1, referenceLocationOrdinal2, referenceLocationOrdinal3);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 //************************************
@@ -1645,42 +1416,42 @@ resqml2::MdDatum* EpcDocument::createMdDatum(const std::string & guid, const std
 BoundaryFeature* EpcDocument::createBoundaryFeature(const std::string & guid, const std::string & title)
 {
 	BoundaryFeature* result = new BoundaryFeature(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 Horizon* EpcDocument::createHorizon(const std::string & guid, const std::string & title)
 {
 	Horizon* result = new Horizon(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 TectonicBoundaryFeature* EpcDocument::createTectonicBoundaryFeature(const std::string & guid, const std::string & title)
 {
 	TectonicBoundaryFeature* result = new TectonicBoundaryFeature(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 Fault* EpcDocument::createFault(const std::string & guid, const std::string & title)
 {
 	Fault* result = new Fault(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 Fracture* EpcDocument::createFracture(const std::string & guid, const std::string & title)
 {
 	Fracture* result = new Fracture(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 WellboreFeature* EpcDocument::createWellboreFeature(const std::string & guid, const std::string & title)
 {
 	WellboreFeature* result = new WellboreFeature(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1690,7 +1461,7 @@ SeismicLatticeFeature* EpcDocument::createSeismicLattice(const std::string & gui
 			const unsigned int & inlineCount, const unsigned int & crosslineCount)
 {
 	SeismicLatticeFeature* result = new SeismicLatticeFeature(getGsoapContext(), guid, title, inlineIncrement, crosslineIncrement, originInline, originCrossline, inlineCount, crosslineCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1698,56 +1469,56 @@ SeismicLineFeature* EpcDocument::createSeismicLine(const std::string & guid, con
 			const int & traceIndexIncrement, const unsigned int & firstTraceIndex, const unsigned int & traceCount)
 {
 	SeismicLineFeature* result = new SeismicLineFeature(getGsoapContext(), guid, title, traceIndexIncrement, firstTraceIndex, traceCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 SeismicLineSetFeature* EpcDocument::createSeismicLineSet(const std::string & guid, const std::string & title)
 {
 	SeismicLineSetFeature* result = new SeismicLineSetFeature(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 FrontierFeature* EpcDocument::createFrontier(const std::string & guid, const std::string & title)
 {
 	FrontierFeature* result = new FrontierFeature(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StratigraphicUnitFeature* EpcDocument::createStratigraphicUnit(const std::string & guid, const std::string & title)
 {
 	StratigraphicUnitFeature* result = new StratigraphicUnitFeature(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 OrganizationFeature* EpcDocument::createStructuralModel(const std::string & guid, const std::string & title)
 {
 	OrganizationFeature* result = new OrganizationFeature(getGsoapContext(), guid, title, resqml2__OrganizationKind__structural);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 OrganizationFeature* EpcDocument::createStratigraphicModel(const std::string & guid, const std::string & title)
 {
 	OrganizationFeature* result = new OrganizationFeature(getGsoapContext(), guid, title, resqml2__OrganizationKind__stratigraphic);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 OrganizationFeature* EpcDocument::createEarthModel(const std::string & guid, const std::string & title)
 {
 	OrganizationFeature* result = new OrganizationFeature(getGsoapContext(), guid, title, resqml2__OrganizationKind__earth_x0020model);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 FluidBoundaryFeature* EpcDocument::createFluidBoundaryFeature(const std::string & guid, const std::string & title, const gsoap_resqml2_0_1::resqml2__FluidContact & fluidContact)
 {
 	FluidBoundaryFeature* result = new FluidBoundaryFeature(getGsoapContext(), guid, title, fluidContact);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1758,105 +1529,105 @@ FluidBoundaryFeature* EpcDocument::createFluidBoundaryFeature(const std::string 
 GenericFeatureInterpretation* EpcDocument::createGenericFeatureInterpretation(resqml2::AbstractFeature * feature, const std::string & guid, const std::string & title)
 {
 	GenericFeatureInterpretation* result = new GenericFeatureInterpretation(feature, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 BoundaryFeatureInterpretation* EpcDocument::createBoundaryFeatureInterpretation(resqml2_0_1::BoundaryFeature * feature, const std::string & guid, const std::string & title)
 {
 	BoundaryFeatureInterpretation* result = new BoundaryFeatureInterpretation(feature, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 HorizonInterpretation* EpcDocument::createHorizonInterpretation(Horizon * horizon, const std::string & guid, const std::string & title)
 {
 	HorizonInterpretation* result = new HorizonInterpretation(horizon, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 FaultInterpretation* EpcDocument::createFaultInterpretation(Fault * fault, const std::string & guid, const std::string & title)
 {
 	FaultInterpretation* result = new FaultInterpretation(fault, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 WellboreInterpretation* EpcDocument::createWellboreInterpretation(WellboreFeature * wellbore, const std::string & guid, const std::string & title, bool isDrilled)
 {
 	WellboreInterpretation* result = new WellboreInterpretation(wellbore, guid, title, isDrilled);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 EarthModelInterpretation* EpcDocument::createEarthModelInterpretation(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
 	EarthModelInterpretation* result = new EarthModelInterpretation(orgFeat, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StructuralOrganizationInterpretation* EpcDocument::createStructuralOrganizationInterpretationInAge(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
 	StructuralOrganizationInterpretation* result = new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__age);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StructuralOrganizationInterpretation* EpcDocument::createStructuralOrganizationInterpretationInApparentDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
 	StructuralOrganizationInterpretation* result = new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__apparent_x0020depth);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StructuralOrganizationInterpretation* EpcDocument::createStructuralOrganizationInterpretationInMeasuredDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
 	StructuralOrganizationInterpretation* result = new StructuralOrganizationInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__measured_x0020depth);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StratigraphicColumn* EpcDocument::createStratigraphicColumn(const std::string & guid, const std::string & title)
 {
 	StratigraphicColumn* result = new StratigraphicColumn(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StratigraphicUnitInterpretation* EpcDocument::createStratigraphicUnitInterpretation(StratigraphicUnitFeature * stratiUnitFeature, const std::string & guid, const std::string & title)
 {
 	StratigraphicUnitInterpretation* result = new StratigraphicUnitInterpretation(stratiUnitFeature, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StratigraphicColumnRankInterpretation* EpcDocument::createStratigraphicColumnRankInterpretationInAge(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title, const unsigned long & rank)
 {
 	StratigraphicColumnRankInterpretation* result = new StratigraphicColumnRankInterpretation(orgFeat, guid, title, rank, resqml2__OrderingCriteria__age);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StratigraphicColumnRankInterpretation* EpcDocument::createStratigraphicColumnRankInterpretationInApparentDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title, const unsigned long & rank)
 {
 	StratigraphicColumnRankInterpretation* result = new StratigraphicColumnRankInterpretation(orgFeat, guid, title, rank, resqml2__OrderingCriteria__apparent_x0020depth);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StratigraphicOccurrenceInterpretation* EpcDocument::createStratigraphicOccurrenceInterpretationInAge(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
 	StratigraphicOccurrenceInterpretation* result = new StratigraphicOccurrenceInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__age);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StratigraphicOccurrenceInterpretation* EpcDocument::createStratigraphicOccurrenceInterpretationInApparentDepth(OrganizationFeature * orgFeat, const std::string & guid, const std::string & title)
 {
 	StratigraphicOccurrenceInterpretation* result = new StratigraphicOccurrenceInterpretation(orgFeat, guid, title, resqml2__OrderingCriteria__apparent_x0020depth);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1868,7 +1639,7 @@ TriangulatedSetRepresentation* EpcDocument::createTriangulatedSetRepresentation(
 			const std::string & guid, const std::string & title)
 {
 	TriangulatedSetRepresentation* result = new TriangulatedSetRepresentation(interp, crs, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1876,7 +1647,7 @@ PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(resqml2:
 			const std::string & guid, const std::string & title)
 {
 	PolylineSetRepresentation* result = new PolylineSetRepresentation(crs, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1884,7 +1655,7 @@ PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(resqml2:
 			const std::string & guid, const std::string & title)
 {
 	PolylineSetRepresentation* result = new PolylineSetRepresentation(interp, crs, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1892,7 +1663,7 @@ PolylineSetRepresentation* EpcDocument::createPolylineSetRepresentation(resqml2:
 			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind)
 {
 	PolylineSetRepresentation* result = new PolylineSetRepresentation(interp, crs, guid, title, roleKind);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1900,7 +1671,7 @@ PointSetRepresentation* EpcDocument::createPointSetRepresentation(resqml2::Abstr
 			const std::string & guid, const std::string & title)
 {
 	PointSetRepresentation* result = new PointSetRepresentation(interp, crs, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1908,7 +1679,7 @@ PlaneSetRepresentation* EpcDocument::createPlaneSetRepresentation(resqml2::Abstr
 			const std::string & guid, const std::string & title)
 {
 	PlaneSetRepresentation* result = new PlaneSetRepresentation(interp, crs, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1916,7 +1687,7 @@ PolylineRepresentation* EpcDocument::createPolylineRepresentation(resqml2::Abstr
 			const std::string & guid, const std::string & title, bool isClosed)
 {
 	PolylineRepresentation* result = new PolylineRepresentation(crs, guid, title, isClosed);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1924,7 +1695,7 @@ PolylineRepresentation* EpcDocument::createPolylineRepresentation(resqml2::Abstr
 			const std::string & guid, const std::string & title, bool isClosed)
 {
 	PolylineRepresentation* result = new PolylineRepresentation(interp, crs, guid, title, isClosed);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1932,7 +1703,7 @@ PolylineRepresentation* EpcDocument::createPolylineRepresentation(resqml2::Abstr
 			const std::string & guid, const std::string & title, const resqml2__LineRole & roleKind, bool isClosed)
 {
 	PolylineRepresentation* result = new PolylineRepresentation(interp, crs, guid, title, roleKind, isClosed);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1940,28 +1711,28 @@ Grid2dRepresentation* EpcDocument::createGrid2dRepresentation(resqml2::AbstractF
 			const std::string & guid, const std::string & title)
 {
 	Grid2dRepresentation* result = new Grid2dRepresentation(interp, crs, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 WellboreTrajectoryRepresentation* EpcDocument::createWellboreTrajectoryRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2::MdDatum * mdInfo)
 {
 	WellboreTrajectoryRepresentation* result = new WellboreTrajectoryRepresentation(interp, guid, title, mdInfo);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 WellboreFrameRepresentation* EpcDocument::createWellboreFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
 	WellboreFrameRepresentation* result = new WellboreFrameRepresentation(interp, guid, title, traj);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 WellboreMarkerFrameRepresentation* EpcDocument::createWellboreMarkerFrameRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
 	WellboreMarkerFrameRepresentation* result = new WellboreMarkerFrameRepresentation(interp, guid, title, traj);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1969,7 +1740,7 @@ BlockedWellboreRepresentation* EpcDocument::createBlockedWellboreRepresentation(
 	const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
 	BlockedWellboreRepresentation* result = new BlockedWellboreRepresentation(interp, guid, title, traj);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1979,7 +1750,7 @@ RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentat
         const std::string & title)
 {
 	RepresentationSetRepresentation* result = new RepresentationSetRepresentation(interp, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1988,7 +1759,7 @@ RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentat
 	const std::string & title)
 {
 	RepresentationSetRepresentation* result = new RepresentationSetRepresentation(this, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -1999,7 +1770,7 @@ NonSealedSurfaceFrameworkRepresentation* EpcDocument::createNonSealedSurfaceFram
         const bool & isSealed)
 {
 	NonSealedSurfaceFrameworkRepresentation* result = new NonSealedSurfaceFrameworkRepresentation(interp, guid, title, isSealed);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2009,7 +1780,7 @@ SealedSurfaceFrameworkRepresentation* EpcDocument::createSealedSurfaceFrameworkR
         const std::string & title)
 {
 	SealedSurfaceFrameworkRepresentation* result = new SealedSurfaceFrameworkRepresentation(interp, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2019,7 +1790,7 @@ AbstractIjkGridRepresentation* EpcDocument::createPartialIjkGridRepresentation(c
 	dor->UUID = guid;
 	dor->Title = title;
 	AbstractIjkGridRepresentation* result = new AbstractIjkGridRepresentation(dor);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2028,7 +1799,7 @@ IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	IjkGridExplicitRepresentation* result = new IjkGridExplicitRepresentation(getGsoapContext(), crs, guid, title, iCount, jCount, kCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2037,7 +1808,7 @@ IjkGridExplicitRepresentation* EpcDocument::createIjkGridExplicitRepresentation(
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	IjkGridExplicitRepresentation* result = new IjkGridExplicitRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2046,7 +1817,7 @@ IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentat
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	IjkGridParametricRepresentation* result = new IjkGridParametricRepresentation(getGsoapContext(), crs, guid, title, iCount, jCount, kCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2055,7 +1826,7 @@ IjkGridParametricRepresentation* EpcDocument::createIjkGridParametricRepresentat
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	IjkGridParametricRepresentation* result = new IjkGridParametricRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2064,7 +1835,7 @@ IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(re
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	IjkGridLatticeRepresentation* result = new IjkGridLatticeRepresentation(getGsoapContext(), crs, guid, title, iCount, jCount, kCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2073,7 +1844,7 @@ IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(re
 		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
 {
 	IjkGridLatticeRepresentation* result = new IjkGridLatticeRepresentation(interp, crs, guid, title, iCount, jCount, kCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2083,7 +1854,7 @@ UnstructuredGridRepresentation* EpcDocument::createPartialUnstructuredGridRepres
 	dor->UUID = guid;
 	dor->Title = title;
 	UnstructuredGridRepresentation* result = new UnstructuredGridRepresentation(dor);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2092,7 +1863,7 @@ UnstructuredGridRepresentation* EpcDocument::createUnstructuredGridRepresentatio
 	const ULONG64 & cellCount)
 {
 	UnstructuredGridRepresentation* result = new UnstructuredGridRepresentation(getGsoapContext(), crs, guid, title, cellCount);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2102,14 +1873,14 @@ resqml2::SubRepresentation* EpcDocument::createPartialSubRepresentation(const st
 	dor->UUID = guid;
 	dor->Title = title;
 	resqml2::SubRepresentation* result = new SubRepresentation(dor);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 resqml2::SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title, resqml2::AbstractRepresentation * supportingRep)
 {
 	resqml2::SubRepresentation* result = new SubRepresentation(guid, title, supportingRep);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2117,14 +1888,14 @@ resqml2::SubRepresentation* EpcDocument::createSubRepresentation(resqml2::Abstra
 			const std::string & guid, const std::string & title, resqml2::AbstractRepresentation * supportingRep)
 {
 	resqml2::SubRepresentation* result = new SubRepresentation(interp, guid, title, supportingRep);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 resqml2::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(const std::string & guid, const std::string & title)
 {
 	resqml2::GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2132,7 +1903,7 @@ resqml2::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRe
         const std::string & guid, const std::string & title)
 {
 	resqml2::GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(interp, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2143,7 +1914,7 @@ resqml2::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRe
 resqml2::TimeSeries* EpcDocument::createTimeSeries(const std::string & guid, const std::string & title)
 {
 	resqml2::TimeSeries* result = new resqml2_0_1::TimeSeries(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2153,14 +1924,14 @@ resqml2::TimeSeries* EpcDocument::createPartialTimeSeries(const std::string & gu
 	dor->UUID = guid;
 	dor->Title = title;
 	resqml2::TimeSeries* result = new resqml2_0_1::TimeSeries(dor);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 StringTableLookup* EpcDocument::createStringTableLookup(const std::string & guid, const std::string & title)
 {
 	StringTableLookup* result = new StringTableLookup(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2168,7 +1939,7 @@ resqml2::PropertyKind* EpcDocument::createPropertyKind(const std::string & guid,
 	const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
 {
 	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentEnergisticsPropertyKind);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2176,7 +1947,7 @@ resqml2::PropertyKind* EpcDocument::createPropertyKind(const std::string & guid,
 	const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType)
 {
 	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(getGsoapContext(), guid, title, namingSystem, uom, parentPropType);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2186,7 +1957,7 @@ resqml2::PropertyKind* EpcDocument::createPartialPropertyKind(const std::string 
 	dor->UUID = guid;
 	dor->Title = title;
 	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(dor);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2194,7 +1965,7 @@ CommentProperty* EpcDocument::createCommentProperty(resqml2::AbstractRepresentat
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	CommentProperty* result = new CommentProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2202,7 +1973,7 @@ CommentProperty* EpcDocument::createCommentProperty(resqml2::AbstractRepresentat
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropType)
 {
 	CommentProperty* result = new CommentProperty(rep, guid, title, dimension, attachmentKind, localPropType);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 	
@@ -2210,7 +1981,7 @@ ContinuousProperty* EpcDocument::createContinuousProperty(resqml2::AbstractRepre
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2218,7 +1989,7 @@ ContinuousProperty* EpcDocument::createContinuousProperty(resqml2::AbstractRepre
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropType)
 {
 	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, localPropType);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2227,7 +1998,7 @@ ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(resqml2::A
 	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	ContinuousPropertySeries* result = new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, energisticsPropertyKind, ts, useInterval);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2236,7 +2007,7 @@ ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(resqml2::A
 	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	ContinuousPropertySeries* result = new ContinuousPropertySeries(rep, guid, title, dimension, attachmentKind, uom, localPropType, ts, useInterval);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 	
@@ -2244,7 +2015,7 @@ ContinuousPropertySeries* EpcDocument::createContinuousPropertySeries(resqml2::A
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	DiscreteProperty* result = new DiscreteProperty(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2252,7 +2023,7 @@ DiscreteProperty* EpcDocument::createDiscreteProperty(resqml2::AbstractRepresent
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, resqml2::PropertyKind * localPropType)
 {
 	DiscreteProperty* result = new DiscreteProperty(rep, guid, title, dimension, attachmentKind, localPropType);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 	
@@ -2261,7 +2032,7 @@ DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(resqml2::Abstr
 	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	DiscretePropertySeries* result = new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, energisticsPropertyKind, ts, useInterval);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2270,7 +2041,7 @@ DiscretePropertySeries* EpcDocument::createDiscretePropertySeries(resqml2::Abstr
 	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	DiscretePropertySeries* result = new DiscretePropertySeries(rep, guid, title, dimension, attachmentKind, localPropType, ts, useInterval);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2279,7 +2050,7 @@ CategoricalProperty* EpcDocument::createCategoricalProperty(resqml2::AbstractRep
 	StringTableLookup* strLookup, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
 {
 	CategoricalProperty* result = new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 	
@@ -2288,7 +2059,7 @@ CategoricalProperty* EpcDocument::createCategoricalProperty(resqml2::AbstractRep
 	StringTableLookup* strLookup, resqml2::PropertyKind * localPropType)
 {
 	CategoricalProperty* result = new CategoricalProperty(rep, guid, title, dimension, attachmentKind, strLookup, localPropType);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2298,7 +2069,7 @@ CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(resqml2:
 	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	CategoricalPropertySeries* result = new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, energisticsPropertyKind, ts, useInterval);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2308,7 +2079,7 @@ CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(resqml2:
 	resqml2::TimeSeries * ts, const bool & useInterval)
 {
 	CategoricalPropertySeries* result = new CategoricalPropertySeries(rep, guid, title, dimension, attachmentKind, strLookup, localPropType, ts, useInterval);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2319,14 +2090,14 @@ CategoricalPropertySeries* EpcDocument::createCategoricalPropertySeries(resqml2:
 resqml2::ActivityTemplate* EpcDocument::createActivityTemplate(const std::string & guid, const std::string & title)
 {
 	ActivityTemplate* result = new ActivityTemplate(getGsoapContext(), guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 		
 resqml2::Activity* EpcDocument::createActivity(resqml2::ActivityTemplate* activityTemplate, const std::string & guid, const std::string & title)
 {
 	Activity* result = new Activity(activityTemplate, guid, title);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 		
@@ -2340,7 +2111,7 @@ Well* EpcDocument::createWell(
 			const std::string & timeZone)
 {
 	Well* result = new Well(getGsoapContext(), guid, title, timeZone);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2360,7 +2131,7 @@ Well* EpcDocument::createWell(
 			const std::string & comments)
 {
 	Well* result = new Well(getGsoapContext(), guid, title, timeZone, operator_, statusWell, purposeWell, fluidWell, directionWell, dTimSpud, sourceName, dTimCreation, dTimLastChange, comments);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2375,7 +2146,7 @@ CoordinateReferenceSystem* EpcDocument::createCoordinateReferenceSystem(
 			const std::string & comments)
 {
 	CoordinateReferenceSystem* result = new CoordinateReferenceSystem(getGsoapContext(), guid, title, namingSystem, code, sourceName, dTimCreation, dTimLastChange, comments);
-	addGsoapProxyAndDeleteItIfException(result);
+	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
@@ -2395,3 +2166,27 @@ void common::EpcDocument::set_hdf_proxy_builder(HdfProxyBuilderFromGsoapProxy2_1
 	make_hdf_proxy_from_gsoap_proxy_2_1 = builder;
 }
 #endif
+
+int EpcDocument::getGsoapErrorCode() const
+{
+	return s->error;
+}
+
+std::string EpcDocument::getGsoapErrorMessage() const
+{
+	ostringstream oss;
+	soap_stream_fault(s, oss);
+	return oss.str();
+}
+
+void EpcDocument::setGsoapStream(std::istream * inputStream)
+{
+	s->is = inputStream;
+}
+
+gsoap_resqml2_0_1::_eml__EpcExternalPartReference* EpcDocument::getEpcExternalPartReferenceGsoapProxyFromGsoapContext()
+{
+	gsoap_resqml2_0_1::_eml__EpcExternalPartReference* read = gsoap_resqml2_0_1::soap_new_eml__obj_USCOREEpcExternalPartReference(s, 1);
+	soap_read_eml__obj_USCOREEpcExternalPartReference(s, read);
+	return read;
+}

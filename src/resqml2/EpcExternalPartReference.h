@@ -59,7 +59,7 @@ namespace resqml2
 		~EpcExternalPartReference() {}
 
 		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
+		virtual std::string getXmlTag() const;
 
 	protected:
 

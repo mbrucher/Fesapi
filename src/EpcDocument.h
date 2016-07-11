@@ -207,7 +207,7 @@ namespace common
 		* Unzip the package and get all contained elements with their relationships
 		* @return			An empty string if everything's ok otherwise the error string.
 		*/
-		std::string deserialize();
+		virtual std::string deserialize();
 
 		/**
 		* Get the soap context of the epc document.
@@ -1031,6 +1031,45 @@ namespace common
 		void addWarning(const std::string & warning);
 		const std::vector<std::string> & getWarnings() const;
 
+	protected:
+		/**
+		* Get the error code of the current gsoap context.
+		*/
+		int getGsoapErrorCode() const;
+
+		/**
+		* Get the error message (if any) of the current gsoap context.
+		*/
+		std::string getGsoapErrorMessage() const;
+
+		/**
+		* Set the stream of the curent gsoap context.
+		*/
+		void setGsoapStream(std::istream * inputStream);
+
+		/**
+		* Add a resqml fesapi wrapper into this instance
+		*/
+		void addFesapiWrapperAndDeleteItIfException(resqml2::AbstractObject* proxy);
+
+		/**
+		* Add a witsml fesapi wrapper into this instance
+		*/
+		void addFesapiWrapperAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy);
+
+		/**
+		* Read the Gsoap proxy from the stream associated to the current gsoap context and wrap this gsoap proxy into a fesapi wrapper.
+		* It does not add this fesapi wrapper to the current instance.
+		* It does not work for EpcExternalPartReference content type since this type is related to an external file which must be handled differently.
+		*/
+		resqml2::AbstractObject* getResqml2_0_1WrapperFromGsoapContext(const std::string & resqmlContentType);
+
+		/**
+		* Read the Gsoap proxy from the stream associated to the current gsoap context whihc must contains an EpcExternalPartReference xml document.
+		* It does not add this gsoap proxy to the current instance.
+		*/
+		gsoap_resqml2_0_1::_eml__EpcExternalPartReference* getEpcExternalPartReferenceGsoapProxyFromGsoapContext();
+
 	private :
 		static const char * DOCUMENT_EXTENSION;
 
@@ -1081,9 +1120,6 @@ namespace common
 #ifdef WITH_RESQML2_1
 		HdfProxyBuilderFromGsoapProxy2_1* make_hdf_proxy_from_gsoap_proxy_2_1; /// the builder for a v2.1 HDF proxy in reading mode of the epc document
 #endif
-
-		void addGsoapProxyAndDeleteItIfException(resqml2::AbstractObject* proxy);
-		void addGsoapProxyAndDeleteItIfException(witsml1_4_1_1::AbstractObject* proxy);
 	};
 }
 
