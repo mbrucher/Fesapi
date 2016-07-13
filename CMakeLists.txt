@@ -13,6 +13,9 @@ if (${UNDER_DEV})
 	set (CS_LIBRARY_NAME ${CS_LIBRARY_NAME}UnderDev)
 endif (${UNDER_DEV})
 
+if("${FESAPI_LIBRARY_NAME}" STREQUAL "")
+  set(FESAPI_LIBRARY_NAME "FesapiCpp" CACHE STRING "Fesapi main library name")
+endif("${FESAPI_LIBRARY_NAME}" STREQUAL "")
 
 # ============================================================================
 # user variables
@@ -97,6 +100,10 @@ ELSEIF (WIN32)
 	else()
 		find_package (HDF5 NAMES hdf5 COMPONENTS C static)
 	endif()
+
+	FIND_PACKAGE (ZLIB REQUIRED)
+  SET(ZLIB_LIBRARIES debug ${ZLIB_LIBRARY_DEBUG} optimized ${ZLIB_LIBRARY_RELEASE})
+
 ENDIF (UNIX)
 SET (WITH_RESQML2_1 OFF CACHE BOOL "Support for Resqml 2.1")
 
