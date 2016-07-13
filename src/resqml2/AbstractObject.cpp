@@ -452,11 +452,13 @@ void AbstractObject::setMetadata(const std::string & title, const std::string & 
 
 void AbstractObject::serializeIntoStream(ostream * stream)
 {
-	if (partialObject != nullptr)
+	if (partialObject != nullptr) {
 		throw invalid_argument("The wrapped gsoap proxy must not be null");
+	}
 
-	if (!stream)
+	if (stream == nullptr) {
 		throw invalid_argument("The stream where the entity will be stored cannot be null.");
+	}
 
 	string xmlTagIncludingNamespace = getXmlNamespace() + ":"+ getXmlTag();
 

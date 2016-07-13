@@ -770,6 +770,24 @@ resqml2::AbstractObject* EpcDocument::getResqml2_0_1WrapperFromGsoapContext(cons
 			wrapper = new IjkGridNoGeometryRepresentation(read);
 		}
 	}
+	else if (resqmlContentType.compare(AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) == 0)
+	{
+		GET_RESQML_2_0_1_GSOAP_PROXY_FROM_GSOAP_CONTEXT(TruncatedIjkGridRepresentation)
+
+			if (read->Geometry != nullptr) {
+				switch (read->Geometry->Points->soap_type()) {
+				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array:
+					wrapper = new IjkGridExplicitRepresentation(read); break;
+				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray:
+					wrapper = new IjkGridParametricRepresentation(read); break;
+				case SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray:
+					wrapper = new IjkGridLatticeRepresentation(read); break;
+				}
+			}
+			else {
+				wrapper = new IjkGridNoGeometryRepresentation(read);
+			}
+	}
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(UnstructuredGridRepresentation)
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(PropertyKind)
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(ContinuousProperty)

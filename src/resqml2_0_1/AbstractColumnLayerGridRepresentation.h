@@ -44,14 +44,18 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :resqml2::AbstractGridRepresentation(epcDoc, partialObject) {}
+		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject, bool withTruncatedPillars) :resqml2::AbstractGridRepresentation(epcDoc, partialObject, withTruncatedPillars) {}
 
-		AbstractColumnLayerGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : resqml2::AbstractGridRepresentation(interp, crs) {}
+		/**
+		* Default constructor
+		*/
+		AbstractColumnLayerGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs, bool withTruncatedPillars) : resqml2::AbstractGridRepresentation(interp, crs, withTruncatedPillars) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractColumnLayerGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractColumnLayerGridRepresentation* fromGsoap) : resqml2::AbstractGridRepresentation(fromGsoap) {}
+		AbstractColumnLayerGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractColumnLayerGridRepresentation* fromGsoap, bool withTruncatedPillars) : resqml2::AbstractGridRepresentation(fromGsoap, withTruncatedPillars) {}
+		AbstractColumnLayerGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* fromGsoap, bool withTruncatedPillars) : resqml2::AbstractGridRepresentation(fromGsoap, withTruncatedPillars) {}
 
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);

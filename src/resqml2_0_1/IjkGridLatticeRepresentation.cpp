@@ -108,8 +108,7 @@ ULONG64 IjkGridLatticeRepresentation::getXyzPointCountOfPatch(const unsigned int
 {
 	if (patchIndex < getPatchCount())
 	{
-		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-		return (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
+		return (getICellCount()+1) * (getJCellCount()+1) * (getKCellCount()+1);
 	}
 	else
 		throw range_error("An ijk grid has a maximum of one patch.");
@@ -434,7 +433,12 @@ void IjkGridLatticeRepresentation::setGeometryAsCoordinateLineNodes(
 {
 	resqml2__IjkGridGeometry* geom = soap_new_resqml2__IjkGridGeometry(gsoapProxy2_0_1->soap, 1);
 	geom->LocalCrs = localCrs->newResqmlReference();
-	static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1)->Geometry = geom;
+	if (!isTruncated()) {
+		getSpecializedGsoapProxy()->Geometry = geom;
+	}
+	else {
+		getSpecializedTruncatedGsoapProxy()->Geometry = geom;
+	}
 	geom->GridIsRighthanded = isRightHanded;
 	geom->PillarShape = mostComplexPillarGeometry;
 	geom->KDirection = kDirectionKind;

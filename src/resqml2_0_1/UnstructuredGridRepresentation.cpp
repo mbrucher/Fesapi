@@ -52,10 +52,12 @@ void UnstructuredGridRepresentation::init(soap* soapContext, resqml2::AbstractLo
 			const std::string & guid, const std::string & title,
 			const ULONG64 & cellCount)
 {
-	if (soapContext == nullptr)
+	if (soapContext == nullptr) {
 		throw invalid_argument("The soap context cannot be null.");
-	if (crs == nullptr)
+	}
+	if (crs == nullptr) {
 		throw invalid_argument("The local CRS of the unstructured grid cannot be null.");
+	}
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREUnstructuredGridRepresentation(soapContext, 1);
 	_resqml2__UnstructuredGridRepresentation* unstructuredGrid = getSpecializedGsoapProxy();
@@ -71,9 +73,9 @@ void UnstructuredGridRepresentation::init(soap* soapContext, resqml2::AbstractLo
 }
 
 UnstructuredGridRepresentation::UnstructuredGridRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
-			const std::string & guid, const std::string & title,
-			const ULONG64 & cellCount):
-	AbstractGridRepresentation(nullptr, crs), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+	const std::string & guid, const std::string & title,
+	const ULONG64 & cellCount):
+	AbstractGridRepresentation(nullptr, crs, false), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 	cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 	nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 {
@@ -81,9 +83,9 @@ UnstructuredGridRepresentation::UnstructuredGridRepresentation(soap* soapContext
 }
 
 UnstructuredGridRepresentation::UnstructuredGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
-		const std::string & guid, const std::string & title,
-		const ULONG64 & cellCount):
-	AbstractGridRepresentation(interp, crs), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+	const std::string & guid, const std::string & title,
+	const ULONG64 & cellCount):
+	AbstractGridRepresentation(interp, crs, false), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 	cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 	nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 {
@@ -103,18 +105,20 @@ bool UnstructuredGridRepresentation::hasGeometry() const
 
 _resqml2__UnstructuredGridRepresentation* UnstructuredGridRepresentation::getSpecializedGsoapProxy() const
 {
-	if (isPartial() == true)
+	if (isPartial()) {
 		throw logic_error("Partial object");
+	}
 
 	return static_cast<_resqml2__UnstructuredGridRepresentation*>(gsoapProxy2_0_1);
 }
 
 gsoap_resqml2_0_1::resqml2__PointGeometry* UnstructuredGridRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const
 {
-	if (patchIndex == 0)
+	if (patchIndex == 0) {
 		return getSpecializedGsoapProxy()->Geometry;
-	else
-		return nullptr;
+	}
+	
+	return nullptr;
 }
 
 string UnstructuredGridRepresentation::getHdfProxyUuid() const
@@ -130,54 +134,59 @@ ULONG64 UnstructuredGridRepresentation::getCellCount() const
 ULONG64 UnstructuredGridRepresentation::getFaceCount() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry)
+	if (grid->Geometry) {
 		return grid->Geometry->FaceCount;
-	else
-		return 0;
+	}
+	
+	return 0;
 }
 
 ULONG64 UnstructuredGridRepresentation::getNodeCount() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry)
+	if (grid->Geometry) {
 		return grid->Geometry->NodeCount;
-	else
-		return 0;
+	}
+
+	return 0;
 }
 
 ULONG64 UnstructuredGridRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex >= getPatchCount())
+	if (patchIndex >= getPatchCount()) {
 		throw range_error("The index of the patch is not in the allowed range of patch.");
+	}
 
 	return getNodeCount();
 }
 
 void UnstructuredGridRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
-	if (patchIndex >= getPatchCount())
+	if (patchIndex >= getPatchCount()) {
 		throw range_error("The index of the patch is not in the allowed range of patch.");
+	}
 
 	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
-	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
-	{
+	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array) {
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
 	}
-	else
+	else {
 		throw invalid_argument("The geometry of the representation either does not exist or it is not an explicit one.");
+	}
 }
 
 void UnstructuredGridRepresentation::getFaceIndicesOfCells(ULONG64 * faceIndices) const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry == nullptr)
+	if (grid->Geometry == nullptr) {
 		throw invalid_argument("There is no geometry in this grid.");
-	if (grid->Geometry->FacesPerCell->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-	{
+	}
+	if (grid->Geometry->FacesPerCell->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array) {
 		hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(grid->Geometry->FacesPerCell->Elements)->Values->PathInHdfFile, faceIndices);	
 	}
-	else
+	else {
 		throw logic_error("Not yet implemented");
+	}
 }
 
 void UnstructuredGridRepresentation::getCumulativeFaceCountPerCell(ULONG64 * cumulativeFaceCountPerCell) const

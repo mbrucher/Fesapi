@@ -52,16 +52,19 @@ namespace resqml2_0_1
 		*/
 		void init(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 				const std::string & guid, const std::string & title,
-				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+				bool withTruncatedPillars);
 
 	protected :
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap): AbstractColumnLayerGridRepresentation(fromGsoap), splitInformation(nullptr) {}
+		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* fromGsoap) : AbstractColumnLayerGridRepresentation(fromGsoap, false), splitInformation(nullptr) {}
+		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::_resqml2__TruncatedIjkGridRepresentation* fromGsoap) : AbstractColumnLayerGridRepresentation(fromGsoap, true), splitInformation(nullptr) {}
 
 		gsoap_resqml2_0_1::_resqml2__IjkGridRepresentation* getSpecializedGsoapProxy() const;
+		gsoap_resqml2_0_1::_resqml2__TruncatedIjkGridRepresentation* getSpecializedTruncatedGsoapProxy() const;
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 
@@ -76,17 +79,20 @@ namespace resqml2_0_1
 		*/
 		AbstractIjkGridRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+			bool withTruncatedPillars = false);
 
 		AbstractIjkGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+			bool withTruncatedPillars = false);
 
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			AbstractColumnLayerGridRepresentation(nullptr, partialObject), splitInformation(nullptr)
+		AbstractIjkGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject,
+			bool withTruncatedPillars = false) :
+			AbstractColumnLayerGridRepresentation(nullptr, partialObject, withTruncatedPillars), splitInformation(nullptr)
 		{
 		}
 
@@ -268,7 +274,8 @@ namespace resqml2_0_1
 		virtual void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const { throw std::logic_error("Partial object"); }
 
 		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
+		static const char* XML_TAG_TRUNCATED;
+		virtual std::string getXmlTag() const;
 
 		unsigned int getPatchCount() const {return 1;}
 	};

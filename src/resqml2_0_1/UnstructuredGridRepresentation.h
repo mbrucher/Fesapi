@@ -65,7 +65,7 @@ namespace resqml2_0_1
 		* Only to be used in partial transfer context
 		*/
 		UnstructuredGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			resqml2::AbstractGridRepresentation(nullptr, partialObject), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+			resqml2::AbstractGridRepresentation(nullptr, partialObject, false), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 		{
@@ -86,7 +86,7 @@ namespace resqml2_0_1
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
 		UnstructuredGridRepresentation(gsoap_resqml2_0_1::_resqml2__UnstructuredGridRepresentation* fromGsoap):
-			resqml2::AbstractGridRepresentation(fromGsoap), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+			resqml2::AbstractGridRepresentation(fromGsoap, false), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr) {}
 

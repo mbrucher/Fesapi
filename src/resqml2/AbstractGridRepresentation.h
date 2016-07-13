@@ -64,14 +64,17 @@ namespace resqml2
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):AbstractRepresentation(epcDoc, partialObject)  {}
-
-		AbstractGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : AbstractRepresentation(interp, crs) {}
+		AbstractGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject, bool withTruncatedPillars) :AbstractRepresentation(epcDoc, partialObject), withTruncatedPillars(withTruncatedPillars)  {}
+		
+		/**
+		* Default constructor
+		*/
+		AbstractGridRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs, bool withTruncatedPillars) : AbstractRepresentation(interp, crs), withTruncatedPillars(withTruncatedPillars){}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		AbstractGridRepresentation(gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation* fromGsoap, bool withTruncatedPillars) : AbstractRepresentation(fromGsoap), withTruncatedPillars(withTruncatedPillars) {}
 
 	public:
 
@@ -80,6 +83,18 @@ namespace resqml2
 		*/
 		virtual ~AbstractGridRepresentation() {}
 
+		/**
+		* Get the count of (volumic) cells in the grid.
+		*/
+		virtual ULONG64 getCellCount() const = 0;
+
+		//************************************************************
+		//****************** GRID CONNECTION SET *********************
+		//************************************************************
+
+		/**
+		* Get the vector of all grid connection set rep asociated to this grid instance.
+		*/
 		std::vector<resqml2::GridConnectionSetRepresentation*> getGridConnectionSetRepresentationSet() const {return gridConnectionSetRepresentationSet;}
 
 		/**
@@ -94,10 +109,10 @@ namespace resqml2
 		 */
 		resqml2::GridConnectionSetRepresentation* getGridConnectionSetRepresentation(const unsigned int & index) const;
 
-		/**
-		* Get the count of (volumic) cells in the grid.
-		*/
-		virtual ULONG64 getCellCount() const = 0;
+
+		//************************************************************
+		//******************** GRID PARENTAGE ************************
+		//************************************************************
 
 		/**
 		* Get the parent grid of this grid.
@@ -276,6 +291,10 @@ namespace resqml2
 		*/
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
 
+		//************************************************************
+		//**************** LINK WITH STRATIGRAPHY ********************
+		//************************************************************
+
 		/**
 		* Set the stratigraphic organization interpretation which is associated to this grid representation.
 		* @param stratiUnitIndices	Index of the stratigraphic unit of a given stratigraphic column for each cell. Array length is the number of cells in the grid or the blocked well.
@@ -306,12 +325,23 @@ namespace resqml2
 		*/
 		ULONG64 getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
 
+		//************************************************************
+		//********************** TRUNCATION **************************
+		//************************************************************
+
+		/**
+		* Indicates wether this grid instance contains truncated pillars or not.
+		*/
+		bool isTruncated() const;
+
 		static const char* XML_TAG;
 
 	protected:
 
 		virtual std::vector<epc::Relationship> getAllEpcRelationships() const;
 		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
+
+		bool withTruncatedPillars;
 
 		std::vector<AbstractGridRepresentation*> childGridSet;
 

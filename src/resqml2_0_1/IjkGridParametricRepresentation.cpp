@@ -62,8 +62,11 @@ IjkGridParametricRepresentation::IjkGridParametricRepresentation(resqml2::Abstra
 
 unsigned int IjkGridParametricRepresentation::getControlPointMaxCountPerPillar() const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		return static_cast<resqml2__ParametricLineArray*>(points->ParametricLines)->KnotCount;
@@ -74,8 +77,11 @@ unsigned int IjkGridParametricRepresentation::getControlPointMaxCountPerPillar()
 
 void IjkGridParametricRepresentation::getControlPoints(double * controlPoints, bool reverseIAxis, bool reverseJAxis, bool reverseKAxis) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
@@ -165,8 +171,11 @@ void IjkGridParametricRepresentation::getControlPoints(double * controlPoints, b
 
 bool IjkGridParametricRepresentation::hasControlPointParameters() const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
@@ -178,8 +187,11 @@ bool IjkGridParametricRepresentation::hasControlPointParameters() const
 
 void IjkGridParametricRepresentation::getControlPointParameters(double * controlPointParameters, bool reverseIAxis, bool reverseJAxis, bool reverseKAxis) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
@@ -265,10 +277,11 @@ void IjkGridParametricRepresentation::getControlPointParameters(double * control
 
 bool IjkGridParametricRepresentation::isParametricLineKindConstant() const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	if (grid->Geometry == nullptr)
-		throw invalid_argument("There is no geometry in this grid.");
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
@@ -299,10 +312,11 @@ short IjkGridParametricRepresentation::getConstantParametricLineKind() const
 	if (!isParametricLineKindConstant())
 		throw invalid_argument("The parametric line kind is not constant.");
 
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	if (grid->Geometry == nullptr)
-		throw invalid_argument("There is no geometry in this grid.");
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
@@ -323,10 +337,11 @@ short IjkGridParametricRepresentation::getConstantParametricLineKind() const
 
 void IjkGridParametricRepresentation::getParametricLineKind(short * pillarKind, bool reverseIAxis, bool reverseJAxis) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	if (grid->Geometry == nullptr)
-		throw invalid_argument("There is no geometry in this grid.");
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
 	{
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
@@ -400,8 +415,11 @@ void IjkGridParametricRepresentation::getParametricLineKind(short * pillarKind, 
 
 void IjkGridParametricRepresentation::getParametersOfNodes(double * parameters, bool reverseIAxis, bool reverseJAxis, bool reverseKAxis) const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->Parameters->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(points->Parameters)->Values->PathInHdfFile, parameters);
@@ -479,8 +497,11 @@ void IjkGridParametricRepresentation::getParametersOfNodes(double * parameters, 
 
 string IjkGridParametricRepresentation::getHdfProxyUuid() const
 {
-	_resqml2__IjkGridRepresentation* grid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(grid->Geometry->Points);
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 	if (points->Parameters->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
 	{
 		return static_cast<resqml2__DoubleHdf5Array*>(points->Parameters)->Values->HdfProxy->UUID;
@@ -491,35 +512,41 @@ string IjkGridParametricRepresentation::getHdfProxyUuid() const
 
 ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex == 0)
-	{
-		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
-
-		if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
-		{
-			result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
-		}
-		if (ijkGrid->Geometry->SplitNodes != nullptr)
-		{
-			result += ijkGrid->Geometry->SplitNodes->Count;
-		}
-
-		return result;
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(patchIndex);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
 	}
-	else
-		return 0;
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
+
+	_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
+	ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
+
+	if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
+	{
+		result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
+	}
+	if (ijkGrid->Geometry->SplitNodes != nullptr)
+	{
+		result += ijkGrid->Geometry->SplitNodes->Count;
+	}
+
+	return result;
 }
 
 void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
-	resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(patchIndex);
-	if (pointGeom != nullptr && pointGeom->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
+
+	if (points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
 	{
-		getXyzPointsOfPatchFromParametricPoints(static_cast<resqml2__Point3dParametricArray*>(pointGeom->Points), xyzPoints);
+		getXyzPointsOfPatchFromParametricPoints(points, xyzPoints);
 	}
 	else
-		throw invalid_argument("The geometry of the grid either does not exist or it is not a parametric one.");
+		throw invalid_argument("The geometry of the grid is not a parametric one.");
 }
 
 void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNodes(
@@ -542,7 +569,10 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 	setGeometryAsParametricSplittedPillarNodes(kDirectionKind, isRightHanded, parameters, controlPoints, controlPointParameters, controlPointMaxCountPerPillar, 2, proxy,
 		splitCoordinateLineCount, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
-	resqml2__IjkGridGeometry* geom = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1)->Geometry;
+	gsoap_resqml2_0_1::resqml2__IjkGridGeometry* geom = static_cast<gsoap_resqml2_0_1::resqml2__IjkGridGeometry*>(getPointGeometry2_0_1(0));
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
 	geom->PillarShape = mostComplexPillarGeometry;
 
 	// XML Pillar defined
@@ -626,7 +656,12 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 
 	resqml2__IjkGridGeometry* geom = soap_new_resqml2__IjkGridGeometry(gsoapProxy2_0_1->soap, 1);
 	geom->LocalCrs = localCrs->newResqmlReference();
-	static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1)->Geometry = geom;
+	if (!isTruncated()) {
+		getSpecializedGsoapProxy()->Geometry = geom;
+	}
+	else {
+		getSpecializedTruncatedGsoapProxy()->Geometry = geom;
+	}
 	geom->GridIsRighthanded = isRightHanded;
 	if (pillarKind > 1)
 	{

@@ -29,6 +29,7 @@
 #include "resqml2_0_1test/WellboreRegularFrameRepresentationTest.h"
 #include "resqml2_0_1test/DiscretePropertyUsingLocalKindOnWellFrameTest.h"
 #include "resqml2_0_1test/HorizonOnSeismicLine.h"
+#include "resqml2_0_1test/RightHanded4x3x2ExplicitIjkGrid.h"
 
 using namespace commontest;
 using namespace resqml2_0_1test;
@@ -63,6 +64,8 @@ FESAPI_TEST("Export and import a single and multi patch triangulated set fault r
 FESAPI_TEST("Export and import a generic creation activity template", "[activity]", ActivityTemplateGenericCreationTest)
 
 FESAPI_TEST("Export and import an activity", "[activity]", ActivityCreationTest)
+
+FESAPI_TEST("Export and import a 4*3*2 explicit right handed ijk grid", "[grid]", RightHanded4x3x2ExplicitIjkGrid)
 
 FESAPI_TEST("Export and import an unstructured grid", "[grid]", OneTetrahedronUnstructuredGridRepresentationTest)
 

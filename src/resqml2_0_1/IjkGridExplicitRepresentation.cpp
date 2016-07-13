@@ -67,25 +67,22 @@ string IjkGridExplicitRepresentation::getHdfProxyUuid() const
 
 ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex < getPatchCount())
-	{
-		_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-
-		ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
-
-		if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
-		{
-			result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
-		}
-		if (ijkGrid->Geometry->SplitNodes != nullptr)
-		{
-			result += ijkGrid->Geometry->SplitNodes->Count;
-		}
-
-		return result;
+	gsoap_resqml2_0_1::resqml2__IjkGridGeometry* geom = static_cast<gsoap_resqml2_0_1::resqml2__IjkGridGeometry*>(getPointGeometry2_0_1(patchIndex));
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
 	}
-	else
-		throw range_error("An ijk grid has a maximum of one patch.");
+
+	const unsigned int kNodeCount = getKCellCount() + 1;
+	ULONG64 result = (getICellCount() + 1) * (getJCellCount() + 1) * kNodeCount;
+
+	if (geom->SplitCoordinateLines != nullptr) {
+		result += geom->SplitCoordinateLines->Count * kNodeCount;
+	}
+	if (geom->SplitNodes != nullptr) {
+		result += geom->SplitNodes->Count;
+	}
+
+	return result;
 }
 
 void IjkGridExplicitRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
@@ -110,18 +107,26 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 	const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 	unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
 {
-	if (!proxy)
+	if (proxy == nullptr) {
 		throw invalid_argument("The hdf proxy cannot be null.");
-	if (!points)
+	}
+	if (points == nullptr) {
 		throw invalid_argument("The points of the ijk grid cannot be null.");
-	if (splitCoordinateLineCount != 0 && (!pillarOfCoordinateLine || !splitCoordinateLineColumnCumulativeCount || !splitCoordinateLineColumns))
+	}
+	if (splitCoordinateLineCount != 0 && (pillarOfCoordinateLine == nullptr || splitCoordinateLineColumnCumulativeCount == nullptr || splitCoordinateLineColumns == nullptr)) {
 		throw invalid_argument("The definition of the split coordinate lines is incomplete.");
+	}
 
 	setHdfProxy(proxy);
 
 	resqml2__IjkGridGeometry* geom = soap_new_resqml2__IjkGridGeometry(gsoapProxy2_0_1->soap, 1);
 	geom->LocalCrs = localCrs->newResqmlReference();
-	static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1)->Geometry = geom;
+	if (!isTruncated()) {
+		getSpecializedGsoapProxy()->Geometry = geom;
+	}
+	else {
+		getSpecializedTruncatedGsoapProxy()->Geometry = geom;
+	}
 	geom->GridIsRighthanded = isRightHanded;
 	geom->PillarShape = mostComplexPillarGeometry;
 	geom->KDirection = kDirectionKind;

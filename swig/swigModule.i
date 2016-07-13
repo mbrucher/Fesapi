@@ -2,19 +2,19 @@
 
 
 #ifdef SWIGJAVA
-/*
- When using multiple modules or the nspace feature it is common to invoke SWIG with a different -package command line option for each module.
- However, by default the generated code may not compile if generated classes in one package use generated classes in another package.
- The visibility of the getCPtr() and pointer constructor generated from the javabody typemaps needs changing.
- The default visibility is protected but it needs to be public for access from a different package. Just changing 'protected' to 'public' in the typemap achieves this.
- Two macros are available in java.swg to make this easier and using them is the preferred approach over simply copying the typemaps and modifying as this is forward compatible with any changes in the javabody typemap in future versions of SWIG.
- The macros are for the proxy and typewrapper classes and can respectively be used to to make the method and constructor public:
-  SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
-  SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
-*/
-// Notice you must not compile the C++ API with an optimisation superior to -O1 with gcc 4.4.7 in order SWIG to work
-SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
-SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
+	/*
+	 When using multiple modules or the nspace feature it is common to invoke SWIG with a different -package command line option for each module.
+	 However, by default the generated code may not compile if generated classes in one package use generated classes in another package.
+	 The visibility of the getCPtr() and pointer constructor generated from the javabody typemaps needs changing.
+	 The default visibility is protected but it needs to be public for access from a different package. Just changing 'protected' to 'public' in the typemap achieves this.
+	 Two macros are available in java.swg to make this easier and using them is the preferred approach over simply copying the typemaps and modifying as this is forward compatible with any changes in the javabody typemap in future versions of SWIG.
+	 The macros are for the proxy and typewrapper classes and can respectively be used to to make the method and constructor public:
+	  SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
+	  SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
+	*/
+	// Notice you must not compile the C++ API with an optimisation superior to -O1 with gcc 4.4.7 in order SWIG to work
+	SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
+	SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 #endif
 
 //************************
@@ -23,6 +23,8 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 
 #ifdef SWIGCSHARP
 	%include "csharp/std_string_utf8.i"
+	SWIG_CSBODY_PROXY(public, public, SWIGTYPE)
+	SWIG_CSBODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 #else
 	%include "std_string.i"
 #endif

@@ -47,16 +47,25 @@ using namespace epc;
 
 unsigned int AbstractColumnLayerGridRepresentation::getKCellCount() const
 {
-	return static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk;
+	return isTruncated() ? static_cast<resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk : static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk;
 }
 
 void AbstractColumnLayerGridRepresentation::setKCellCount(const unsigned int & kCount)
 {
-	static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk = kCount;
+	if (!isTruncated()) {
+		static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk = kCount;
+	}
+	else {
+		static_cast<resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->Nk = kCount;
+	}
 }
 
 void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation * stratiOrgInterp)
 {
+	if (isTruncated()) {
+		throw invalid_argument("A truncated grid cannot be linked to a strati columnumn in Resqml v2.0");
+	}
+
 	// Backward rel
 	if (!stratiOrgInterp->isAssociatedToGridRepresentation(this))
 	{
@@ -85,6 +94,10 @@ void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigrap
 
 std::string AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationInterpretationUuid() const
 {
+	if (isTruncated()) {
+		throw invalid_argument("A truncated grid cannot be linked to a strati columnumn in Resqml v2.0");
+	}
+
 	string result = resqml2::AbstractGridRepresentation::getStratigraphicOrganizationInterpretationUuid();
 	if (!result.empty()) {
 		return result;
@@ -101,11 +114,15 @@ std::string AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationI
 
 bool AbstractColumnLayerGridRepresentation::hasIntervalStratigraphicUnitIndices() const
 {
-	return static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->IntervalStratigraphicUnits != nullptr;
+	return !isTruncated() && static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1)->IntervalStratigraphicUnits != nullptr;
 }
 
 ULONG64 AbstractColumnLayerGridRepresentation::getIntervalStratigraphicUnitIndices(ULONG64 * stratiUnitIndices)
 {
+	if (isTruncated()) {
+		throw invalid_argument("A truncated grid cannot be linked to a strati columnumn in Resqml v2.0");
+	}
+
 	resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
 
 	if (!hasIntervalStratigraphicUnitIndices())
@@ -143,19 +160,14 @@ void AbstractColumnLayerGridRepresentation::importRelationshipSetFromEpc(common:
 	AbstractGridRepresentation::importRelationshipSetFromEpc(epcDoc);
 
 	// Strati org backward relationships
-	resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
-	if (rep->IntervalStratigraphicUnits != nullptr)
-	{
-		AbstractObject* stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid(rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID);
-		if (dynamic_cast<AbstractStratigraphicOrganizationInterpretation*>(stratiOrg) != nullptr)
+	if (hasIntervalStratigraphicUnitIndices()) {
+		resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+		AbstractStratigraphicOrganizationInterpretation* stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid<AbstractStratigraphicOrganizationInterpretation>(rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID);
+		if (stratiOrg != nullptr)
 		{
 			updateXml = false;
-			setIntervalAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, static_cast<AbstractStratigraphicOrganizationInterpretation*>(stratiOrg));
+			setIntervalAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, stratiOrg);
 			updateXml = true;
-		}
-		else
-		{
-			throw logic_error("The referenced strati organization interpretation does not look to be a strati organization interpretation.");
 		}
 	}
 }
