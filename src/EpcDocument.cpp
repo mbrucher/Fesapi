@@ -1910,6 +1910,16 @@ resqml2::SubRepresentation* EpcDocument::createSubRepresentation(resqml2::Abstra
 	return result;
 }
 
+resqml2::GridConnectionSetRepresentation* EpcDocument::createPartialGridConnectionSetRepresentation(const std::string & guid, const std::string & title)
+{
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	resqml2::GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(dor);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
 resqml2::GridConnectionSetRepresentation* EpcDocument::createGridConnectionSetRepresentation(const std::string & guid, const std::string & title)
 {
 	resqml2::GridConnectionSetRepresentation* result = new GridConnectionSetRepresentation(getGsoapContext(), guid, title);

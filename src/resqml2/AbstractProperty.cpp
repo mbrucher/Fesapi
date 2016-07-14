@@ -189,6 +189,9 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 		else if (ctRep.find(resqml2::SubRepresentation::XML_TAG) != string::npos) {
 			rep = epcDoc->createPartialSubRepresentation(uuidRep, titleRep);
 		}
+		else if (ctRep.find(resqml2::GridConnectionSetRepresentation::XML_TAG) != string::npos) {
+			rep = epcDoc->createPartialGridConnectionSetRepresentation(uuidRep, titleRep);
+		}
 		else {
 			throw logic_error("The partial supporting representation of property " + getTitle() + " is not supported yet.");
 		}

@@ -901,6 +901,8 @@ namespace common
                 const std::string & guid, const std::string & title,
 				resqml2::AbstractRepresentation * supportingRep);
 
+		resqml2::GridConnectionSetRepresentation* createPartialGridConnectionSetRepresentation(const std::string & guid, const std::string & title);
+
 		resqml2::GridConnectionSetRepresentation* createGridConnectionSetRepresentation(const std::string & guid, const std::string & title);
 
 		resqml2::GridConnectionSetRepresentation* createGridConnectionSetRepresentation(resqml2::AbstractFeatureInterpretation* interp,

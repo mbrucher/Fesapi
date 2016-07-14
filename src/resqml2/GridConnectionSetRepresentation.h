@@ -42,6 +42,12 @@ namespace resqml2
 	protected:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		GridConnectionSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
+			AbstractRepresentation(nullptr, partialObject) {}
+
+		/**
 		* Creates an instance of this class in a gsoap context.
 		*/
 		GridConnectionSetRepresentation(class AbstractFeatureInterpretation* interp) : AbstractRepresentation(interp, nullptr) {}
@@ -62,7 +68,7 @@ namespace resqml2
 		virtual ~GridConnectionSetRepresentation() {}
         
 		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
+		virtual std::string getXmlTag() const;
 
 		virtual std::string getHdfProxyUuid() const = 0;
 

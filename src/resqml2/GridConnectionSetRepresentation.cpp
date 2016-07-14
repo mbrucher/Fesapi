@@ -53,6 +53,12 @@ using namespace gsoap_resqml2_0_1;
 
 const char* GridConnectionSetRepresentation::XML_TAG = "GridConnectionSetRepresentation";
 
+std::string GridConnectionSetRepresentation::getXmlTag() const
+{
+	return XML_TAG;
+
+}
+
 vector<Relationship> GridConnectionSetRepresentation::getAllEpcRelationships() const
 {
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();

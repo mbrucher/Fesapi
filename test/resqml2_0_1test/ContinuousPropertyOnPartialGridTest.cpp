@@ -38,11 +38,11 @@ void ContinuousPropertyOnPartialGridTest::initEpcDocHandler() {
 }
 
 void ContinuousPropertyOnPartialGridTest::readEpcDocHandler() {
-	// getting the ContinuousPropertySeries
+	// getting the ContinuousProperty
 	resqml2_0_1::ContinuousProperty* continuousProperty = static_cast<resqml2_0_1::ContinuousProperty*>(this->epcDoc->getResqmlAbstractObjectByUuid(this->uuid));
 
 	// ************************************
-	// reading the ContinuousPropertySeries
+	// reading the ContinuousProperty
 
 	// getElementCountPerValue
 	REQUIRE( continuousProperty->getElementCountPerValue() == 1 );

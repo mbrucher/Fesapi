@@ -73,11 +73,14 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 	AbstractRepresentation* supportingRep = nullptr;
 	if (supportingRepInEpc == nullptr) { // partial transfer
 		getEpcDocument()->addWarning("The referenced grid \"" + getSupportingRepresentationTitle() + "\" (" + getSupportingRepresentationUuid() + ") is missing.");
-		if (getSupportingRepresentationContentType().find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != 0) {
+		if (getSupportingRepresentationContentType().find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
 			supportingRep = epcDoc->createPartialUnstructuredGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
 		}
-		else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != 0) {
+		else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
 			supportingRep = epcDoc->createPartialIjkGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
+		}
+		else if (getSupportingRepresentationContentType().find(resqml2::GridConnectionSetRepresentation::XML_TAG) != string::npos) {
+			supportingRep = epcDoc->createPartialGridConnectionSetRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
 		}
 	}
 	else if (dynamic_cast<AbstractRepresentation*>(supportingRepInEpc) != nullptr) {

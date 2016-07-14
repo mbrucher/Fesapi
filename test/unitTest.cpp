@@ -30,6 +30,7 @@
 #include "resqml2_0_1test/DiscretePropertyUsingLocalKindOnWellFrameTest.h"
 #include "resqml2_0_1test/HorizonOnSeismicLine.h"
 #include "resqml2_0_1test/RightHanded4x3x2ExplicitIjkGrid.h"
+#include "resqml2_0_1test/SubRepresentationOnPartialGridConnectionSet.h"
 
 using namespace commontest;
 using namespace resqml2_0_1test;
@@ -68,6 +69,8 @@ FESAPI_TEST("Export and import an activity", "[activity]", ActivityCreationTest)
 FESAPI_TEST("Export and import a 4*3*2 explicit right handed ijk grid", "[grid]", RightHanded4x3x2ExplicitIjkGrid)
 
 FESAPI_TEST("Export and import an unstructured grid", "[grid]", OneTetrahedronUnstructuredGridRepresentationTest)
+
+FESAPI_TEST("Export and import a subrepresenation on a partial grid connection set", "[grid]", SubRepresentationOnPartialGridConnectionSet)
 
 //FESAPI_TEST("Ijk to unstructured grid", "[grid]", UnstructuredFromIjkGridRepresentationTest)
 

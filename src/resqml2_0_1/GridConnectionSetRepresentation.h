@@ -56,6 +56,13 @@ namespace resqml2_0_1
 		void pushBackXmlSupportingGridRepresentation(resqml2::AbstractGridRepresentation * supportingGridRep);
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		GridConnectionSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
+			resqml2::GridConnectionSetRepresentation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param interp	The interpretation the instance represents.
