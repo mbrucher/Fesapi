@@ -1065,7 +1065,7 @@ namespace common
 		resqml2::AbstractObject* getResqml2_0_1WrapperFromGsoapContext(const std::string & resqmlContentType);
 
 		/**
-		* Read the Gsoap proxy from the stream associated to the current gsoap context whihc must contains an EpcExternalPartReference xml document.
+		* Read the Gsoap proxy from the stream associated to the current gsoap context which must contains an EpcExternalPartReference xml document.
 		* It does not add this gsoap proxy to the current instance.
 		*/
 		gsoap_resqml2_0_1::_eml__EpcExternalPartReference* getEpcExternalPartReferenceGsoapProxyFromGsoapContext();

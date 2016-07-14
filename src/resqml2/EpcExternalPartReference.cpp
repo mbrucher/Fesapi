@@ -47,7 +47,7 @@ using namespace epc;
 
 const char* EpcExternalPartReference::XML_TAG = "EpcExternalPartReference";
 
-EpcExternalPartReference::EpcExternalPartReference(soap* soapContext, const string & guid, const std::string & title, const string & packageDirAbsolutePath, const string & externalFilePath) :
+EpcExternalPartReference::EpcExternalPartReference(const string & packageDirAbsolutePath, const string & externalFilePath) :
 		packageDirectoryAbsolutePath(packageDirAbsolutePath), relativeFilePath(externalFilePath) {
 }
 
@@ -60,28 +60,26 @@ vector<Relationship> EpcExternalPartReference::getAllEpcRelationships() const
 {
 	vector<Relationship> result;
 
-	for (size_t i = 0; i < representationSourceObject.size(); ++i)
-	{
-		if (representationSourceObject[i] != nullptr)
-		{
+	for (size_t i = 0; i < representationSourceObject.size(); ++i) {
+		if (representationSourceObject[i] != nullptr) {
 			Relationship rel(representationSourceObject[i]->getPartNameInEpcDocument(), "", representationSourceObject[i]->getUuid());
 			rel.setExternalPartProxyToMlType();
 			result.push_back(rel);
 		}
-		else
+		else {
 			throw domain_error("The representation associated to the external EPC reference cannot be nullptr.");
+		}
 	}
 
-	for (size_t i = 0; i < propertySourceObject.size(); ++i)
-	{
-		if (propertySourceObject[i] != nullptr)
-		{
+	for (size_t i = 0; i < propertySourceObject.size(); ++i) {
+		if (propertySourceObject[i] != nullptr) {
 			Relationship rel(propertySourceObject[i]->getPartNameInEpcDocument(), "", propertySourceObject[i]->getUuid());
 			rel.setExternalPartProxyToMlType();
 			result.push_back(rel);
 		}
-		else
+		else {
 			throw domain_error("The property associated to the external EPC reference cannot be nullptr.");
+		}
 	}
 
 	// External part

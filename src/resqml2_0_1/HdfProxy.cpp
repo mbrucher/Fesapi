@@ -40,10 +40,7 @@ using namespace resqml2_0_1;
 
 
 HdfProxy::HdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
-	resqml2::HdfProxy(soapContext, guid, title, packageDirAbsolutePath, externalFilePath) {
-	gsoapProxy2_0_1 = gsoap_resqml2_0_1::soap_new_eml__obj_USCOREEpcExternalPartReference(soapContext, 1);
-	static_cast<gsoap_resqml2_0_1::_eml__EpcExternalPartReference* const>(gsoapProxy2_0_1)->MimeType = "application/x-hdf5";
-
-	initMandatoryMetadata();
-	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+	resqml2::HdfProxy(packageDirAbsolutePath, externalFilePath)
+{
+	initGsoapProxy2_0_1(soapContext, guid, title);
 }

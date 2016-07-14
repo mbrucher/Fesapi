@@ -41,8 +41,8 @@ using namespace std;
 using namespace resqml2;
 
 
-HdfProxy::HdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
-	AbstractHdfProxy(soapContext, guid, title, packageDirAbsolutePath, externalFilePath), hdfFile(-1), compressionLevel(0) {}
+HdfProxy::HdfProxy(const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
+	AbstractHdfProxy(packageDirAbsolutePath, externalFilePath), hdfFile(-1), compressionLevel(0) {}
 
 void HdfProxy::open()
 {
@@ -668,16 +668,14 @@ void HdfProxy::readArrayNdOfUCharValues(const std::string & datasetName, unsigne
 
 int HdfProxy::openOrCreateHdfResqmlGroup()
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
 	H5O_info_t info;
 	herr_t status = H5Oget_info_by_name(hdfFile, "/RESQML", &info, H5P_DEFAULT);
 
-	if (status >= 0)
-		return H5Gopen(hdfFile, "/RESQML", H5P_DEFAULT);
-	else
-		return H5Gcreate(hdfFile, "/RESQML", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+	return status >= 0 ? H5Gopen(hdfFile, "/RESQML", H5P_DEFAULT) : H5Gcreate(hdfFile, "/RESQML", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 }
 
 int HdfProxy::openOrCreateGroupInResqmlGroup(const string & groupName)
@@ -691,12 +689,10 @@ int HdfProxy::openOrCreateGroupInResqmlGroup(const string & groupName)
 	herr_t status = H5Oget_info_by_name(resqmlGroup, groupName.c_str(), &info, H5P_DEFAULT);
 
 	hid_t result = -1;
-	if (status >= 0)
-	{
+	if (status >= 0) {
 		result = H5Gopen(resqmlGroup, groupName.c_str(), H5P_DEFAULT);
 	}
-	else
-	{
+	else {
 		result = H5Gcreate(resqmlGroup, groupName.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	}
 	
@@ -706,8 +702,9 @@ int HdfProxy::openOrCreateGroupInResqmlGroup(const string & groupName)
 
 std::vector<hsize_t> HdfProxy::readArrayDimensions(const std::string & datasetName)
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 

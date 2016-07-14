@@ -48,10 +48,16 @@ namespace resqml2
 		/**
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		*/
-		AbstractHdfProxy(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		AbstractHdfProxy(const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		AbstractHdfProxy(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
 			EpcExternalPartReference(fromGsoap, packageDirAbsolutePath, externalFilePath) {}
+
+		/**
+		* Instantiate and initialize the gsoap proxy v2.0.1.
+		* This method is defined in order to be used in derived class without having to link to generated gsoap files.
+		*/
+		void initGsoapProxy2_0_1(soap* soapContext, const std::string & guid, const std::string & title);
 
 	public:  
 		virtual ~AbstractHdfProxy() {}
