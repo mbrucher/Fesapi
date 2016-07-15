@@ -48,8 +48,13 @@ namespace resqml2
 	class DLL_IMPORT_OR_EXPORT AbstractGridRepresentation : public AbstractRepresentation
 	{
 	private:
+
+		/**
+		* @param	 forceConstantCellCountPerInterval	If true, will assume that the child and parent cell count per interval are constant. Then it will use constant xml array instead of hdf5 array for storage.
+		*												The method will consequently only consider the first cell count per interval value in childCellCountPerInterval and parentCellCountPerInterval as the constant ones.
+		**/
 		gsoap_resqml2_0_1::resqml2__Regrid* createRegrid(const unsigned int & indexRegridStart, unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount, double * childCellWeights,
-														  const std::string & dimension);
+			const std::string & dimension, boolean forceConstantCellCountPerInterval = false);
 
 		/*
 		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
@@ -184,7 +189,32 @@ namespace resqml2
 
 		/**
 		* Indicates that this grid takes place into another IJK parent grid.
-		* this method assume there is only one regrid interval per dimension.
+		* @param	iCellIndexRegridStart				Identifies the first Cell by its i dimension of the regrid window.
+		* @param	constantChildCellCountPerIInterval	The constant count of cells per i interval in this (child) grid.
+		* @param	constantParentCellCountPerIInterval	The constant count of cells per i interval in the parent grid.
+		* @param	iIntervalCount						The count of intervals on i dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
+		* @param	jCellIndexRegridStart				Identifies the first Cell by its j dimension of the regrid window.
+		* @param	constantChildCellCountPerJInterval	The constant count of cells per j interval in this (child) grid.
+		* @param	constantParentCellCountPerJInterval	The constant count of cells per j interval in the parent grid.
+		* @param	jIntervalCount						The count of intervals on j dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
+		* @param	kCellIndexRegridStart				Identifies the first Cell by its k dimension of the regrid window.
+		* @param	constantChildCellCountPerKInterval	The constant count of cells per k interval in this (child) grid.
+		* @param	constantParentCellCountPerKInterval	The constant count of cells per k interval in the parent grid.
+		* @param	kIntervalCount						The count of intervals on k dimension. An interval is a portion of cells to regrid which is independant to other portion of cell.
+		* @param	parentGrid							The parent grid which is regridded.
+		* @param	iChildCellWeights					The weights that are proportional to the relative i sizes of child cells within each i interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells on i dimension (sum of child cells per interval).
+		* @param	jChildCellWeights					The weights that are proportional to the relative j sizes of child cells within each j interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells on j dimension (sum of child cells per interval).
+		* @param	kChildCellWeights					The weights that are proportional to the relative k sizes of child cells within each k interval. The weights need not to be normalized. The count of double values must be equal to the count of all child cells on k dimension (sum of child cells per interval).
+		*/
+		void setParentWindow(
+			const unsigned int & iCellIndexRegridStart, unsigned int constantChildCellCountPerIInterval, unsigned int constantParentCellCountPerIInterval, const unsigned int & iIntervalCount,
+			const unsigned int & jCellIndexRegridStart, unsigned int constantChildCellCountPerJInterval, unsigned int constantParentCellCountPerJInterval, const unsigned int & jIntervalCount,
+			const unsigned int & kCellIndexRegridStart, unsigned int constantChildCellCountPerKInterval, unsigned int constantParentCellCountPerKInterval, const unsigned int & kIntervalCount,
+			resqml2_0_1::AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
+
+		/**
+		* Indicates that this grid takes place into another IJK parent grid.
+		* This method assumes there is only one regrid interval per dimension.
 		* @param	iCellIndexRegridStart		Identifies the first Cell by its i dimension of the regrid window.
 		* @param	iChildCellCount				The count of cells per i interval in this (child) grid.
 		* @param	iParentCellCount			The count of cells per i interval in the parent grid.
@@ -258,7 +288,7 @@ namespace resqml2
 		* Check if the cell count per interval is constant against a particular dimension.
 		* Only run this method for an ijk parent grid or a strict column layer parent grid.
 		* @param	dimension					It must be either 'i', 'j' ou 'k' (upper or lower case) for an ijk parent grid. 'k' for a strict column layer parent grid.
-		* @param	childVsParentCellCount		If true return the child cell count per interval. If false return the parent cell count per interval.
+		* @param	childVsParentCellCount		If true check if the child cell count per interval is constant. If false check if the parent cell count per interval is constant.
 		*/
 		bool isRegridCellCountPerIntervalConstant(const char & dimension, const bool & childVsParentCellCount) const;
 

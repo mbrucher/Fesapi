@@ -44,7 +44,6 @@ void SubRepresentationOnPartialGridConnectionSet::readEpcDocHandler()
 	resqml2::SubRepresentation* subRep = epcDoc->getResqmlAbstractObjectByUuid<resqml2::SubRepresentation>(this->uuid);
 
 	REQUIRE(subRep->getSupportingRepresentation()->isPartial());
-	cout << subRep->getSupportingRepresentation()->getXmlTag() << endl;
 	REQUIRE(subRep->getSupportingRepresentation()->getXmlTag().compare("GridConnectionSetRepresentation") == 0);
 	REQUIRE(subRep->getSupportingRepresentation()->getUuid().compare("00a7d22f-4746-409b-87dc-5bdb83660d27") == 0);
 	REQUIRE(subRep->getSupportingRepresentation()->getTitle().compare("GCSR") == 0);

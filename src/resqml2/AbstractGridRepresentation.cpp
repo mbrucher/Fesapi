@@ -153,14 +153,28 @@ AbstractGridRepresentation* AbstractGridRepresentation::getParentGrid() const
 }
 
 gsoap_resqml2_0_1::resqml2__Regrid* AbstractGridRepresentation::createRegrid(const unsigned int & indexRegridStart, unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval, const unsigned int & intervalCount, double * childCellWeights,
-	const std::string & dimension)
+	const std::string & dimension, boolean forceConstantCellCountPerInterval)
 {
 	gsoap_resqml2_0_1::resqml2__Regrid* regrid = gsoap_resqml2_0_1::soap_new_resqml2__Regrid(gsoapProxy2_0_1->soap, 1);
 	regrid->InitialIndexOnParentGrid = indexRegridStart;
 	regrid->Intervals = gsoap_resqml2_0_1::soap_new_resqml2__Intervals(gsoapProxy2_0_1->soap, 1);
 	regrid->Intervals->IntervalCount = intervalCount;
+	
+	if (intervalCount == 0) {
+		throw invalid_argument("Cannot regrid an empty list of intervals.");
+	}
+	else if (intervalCount == 1 || forceConstantCellCountPerInterval) {
+		gsoap_resqml2_0_1::resqml2__IntegerConstantArray* xmlChildCountPerInterval = gsoap_resqml2_0_1::soap_new_resqml2__IntegerConstantArray(gsoapProxy2_0_1->soap, 1);
+		xmlChildCountPerInterval->Value = *childCellCountPerInterval;
+		xmlChildCountPerInterval->Count = intervalCount;
+		regrid->Intervals->ChildCountPerInterval = xmlChildCountPerInterval;
 
-	if (intervalCount > 1 && hdfProxy != nullptr) {
+		gsoap_resqml2_0_1::resqml2__IntegerConstantArray* xmlParentCountPerInterval = gsoap_resqml2_0_1::soap_new_resqml2__IntegerConstantArray(gsoapProxy2_0_1->soap, 1);
+		xmlParentCountPerInterval->Value = *parentCellCountPerInterval;
+		xmlParentCountPerInterval->Count = intervalCount;
+		regrid->Intervals->ParentCountPerInterval = xmlParentCountPerInterval;
+	}
+	else if (hdfProxy != nullptr) {
 		gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* hdf5ChildCountPerInterval = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 		regrid->Intervals->ChildCountPerInterval = hdf5ChildCountPerInterval;
 		hdf5ChildCountPerInterval->NullValue = (numeric_limits<unsigned int>::max)();
@@ -179,20 +193,6 @@ gsoap_resqml2_0_1::resqml2__Regrid* AbstractGridRepresentation::createRegrid(con
 		hsize_t numValues = intervalCount;
 		hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "ParentWindow_" + dimension + "Regrid_ChildCountPerInterval", H5T_NATIVE_UINT, childCellCountPerInterval, &numValues, 1);
 		hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "ParentWindow_" + dimension + "Regrid_ParentCountPerInterval", H5T_NATIVE_UINT, parentCellCountPerInterval, &numValues, 1);
-	}
-	else if (intervalCount == 1) {
-		gsoap_resqml2_0_1::resqml2__IntegerConstantArray* xmlChildCountPerInterval = gsoap_resqml2_0_1::soap_new_resqml2__IntegerConstantArray(gsoapProxy2_0_1->soap, 1);
-		xmlChildCountPerInterval->Value = *childCellCountPerInterval;
-		xmlChildCountPerInterval->Count = 1;
-		regrid->Intervals->ChildCountPerInterval = xmlChildCountPerInterval;
-
-		gsoap_resqml2_0_1::resqml2__IntegerConstantArray* xmlParentCountPerInterval = gsoap_resqml2_0_1::soap_new_resqml2__IntegerConstantArray(gsoapProxy2_0_1->soap, 1);
-		xmlParentCountPerInterval->Value = *parentCellCountPerInterval;
-		xmlParentCountPerInterval->Count = 1;
-		regrid->Intervals->ParentCountPerInterval = xmlParentCountPerInterval;
-	}
-	else if (intervalCount == 0) {
-		throw invalid_argument("Cannot regrid an empty list of intervals.");
 	}
 	else {
 		throw invalid_argument("The HDF proxy is missing.");
@@ -334,6 +334,33 @@ void AbstractGridRepresentation::setParentWindow(
 		ijkpw->IRegrid = createRegrid(iCellIndexRegridStart, childCellCountPerIInterval, parentCellCountPerIInterval, iIntervalCount, iChildCellWeights, "I");
 		ijkpw->JRegrid = createRegrid(jCellIndexRegridStart, childCellCountPerJInterval, parentCellCountPerJInterval, jIntervalCount, jChildCellWeights, "J");
 		ijkpw->KRegrid = createRegrid(kCellIndexRegridStart, childCellCountPerKInterval, parentCellCountPerKInterval, kIntervalCount, kChildCellWeights, "K");
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+
+	// LGR backward relationships
+	parentGrid->childGridSet.push_back(this);
+}
+
+void AbstractGridRepresentation::setParentWindow(
+	const unsigned int & iCellIndexRegridStart, unsigned int constantChildCellCountPerIInterval, unsigned int constantParentCellCountPerIInterval, const unsigned int & iIntervalCount,
+	const unsigned int & jCellIndexRegridStart, unsigned int constantChildCellCountPerJInterval, unsigned int constantParentCellCountPerJInterval, const unsigned int & jIntervalCount,
+	const unsigned int & kCellIndexRegridStart, unsigned int constantChildCellCountPerKInterval, unsigned int constantParentCellCountPerKInterval, const unsigned int & kIntervalCount,
+	resqml2_0_1::AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights, double * jChildCellWeights, double * kChildCellWeights)
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);
+
+		gsoap_resqml2_0_1::resqml2__IjkParentWindow* ijkpw = gsoap_resqml2_0_1::soap_new_resqml2__IjkParentWindow(rep->soap, 1);
+		rep->ParentWindow = ijkpw;
+
+		ijkpw->ParentGrid = parentGrid->newResqmlReference();
+
+		// Regrids
+		ijkpw->IRegrid = createRegrid(iCellIndexRegridStart, &constantChildCellCountPerIInterval, &constantParentCellCountPerIInterval, iIntervalCount, iChildCellWeights, "I", true);
+		ijkpw->JRegrid = createRegrid(jCellIndexRegridStart, &constantChildCellCountPerJInterval, &constantParentCellCountPerIInterval, jIntervalCount, jChildCellWeights, "J", true);
+		ijkpw->KRegrid = createRegrid(kCellIndexRegridStart, &constantChildCellCountPerKInterval, &constantParentCellCountPerIInterval, kIntervalCount, kChildCellWeights, "K", true);
 	}
 	else {
 		throw logic_error("Not implemented yet");
@@ -704,7 +731,7 @@ gsoap_resqml2_0_1::resqml2__AbstractIntegerArray* AbstractGridRepresentation::ge
 				}
 
 				if (regrid->Intervals != nullptr) {
-					return regrid->Intervals->ChildCountPerInterval;
+					return childVsParentCellCount ? regrid->Intervals->ChildCountPerInterval : regrid->Intervals->ParentCountPerInterval;
 				}
 				else {
 					throw invalid_argument("No interval for this regrid.");
@@ -714,7 +741,7 @@ gsoap_resqml2_0_1::resqml2__AbstractIntegerArray* AbstractGridRepresentation::ge
 				if (dimension == 'k' || dimension == 'K') {
 					const gsoap_resqml2_0_1::resqml2__ColumnLayerParentWindow* const clpw = static_cast<const gsoap_resqml2_0_1::resqml2__ColumnLayerParentWindow* const>(parentWindow);
 					if (clpw->KRegrid->Intervals != nullptr) {
-						return clpw->KRegrid->Intervals->ChildCountPerInterval;
+						return childVsParentCellCount ? clpw->KRegrid->Intervals->ChildCountPerInterval : clpw->KRegrid->Intervals->ParentCountPerInterval;
 					}
 					else {
 						throw invalid_argument("No interval for K regrid.");
@@ -748,12 +775,12 @@ bool AbstractGridRepresentation::isRegridCellCountPerIntervalConstant(const char
 
 ULONG64 AbstractGridRepresentation::getRegridConstantCellCountPerInterval(const char & dimension, const bool & childVsParentCellCount) const {
 	if (gsoapProxy2_0_1 != nullptr) {
-		const gsoap_resqml2_0_1::resqml2__AbstractIntegerArray* const childCountPerInterval = getCellCountPerInterval2_0_1(dimension, childVsParentCellCount);
-		if (childCountPerInterval->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray) {
+		const gsoap_resqml2_0_1::resqml2__AbstractIntegerArray* const cellCountPerInterval = getCellCountPerInterval2_0_1(dimension, childVsParentCellCount);
+		if (cellCountPerInterval->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray) {
 			throw invalid_argument("The regrid child cell count per interval is not constant.");
 		}
 
-		return static_cast<const gsoap_resqml2_0_1::resqml2__IntegerConstantArray* const>(childCountPerInterval)->Value;
+		return static_cast<const gsoap_resqml2_0_1::resqml2__IntegerConstantArray* const>(cellCountPerInterval)->Value;
 	}
 	else {
 		throw logic_error("Not implemented yet");

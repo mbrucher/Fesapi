@@ -31,6 +31,7 @@
 #include "resqml2_0_1test/HorizonOnSeismicLine.h"
 #include "resqml2_0_1test/RightHanded4x3x2ExplicitIjkGrid.h"
 #include "resqml2_0_1test/SubRepresentationOnPartialGridConnectionSet.h"
+#include "resqml2_0_1test/LgrOnRightHanded4x3x2ExplicitIjkGrid.h"
 
 using namespace commontest;
 using namespace resqml2_0_1test;
@@ -67,6 +68,8 @@ FESAPI_TEST("Export and import a generic creation activity template", "[activity
 FESAPI_TEST("Export and import an activity", "[activity]", ActivityCreationTest)
 
 FESAPI_TEST("Export and import a 4*3*2 explicit right handed ijk grid", "[grid]", RightHanded4x3x2ExplicitIjkGrid)
+
+FESAPI_TEST("Export and import a LGR on a 4*3*2 explicit right handed ijk grid", "[grid]", LgrOnRightHanded4x3x2ExplicitIjkGrid)
 
 FESAPI_TEST("Export and import an unstructured grid", "[grid]", OneTetrahedronUnstructuredGridRepresentationTest)
 
