@@ -135,7 +135,7 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 	integerArray->Offset.push_back(offset);
 }
 
-void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, resqml2::AbstractHdfProxy * proxy)
+void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, ULONG64 * elementIndices, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 
@@ -163,7 +163,7 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 
 	// ************ HDF ************		
 	hsize_t numValues[] = {elementCount};
-	hdfProxy->writeArrayNd(rep->uuid, ossForHdf.str(), H5T_NATIVE_UINT, elementIndices, numValues, 1);
+	hdfProxy->writeArrayNdOfGSoapULong64Values(rep->uuid, ossForHdf.str(), elementIndices, numValues, 1);
 }
 
 void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
@@ -203,7 +203,7 @@ void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::re
 
 void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 	const ULONG64 & elementCount,
-	unsigned int * elementIndices0, unsigned int * elementIndices1,
+	ULONG64 * elementIndices0, ULONG64 * elementIndices1,
 	resqml2::AbstractHdfProxy * proxy)
 {
 	pushBackSubRepresentationPatch(elementKind0, elementCount, elementIndices0, proxy);
@@ -229,7 +229,7 @@ void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::
 
 	// ************ HDF ************		
 	hsize_t numValues[] = {elementCount};
-	hdfProxy->writeArrayNd(rep->uuid, ossForHdf.str(), H5T_NATIVE_UINT, elementIndices1, numValues, 1);
+	hdfProxy->writeArrayNdOfGSoapULong64Values(rep->uuid, ossForHdf.str(), elementIndices1, numValues, 1);
 }
 
 string SubRepresentation::getHdfProxyUuid() const
@@ -357,7 +357,7 @@ ULONG64 SubRepresentation::getLatticeElementIndicesOffsetCount(const unsigned in
 	return lattice->Offset[latticeDimensionIndex]->Count;
 }
 
-void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, unsigned int * elementIndices) const
+void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, ULONG64 * elementIndices) const
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 	if (rep->SubRepresentationPatch.size() > patchIndex)
@@ -365,7 +365,7 @@ void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex
 		if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() > elementIndicesIndex)
 		{
 			if (rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-				hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices)->Values->PathInHdfFile, elementIndices);
+				hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices)->Values->PathInHdfFile, elementIndices);
 			else
 				throw logic_error("Not yet implemented");
 		}

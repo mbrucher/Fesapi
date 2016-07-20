@@ -117,7 +117,7 @@ namespace resqml2
 		* @param localFaceIndexPairs	Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromIndex first.
 		* @param interpretationIndex	The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
-		virtual void getGridConnectionSetInformationFromInterpretationIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const = 0;
+		virtual void getGridConnectionSetInformationFromInterpretationIndex(ULONG64 * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const = 0;
 
 		/**
 		* Get the UUID of a particular interpretation of this grid connection set.
@@ -164,14 +164,14 @@ namespace resqml2
         * @param cellIndexPair		All the cell index pair in a 1d Array where the cell indices go faster than the pair.
         * @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
 		*/
-		virtual void setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy) = 0;
+		virtual void setCellIndexPairs(const ULONG64 & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy) = 0;
 
 		/**
 		* Optional 2 x #Connections array of local face-per-cell indices for (Cell1,Cell2) for each connection. Local face-per-cell indices are used because global face indices need not have been defined.
 		* If no face-per-cell definition occurs as part of the grid representation, e.g., for a block-centered grid, then this array need not appear.
 		* Null value = -1 by dcoumentation
 		*/
-		virtual void setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy) = 0;
+		virtual void setLocalFacePerCellIndexPairs(const ULONG64 & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy) = 0;
 
 		/**
 		* For each connection in the grid connection set representation, allow to map zero or one feature interpretation. TODO: Resqml allows to map with more than one feature interpretation.

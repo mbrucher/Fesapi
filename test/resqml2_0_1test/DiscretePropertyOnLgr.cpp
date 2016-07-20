@@ -3,6 +3,7 @@
 #include "catch.hpp"
 #include "resqml2_0_1test/LgrOnRightHanded4x3x2ExplicitIjkGrid.h"
 #include "resqml2_0_1test/PropertyKindTest.h"
+#include "resqml2_0_1test/WellboreFrameRepresentationTest.h"
 
 #include "resqml2/PropertyKind.h"
 #include "resqml2_0_1/DiscreteProperty.h"

@@ -510,12 +510,12 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	if (fault1Interp1 != nullptr)
 	{
 		resqml2::SubRepresentation * faultSubRep = pck->createSubRepresentation(fault1Interp1, "ff248280-fa3d-11e5-a35c-0002a5d5c51b", "Fault Subrep In Grid", ijkgrid);
-		unsigned int faultPillar[2] = { 1, 4 };
+		ULONG64 faultPillar[2] = { 1, 4 };
 		faultSubRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__pillars, 2, faultPillar, hdfProxy);
 	}
 
 	resqml2::SubRepresentation * actnum = pck->createSubRepresentation("323001d0-468c-41d7-abec-7d12c3c9428b", "ACTNUM", ijkgrid432);
-	unsigned int actnumValues[21] = { 
+	ULONG64 actnumValues[21] = { 
 		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 		12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
 	};
@@ -632,7 +632,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 
 	// sub rep of a partial unstructured grid
 	resqml2::SubRepresentation * subRepOfUnstructuredGrid = pck->createSubRepresentation("", "Subrep On Partial grid", partialGrid);
-	unsigned int nodeIndex[2] = { 0, 1 };
+	ULONG64 nodeIndex[2] = { 0, 1 };
 	subRepOfUnstructuredGrid->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, 2, nodeIndex, hdfProxy);
 	
 	// Tetra grid
@@ -1283,7 +1283,7 @@ void showAllSubRepresentations(const vector<resqml2::SubRepresentation*> & subRe
 		showAllMetadata(subRepSet[subRepIndex], "\t");
 		if (!subRepSet[subRepIndex]->isPartial()) {
 			const long indiceCount = subRepSet[subRepIndex]->getElementCountOfPatch(0);
-			unsigned int * elementIndices = new unsigned int [indiceCount];
+			ULONG64 * elementIndices = new ULONG64[indiceCount];
 			subRepSet[subRepIndex]->getElementIndicesOfPatch(0, 0, elementIndices);
 			delete [] elementIndices;
 		}

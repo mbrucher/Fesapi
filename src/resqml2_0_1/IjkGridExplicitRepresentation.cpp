@@ -47,16 +47,18 @@ using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
 IjkGridExplicitRepresentation::IjkGridExplicitRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
-			const std::string & guid, const std::string & title,
-			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
-			AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount)
+	const std::string & guid, const std::string & title,
+	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+	bool withTruncatedPillars) :
+	AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount, withTruncatedPillars)
 {
 }
 
 IjkGridExplicitRepresentation::IjkGridExplicitRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
-		const std::string & guid, const std::string & title,
-		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
-	AbstractIjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount)
+	const std::string & guid, const std::string & title,
+	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+	bool withTruncatedPillars) :
+	AbstractIjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount, withTruncatedPillars)
 {
 }
 

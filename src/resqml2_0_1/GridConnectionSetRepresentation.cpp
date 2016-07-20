@@ -95,7 +95,7 @@ string GridConnectionSetRepresentation::getHdfProxyUuid() const
 	return "";
 }
 
-void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy)
+void GridConnectionSetRepresentation::setCellIndexPairs(const ULONG64 & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 	rep->Count = cellIndexPairCount;
@@ -116,7 +116,7 @@ void GridConnectionSetRepresentation::setCellIndexPairs(const unsigned int & cel
 	hdfProxy->writeArrayNd(rep->uuid, "CellIndexPairs", H5T_NATIVE_ULLONG, cellIndexPair, numValues, 2);
 }
 
-void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const unsigned int & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy)
+void GridConnectionSetRepresentation::setLocalFacePerCellIndexPairs(const ULONG64 & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
@@ -226,12 +226,12 @@ unsigned int GridConnectionSetRepresentation::getCellIndexPairCountFromInterpret
 	return result;
 }
 
-void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpretationIndex(unsigned int * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const
+void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpretationIndex(ULONG64 * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const
 {
 	unsigned int result = 0;
 
 	//load global information into memory
-	unsigned int totalCellIndexPairCount = getCellIndexPairCount();
+	ULONG64 totalCellIndexPairCount = getCellIndexPairCount();
 	ULONG64 * totalCellIndexPairs = new ULONG64[totalCellIndexPairCount*2];
 	getCellIndexPairs(totalCellIndexPairs);
 	unsigned int * totalGridIndexPairs = nullptr;
@@ -249,7 +249,7 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpr
 
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
-	if (rep->ConnectionInterpretations)
+	if (rep->ConnectionInterpretations != nullptr)
 	{
 		// Get the fault indices information
 		unsigned int * cumulativeCount = nullptr;
@@ -260,8 +260,12 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpr
 		}
 		else
 		{
-			if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
-			if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
+			if (totalGridIndexPairs != nullptr) {
+				delete[] totalGridIndexPairs;
+			}
+			if (totalLocalFaceIndexPairs != nullptr) {
+				delete[] totalLocalFaceIndexPairs;
+			}
 			delete [] totalCellIndexPairs;
 			throw std::logic_error("Not yet implemented");
 		}
@@ -275,14 +279,18 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpr
 		else
 		{
 			delete [] cumulativeCount;
-			if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
-			if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
+			if (totalGridIndexPairs != nullptr) {
+				delete[] totalGridIndexPairs;
+			}
+			if (totalLocalFaceIndexPairs != nullptr) {
+				delete[] totalLocalFaceIndexPairs;
+			}
 			delete [] totalCellIndexPairs;
 			throw std::logic_error("Not yet implemented");
 		}
 
 		// Based on the fault indices information, construct the required subset of information
-		unsigned int cellIndexPairIndex = 0;
+		size_t cellIndexPairIndex = 0;
 		unsigned int j = 0;
 		for (unsigned int i = 0; i < totalCellIndexPairCount; ++i)
 		{
@@ -313,14 +321,22 @@ void GridConnectionSetRepresentation::getGridConnectionSetInformationFromInterpr
 	}
 	else
 	{
-		if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
-		if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
+		if (totalGridIndexPairs != nullptr) {
+			delete[] totalGridIndexPairs;
+		}
+		if (totalLocalFaceIndexPairs != nullptr) {
+			delete[] totalLocalFaceIndexPairs;
+		}
 		delete [] totalCellIndexPairs;
 		throw invalid_argument("The grid connection does not contain any fault association."); 
 	}
 	
-	if (totalGridIndexPairs != nullptr) delete [] totalGridIndexPairs;
-	if (totalLocalFaceIndexPairs != nullptr) delete [] totalLocalFaceIndexPairs;
+	if (totalGridIndexPairs != nullptr) {
+		delete[] totalGridIndexPairs;
+	}
+	if (totalLocalFaceIndexPairs != nullptr) {
+		delete[] totalLocalFaceIndexPairs;
+	}
 	delete [] totalCellIndexPairs;
 }
 

@@ -46,11 +46,13 @@ namespace resqml2_0_1
 		*/
 		IjkGridExplicitRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
-			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+			bool withTruncatedPillars = false);
 
 		IjkGridExplicitRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
-				const std::string & guid, const std::string & title,
-				const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+			bool withTruncatedPillars = false);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

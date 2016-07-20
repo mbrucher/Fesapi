@@ -103,7 +103,7 @@ namespace resqml2_0_1
 		/**
 		* Get the indices of the selected elements in the supporting representation for a particular patch of this subrepresentation.
 		*/
-		void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, unsigned int * elementIndices) const;
+		void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, ULONG64 * elementIndices) const;
 
 		/**
 		* Check if the element of a particular patch are pairwise or not.
@@ -140,7 +140,7 @@ namespace resqml2_0_1
         * @param elementIndices		The indices of the elements of the instance in the supporting representation.
         * @param proxy				The HDF proxy where the numerical values (indices) are stored.
 		*/
-		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, unsigned int * elementIndices, resqml2::AbstractHdfProxy* proxy);
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, ULONG64 * elementIndices, resqml2::AbstractHdfProxy* proxy);
 
 		/**
 		* Push back a new patch in the subrepresentation which is constituted by means of pairwise elements.
@@ -153,7 +153,7 @@ namespace resqml2_0_1
 		*/
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 			const ULONG64 & elementCount,
-			unsigned int * elementIndices0, unsigned int * elementIndices1,
+			ULONG64 * elementIndices0, ULONG64 * elementIndices1,
 			resqml2::AbstractHdfProxy* proxy);
 
 		/**

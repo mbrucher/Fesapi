@@ -34,7 +34,7 @@ void SubRepresentationOnPartialGridConnectionSet::initEpcDocHandler()
 	REQUIRE(partialGcsr != nullptr);
 	resqml2::SubRepresentation* subRep = this->epcDoc->createSubRepresentation(this->uuid, this->title, partialGcsr);
 
-	unsigned int elements[2] = { 1, 2 };
+	ULONG64 elements[2] = { 1, 2 };
 	subRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__cells, 2, elements, hdfProxy);
 }
 

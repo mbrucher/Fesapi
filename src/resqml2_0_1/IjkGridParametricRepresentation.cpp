@@ -47,16 +47,18 @@ using namespace gsoap_resqml2_0_1;
 using namespace resqml2_0_1;
 
 IjkGridParametricRepresentation::IjkGridParametricRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
-			const std::string & guid, const std::string & title,
-			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
-			AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount)
+	const std::string & guid, const std::string & title,
+	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+	bool withTruncatedPillars) :
+	AbstractIjkGridRepresentation(soapContext, crs, guid, title, iCount, jCount, kCount, withTruncatedPillars)
 {
 }
 
 IjkGridParametricRepresentation::IjkGridParametricRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
-		const std::string & guid, const std::string & title,
-		const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount):
-	AbstractIjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount)
+	const std::string & guid, const std::string & title,
+	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
+	bool withTruncatedPillars) :
+	AbstractIjkGridRepresentation(interp, crs, guid, title, iCount, jCount, kCount, withTruncatedPillars)
 {
 }
 
@@ -67,8 +69,7 @@ unsigned int IjkGridParametricRepresentation::getControlPointMaxCountPerPillar()
 		throw invalid_argument("There is no geometry on this grid.");
 	}
 	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
-	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
-	{
+	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray) {
 		return static_cast<resqml2__ParametricLineArray*>(points->ParametricLines)->KnotCount;
 	}
 	else
@@ -82,18 +83,17 @@ void IjkGridParametricRepresentation::getControlPoints(double * controlPoints, b
 		throw invalid_argument("There is no geometry on this grid.");
 	}
 	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
-	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray)
-	{
+	if (points->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray) {
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(points->ParametricLines);
-		if (paramLineArray->ControlPoints->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
-		{
+		if (paramLineArray->ControlPoints->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array) {
 			hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(paramLineArray->ControlPoints)->Coordinates->PathInHdfFile, controlPoints);
 		}
 		else
 			throw std::logic_error("Not yet implemented");
 	}
-	else
+	else {
 		throw std::logic_error("Not yet implemented");
+	}
 
 	if (reverseIAxis || reverseJAxis || reverseKAxis)
 	{
@@ -103,20 +103,15 @@ void IjkGridParametricRepresentation::getControlPoints(double * controlPoints, b
 
 		// Copy in order not to modify the controlPoints pointer
 		double * reversedControlPoints = new double [arrayCount];
-		for (unsigned int index = 0; index < arrayCount; ++index)
-		{
+		for (unsigned int index = 0; index < arrayCount; ++index) {
 			reversedControlPoints[index] = controlPoints[index];
 		}
 
-		if (reverseIAxis)
-		{
+		if (reverseIAxis) {
 			unsigned int controlPointIndex = 0;
-			for (unsigned int k = 0; k < getControlPointMaxCountPerPillar(); ++k)
-			{
-				for (unsigned int j = 0; j < jPillarCount; ++j)
-				{
-					for (unsigned int i = 0; i < iPillarCount; ++i)
-					{
+			for (unsigned int k = 0; k < getControlPointMaxCountPerPillar(); ++k) {
+				for (unsigned int j = 0; j < jPillarCount; ++j) {
+					for (unsigned int i = 0; i < iPillarCount; ++i) {
 						unsigned int reversedControlPointIndex = getICellCount() - i + j*iPillarCount + k*iPillarCount*jPillarCount;
 						controlPoints[controlPointIndex*3] = reversedControlPoints[reversedControlPointIndex*3];
 						controlPoints[controlPointIndex*3 + 1] = reversedControlPoints[reversedControlPointIndex*3 + 1];
@@ -127,15 +122,11 @@ void IjkGridParametricRepresentation::getControlPoints(double * controlPoints, b
 			}
 		}
 
-		if (reverseJAxis)
-		{
+		if (reverseJAxis) {
 			unsigned int controlPointIndex = 0;
-			for (unsigned int k = 0; k < getControlPointMaxCountPerPillar(); ++k)
-			{
-				for (unsigned int j = 0; j < jPillarCount; ++j)
-				{
-					for (unsigned int i = 0; i < iPillarCount; ++i)
-					{
+			for (unsigned int k = 0; k < getControlPointMaxCountPerPillar(); ++k) {
+				for (unsigned int j = 0; j < jPillarCount; ++j) {
+					for (unsigned int i = 0; i < iPillarCount; ++i) {
 						unsigned int reversedControlPointIndex = i + (getJCellCount() - j)*iPillarCount + k*iPillarCount*jPillarCount;
 						controlPoints[controlPointIndex*3] = reversedControlPoints[reversedControlPointIndex*3];
 						controlPoints[controlPointIndex*3 + 1] = reversedControlPoints[reversedControlPointIndex*3 + 1];
@@ -512,22 +503,21 @@ string IjkGridParametricRepresentation::getHdfProxyUuid() const
 
 ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(patchIndex);
+	gsoap_resqml2_0_1::resqml2__IjkGridGeometry* geom = static_cast<gsoap_resqml2_0_1::resqml2__IjkGridGeometry*>(getPointGeometry2_0_1(patchIndex));
 	if (geom == nullptr) {
 		throw invalid_argument("There is no geometry on this grid.");
 	}
-	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 
-	_resqml2__IjkGridRepresentation* ijkGrid = static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
-	ULONG64 result = (ijkGrid->Ni+1) * (ijkGrid->Nj+1) * (ijkGrid->Nk+1);
+	const unsigned int kNodeCount = getKCellCount() + 1;
+	ULONG64 result = (getICellCount() + 1) * (getJCellCount() + 1) * kNodeCount;
 
-	if (ijkGrid->Geometry->SplitCoordinateLines != nullptr)
+	if (geom->SplitCoordinateLines != nullptr)
 	{
-		result += ijkGrid->Geometry->SplitCoordinateLines->Count * (ijkGrid->Nk+1);
+		result += geom->SplitCoordinateLines->Count * kNodeCount;
 	}
-	if (ijkGrid->Geometry->SplitNodes != nullptr)
+	if (geom->SplitNodes != nullptr)
 	{
-		result += ijkGrid->Geometry->SplitNodes->Count;
+		result += geom->SplitNodes->Count;
 	}
 
 	return result;
