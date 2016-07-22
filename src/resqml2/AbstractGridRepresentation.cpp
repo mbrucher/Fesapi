@@ -153,7 +153,7 @@ AbstractGridRepresentation* AbstractGridRepresentation::getParentGrid() const
 }
 
 gsoap_resqml2_0_1::resqml2__Regrid* AbstractGridRepresentation::createRegrid(const unsigned int & indexRegridStart, unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval, const unsigned int & intervalCount, double * childCellWeights,
-	const std::string & dimension, boolean forceConstantCellCountPerInterval)
+	const std::string & dimension, bool forceConstantCellCountPerInterval)
 {
 	gsoap_resqml2_0_1::resqml2__Regrid* regrid = gsoap_resqml2_0_1::soap_new_resqml2__Regrid(gsoapProxy2_0_1->soap, 1);
 	regrid->InitialIndexOnParentGrid = indexRegridStart;
