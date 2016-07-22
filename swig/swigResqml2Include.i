@@ -240,13 +240,14 @@ namespace resqml2
 		AbstractLocal3dCrs * getLocalCrs() const;
 		virtual std::string getLocalCrsUuid() const = 0;
 
-
 		virtual double getX() const = 0;
 		virtual double getXInGlobalCrs() const = 0;
 		virtual double getY() const = 0;
 		virtual double getYInGlobalCrs() const = 0;
 		virtual double getZ() const = 0;
 		virtual double getZInGlobalCrs() const = 0;
+		
+		virtual gsoap_resqml2_0_1::resqml2__MdReference getOriginKind() const = 0;
 	};
 	
 	//************************************

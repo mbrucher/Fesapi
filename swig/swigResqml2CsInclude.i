@@ -4,12 +4,12 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 **********************************************************************/
 
 %pragma(csharp) imclasscode=%{
-  public static f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instantiateConcreteObject(global::System.IntPtr cPtr, bool owner)
-  {
-    f2i.energisticsStandardsApi.resqml2.AbstractObject ret = null;
-    if (cPtr == global::System.IntPtr.Zero) {
-      return ret;
-    }
+public static f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instantiateConcreteObject(global::System.IntPtr cPtr, bool owner)
+{
+	f2i.energisticsStandardsApi.resqml2.AbstractObject ret = null;
+	if (cPtr == global::System.IntPtr.Zero) {
+		return ret;
+	}
 	
 	ret = resqml2_instantiateConcreteFeature(cPtr, owner);
 	if (ret != null) {
@@ -269,7 +269,8 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
       return null;
     }
     string type = $modulePINVOKE.resqml2_AbstractObject_getXmlTag(new global::System.Runtime.InteropServices.HandleRef(null, cPtr));
-	if (type == "CategoricalProperty")
+    
+    if (type == "CategoricalProperty")
     {
         return new f2i.energisticsStandardsApi.resqml2_0_1.CategoricalProperty(cPtr, owner);
     }

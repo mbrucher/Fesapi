@@ -104,6 +104,11 @@ namespace resqml2
 		virtual double getZ() const = 0;
 		virtual double getZInGlobalCrs() const = 0;
 
+		/**
+		* Getter of the origin kind of the MD.
+		*/
+		virtual gsoap_resqml2_0_1::resqml2__MdReference getOriginKind() const = 0;
+
 	protected:
 
 		virtual void setXmlLocalCrs(resqml2::AbstractLocal3dCrs * localCrs) = 0;

@@ -1704,7 +1704,9 @@ void deserialize(const string & inputFile)
 					for (size_t markerIndex = 0; markerIndex < marketSet.size(); ++markerIndex)
 					{
 						std::cout << "marker : " << marketSet[markerIndex]->getTitle() << std::endl;
-						std::cout << "marker boundary feature : " << marketSet[markerIndex]->getBoundaryFeatureInterpretation()->getTitle() << std::endl;
+						if (marketSet[markerIndex]->getBoundaryFeatureInterpretation() != nullptr) {
+							std::cout << "marker boundary feature : " << marketSet[markerIndex]->getBoundaryFeatureInterpretation()->getTitle() << std::endl;
+						}
 					}
 
 					for (size_t l = 0; l < wmf->getPropertySet().size(); l++)

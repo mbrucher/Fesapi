@@ -507,6 +507,8 @@ namespace common
 		 * Get all the subrepresentaiton contained into the EPC document
 		 */
 		const std::vector<resqml2::SubRepresentation*> & getSubRepresentationSet() const;
+		unsigned int getSubRepresentationCount() const;
+		resqml2::SubRepresentation* getSubRepresentation(const unsigned int & index) const;
 
 		/**
 		* Get all the Hdf proxies used with this EPC document

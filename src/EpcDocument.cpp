@@ -224,10 +224,11 @@ const std::vector<resqml2_0_1::AbstractIjkGridRepresentation*> & EpcDocument::ge
 unsigned int EpcDocument::getIjkGridRepresentationCount() const { return ijkGridRepresentationSet.size(); }
 resqml2_0_1::AbstractIjkGridRepresentation* EpcDocument::getIjkGridRepresentation(const unsigned int & i) const
 {
-	if (i >= getIjkGridRepresentationCount())
+	if (i >= getIjkGridRepresentationCount()) {
 		throw out_of_range("The ijk grid index is out of range.");
-	else
-		return ijkGridRepresentationSet[i];
+	}
+
+	return ijkGridRepresentationSet[i];
 }
 
 const std::vector<resqml2_0_1::UnstructuredGridRepresentation*> & EpcDocument::getUnstructuredGridRepresentationSet() const { return unstructuredGridRepresentationSet; }
@@ -239,6 +240,15 @@ const std::vector<resqml2_0_1::OrganizationFeature*> & EpcDocument::getOrganizat
 const std::vector<resqml2::TimeSeries*> & EpcDocument::getTimeSeriesSet() const { return timeSeriesSet; }
 
 const std::vector<resqml2::SubRepresentation*> & EpcDocument::getSubRepresentationSet() const { return subRepresentationSet; }
+unsigned int EpcDocument::getSubRepresentationCount() const { return subRepresentationSet.size(); }
+resqml2::SubRepresentation* EpcDocument::getSubRepresentation(const unsigned int & index) const
+{
+	if (index >= getSubRepresentationCount()) {
+		throw out_of_range("The subrepresentation index is out of range.");
+	}
+
+	return subRepresentationSet[index];
+}
 
 const std::vector<resqml2::AbstractHdfProxy*> & EpcDocument::getHdfProxySet() const { return hdfProxySet; }
 unsigned int EpcDocument::getHdfProxyCount() const { return hdfProxySet.size(); }

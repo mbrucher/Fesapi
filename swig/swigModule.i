@@ -156,6 +156,8 @@ namespace common
 		const std::vector<resqml2_0_1::UnstructuredGridRepresentation*> & getUnstructuredGridRepresentationSet() const;
 		
 		const std::vector<resqml2::SubRepresentation*> & getSubRepresentationSet() const;
+		unsigned int getSubRepresentationCount() const;
+		resqml2::SubRepresentation* getSubRepresentation(const unsigned int & index) const;
 		
 		void setExtendedCoreProperty(const std::string & key, const std::string & value);
 		std::string getExtendedCoreProperty(const std::string & key);

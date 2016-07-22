@@ -11,22 +11,27 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return ret;
 	}
 	
-	ret = resqml2_0_1_instantiateConcreteProperty(cPtr, owner);
+	ret = resqml2_instantiateConcreteFeature(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
 	
-	ret = resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
+	ret = resqml2_instantiateConcreteInterpretation(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
 	
-	ret = resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, owner);
+	ret = resqml2_instantiateConcreteRepresentation(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
 	
-	ret = resqml2_0_1_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
+	ret = resqml2_instantiateConcreteProperty(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+	
+	ret = resqml2_instantiateConcreteLocal3dCrs(cPtr, owner);
 	if (ret != null) {
 		return ret;
 	}
@@ -40,188 +45,235 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.ActivityTemplate(cPtr, owner);
     }
-    else if (type.equals("BoundaryFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeature(cPtr, owner);
-    }
-    else if (type.equals("BoundaryFeatureInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeatureInterpretation(cPtr, owner);
-    }
-    else if (type.equals("EarthModelInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.EarthModelInterpretation(cPtr, owner);
-    }
     else if (type.equals("EpcExternalPartReference"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2.HdfProxy(cPtr, owner);
-    }
-    else if (type.equals("FaultInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.FaultInterpretation(cPtr, owner);
-    }
-    else if (type.equals("FrontierFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.FrontierFeature(cPtr, owner);
-    }
-    else if (type.equals("GenericFeatureInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.GenericFeatureInterpretation(cPtr, owner);
-    }
-    else if (type.equals("GeneticBoundaryFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.Horizon(cPtr, owner);
-    }
-    else if (type.equals("GeologicUnitFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.GeologicUnitFeature(cPtr, owner);
-    }
-    else if (type.equals("Grid2dRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.Grid2dRepresentation(cPtr, owner);
-    }
-    else if (type.equals("Grid2dSetRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.Grid2dSetRepresentation(cPtr, owner);
-    }
-    else if (type.equals("GridConnectionSetRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.GridConnectionSetRepresentation(cPtr, owner);
-    }
-    else if (type.equals("HorizonInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.HorizonInterpretation(cPtr, owner);
-    }
-    else if (type.equals("IjkGridRepresentation"))
-    {
-		ret = resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
     }
     else if (type.equals("MdDatum"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.MdDatum(cPtr, owner);
     }
-    else if (type.equals("NonSealedSurfaceFrameworkRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.NonSealedSurfaceFrameworkRepresentation(cPtr, owner);
-    }
-    else if (type.equals("OrganizationFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.OrganizationFeature(cPtr, owner);
-    }
-    else if (type.equals("PlaneSetRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.PlaneSetRepresentation(cPtr, owner);
-    }
-    else if (type.equals("PointSetRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.PointSetRepresentation(cPtr, owner);
-    }
-    else if (type.equals("PolylineRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.PolylineRepresentation(cPtr, owner);
-    }
-    else if (type.equals("PolylineSetRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.PolylineSetRepresentation(cPtr, owner);
-    }
     else if (type.equals("PropertyKind"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.PropertyKind(cPtr, owner);
-    }
-    else if (type.equals("RepresentationSetRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.RepresentationSetRepresentation(cPtr, owner);
-    }
-    else if (type.equals("SeismicLatticeFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.SeismicLatticeFeature(cPtr, owner);
-    }
-    else if (type.equals("SeismicLineFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineFeature(cPtr, owner);
-    }
-    else if (type.equals("SeismicLineSetFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineSetFeature(cPtr, owner);
     }
     else if (type.equals("StratigraphicColumn"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumn(cPtr, owner);
     }
-    else if (type.equals("StratigraphicColumnRankInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumnRankInterpretation(cPtr, owner);
-    }
-    else if (type.equals("StratigraphicOccurrenceInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicOccurrenceInterpretation(cPtr, owner);
-    }
-    else if (type.equals("StratigraphicUnitFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitFeature(cPtr, owner);
-    }
-    else if (type.equals("StratigraphicUnitInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitInterpretation(cPtr, owner);
-    }
     else if (type.equals("StringTableLookup"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.StringTableLookup(cPtr, owner);
-    }
-    else if (type.equals("StructuralOrganizationInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.StructuralOrganizationInterpretation(cPtr, owner);
-    }
-    else if (type.equals("SubRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.SubRepresentation(cPtr, owner);
-    }
-    else if (type.equals("TectonicBoundaryFeature"))
-    {
-		com.f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature tmp = new com.f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
-		if (tmp.isAFracture() == true)
-			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.Fracture(cPtr, owner);
-		else
-			ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.Fault(cPtr, owner);
     }
     else if (type.equals("TimeSeries"))
     {
         ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.TimeSeries(cPtr, owner);
     }
-    else if (type.equals("TriangulatedSetRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.TriangulatedSetRepresentation(cPtr, owner);
-    }
-    else if (type.equals("UnstructuredGridRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.UnstructuredGridRepresentation(cPtr, owner);
-    }
-    else if (type.equals("WellboreFeature"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreFeature(cPtr, owner);
-    }
-    else if (type.equals("WellboreInterpretation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreInterpretation(cPtr, owner);
-    }
-    else if (type.equals("WellboreTrajectoryRepresentation"))
-    {
-        ret = new com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreTrajectoryRepresentation(cPtr, owner);
-    }
     else
     {
-		throw new IllegalArgumentException("Encountered type " + type + " that is not known to be a Resqml concrete class");
+	throw new IllegalArgumentException("Encountered type " + type + " that is not known to be a Resqml concrete class");
     }
+    
     return ret;
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_0_1_instantiateConcreteProperty(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractFeature resqml2_instantiateConcreteFeature(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
     }
     String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
-	if (type.equals("CategoricalProperty"))
+    if (type.equals("BoundaryFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeature(cPtr, owner);
+    }  
+    else if (type.equals("FluidBoundaryFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.FluidBoundaryFeature(cPtr, owner);
+    }
+    else if (type.equals("FrontierFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.FrontierFeature(cPtr, owner);
+    }
+    else if (type.equals("GeneticBoundaryFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.Horizon(cPtr, owner);
+    }
+    else if (type.equals("GeologicUnitFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.GeologicUnitFeature(cPtr, owner);
+    }
+    else if (type.equals("OrganizationFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.OrganizationFeature(cPtr, owner);
+    }
+    else if (type.equals("SeismicLatticeFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.SeismicLatticeFeature(cPtr, owner);
+    }
+    else if (type.equals("SeismicLineFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineFeature(cPtr, owner);
+    }
+    else if (type.equals("SeismicLineSetFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.SeismicLineSetFeature(cPtr, owner);
+    }
+    else if (type.equals("StratigraphicUnitFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitFeature(cPtr, owner);
+    }
+    else if (type.equals("TectonicBoundaryFeature"))
+    {
+		com.f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature tmp = new com.f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
+		if (tmp.isAFracture() == true)
+			return new com.f2i.energisticsStandardsApi.resqml2_0_1.Fracture(cPtr, owner);
+		else
+			return new com.f2i.energisticsStandardsApi.resqml2_0_1.Fault(cPtr, owner);
+    }
+    else if (type.equals("WellboreFeature"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreFeature(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractFeatureInterpretation resqml2_instantiateConcreteInterpretation(long cPtr, boolean owner)
+  {
+	com.f2i.energisticsStandardsApi.resqml2.AbstractFeatureInterpretation ret = resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+  
+    if (cPtr == 0) {
+      return null;
+    }
+    String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
+	if (type.equals("BoundaryFeatureInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.BoundaryFeatureInterpretation(cPtr, owner);
+    }
+    else if (type.equals("EarthModelInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.EarthModelInterpretation(cPtr, owner);
+    }
+    else if (type.equals("FaultInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.FaultInterpretation(cPtr, owner);
+    }
+    else if (type.equals("GenericFeatureInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.GenericFeatureInterpretation(cPtr, owner);
+    }
+    else if (type.equals("HorizonInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.HorizonInterpretation(cPtr, owner);
+    }
+    else if (type.equals("StratigraphicColumnRankInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumnRankInterpretation(cPtr, owner);
+    }
+    else if (type.equals("StratigraphicOccurrenceInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicOccurrenceInterpretation(cPtr, owner);
+    }
+    else if (type.equals("StratigraphicUnitInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicUnitInterpretation(cPtr, owner);
+    }
+    else if (type.equals("StructuralOrganizationInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.StructuralOrganizationInterpretation(cPtr, owner);
+    }
+    else if (type.equals("WellboreInterpretation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreInterpretation(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractRepresentation resqml2_instantiateConcreteRepresentation(long cPtr, boolean owner)
+  {
+	com.f2i.energisticsStandardsApi.resqml2.AbstractRepresentation ret = resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, owner);
+	if (ret != null) {
+		return ret;
+	}
+  
+    if (cPtr == 0) {
+      return null;
+    }
+    String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
+	
+    if (type.equals("Grid2dRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.Grid2dRepresentation(cPtr, owner);
+    }
+    else if (type.equals("Grid2dSetRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.Grid2dSetRepresentation(cPtr, owner);
+    }
+    else if (type.equals("GridConnectionSetRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.GridConnectionSetRepresentation(cPtr, owner);
+    }
+    else if (type.equals("IjkGridRepresentation"))
+    {
+	return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
+    }
+    else if (type.equals("NonSealedSurfaceFrameworkRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.NonSealedSurfaceFrameworkRepresentation(cPtr, owner);
+    }
+    else if (type.equals("PlaneSetRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.PlaneSetRepresentation(cPtr, owner);
+    }
+    else if (type.equals("PointSetRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.PointSetRepresentation(cPtr, owner);
+    }
+    else if (type.equals("PolylineRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.PolylineRepresentation(cPtr, owner);
+    }
+    else if (type.equals("PolylineSetRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.PolylineSetRepresentation(cPtr, owner);
+    }
+    else if (type.equals("RepresentationSetRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.RepresentationSetRepresentation(cPtr, owner);
+    }
+    else if (type.equals("SubRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.SubRepresentation(cPtr, owner);
+    }
+    else if (type.equals("TriangulatedSetRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.TriangulatedSetRepresentation(cPtr, owner);
+    }
+    else if (type.equals("UnstructuredGridRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.UnstructuredGridRepresentation(cPtr, owner);
+    }
+    else if (type.equals("WellboreTrajectoryRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreTrajectoryRepresentation(cPtr, owner);
+    }
+	else
+		return null;
+  }
+  
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractProperty resqml2_instantiateConcreteProperty(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) {
+      return null;
+    }
+    String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
+    
+    if (type.equals("CategoricalProperty"))
     {
         return new com.f2i.energisticsStandardsApi.resqml2_0_1.CategoricalProperty(cPtr, owner);
     }
@@ -253,7 +305,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreFrameRepresentation resqml2_instantiateConcreteWellboreFrameRepresentation(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
@@ -271,7 +323,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
 		return null;
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_0_1_instantiateConcreteLocal3dCrs(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractLocal3dCrs resqml2_instantiateConcreteLocal3dCrs(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
@@ -286,8 +338,27 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     {
         return new com.f2i.energisticsStandardsApi.resqml2_0_1.LocalTime3dCrs(cPtr, owner);
     }
-	else
-		return null;
+    else
+	return null;
+  }
+  
+  public static com.f2i.energisticsStandardsApi.resqml2.AbstractGridRepresentation resqml2_instantiateConcreteGridRepresentation(long cPtr, boolean owner)
+  {  
+    if (cPtr == 0) {
+      return null;
+    }
+    String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
+
+    if (type.equals("UnstructuredGridRepresentation"))
+    {
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.UnstructuredGridRepresentation(cPtr, owner);
+    }
+    else if (type.equals("IjkGridRepresentation"))
+    {
+	return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
+    }
+    else
+	return null;
   }
   
   public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation resqml2_0_1_instantiateConcreteIjkGridRepresentation(long cPtr, boolean owner)
@@ -311,18 +382,17 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
   }
   
-  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractStratigraphicOrganizationInterpretation resqml2_0_1_instantiateConcreteStratigraphicOrganizationInterpretation(long cPtr, boolean owner)
+  public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractStratigraphicOrganizationInterpretation resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(long cPtr, boolean owner)
   {
     if (cPtr == 0) {
       return null;
     }
     String type = resqml2_AbstractObject_getXmlTag(cPtr, new com.f2i.energisticsStandardsApi.resqml2.AbstractObject(cPtr, false));
-	
-    if (type.equals("StratigraphicOccurrenceInterpretation"))
+	if (type.equals("StratigraphicOccurrenceInterpretation"))
     {
         return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicOccurrenceInterpretation(cPtr, owner);
     }
-    else if (type.equals("StratigraphicColumnRankInterpretation"))
+	else if (type.equals("StratigraphicColumnRankInterpretation"))
     {
         return new com.f2i.energisticsStandardsApi.resqml2_0_1.StratigraphicColumnRankInterpretation(cPtr, owner);
     }
@@ -338,6 +408,42 @@ namespace resqml2
 		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteObject(cPtr, $owner);
 		return ret;
 	}
+	
+	%typemap(javaout) AbstractFeature*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteFeature(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractFeatureInterpretation*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteInterpretation(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractRepresentation*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteRepresentation(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractGridRepresentation*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteGridRepresentation(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractLocal3dCrs*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteLocal3dCrs(cPtr, $owner);
+		return ret;
+	}
+	
+	%typemap(javaout) AbstractProperty*, AbstractValuesProperty*  {
+		long cPtr = $jnicall;
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteProperty(cPtr, $owner);
+		return ret;
+	}
 
 	%typemap(javaimports) SWIGTYPE %{
 		import com.f2i.energisticsStandardsApi.*;
@@ -346,21 +452,9 @@ namespace resqml2
 
 namespace resqml2_0_1
 {	
-	%typemap(javaout) AbstractFeature*, AbstractFeatureInterpretation*, AbstractRepresentation*, AbstractValuesProperty*  {
-		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteObject(cPtr, $owner);
-		return ret;
-	}
-	
 	%typemap(javaout) WellboreFrameRepresentation*  {
 		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteWellboreFrameRepresentation(cPtr, $owner);
-		return ret;
-	}
-	
-	%typemap(javaout) AbstractLocal3dCrs*  {
-		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteLocal3dCrs(cPtr, $owner);
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteWellboreFrameRepresentation(cPtr, $owner);
 		return ret;
 	}
 	
@@ -370,15 +464,9 @@ namespace resqml2_0_1
 		return ret;
 	}
 	
-	%typemap(javaout) AbstractProperty*, AbstractValuesProperty*  {
-		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteProperty(cPtr, $owner);
-		return ret;
-	}
-	
 	%typemap(javaout) AbstractStratigraphicOrganizationInterpretation*  {
 		long cPtr = $jnicall;
-		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_0_1_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, $owner);
+		$javaclassname ret = ($javaclassname) fesapiJNI.resqml2_instantiateConcreteStratigraphicOrganizationInterpretation(cPtr, $owner);
 		return ret;
 	}
 
