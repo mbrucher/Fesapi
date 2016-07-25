@@ -63,10 +63,10 @@ Grid2dRepresentation::Grid2dRepresentation(resqml2::AbstractFeatureInterpretatio
 		singleGrid2dRep->SurfaceRole = resqml2__SurfaceRole__pick;
 
 	// relationhsips
-	setInterpretation(interp);
-
 	localCrs = crs;
 	localCrs->addRepresentation(this);
+
+	setInterpretation(interp);
 }
 
 resqml2__PointGeometry* Grid2dRepresentation::getPointGeometry2_0_1(const unsigned int & patchIndex) const

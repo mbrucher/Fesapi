@@ -58,17 +58,17 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 {
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getGsoapContext(), 1);	
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	
-	setInterpretation(interp);
 
 	rep->MdDatum = mdInfo->newResqmlReference();
 	mdInfo->addWellboreTrajectoryRepresentation(this);
 
-	initMandatoryMetadata();
-	setMetadata(guid, title, "", -1, "", "", -1, "", "");
-	
 	localCrs = mdInfo->getLocalCrs();
 	localCrs->addRepresentation(this);
+
+	setInterpretation(interp);
+
+	initMandatoryMetadata();
+	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	if (dynamic_cast<resqml2::AbstractLocal3dCrs*>(mdInfo->getLocalCrs()) != nullptr) {
 		rep->MdUom = static_cast<resqml2::AbstractLocal3dCrs*>(mdInfo->getLocalCrs())->getVerticalCrsUnit();

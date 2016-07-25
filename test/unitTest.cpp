@@ -32,6 +32,7 @@
 #include "resqml2_0_1test/RightHanded4x3x2ExplicitIjkGrid.h"
 #include "resqml2_0_1test/SubRepresentationOnPartialGridConnectionSet.h"
 #include "resqml2_0_1test/LgrOnRightHanded4x3x2ExplicitIjkGrid.h"
+#include "resqml2_0_1test/InterpretationDomain.h"
 
 using namespace commontest;
 using namespace resqml2_0_1test;
@@ -62,6 +63,8 @@ FESAPI_TEST("Export and import a single patch triangulated set fault representat
 FESAPI_TEST("Export and import a multi patch triangulated set fault representation", "[representation]", FaultMultiPatchTriangulatedSetRepresentationTest)
 
 FESAPI_TEST("Export and import a single and multi patch triangulated set fault representation", "[representation]", FaultSingleAndMultiPatchTriangulatedSetRepresentationTest)
+
+FESAPI_TEST("Export a multi domains interpreation", "[interpretation]", InterpretationDomain)
 
 FESAPI_TEST("Export and import a generic creation activity template", "[activity]", ActivityTemplateGenericCreationTest)
 

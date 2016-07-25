@@ -66,12 +66,12 @@ void PolylineRepresentation::init(resqml2::AbstractFeatureInterpretation* interp
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// relationships
+	localCrs = crs;
+	localCrs->addRepresentation(this);
+
 	if (interp != nullptr) {
 		setInterpretation(interp);
 	}
-
-	localCrs = crs;
-	localCrs->addRepresentation(this);
 }
 
 PolylineRepresentation::PolylineRepresentation(resqml2::AbstractLocal3dCrs * crs,

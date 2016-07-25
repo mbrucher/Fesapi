@@ -36,6 +36,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2/AbstractFeature.h"
+#include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/GridConnectionSetRepresentation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
@@ -149,10 +150,38 @@ resqml2::AbstractFeature* AbstractFeatureInterpretation::getInterpretedFeature()
 	return static_cast<resqml2::AbstractFeature*>(epcDocument->getResqmlAbstractObjectByUuid(getInterpretedFeatureUuid()));
 }
 
-void AbstractFeatureInterpretation::setDomain(const gsoap_resqml2_0_1::resqml2__Domain & domain)
+const gsoap_resqml2_0_1::resqml2__Domain & AbstractFeatureInterpretation::initDomain(const gsoap_resqml2_0_1::resqml2__Domain & defaultDomain) const
 {
 	if (gsoapProxy2_0_1 != nullptr) {
-		static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain = domain;
+		const unsigned int repCount = getRepresentationCount();
+		bool isTimeDomain = false;
+		bool isDepthDomain = false;
+		for (unsigned int repIndex = 0; repIndex < repCount && (!isTimeDomain || !isDepthDomain); ++repIndex) {
+			AbstractLocal3dCrs* local3dCrs = getRepresentation(repIndex)->getLocalCrs();
+			if (local3dCrs != nullptr) {
+				if (local3dCrs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs) {
+					isTimeDomain = true;
+				}
+				else if (local3dCrs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs) {
+					isDepthDomain = true;
+				}
+			}
+		}
+
+		if (isTimeDomain && isDepthDomain) {
+			static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain = gsoap_resqml2_0_1::resqml2__Domain__mixed;
+		}
+		else if (!isTimeDomain && !isDepthDomain) {
+			static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain = defaultDomain;
+		}
+		else if (isTimeDomain) {
+			static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain = gsoap_resqml2_0_1::resqml2__Domain__time;
+		}
+		else {
+			static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain = gsoap_resqml2_0_1::resqml2__Domain__depth;
+		}
+
+		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->Domain;
 	}
 	else {
 		throw logic_error("Not implemented yet");

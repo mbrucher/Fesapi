@@ -59,11 +59,12 @@ void PolylineSetRepresentation::init(resqml2::AbstractFeatureInterpretation* int
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// relationships
-	if (interp != nullptr)
-		setInterpretation(interp);
-
 	localCrs = crs;
 	localCrs->addRepresentation(this);
+
+	if (interp != nullptr) {
+		setInterpretation(interp);
+	}
 }
 
 PolylineSetRepresentation::PolylineSetRepresentation(resqml2::AbstractLocal3dCrs * crs, const string & guid, const string & title) :

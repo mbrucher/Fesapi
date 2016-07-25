@@ -57,10 +57,10 @@ PlaneSetRepresentation::PlaneSetRepresentation(resqml2::AbstractFeatureInterpret
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// relationhsips
-	setInterpretation(interp);
-
 	localCrs = crs;
 	localCrs->addRepresentation(this);
+
+	setInterpretation(interp);
 }
 
 void PlaneSetRepresentation::pushBackHorizontalPlaneGeometryPatch(const double & zCoordinate)

@@ -59,10 +59,10 @@ Grid2dSetRepresentation::Grid2dSetRepresentation(resqml2::AbstractFeatureInterpr
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
 	// relationhsips
-	setInterpretation(interp);
-
 	localCrs = crs;
 	localCrs->addRepresentation(this);
+
+	setInterpretation(interp);
 }
 
 void Grid2dSetRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const

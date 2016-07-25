@@ -1,7 +1,6 @@
 #pragma once
 
-#include "AbstractSurfaceRepresentationTest.h"
-#include <iostream>
+#include "resqml2_0_1test/AbstractSurfaceRepresentationTest.h"
 
 namespace common {
 	class EpcDocument;

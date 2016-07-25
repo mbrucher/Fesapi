@@ -274,6 +274,9 @@ namespace resqml2
 		AbstractFeature*				getInterpretedFeature();
 		AbstractRepresentation* 	getRepresentation(const unsigned int & index) const;
 		std::string 						getInterpretedFeatureUuid() const;
+		
+		const gsoap_resqml2_0_1::resqml2__Domain & initDomain(const gsoap_resqml2_0_1::resqml2__Domain & defaultDomain) const;
+		gsoap_resqml2_0_1::resqml2__Domain getDomain() const;
 	};
 
 	//************************************

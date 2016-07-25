@@ -55,42 +55,6 @@ const char* AbstractRepresentation::XML_TAG = "AbstractRepresentation";
 
 AbstractRepresentation::AbstractRepresentation(AbstractFeatureInterpretation* interp, AbstractLocal3dCrs * crs): interpretation(nullptr), hdfProxy(nullptr), localCrs(nullptr)
 {
-	if (crs != nullptr && interp != nullptr)
-	{
-		if (interp->getRepresentationCount() == 0)
-		{
-			if (crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-				interp->setDomain(gsoap_resqml2_0_1::resqml2__Domain__time);
-			else
-				interp->setDomain(gsoap_resqml2_0_1::resqml2__Domain__depth);
-		}
-		else if (interp->getDomain() != gsoap_resqml2_0_1::resqml2__Domain__mixed)
-		{
-			unsigned int repIndex = 0;
-			AbstractLocal3dCrs* local3dCrs = interp->getRepresentation(repIndex)->getLocalCrs();
-			while (local3dCrs == nullptr && repIndex < interp->getRepresentationCount()-1)
-			{
-				++repIndex;
-				local3dCrs = interp->getRepresentation(repIndex)->getLocalCrs();
-			}
-			if (local3dCrs != nullptr)
-			{
-				if (interp->getRepresentation(repIndex)->getLocalCrs()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs &&
-					crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs)
-					interp->setDomain(gsoap_resqml2_0_1::resqml2__Domain__mixed);
-				else if (interp->getRepresentation(repIndex)->getLocalCrs()->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalDepth3dCrs &&
-					crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-					interp->setDomain(gsoap_resqml2_0_1::resqml2__Domain__mixed);
-			}
-			else
-			{
-				if (crs->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORELocalTime3dCrs)
-					interp->setDomain(gsoap_resqml2_0_1::resqml2__Domain__time);
-				else
-					interp->setDomain(gsoap_resqml2_0_1::resqml2__Domain__depth);
-			}
-		}
-	}
 }
 
 void AbstractRepresentation::pushBackSeismicSupport(AbstractRepresentation * seismicSupport)
@@ -285,9 +249,9 @@ void AbstractRepresentation::setInterpretation(AbstractFeatureInterpretation * i
 	interpretation->representationSet.push_back(this);
 
 	// XML
-	if (updateXml)
-	{
+	if (updateXml) {
 		setXmlInterpretation(interp);
+		interpretation->initDomain(gsoap_resqml2_0_1::resqml2__Domain__mixed);
 	}
 }
 

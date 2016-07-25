@@ -1811,7 +1811,7 @@ void deserialize(const string & inputFile)
 			// read points
 			ULONG64 xyzPointCount = ijkGrid->getXyzPointCountOfAllPatches();
 			std::cout << "\t XYZ points count :" << xyzPointCount << std::endl;
-			std::cout << "\t Start reading XYZ points :" << std::endl;
+			std::cout << "\t Start reading XYZ points..." << std::endl;
 			double* xyzPoints = new double[xyzPointCount*3];
 			ijkGrid->getXyzPointsOfAllPatches(xyzPoints);
 			delete [] xyzPoints;

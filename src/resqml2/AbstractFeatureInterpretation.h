@@ -78,9 +78,10 @@ namespace resqml2
 		AbstractFeature* getInterpretedFeature() const;
 
 		/**
-		* Set the domain of the interpretation
+		* Init the domain of the interpretation based on its representations
+		* @param	defaultDomain	The default domain to set when there is no representation set to this interpretation
 		*/
-		void setDomain(const gsoap_resqml2_0_1::resqml2__Domain & domain);
+		const gsoap_resqml2_0_1::resqml2__Domain & initDomain(const gsoap_resqml2_0_1::resqml2__Domain & defaultDomain) const;
 
 		/**
 		* Set the domain of the interpretation

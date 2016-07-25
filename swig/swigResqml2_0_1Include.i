@@ -2053,6 +2053,11 @@ namespace gsoap_resqml2_0_1
 		resqml2__Facet__statistics = 4,
 		resqml2__Facet__what = 5
 	};
+	enum resqml2__Domain {
+		resqml2__Domain__depth = 0,
+		resqml2__Domain__time = 1,
+		resqml2__Domain__mixed = 2
+	};
 }
 
 namespace witsml1_4_1_1 {

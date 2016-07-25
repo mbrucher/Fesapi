@@ -49,8 +49,9 @@ const char* FaultInterpretation::XML_TAG = "FaultInterpretation";
 
 FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, const string & title)
 {
-	if (!fault)
+	if (fault == nullptr) {
 		throw invalid_argument("The interpreted fault cannot be null.");
+	}
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);
 	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy2_0_1);
@@ -83,16 +84,15 @@ vector<Relationship> FaultInterpretation::getAllEpcRelationships() const
 {
 	vector<Relationship> result = BoundaryFeatureInterpretation::getAllEpcRelationships();
 
-	for (unsigned int i = 0; i < structuralOrganizationInterpretationSet.size(); i++)
-	{
-		if (structuralOrganizationInterpretationSet[i])
-		{
+	for (size_t i = 0; i < structuralOrganizationInterpretationSet.size(); ++i) {
+		if (structuralOrganizationInterpretationSet[i] != nullptr) {
 			Relationship rel(structuralOrganizationInterpretationSet[i]->getPartNameInEpcDocument(), "", structuralOrganizationInterpretationSet[i]->getUuid());
 			rel.setSourceObjectType();
 			result.push_back(rel);
 		}
-		else
+		else {
 			throw domain_error("The structural Organization Interpretation associated to the fault interpretation cannot be nullptr.");
+		}
 	}
 
 	return result;

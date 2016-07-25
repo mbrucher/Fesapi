@@ -59,11 +59,11 @@ TriangulatedSetRepresentation::TriangulatedSetRepresentation(resqml2::AbstractFe
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 
-	// relationhsips
-	setInterpretation(interp);
-
 	localCrs = crs;
 	localCrs->addRepresentation(this);
+
+	// relationhsips
+	setInterpretation(interp);
 }
 
 string TriangulatedSetRepresentation::getHdfProxyUuid() const

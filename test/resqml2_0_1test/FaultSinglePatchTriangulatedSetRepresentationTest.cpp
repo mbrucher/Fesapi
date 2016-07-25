@@ -29,12 +29,19 @@ FaultSinglePatchTriangulatedSetRepresentationTest::FaultSinglePatchTriangulatedS
 
 void FaultSinglePatchTriangulatedSetRepresentationTest::initEpcDocHandler()
 {
-	// creating dependencies
-	FaultInterpretationTest * interpTest = new FaultInterpretationTest(this->epcDoc, true);
-	LocalDepth3dCrsTest * crsTest = new LocalDepth3dCrsTest(this->epcDoc, true);
-
 	FaultInterpretation * interp = static_cast<FaultInterpretation*>(this->epcDoc->getResqmlAbstractObjectByUuid(uuidFaultInterpretation));
+	if (interp == nullptr) {
+		FaultInterpretationTest * interpTest = new FaultInterpretationTest(this->epcDoc, true);
+		interp = static_cast<FaultInterpretation*>(this->epcDoc->getResqmlAbstractObjectByUuid(uuidFaultInterpretation));
+		delete interpTest;
+	}
+
 	LocalDepth3dCrs * crs = static_cast<LocalDepth3dCrs *>(this->epcDoc->getResqmlAbstractObjectByUuid(LocalDepth3dCrsTest::defaultUuid));
+	if (crs == nullptr) {
+		LocalDepth3dCrsTest * crsTest = new LocalDepth3dCrsTest(this->epcDoc, true);
+		crs = static_cast<LocalDepth3dCrs *>(this->epcDoc->getResqmlAbstractObjectByUuid(LocalDepth3dCrsTest::defaultUuid));
+		delete crsTest;
+	}
 
 	TriangulatedSetRepresentation* rep = this->epcDoc->createTriangulatedSetRepresentation(interp, crs, this->uuid, this->title);
 	REQUIRE( rep != nullptr );
@@ -45,10 +52,6 @@ void FaultSinglePatchTriangulatedSetRepresentationTest::initEpcDocHandler()
 		9,13,12, 9,10,13, 10,11,13, 11,14,13,
 		12,16,15, 12,13,16, 13,14,16, 14,17,16 };
 	rep->pushBackTrianglePatch(18, this->xyzPointsOfAllPatchesInGlobalCrs, 20, triangleNodeIndexFault, this->epcDoc->getHdfProxySet()[0]);
-
-	// cleaning
-	delete interpTest;
-	delete crsTest;
 }
 
 void FaultSinglePatchTriangulatedSetRepresentationTest::readEpcDocHandler()
