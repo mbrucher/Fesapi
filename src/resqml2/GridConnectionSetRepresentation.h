@@ -205,9 +205,19 @@ namespace resqml2
 		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
 		
 		/**
-		* Get the first supporting grid representation uuid of this grid connection representation.
+		* Get the one of the supporting grid representation uuid of this grid connection representation.
 		*/
 		virtual std::string getSupportingGridRepresentationUuid(unsigned int index) const = 0;
+
+		/**
+		* Get the one of the supporting grid representation title of this grid connection representation.
+		*/
+		virtual std::string getSupportingGridRepresentationTitle(unsigned int index) const = 0;
+
+		/**
+		* Get the one of the supporting grid representation content type of this grid connection representation.
+		*/
+		virtual std::string getSupportingGridRepresentationContentType(unsigned int index) const = 0;
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 

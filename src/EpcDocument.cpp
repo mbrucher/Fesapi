@@ -843,14 +843,7 @@ resqml2::AbstractObject* EpcDocument::getResqmlAbstractObjectByUuid(const string
 #else
 	std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.find(uuid);
 #endif
-	if (it == resqmlAbstractObjectSet.end())
-	{
-		return nullptr;
-	}
-	else
-	{
-		return it->second;
-	}
+	return it == resqmlAbstractObjectSet.end() ? nullptr : it->second;
 }
 
 witsml1_4_1_1::AbstractObject* EpcDocument::getWitsmlAbstractObjectByUuid(const string & uuid) const
@@ -861,14 +854,7 @@ witsml1_4_1_1::AbstractObject* EpcDocument::getWitsmlAbstractObjectByUuid(const 
 #else
 	std::tr1::unordered_map< std::string, witsml1_4_1_1::AbstractObject* >::const_iterator it = witsmlAbstractObjectSet.find(uuid);
 #endif
-	if (it == witsmlAbstractObjectSet.end())
-	{
-		return nullptr;
-	}
-	else
-	{
-		return it->second;
-	}
+	return it == witsmlAbstractObjectSet.end() ? nullptr : it->second;
 }
 
 vector<PolylineSetRepresentation*> EpcDocument::getFaultPolylineSetRepSet() const

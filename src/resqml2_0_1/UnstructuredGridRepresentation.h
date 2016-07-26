@@ -52,6 +52,40 @@ namespace resqml2_0_1
 
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 
+		/**
+		* Set a geometry using some existing hdf5 dataset. This geometry only contains polyedra with constant face count per cell and constant node count per face.
+		* @param isRightHanded						The path to the hdf5 dataset in the hdf proxy where a boolean mask is used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		* @param points								The path to the hdf5 dataset in the hdf proxy where all the XYZ points defining the nodes of the unstructured grid are defined. There must a double count of pointCount * 3.
+		* @param pointCount							The count of points defining the nodes of this unstructured grid.
+		* @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		* @param proxy								The hdf proxy which contains the datasets given inthis method by means of path.
+		* @param faceIndicesPerCell					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the face of a cell. There must be a count of faceCountPerCell * cellCount.
+		* @param faceCountPerCell					The constant face count per cell.
+		* @param nodeIndicesPerFace					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the node of a face. There must be a count of nodeCountPerFace * faceCount.
+		* @param nodeCountPerFace					The constant node count per face.
+		*/
+		void setConstantCellShapeGeometryUsingExistingDatasets(const std::string& cellFaceIsRightHanded, const std::string& points,
+			ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
+			const std::string& faceIndicesPerCell, ULONG64 faceCountPerCell,
+			const std::string& nodeIndicesPerFace, ULONG64 nodeCountPerFace);
+
+		/**
+		* Set a geometry and creates corresponding HDF5 datasets. This geometry only contains polyedra with constant face count per cell and constant node count per face.
+		* @param isRightHanded						Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		* @param points								All the XYZ points defining the nodes of the unstructured grid. There must a double count of pointCount * 3.
+		* @param pointCount							The count of points defining the nodes of this unstructured grid.
+		* @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		* @param proxy								The hdf proxy which contains the datasets given inthis method by means of path.
+		* @param faceIndicesPerCell					Each item defines the index of the face of a cell. There must be a count of faceCountPerCell * cellCount.
+		* @param faceCountPerCell					The constant face count per cell.
+		* @param nodeIndicesPerFace					Each item defines the index of the node of a face. There must be a count of nodeCountPerFace * faceCount.
+		* @param nodeCountPerFace					The constant node count per face.
+		*/
+		void setConstantCellShapeGeometry(unsigned char * cellFaceIsRightHanded, double * points,
+			ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 faceCountPerCell,
+			ULONG64 * nodeIndicesPerFace, ULONG64 nodeCountPerFace);
+
 		unsigned int constantNodeCountPerFace;
 		unsigned int constantFaceCountPerCell;
 		ULONG64 * cumulativeNodeCountPerFace;
@@ -230,13 +264,31 @@ namespace resqml2_0_1
     	void getCellFaceIsRightHanded(unsigned char* cellFaceIsRightHanded) const;
 
 		/**
-		 * Set the geometry
+		* Set the geometry using some existing hdf5 dataset
+		* @param isRightHanded						The path to the hdf5 dataset in the hdf proxy where a boolean mask is used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		* @param points								The path to the hdf5 dataset in the hdf proxy where all the XYZ points defining the nodes of the unstructured grid are defined. There must a double count of pointCount * 3.
+		* @param pointCount							The count of points defining the nodes of this unstructured grid.
+		* @param proxy								The hdf proxy which contains the datasets given inthis method by means of path.
+		* @param faceIndicesPerCell					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the face of a cell. There must be a count of the last value in faceIndicesCumulativeCountPerCell.
+		* @param faceIndicesCumulativeCountPerCell	The path to the hdf5 dataset in the hdf proxy where each item defines the cumulative count of faces. The count of this array must be equal to the count of cells in this unstructured grid. For example if the first cell a 4 faces, the second cell 5 faces and the third cell 6 faces then the array would be {4, 9, 15}
+		* @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		* @param nodeIndicesPerFace					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the node of a face. There must be a count of the last value in nodeIndicesCumulativeCountPerFace.
+		* @param nodeIndicesCumulativeCountPerFace	The path to the hdf5 dataset in the hdf proxy where each item defines the cumulative count of nodes. The count of this array must be eqaul to faceCount.
+		* @param cellShape							A denormalization of the information which gives quick access to the most complex shape of polyhedron encountered in this unstructured grid.
+		*/
+		void setGeometryUsingExistingDatasets(const std::string& cellFaceIsRightHanded, const std::string& points, ULONG64 pointCount, resqml2::AbstractHdfProxy* proxy,
+			const std::string& faceIndicesPerCell, const std::string&faceIndicesCumulativeCountPerCell,
+			ULONG64 faceCount, const std::string& nodeIndicesPerFace, const std::string& nodeIndicesCumulativeCountPerFace,
+			const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
+
+		/**
+		 * Set the geometry and creates corresponding HDF5 datasets.
 		 * @param isRightHanded						Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
 		 * @param points							All the XYZ points defining the nodes of the unstructured grid. There must a double count of pointCount * 3.
 		 * @param pointCount						The count of points defining the nodes of this unstructured grid.
 		 * @param proxy								The hdf proxy which will store all the numerical values of this unstructured grid.
 		 * @param faceIndicesPerCell				Each item defines the index of the face of a cell. There must be a count of the last value in faceIndicesCumulativeCountPerCell.
-		 * @param faceIndicesCumulativeCountPerCell	Each item defines the cumulative count of faces. The count of this array must be eqaul to the count of cells in this unstructured grid. For example if the first cell a 4 faces, the second cell 5 faces and the third cell 6 faces then the array would be {4, 9, 15}
+		 * @param faceIndicesCumulativeCountPerCell	Each item defines the cumulative count of faces. The count of this array must be equal to the count of cells in this unstructured grid. For example if the first cell a 4 faces, the second cell 5 faces and the third cell 6 faces then the array would be {4, 9, 15}
 		 * @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
 		 * @param nodeIndicesPerFace				Each item defines the index of the node of a face. There must be a count of the last value in nodeIndicesCumulativeCountPerFace.
 		 * @param nodeIndicesCumulativeCountPerFace	Each item defines the cumulative count of nodes. The count of this array must be eqaul to faceCount.
@@ -248,10 +300,59 @@ namespace resqml2_0_1
 			const gsoap_resqml2_0_1::resqml2__CellShape & cellShape);
 
 		/**
-		 * Set a geometry which is only defined using tetrahedra.
-		 * @param isRightHanded	Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
-		 */
-		void setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
+		* Set a geometry which is only defined by means of tetrahedra using some existing hdf5 dataset. This geometry only contains tetrahedra.
+		* @param isRightHanded						The path to the hdf5 dataset in the hdf proxy where a boolean mask is used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		* @param points								The path to the hdf5 dataset in the hdf proxy where all the XYZ points defining the nodes of the unstructured grid are defined. There must a double count of pointCount * 3.
+		* @param pointCount							The count of points defining the nodes of this unstructured grid.
+		* @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		* @param proxy								The hdf proxy which contains the datasets given inthis method by means of path.
+		* @param faceIndicesPerCell					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the face of a cell. There must be a count of faceCountPerCell * cellCount.
+		* @param nodeIndicesPerFace					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the node of a face. There must be a count of nodeCountPerFace * faceCount.
+		*/
+		void setTetrahedraOnlyGeometryUsingExistingDatasets(const std::string& cellFaceIsRightHanded, const std::string& points,
+			ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
+			const std::string& faceIndicesPerCell, const std::string& nodeIndicesPerFace);
+
+		/**
+		* Set a geometry which is only defined by means of tetrahedra and creates corresponding HDF5 datasets. This geometry only contains tetrahedra.
+		* @param isRightHanded						Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		* @param points								All the XYZ points defining the nodes of the unstructured grid. There must a double count of pointCount * 3.
+		* @param pointCount							The count of points defining the nodes of this unstructured grid.
+		* @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		* @param proxy								The hdf proxy which contains the datasets given inthis method by means of path.
+		* @param faceIndicesPerCell					Each item defines the index of the face of a cell. There must be a count of faceCountPerCell * cellCount.
+		* @param nodeIndicesPerFace					Each item defines the index of the node of a face. There must be a count of nodeCountPerFace * faceCount.
+		*/
+		void setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points,
+			ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
+			ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace);
+
+		/**
+		* Set a geometry which is only defined by means of tetrahedra using some existing hdf5 dataset. This geometry only contains hexahedra.
+		* @param isRightHanded						The path to the hdf5 dataset in the hdf proxy where a boolean mask is used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		* @param points								The path to the hdf5 dataset in the hdf proxy where all the XYZ points defining the nodes of the unstructured grid are defined. There must a double count of pointCount * 3.
+		* @param pointCount							The count of points defining the nodes of this unstructured grid.
+		* @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		* @param proxy								The hdf proxy which contains the datasets given inthis method by means of path.
+		* @param faceIndicesPerCell					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the face of a cell. There must be a count of faceCountPerCell * cellCount.
+		* @param nodeIndicesPerFace					The path to the hdf5 dataset in the hdf proxy where each item defines the index of the node of a face. There must be a count of nodeCountPerFace * faceCount.
+		*/
+		void setHexahedraOnlyGeometryUsingExistingDatasets(const std::string& cellFaceIsRightHanded, const std::string& points,
+			ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
+			const std::string& faceIndicesPerCell, const std::string& nodeIndicesPerFace);
+
+		/**
+		* Set a geometry which is only defined by means of tetrahedra and creates corresponding HDF5 datasets. This geometry only contains hexahedra.
+		* @param isRightHanded						Boolean mask used to indicate which cell faces have an outwardly directed normal following a right hand rule. Array length is the sum of the cell face count per cell, and the data follows the order of the faces per cell RESQMLlist-of-lists.
+		* @param points								All the XYZ points defining the nodes of the unstructured grid. There must a double count of pointCount * 3.
+		* @param pointCount							The count of points defining the nodes of this unstructured grid.
+		* @param faceCount							The count of faces in this unstructured grid. Be aware this count does not duplicate shared faces. Most of time, you have less faceCount than the last value of faceIndicesCumulativeCountPerCell which is the count of faces per cell.
+		* @param proxy								The hdf proxy which contains the datasets given inthis method by means of path.
+		* @param faceIndicesPerCell					Each item defines the index of the face of a cell. There must be a count of faceCountPerCell * cellCount.
+		* @param nodeIndicesPerFace					Each item defines the index of the node of a face. There must be a count of nodeCountPerFace * faceCount.
+		*/
+		void setHexahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points,
+			ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
 			ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace);
 
 		static const char* XML_TAG;

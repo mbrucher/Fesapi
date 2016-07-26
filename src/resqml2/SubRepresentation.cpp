@@ -82,12 +82,12 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 		else if (getSupportingRepresentationContentType().find(resqml2::GridConnectionSetRepresentation::XML_TAG) != string::npos) {
 			supportingRep = epcDoc->createPartialGridConnectionSetRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
 		}
-	}
-	else if (dynamic_cast<AbstractRepresentation*>(supportingRepInEpc) != nullptr) {
-		supportingRep = static_cast<AbstractRepresentation*>(supportingRepInEpc);
+		else {
+			throw logic_error("The referenced supporting representation is either not a resqml representation or it is partial and not implemented yet.");
+		}
 	}
 	else {
-		throw logic_error("The referenced supporting representation does not look to be a representation.");
+		supportingRep = supportingRepInEpc;
 	}
 
 	supportingRep->addSubRepresentation(this);
@@ -95,19 +95,23 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 
 ULONG64 SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex >= getPatchCount())
+	if (patchIndex >= getPatchCount()) {
 		throw range_error("The index of the patch is not in the allowed range of patch.");
+	}
 
-	if (getElementKindOfPatch(patchIndex, 0) == NODE)
+	if (getElementKindOfPatch(patchIndex, 0) == NODE) {
 		return getElementCountOfPatch(patchIndex);
-	else
+	}
+	else {
 		throw logic_error("Not yet implemented.");
+	}
 }
 
 void SubRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
-	if (patchIndex >= getPatchCount())
+	if (patchIndex >= getPatchCount()) {
 		throw range_error("The index of the patch is not in the allowed range of patch.");
+	}
 
 	throw logic_error("Not implemented yet");
 }

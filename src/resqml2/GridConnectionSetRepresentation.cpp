@@ -41,9 +41,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "hdf5.h"
 
 #include "resqml2_0_1/FaultInterpretation.h"
-#include "resqml2/AbstractGridRepresentation.h"
 #include "resqml2/AbstractHdfProxy.h"
 #include "resqml2/AbstractLocal3dCrs.h"
+#include "resqml2_0_1/UnstructuredGridRepresentation.h"
+#include "resqml2_0_1/AbstractIjkGridRepresentation.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
 using namespace std;
@@ -56,7 +57,6 @@ const char* GridConnectionSetRepresentation::XML_TAG = "GridConnectionSetReprese
 std::string GridConnectionSetRepresentation::getXmlTag() const
 {
 	return XML_TAG;
-
 }
 
 vector<Relationship> GridConnectionSetRepresentation::getAllEpcRelationships() const
@@ -122,9 +122,20 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 	updateXml = false;
 	unsigned int supportingGridCount = getSupportingGridRepresentationCount();
 	for (unsigned int i = 0; i < supportingGridCount; ++i) {
-		AbstractGridRepresentation* supportingGridRep = epcDocument->getResqmlAbstractObjectByUuid<AbstractGridRepresentation>(getSupportingGridRepresentationUuid(i));
+		string uuidSupportingGrid = getSupportingGridRepresentationUuid(i);
+		string titleSupportingGrid = getSupportingGridRepresentationTitle(i);
+		AbstractGridRepresentation* supportingGridRep = getSupportingGridRepresentation(i);
 		if (supportingGridRep == nullptr) {
-			throw logic_error("Partial transfer not implemented yet for GridConnectionSetRepresentation");
+			getEpcDocument()->addWarning("The referenced grid \"" + titleSupportingGrid + "\" (" + uuidSupportingGrid + ") is missing.");
+			if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
+				pushBackSupportingGridRepresentation(epcDoc->createPartialUnstructuredGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
+			}
+			else if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
+				pushBackSupportingGridRepresentation(epcDoc->createPartialIjkGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
+			}
+			else {
+				throw logic_error("The referenced supporting representation is either not a resqml grid representation or it is partial and not implemented yet.");
+			}
 		}
 		else {
 			pushBackSupportingGridRepresentation(supportingGridRep);
@@ -138,7 +149,7 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 		for (unsigned int i = 0; i < interpCount; ++i) {
 			resqml2::AbstractFeatureInterpretation* interp = epcDocument->getResqmlAbstractObjectByUuid<AbstractFeatureInterpretation>(getInterpretationUuidFromIndex(i));
 			if (interp == nullptr) {
-				throw logic_error("Partial transfer not implemented yet for GridConnectionSetRepresentation");
+				throw logic_error("The referenced interpretation is either not a resqml grid interpretation or it is partial and not implemented yet");
 			}
 			else {
 				pushBackInterpretation(interp);

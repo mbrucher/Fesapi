@@ -445,8 +445,7 @@ std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
-	if (index >= rep->Grid.size())
-	{
+	if (index >= rep->Grid.size()) {
 		throw range_error("The requested index is out of range of the available supporting grid representations.");
 	}
 	return rep->Grid[index]->UUID;
@@ -494,4 +493,24 @@ void GridConnectionSetRepresentation::pushBackXmlInterpretation(resqml2::Abstrac
 unsigned int GridConnectionSetRepresentation::getSupportingGridRepresentationCount() const
 {
 	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.size(); 
+}
+
+std::string GridConnectionSetRepresentation::getSupportingGridRepresentationTitle(unsigned int index) const
+{
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
+
+	if (index >= rep->Grid.size()) {
+		throw range_error("The requested index is out of range of the available supporting grid representations.");
+	}
+	return rep->Grid[index]->Title;
+}
+
+std::string GridConnectionSetRepresentation::getSupportingGridRepresentationContentType(unsigned int index) const
+{
+	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
+
+	if (index >= rep->Grid.size()) {
+		throw range_error("The requested index is out of range of the available supporting grid representations.");
+	}
+	return rep->Grid[index]->ContentType;
 }

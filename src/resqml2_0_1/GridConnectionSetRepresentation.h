@@ -206,5 +206,15 @@ namespace resqml2_0_1
 		* Get the first supporting grid representation uuid of this grid connection representation.
 		*/
 		std::string getSupportingGridRepresentationUuid(unsigned int index) const;
+
+		/**
+		* Get the one of the supporting grid representation title of this grid connection representation.
+		*/
+		std::string getSupportingGridRepresentationTitle(unsigned int index) const;
+
+		/**
+		* Get the one of the supporting grid representation content type of this grid connection representation.
+		*/
+		std::string getSupportingGridRepresentationContentType(unsigned int index) const;
 	};
 }
