@@ -334,10 +334,10 @@ void HdfProxy::writeArrayNd(const std::string & groupName,
 
 void HdfProxy::createArrayNd(
 	const std::string& groupName,
-			const std::string& datasetName,
-			const int & datatype,
-			unsigned long long* numValuesInEachDimension,
-			const unsigned int& numDimensions
+	const std::string& datasetName,
+	const int & datatype,
+	unsigned long long* numValuesInEachDimension,
+	const unsigned int& numDimensions
 ) {
 	if (!isOpened()) {
 		open();
@@ -373,47 +373,77 @@ void HdfProxy::createArrayNd(
 void HdfProxy::writeArrayNdSlab(
 	const string& groupName,
 	const string& datasetName,
+	const int & datatype,
 	void* values,
 	hsize_t* numValuesInEachDimension,
 	hsize_t* offsetInEachDimension,
-	const unsigned int& numDimensions
-) {
+	const unsigned int& numDimensions)
+{
 	if (!isOpened()) {
 		open();
 	}
 
 	hid_t grp = openOrCreateGroupInResqmlGroup(groupName);
 	hid_t dataset = H5Dopen(grp, datasetName.c_str(), H5P_DEFAULT);
+	if (dataset < 0) {
+		throw invalid_argument("The resqml dataset " + datasetName + " could not be opened.");
+	}
 	
 	hid_t filespace = H5Dget_space(dataset);
-	H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, nullptr, numValuesInEachDimension, nullptr);
+	if (filespace < 0) {
+		throw invalid_argument("The resqml dataspace of " + datasetName + " could not be opened.");
+	}
+	herr_t errorCode = H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offsetInEachDimension, nullptr, numValuesInEachDimension, nullptr);
+	if (errorCode < 0) {
+		H5Sclose(filespace);
+		H5Dclose(dataset);
+		H5Gclose(grp);
+		throw invalid_argument("The slab of dataset " + datasetName + " could not have been selected");
+	}
 
 	hsize_t slab_size = 1;
 	for(unsigned int h = 0; h < numDimensions; ++h){
 		slab_size *= numValuesInEachDimension[h];
 	}
 	hid_t memspace = H5Screate_simple(1, &slab_size, nullptr);
+	if (memspace < 0) {
+		H5Sclose(filespace);
+		H5Dclose(dataset);
+		H5Gclose(grp);
+		throw invalid_argument("The dataspace for the slab of the dataset " + datasetName + " could not be created.");
+	}
 
-	hid_t datatype = H5Dget_type(dataset);
-	H5Dwrite(dataset, datatype, memspace, filespace, H5P_DEFAULT, values);
+	hid_t datatypeOfDataset = H5Dget_type(dataset);
+	if (datatypeOfDataset < 0) {
+		throw invalid_argument("The datatype of the dataset " + datasetName + " could not be retrieved.");
+	}
+	if (H5Tequal(datatype, datatypeOfDataset) <= 0) {
+		throw invalid_argument("The given datatype for the slab is not compatible with the datatype of the dataset.");
+	}
+	errorCode = H5Dwrite(dataset, datatype, memspace, filespace, H5P_DEFAULT, values);
 
 	H5Tclose(datatype);
 	H5Sclose(memspace);
 	H5Sclose(filespace);
 	H5Dclose(dataset);
 	H5Gclose(grp);
+
+	if (errorCode < 0) {
+		throw invalid_argument("The data could not be written in dataset slab " + datasetName);
+	}
 }
 
 void HdfProxy::readArrayNdOfDoubleValues(const std::string & datasetName, double* values)
 {
-	if (!isOpened())
+	if (!isOpened()) {
 		open();
+	}
 
 	hid_t dataset = H5Dopen(hdfFile, datasetName.c_str(), H5P_DEFAULT);
 	if (dataset < 0) {
 		throw invalid_argument("The resqml dataset " + datasetName + " could not be opened.");
 	}
-	hid_t readingError = H5Dread (dataset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
+	herr_t readingError = H5Dread(dataset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
 	if (readingError < 0) {
 		throw invalid_argument("The resqml dataset " + datasetName + " could not be read.");
 	}
@@ -429,7 +459,7 @@ void HdfProxy::readArrayNdOfFloatValues(const std::string & datasetName, float* 
 	if (dataset < 0) {
 		throw invalid_argument("The resqml dataset " + datasetName + " could not be opened.");
 	}
-	hid_t readingError = H5Dread (dataset, H5T_NATIVE_FLOAT, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
+	herr_t readingError = H5Dread(dataset, H5T_NATIVE_FLOAT, H5S_ALL, H5S_ALL, H5P_DEFAULT, values);
 	if (readingError < 0) {
 		throw invalid_argument("The resqml dataset " + datasetName + " could not be read.");
 	}

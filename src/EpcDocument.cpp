@@ -250,6 +250,17 @@ resqml2::SubRepresentation* EpcDocument::getSubRepresentation(const unsigned int
 	return subRepresentationSet[index];
 }
 
+const std::vector<resqml2_0_1::PointSetRepresentation*> & EpcDocument::getPointSetRepresentationSet() const { return pointSetRepresentationSet; }
+unsigned int EpcDocument::getPointSetRepresentationCount() const { return pointSetRepresentationSet.size(); }
+resqml2_0_1::PointSetRepresentation* EpcDocument::getPointSetRepresentation(const unsigned int & index) const
+{
+	if (index >= getPointSetRepresentationCount()) {
+		throw out_of_range("The point set representation index is out of range.");
+	}
+
+	return pointSetRepresentationSet[index];
+}
+
 const std::vector<resqml2::AbstractHdfProxy*> & EpcDocument::getHdfProxySet() const { return hdfProxySet; }
 unsigned int EpcDocument::getHdfProxyCount() const { return hdfProxySet.size(); }
 
@@ -483,6 +494,9 @@ void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 	}
 	else if (proxy->getXmlTag().compare(SubRepresentation::XML_TAG) == 0) {
 		subRepresentationSet.push_back(static_cast<SubRepresentation* const>(proxy));
+	}
+	else if (proxy->getXmlTag().compare(PointSetRepresentation::XML_TAG) == 0) {
+		pointSetRepresentationSet.push_back(static_cast<PointSetRepresentation* const>(proxy));
 	}
 
 	if (getResqmlAbstractObjectByUuid(proxy->getUuid()) == nullptr) {

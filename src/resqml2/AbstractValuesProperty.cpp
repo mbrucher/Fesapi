@@ -480,6 +480,7 @@ void AbstractValuesProperty::pushBackLongHdf5SlabArrayOfValues(
 	// HDF
 	proxy->writeArrayNdSlab(getUuid(),
 		oss.str(),
+		H5T_NATIVE_LONG,
 		values,
 		numValuesInEachDimension, 
 		offsetInEachDimension, 

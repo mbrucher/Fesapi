@@ -201,7 +201,7 @@ namespace common
 		/**
 		* Serialize the package by serializing all the gsoap wrappers and by zipping the package.
 		*/
-		void serialize(bool useZip64 = false);
+		virtual void serialize(bool useZip64 = false);
 
 		/**
 		* Unzip the package and get all contained elements with their relationships
@@ -504,11 +504,18 @@ namespace common
 		const std::vector<resqml2::TimeSeries*> & getTimeSeriesSet() const;
 
 		/**
-		 * Get all the subrepresentaiton contained into the EPC document
+		 * Get all the subrepresentations contained into the EPC document
 		 */
 		const std::vector<resqml2::SubRepresentation*> & getSubRepresentationSet() const;
 		unsigned int getSubRepresentationCount() const;
 		resqml2::SubRepresentation* getSubRepresentation(const unsigned int & index) const;
+
+		/**
+		* Get all the point set representations contained into the EPC document
+		*/
+		const std::vector<resqml2_0_1::PointSetRepresentation*> & getPointSetRepresentationSet() const;
+		unsigned int getPointSetRepresentationCount() const;
+		resqml2_0_1::PointSetRepresentation* getPointSetRepresentation(const unsigned int & index) const;
 
 		/**
 		* Get all the Hdf proxies used with this EPC document
@@ -546,16 +553,11 @@ namespace common
 		*/
 		std::string getExtendedCoreProperty(const std::string & key);
 
-		/**
-		 * ALLOWS CREATION FROM THE EPC DOCUMENT
-		 * MAINLY USED IN JAVA AND .NET SWIG WRAPPERS CONTEXT
-		 */
-
 		//************************************
 		//************ HDF *******************
 		//************************************
 
-		resqml2::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		virtual resqml2::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		//************************************
 		//************ CRS *******************
@@ -1114,6 +1116,7 @@ namespace common
 		std::vector<resqml2_0_1::OrganizationFeature*> 				organizationSet;
 		std::vector<resqml2::TimeSeries*> 							timeSeriesSet;
 		std::vector<resqml2::SubRepresentation*>					subRepresentationSet;
+		std::vector<resqml2_0_1::PointSetRepresentation*>			pointSetRepresentationSet;
 
 		resqml2_0_1::PropertyKindMapper* propertyKindMapper;
 

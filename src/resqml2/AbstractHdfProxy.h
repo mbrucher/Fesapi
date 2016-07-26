@@ -235,6 +235,7 @@ namespace resqml2
 		virtual void writeArrayNdSlab(
 		  const std::string& groupName,
 		  const std::string& name,
+		  const int & datatype,
 		  void* values,
 		  unsigned long long* numValuesInEachDimension,
 		  unsigned long long* offsetValuesInEachDimension,

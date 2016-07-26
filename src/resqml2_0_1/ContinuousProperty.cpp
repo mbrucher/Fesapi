@@ -277,7 +277,7 @@ void ContinuousProperty::createFloatHdf5ArrayOfValues(
 
 	prop->PatchOfValues.push_back(patch);
 
-	for(int i = 0; i < prop->Count; ++i) {
+	for (ULONG64 i = 0; i < prop->Count; ++i) {
 		prop->MinimumValue.push_back(FLT_MAX);
 		prop->MaximumValue.push_back(FLT_MIN);
 	}
@@ -298,9 +298,7 @@ void ContinuousProperty::pushBackFloatHdf5SlabArrayOfValues(
 	hsize_t* offsetInEachDimension, const unsigned int& numArrayDimensions, 
 	resqml2::AbstractHdfProxy* proxy)
 {
-
-	_resqml2__ContinuousProperty* prop = 
-		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 
 	setPropertyMinMax(
 		values,
@@ -315,6 +313,7 @@ void ContinuousProperty::pushBackFloatHdf5SlabArrayOfValues(
 	proxy->writeArrayNdSlab(
 		prop->uuid,
 		oss.str(),
+		H5T_NATIVE_FLOAT,
 		values,
 		numValuesInEachDimension, 
 		offsetInEachDimension, 
@@ -359,10 +358,8 @@ void ContinuousProperty::getFloatValuesOfPatch(
 		throw invalid_argument("The hdf proxy does not exist");
 	}
 
-	_resqml2__ContinuousProperty* prop = 
-		static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
-	resqml2__DoubleHdf5Array* hdfValues = 
-		static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
+	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
+	resqml2__DoubleHdf5Array* hdfValues = static_cast<resqml2__DoubleHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
 
 	hdfProxy->readArrayNdOfFloatValues(
         hdfValues->Values->PathInHdfFile, 
@@ -382,10 +379,8 @@ void ContinuousProperty::getFloatValuesOf3dPatch(
 	const unsigned int& offsetInMiddleDim, 
 	const unsigned int& offsetInSlowestDim)
 {
-	hsize_t valueCountPerDimension[3] = 
-		{valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
-	hsize_t offsetPerDimension[3] = 
-		{offsetInSlowestDim, offsetInMiddleDim, offsetInFastestDim};
+	hsize_t valueCountPerDimension[3] = {valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim};
+	hsize_t offsetPerDimension[3] = {offsetInSlowestDim, offsetInMiddleDim, offsetInFastestDim};
 
 	getFloatValuesOfPatch(
 		patchIndex,

@@ -91,8 +91,8 @@ namespace common
 		
 		void setFilePath(const std::string & filePath);
 
-		void serialize();
-		std::string deserialize();
+		virtual void serialize(bool useZip64 = false);
+		virtual std::string deserialize();
 		void close();
 		std::string getStorageDirectory() const;
 		std::string getName() const;
@@ -155,9 +155,11 @@ namespace common
 		
 		const std::vector<resqml2_0_1::UnstructuredGridRepresentation*> & getUnstructuredGridRepresentationSet() const;
 		
-		const std::vector<resqml2::SubRepresentation*> & getSubRepresentationSet() const;
 		unsigned int getSubRepresentationCount() const;
 		resqml2::SubRepresentation* getSubRepresentation(const unsigned int & index) const;
+		
+		unsigned int getPointSetRepresentationCount() const;
+		resqml2_0_1::PointSetRepresentation* getPointSetRepresentation(const unsigned int & index) const;
 		
 		void setExtendedCoreProperty(const std::string & key, const std::string & value);
 		std::string getExtendedCoreProperty(const std::string & key);
@@ -169,7 +171,7 @@ namespace common
 		//************ HDF *******************
 		//************************************
 
-		resqml2::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
+		virtual resqml2::AbstractHdfProxy* createHdfProxy(const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
 		//************************************
 		//************ CRS *******************

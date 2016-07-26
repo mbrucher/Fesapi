@@ -228,6 +228,7 @@ namespace resqml2
 		* Find the array associated with @p groupName and @p name and write to it.
 		* @param groupName                      The name of the group associated with the array.
 		* @param name                           The name of the array (potentially with multi dimensions).
+		* @param datatype						The specific datatype of the values to write.
 		* @param values                         1d array of specific datatype ordered firstly by fastest direction.
 		* @param numValuesInEachDimension       Number of values in each dimension of the array to write. They are ordered from fastest index to slowest index.
 		* @param offsetValuesInEachDimension    Offset values in each dimension of the array to write. They are ordered from fastest index to slowest index.
@@ -236,6 +237,7 @@ namespace resqml2
 		void writeArrayNdSlab(
 			const std::string& groupName,
 			const std::string& name,
+			const int & datatype,
 			void* values,
 			unsigned long long* numValuesInEachDimension,
 			unsigned long long* offsetValuesInEachDimension,
