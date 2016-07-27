@@ -2226,6 +2226,10 @@ namespace resqml2_0_1
 
 	class GeneticBoundaryFeature : public BoundaryFeature
 	{
+	public:
+		void setAge(const ULONG64 & age);
+		bool hasAnAge() const;
+		ULONG64 getAge() const;
 	};
 
 	class Horizon : public GeneticBoundaryFeature
