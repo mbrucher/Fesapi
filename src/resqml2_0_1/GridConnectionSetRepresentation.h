@@ -174,17 +174,40 @@ namespace resqml2_0_1
 		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
 
 		/**
-		* Set the cell index pairs of the grid connections representation
+		* Set the cell index pairs of the grid connections representation using some exisiting hdf5 datasets.
+		* @param cellIndexPairCount	The count of cell index pair. It is half of all the stored numerical values.
+		* @param cellIndexPair		The HDF dataset path where we can find all the cell index pair in a 1d Array where the cell indices go faster than the pair.
+		* @param nullValue			The integere null value used in the hdf dataset.
+		* @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
+		*/
+		void setCellIndexPairsUsingExistingDataset(const ULONG64 & cellIndexPairCount, const std::string & cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
+
+		/**
+		* Set the cell index pairs of the grid connections representation and writes all unmerical values in an hdf5 dataset.
         * @param cellIndexPairCount	The count of cell index pair. It is half of all the stored numerical values.
         * @param cellIndexPair		All the cell index pair in a 1d Array where the cell indices go faster than the pair.
+		* @param nullValue			The integere null value used in the hdf dataset.
         * @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
 		*/
 		void setCellIndexPairs(const ULONG64 & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
 
 		/**
-		* Optional 2 x #Connections array of local face-per-cell indices for (Cell1,Cell2) for each connection. Local face-per-cell indices are used because global face indices need not have been defined.
-		* If no face-per-cell definition occurs as part of the grid representation, e.g., for a block-centered grid, then this array need not appear.
-		* Null value = -1 by dcoumentation
+		* The numerical values
+		* 2 x #Connections array of local face-per-cell indices for (Cell1,Cell2) for each connection. Local face-per-cell indices are used because global face indices need not have been defined.
+		* The numerical values are already stored in an existing hdf5 dataset.
+		* Null value = -1 by documentation.
+		* @param localFacePerCellIndexPair	The HDF dataset path where we can find all the local Face Per CellIndex Pair in a 1d Array.
+		* @param proxy						The HDF proxy where the numerical values (cell indices) are stored.
+		*/
+		void setLocalFacePerCellIndexPairsUsingExistingDataset(const std::string & localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy);
+
+		/**
+		* 2 x #Connections array of local face-per-cell indices for (Cell1,Cell2) for each connection. Local face-per-cell indices are used because global face indices need not have been defined.
+		* The numerical values wil: be written as a new hdf5 dataset in an existing hdf5 file.
+		* Null value = -1 by documentation.
+        * @param cellIndexPairCount			The count of cell index pair. It is half of all the stored numerical values.
+		* @param localFacePerCellIndexPair	The HDF dataset path where we can find all the local Face Per CellIndex Pair in a 1d Array.
+		* @param proxy						The HDF proxy where the numerical values (cell indices) are stored.
 		*/
 		void setLocalFacePerCellIndexPairs(const ULONG64 & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy);
 

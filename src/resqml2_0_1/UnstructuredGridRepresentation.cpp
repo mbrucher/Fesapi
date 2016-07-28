@@ -134,7 +134,7 @@ ULONG64 UnstructuredGridRepresentation::getCellCount() const
 ULONG64 UnstructuredGridRepresentation::getFaceCount() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry) {
+	if (grid->Geometry != nullptr) {
 		return grid->Geometry->FaceCount;
 	}
 	
@@ -144,7 +144,7 @@ ULONG64 UnstructuredGridRepresentation::getFaceCount() const
 ULONG64 UnstructuredGridRepresentation::getNodeCount() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (grid->Geometry) {
+	if (grid->Geometry != nullptr) {
 		return grid->Geometry->NodeCount;
 	}
 
@@ -669,10 +669,10 @@ void UnstructuredGridRepresentation::setTetrahedraOnlyGeometryUsingExistingDatas
 	ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
 	const std::string& faceIndicesPerCell, const std::string& nodeIndicesPerFace)
 {
-	setConstantCellShapeGeometryUsingExistingDatasets("/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded", "/RESQML/" + gsoapProxy2_0_1->uuid + "/Points",
+	setConstantCellShapeGeometryUsingExistingDatasets(cellFaceIsRightHanded, points,
 		pointCount, faceCount, proxy,
-		"/RESQML/" + gsoapProxy2_0_1->uuid + "/FacesPerCell", 4,
-		"/RESQML/" + gsoapProxy2_0_1->uuid + "/NodesPerFace", 3);
+		faceIndicesPerCell, 4,
+		nodeIndicesPerFace, 3);
 }
 
 void UnstructuredGridRepresentation::setTetrahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy * proxy,
@@ -688,10 +688,10 @@ void UnstructuredGridRepresentation::setHexahedraOnlyGeometryUsingExistingDatase
 	ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy* proxy,
 	const std::string& faceIndicesPerCell, const std::string& nodeIndicesPerFace)
 {
-	setConstantCellShapeGeometryUsingExistingDatasets("/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded", "/RESQML/" + gsoapProxy2_0_1->uuid + "/Points",
+	setConstantCellShapeGeometryUsingExistingDatasets(cellFaceIsRightHanded, points,
 		pointCount, faceCount, proxy,
-		"/RESQML/" + gsoapProxy2_0_1->uuid + "/FacesPerCell", 6,
-		"/RESQML/" + gsoapProxy2_0_1->uuid + "/NodesPerFace", 4);
+		faceIndicesPerCell, 6,
+		nodeIndicesPerFace, 4);
 }
 
 void UnstructuredGridRepresentation::setHexahedraOnlyGeometry(unsigned char * cellFaceIsRightHanded, double * points, ULONG64 pointCount, ULONG64 faceCount, resqml2::AbstractHdfProxy * proxy,
