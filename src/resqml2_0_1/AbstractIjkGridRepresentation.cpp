@@ -411,24 +411,12 @@ void AbstractIjkGridRepresentation::getEnabledCells(bool * enabledCells, bool re
 	ULONG64 cellCount = getCellCount();
 	if (geom->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array) {
 		hid_t dt = hdfProxy->getHdfDatatypeInDataset(static_cast<resqml2__BooleanHdf5Array*>(geom->CellGeometryIsDefined)->Values->PathInHdfFile);
-		if (H5Tequal(dt, H5T_NATIVE_CHAR) > 0) {
-			char* tmp = new char[cellCount];
-			hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(geom->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
-			for (ULONG64 i = 0; i < cellCount; ++i) {
-				if (tmp[i] == 0) enabledCells[i] = false; else enabledCells[i] = true;
-			}
-			delete [] tmp;
+		char* tmp = new char[cellCount];
+		hdfProxy->readArrayNdOfCharValues(static_cast<resqml2__BooleanHdf5Array*>(geom->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
+		for (ULONG64 i = 0; i < cellCount; ++i) {
+			if (tmp[i] == 0) enabledCells[i] = false; else enabledCells[i] = true;
 		}
-		else if (H5Tequal(dt, H5T_NATIVE_UCHAR) > 0) {
-			unsigned char* tmp = new unsigned char[cellCount];
-			hdfProxy->readArrayNdOfUCharValues(static_cast<resqml2__BooleanHdf5Array*>(geom->CellGeometryIsDefined)->Values->PathInHdfFile, tmp);
-			for (ULONG64 i = 0; i < cellCount; ++i) {
-				if (tmp[i] == 0) enabledCells[i] = false; else enabledCells[i] = true;
-			}
-			delete [] tmp;
-		}
-		else
-			throw std::logic_error("Only CHAR and UCHAR are supported for now for storing cellGeometryIsDefined information.");
+		delete [] tmp;
 	}
 	else if (geom->CellGeometryIsDefined->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanConstantArray) {
 		if (static_cast<resqml2__BooleanConstantArray*>(geom->CellGeometryIsDefined)->Value == true) {
