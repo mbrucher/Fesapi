@@ -55,7 +55,7 @@ void UnstructuredFromIjkGridRepresentationTest::readEpcDocHandler() {
 	REQUIRE( unstructuredGrid->getInterpretation() == ijkGrid->getInterpretation() );
 
 	// getXyzPointCountOfPatch
-	REQUIRE_THROWS( unstructuredGrid->getXyzPointCountOfPatch(1) == 0);
+	REQUIRE_THROWS( unstructuredGrid->getXyzPointCountOfPatch(1) );
 	REQUIRE( unstructuredGrid->getXyzPointCountOfPatch(0) == 16);
 
 	// getFaceIndicesOfCells

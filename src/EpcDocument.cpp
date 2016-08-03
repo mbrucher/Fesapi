@@ -271,8 +271,9 @@ const std::vector<std::string> & EpcDocument::getWarnings() const { return warni
 
 bool EpcDocument::open(const std::string & fileName)
 {
-	if (s != nullptr || package != nullptr)
+	if (s != nullptr || package != nullptr) {
 		return false;
+	}
 
 	setFilePath(fileName);
 
@@ -285,8 +286,7 @@ bool EpcDocument::open(const std::string & fileName)
 
 void EpcDocument::close()
 {
-	if (propertyKindMapper != nullptr)
-	{
+	if (propertyKindMapper != nullptr) {
 		delete propertyKindMapper;
 		propertyKindMapper = nullptr;
 	}
@@ -311,14 +311,12 @@ void EpcDocument::close()
 	}
 	witsmlAbstractObjectSet.clear();
 
-	if (package != nullptr)
-	{
+	if (package != nullptr) {
 		delete package;
 		package = nullptr;
 	}
 
-	if (s != nullptr)
-	{
+	if (s != nullptr) {
 		soap_destroy(s); // remove deserialized C++ objects
 		soap_end(s); // remove deserialized data
 		soap_done(s); // finalize last use of the context
@@ -351,15 +349,12 @@ void EpcDocument::setFilePath(const std::string & filePath)
 
 	// Add .epc extension if it is not already done in parameter
 	size_t dotPos = this->filePath.find_last_of('.');
-	if (dotPos != string::npos)
-	{
-		if (this->filePath.substr(dotPos) != DOCUMENT_EXTENSION)
-		{
+	if (dotPos != string::npos) {
+		if (this->filePath.substr(dotPos) != DOCUMENT_EXTENSION) {
 			this->filePath += DOCUMENT_EXTENSION;
 		}
 	}
-	else
-	{
+	else {
 		this->filePath += DOCUMENT_EXTENSION;
 	}
 }
@@ -1151,7 +1146,7 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 	return result;
 }
 
-std::vector<RepresentationSetRepresentation*> EpcDocument::getRepresentationSetRepresentationSet() const
+std::vector<resqml2::RepresentationSetRepresentation*> EpcDocument::getRepresentationSetRepresentationSet() const
 {
 	return representationSetRepresentationSet;
 }
@@ -1161,7 +1156,7 @@ unsigned int EpcDocument::getRepresentationSetRepresentationCount() const
 	return representationSetRepresentationSet.size();
 }
 
-RepresentationSetRepresentation* EpcDocument::getRepresentationSetRepresentation(const unsigned int & index) const
+resqml2::RepresentationSetRepresentation* EpcDocument::getRepresentationSetRepresentation(const unsigned int & index) const
 {
 	if (index >= getRepresentationSetRepresentationCount())
 		throw range_error("The index of the representation set representaiton is out of range");
@@ -1174,11 +1169,11 @@ vector<IjkGridParametricRepresentation*> EpcDocument::getIjkGridParametricRepres
 	vector<AbstractIjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
 	vector<IjkGridParametricRepresentation*> result;
 	
-	for (unsigned int i = 0; i < allgrids.size(); ++i)
-	{
+	for (size_t i = 0; i < allgrids.size(); ++i) {
 		IjkGridParametricRepresentation* ijkGridParamRep = dynamic_cast<IjkGridParametricRepresentation*>(allgrids[i]);
-		if (ijkGridParamRep != nullptr)
+		if (ijkGridParamRep != nullptr) {
 			result.push_back(ijkGridParamRep);
+		}
 	}
 	
 	return result;
@@ -1189,11 +1184,12 @@ vector<IjkGridExplicitRepresentation*> EpcDocument::getIjkGridExplicitRepresenta
 	vector<AbstractIjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
 	vector<IjkGridExplicitRepresentation*> result;
 	
-	for (unsigned int i = 0; i < allgrids.size(); ++i)
+	for (size_t i = 0; i < allgrids.size(); ++i)
 	{
 		IjkGridExplicitRepresentation* ijkGridParamRep = dynamic_cast<IjkGridExplicitRepresentation*>(allgrids[i]);
-		if (ijkGridParamRep != nullptr)
+		if (ijkGridParamRep != nullptr) {
 			result.push_back(ijkGridParamRep);
+		}
 	}
 	
 	return result;
@@ -1204,10 +1200,10 @@ std::vector<PolylineRepresentation*> EpcDocument::getSeismicLinePolylineRepSet()
 	vector<PolylineRepresentation*> result;
 	vector<PolylineRepresentation*> polylineRepSet = getPolylineRepresentationSet();
 
-	for (unsigned int i = 0; i < polylineRepSet.size(); ++i)
-	{
-		if (polylineRepSet[i]->isASeismicLine() || polylineRepSet[i]->isAFaciesLine())
+	for (size_t i = 0; i < polylineRepSet.size(); ++i) {
+		if (polylineRepSet[i]->isASeismicLine() || polylineRepSet[i]->isAFaciesLine()) {
 			result.push_back(polylineRepSet[i]);
+		}
 	}
 
 	return result;
@@ -1218,11 +1214,11 @@ vector<IjkGridLatticeRepresentation*> EpcDocument::getIjkSeismicCubeGridRepresen
 	vector<AbstractIjkGridRepresentation*> allgrids = getIjkGridRepresentationSet();
 	vector<IjkGridLatticeRepresentation*> result;
 	
-	for (unsigned int i = 0; i < allgrids.size(); ++i)
-	{
+	for (size_t i = 0; i < allgrids.size(); ++i) {
 		IjkGridLatticeRepresentation* ijkGridLatticeRep = dynamic_cast<IjkGridLatticeRepresentation*>(allgrids[i]);
-		if (ijkGridLatticeRep != nullptr && (ijkGridLatticeRep->isASeismicCube() || ijkGridLatticeRep->isAFaciesCube()))
+		if (ijkGridLatticeRep != nullptr && (ijkGridLatticeRep->isASeismicCube() || ijkGridLatticeRep->isAFaciesCube())) {
 			result.push_back(ijkGridLatticeRep);
+		}
 	}
 	
 	return result;
@@ -1253,7 +1249,7 @@ string EpcDocument::getName() const
 
 	// Remove the extension
 	string nameSuffixed = filePath.substr(slashPos+1, filePath.size());
-		return nameSuffixed.substr(0, nameSuffixed.size() - strlen(DOCUMENT_EXTENSION));
+	return nameSuffixed.substr(0, nameSuffixed.size() - strlen(DOCUMENT_EXTENSION));
 }
 
 void EpcDocument::updateAllRelationships()
@@ -1264,7 +1260,7 @@ void EpcDocument::updateAllRelationships()
 	for (std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #endif
 	{
-		if (it->second->isPartial() == false)
+		if (!it->second->isPartial())
 			it->second->importRelationshipSetFromEpc(this);
 	}
 
@@ -1772,7 +1768,7 @@ BlockedWellboreRepresentation* EpcDocument::createBlockedWellboreRepresentation(
 	return result;
 }
 
-RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
+resqml2::RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
         AbstractOrganizationInterpretation* interp,
         const std::string & guid,
         const std::string & title)
@@ -1782,11 +1778,21 @@ RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentat
 	return result;
 }
 
-RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
+resqml2::RepresentationSetRepresentation* EpcDocument::createRepresentationSetRepresentation(
 	const std::string & guid,
 	const std::string & title)
 {
 	RepresentationSetRepresentation* result = new RepresentationSetRepresentation(this, guid, title);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+resqml2::RepresentationSetRepresentation* EpcDocument::createPartialRepresentationSetRepresentation(const std::string & guid, const std::string & title)
+{
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	resqml2::RepresentationSetRepresentation* result = new resqml2::RepresentationSetRepresentation(dor);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }

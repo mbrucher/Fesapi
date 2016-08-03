@@ -395,7 +395,7 @@ namespace resqml2
 			const unsigned int & jCellIndexRegridStart, unsigned int jChildCellCount, unsigned int jParentCellCount,
 			const unsigned int & kCellIndexRegridStart, unsigned int kChildCellCount, unsigned int kParentCellCount,
 			resqml2_0_1::AbstractIjkGridRepresentation* parentGrid, double * iChildCellWeights = nullptr, double * jChildCellWeights = nullptr, double * kChildCellWeights = nullptr);
-		void setForcedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount);	
+		void setForcedNonRegridedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount);	
 		LONG64 getParentCellIndexCount() const;
 		void getParentCellIndices(ULONG64 * parentCellIndices) const;
 		LONG64 getParentColumnIndexCount() const;
@@ -407,6 +407,7 @@ namespace resqml2
 		void getRegridCellCountPerInterval(const char & dimension, ULONG64 * childCellCountPerInterval, const bool & childVsParentCellCount) const;
 		bool hasRegridChildCellWeights(const char & dimension) const;
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
+		bool hasForcedNonRegridedParentCell() const;
 
 		void setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
 		virtual std::string getStratigraphicOrganizationInterpretationUuid() const;

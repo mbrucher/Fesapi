@@ -239,7 +239,7 @@ namespace resqml2
 		* When a parent windows has been defined, this method allows to force some parent cells to be noted as non regridded.
 		* It mainly allows non-rectangular local grids to be specified.
 		*/
-		void setForcedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount);
+		void setForcedNonRegridedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount);
 
 		/**
 		* Optional cell volume overlap information between the current grid (the child) and the parent grid. Use this data-object when the child grid has an explicitly defined geometry, and these relationships cannot be inferred from the regrid descriptions.
@@ -320,6 +320,12 @@ namespace resqml2
 		* @param	childCellWeights	This array must have been preallocated with a size equal to the sum of ChildCellCountPerInterval.
 		*/
 		void getRegridChildCellWeights(const char & dimension, ULONG64 * childCellWeights) const;
+
+		/**
+		* When a parent windows has been defined, this method checks if some parent cells have been noted to be forced not to be regridded.
+		* It mainly occurs in case of non-rectangular local grids.
+		*/
+		bool hasForcedNonRegridedParentCell() const;
 
 		//************************************************************
 		//**************** LINK WITH STRATIGRAPHY ********************

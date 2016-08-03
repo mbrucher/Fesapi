@@ -113,25 +113,22 @@ std::string AbstractGridRepresentation::getParentGridUuid() const
 	if (gsoapProxy2_0_1 != nullptr) {
 		gsoap_resqml2_0_1::resqml2__AbstractParentWindow* parentWindow = getParentWindow2_0_1();
 
-		if (parentWindow != nullptr)
-		{
-			if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IjkParentWindow)
-			{
+		if (parentWindow != nullptr) {
+			if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IjkParentWindow) {
 				gsoap_resqml2_0_1::resqml2__IjkParentWindow* pw = static_cast<gsoap_resqml2_0_1::resqml2__IjkParentWindow*>(parentWindow);
 				return pw->ParentGrid->UUID;
 			}
-			else if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ColumnLayerParentWindow)
-			{
+			else if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ColumnLayerParentWindow) {
 				gsoap_resqml2_0_1::resqml2__ColumnLayerParentWindow* pw = static_cast<gsoap_resqml2_0_1::resqml2__ColumnLayerParentWindow*>(parentWindow);
 				return pw->ParentGrid->UUID;
 			}
-			else if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__CellParentWindow)
-			{
+			else if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__CellParentWindow) {
 				gsoap_resqml2_0_1::resqml2__CellParentWindow* pw = static_cast<gsoap_resqml2_0_1::resqml2__CellParentWindow*>(parentWindow);
 				return pw->ParentGrid->UUID;
 			}
-			else
+			else {
 				throw logic_error("Unexpected parent window type.");
+			}
 		}
 	}
 	else {
@@ -225,8 +222,7 @@ void AbstractGridRepresentation::setParentWindow(ULONG64 * cellIndices, const UL
 		rep->ParentWindow = cpw;
 
 		cpw->ParentGrid = parentGrid->newResqmlReference();
-		if (cellIndexCount > 1 && hdfProxy != nullptr)
-		{
+		if (cellIndexCount > 1 && hdfProxy != nullptr) {
 			gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* hdf5CellIndices = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(rep->soap, 1);
 			cpw->CellIndices = hdf5CellIndices;
 
@@ -239,8 +235,7 @@ void AbstractGridRepresentation::setParentWindow(ULONG64 * cellIndices, const UL
 			hsize_t numValues = cellIndexCount;
 			hdfProxy->writeArrayNdOfGSoapULong64Values(gsoapProxy2_0_1->uuid, "ParentWindow_CellIndices", cellIndices, &numValues, 1);
 		}
-		else if (cellIndexCount == 1)
-		{
+		else if (cellIndexCount == 1) {
 			gsoap_resqml2_0_1::resqml2__IntegerConstantArray* xmlCellIndices = gsoap_resqml2_0_1::soap_new_resqml2__IntegerConstantArray(rep->soap, 1);
 			xmlCellIndices->Value = *cellIndices;
 			xmlCellIndices->Count = 1;
@@ -383,7 +378,7 @@ void AbstractGridRepresentation::setParentWindow(
 		parentGrid, iChildCellWeights, jChildCellWeights, kChildCellWeights);
 }
 
-void AbstractGridRepresentation::setForcedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount)
+void AbstractGridRepresentation::setForcedNonRegridedParentCell(ULONG64 * cellIndices, const ULONG64 & cellIndexCount)
 {
 	if (gsoapProxy2_0_1 != nullptr) {
 		gsoap_resqml2_0_1::resqml2__AbstractParentWindow* parentWindow = getParentWindow2_0_1();
@@ -434,8 +429,32 @@ void AbstractGridRepresentation::setForcedParentCell(ULONG64 * cellIndices, cons
 	}
 }
 
+bool AbstractGridRepresentation::hasForcedNonRegridedParentCell() const
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractParentWindow* parentWindow = getParentWindow2_0_1();
+
+		if (parentWindow != nullptr) {
+			if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IjkParentWindow) {
+				return static_cast<gsoap_resqml2_0_1::resqml2__IjkParentWindow*>(parentWindow)->OmitParentCells != nullptr;
+			}
+			else if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ColumnLayerParentWindow) {
+				return static_cast<gsoap_resqml2_0_1::resqml2__ColumnLayerParentWindow*>(parentWindow)->OmitParentCells != nullptr;
+			}
+
+			return false;
+		}
+		else {
+			throw invalid_argument("There is no parent window on this grid.");
+		}
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
 void AbstractGridRepresentation::setCellOverlap(const ULONG64 & parentChildCellPairCount, ULONG64 * parentChildCellPair,
-			const gsoap_resqml2_0_1::eml__VolumeUom & volumeUom, double * overlapVolumes)
+	const gsoap_resqml2_0_1::eml__VolumeUom & volumeUom, double * overlapVolumes)
 {
 	if (gsoapProxy2_0_1 != nullptr) {
 		gsoap_resqml2_0_1::resqml2__AbstractParentWindow* parentWindow = getParentWindow2_0_1();

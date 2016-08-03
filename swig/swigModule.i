@@ -140,7 +140,7 @@ namespace common
 		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreCubicParamLineTrajRepSet() const;
 		
 		unsigned int getRepresentationSetRepresentationCount() const;
-		resqml2_0_1::RepresentationSetRepresentation* getRepresentationSetRepresentation(const unsigned int & index) const;
+		resqml2::RepresentationSetRepresentation* getRepresentationSetRepresentation(const unsigned int & index) const;
 		
 		unsigned int getHdfProxyCount() const;
 		resqml2::AbstractHdfProxy* getHdfProxy(const unsigned int & index) const;
@@ -328,14 +328,16 @@ namespace common
 
 		resqml2_0_1::WellboreMarkerFrameRepresentation* createWellboreMarkerFrameRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);
 			
-		resqml2_0_1::RepresentationSetRepresentation* createRepresentationSetRepresentation(
+		resqml2::RepresentationSetRepresentation* createRepresentationSetRepresentation(
                 resqml2_0_1::AbstractOrganizationInterpretation* interp,
                 const std::string & guid,
 				const std::string & title);
 
-		resqml2_0_1::RepresentationSetRepresentation* createRepresentationSetRepresentation(
+		resqml2::RepresentationSetRepresentation* createRepresentationSetRepresentation(
 			const std::string & guid,
 			const std::string & title);
+			
+		resqml2::RepresentationSetRepresentation* createPartialRepresentationSetRepresentation(const std::string & guid, const std::string & title);
                 
         resqml2_0_1::NonSealedSurfaceFrameworkRepresentation* createNonSealedSurfaceFrameworkRepresentation(
                 resqml2_0_1::StructuralOrganizationInterpretation* interp, 

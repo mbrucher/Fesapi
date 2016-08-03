@@ -40,6 +40,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/IjkGridExplicitRepresentation.h"
 #include "resqml2_0_1/IjkGridParametricRepresentation.h"
 #include "resqml2_0_1/IjkGridLatticeRepresentation.h"
+#include "resqml2/RepresentationSetRepresentation.h"
 #include "resqml2/PropertyKind.h"
 #include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
@@ -191,6 +192,9 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 		}
 		else if (ctRep.find(resqml2::GridConnectionSetRepresentation::XML_TAG) != string::npos) {
 			rep = epcDoc->createPartialGridConnectionSetRepresentation(uuidRep, titleRep);
+		}
+		else if (ctRep.find(resqml2::RepresentationSetRepresentation::XML_TAG) != string::npos) {
+			rep = epcDoc->createPartialRepresentationSetRepresentation(uuidRep, titleRep);
 		}
 		else {
 			throw logic_error("The partial supporting representation of property " + getTitle() + " is not supported yet.");

@@ -69,6 +69,6 @@ void SeismicLineRepresentationTest::readEpcDocHandler()
 
 	// Grid 2D
 	resqml2_0_1::PolylineRepresentation* rep = epcDoc->getResqmlAbstractObjectByUuid<resqml2_0_1::PolylineRepresentation>(defaultUuid);
-	REQUIRE_THROWS(rep->getSeismicSupportOfPatch(0) == nullptr);
+	REQUIRE_THROWS(rep->getSeismicSupportOfPatch(0));
 	REQUIRE(rep->getXyzPointCountOfAllPatches() == 5);
 }

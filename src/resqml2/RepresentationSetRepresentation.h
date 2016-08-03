@@ -54,12 +54,20 @@ namespace resqml2
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		RepresentationSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
+			resqml2::AbstractRepresentation(nullptr, partialObject)
+		{
+		}
+
+		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		virtual ~RepresentationSetRepresentation() {}
 
 		static const char* XML_TAG;
-		virtual std::string getXmlTag() const {return XML_TAG;}
+		virtual std::string getXmlTag() const;
 
 		std::string getHdfProxyUuid() const {return "";}
 
@@ -75,6 +83,9 @@ namespace resqml2
 
 		unsigned int getPatchCount() const {return 0;}
 
+		/**
+		* Indicates if the representation set contains only one type of representations or several.
+		*/
 		bool isHomogeneous() const;
 
 		/**
@@ -86,6 +97,10 @@ namespace resqml2
 		* Get a particular representation of this representation set according to its position.
 		*/
 		resqml2::AbstractRepresentation* getRepresentation(const unsigned int & index) const;
+
+		/**
+		* Get a particular representation uuid of this representation set according to its position.
+		*/
 		std::string getRepresentationUuid(const unsigned int & index) const;
 
     protected:

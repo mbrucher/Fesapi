@@ -45,6 +45,11 @@ using namespace resqml2;
 
 const char* RepresentationSetRepresentation::XML_TAG = "RepresentationSetRepresentation";
 
+std::string RepresentationSetRepresentation::getXmlTag() const
+{
+	return XML_TAG;
+}
+
 vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() const
 {
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();

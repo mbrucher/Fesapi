@@ -646,7 +646,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 
 void serializeRepresentationSetRepresentation(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
-	RepresentationSetRepresentation* result = pck->createRepresentationSetRepresentation("", "Testing Representation set");
+	resqml2::RepresentationSetRepresentation* result = pck->createRepresentationSetRepresentation("", "Testing Representation set");
 	cout << "is homogeneous : " << result->isHomogeneous() << endl;
 	f1i1triRepSinglePatch->pushBackIntoRepresentationSet(result);
 	cout << "is homogeneous : " << result->isHomogeneous() << endl;
@@ -1507,7 +1507,7 @@ void deserialize(const string & inputFile)
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
 	std::vector<resqml2::TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
 	std::vector<StratigraphicColumn*> stratiColumnSet = pck.getStratigraphicColumnSet();
-	std::vector<RepresentationSetRepresentation*> representationSetRepresentationSet = pck.getRepresentationSetRepresentationSet();
+	std::vector<resqml2::RepresentationSetRepresentation*> representationSetRepresentationSet = pck.getRepresentationSetRepresentationSet();
 	std::vector<resqml2::SubRepresentation*> subRepresentationSet = pck.getSubRepresentationSet();
 
 	std::cout << "RepresentationSetRepresentation" << endl;
