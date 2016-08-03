@@ -1876,6 +1876,24 @@ IjkGridLatticeRepresentation* EpcDocument::createIjkGridLatticeRepresentation(re
 	return result;
 }
 
+resqml2_0_1::IjkGridNoGeometryRepresentation* EpcDocument::createIjkGridNoGeometryRepresentation(
+	const std::string & guid, const std::string & title,
+	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
+{
+	IjkGridNoGeometryRepresentation* result = new IjkGridNoGeometryRepresentation(getGsoapContext(), guid, title, iCount, jCount, kCount);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+resqml2_0_1::IjkGridNoGeometryRepresentation* EpcDocument::createIjkGridNoGeometryRepresentation(resqml2::AbstractFeatureInterpretation* interp,
+	const std::string & guid, const std::string & title,
+	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount)
+{
+	IjkGridNoGeometryRepresentation* result = new IjkGridNoGeometryRepresentation(interp, guid, title, iCount, jCount, kCount);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
 UnstructuredGridRepresentation* EpcDocument::createPartialUnstructuredGridRepresentation(const std::string & guid, const std::string & title)
 {
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);

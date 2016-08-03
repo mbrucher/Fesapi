@@ -98,6 +98,7 @@ namespace resqml2_0_1
 	class IjkGridExplicitRepresentation;
 	class IjkGridParametricRepresentation;
 	class IjkGridLatticeRepresentation;
+	class IjkGridNoGeometryRepresentation;
 	class UnstructuredGridRepresentation;
 	class BoundaryFeature;
 	class BoundaryFeatureInterpretation;
@@ -886,6 +887,14 @@ namespace common
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 
 		resqml2_0_1::IjkGridLatticeRepresentation* createIjkGridLatticeRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs,
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridNoGeometryRepresentation* createIjkGridNoGeometryRepresentation(
+			const std::string & guid, const std::string & title,
+			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
+
+		resqml2_0_1::IjkGridNoGeometryRepresentation* createIjkGridNoGeometryRepresentation(resqml2::AbstractFeatureInterpretation* interp,
 			const std::string & guid, const std::string & title,
 			const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount);
 

@@ -98,9 +98,9 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 		return AbstractValuesProperty::DOUBLE;
 	else if (H5Tequal(dt, H5T_NATIVE_FLOAT) > 0)
 		return AbstractValuesProperty::FLOAT;
-	else if (H5Tequal(dt, H5T_NATIVE_LONG) > 0)
+	else if (H5Tequal(dt, H5T_NATIVE_LLONG) > 0)
 		return AbstractValuesProperty::LONG;
-	else if (H5Tequal(dt, H5T_NATIVE_ULONG) > 0)
+	else if (H5Tequal(dt, H5T_NATIVE_ULLONG) > 0)
 		return AbstractValuesProperty::ULONG;
 	else if (H5Tequal(dt, H5T_NATIVE_INT) > 0)
 		return AbstractValuesProperty::INT;
