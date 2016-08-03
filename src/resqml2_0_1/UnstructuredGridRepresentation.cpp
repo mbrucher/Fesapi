@@ -439,7 +439,7 @@ void UnstructuredGridRepresentation::setGeometryUsingExistingDatasets(const std:
 	// Cumulative
 	resqml2__IntegerHdf5Array* cumulativeLength = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->FacesPerCell->CumulativeLength = cumulativeLength;
-	cumulativeLength->NullValue = faceIndicesCumulativeCountPerCell[cellCount - 1] + 1;
+	cumulativeLength->NullValue = -1;
 	cumulativeLength->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	cumulativeLength->Values->HdfProxy = proxy->newResqmlReference();
 	cumulativeLength->Values->PathInHdfFile = faceIndicesCumulativeCountPerCell;
@@ -457,7 +457,7 @@ void UnstructuredGridRepresentation::setGeometryUsingExistingDatasets(const std:
 	// Cumulative
 	cumulativeLength = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->NodesPerFace->CumulativeLength = cumulativeLength;
-	cumulativeLength->NullValue = nodeIndicesCumulativeCountPerFace[faceCount - 1] + 1;
+	cumulativeLength->NullValue = -1;
 	cumulativeLength->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	cumulativeLength->Values->HdfProxy = proxy->newResqmlReference();
 	cumulativeLength->Values->PathInHdfFile = nodeIndicesCumulativeCountPerFace;
