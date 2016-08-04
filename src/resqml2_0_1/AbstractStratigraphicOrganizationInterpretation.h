@@ -34,7 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #pragma once
 
 #include "resqml2_0_1/AbstractOrganizationInterpretation.h"
-#include "resqml2_0_1/AbstractColumnLayerGridRepresentation.h"
+#include "resqml2/AbstractColumnLayerGridRepresentation.h"
 
 namespace resqml2_0_1
 {
@@ -82,6 +82,6 @@ namespace resqml2_0_1
 		std::vector<resqml2::AbstractGridRepresentation *> gridRepresentationSet;
 
 		friend void resqml2::AbstractGridRepresentation::setCellAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation * stratiOrgInterp);
-		friend void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
+		friend void resqml2::AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
 	};
 }

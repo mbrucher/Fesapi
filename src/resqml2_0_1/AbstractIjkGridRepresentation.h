@@ -33,7 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2_0_1/AbstractColumnLayerGridRepresentation.h"
+#include "resqml2/AbstractColumnLayerGridRepresentation.h"
 
 #include <stdexcept>
 
@@ -43,7 +43,7 @@ namespace resqml2_0_1
 	* This class is semantically abstract.
 	* Technically speaking, it is not an abstract because it can be used in case of partial transfer where we don't know the geometry of the ijk grid.
 	*/
-	class DLL_IMPORT_OR_EXPORT AbstractIjkGridRepresentation : public AbstractColumnLayerGridRepresentation
+	class DLL_IMPORT_OR_EXPORT AbstractIjkGridRepresentation : public resqml2::AbstractColumnLayerGridRepresentation
 	{
 	private :
 

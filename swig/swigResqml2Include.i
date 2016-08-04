@@ -48,6 +48,7 @@ namespace resqml2
 	%include "swigResqml2CsInclude.i"
 #endif
 #if defined(SWIGJAVA) || defined(SWIGCSHARP)
+	%nspace resqml2::AbstractColumnLayerGridRepresentation;
 	%nspace resqml2::AbstractObject;
 	%nspace resqml2::AbstractFeature;
 	%nspace resqml2::AbstractFeatureInterpretation;
@@ -364,6 +365,7 @@ namespace resqml2
 	};
 	
 	class GridConnectionSetRepresentation;
+	class AbstractColumnLayerGridRepresentation;
 	class AbstractGridRepresentation : public AbstractRepresentation
 	{
 	public:
@@ -379,7 +381,7 @@ namespace resqml2
 		void setParentWindow(unsigned int * columnIndices, const unsigned int & columnIndexCount,
 			const unsigned int & kLayerIndexRegridStart,
 			unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount,
-			resqml2_0_1::AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = nullptr);
+			AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = nullptr);
 		void setParentWindow(
 			const unsigned int & iCellIndexRegridStart, unsigned int * childCellCountPerIInterval, unsigned int * parentCellCountPerIInterval,  const unsigned int & iIntervalCount,
 			const unsigned int & jCellIndexRegridStart, unsigned int * childCellCountPerJInterval, unsigned int * parentCellCountPerJInterval,  const unsigned int & jIntervalCount,
@@ -414,6 +416,18 @@ namespace resqml2
 		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
 		bool hasCellStratigraphicUnitIndices() const;
 		ULONG64 getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
+	};
+	
+	class AbstractColumnLayerGridRepresentation : public AbstractGridRepresentation
+	{
+	public:
+		unsigned int getKCellCount() const;
+		void setKCellCount(const unsigned int & kCount);
+		
+		void setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
+		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
+		bool hasIntervalStratigraphicUnitIndices() const;
+		ULONG64 getIntervalStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
 	};
 	
 	class GridConnectionSetRepresentation : public resqml2::AbstractRepresentation

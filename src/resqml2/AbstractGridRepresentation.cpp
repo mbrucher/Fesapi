@@ -260,7 +260,7 @@ void AbstractGridRepresentation::setParentWindow(ULONG64 * cellIndices, const UL
 void AbstractGridRepresentation::setParentWindow(unsigned int * columnIndices, const unsigned int & columnIndexCount,
 			const unsigned int & kLayerIndexRegridStart,
 			unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount,
-			resqml2_0_1::AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights)
+			AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights)
 {
 	if (gsoapProxy2_0_1 != nullptr) {
 		gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1);

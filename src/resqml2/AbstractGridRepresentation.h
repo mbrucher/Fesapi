@@ -39,7 +39,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 namespace resqml2_0_1
 {
 	class AbstractStratigraphicOrganizationInterpretation;
-	class AbstractColumnLayerGridRepresentation;
 	class UnstructuredGridRepresentation;
 }
 
@@ -160,7 +159,7 @@ namespace resqml2
 		void setParentWindow(unsigned int * columnIndices, const unsigned int & columnIndexCount,
 			const unsigned int & kLayerIndexRegridStart,
 			unsigned int * childCellCountPerInterval, unsigned int * parentCellCountPerInterval,  const unsigned int & intervalCount,
-			resqml2_0_1::AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = nullptr);
+			class AbstractColumnLayerGridRepresentation* parentGrid, double * childCellWeights = nullptr);
 
 		/**
 		* Indicates that this grid takes place into another IJK parent grid.

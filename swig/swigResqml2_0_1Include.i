@@ -2126,7 +2126,6 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::RepresentationSetRepresentation;
 	%nspace resqml2_0_1::NonSealedSurfaceFrameworkRepresentation;
 	%nspace resqml2_0_1::SealedSurfaceFrameworkRepresentation;
-	%nspace resqml2_0_1::AbstractColumnLayerGridRepresentation;
 	%nspace resqml2_0_1::UnstructuredGridRepresentation;
 	%nspace resqml2_0_1::GridConnectionSetRepresentation;
 	%nspace resqml2_0_1::TimeSeries;
@@ -2674,18 +2673,6 @@ namespace resqml2_0_1
 	public:
 	};
 
-	class AbstractColumnLayerGridRepresentation : public resqml2::AbstractGridRepresentation
-	{
-	public:
-		unsigned int getKCellCount() const;
-		void setKCellCount(const unsigned int & kCount);
-		
-		void setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
-		AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
-		bool hasIntervalStratigraphicUnitIndices() const;
-		ULONG64 getIntervalStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
-	};
-
 	class UnstructuredGridRepresentation : public resqml2::AbstractGridRepresentation
 	{
 	public:
@@ -2718,7 +2705,7 @@ namespace resqml2_0_1
 			ULONG64 * faceIndicesPerCell, ULONG64 * nodeIndicesPerFace);
 	};
 	
-	class AbstractIjkGridRepresentation : public AbstractColumnLayerGridRepresentation
+	class AbstractIjkGridRepresentation : public resqml2::AbstractColumnLayerGridRepresentation
 	{
 	public:
 		enum geometryKind { UNKNOWN = 0, EXPLICIT = 1, PARAMETRIC = 2, LATTICE = 3, NO_GEOMETRY = 4 };

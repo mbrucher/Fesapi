@@ -40,15 +40,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2/AbstractFeatureInterpretation.h"
 #include "resqml2/AbstractLocal3dCrs.h"
 #include "resqml2/AbstractHdfProxy.h"
-#include "resqml2_0_1/UnstructuredGridRepresentation.h"
-#include "resqml2_0_1/DiscreteProperty.h"
-#include "resqml2_0_1/PropertyKind.h"
-#include "resqml2_0_1/GridConnectionSetRepresentation.h"
-#include "resqml2_0_1/CategoricalProperty.h"
-#include "resqml2_0_1/CommentProperty.h"
-#include "resqml2_0_1/ContinuousProperty.h"
-#include "resqml2_0_1/DiscretePropertySeries.h"
-#include "resqml2_0_1/StringTableLookup.h"
 
 using namespace std;
 using namespace gsoap_resqml2_0_1;
@@ -102,7 +93,7 @@ AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(soap* soapContext, 
 	const std::string & guid, const std::string & title,
 	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
 	bool withTruncatedPillars) :
-	AbstractColumnLayerGridRepresentation(nullptr, crs, withTruncatedPillars), splitInformation(nullptr)
+	resqml2::AbstractColumnLayerGridRepresentation(nullptr, crs, withTruncatedPillars), splitInformation(nullptr)
 {
 	init(soapContext, crs, guid, title, iCount, jCount, kCount, withTruncatedPillars);
 }
@@ -111,7 +102,7 @@ AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(resqml2::AbstractFe
 	const std::string & guid, const std::string & title,
 	const unsigned int & iCount, const unsigned int & jCount, const unsigned int & kCount,
 	bool withTruncatedPillars) :
-	AbstractColumnLayerGridRepresentation(interp, crs, withTruncatedPillars), splitInformation(nullptr)
+	resqml2::AbstractColumnLayerGridRepresentation(interp, crs, withTruncatedPillars), splitInformation(nullptr)
 {
 	if (interp == nullptr) {
 		throw invalid_argument("The interpretation of the IJK grid cannot be null.");
@@ -264,8 +255,9 @@ void AbstractIjkGridRepresentation::getColumnCountOfSplitCoordinateLines(unsigne
 	if (geom->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array) {
 		hdfProxy->readArrayNdOfUIntValues(static_cast<resqml2__IntegerHdf5Array*>(geom->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->CumulativeLength)->Values->PathInHdfFile, columnIndexCountPerSplitCoordinateLine);
 	}
-	else
+	else {
 		throw std::logic_error("Not yet implemented");
+	}
 }
 
 unsigned long AbstractIjkGridRepresentation::getSplitCoordinateLineCount() const
@@ -275,12 +267,7 @@ unsigned long AbstractIjkGridRepresentation::getSplitCoordinateLineCount() const
 		throw invalid_argument("There is no geometry on this grid.");
 	}
 
-	if (geom->SplitCoordinateLines != nullptr)
-	{
-		return geom->SplitCoordinateLines->Count;
-	}
-
-	return 0;
+	return geom->SplitCoordinateLines != nullptr ? geom->SplitCoordinateLines->Count : 0;
 }
 
 ULONG64 AbstractIjkGridRepresentation::getSplitNodeCount() const
@@ -290,12 +277,7 @@ ULONG64 AbstractIjkGridRepresentation::getSplitNodeCount() const
 		throw invalid_argument("There is no geometry on this grid.");
 	}
 
-	if (geom->SplitNodes != nullptr)
-	{
-		return geom->SplitNodes->Count;
-	}
-	
-	return 0;
+	return geom->SplitNodes != nullptr ? geom->SplitNodes->Count : 0;
 }
 
 void AbstractIjkGridRepresentation::getPillarGeometryIsDefined(bool * pillarGeometryIsDefined, bool reverseIAxis, bool reverseJAxis) const
@@ -607,8 +589,7 @@ void AbstractIjkGridRepresentation::loadSplitInformation()
 
 void AbstractIjkGridRepresentation::unloadSplitInformation()
 {
-	if (splitInformation != nullptr)
-	{
+	if (splitInformation != nullptr) {
 		delete [] splitInformation;
 		splitInformation = nullptr;
 	}
