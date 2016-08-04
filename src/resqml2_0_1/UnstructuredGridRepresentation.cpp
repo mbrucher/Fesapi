@@ -446,7 +446,7 @@ void UnstructuredGridRepresentation::setGeometryUsingExistingDatasets(const std:
 	// Elements
 	resqml2__IntegerHdf5Array* elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->FacesPerCell->Elements = elements;
-	elements->NullValue = faceCount;
+	elements->NullValue = faceCount+1;
 	elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	elements->Values->HdfProxy = proxy->newResqmlReference();
 	elements->Values->PathInHdfFile = faceIndicesPerCell;
@@ -464,7 +464,7 @@ void UnstructuredGridRepresentation::setGeometryUsingExistingDatasets(const std:
 	// Elements
 	elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->NodesPerFace->Elements = elements;
-	elements->NullValue = pointCount;
+	elements->NullValue = pointCount+1;
 	elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	elements->Values->HdfProxy = proxy->newResqmlReference();
 	elements->Values->PathInHdfFile = nodeIndicesPerFace;
@@ -586,7 +586,7 @@ void UnstructuredGridRepresentation::setConstantCellShapeGeometryUsingExistingDa
 	// Elements
 	resqml2__IntegerHdf5Array* elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->FacesPerCell->Elements = elements;
-	elements->NullValue = faceCount;
+	elements->NullValue = faceCount+1;
 	elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	elements->Values->HdfProxy = proxy->newResqmlReference();
 	elements->Values->PathInHdfFile = faceIndicesPerCell;
@@ -604,7 +604,7 @@ void UnstructuredGridRepresentation::setConstantCellShapeGeometryUsingExistingDa
 	// Elements
 	elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->NodesPerFace->Elements = elements;
-	elements->NullValue = pointCount;
+	elements->NullValue = pointCount+1;
 	elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	elements->Values->HdfProxy = proxy->newResqmlReference();
 	elements->Values->PathInHdfFile = nodeIndicesPerFace;
