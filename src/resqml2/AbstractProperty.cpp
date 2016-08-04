@@ -184,6 +184,9 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 		if (ctRep.find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
 			rep = epcDoc->createPartialUnstructuredGridRepresentation(uuidRep, titleRep);
 		}
+		else if (ctRep.find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) != string::npos) {
+			rep = epcDoc->createPartialTruncatedIjkGridRepresentation(uuidRep, titleRep);
+		}
 		else if (ctRep.find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
 			rep = epcDoc->createPartialIjkGridRepresentation(uuidRep, titleRep);
 		}

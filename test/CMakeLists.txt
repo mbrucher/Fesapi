@@ -52,6 +52,13 @@ ENDIF (UNIX)
 # build fesapiTest
 # ============================================================================
 	
+
+IF (WIN32)
+	IF (BUILD_SHARED_LIBS)
+		ADD_DEFINITIONS (-DFESAPI_DLL)
+	ENDIF (BUILD_SHARED_LIBS)
+ENDIF (WIN32)
+	
 ADD_EXECUTABLE (unitTest ${ALL_SOURCES_AND_HEADERS})
 ADD_DEPENDENCIES (unitTest FesapiCpp)
 TARGET_LINK_LIBRARIES (unitTest FesapiCpp)

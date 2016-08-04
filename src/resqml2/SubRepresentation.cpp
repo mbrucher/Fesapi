@@ -76,6 +76,9 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 		if (getSupportingRepresentationContentType().find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
 			supportingRep = epcDoc->createPartialUnstructuredGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
 		}
+		else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) != string::npos) {
+			supportingRep = epcDoc->createPartialTruncatedIjkGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
+		}
 		else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
 			supportingRep = epcDoc->createPartialIjkGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
 		}

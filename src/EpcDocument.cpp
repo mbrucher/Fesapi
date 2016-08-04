@@ -423,7 +423,8 @@ std::string EpcDocument::getWitsmlPlaneAngleUom(const gsoap_witsml1_4_1_1::witsm
 
 void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 {
-	if (proxy->getXmlTag().compare(TectonicBoundaryFeature::XML_TAG) == 0) {
+	string xmlTag = proxy->getXmlTag();
+	if (xmlTag.compare(TectonicBoundaryFeature::XML_TAG) == 0) {
 		if (!static_cast<const TectonicBoundaryFeature* const>(proxy)->isAFracture()) {
 			faultSet.push_back(static_cast<Fault* const>(proxy));
 		}
@@ -431,66 +432,66 @@ void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 			fractureSet.push_back(static_cast<Fracture* const>(proxy));
 		}
 	}
-	else if (proxy->getXmlTag().compare(GeneticBoundaryFeature::XML_TAG) == 0) {
+	else if (xmlTag.compare(GeneticBoundaryFeature::XML_TAG) == 0) {
 		if (static_cast<const GeneticBoundaryFeature* const>(proxy)->isAnHorizon()) {
 			horizonSet.push_back(static_cast<Horizon* const>(proxy));
 		}
 	}
-	else if (proxy->getXmlTag().compare(SeismicLineFeature::XML_TAG) == 0) {
+	else if (xmlTag.compare(SeismicLineFeature::XML_TAG) == 0) {
 		seismicLineSet.push_back(static_cast<SeismicLineFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(resqml2::EpcExternalPartReference::XML_TAG) == 0) {
+	else if (xmlTag.compare(resqml2::EpcExternalPartReference::XML_TAG) == 0) {
 		hdfProxySet.push_back(static_cast<resqml2::AbstractHdfProxy* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(WellboreFeature::XML_TAG) == 0) {
+	else if (xmlTag.compare(WellboreFeature::XML_TAG) == 0) {
 		wellboreSet.push_back(static_cast<WellboreFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(PolylineRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(PolylineRepresentation::XML_TAG) == 0) {
 		polylineRepresentationSet.push_back(static_cast<PolylineRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(AbstractIjkGridRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(AbstractIjkGridRepresentation::XML_TAG) == 0) {
 		ijkGridRepresentationSet.push_back(static_cast<AbstractIjkGridRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(UnstructuredGridRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(UnstructuredGridRepresentation::XML_TAG) == 0) {
 		unstructuredGridRepresentationSet.push_back(static_cast<UnstructuredGridRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(LocalDepth3dCrs::XML_TAG) == 0) {
+	else if (xmlTag.compare(LocalDepth3dCrs::XML_TAG) == 0) {
 		localDepth3dCrsSet.push_back(static_cast<LocalDepth3dCrs* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(LocalTime3dCrs::XML_TAG) == 0) {
+	else if (xmlTag.compare(LocalTime3dCrs::XML_TAG) == 0) {
 		localTime3dCrsSet.push_back(static_cast<LocalTime3dCrs* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(StratigraphicColumn::XML_TAG) == 0) {
+	else if (xmlTag.compare(StratigraphicColumn::XML_TAG) == 0) {
 		stratigraphicColumnSet.push_back(static_cast<StratigraphicColumn* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(TriangulatedSetRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(TriangulatedSetRepresentation::XML_TAG) == 0) {
 		triangulatedSetRepresentationSet.push_back(static_cast<TriangulatedSetRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(FrontierFeature::XML_TAG) == 0) {
+	else if (xmlTag.compare(FrontierFeature::XML_TAG) == 0) {
 		frontierSet.push_back(static_cast<FrontierFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(OrganizationFeature::XML_TAG) == 0) {
+	else if (xmlTag.compare(OrganizationFeature::XML_TAG) == 0) {
 		organizationSet.push_back(static_cast<OrganizationFeature* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(RepresentationSetRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(RepresentationSetRepresentation::XML_TAG) == 0) {
 		representationSetRepresentationSet.push_back(static_cast<RepresentationSetRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(NonSealedSurfaceFrameworkRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(NonSealedSurfaceFrameworkRepresentation::XML_TAG) == 0) {
 		representationSetRepresentationSet.push_back(static_cast<NonSealedSurfaceFrameworkRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(SealedSurfaceFrameworkRepresentation::XML_TAG) == 0) {
 		representationSetRepresentationSet.push_back(static_cast<SealedSurfaceFrameworkRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(SealedVolumeFrameworkRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(SealedVolumeFrameworkRepresentation::XML_TAG) == 0) {
 		representationSetRepresentationSet.push_back(static_cast<SealedVolumeFrameworkRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(TimeSeries::XML_TAG) == 0) {
+	else if (xmlTag.compare(TimeSeries::XML_TAG) == 0) {
 		timeSeriesSet.push_back(static_cast<TimeSeries*>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(SubRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(SubRepresentation::XML_TAG) == 0) {
 		subRepresentationSet.push_back(static_cast<SubRepresentation* const>(proxy));
 	}
-	else if (proxy->getXmlTag().compare(PointSetRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(PointSetRepresentation::XML_TAG) == 0) {
 		pointSetRepresentationSet.push_back(static_cast<PointSetRepresentation* const>(proxy));
 	}
 
@@ -1823,7 +1824,17 @@ AbstractIjkGridRepresentation* EpcDocument::createPartialIjkGridRepresentation(c
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
 	dor->UUID = guid;
 	dor->Title = title;
-	AbstractIjkGridRepresentation* result = new AbstractIjkGridRepresentation(dor);
+	AbstractIjkGridRepresentation* result = new AbstractIjkGridRepresentation(dor, false);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+AbstractIjkGridRepresentation* EpcDocument::createPartialTruncatedIjkGridRepresentation(const std::string & guid, const std::string & title)
+{
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	AbstractIjkGridRepresentation* result = new AbstractIjkGridRepresentation(dor, true);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }

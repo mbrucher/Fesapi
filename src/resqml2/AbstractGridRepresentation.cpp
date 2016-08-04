@@ -1085,9 +1085,5 @@ ULONG64 AbstractGridRepresentation::getCellStratigraphicUnitIndices(ULONG64 * st
 
 bool AbstractGridRepresentation::isTruncated() const
 {
-	if (isPartial()) {
-		throw invalid_argument("Cannot acces truncation information on partial grid.");
-	}
-
 	return withTruncatedPillars;
 }

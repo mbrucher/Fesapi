@@ -130,6 +130,9 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 			if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
 				pushBackSupportingGridRepresentation(epcDoc->createPartialUnstructuredGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
 			}
+			else if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) != string::npos) {
+				pushBackSupportingGridRepresentation(epcDoc->createPartialTruncatedIjkGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
+			}
 			else if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
 				pushBackSupportingGridRepresentation(epcDoc->createPartialIjkGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
 			}
