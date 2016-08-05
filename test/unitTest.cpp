@@ -23,7 +23,7 @@
 #include "resqml2_0_1test/TimeSeriesTest.h"
 #include "resqml2_0_1test/ContinuousPropertyOnWellFrameTest.h"
 #include "resqml2_0_1test/ContinuousPropertySeriesTest.h"
-#include "resqml2_0_1test/ContinuousPropertyOnPartialGridTest.h"
+#include "resqml2_0_1test/GridConnectionSetOnPartialGridSet.h"
 #include "resqml2_0_1test/WellboreMarkerFrameRepresentationTest.h"
 #include "resqml2_0_1test/WellboreFrameRepresentationTest.h"
 #include "resqml2_0_1test/WellboreRegularFrameRepresentationTest.h"
@@ -84,7 +84,7 @@ FESAPI_TEST("Export and import a time series", "[property]", TimeSeriesTest)
 
 FESAPI_TEST("Export and import continuous property series", "[property]", ContinuousPropertySeriesTest)
 
-FESAPI_TEST("Export and import continuous property on partial grid", "[property]", ContinuousPropertyOnPartialGridTest)
+FESAPI_TEST("Export and import grid connection set on partial grid", "[property]", GridConnectionSetOnPartialGridSet)
 
 FESAPI_TEST("Export and import a wellbore marker frame", "[well][stratigraphy]", WellboreMarkerFrameRepresentationTest)
 

@@ -162,6 +162,19 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 	}
 }
 
+void GridConnectionSetRepresentation::setCellIndexPairs(const ULONG64 & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy, ULONG64 * gridIndexPair)
+{
+	const std::string uuid = getUuid();
+	setCellIndexPairsUsingExistingDataset(cellIndexPairCount, "/RESQML/" + getUuid() + "/CellIndexPairs", nullValue, proxy, gridIndexPair != nullptr ? "/RESQML/" + getUuid() + "/GridIndexPairs" : "");
+
+	// ************ HDF ************		
+	hsize_t numValues[] = { cellIndexPairCount, 2 };
+	hdfProxy->writeArrayNd(uuid, "CellIndexPairs", H5T_NATIVE_ULLONG, cellIndexPair, numValues, 2);
+	if (gridIndexPair != nullptr) {
+		hdfProxy->writeArrayNd(uuid, "GridIndexPairs", H5T_NATIVE_ULLONG, gridIndexPair, numValues, 2);
+	}
+}
+
 ULONG64 GridConnectionSetRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
 	throw logic_error("Not implemented yet");

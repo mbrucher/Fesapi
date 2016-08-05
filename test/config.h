@@ -67,8 +67,4 @@ namespace resqml2_0_1test {
 	// Partial UstructuredGridRepresentation
 	static const char* uuidPartialUnstructuredGridRepresentation = "94da1dd5-a82b-4c88-a86b-2dc930c17125";
 	static const char* titlePartialUnstructuredGridRepresentation = "Partial Unstructured Grid Representation Test";
-
-	// ContinuousProperty on partial UnstructuredGridRepresentation
-	static const char* uuidContinuousPropertyOnPartialGrid = "3d98f009-07ae-48d5-a609-1d462940c20f";
-	static const char* titleContinuousPropertyOnPartialGrid = "Continuous Property On Partial Grid Test";
 }

@@ -442,15 +442,15 @@ namespace resqml2
 		unsigned int getCellIndexPairCountFromInterpretationIndex(const unsigned int & interpretationIndex) const;
 		
 		ULONG64 getCellIndexPairs(ULONG64 * cellIndexPairs) const;
-		void getGridConnectionSetInformationFromInterpretationIndex(ULONG64 * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
+		void getGridConnectionSetInformationFromInterpretationIndex(ULONG64 * cellIndexPairs, ULONG64 * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
 		bool hasLocalFacePerCell() const;
 		void getLocalFacePerCellIndexPairs(int * localFacePerCellIndexPairs) const;
 		bool isBasedOnMultiGrids() const;
-		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
+		void getGridIndexPairs(ULONG64 * gridIndexPairs) const;
 		
 		void pushBackSupportingGridRepresentation(AbstractGridRepresentation * supportingGridRep);
 		
-		void setCellIndexPairs(const ULONG64 & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
+		void setCellIndexPairs(const ULONG64 & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy, ULONG64 * gridIndexPair = nullptr);
 		void setLocalFacePerCellIndexPairs(const ULONG64 & cellIndexPairCount, int * localFacePerCellIndexPair, resqml2::AbstractHdfProxy * proxy);
 		void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
 		void pushBackInterpretation(AbstractFeatureInterpretation* interp);

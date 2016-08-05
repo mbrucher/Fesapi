@@ -138,7 +138,7 @@ namespace resqml2_0_1
 		* @param localFaceIndexPairs	Optional (put null if you don't want it). Must be allocated with getCellIndexPairCountFromIndex first.
 		* @param interpretationIndex	The index of the interpretation in the collection of feature interpretation of this grid connection set.
 		*/
-		void getGridConnectionSetInformationFromInterpretationIndex(ULONG64 * cellIndexPairs, unsigned int * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
+		void getGridConnectionSetInformationFromInterpretationIndex(ULONG64 * cellIndexPairs, ULONG64 * gridIndexPairs, int * localFaceIndexPairs, const unsigned int & interpretationIndex) const;
 
 		/**
 		* Get the UUID of a particular interpretation of this grid connection set.
@@ -171,25 +171,17 @@ namespace resqml2_0_1
 		* Get the grid index pairs of this grid connection representation
 		* The count of gridIndexPairs must be getCellIndexPairCount()*2.
 		*/
-		void getGridIndexPairs(unsigned int * gridIndexPairs) const;
+		void getGridIndexPairs(ULONG64 * gridIndexPairs) const;
 
 		/**
 		* Set the cell index pairs of the grid connections representation using some exisiting hdf5 datasets.
 		* @param cellIndexPairCount	The count of cell index pair. It is half of all the stored numerical values.
 		* @param cellIndexPair		The HDF dataset path where we can find all the cell index pair in a 1d Array where the cell indices go faster than the pair.
-		* @param nullValue			The integere null value used in the hdf dataset.
+		* @param nullValue			The integer null value used in the hdf dataset for null cell and potentially null grid.
 		* @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
+        * @param gridIndexPair		The HDF dataset path where we can find all the grid index pair in a 1d Array where the grid indices go faster than the pair. The grid at an index must correspond to the cell at the same index in the cellIndexPair array.
 		*/
-		void setCellIndexPairsUsingExistingDataset(const ULONG64 & cellIndexPairCount, const std::string & cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
-
-		/**
-		* Set the cell index pairs of the grid connections representation and writes all unmerical values in an hdf5 dataset.
-        * @param cellIndexPairCount	The count of cell index pair. It is half of all the stored numerical values.
-        * @param cellIndexPair		All the cell index pair in a 1d Array where the cell indices go faster than the pair.
-		* @param nullValue			The integere null value used in the hdf dataset.
-        * @param proxy				The HDF proxy where the numerical values (cell indices) are stored.
-		*/
-		void setCellIndexPairs(const ULONG64 & cellIndexPairCount, ULONG64 * cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy);
+		void setCellIndexPairsUsingExistingDataset(const ULONG64 & cellIndexPairCount, const std::string & cellIndexPair, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy, const std::string & gridIndexPair = "");
 
 		/**
 		* The numerical values
