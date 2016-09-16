@@ -85,8 +85,8 @@ namespace resqml2_0_1
 
 		/**
 		* Get all the control points of each pillar of the IJK parametric grid.
-		* They are ordered first (quickest) by control point max count and then (slowest) by pillar.
-		* Only relevant in case the IJK grid is a parametric one.
+		* They are ordered first (quickest) by pillar and then (slowest) by control point : cp0 of pillar0, cp0 of pillar1, cp0 of pillar3, ..., cp0 of pillarCount-1, cp1 of pillar0, cp1 of pillar1, etc... Pad with nan values if necessary.
+		* For information, pillars are ordered first (quicket) by I and then (slowest) by J.
 		*/
 		void getControlPoints(double * controlPoints, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
 
@@ -98,8 +98,9 @@ namespace resqml2_0_1
 
 		/**
 		* Get all the control point parameters of each pillar of the IJK parametric grid.
-		* They are ordered first (quickest) by control point max count and then (slowest) by pillar.
-		* Only relevant in case the IJK grid is a parametric one and in case it contains at least one non vertical or non Z linear parametric line.
+		* They are ordered first (quickest) by pillar and then (slowest) by control point : cp0 of pillar0, cp0 of pillar1, cp0 of pillar3, ..., cp0 of pillarCount-1, cp1 of pillar0, cp1 of pillar1, etc... Pad with nan values if necessary.
+		* For information, pillars are ordered first (quicket) by I and then (slowest) by J.
+		* Only relevant in case it contains at least one non vertical or non Z linear parametric line.
 		*/
 		void getControlPointParameters(double * controlPointParameters, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
 
@@ -133,7 +134,7 @@ namespace resqml2_0_1
 		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
 		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
 		* @param parameters									The parameter values (regarding the pillars) of each node of the grid.
-		* @param controlPoints								The control points of the pillars of the grid
+		* @param controlPoints								The control points of the pillars of the grid. They are ordered first (quickest) by pillar and then (slowest) by control point : cp0 of pillar0, cp0 of pillar1, cp0 of pillar3, ..., cp0 of pillarCount-1, cp1 of pillar0, cp1 of pillar1, etc... Pad with nan values if necessary.
 		* @param controlPointParameters						The value of the parameter at each control points. It must be nullptr for vertical and Z linear cubic parametric lines grid.
 		* @param controlPointMaxCountPerPillar				The maximum count of control points which defines a pillar of this grid.
 		* @param pillarKind									The kind of each pillar : 0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line 
@@ -150,7 +151,7 @@ namespace resqml2_0_1
 		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
 		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
 		* @param parameters									The parameter values (regarding the pillars) of each node of the grid.
-		* @param controlPoints								The control points of the pillars of the grid
+		* @param controlPoints								The control points of the pillars of the grid. They are ordered first (quickest) by pillar and then (slowest) by control point : cp0 of pillar0, cp0 of pillar1, cp0 of pillar3, ..., cp0 of pillarCount-1, cp1 of pillar0, cp1 of pillar1, etc... Pad with nan values if necessary.
 		* @param controlPointParameters						The value of the parameter at each control points. It must be nullptr for vertical and Z linear cubic parametric lines grid.
 		* @param controlPointMaxCountPerPillar				The maximum count of control points which defines a pillar of this grid.
 		* @param pillarKind									The kind of each pillar : 0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line 
@@ -171,7 +172,7 @@ namespace resqml2_0_1
 		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
 		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
 		* @param parameters									The parameter values (regarding the pillars) of each node of the grid.
-		* @param controlPoints								The control points of the pillars of the grid
+		* @param controlPoints								The control points of the pillars of the grid. They are ordered first (quickest) by pillar and then (slowest) by control point : cp0 of pillar0, cp0 of pillar1, cp0 of pillar3, ..., cp0 of pillarCount-1, cp1 of pillar0, cp1 of pillar1, etc... Pad with nan values if necessary.
 		* @param controlPointParameters						The value of the parameter at each control points. It must be nullptr for vertical and Z linear cubic parametric lines grid.
 		* @param controlPointCountPerPillar					The count of control points which defines each of the pillar of this grid.
 		* @param pillarKind									The constant kind of each pillar : 0 = vertical, 1 = linear spline, 2 = natural cubic spline, 3 = cubic spline, 4 = Z linear cubic spline, 5 = minimum-curvature spline, (-1) = null: no line

@@ -227,7 +227,7 @@ std::string BlockedWellboreRepresentation::getSupportingGridRepresentationUuid(u
 
 void BlockedWellboreRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
+	WellboreFrameRepresentation::importRelationshipSetFromEpc(epcDoc);
 
 	_resqml2__BlockedWellboreRepresentation* rep = static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1);
 

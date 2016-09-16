@@ -178,6 +178,8 @@ endif (${WITH_RESQML2_1})
 IF (WITH_JAVA_WRAPPING)
 	FIND_PACKAGE(JNI REQUIRED)
 	FIND_PACKAGE(SWIG REQUIRED)
+	FIND_PACKAGE(Java REQUIRED)
+	INCLUDE(UseJava)
 
 	message("Generating SWIG files")
 	#Cleaning
@@ -197,6 +199,11 @@ IF (WITH_JAVA_WRAPPING)
 		execute_process(COMMAND ${EXECUTE_COMMAND})
 	ENDIF (WIN32)
 	message("SWIG files have been generated")
+	
+	# Building the jar
+	FILE (GLOB_RECURSE SWIG_JAVA_FILES ${FESAPI_ROOT_DIR}/java/src/*.java)
+	add_jar(fesapiJava ${SWIG_JAVA_FILES})
+	install_jar(fesapiJava ${CMAKE_INSTALL_PREFIX}/lib)
 	
 	SET (ALL_SOURCES_AND_HEADERS
 		${ALL_SOURCES_AND_HEADERS}
@@ -311,16 +318,9 @@ ENDIF (WIN32)
 # Install FesapiCpp library
 # ============================================================================
 
-SET (LIB_PATH lib)
-#IF (WIN32)
-#	SET (LIB_PATH lib/\${CMAKE_INSTALL_CONFIG_NAME})
-#ELSEIF (UNIX)
-#	SET (LIB_PATH lib/${CMAKE_BUILD_TYPE})
-#ENDIF (WIN32)
-
 INSTALL (
 	TARGETS FesapiCpp
-	DESTINATION ${LIB_PATH}
+	DESTINATION lib
 )
 
 # proxies headers
