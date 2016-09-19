@@ -338,8 +338,8 @@ ENDIF (WIN32)
 # ============================================================================
 
 INSTALL (
-	TARGETS ${CPP_LIBRARY_NAME}
-	DESTINATION lib
+	TARGETS ${FESAPI_LIBRARY_NAME}
+	DESTINATION ${LIB_PATH}
 )
 
 if (${WITH_JAVA_WRAPPING})
