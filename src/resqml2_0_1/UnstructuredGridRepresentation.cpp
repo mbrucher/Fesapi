@@ -495,7 +495,7 @@ void UnstructuredGridRepresentation::setGeometry(unsigned char * cellFaceIsRight
 	if (nodeIndicesCumulativeCountPerFace == nullptr)
 		throw invalid_argument("The definition of the node indices count per face is incomplete.");
 
-	setGeometryUsingExistingDatasets("/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded", "/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded", pointCount, proxy,
+	setGeometryUsingExistingDatasets("/RESQML/" + gsoapProxy2_0_1->uuid + "/CellFaceIsRightHanded", "/RESQML/" + gsoapProxy2_0_1->uuid + "/Points", pointCount, proxy,
 		"/RESQML/" + gsoapProxy2_0_1->uuid + "/FacesPerCell/" + ELEMENTS_DS_NAME, "/RESQML/" + gsoapProxy2_0_1->uuid + "/FacesPerCell/" + CUMULATIVE_LENGTH_DS_NAME,
 		faceCount, "/RESQML/" + gsoapProxy2_0_1->uuid + "/NodesPerFace/" + ELEMENTS_DS_NAME, "/RESQML/" + gsoapProxy2_0_1->uuid + "/NodesPerFace/" + CUMULATIVE_LENGTH_DS_NAME,
 		cellShape);
