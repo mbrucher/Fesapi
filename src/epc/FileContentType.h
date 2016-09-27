@@ -70,7 +70,7 @@ namespace epc
 		const ContentTypeMap& getAllContentType() const;
 		std::string toString() const;
 
-		void addContentType(const ContentType & ContentType);
+		void addContentType(const ContentType & contentType);
 
 		/**
 		* Read a content type part from a string.

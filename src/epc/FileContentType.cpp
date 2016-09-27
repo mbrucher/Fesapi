@@ -77,9 +77,14 @@ std::string FileContentType::toString() const
 	return oss.str();
 }
 
-void FileContentType::addContentType(const ContentType & ContentType)
+void FileContentType::addContentType(const ContentType & contentType)
 {
-	contentTypeMap[ContentType.getExtensionOrPartName()]=ContentType;
+	if (contentTypeMap.find(contentType.getExtensionOrPartName()) == contentTypeMap.end()) {
+		contentTypeMap[contentType.getExtensionOrPartName()] = contentType;
+	}
+	else {
+		throw invalid_argument("You cannot have two content type entries in your epc document for the same part or for the same extension.");
+	}
 }
 
 void FileContentType::readFromString(const string & textInput)

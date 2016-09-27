@@ -1404,8 +1404,7 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 		else
 			cout << "This is not a chrono rank!" << endl;
 		unsigned int contactCount = stratiColumnRankInterp->getContactCount();
-		for (unsigned int contactIndex = 0; contactIndex < contactCount; ++contactIndex)
-		{
+		for (unsigned int contactIndex = 0; contactIndex < contactCount; ++contactIndex) {
 			cout << "SUBJECT : " << endl;
 			showAllMetadata(stratiColumnRankInterp->getSubjectOfContact(contactIndex));
 			cout << "DIRECT OBJECT : " << endl;
@@ -1413,24 +1412,21 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 		}
 
 		vector<StratigraphicOccurrenceInterpretation*> soiSet = stratiColumnRankInterp->getStratigraphicOccurrenceInterpretationSet();
-		for (unsigned int soiIndex = 0; soiIndex < soiSet.size(); ++soiIndex)
-		{
+		for (size_t soiIndex = 0; soiIndex < soiSet.size(); ++soiIndex) {
 			vector<WellboreMarkerFrameRepresentation*> markerFrameSet = soiSet[soiIndex]->getWellboreMarkerFrameRepresentationSet();
-			for (unsigned int markerFrameIndex = 0; markerFrameIndex < markerFrameSet.size(); ++markerFrameIndex)
-			{
+			for (size_t markerFrameIndex = 0; markerFrameIndex < markerFrameSet.size(); ++markerFrameIndex) {
 				WellboreMarkerFrameRepresentation* markerFrame = markerFrameSet[markerFrameIndex];
 				showAllMetadata(markerFrame);
 				vector<WellboreMarker*> markerSet = markerFrame->getWellboreMarkerSet();
 				double* doubleMds = new double[markerFrame->getMdValuesCount()];
 				markerFrame->getMdAsDoubleValues(doubleMds);
-				for (unsigned int mIndex = 0; mIndex < markerSet.size(); ++mIndex)
-				{
-					if (doubleMds[mIndex] == doubleMds[mIndex])
-					{
+				for (size_t mIndex = 0; mIndex < markerSet.size(); ++mIndex) {
+					if (doubleMds[mIndex] == doubleMds[mIndex]) {
 						cout << doubleMds[mIndex] << endl;
 					}
-					else
+					else {
 						cout << "NaN" << endl;
+					}
 				}
 				delete[] doubleMds;
 			}
@@ -1444,10 +1440,12 @@ void deserialize(const string & inputFile)
 	//common::EpcDocument pck(inputFile, "C:/Users/Philippe/dev/fesapi/resources", common::EpcDocument::READ_ONLY);
     //common::EpcDocument pck(inputFile, "/home/philippe/dev/fesapi/resources", common::EpcDocument::READ_ONLY);
 	string resqmlResult = pck.deserialize();
-	if (!resqmlResult.empty())
-	{
+	if (!resqmlResult.empty()) {
 		cerr << resqmlResult << endl;
 		return;
+	}
+	for (size_t warningIndex = 0; warningIndex < pck.getWarnings().size(); ++warningIndex) {
+		cout << "Warning #" << warningIndex << " : " << pck.getWarnings()[warningIndex] << endl;
 	}
 
 #if !defined(OFFICIAL)
@@ -1462,8 +1460,7 @@ void deserialize(const string & inputFile)
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 	unordered_map<string, string> & extendedCoreProperty = pck.getExtendedCoreProperty();
-	for (unordered_map<string, string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it)
-	{
+	for (unordered_map<string, string>::const_iterator it = extendedCoreProperty.begin(); it != extendedCoreProperty.end(); ++it) {
 		cout << it->first.c_str() << " " << it->second.c_str() << endl;
 	}
 #else
@@ -1476,8 +1473,7 @@ void deserialize(const string & inputFile)
 
 	cout << "CRS" << endl;
 	vector<LocalDepth3dCrs*> depthCrsSet = pck.getLocalDepth3dCrsSet();
-	for (size_t i = 0; i < depthCrsSet.size(); ++i)
-	{
+	for (size_t i = 0; i < depthCrsSet.size(); ++i) {
 		cout << "Title is : " << depthCrsSet[i]->getTitle() << endl;
 		if (depthCrsSet[i]->isProjectedCrsDefinedWithEpsg())
 			cout << "Projected : EPSG one" << endl;
@@ -1485,8 +1481,7 @@ void deserialize(const string & inputFile)
 			cout << "Projected : Unknown." << "Reason is:" << depthCrsSet[i]->getProjectedCrsUnknownReason() << endl;
 	}
 	vector<LocalTime3dCrs*> timeCrsSet = pck.getLocalTime3dCrsSet();
-	for (size_t i = 0; i < timeCrsSet.size(); ++i)
-	{
+	for (size_t i = 0; i < timeCrsSet.size(); ++i) {
 		cout << "Title is : " << timeCrsSet[i]->getTitle() << endl;
 		if (timeCrsSet[i]->isVerticalCrsDefinedWithEpsg())
 			cout << "Vertical : EPSG one" << endl;
@@ -1511,8 +1506,7 @@ void deserialize(const string & inputFile)
 	std::vector<resqml2::SubRepresentation*> subRepresentationSet = pck.getSubRepresentationSet();
 
 	std::cout << "RepresentationSetRepresentation" << endl;
-	for (size_t i = 0; i < representationSetRepresentationSet.size(); i++)
-	{
+	for (size_t i = 0; i < representationSetRepresentationSet.size(); i++) {
 		showAllMetadata(representationSetRepresentationSet[i]);
 		std::cout << "Is homogeneous : " << representationSetRepresentationSet[i]->isHomogeneous() << std::endl;
 		std::cout << "Representation count : " << representationSetRepresentationSet[i]->getRepresentationCount() << std::endl;
@@ -1521,20 +1515,17 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << "FAULTS" << endl;
-	for (size_t i = 0; i < faultSet.size(); ++i)
-	{
+	for (size_t i = 0; i < faultSet.size(); ++i) {
 		showAllMetadata(faultSet[i]);
 	}
 
 	std::cout << faultPolyRep.size() << " FAULT POLYLINE REP" << endl;
-	for (size_t i = 0; i < faultPolyRep.size(); ++i)
-	{
+	for (size_t i = 0; i < faultPolyRep.size(); ++i) {
 		showAllMetadata(faultPolyRep[i]);
 		ULONG64 nodeCount = faultPolyRep[i]->getXyzPointCountOfAllPatches();
 		double* allXyzPoints = new double[nodeCount * 3];
 		faultPolyRep[i]->getXyzPointsOfAllPatchesInGlobalCrs(allXyzPoints);
-		for (ULONG64 nodeIndex = 0; nodeIndex < 6; nodeIndex += 3)
-		{
+		for (ULONG64 nodeIndex = 0; nodeIndex < 6; nodeIndex += 3) {
 			std::cout << allXyzPoints[nodeIndex] << " " << allXyzPoints[nodeIndex+1] << " " << allXyzPoints[nodeIndex+2] << endl;
 		}
 		delete [] allXyzPoints;
@@ -1559,18 +1550,15 @@ void deserialize(const string & inputFile)
 
 		showAllProperties(faultPolyRep[i]);
 
-		if (faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet().size() > 0)
-		{
-			for (size_t gsrIndex = 0; gsrIndex < faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet().size(); ++gsrIndex)
-			{
+		if (faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet().size() > 0) {
+			for (size_t gsrIndex = 0; gsrIndex < faultPolyRep[i]->getInterpretation()->getGridConnectionSetRepresentationSet().size(); ++gsrIndex) {
 				cout << "This fault polyline rep is linked to a grid connection set." << endl;
 			}
 		}
 	}
 
 	std::cout << "FAULTS TRI REP" << endl;
-	for (size_t i = 0; i < faultTriRepSet.size(); i++)
-	{
+	for (size_t i = 0; i < faultTriRepSet.size(); i++) {
 		showAllMetadata(faultTriRepSet[i]);
 
 		ULONG64 pointCount = faultTriRepSet[i]->getXyzPointCountOfAllPatches();
@@ -1583,8 +1571,7 @@ void deserialize(const string & inputFile)
 		faultTriRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(xyzPoints);
 		unsigned int * triangleIndices = new unsigned int [triangleCount * 3];
 		faultTriRepSet[i]->getTriangleNodeIndicesOfAllPatches(triangleIndices);
-		for (size_t j = 0; j < 5; j++)
-		{
+		for (size_t j = 0; j < 5; j++) {
 			std::cout << "\txyzPoints : " << xyzPoints[j] << std::endl;
 			std::cout << "\ttriangleIndices : " << triangleIndices[j] << std::endl;
 			std::cout << "\t--------------------------------------------------" << std::endl;
@@ -1598,15 +1585,13 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << "HORIZONS" << endl;
-	for (size_t i = 0; i < horizonSet.size(); i++)
-	{
+	for (size_t i = 0; i < horizonSet.size(); i++) {
 		showAllMetadata(horizonSet[i]);
 		std::cout << std::endl;
 	}
 
 	std::cout << "HORIZONS GRID 2D REP" << endl;
-	for (size_t i = 0; i < horizonGrid2dSet.size(); i++)
-	{
+	for (size_t i = 0; i < horizonGrid2dSet.size(); i++) {
 		showAllMetadata(horizonGrid2dSet[i]);
 
 		cout << "X origin " << horizonGrid2dSet[i]->getXOriginInGlobalCrs() << endl;
@@ -1629,8 +1614,7 @@ void deserialize(const string & inputFile)
 	}
 
 	std::cout << "HORIZONS TRI REP" << endl;
-	for (size_t i = 0; i < horizonTriRepSet.size(); i++)
-	{
+	for (size_t i = 0; i < horizonTriRepSet.size(); i++) {
 		showAllMetadata(horizonTriRepSet[i]);
 
 		ULONG64 pointCount = horizonTriRepSet[i]->getXyzPointCountOfAllPatches();

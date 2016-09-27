@@ -457,7 +457,7 @@ void AbstractRepresentation::importRelationshipSetFromEpc(common::EpcDocument* e
 			setHdfProxy(hdfProxy);
 		}
 		else {
-			getEpcDocument()->addWarning("The HDF proxy of the representation " + getUuid() + " is missing");
+			getEpcDocument()->addWarning("The HDF proxy " + uuid + " of the representation " + getUuid() + " is missing");
 		}
 	}
 
