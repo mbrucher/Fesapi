@@ -2688,7 +2688,7 @@ namespace resqml2_0_1
 		void getNodeIndicesOfFaces(ULONG64 * nodeIndices) const;
 		void getCumulativeNodeCountPerFace(ULONG64 * nodeCountPerFace) const;
 		void getNodeCountPerFace(ULONG64 * nodeCountPerFace) const;
-		bool isNodeCountOfFacesContant() const;
+		bool isNodeCountOfFacesConstant() const;
 		unsigned int getConstantNodeCountOfFaces() const;
 		
 		void loadGeometry();

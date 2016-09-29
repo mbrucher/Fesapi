@@ -115,7 +115,7 @@ void OneTetrahedronUnstructuredGridRepresentationTest::readEpcDocHandler() {
 	REQUIRE( nodeCountPerFace[3] == 3 );
 
 	// isNodeCountOfFacesContant
-	REQUIRE( unstructuredGrid->isNodeCountOfFacesContant() );
+	REQUIRE( unstructuredGrid->isNodeCountOfFacesConstant() );
 
 	// getConstantNodeCountOfFaces
 	REQUIRE( unstructuredGrid->getConstantNodeCountOfFaces() == 3 );

@@ -207,7 +207,7 @@ namespace resqml2_0_1
 		/**
 		* Detect if the node count per face is constant in the grid.
 		*/
-		bool isNodeCountOfFacesContant() const;
+		bool isNodeCountOfFacesConstant() const;
 
 		/*
 		* Get the constant node count per face in the grid.

@@ -1915,12 +1915,38 @@ void deserialize(const string & inputFile)
 		if (!unstructuredGridRepSet[i]->isPartial() && unstructuredGridRepSet[i]->hasGeometry())
 		{
 			std::cout << "Node count is : " << unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
-			ULONG64 * faceCountOfCells = new ULONG64 [unstructuredGridRepSet[i]->getCellCount()];
-			unstructuredGridRepSet[i]->getCumulativeFaceCountPerCell(faceCountOfCells);
-			std::cout << "Face count of cell 0 is : " << faceCountOfCells[0] << std::endl;
-			if (unstructuredGridRepSet[i]->getCellCount() > 1)
-				std::cout << "Face count of cell 1 is : " << faceCountOfCells[1] - faceCountOfCells[0] << std::endl;
-			delete [] faceCountOfCells;
+
+			unsigned int faceCount = 0;
+			if (!unstructuredGridRepSet[i]->isFaceCountOfCellsConstant())
+			{
+				ULONG64 * faceCountOfCells = new ULONG64[unstructuredGridRepSet[i]->getCellCount()];
+				unstructuredGridRepSet[i]->getCumulativeFaceCountPerCell(faceCountOfCells);
+				std::cout << "Face count of cell 0 is : " << faceCountOfCells[0] << std::endl;
+				if (unstructuredGridRepSet[i]->getCellCount() > 1)
+					std::cout << "Face count of cell 1 is : " << faceCountOfCells[1] - faceCountOfCells[0] << std::endl;
+				faceCount = faceCountOfCells[unstructuredGridRepSet[i]->getCellCount() - 1];
+				delete[] faceCountOfCells;
+			}
+			else
+			{
+				std::cout << "Face count of cell is constant : " << unstructuredGridRepSet[i]->getConstantFaceCountOfCells() << std::endl;
+				faceCount = unstructuredGridRepSet[i]->getConstantFaceCountOfCells() * unstructuredGridRepSet[i]->getCellCount();
+			}
+			if (!unstructuredGridRepSet[i]->isNodeCountOfFacesConstant())
+			{
+				ULONG64 * nodeCountOfFaces = new ULONG64[faceCount];
+				unstructuredGridRepSet[i]->getCumulativeNodeCountPerFace(nodeCountOfFaces);
+				std::cout << "Node count of face 0 is : " << nodeCountOfFaces[0] << std::endl;
+				if (faceCount > 1)
+					std::cout << "Node count of face 1 is : " << nodeCountOfFaces[1] - nodeCountOfFaces[0] << std::endl;
+				delete[] nodeCountOfFaces;
+			}
+			else
+			{
+				std::cout << "Node count of face is constant : " << unstructuredGridRepSet[i]->getConstantNodeCountOfFaces() << std::endl;
+			}
+
+
 			std::cout << "Reading XYZ points" << std::endl;
 			double * gridPoints = new double[unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) * 3];
 			unstructuredGridRepSet[i]->getXyzPointsOfAllPatchesInGlobalCrs(gridPoints);

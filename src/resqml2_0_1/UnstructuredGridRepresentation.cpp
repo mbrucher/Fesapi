@@ -334,7 +334,7 @@ void UnstructuredGridRepresentation::getNodeCountPerFace(ULONG64 * nodeCountPerF
 	}
 }
 
-bool UnstructuredGridRepresentation::isNodeCountOfFacesContant() const
+bool UnstructuredGridRepresentation::isNodeCountOfFacesConstant() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
 	if (grid->Geometry == nullptr)
@@ -355,7 +355,7 @@ bool UnstructuredGridRepresentation::isNodeCountOfFacesContant() const
 unsigned int UnstructuredGridRepresentation::getConstantNodeCountOfFaces() const
 {
 	_resqml2__UnstructuredGridRepresentation* grid = getSpecializedGsoapProxy();
-	if (isNodeCountOfFacesContant() == false)
+	if (isNodeCountOfFacesConstant() == false)
 		throw invalid_argument("The node count per cell is not constant.");
 
 	if (grid->Geometry->CellShape == resqml2__CellShape__hexahedral)
@@ -708,7 +708,7 @@ void UnstructuredGridRepresentation::loadGeometry()
 {
 	unloadGeometry();
 
-	if (isNodeCountOfFacesContant() == true)
+	if (isNodeCountOfFacesConstant() == true)
 	{
 		constantNodeCountPerFace = getConstantNodeCountOfFaces();
 		nodeIndicesOfFaces = new ULONG64[constantNodeCountPerFace * getFaceCount()];

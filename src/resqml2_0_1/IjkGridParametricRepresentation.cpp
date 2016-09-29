@@ -890,7 +890,9 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gs
 					}
 				}
 				else
-					throw logic_error("Not yet implemented");
+				{
+					throw logic_error("Cumputing XYZ from parameters on a curved pillar is not yet implemented");
+				}
 				++paramIndex;
 			}
 			for (unsigned int splitLineIndex = 0; splitLineIndex < splitLineCount; ++splitLineIndex)

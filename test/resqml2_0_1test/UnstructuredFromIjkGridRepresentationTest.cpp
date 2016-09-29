@@ -177,7 +177,7 @@ void UnstructuredFromIjkGridRepresentationTest::readEpcDocHandler() {
 	REQUIRE( nodeCountPerFace[11] == 4 );
 
 	// isNodeCountOfFacesContant
-	REQUIRE( unstructuredGrid->isNodeCountOfFacesContant() );
+	REQUIRE( unstructuredGrid->isNodeCountOfFacesConstant() );
 
 	// getConstantNodeCountOfFaces
 	REQUIRE( unstructuredGrid->getConstantNodeCountOfFaces() == 4 );
