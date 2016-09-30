@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "FileContentType.h"
 
 #include <sstream>
+#include <stdexcept>
 
 using namespace std; // in order not to prefix by "std::" for each class in the "std" namespace. Never use "using namespace" in *.h file but only in*.cpp file!!!
 using namespace epc; // in order not to prefix by "epc::" for each class in the "epc" namespace. Never use "using namespace" in *.h file but only in*.cpp file!!!

@@ -68,7 +68,7 @@ namespace resqml2
 		virtual ~AbstractValuesProperty() {}
 
 		/**
-		* Ge the number of patches in this values property. It should be the same count as the patch count of the associated representation.
+		* Get the number of patches in this values property. It should be the same count as the patch count of the associated representation.
 		*/
 		unsigned int getPatchCount() const;
 
