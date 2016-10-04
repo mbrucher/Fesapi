@@ -174,17 +174,15 @@ std::vector<std::string> CommentProperty::getStringValuesOfPatch(const unsigned 
 
 	for (unsigned int stringIndex = 0; stringIndex < nbStrings; ++stringIndex) {
 		std::string comment = string();
-		bool terminatingChar = false;
+		unsigned int globalCharIndex = stringIndex*stringLength;
 		for (unsigned int localCharIndex = 0; localCharIndex < stringLength; ++localCharIndex) {
-			if (values[localCharIndex + stringIndex*stringLength] == '\0') {
-				terminatingChar = true;
-				comment.assign((char*)&values[stringIndex*stringLength]);
+			if (values[globalCharIndex] != '\0') {
+				comment.push_back(values[globalCharIndex]);
+			}
+			else {
 				break;
 			}
-		}
-
-		if (!terminatingChar) {
-			comment.assign((char*)&values[stringIndex*stringLength], stringLength);
+			globalCharIndex++;
 		}
 
 		result.push_back(comment);
