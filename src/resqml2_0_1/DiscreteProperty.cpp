@@ -221,8 +221,9 @@ void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, hsize_t * nu
 	const long & nullValue)
 {
 	hsize_t numTotalValues = numValues[0];
-	for (unsigned int dim = 1; dim < numDimensionsInArray; dim++)
+	for (unsigned int dim = 1; dim < numDimensionsInArray; ++dim) {
 		numTotalValues *= numValues[dim];
+	}
 
 	pair<long, long> minMax = statistics::getMinMax(values, nullValue, numTotalValues);
 	pushBackLongHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
@@ -235,7 +236,7 @@ void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, hsize_t * numV
 	// HDF
 	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
 		datasetName,
-		H5T_NATIVE_LONG,
+		H5T_NATIVE_INT,
 		values,
 		numValues, numDimensionsInArray);
 }
@@ -243,8 +244,9 @@ void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, hsize_t * numV
 void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, hsize_t * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue)
 {
 	hsize_t numTotalValues = numValues[0];
-	for (unsigned int dim = 1; dim < numDimensionsInArray; dim++)
+	for (unsigned int dim = 1; dim < numDimensionsInArray; ++dim) {
 		numTotalValues *= numValues[dim];
+	}
 
 	pair<int, int> minMax = statistics::getMinMax(values, nullValue, numTotalValues);
 	pushBackIntHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
