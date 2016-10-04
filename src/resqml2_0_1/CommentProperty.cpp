@@ -142,53 +142,55 @@ void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::str
 
 std::vector<std::string> CommentProperty::getStringValuesOfPatch(const unsigned int & patchIndex)
 {
+	// Check that the hdf proxy has been resolved.
 	resqml2::AbstractHdfProxy* hdfProxy = getHdfProxy();
 	if (hdfProxy == nullptr) {
 		throw invalid_argument("The hdf proxy does not exist");
 	}
 
-	std::list<std::string> shpLabels; // use list because of the push_front method (performance reason)
 	std::vector<std::string> result;
 
+	// Look for the hdf dataset name where the comments are stored.
 	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy2_0_1);
 	resqml2__StringHdf5Array* hdfValues = static_cast<resqml2__StringHdf5Array*>(prop->PatchOfValues[patchIndex]->Values);
-	std::string datasetName = hdfValues->Values->PathInHdfFile;
+	const std::string datasetName = hdfValues->Values->PathInHdfFile;
 
+	// Check if the hdf dataset really contains constant length string.
 	std::vector<hsize_t> dims = hdfProxy->readArrayDimensions (datasetName);
-	if (dims.size() != 2)
+	if (dims.size() != 2) {
 		return result;
+	}
+	// Check if the hdf dataset really contains unsigned char values.
+	if (getValuesHdfDatatype() != AbstractValuesProperty::UCHAR) {
+		return result;
+	}
 
-	int nbStrings = (int)dims [0];
-	int stringLen = (int)dims [1];
+	const unsigned int nbStrings = (unsigned int)dims[0]; // The count of strings in the HDF dataset.
+	const unsigned int stringLength = (unsigned int)dims[1]; // The constant string length in the hdf dataset.
 
-	unsigned int totNbChar = nbStrings*stringLen;
-	unsigned char* values = new unsigned char[totNbChar];
+	// Read all char/strings from the hdf dataset
+	unsigned char* values = new unsigned char[nbStrings * stringLength];
 	hdfProxy->readArrayNdOfUCharValues (datasetName, values);
 
-	int indStr = nbStrings;
-	int currBeg = (indStr-1)*stringLen;
-	for (int charind = totNbChar-1 ; charind >= 0 ; charind--)
-	{
-		if (charind >= currBeg && charind <= currBeg + (stringLen-1) && values[charind] != '\0')
-		{
-			// The label is found
-			std::string aLabel = (char*)&values[currBeg];
-			aLabel.resize(stringLen);
-			shpLabels.push_front (aLabel);
-			indStr--;
-			currBeg -= stringLen;
+	for (unsigned int stringIndex = 0; stringIndex < nbStrings; ++stringIndex) {
+		std::string comment = string();
+		bool terminatingChar = false;
+		for (unsigned int localCharIndex = 0; localCharIndex < stringLength; ++localCharIndex) {
+			if (values[localCharIndex + stringIndex*stringLength] == '\0') {
+				terminatingChar = true;
+				comment.assign((char*)&values[stringIndex*stringLength]);
+				break;
+			}
 		}
-		if (charind == currBeg)
-		{
-			// No label found for this index
-			shpLabels.push_front ("NaN");
-			indStr--;
-			currBeg -= stringLen;
+
+		if (!terminatingChar) {
+			comment.assign((char*)&values[stringIndex*stringLength], stringLength);
 		}
+
+		result.push_back(comment);
 	}
 
 	delete [] values;
-	
-	result.insert(result.end(), shpLabels.begin(), shpLabels.end());
+
 	return result;
 }
