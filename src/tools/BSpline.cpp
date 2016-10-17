@@ -33,6 +33,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "tools/BSpline.h"
 
+#include <stdexcept>
+
 using namespace std;
 using namespace geometry;
 

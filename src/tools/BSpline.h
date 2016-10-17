@@ -54,7 +54,7 @@ namespace geometry
 	private:
 
 		void checkIfParametersIncreaseOrDecrease();
-		size_t getSplineIndexFromParameter(const double & param) const;
+		std::size_t getSplineIndexFromParameter(const double & param) const;
 
 		bool areParametersIncreasing;
 
