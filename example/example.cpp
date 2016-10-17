@@ -430,24 +430,28 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	ijkgrid->setGeometryAsCoordinateLineNodes(gsoap_resqml2_0_1::resqml2__PillarShape__vertical, gsoap_resqml2_0_1::resqml2__KDirection__down, false, nodes, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 
-	// TWO SUGARS PARAMETRIC
-	IjkGridParametricRepresentation* ijkgridParametric = pck->createIjkGridParametricRepresentation(earthModelInterp, local3dCrs, "37c45c00-fa3e-11e5-a21e-0002a5d5c51b", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
-	double parameters[16] = { 300, 300, 350, 300, 300, 350, /* SPLIT*/ 350, 350,
+	// FOUR SUGARS PARAMETRIC
+	IjkGridParametricRepresentation* ijkgridParametric = pck->createIjkGridParametricRepresentation(earthModelInterp, local3dCrs, "37c45c00-fa3e-11e5-a21e-0002a5d5c51b", "Four faulted sugar cubes (parametric geometry)", 2, 1, 2);
+	double parameters[24] = { 300, 300, 350, 300, 300, 350, /* SPLIT*/ 350, 350,
+		400, 400, 450, 400, 400, 450, /* SPLIT*/ 450, 450,
 		500, 500, 550, 500, 500, 550, /* SPLIT*/ 550, 550 };
 	double controlPoints[18] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350 };
 	ijkgridParametric->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPoints, NULL, 1, 0, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
-
-	// TWO SUGARS PARAMETRIC different line kind
-	IjkGridParametricRepresentation* ijkgridParametricNotSameLineKind = pck->createIjkGridParametricRepresentation(local3dCrs, "3ce91933-4f6f-4f35-b0ac-4ba4672f0a87", "Two faulted sugar cubes (parametric geometry)", 2, 1, 1);
-	double nan = numeric_limits<double>::quiet_NaN();
-	double controlPointsNotSameLineKind[36] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350,
-		50, 30, 1000, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan };
-	double controlPointParametersNotSameLineKind[12] = { 300, 300, 350, 300, 300, 350, 1000, nan, nan, nan, nan, nan };
-	short pillarKind[6] = { 1, 0, 0, 0, 0, 0 };
-	ijkgridParametricNotSameLineKind->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__PillarShape__straight, gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPointsNotSameLineKind, controlPointParametersNotSameLineKind, 2, pillarKind, hdfProxy,
+	
+	// FOUR SUGARS PARAMETRIC different line kind an one cubic pillar
+	IjkGridParametricRepresentation* ijkgridParametricNotSameLineKind = pck->createIjkGridParametricRepresentation(local3dCrs, "3ce91933-4f6f-4f35-b0ac-4ba4672f0a87", "Four faulted sugar cubes with one cubic pillar", 2, 1, 2);
+	const double nan = numeric_limits<double>::quiet_NaN();
+	double controlPointsNotSameLineKind[54] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350,
+		50, 30, 1000, 400, 0, 400, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan,
+		nan, nan, nan, 450, 0, 600, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan };
+	double controlPointParametersNotSameLineKind[18] = { 300, 300, 350, 300, 300, 350,
+		1000, 400, nan, nan, nan, nan,
+		nan, 600, nan, nan, nan, nan };
+	short pillarKind[6] = { 1, 4, 0, 0, 0, 0 };
+	ijkgridParametricNotSameLineKind->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__PillarShape__straight, gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPointsNotSameLineKind, controlPointParametersNotSameLineKind, 3, pillarKind, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
-
+	
 	// 4*3*2 explicit grid Left Handed
 	IjkGridExplicitRepresentation* ijkgrid432 = pck->createIjkGridExplicitRepresentation(local3dCrs, "e96c2bde-e3ae-4d51-b078-a8e57fb1e667", "Four by Three by Two Left Handed", 4, 3, 2);
 	double nodes432[216] = {
@@ -1770,6 +1774,9 @@ void deserialize(const string & inputFile)
 		AbstractIjkGridRepresentation* ijkGrid = pck.getIjkGridRepresentation(i);
 
 		showAllMetadata(ijkGrid);
+		if (ijkGrid->isPartial()) {
+			continue;
+		}
 		if (ijkGrid->getGeometryKind() != AbstractIjkGridRepresentation::NO_GEOMETRY)
 		{
 			if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::PARAMETRIC)
