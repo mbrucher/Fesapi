@@ -84,6 +84,10 @@ ULONG64 IjkGridExplicitRepresentation::getXyzPointCountOfPatch(const unsigned in
 		result += geom->SplitNodes->Count;
 	}
 
+	if (isTruncated()) {
+		result += static_cast<gsoap_resqml2_0_1::_resqml2__TruncatedIjkGridRepresentation*>(gsoapProxy2_0_1)->TruncationCells->TruncationNodeCount;
+	}
+
 	return result;
 }
 
@@ -97,8 +101,27 @@ void IjkGridExplicitRepresentation::getXyzPointsOfPatch(const unsigned int & pat
 	{
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(pointGeom->Points)->Coordinates->PathInHdfFile, xyzPoints);
 	}
-	else
+	else {
 		throw invalid_argument("The geometry of the grid either does not exist or it is not an explicit one.");
+	}
+
+	// Truncation
+	if (isTruncated()) {
+		resqml2__AbstractGridGeometry* truncatedGeom = static_cast<gsoap_resqml2_0_1::resqml2__AbstractGridGeometry*>(pointGeom);
+		if (truncatedGeom->AdditionalGridPoints.size() == 1 && truncatedGeom->AdditionalGridPoints[0]->Attachment == resqml2__GridGeometryAttachment__nodes) {
+			if (truncatedGeom->AdditionalGridPoints[0]->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+			{
+				xyzPoints += getXyzPointCountOfPatch(patchIndex) - static_cast<gsoap_resqml2_0_1::_resqml2__TruncatedIjkGridRepresentation*>(gsoapProxy2_0_1)->TruncationCells->TruncationNodeCount;
+				hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(truncatedGeom->AdditionalGridPoints[0]->Points)->Coordinates->PathInHdfFile, xyzPoints);
+			}
+			else {
+				throw invalid_argument("The additional grid points must be explicit ones for now. Parametric additional points are not supported yet for example.");
+			}
+		}
+		else {
+			throw invalid_argument("The truncated geometry must have one additional grid points construct (more than one is not implemented in fesapi yet although allowed by the standard). The attachment of this grid points must be set to node.");
+		}
+	}
 }
 
 void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(

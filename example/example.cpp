@@ -1790,6 +1790,24 @@ void deserialize(const string & inputFile)
 				{
 					std::cout << "Non constant parametric line kind" << std::endl;
 				}
+
+				long patchCount = ijkGrid->getPatchCount();
+				for (long currentPatch = 0; currentPatch < patchCount; ++currentPatch) {
+					long nbVertex = ijkGrid->getXyzPointCountOfPatch(currentPatch);
+
+					double* xyzPts = new double[nbVertex * 3];
+					ijkGrid->getXyzPointsOfPatch(currentPatch, xyzPts);
+
+					for (int vIndex = 0; vIndex < nbVertex; ++vIndex) {
+						double x = xyzPts[vIndex * 3];
+						double y = xyzPts[vIndex * 3 + 1];
+						double z = xyzPts[vIndex * 3 + 2];
+					}
+
+					delete[] xyzPts;
+				}
+
+
 			}
 			else if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::EXPLICIT)
 			{
@@ -1832,8 +1850,7 @@ void deserialize(const string & inputFile)
 
 		showAllSubRepresentations(ijkGrid->getSubRepresentationSet());
 
-		if (ijkGrid->hasEnabledCellInformation() == true)
-		{
+		if (ijkGrid->hasEnabledCellInformation()) {
 			std::cout << "Has enabled/disabled cell information" << std::endl;
 			bool * enabledCells = new bool [ijkGrid->getCellCount()];
 			ijkGrid->getEnabledCells(enabledCells);
@@ -1841,12 +1858,73 @@ void deserialize(const string & inputFile)
 		}
 
 		//*****************************
+		// TRUNCATION
+		//*****************************
+		if (ijkGrid->isTruncated()) {
+			std::cout << "This grid is truncated" << std::endl;
+			std::cout << "Truncated face count : " << ijkGrid->getTruncatedFaceCount() << std::endl;
+			std::cout << "Truncated cell count : " << ijkGrid->getTruncatedCellCount() << std::endl;
+
+			ULONG64* cellIndices = new ULONG64[ijkGrid->getTruncatedCellCount()];
+			ijkGrid->getTruncatedCellIndices(cellIndices);
+			for (ULONG64 index = 0; index < ijkGrid->getTruncatedCellCount() && index < 10; ++index) {
+				cout << "truncated cell Indices : " << cellIndices[index] << endl;
+			}
+			delete[] cellIndices;
+
+			ULONG64* cumNodeCount = new ULONG64[ijkGrid->getTruncatedFaceCount()];
+			ijkGrid->getCumulativeNodeCountPerTruncatedFace(cumNodeCount);
+			for (ULONG64 index = 0; index < ijkGrid->getTruncatedFaceCount() && index < 10; ++index) {
+				cout << "CumulativeNodeCountPerTruncatedFace : " << cumNodeCount[index] << endl;
+			}
+			ULONG64* nodeIndicesPerTruncFace = new ULONG64[cumNodeCount[ijkGrid->getTruncatedFaceCount() - 1]];
+			ijkGrid->getNodeIndicesOfTruncatedFaces(nodeIndicesPerTruncFace);
+			for (ULONG64 index = 0; index < cumNodeCount[ijkGrid->getTruncatedFaceCount() - 1] && index < 10; ++index) {
+				cout << "nodeIndicesPerTruncFace : " << nodeIndicesPerTruncFace[index] << endl;
+			}
+			delete[] cumNodeCount;
+			delete[] nodeIndicesPerTruncFace;
+
+			ULONG64* cumFaceCount = new ULONG64[ijkGrid->getTruncatedCellCount()];
+			ijkGrid->getCumulativeTruncatedFaceCountPerTruncatedCell(cumFaceCount);
+			for (ULONG64 index = 0; index < ijkGrid->getTruncatedCellCount() && index < 10; ++index) {
+				cout << "CumulativeTruncatedFaceCountPerTruncatedCell : " << cumFaceCount[index] << endl;
+			}
+			ULONG64* faceIndicesPerTruncCell = new ULONG64[cumFaceCount[ijkGrid->getTruncatedCellCount() - 1]];
+			ijkGrid->getTruncatedFaceIndicesOfTruncatedCells(faceIndicesPerTruncCell);
+			for (ULONG64 index = 0; index < cumFaceCount[ijkGrid->getTruncatedCellCount() - 1] && index < 10; ++index) {
+				cout << "faceIndicesPerTruncCell : " << faceIndicesPerTruncCell[index] << endl;
+			}
+			delete[] cumFaceCount;
+			delete[] faceIndicesPerTruncCell;
+
+			ULONG64* cumNonTruncFaceCount = new ULONG64[ijkGrid->getTruncatedCellCount()];
+			ijkGrid->getCumulativeNonTruncatedFaceCountPerTruncatedCell(cumNonTruncFaceCount);
+			for (ULONG64 index = 0; index < ijkGrid->getTruncatedCellCount() && index < 10; ++index) {
+				cout << "CumulativeNonTruncatedFaceCountPerTruncatedCell : " << cumNonTruncFaceCount[index] << endl;
+			}
+			ULONG64* nonTruncfaceIndicesPerTruncCell = new ULONG64[cumNonTruncFaceCount[ijkGrid->getTruncatedCellCount() - 1]];
+			ijkGrid->getNonTruncatedFaceIndicesOfTruncatedCells(nonTruncfaceIndicesPerTruncCell);
+			for (ULONG64 index = 0; index < cumNonTruncFaceCount[ijkGrid->getTruncatedCellCount() - 1] && index < 10; ++index) {
+				cout << "nonTruncfaceIndicesPerTruncCell : " << nonTruncfaceIndicesPerTruncCell[index] << endl;
+			}
+			delete[] cumNonTruncFaceCount;
+			delete[] nonTruncfaceIndicesPerTruncCell;
+
+			unsigned char* rightHandnessTruncFace = new unsigned char[ijkGrid->getTruncatedFaceCount()];
+			ijkGrid->getTruncatedFaceIsRightHanded(rightHandnessTruncFace);
+			for (ULONG64 index = 0; index < ijkGrid->getTruncatedFaceCount() && index < 10; ++index) {
+				cout << "rightHandnessTruncFace : " << rightHandnessTruncFace[index] << endl;
+			}
+			delete[] rightHandnessTruncFace;
+		}
+
+		//*****************************
 		// GRID CONNECTION SET 
 		//*****************************
 		unsigned int gridConnectionSetCount = ijkGrid->getGridConnectionSetRepresentationCount();
 		std::cout << "Grid Connection Count is : " << gridConnectionSetCount << std::endl;
-		if (gridConnectionSetCount > 0)
-		{
+		if (gridConnectionSetCount > 0) {
 			resqml2::GridConnectionSetRepresentation* gridConnectionSet = ijkGrid->getGridConnectionSetRepresentation(0);
 			unsigned int faultInterpOfGridConnCount = gridConnectionSet->getInterpretationCount();
 			std::cout << "Interpretation Count of this grid connection set is : " << faultInterpOfGridConnCount << endl;

@@ -440,7 +440,7 @@ namespace common
 		/**
 		* Get all the representationset representations contained into the EPC document
 		*/
-		std::vector<resqml2::RepresentationSetRepresentation*> getRepresentationSetRepresentationSet() const;
+		const std::vector<resqml2::RepresentationSetRepresentation*> & getRepresentationSetRepresentationSet() const;
 
 		/**
 		* Get the representationset representations count of this EPC document

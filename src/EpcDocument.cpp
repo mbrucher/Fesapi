@@ -449,7 +449,7 @@ void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 	else if (xmlTag.compare(PolylineRepresentation::XML_TAG) == 0) {
 		polylineRepresentationSet.push_back(static_cast<PolylineRepresentation* const>(proxy));
 	}
-	else if (xmlTag.compare(AbstractIjkGridRepresentation::XML_TAG) == 0) {
+	else if (xmlTag.compare(AbstractIjkGridRepresentation::XML_TAG) == 0 || xmlTag.compare(AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) == 0) {
 		ijkGridRepresentationSet.push_back(static_cast<AbstractIjkGridRepresentation* const>(proxy));
 	}
 	else if (xmlTag.compare(UnstructuredGridRepresentation::XML_TAG) == 0) {
@@ -1147,7 +1147,7 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 	return result;
 }
 
-std::vector<resqml2::RepresentationSetRepresentation*> EpcDocument::getRepresentationSetRepresentationSet() const
+const std::vector<resqml2::RepresentationSetRepresentation*> & EpcDocument::getRepresentationSetRepresentationSet() const
 {
 	return representationSetRepresentationSet;
 }

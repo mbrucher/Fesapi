@@ -117,16 +117,16 @@ void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigrap
 
 std::string AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationInterpretationUuid() const
 {
-	if (isTruncated()) {
-		throw invalid_argument("A truncated grid cannot be linked to a strati columnumn in Resqml v2.0");
-	}
-
 	string result = resqml2::AbstractGridRepresentation::getStratigraphicOrganizationInterpretationUuid();
 	if (!result.empty()) {
 		return result;
 	}
 
 	if (gsoapProxy2_0_1 != nullptr) {
+		if (isTruncated()) {
+			return "";
+		}
+
 		resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
 		if (rep->IntervalStratigraphicUnits == nullptr) {
 			return "";

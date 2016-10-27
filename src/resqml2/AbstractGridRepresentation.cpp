@@ -1087,3 +1087,298 @@ bool AbstractGridRepresentation::isTruncated() const
 {
 	return withTruncatedPillars;
 }
+
+ULONG64 AbstractGridRepresentation::getTruncatedFaceCount() const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+		return rep->TruncationCells->TruncationFaceCount;
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getNodeIndicesOfTruncatedFaces(ULONG64 * nodeIndices) const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->NodesPerTruncationFace->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<gsoap_resqml2_0_1::resqml2__IntegerHdf5Array*>(rep->TruncationCells->NodesPerTruncationFace->Elements)->Values->PathInHdfFile, nodeIndices);
+		}
+		else
+			throw logic_error("Not yet implemented");
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getCumulativeNodeCountPerTruncatedFace(ULONG64 * nodeCountPerFace) const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->NodesPerTruncationFace->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<gsoap_resqml2_0_1::resqml2__IntegerHdf5Array*>(rep->TruncationCells->NodesPerTruncationFace->CumulativeLength)->Values->PathInHdfFile, nodeCountPerFace);
+		}
+		else if (rep->TruncationCells->NodesPerTruncationFace->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+		{
+			nodeCountPerFace[0] = static_cast<gsoap_resqml2_0_1::resqml2__IntegerLatticeArray*>(rep->TruncationCells->NodesPerTruncationFace->CumulativeLength)->StartValue;
+			const LONG64 offsetValue = static_cast<gsoap_resqml2_0_1::resqml2__IntegerLatticeArray*>(rep->TruncationCells->NodesPerTruncationFace->CumulativeLength)->Offset[0]->Value;
+			const ULONG64 faceCount = getTruncatedFaceCount();
+			for (ULONG64 nodeCountPerFaceIndex = 1; nodeCountPerFaceIndex < faceCount; ++nodeCountPerFaceIndex) {
+				nodeCountPerFace[nodeCountPerFaceIndex] = nodeCountPerFace[nodeCountPerFaceIndex - 1] + offsetValue;
+			}
+		}
+		else if (rep->TruncationCells->NodesPerTruncationFace->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
+		{
+			throw range_error("The *cumulative* length of nodes count per cells cannot be constant.");
+		}
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getNodeCountPerTruncatedFace(ULONG64 * nodeCountPerFace) const
+{
+	getCumulativeNodeCountPerTruncatedFace(nodeCountPerFace);
+	const ULONG64 faceCount = getTruncatedFaceCount();
+	ULONG64 buffer = nodeCountPerFace[0];
+	ULONG64 bufferCumCount = 0;
+	for (ULONG64 cumulativeNodeCountPerFaceIndex = 1; cumulativeNodeCountPerFaceIndex < faceCount; ++cumulativeNodeCountPerFaceIndex)
+	{
+		bufferCumCount = nodeCountPerFace[cumulativeNodeCountPerFaceIndex];
+		nodeCountPerFace[cumulativeNodeCountPerFaceIndex] -= buffer;
+		buffer = bufferCumCount;
+	}
+}
+
+ULONG64 AbstractGridRepresentation::getTruncatedCellCount() const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+		return rep->TruncationCells->TruncationCellCount;
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getTruncatedCellIndices(ULONG64* cellIndices) const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->ParentCellIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<gsoap_resqml2_0_1::resqml2__IntegerHdf5Array*>(rep->TruncationCells->ParentCellIndices)->Values->PathInHdfFile, cellIndices);
+		}
+		else if (rep->TruncationCells->ParentCellIndices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
+		{
+			for (size_t i = 0; i < static_cast<gsoap_resqml2_0_1::resqml2__IntegerConstantArray*>(rep->TruncationCells->ParentCellIndices)->Count; ++i)
+			{
+				cellIndices[i] = static_cast<gsoap_resqml2_0_1::resqml2__IntegerConstantArray*>(rep->TruncationCells->ParentCellIndices)->Value;
+			}
+		}
+		else
+			throw logic_error("Not yet implemented.");
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->TruncationFacesPerCell->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<gsoap_resqml2_0_1::resqml2__IntegerHdf5Array*>(rep->TruncationCells->TruncationFacesPerCell->Elements)->Values->PathInHdfFile, faceIndices);
+		}
+		else
+			throw logic_error("Not yet implemented");
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getCumulativeTruncatedFaceCountPerTruncatedCell(ULONG64 * cumulativeFaceCountPerCell) const
+{
+	
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->TruncationFacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<gsoap_resqml2_0_1::resqml2__IntegerHdf5Array*>(rep->TruncationCells->TruncationFacesPerCell->CumulativeLength)->Values->PathInHdfFile, cumulativeFaceCountPerCell);
+		}
+		else if (rep->TruncationCells->TruncationFacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+		{
+			cumulativeFaceCountPerCell[0] = static_cast<gsoap_resqml2_0_1::resqml2__IntegerLatticeArray*>(rep->TruncationCells->TruncationFacesPerCell->CumulativeLength)->StartValue;
+			const LONG64 offsetValue = static_cast<gsoap_resqml2_0_1::resqml2__IntegerLatticeArray*>(rep->TruncationCells->TruncationFacesPerCell->CumulativeLength)->Offset[0]->Value;
+			const ULONG64 cellCount = getTruncatedCellCount();
+			for (ULONG64 cumulativeFaceCountPerCellIndex = 1; cumulativeFaceCountPerCellIndex < cellCount; ++cumulativeFaceCountPerCellIndex)
+			{
+				cumulativeFaceCountPerCell[cumulativeFaceCountPerCellIndex] = cumulativeFaceCountPerCell[cumulativeFaceCountPerCellIndex - 1] + offsetValue;
+			}
+		}
+		else if (rep->TruncationCells->TruncationFacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
+		{
+			if (getTruncatedCellCount() > 1)
+				throw range_error("The cumulative length of faces count per cells cannot be constant if there is more than one cell in the grid");
+			cumulativeFaceCountPerCell[0] = static_cast<gsoap_resqml2_0_1::resqml2__IntegerConstantArray*>(rep->TruncationCells->TruncationFacesPerCell->CumulativeLength)->Value;
+		}
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getTruncatedFaceCountPerTruncatedCell(ULONG64 * faceCountPerCell) const
+{
+	getCumulativeTruncatedFaceCountPerTruncatedCell(faceCountPerCell);
+	const ULONG64 cellCount = getTruncatedCellCount();
+	ULONG64 buffer = faceCountPerCell[0];
+	ULONG64 bufferCumCount = 0;
+	for (ULONG64 cumulativeFaceCountPerCellIndex = 1; cumulativeFaceCountPerCellIndex < cellCount; ++cumulativeFaceCountPerCellIndex)
+	{
+		bufferCumCount = faceCountPerCell[cumulativeFaceCountPerCellIndex];
+		faceCountPerCell[cumulativeFaceCountPerCellIndex] -= buffer;
+		buffer = bufferCumCount;
+	}
+}
+
+void AbstractGridRepresentation::getNonTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->LocalFacesPerCell->Elements->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<gsoap_resqml2_0_1::resqml2__IntegerHdf5Array*>(rep->TruncationCells->LocalFacesPerCell->Elements)->Values->PathInHdfFile, faceIndices);
+		}
+		else
+			throw logic_error("Not yet implemented");
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getCumulativeNonTruncatedFaceCountPerTruncatedCell(ULONG64 * cumulativeFaceCountPerCell) const
+{
+
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->LocalFacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
+		{
+			hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<gsoap_resqml2_0_1::resqml2__IntegerHdf5Array*>(rep->TruncationCells->LocalFacesPerCell->CumulativeLength)->Values->PathInHdfFile, cumulativeFaceCountPerCell);
+		}
+		else if (rep->TruncationCells->LocalFacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerLatticeArray)
+		{
+			cumulativeFaceCountPerCell[0] = static_cast<gsoap_resqml2_0_1::resqml2__IntegerLatticeArray*>(rep->TruncationCells->LocalFacesPerCell->CumulativeLength)->StartValue;
+			const LONG64 offsetValue = static_cast<gsoap_resqml2_0_1::resqml2__IntegerLatticeArray*>(rep->TruncationCells->LocalFacesPerCell->CumulativeLength)->Offset[0]->Value;
+			const ULONG64 cellCount = getTruncatedCellCount();
+			for (ULONG64 cumulativeFaceCountPerCellIndex = 1; cumulativeFaceCountPerCellIndex < cellCount; ++cumulativeFaceCountPerCellIndex)
+			{
+				cumulativeFaceCountPerCell[cumulativeFaceCountPerCellIndex] = cumulativeFaceCountPerCell[cumulativeFaceCountPerCellIndex - 1] + offsetValue;
+			}
+		}
+		else if (rep->TruncationCells->LocalFacesPerCell->CumulativeLength->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerConstantArray)
+		{
+			if (getTruncatedCellCount() > 1)
+				throw range_error("The cumulative length of faces count per cells cannot be constant if there is more than one cell in the grid");
+			cumulativeFaceCountPerCell[0] = static_cast<gsoap_resqml2_0_1::resqml2__IntegerConstantArray*>(rep->TruncationCells->LocalFacesPerCell->CumulativeLength)->Value;
+		}
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+void AbstractGridRepresentation::getNonTruncatedFaceCountPerTruncatedCell(ULONG64 * faceCountPerCell) const
+{
+	getCumulativeNonTruncatedFaceCountPerTruncatedCell(faceCountPerCell);
+	const ULONG64 cellCount = getTruncatedCellCount();
+	ULONG64 buffer = faceCountPerCell[0];
+	ULONG64 bufferCumCount = 0;
+	for (ULONG64 cumulativeFaceCountPerCellIndex = 1; cumulativeFaceCountPerCellIndex < cellCount; ++cumulativeFaceCountPerCellIndex)
+	{
+		bufferCumCount = faceCountPerCell[cumulativeFaceCountPerCellIndex];
+		faceCountPerCell[cumulativeFaceCountPerCellIndex] -= buffer;
+		buffer = bufferCumCount;
+	}
+}
+
+void AbstractGridRepresentation::getTruncatedFaceIsRightHanded(unsigned char* cellFaceIsRightHanded) const
+{
+	if (!isTruncated()) {
+		throw invalid_argument("The grid is not truncated");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation* rep = static_cast<gsoap_resqml2_0_1::resqml2__AbstractTruncatedColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
+
+		if (rep->TruncationCells->TruncationCellFaceIsRightHanded->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanHdf5Array)
+		{
+			hdfProxy->readArrayNdOfUCharValues(static_cast<gsoap_resqml2_0_1::resqml2__BooleanHdf5Array*>(rep->TruncationCells->TruncationCellFaceIsRightHanded)->Values->PathInHdfFile, cellFaceIsRightHanded);
+		}
+		else if (rep->TruncationCells->TruncationCellFaceIsRightHanded->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__BooleanConstantArray)
+		{
+			for (size_t i = 0; i < static_cast<gsoap_resqml2_0_1::resqml2__BooleanConstantArray*>(rep->TruncationCells->TruncationCellFaceIsRightHanded)->Count; ++i)
+			{
+				cellFaceIsRightHanded[i] = static_cast<gsoap_resqml2_0_1::resqml2__BooleanConstantArray*>(rep->TruncationCells->TruncationCellFaceIsRightHanded)->Value;
+			}
+		}
+		else
+			throw logic_error("Not yet implemented.");
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}

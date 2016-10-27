@@ -150,7 +150,7 @@ namespace resqml2_0_1
 
 		/**
 		 * Get all the face indices of all the cells.
-		 * @param faceIndices 			It must be pre allocated with the last value returned by getCumulativeFaceCountOfCells() == getFaceCount()
+		 * @param faceIndices 			It must be pre allocated with the last value returned by getCumulativeFaceCountOfCells()
 		 */
 		void getFaceIndicesOfCells(ULONG64 * faceIndices) const;
 

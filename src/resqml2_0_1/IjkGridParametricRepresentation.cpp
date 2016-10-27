@@ -513,13 +513,15 @@ ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned 
 	const unsigned int kNodeCount = getKCellCount() + 1;
 	ULONG64 result = (getICellCount() + 1) * (getJCellCount() + 1) * kNodeCount;
 
-	if (geom->SplitCoordinateLines != nullptr)
-	{
+	if (geom->SplitCoordinateLines != nullptr) {
 		result += geom->SplitCoordinateLines->Count * kNodeCount;
 	}
-	if (geom->SplitNodes != nullptr)
-	{
+	if (geom->SplitNodes != nullptr) {
 		result += geom->SplitNodes->Count;
+	}
+
+	if (isTruncated()) {
+		result += static_cast<gsoap_resqml2_0_1::_resqml2__TruncatedIjkGridRepresentation*>(gsoapProxy2_0_1)->TruncationCells->TruncationNodeCount;
 	}
 
 	return result;
@@ -537,8 +539,27 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & p
 	{
 		getXyzPointsOfPatchFromParametricPoints(points, xyzPoints);
 	}
-	else
+	else {
 		throw invalid_argument("The geometry of the grid is not a parametric one.");
+	}
+
+	// Truncation
+	if (isTruncated()) {
+		resqml2__AbstractGridGeometry* truncatedGeom = static_cast<gsoap_resqml2_0_1::resqml2__AbstractGridGeometry*>(geom);
+		if (truncatedGeom->AdditionalGridPoints.size() == 1 && truncatedGeom->AdditionalGridPoints[0]->Attachment == resqml2__GridGeometryAttachment__nodes) {
+			if (truncatedGeom->AdditionalGridPoints[0]->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dHdf5Array)
+			{
+				xyzPoints += getXyzPointCountOfPatch(patchIndex) - static_cast<gsoap_resqml2_0_1::_resqml2__TruncatedIjkGridRepresentation*>(gsoapProxy2_0_1)->TruncationCells->TruncationNodeCount;
+				hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(truncatedGeom->AdditionalGridPoints[0]->Points)->Coordinates->PathInHdfFile, xyzPoints);
+			}
+			else {
+				throw invalid_argument("The additional grid points must be explicit ones for now. Parametric additional points are not supported yet for example.");
+			}
+		}
+		else {
+			throw invalid_argument("The truncated geometry must have one additional grid points construct (more than one is not implemented in fesapi yet although allowed by the standard). The attachment of this grid points must be set to node.");
+		}
+	}
 }
 
 void IjkGridParametricRepresentation::setGeometryAsParametricNonSplittedPillarNodes(
@@ -915,6 +936,46 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gs
 						xyzPoints[paramIndex*3 + 2] = controlPoints[coordLineIndex*3 + 2] + ratioFromFirstControlPoint * (controlPoints[(coordLineIndex + parametricLineCount)*3 + 2] - controlPoints[coordLineIndex*3 + 2]);
 					}
 					else { // piecewise linear
+
+						unsigned int previousControlPoint = 0;
+						if (controlPointParameters != nullptr) {
+							while ((parameters[paramIndex] < controlPointParameters[coordLineIndex + parametricLineCount*previousControlPoint] && parameters[paramIndex] < controlPointParameters[coordLineIndex + parametricLineCount*(previousControlPoint + 1)]) ||
+								(parameters[paramIndex] > controlPointParameters[coordLineIndex + parametricLineCount*previousControlPoint] && parameters[paramIndex] > controlPointParameters[coordLineIndex + parametricLineCount*(previousControlPoint + 1)]) &&
+								previousControlPoint < controlPointCount - 1) {
+								++previousControlPoint;
+							}
+						}
+						else { // Should never occur by business rule. Assume the parameters are Z values for now (workaround for some softwares)....
+							while ((parameters[paramIndex] < controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 2] && parameters[paramIndex] < controlPoints[(coordLineIndex + parametricLineCount*(previousControlPoint + 1)) * 3 + 2]) ||
+								(parameters[paramIndex] > controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 2] && parameters[paramIndex] > controlPoints[(coordLineIndex + parametricLineCount*(previousControlPoint + 1)) * 3 + 2]) &&
+								previousControlPoint < controlPointCount - 1) {
+								++previousControlPoint;
+							}
+						}
+
+						if (previousControlPoint == controlPointCount - 1) {
+							throw invalid_argument("Cannot extrapolate piecewiselinear pillar fo now to explicit a grid node.");
+						}
+
+						double ratioFromPreviousControlPoint = .0;
+						double parameterDistance = .0;
+						if (controlPointParameters != nullptr) {
+							parameterDistance = controlPointParameters[coordLineIndex + parametricLineCount*(previousControlPoint + 1)] - controlPointParameters[coordLineIndex + parametricLineCount*previousControlPoint]; // Parameter distance from top to bottom.
+							if (parameterDistance != .0)
+								ratioFromPreviousControlPoint = (parameters[paramIndex] - controlPointParameters[coordLineIndex + parametricLineCount*previousControlPoint]) / parameterDistance;
+						}
+						else { // Should never occur by business rule. Assume the parameters are Z values for now (workaround for some softwares)....
+							parameterDistance = controlPoints[(coordLineIndex + parametricLineCount*(previousControlPoint + 1)) * 3 + 2] - controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 2]; // Parameter distance from top to bottom.
+							if (parameterDistance != .0) {
+								ratioFromPreviousControlPoint = (parameters[paramIndex] - controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 2]) / parameterDistance;
+							}
+						}
+						xyzPoints[paramIndex * 3] = controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3] + ratioFromPreviousControlPoint * (controlPoints[(coordLineIndex + parametricLineCount) * 3] - controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3]);
+						xyzPoints[paramIndex * 3 + 1] = controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 1] + ratioFromPreviousControlPoint * (controlPoints[(coordLineIndex + parametricLineCount*(previousControlPoint + 1)) * 3 + 1] - controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 1]);
+						xyzPoints[paramIndex * 3 + 2] = controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 2] + ratioFromPreviousControlPoint * (controlPoints[(coordLineIndex + parametricLineCount*(previousControlPoint + 1)) * 3 + 2] - controlPoints[(coordLineIndex + parametricLineCount*previousControlPoint) * 3 + 2]);
+
+						// TODO AND TO VERIFY ABOVE (MERGE PIECEWISE AND LINEAR (only 2 control points) IF POSSIBLE)
+
 						delete[] controlPoints;
 						delete[] pillarKind;
 						if (pillarOfSplitCoordLines != nullptr)

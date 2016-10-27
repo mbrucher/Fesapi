@@ -369,6 +369,100 @@ namespace resqml2
 		*/
 		bool isTruncated() const;
 
+		/**
+		* Get the truncation face count. It does not include face of truncated cells whch are not truncated.
+		*/
+		ULONG64 getTruncatedFaceCount() const;
+
+		/**
+		* Get all the node indices of the truncated faces.
+		* @param nodeIndices 			It must be pre allocated with the last value returned by getCumulativeNodeCountOfTruncatedFaces().
+		*/
+		void getNodeIndicesOfTruncatedFaces(ULONG64 * nodeIndices) const;
+
+		/**
+		* Get the cumulative node count per truncated face. First value is the count of nodes in the first face.
+		* Second value is the count of nodes in the first and in the second face. Third value is the count of nodes in the first and in the second and in the third face. Etc...
+		* Count of this array is equal to getTruncatedFaceCount()
+		* A single node count should be at least 3.
+		* @param nodeCountPerFace	It must be pre allocated with getTruncatedFaceCount() == last value of getCumulativeTruncatedFaceCountPerTruncatedCell()
+		*/
+		void getCumulativeNodeCountPerTruncatedFace(ULONG64 * nodeCountPerFace) const;
+
+		/**
+		* Less efficient than getCumulativeNodeCountPerTruncatedFace.
+		* Get the node count per truncated face. First value is the count of nodes in the first face.
+		* Second value is the count of nodes in the second face. etc...
+		* @param nodeCountPerFace	It must be pre allocated with getTruncatedFaceCount() == last value of getCumulativeTruncatedFaceCountPerTruncatedCell()
+		*/
+		void getNodeCountPerTruncatedFace(ULONG64 * nodeCountPerFace) const;
+
+		/**
+		* Get the truncated cell count.
+		*/
+		ULONG64 getTruncatedCellCount() const;
+
+		/**
+		* Get the the indices of the truncated cells in the non truncated grid.
+		*/
+		void getTruncatedCellIndices(ULONG64* cellIndices) const;
+
+		/**
+		* Get all the truncated face indices of all the truncated cells. It does not get the non truncated face indices of a truncated cell.
+		* Please use getNonTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) in addition to this method in order to get the full list of face indices for a truncated cell.
+		* @param faceIndices 			It must be pre allocated with the last value returned by getCumulativeTruncatedFaceCountPerTruncatedCell()
+		*/
+		void getTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) const;
+
+		/**
+		* Get the cumulative truncated face count per truncated cell. It does not take into account the non truncated face indices of a truncated cell.
+		* First value is the count of faces in the first cell.
+		* Second value is the count of faces in the first and in the second cell. Third value is the count of faces in the first and in the second and in the third cell. Etc...
+		* Count of this array is equal to getCellCount()
+		* A single face count should be at least 4.
+		* @param cumulativeFaceCountPerCellIndex	It must be pre allocated with getTruncatedCellCount()
+		*/
+		void getCumulativeTruncatedFaceCountPerTruncatedCell(ULONG64 * cumulativeFaceCountPerCell) const;
+
+		/**
+		* Less efficient than getCumulativeTruncatedFaceCountPerTruncatedCell.
+		* Get the face count per cell. First value is the count of faces in the first cell.
+		* Second value is the count of faces in the second cell. etc...
+		* @param faceCountPerCell	It must be pre allocated with getTruncatedCellCount()
+		*/
+		void getTruncatedFaceCountPerTruncatedCell(ULONG64 * faceCountPerCell) const;
+
+		/**
+		* Get all the truncated face indices of all the truncated cells. It does not get the non truncated face indices of a truncated cell.
+		* Please use getNonTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) in addition to this method in order to get the full list of face indices for a truncated cell.
+		* @param faceIndices 			It must be pre allocated with the last value returned by getCumulativeTruncatedFaceCountPerTruncatedCell()
+		*/
+		void getNonTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) const;
+
+		/**
+		* Get the cumulative truncated face count per truncated cell. It does not take into account the non truncated face indices of a truncated cell.
+		* First value is the count of faces in the first cell.
+		* Second value is the count of faces in the first and in the second cell. Third value is the count of faces in the first and in the second and in the third cell. Etc...
+		* Count of this array is equal to getCellCount()
+		* A single face count should be at least 4.
+		* @param cumulativeFaceCountPerCellIndex	It must be pre allocated with getTruncatedCellCount()
+		*/
+		void getCumulativeNonTruncatedFaceCountPerTruncatedCell(ULONG64 * cumulativeFaceCountPerCell) const;
+
+		/**
+		* Less efficient than getCumulativeTruncatedFaceCountPerTruncatedCell.
+		* Get the face count per cell. First value is the count of faces in the first cell.
+		* Second value is the count of faces in the second cell. etc...
+		* @param faceCountPerCell	It must be pre allocated with getTruncatedCellCount()
+		*/
+		void getNonTruncatedFaceCountPerTruncatedCell(ULONG64 * faceCountPerCell) const;
+
+		/**
+		* Retrieves orientation i.e. if each truncated face is right handed or not
+		* @param cellFaceIsRightHanded	It must be pre allocated with getTruncatedFaceCount()
+		*/
+		void getTruncatedFaceIsRightHanded(unsigned char* cellFaceIsRightHanded) const;
+
 		static const char* XML_TAG;
 
 	protected:
