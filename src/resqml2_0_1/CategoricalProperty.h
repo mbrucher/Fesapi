@@ -90,7 +90,7 @@ namespace resqml2_0_1
 		* @param valueCount				The number of values to write.
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
 
 		/**
 		* Add a 2d array of explicit double values to the property values.
@@ -99,7 +99,7 @@ namespace resqml2_0_1
 		* @param valueCountInSlowestDim The number of values to write in the slowest dimension (mainly J dimension).
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
 
 		/**
 		* Add a 3d array of explicit double values to the property values.
@@ -109,7 +109,7 @@ namespace resqml2_0_1
 		* @param valueCountInSlowestDim The number of values to write in the slowest dimension (mainly K dimension).
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
 
 		/**
 		* Add an array (potentially multi dimensions) of integer values to the property values which will be stored in the HDF file identified by its HDF proxy.
@@ -118,7 +118,7 @@ namespace resqml2_0_1
 		* @param numDimensionsInArray	The number of dimensions in the array to write.
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
-		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long* numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, ULONG64* numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
 
 		/**
 		* Get the string lookup which is associated to this categorical property values.

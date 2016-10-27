@@ -2861,71 +2861,74 @@ namespace resqml2_0_1
 		const gsoap_resqml2_0_1::resqml2__ResqmlUom & getUom() const;
 		std::string getUomAsString() const;
 		
-		void pushBackDoubleHdf5Array1dOfValues(double * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy * proxy,
+		void pushBackDoubleHdf5Array1dOfValues(double * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackDoubleHdf5Array2dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+		void pushBackDoubleHdf5Array2dOfValues(double * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackDoubleHdf5Array3dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+		void pushBackDoubleHdf5Array3dOfValues(double * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackDoubleHdf5ArrayOfValues(double * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy * proxy,
-			double * minimumValue = NULL, double * maximumValue = NULL);
-		void pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy * proxy,
+		void pushBackDoubleHdf5ArrayOfValues(double * values, ULONG64 * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
+			double * minimumValue = nullptr, double * maximumValue = nullptr);
+		void pushBackFloatHdf5Array1dOfValues(float * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackFloatHdf5Array2dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+		void pushBackFloatHdf5Array2dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackFloatHdf5Array3dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+		void pushBackFloatHdf5Array3dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
-		void pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy * proxy,
-			double * minimumValue = NULL, double * maximumValue = NULL);
-		void getDoubleValuesOfPatch(const unsigned int & patchIndex, double * values);
-		void getFloatValuesOfPatch(const unsigned int & patchIndex, float * values);
-		
+		void pushBackFloatHdf5ArrayOfValues(float * values, ULONG64 * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
+			double * minimumValue = nullptr, double * maximumValue = nullptr);
+
+
 		void createFloatHdf5ArrayOfValues(
-			unsigned long long* numValues, 
+			ULONG64* numValues,
 			const unsigned int& numArrayDimensions, 
 			resqml2::AbstractHdfProxy* proxy
 		);
 		void createFloatHdf5Array3dOfValues(
-			const unsigned int& valueCountInFastestDim, 
-			const unsigned int& valueCountInMiddleDim, 
-			const unsigned int& valueCountInSlowestDim, 
-			resqml2::AbstractHdfProxy * proxy
+			const ULONG64& valueCountInFastestDim,
+			const ULONG64& valueCountInMiddleDim,
+			const ULONG64& valueCountInSlowestDim,
+			resqml2::AbstractHdfProxy* proxy
 		);
 		void pushBackFloatHdf5SlabArray3dOfValues(
 			float* values, 
-			const unsigned int& valueCountInFastestDim, 
-			const unsigned int& valueCountInMiddleDim, 
-			const unsigned int& valueCountInSlowestDim, 
-			const unsigned int& offsetInFastestDim, 
-			const unsigned int& offsetInMiddleDim, 
-			const unsigned int& offsetInSlowestDim, 
+			const ULONG64& valueCountInFastestDim,
+			const ULONG64& valueCountInMiddleDim,
+			const ULONG64& valueCountInSlowestDim,
+			const ULONG64& offsetInFastestDim,
+			const ULONG64& offsetInMiddleDim,
+			const ULONG64& offsetInSlowestDim,
 			resqml2::AbstractHdfProxy* proxy
 		);
 		void pushBackFloatHdf5SlabArrayOfValues(
 			float * values, 
-			unsigned long long * numValues, 
-			unsigned long long * offsetValues, 
+			ULONG64 * numValues,
+			ULONG64 * offsetValues,
 			const unsigned int & numArrayDimensions, 
-			resqml2::AbstractHdfProxy * proxy
+			resqml2::AbstractHdfProxy* proxy
 		);
+
+		void getDoubleValuesOfPatch(const unsigned int & patchIndex, double * values);
+		void getFloatValuesOfPatch(const unsigned int & patchIndex, float * values);
+
 		void getFloatValuesOfPatch(
 			const unsigned int& patchIndex, 
 			float* values, 
-			unsigned long long* numValuesInEachDimension,
-			unsigned long long* offsetInEachDimension, 
+			ULONG64* numValuesInEachDimension,
+			ULONG64* offsetInEachDimension,
 			const unsigned int& numArrayDimensions
 		);
 		void getFloatValuesOf3dPatch(
 			const unsigned int& patchIndex, 
 			float* values, 
-			const unsigned int& valueCountInFastestDim, 
-			const unsigned int& valueCountInMiddleDim, 
-			const unsigned int& valueCountInSlowestDim, 
-			const unsigned int& offsetInFastestDim, 
-			const unsigned int& offsetInMiddleDim, 
-			const unsigned int& offsetInSlowestDim
+			const ULONG64& valueCountInFastestDim,
+			const ULONG64& valueCountInMiddleDim,
+			const ULONG64& valueCountInSlowestDim,
+			const ULONG64& offsetInFastestDim,
+			const ULONG64& offsetInMiddleDim,
+			const ULONG64& offsetInSlowestDim
 		);
-		
+
 		double getMinimumValue();
 		double getMaximumValue();
 		
@@ -2939,22 +2942,22 @@ namespace resqml2_0_1
 	class DiscreteProperty : public resqml2::AbstractValuesProperty
 	{
 	public:
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, class resqml2::AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, class resqml2::AbstractHdfProxy * proxy, const int & nullValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class resqml2::AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, class resqml2::AbstractHdfProxy * proxy, const int & nullValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class resqml2::AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, class resqml2::AbstractHdfProxy * proxy, const int & nullValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class resqml2::AbstractHdfProxy * proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class resqml2::AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class resqml2::AbstractHdfProxy * proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class resqml2::AbstractHdfProxy * proxy, const int & nullValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
 	};
 	
 	class DiscretePropertySeries : public DiscreteProperty
@@ -2968,10 +2971,11 @@ namespace resqml2_0_1
 		std::string getStringLookupUuid() const;
 		StringTableLookup* getStringLookup();
 		
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, class resqml2::AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, ULONG64* numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+
 	};
 	
 	class CategoricalPropertySeries : public CategoricalProperty

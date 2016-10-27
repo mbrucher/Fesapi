@@ -88,10 +88,10 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array1dOfValues(long * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
-		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5Array1dOfValues(int * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array1dOfValues(long * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array1dOfValues(int * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
 
 		/**
 		* Add a 2d array of explicit long values to the property values.
@@ -102,10 +102,10 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array2dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
-		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5Array2dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array2dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array2dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
 
 		/**
 		* Add a 3d array of explicit long values to the property values.
@@ -117,10 +117,10 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5Array3dOfValues(long * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
-		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5Array3dOfValues(int * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5Array3dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5Array3dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
 
 		/**
 		* Add an array (potentially multi dimensions) of explicit values to the property values.
@@ -131,10 +131,10 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If not provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If not provided then the maximum value will be computed from the values.
 		*/
-		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		void pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
-		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
-		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		void pushBackLongHdf5ArrayOfValues(long * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue);
+		void pushBackIntHdf5ArrayOfValues(int * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
 
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
 

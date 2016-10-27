@@ -104,7 +104,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5Array1dOfValues(double * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy* proxy,
+		void pushBackDoubleHdf5Array1dOfValues(double * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -116,7 +116,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5Array2dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
+		void pushBackDoubleHdf5Array2dOfValues(double * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -129,7 +129,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5Array3dOfValues(double * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
+		void pushBackDoubleHdf5Array3dOfValues(double * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -141,7 +141,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5ArrayOfValues(double * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
+		void pushBackDoubleHdf5ArrayOfValues(double * values, ULONG64 * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
@@ -152,7 +152,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5Array1dOfValues(float * values, const unsigned int & valueCount, resqml2::AbstractHdfProxy* proxy,
+		void pushBackFloatHdf5Array1dOfValues(float * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -164,7 +164,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5Array2dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
+		void pushBackFloatHdf5Array2dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -177,7 +177,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value of the values to add. If NAN is provided then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5Array3dOfValues(float * values, const unsigned int & valueCountInFastestDim, const unsigned int & valueCountInMiddleDim, const unsigned int & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
+		void pushBackFloatHdf5Array3dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
 			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
 
 		/**
@@ -189,7 +189,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
+		void pushBackFloatHdf5ArrayOfValues(float * values, ULONG64 * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
@@ -199,7 +199,7 @@ namespace resqml2_0_1
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
 		void createFloatHdf5ArrayOfValues(
-			unsigned long long* numValues, 
+			ULONG64* numValues,
 			const unsigned int& numArrayDimensions, 
 			resqml2::AbstractHdfProxy* proxy
 		);
@@ -212,9 +212,9 @@ namespace resqml2_0_1
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
 		void createFloatHdf5Array3dOfValues(
-			const unsigned int& valueCountInFastestDim, 
-			const unsigned int& valueCountInMiddleDim, 
-			const unsigned int& valueCountInSlowestDim, 
+			const ULONG64& valueCountInFastestDim,
+			const ULONG64& valueCountInMiddleDim,
+			const ULONG64& valueCountInSlowestDim,
 			resqml2::AbstractHdfProxy* proxy
 		);
 
@@ -231,12 +231,12 @@ namespace resqml2_0_1
 		*/
 		void pushBackFloatHdf5SlabArray3dOfValues(
 			float* values, 
-			const unsigned int& valueCountInFastestDim, 
-			const unsigned int& valueCountInMiddleDim, 
-			const unsigned int& valueCountInSlowestDim, 
-			const unsigned int& offsetInFastestDim, 
-			const unsigned int& offsetInMiddleDim, 
-			const unsigned int& offsetInSlowestDim, 
+			const ULONG64& valueCountInFastestDim,
+			const ULONG64& valueCountInMiddleDim,
+			const ULONG64& valueCountInSlowestDim,
+			const ULONG64& offsetInFastestDim,
+			const ULONG64& offsetInMiddleDim,
+			const ULONG64& offsetInSlowestDim,
 			resqml2::AbstractHdfProxy* proxy
 		);
 
@@ -251,8 +251,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackFloatHdf5SlabArrayOfValues(
 			float * values, 
-			unsigned long long * numValues,
-			unsigned long long * offsetValues,
+			ULONG64 * numValues,
+			ULONG64 * offsetValues,
 			const unsigned int & numArrayDimensions, 
 			resqml2::AbstractHdfProxy* proxy
 		);
@@ -280,8 +280,8 @@ namespace resqml2_0_1
 		void getFloatValuesOfPatch(
 			const unsigned int& patchIndex, 
 			float* values, 
-			unsigned long long* numValuesInEachDimension,
-			unsigned long long* offsetInEachDimension,
+			ULONG64* numValuesInEachDimension,
+			ULONG64* offsetInEachDimension,
 			const unsigned int& numArrayDimensions
 		);
 
@@ -299,12 +299,12 @@ namespace resqml2_0_1
 		void getFloatValuesOf3dPatch(
 			const unsigned int& patchIndex, 
 			float* values, 
-			const unsigned int& valueCountInFastestDim, 
-			const unsigned int& valueCountInMiddleDim, 
-			const unsigned int& valueCountInSlowestDim, 
-			const unsigned int& offsetInFastestDim, 
-			const unsigned int& offsetInMiddleDim, 
-			const unsigned int& offsetInSlowestDim
+			const ULONG64& valueCountInFastestDim,
+			const ULONG64& valueCountInMiddleDim,
+			const ULONG64& valueCountInSlowestDim,
+			const ULONG64& offsetInFastestDim,
+			const ULONG64& offsetInMiddleDim,
+			const ULONG64& offsetInSlowestDim
 		);
 
 		double getMinimumValue();
@@ -323,14 +323,14 @@ namespace resqml2_0_1
 		template <class T>
 		void setPropertyMinMax(
 			T* values, 
-			unsigned long long* numValuesInEachDimension,
+			ULONG64* numValuesInEachDimension,
 			const unsigned int& numArrayDimensions
 		) {
 			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = 
 				static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 			if (prop->Count == 1) {
 
-				unsigned long long nValues = numValuesInEachDimension[0];
+				ULONG64 nValues = numValuesInEachDimension[0];
 
 				for (unsigned int dim = 1; dim < numArrayDimensions; dim++) {
 					nValues *= numValuesInEachDimension[dim];
@@ -339,7 +339,7 @@ namespace resqml2_0_1
 				T computedMin = prop->MinimumValue[0];
 				T computedMax = prop->MaximumValue[0];
 
-				for(int i = 0; i < nValues; ++i) {
+				for (ULONG64 i = 0; i < nValues; ++i) {
 					if( values[i] < computedMin ) {
 						computedMin = values[i];
 					} else if( values[i] > computedMax ) {
@@ -351,7 +351,7 @@ namespace resqml2_0_1
 			} else if (prop->Count > 1) {
 				//In this case, the last (fastest) dimension 
 				//has the number of elements in the representation.
-				unsigned long long nValues = numValuesInEachDimension[0];
+				ULONG64 nValues = numValuesInEachDimension[0];
 
 				for (unsigned int dim = 1; dim < numArrayDimensions-1; dim++) {
 					nValues *= numValuesInEachDimension[dim];
@@ -363,7 +363,7 @@ namespace resqml2_0_1
 					T computedMin = prop->MinimumValue[propIndex];
 					T computedMax = prop->MaximumValue[propIndex];
 
-					for(int valIndex = 0; valIndex < nValues; ++valIndex) {
+					for (ULONG64 valIndex = 0; valIndex < nValues; ++valIndex) {
 						T propVal = values[propIndex+(nProperties*valIndex)];
 						if( propVal < computedMin ) {
 							computedMin = values[valIndex];
@@ -378,7 +378,7 @@ namespace resqml2_0_1
 		}
 
 		template <class valueType>
-		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, unsigned long long * numValues, const unsigned int & numValueDimensions, resqml2::AbstractHdfProxy * proxy,
+		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, ULONG64 * numValues, const unsigned int & numValueDimensions, resqml2::AbstractHdfProxy * proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr)
 		{
 			setHdfProxy(proxy);
@@ -390,7 +390,7 @@ namespace resqml2_0_1
 				double computedMaximumValue;
 				if (minimumValue == nullptr || maximumValue == nullptr)
 				{
-					unsigned long long numTotalValues = numValues[0];
+					ULONG64 numTotalValues = numValues[0];
 					for (unsigned int dim = 1; dim < numValueDimensions; dim++)
 						numTotalValues *= numValues[dim];
 

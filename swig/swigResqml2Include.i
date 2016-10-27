@@ -416,6 +416,21 @@ namespace resqml2
 		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
 		bool hasCellStratigraphicUnitIndices() const;
 		ULONG64 getCellStratigraphicUnitIndices(ULONG64 * stratiUnitIndices);
+		
+		bool isTruncated() const;
+		ULONG64 getTruncatedFaceCount() const;
+		void getNodeIndicesOfTruncatedFaces(ULONG64 * nodeIndices) const;
+		void getCumulativeNodeCountPerTruncatedFace(ULONG64 * nodeCountPerFace) const;
+		void getNodeCountPerTruncatedFace(ULONG64 * nodeCountPerFace) const;
+		ULONG64 getTruncatedCellCount() const;
+		void getTruncatedCellIndices(ULONG64* cellIndices) const;
+		void getTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) const;
+		void getCumulativeTruncatedFaceCountPerTruncatedCell(ULONG64 * cumulativeFaceCountPerCell) const;
+		void getTruncatedFaceCountPerTruncatedCell(ULONG64 * faceCountPerCell) const;
+		void getNonTruncatedFaceIndicesOfTruncatedCells(ULONG64 * faceIndices) const;
+		void getCumulativeNonTruncatedFaceCountPerTruncatedCell(ULONG64 * cumulativeFaceCountPerCell) const;
+		void getNonTruncatedFaceCountPerTruncatedCell(ULONG64 * faceCountPerCell) const;
+		void getTruncatedFaceIsRightHanded(unsigned char* cellFaceIsRightHanded) const;
 	};
 	
 	class AbstractColumnLayerGridRepresentation : public AbstractGridRepresentation
