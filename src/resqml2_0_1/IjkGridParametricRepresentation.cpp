@@ -857,7 +857,7 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gs
 		}
 
 		// Spline creation
-		vector<vector<geometry::BSpline>> splines;
+		vector< vector< geometry::BSpline > > splines;
 		geometry::BSpline spline;
 		for (unsigned int parametricLineIndex = 0; parametricLineIndex < parametricLineCount; ++parametricLineIndex) {
 			vector<geometry::BSpline> xyzSplines;

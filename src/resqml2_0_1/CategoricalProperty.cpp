@@ -140,7 +140,7 @@ void CategoricalProperty::pushBackLongHdf5Array3dOfValues(long * values, const U
 	pushBackLongHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
 }
 
-void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, ULONG64 * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
+void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
 {
 	setHdfProxy(proxy);
 	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);

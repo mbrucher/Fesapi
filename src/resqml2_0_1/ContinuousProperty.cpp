@@ -237,7 +237,7 @@ void ContinuousProperty::pushBackFloatHdf5SlabArray3dOfValues(
 	);
 }
 
-void ContinuousProperty::pushBackFloatHdf5ArrayOfValues(float * values, ULONG64 * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy * proxy,
+void ContinuousProperty::pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy * proxy,
 	double * minimumValue, double * maximumValue)
 {
 	pushBackXmlPartOfArrayNdOfExplicitValues(values, numValues, numArrayDimensions, proxy, minimumValue, maximumValue);
@@ -255,7 +255,7 @@ void ContinuousProperty::pushBackFloatHdf5ArrayOfValues(float * values, ULONG64 
 }
 
 void ContinuousProperty::createFloatHdf5ArrayOfValues(
-	ULONG64* numValues,
+	unsigned long long* numValues,
 	const unsigned int& numArrayDimensions, 
 	resqml2::AbstractHdfProxy* proxy)
 {
@@ -294,8 +294,8 @@ void ContinuousProperty::createFloatHdf5ArrayOfValues(
 
 
 void ContinuousProperty::pushBackFloatHdf5SlabArrayOfValues(
-	float* values, ULONG64* numValuesInEachDimension,
-	ULONG64* offsetInEachDimension, const unsigned int& numArrayDimensions,
+	float* values, unsigned long long* numValuesInEachDimension,
+	unsigned long long* offsetInEachDimension, const unsigned int& numArrayDimensions,
 	resqml2::AbstractHdfProxy* proxy)
 {
 	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
@@ -349,8 +349,8 @@ void ContinuousProperty::getFloatValuesOfPatch(const unsigned int & patchIndex, 
 void ContinuousProperty::getFloatValuesOfPatch(
 	const unsigned int& patchIndex, 
 	float* values, 
-	ULONG64* numValuesInEachDimension,
-	ULONG64* offsetInEachDimension,
+	unsigned long long* numValuesInEachDimension,
+	unsigned long long* offsetInEachDimension,
 	const unsigned int& numArrayDimensions)
 {
 	resqml2::AbstractHdfProxy* hdfProxy = getHdfProxy();

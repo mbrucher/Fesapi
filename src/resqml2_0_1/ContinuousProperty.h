@@ -141,7 +141,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackDoubleHdf5ArrayOfValues(double * values, ULONG64 * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
+		void pushBackDoubleHdf5ArrayOfValues(double * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
@@ -189,7 +189,7 @@ namespace resqml2_0_1
 		* @param minimumValue			The minimum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the minimum value will be computed from the values.
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
-		void pushBackFloatHdf5ArrayOfValues(float * values, ULONG64 * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
+		void pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr);
 
 		/**
@@ -199,7 +199,7 @@ namespace resqml2_0_1
 		* @param proxy					The HDF proxy where to write the property values. It must be already opened for writing and won't be closed in this method.
 		*/
 		void createFloatHdf5ArrayOfValues(
-			ULONG64* numValues,
+				unsigned long long* numValues,
 			const unsigned int& numArrayDimensions, 
 			resqml2::AbstractHdfProxy* proxy
 		);
@@ -251,8 +251,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackFloatHdf5SlabArrayOfValues(
 			float * values, 
-			ULONG64 * numValues,
-			ULONG64 * offsetValues,
+			unsigned long long * numValues,
+			unsigned long long * offsetValues,
 			const unsigned int & numArrayDimensions, 
 			resqml2::AbstractHdfProxy* proxy
 		);
@@ -280,8 +280,8 @@ namespace resqml2_0_1
 		void getFloatValuesOfPatch(
 			const unsigned int& patchIndex, 
 			float* values, 
-			ULONG64* numValuesInEachDimension,
-			ULONG64* offsetInEachDimension,
+			unsigned long long* numValuesInEachDimension,
+			unsigned long long* offsetInEachDimension,
 			const unsigned int& numArrayDimensions
 		);
 
@@ -323,7 +323,7 @@ namespace resqml2_0_1
 		template <class T>
 		void setPropertyMinMax(
 			T* values, 
-			ULONG64* numValuesInEachDimension,
+			unsigned long long* numValuesInEachDimension,
 			const unsigned int& numArrayDimensions
 		) {
 			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = 
@@ -378,7 +378,7 @@ namespace resqml2_0_1
 		}
 
 		template <class valueType>
-		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, ULONG64 * numValues, const unsigned int & numValueDimensions, resqml2::AbstractHdfProxy * proxy,
+		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, unsigned long long * numValues, const unsigned int & numValueDimensions, resqml2::AbstractHdfProxy * proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr)
 		{
 			setHdfProxy(proxy);
