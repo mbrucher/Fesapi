@@ -41,6 +41,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT BoundaryFeatureInterpretation : public resqml2::AbstractFeatureInterpretation
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		BoundaryFeatureInterpretation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :resqml2::AbstractFeatureInterpretation(epcDoc, partialObject) {}
+
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr from superclass constructor

@@ -42,6 +42,15 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT HorizonInterpretation : public BoundaryFeatureInterpretation
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		HorizonInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
+			BoundaryFeatureInterpretation(nullptr, partialObject)
+		{
+		}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param horizon	The feature the instance interprets.

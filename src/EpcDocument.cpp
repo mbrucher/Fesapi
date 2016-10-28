@@ -1565,6 +1565,16 @@ BoundaryFeatureInterpretation* EpcDocument::createBoundaryFeatureInterpretation(
 	return result;
 }
 
+HorizonInterpretation* EpcDocument::createPartialHorizonInterpretation(const std::string & guid, const std::string & title)
+{
+	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
+	dor->UUID = guid;
+	dor->Title = title;
+	HorizonInterpretation* result = new HorizonInterpretation(dor);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
 HorizonInterpretation* EpcDocument::createHorizonInterpretation(Horizon * horizon, const std::string & guid, const std::string & title)
 {
 	HorizonInterpretation* result = new HorizonInterpretation(horizon, guid, title);

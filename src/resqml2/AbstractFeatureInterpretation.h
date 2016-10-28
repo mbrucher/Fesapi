@@ -45,6 +45,12 @@ namespace resqml2
 	class DLL_IMPORT_OR_EXPORT AbstractFeatureInterpretation : public AbstractObject
 	{
 	protected:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractFeatureInterpretation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :AbstractObject(epcDoc, partialObject) {}
+
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr.

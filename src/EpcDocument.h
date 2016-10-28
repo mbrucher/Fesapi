@@ -782,6 +782,8 @@ namespace common
 		
 		resqml2_0_1::BoundaryFeatureInterpretation* createBoundaryFeatureInterpretation(resqml2_0_1::BoundaryFeature * feature, const std::string & guid, const std::string & title);
 
+		resqml2_0_1::HorizonInterpretation* createPartialHorizonInterpretation(const std::string & guid, const std::string & title);
+
 		resqml2_0_1::HorizonInterpretation* createHorizonInterpretation(resqml2_0_1::Horizon * horizon, const std::string & guid, const std::string & title);
 
 		resqml2_0_1::FaultInterpretation* createFaultInterpretation(resqml2_0_1::Fault * fault, const std::string & guid, const std::string & title);

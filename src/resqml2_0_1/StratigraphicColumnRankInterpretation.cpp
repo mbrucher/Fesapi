@@ -201,8 +201,16 @@ void StratigraphicColumnRankInterpretation::importRelationshipSetFromEpc(common:
 
 	for (unsigned int i = 0; i < interp->ContactInterpretation.size(); i++)
 	{
-		if (interp->ContactInterpretation[i]->PartOf)
-			setHorizonOfLastContact(static_cast<HorizonInterpretation*>(epcDoc->getResqmlAbstractObjectByUuid(interp->ContactInterpretation[i]->PartOf->UUID)));
+		if (interp->ContactInterpretation[i]->PartOf) {
+			HorizonInterpretation* horizonInterp = epcDoc->getResqmlAbstractObjectByUuid<HorizonInterpretation>(interp->ContactInterpretation[i]->PartOf->UUID);
+
+			if (horizonInterp == nullptr) {
+				getEpcDocument()->addWarning("The referenced horizon interp \"" + interp->ContactInterpretation[i]->PartOf->Title + "\" (" + interp->ContactInterpretation[i]->PartOf->UUID + ") is missing.");
+				horizonInterp = epcDoc->createPartialHorizonInterpretation(interp->ContactInterpretation[i]->PartOf->UUID, interp->ContactInterpretation[i]->PartOf->Title);
+			}
+
+			setHorizonOfLastContact(horizonInterp);
+		}
 		else
 			throw logic_error("Not yet implemented");
 	}
