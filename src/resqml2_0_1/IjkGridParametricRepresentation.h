@@ -129,7 +129,8 @@ namespace resqml2_0_1
 		void getParametersOfNodes(double * parameters, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
 
 		/**
-		* Set the geometry of the IJK grid as parametric pillar nodes where no pillar is splitted
+		* Set the geometry of the IJK grid as parametric pillar nodes where no pillar is splitted.
+		* Defined pillars are deduced from pillarKind == -1;
 		* @param mostComplexPillarGeometry					The most complex pillar shape which we can find on this ijk grid.
 		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
 		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
@@ -146,7 +147,16 @@ namespace resqml2_0_1
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, short * pillarKind, resqml2::AbstractHdfProxy* proxy);
 
 		/**
+		* Same as setGeometryAsParametricNonSplittedPillarNodes where the hdf datasets are already written in the the file.
+		* @param definedPillars								The string to an hdf dataset where the defined pillars are identified : 0 value for not defined (i.e control points are NaN points, i.e pillarKind == -1) else the pillar is defined. This information overrides any pillar geometry information.
+		*/
+		void setGeometryAsParametricNonSplittedPillarNodesUsingExistingDatasets(
+			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			const std::string & parameters, const std::string & controlPoints, const std::string & controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, const std::string & pillarKind, const std::string & definedPillars, resqml2::AbstractHdfProxy* proxy);
+
+		/**
 		* Set the geometry of the IJK grid as parametric pillar nodes where at least one pillar is supposed to be splitted
+		* Defined pillars are deduced from pillarKind == -1;
 		* @param mostComplexPillarGeometry					The most complex pillar shape which we can find on this ijk grid.
 		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
 		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
@@ -168,7 +178,18 @@ namespace resqml2_0_1
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns);
 
 		/**
+		* Same as setGeometryAsParametricSplittedPillarNodes where the hdf datasets are already written in the the file.
+		* @param definedPillars								The string to an hdf dataset where the defined pillars are identified : 0 value for not defined (i.e control points are NaN points, i.e pillarKind == -1) else the pillar is defined.  This information overrides any pillar geometry information.
+		*/
+		void setGeometryAsParametricSplittedPillarNodesUsingExistingDatasets(
+			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			const std::string & parameters, const std::string & controlPoints, const std::string & controlPointParameters, const unsigned int & controlPointMaxCountPerPillar, const std::string & pillarKind, const std::string & definedPillars, resqml2::AbstractHdfProxy* proxy,
+			const unsigned long & splitCoordinateLineCount, const std::string & pillarOfCoordinateLine,
+			const std::string & splitCoordinateLineColumnCumulativeCount, const std::string & splitCoordinateLineColumns);
+
+		/**
 		* Set the geometry of the IJK grid as parametric pillar nodes where at least one pillar is supposed to be splitted and where all pillars are of the same kind.
+		* All pillars are assumed to be defined using this method.
 		* @param kDirectionKind								Indicates if the K direction always go up, dow or is not monotonic.
 		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
 		* @param parameters									The parameter values (regarding the pillars) of each node of the grid.
@@ -187,6 +208,15 @@ namespace resqml2_0_1
 			double * parameters, double * controlPoints, double * controlPointParameters, const unsigned int & controlPointCountPerPillar, short pillarKind, resqml2::AbstractHdfProxy* proxy,
 			const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
 			unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns);
+
+		/**
+		* Same as setGeometryAsParametricSplittedPillarNodes where the hdf datasets are already written in the the file.
+		*/
+		void setGeometryAsParametricSplittedPillarNodesUsingExistingDatasets(
+			const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			const std::string & parameters, const std::string & controlPoints, const std::string & controlPointParameters, const unsigned int & controlPointCountPerPillar, short pillarKind, resqml2::AbstractHdfProxy* proxy,
+			const unsigned long & splitCoordinateLineCount, const std::string & pillarOfCoordinateLine,
+			const std::string & splitCoordinateLineColumnCumulativeCount, const std::string & splitCoordinateLineColumns);
 
 		geometryKind getGeometryKind() const;
 	};
