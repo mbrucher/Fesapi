@@ -451,6 +451,14 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	short pillarKind[6] = { 1, 4, 0, 0, 0, 0 };
 	ijkgridParametricNotSameLineKind->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__PillarShape__straight, gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPointsNotSameLineKind, controlPointParametersNotSameLineKind, 3, pillarKind, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
+
+	// FOUR SUGARS PARAMETRIC different line kind an one cubic pillar : A copy
+	IjkGridParametricRepresentation* ijkgridParametricNotSameLineKindCopy = pck->createIjkGridParametricRepresentation(local3dCrs, "46efd88c-87e1-4e00-bbdd-4c7bcc941749", "Copy of Four faulted sugar cubes with one cubic pillar", 2, 1, 2);
+	const std::string hdfDatasetPrefix = "/RESQML/" + ijkgridParametricNotSameLineKind->getUuid();
+	ijkgridParametricNotSameLineKindCopy->setGeometryAsParametricSplittedPillarNodesUsingExistingDatasets(gsoap_resqml2_0_1::resqml2__PillarShape__straight, gsoap_resqml2_0_1::resqml2__KDirection__down, false,
+		hdfDatasetPrefix + "/PointParameters", hdfDatasetPrefix + "/ControlPoints", hdfDatasetPrefix + "/controlPointParameters", 3, hdfDatasetPrefix + "/LineKindIndices", hdfDatasetPrefix + "/PillarGeometryIsDefined", hdfProxy,
+		2, hdfDatasetPrefix + "/PillarIndices",
+		hdfDatasetPrefix + "/ColumnsPerSplitCoordinateLine/" + CUMULATIVE_LENGTH_DS_NAME, hdfDatasetPrefix + "/ColumnsPerSplitCoordinateLine/" + ELEMENTS_DS_NAME);
 	
 	// 4*3*2 explicit grid Left Handed
 	IjkGridExplicitRepresentation* ijkgrid432 = pck->createIjkGridExplicitRepresentation(local3dCrs, "e96c2bde-e3ae-4d51-b078-a8e57fb1e667", "Four by Three by Two Left Handed", 4, 3, 2);
@@ -1509,6 +1517,7 @@ void deserialize(const string & inputFile)
 	std::vector<StratigraphicColumn*> stratiColumnSet = pck.getStratigraphicColumnSet();
 	std::vector<resqml2::RepresentationSetRepresentation*> representationSetRepresentationSet = pck.getRepresentationSetRepresentationSet();
 	std::vector<resqml2::SubRepresentation*> subRepresentationSet = pck.getSubRepresentationSet();
+	std::vector<PolylineSetRepresentation*> frontierPolyRep = pck.getFrontierPolylineSetRepSet();
 
 	std::cout << "RepresentationSetRepresentation" << endl;
 	for (size_t i = 0; i < representationSetRepresentationSet.size(); i++) {
@@ -1560,6 +1569,18 @@ void deserialize(const string & inputFile)
 				cout << "This fault polyline rep is linked to a grid connection set." << endl;
 			}
 		}
+	}
+
+	std::cout << faultPolyRep.size() << " FRONTIER POLYLINE REP" << endl;
+	for (size_t i = 0; i < frontierPolyRep.size(); ++i) {
+		showAllMetadata(frontierPolyRep[i]);
+
+		bool* closedFlag = new bool[frontierPolyRep[i]->getPolylineCountOfPatch(0)];
+		frontierPolyRep[i]->getClosedFlagPerPolylineOfPatch(0, closedFlag);
+		for (unsigned int j = 0; j < frontierPolyRep[i]->getPolylineCountOfPatch(0); ++j) {
+			std::cout << "closed flag : " << closedFlag[j] << endl;
+		}
+		delete[] closedFlag;
 	}
 
 	std::cout << "FAULTS TRI REP" << endl;

@@ -33,6 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "EpcDocument.h"
 
+#include<locale>
 #include <sstream>
 #include <stdexcept>
 

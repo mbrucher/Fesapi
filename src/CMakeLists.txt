@@ -286,6 +286,8 @@ ENDIF (UNIX)
 # Add FesapiCpp library to build
 # ============================================================================
 
+ADD_DEFINITIONS (-DWITH_C_LOCALE) # See https://sourceforge.net/p/gsoap2/bugs/1079/
+
 IF (WIN32)
 	ADD_DEFINITIONS (/bigobj)
 	IF (BUILD_SHARED_LIBS)
