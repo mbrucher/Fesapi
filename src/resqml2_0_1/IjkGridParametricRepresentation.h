@@ -35,6 +35,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/AbstractIjkGridRepresentation.h"
 
+#include "tools/BSpline.h"
+
 namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT IjkGridParametricRepresentation : public AbstractIjkGridRepresentation
@@ -42,6 +44,30 @@ namespace resqml2_0_1
 	private:
 		void getXyzPointsOfPatchFromParametricPoints(gsoap_resqml2_0_1::resqml2__Point3dParametricArray* parametricPoint3d, double * xyzPoints) const;
 	public:
+
+		class DLL_IMPORT_OR_EXPORT PillarInformation
+		{
+		public:
+
+			unsigned int maxControlPointCount;
+			unsigned int parametricLineCount;
+			unsigned int splitLineCount;
+			double * controlPoints;
+			double * controlPointParameters;
+			short * pillarKind;
+			unsigned int* pillarOfSplitCoordLines;
+			std::vector< std::vector< geometry::BSpline > > splines;
+
+			PillarInformation():maxControlPointCount(0), parametricLineCount(0), splitLineCount(0),
+					controlPoints(nullptr), controlPointParameters(nullptr), pillarKind(nullptr), pillarOfSplitCoordLines(nullptr) {}
+
+			~PillarInformation() {
+				if (controlPoints != nullptr) delete [] controlPoints;
+				if (controlPointParameters != nullptr) delete [] controlPointParameters;
+				if (pillarKind != nullptr) delete [] pillarKind;
+				if (pillarOfSplitCoordLines != nullptr) delete [] pillarOfSplitCoordLines;
+			}
+		};
 
 		IjkGridParametricRepresentation(soap* soapContext, resqml2::AbstractLocal3dCrs * crs,
 			const std::string & guid, const std::string & title,
@@ -67,9 +93,20 @@ namespace resqml2_0_1
 		std::string getHdfProxyUuid() const;
 
 		/**
+		* Get the xyz point count in each K Layer interface in a given patch.
+		*/
+		ULONG64 getXyzPointCountOfKInterfaceOfPatch(const unsigned int & patchIndex) const;
+
+		/**
 		* Get the xyz point count in a given patch.
 		*/
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
+
+		/**
+		 * Load in memory all pillar information.
+		 * It allows to accelerate getter of xyz points when reading them by K interface
+		 */
+		PillarInformation loadPillarInformation() const;
 
 		/**
 		* Get all the XYZ points of a particular patch of this representation.
