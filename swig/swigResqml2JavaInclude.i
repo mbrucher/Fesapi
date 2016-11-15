@@ -220,7 +220,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
     else if (type.equals("IjkGridRepresentation"))
     {
-	return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
+		return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
     }
     else if (type.equals("NonSealedSurfaceFrameworkRepresentation"))
     {
@@ -355,10 +355,10 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
     else if (type.equals("IjkGridRepresentation"))
     {
-	return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
+		return resqml2_0_1_instantiateConcreteIjkGridRepresentation(cPtr, owner);
     }
     else
-	return null;
+		return null;
   }
   
   public static com.f2i.energisticsStandardsApi.resqml2_0_1.AbstractIjkGridRepresentation resqml2_0_1_instantiateConcreteIjkGridRepresentation(long cPtr, boolean owner)

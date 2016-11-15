@@ -161,7 +161,7 @@ namespace common
 		EpcDocument(const std::string & fileName, const openingMode & hdf5PermissionAccess = READ_WRITE);
 		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, const openingMode & hdf5PermissionAccess = READ_WRITE);
 
-		~EpcDocument();
+		virtual ~EpcDocument();
 
 		// A function pointer definition which allows to build an abstract hdf proxy in writing mode of an epc document
 		typedef resqml2::AbstractHdfProxy* (HdfProxyBuilder)(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);

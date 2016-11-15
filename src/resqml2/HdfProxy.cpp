@@ -46,7 +46,11 @@ HdfProxy::HdfProxy(const std::string & packageDirAbsolutePath, const std::string
 
 void HdfProxy::open()
 {
-	H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
+	herr_t hdf5Err = H5Eset_auto(H5E_DEFAULT, nullptr, nullptr);
+	if (hdf5Err < 0) {
+		throw invalid_argument("The HDF5 error handling could not have been disabled.");
+	}
+
 	if (hdfFile != -1) {
 		close();
 	}

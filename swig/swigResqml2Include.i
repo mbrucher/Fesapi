@@ -8,7 +8,7 @@
 typedef long long					LONG64;
 
 #ifdef SWIGJAVA
-typedef long long					ULONG64; // We don't want o use BigInteger in java.
+typedef long long					ULONG64; // We don't want to use BigInteger in java.
 #else
 typedef unsigned long long	ULONG64;
 #endif

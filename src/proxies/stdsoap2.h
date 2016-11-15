@@ -544,6 +544,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_SNPRINTF
 #  define HAVE_STRRCHR
 #  define HAVE_STRTOD
+#  define HAVE_STRTOD_L
 #  define HAVE_SSCANF
 #  define HAVE_STRTOL
 #  define HAVE_STRTOUL

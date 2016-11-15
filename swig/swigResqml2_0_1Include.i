@@ -2715,8 +2715,8 @@ namespace resqml2_0_1
 		unsigned int getJCellCount() const;
 		void setJCellCount(const unsigned int & jCount);
 		
-		unsigned int getColumnCount() const {return getICellCount() * getJCellCount();}
-		unsigned int getPillarCount() const {return (getICellCount()+1) * (getJCellCount()+1);}
+		unsigned int getColumnCount() const;
+		unsigned int getPillarCount() const;
 
 		bool isRightHanded() const;
 
