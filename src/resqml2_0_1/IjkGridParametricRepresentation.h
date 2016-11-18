@@ -113,9 +113,20 @@ namespace resqml2_0_1
 		void loadPillarInformation(PillarInformation & pillarInfo) const;
 
 		/**
+		* Get all the XYZ points of a particular K interface of a particular patch of this representation.
+		* This method is optimized in order not to recompute the pillar information but to get it as input.
+		* XYZ points are given in the local CRS.
+		* @param kInterface	The K interface index starting from zero to kCellCount.
+		* @param patchIndex	The index of the patch. It is generally zero.
+		* @param xyzPoints 	A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated with a size of 3*getXyzPointCountOfKInterfaceOfPatch.
+		* @param pillarInfo	The pillar information which we can get calling loadPillarInformation.
+		*/
+		void getXyzPointsOfKInterfaceOfPatch(const unsigned int & kInterface, const unsigned int & patchIndex, double * xyzPoints, const PillarInformation & pillarInfo) const;
+
+		/**
 		* Get all the XYZ points of a particular patch of this representation.
 		* XYZ points are given in the local CRS.
-		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated with a size of 3*getXyzPointCountOfPatch.
 		*/
 		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 

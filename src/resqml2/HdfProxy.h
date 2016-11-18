@@ -47,6 +47,33 @@ namespace resqml2
 		*/
 		HdfProxy(const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
 
+		/**
+		* Read an array Nd of float values stored in a specific dataset.
+		* @param datasetName	The absolute dataset name where to read the values
+		* @param values 		The values must be pre-allocated.
+		* @param datatype 		The hdf datatype of the values to read.
+		* 						If the values are not stored in this particular datatype, then hdf library will try to do a conversion.
+		*/
+		void readArrayNdOfValues(const std::string & datasetName, void* values, const int & datatype);
+
+		/**
+		 * Find the array associated with @p datasetName and read a portion of it.
+		 * @param datasetName                    The name of the array (potentially with multi dimensions).
+		 * @param values                         1d array output of double values ordered firstly by fastest direction.
+		 * @param numValuesInEachDimension       Number of values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		 * @param offsetValuesInEachDimension    Offset values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		 * @param numDimensions                  The number of the dimensions of the array to read.
+		 * @param datatype 		The hdf datatype of the values to read.
+		 * 						If the values are not stored in this particular datatype, then hdf library will try to do a conversion.
+		 */
+		void readArrayNdOfValues(
+		  const std::string & datasetName,
+		  void* values,
+		  unsigned long long * numValuesInEachDimension,
+		  unsigned long long * offsetInEachDimension,
+		  const unsigned int & numDimensions,
+		  const int & datatype);
+
 	public:
 
 		HdfProxy(gsoap_resqml2_0_1::_eml__EpcExternalPartReference* fromGsoap, const std::string & packageDirAbsolutePath, const std::string & externalFilePath) :
@@ -250,6 +277,22 @@ namespace resqml2
 		* @param values 		The values must be pre-allocated.
 		*/
 		void readArrayNdOfDoubleValues(const std::string & datasetName, double* values);
+
+		/**
+		 * Find the array associated with @p datasetName and read from it.
+		 * @param datasetName                    The name of the array (potentially with multi dimensions).
+		 * @param values                         1d array output of double values ordered firstly by fastest direction.
+		 * @param numValuesInEachDimension       Number of values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		 * @param offsetValuesInEachDimension    Offset values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		 * @param numDimensions                  The number of the dimensions of the array to read.
+		 */
+		void readArrayNdOfDoubleValues(
+		  const std::string & datasetName,
+		  double* values,
+		  unsigned long long * numValuesInEachDimension,
+		  unsigned long long * offsetInEachDimension,
+		  const unsigned int & numDimensions
+		  );
 
 		/**
 		* Read an array Nd of float values stored in a specific dataset.

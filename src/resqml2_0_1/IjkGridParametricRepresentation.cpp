@@ -527,6 +527,35 @@ ULONG64 IjkGridParametricRepresentation::getXyzPointCountOfPatch(const unsigned 
 	return result;
 }
 
+void IjkGridParametricRepresentation::getXyzPointsOfKInterfaceOfPatch(const unsigned int & kInterface, const unsigned int & patchIndex, double * xyzPoints, const PillarInformation & pillarInfo) const
+{
+	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
+	if (geom == nullptr) {
+		throw invalid_argument("There is no geometry on this grid.");
+	}
+	resqml2__Point3dParametricArray* parametricPoint3d = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
+
+	ULONG64 xyzPointCount = getXyzPointCountOfKInterfaceOfPatch(patchIndex);
+
+	// parameters : ordered
+	double * parameters = new double[xyzPointCount];
+	if (parametricPoint3d->Parameters->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array) {
+		unsigned long long* numValuesInEachDimension = new unsigned long long[xyzPointCount, 3];
+		unsigned long long* offsetInEachDimension = new unsigned long long[3*xyzPointCount*kInterface, 0];
+		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(parametricPoint3d->Parameters)->Values->PathInHdfFile, parameters,
+				numValuesInEachDimension, offsetInEachDimension, 2);
+		delete [] numValuesInEachDimension;
+		delete [] offsetInEachDimension;
+	}
+	else {
+		throw logic_error("Non floating point coordinate line parameters are not implemented yet");
+	}
+
+	// TODO!!!!!!
+
+	delete [] parameters;
+}
+
 void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
 	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
@@ -535,13 +564,7 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatch(const unsigned int & p
 	}
 	resqml2__Point3dParametricArray* points = static_cast<resqml2__Point3dParametricArray*>(geom->Points);
 
-	if (points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dParametricArray)
-	{
-		getXyzPointsOfPatchFromParametricPoints(points, xyzPoints);
-	}
-	else {
-		throw invalid_argument("The geometry of the grid is not a parametric one.");
-	}
+	getXyzPointsOfPatchFromParametricPoints(points, xyzPoints);
 
 	// Truncation
 	if (isTruncated()) {
@@ -971,7 +994,7 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gs
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__DoubleHdf5Array*>(parametricPoint3d->Parameters)->Values->PathInHdfFile, parameters);
 	}
 	else {
-		throw logic_error("Not yet implemented");
+		throw logic_error("Non floating point coordinate line parameters are not implemented yet");
 	}
 
 	if (parametricPoint3d->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray) {

@@ -250,6 +250,22 @@ namespace resqml2
 		virtual void readArrayNdOfDoubleValues(const std::string & datasetName, double* values) = 0;
 
 		/**
+		 * Find the array associated with @p datasetName and read from it.
+		 * @param datasetName                    The name of the array (potentially with multi dimensions).
+		 * @param values                         1d array output of double values ordered firstly by fastest direction.
+		 * @param numValuesInEachDimension       Number of values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		 * @param offsetValuesInEachDimension    Offset values in each dimension of the array to read. They are ordered from fastest index to slowest index.
+		 * @param numDimensions                  The number of the dimensions of the array to read.
+		 */
+		virtual void readArrayNdOfDoubleValues(
+		  const std::string & datasetName,
+		  double* values,
+		  unsigned long long * numValuesInEachDimension,
+		  unsigned long long * offsetInEachDimension,
+		  const unsigned int & numDimensions
+		  ) = 0;
+
+		/**
 		 * Read an array Nd of float values stored in a specific dataset.
 		 * @param datasetName	The absolute dataset name where to read the values
 		 * @param values 		The values must be pre-allocated.
