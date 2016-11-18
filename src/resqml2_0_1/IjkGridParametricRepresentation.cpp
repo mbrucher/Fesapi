@@ -879,9 +879,9 @@ void IjkGridParametricRepresentation::setGeometryAsParametricSplittedPillarNodes
 	}
 }
 
-IjkGridParametricRepresentation::PillarInformation IjkGridParametricRepresentation::loadPillarInformation() const
+void IjkGridParametricRepresentation::loadPillarInformation(IjkGridParametricRepresentation::PillarInformation & pillarInfo) const
 {
-	IjkGridParametricRepresentation::PillarInformation result;
+	pillarInfo.cleanMemory();
 
 	gsoap_resqml2_0_1::resqml2__PointGeometry* geom = getPointGeometry2_0_1(0);
 	if (geom == nullptr) {
@@ -898,44 +898,44 @@ IjkGridParametricRepresentation::PillarInformation IjkGridParametricRepresentati
 	}
 
 	resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(parametricPoint3d->ParametricLines);
-	result.maxControlPointCount = getControlPointMaxCountPerPillar();
-	result.parametricLineCount = getPillarCount();
-	result.splitLineCount = getSplitCoordinateLineCount();
+	pillarInfo.maxControlPointCount = getControlPointMaxCountPerPillar();
+	pillarInfo.parametricLineCount = getPillarCount();
+	pillarInfo.splitLineCount = getSplitCoordinateLineCount();
 
 	// Control points
-	result.controlPoints = new double[result.parametricLineCount*result.maxControlPointCount*3];
-	getControlPoints(result.controlPoints);
+	pillarInfo.controlPoints = new double[pillarInfo.parametricLineCount*pillarInfo.maxControlPointCount*3];
+	getControlPoints(pillarInfo.controlPoints);
 
 	// Control points parameters
 	if (paramLineArray->ControlPointParameters != nullptr) {
-		result.controlPointParameters = new double[result.parametricLineCount*result.maxControlPointCount];
-		getControlPointParameters(result.controlPointParameters);
+		pillarInfo.controlPointParameters = new double[pillarInfo.parametricLineCount*pillarInfo.maxControlPointCount];
+		getControlPointParameters(pillarInfo.controlPointParameters);
 	}
 
 	// Line kind indices
-	result.pillarKind = new short[result.parametricLineCount];
-	getParametricLineKind(result.pillarKind);
+	pillarInfo.pillarKind = new short[pillarInfo.parametricLineCount];
+	getParametricLineKind(pillarInfo.pillarKind);
 
 	// Pillars of split line
-	if (result.splitLineCount > 0) {
-		result.pillarOfSplitCoordLines = new unsigned int [result.splitLineCount];
-		getPillarsOfSplitCoordinateLines(result.pillarOfSplitCoordLines);
+	if (pillarInfo.splitLineCount > 0) {
+		pillarInfo.pillarOfSplitCoordLines = new unsigned int [pillarInfo.splitLineCount];
+		getPillarsOfSplitCoordinateLines(pillarInfo.pillarOfSplitCoordLines);
 	}
 
 	// Spline creation
 	geometry::BSpline spline;
-	for (unsigned int parametricLineIndex = 0; parametricLineIndex < result.parametricLineCount; ++parametricLineIndex) {
+	for (unsigned int parametricLineIndex = 0; parametricLineIndex < pillarInfo.parametricLineCount; ++parametricLineIndex) {
 		vector<geometry::BSpline> xyzSplines;
-		if (result.pillarKind[parametricLineIndex] == 2 || result.pillarKind[parametricLineIndex] == 4) { // X and Y natural cubic spline
+		if (pillarInfo.pillarKind[parametricLineIndex] == 2 || pillarInfo.pillarKind[parametricLineIndex] == 4) { // X and Y natural cubic spline
 			vector<double> parameters;
 			vector<double> xValues;
 			vector<double> yValues;
-			for (unsigned int cpIndex = 0; cpIndex < result.maxControlPointCount; ++cpIndex) {
-				unsigned int globalCpIndex = parametricLineIndex + cpIndex*result.parametricLineCount;
-				if (result.controlPointParameters[globalCpIndex] == result.controlPointParameters[globalCpIndex]) {
-					parameters.push_back(result.controlPointParameters[globalCpIndex]);
-					xValues.push_back(result.controlPoints[globalCpIndex * 3]);
-					yValues.push_back(result.controlPoints[globalCpIndex * 3 + 1]);
+			for (unsigned int cpIndex = 0; cpIndex < pillarInfo.maxControlPointCount; ++cpIndex) {
+				unsigned int globalCpIndex = parametricLineIndex + cpIndex*pillarInfo.parametricLineCount;
+				if (pillarInfo.controlPointParameters[globalCpIndex] == pillarInfo.controlPointParameters[globalCpIndex]) {
+					parameters.push_back(pillarInfo.controlPointParameters[globalCpIndex]);
+					xValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3]);
+					yValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3 + 1]);
 				}
 			}
 			// X
@@ -945,10 +945,10 @@ IjkGridParametricRepresentation::PillarInformation IjkGridParametricRepresentati
 			spline.setParameterAndValueAtControlPoint(parameters, yValues);
 			xyzSplines.push_back(spline);
 			// Z
-			if (result.pillarKind[parametricLineIndex] == 2) { // Z Natural cubic spline
+			if (pillarInfo.pillarKind[parametricLineIndex] == 2) { // Z Natural cubic spline
 				vector<double> zValues;
-				for (unsigned int cpIndex = 0; cpIndex < result.maxControlPointCount; ++cpIndex) {
-					double zvalue = result.controlPoints[parametricLineIndex + cpIndex*result.parametricLineCount * 3 + 2];
+				for (unsigned int cpIndex = 0; cpIndex < pillarInfo.maxControlPointCount; ++cpIndex) {
+					double zvalue = pillarInfo.controlPoints[parametricLineIndex + cpIndex*pillarInfo.parametricLineCount * 3 + 2];
 					if (zvalue == zvalue) {
 						zValues.push_back(zvalue);
 					}
@@ -957,10 +957,8 @@ IjkGridParametricRepresentation::PillarInformation IjkGridParametricRepresentati
 				xyzSplines.push_back(spline);
 			}
 		}
-		result.splines.push_back(xyzSplines);
+		pillarInfo.splines.push_back(xyzSplines);
 	}
-
-	return result;
 }
 
 void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gsoap_resqml2_0_1::resqml2__Point3dParametricArray* parametricPoint3d, double * xyzPoints) const
@@ -979,7 +977,8 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gs
 	if (parametricPoint3d->ParametricLines->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineArray) {
 		resqml2__ParametricLineArray* paramLineArray = static_cast<resqml2__ParametricLineArray*>(parametricPoint3d->ParametricLines);
 
-		IjkGridParametricRepresentation::PillarInformation pillarInfo = loadPillarInformation();
+		IjkGridParametricRepresentation::PillarInformation pillarInfo;
+		loadPillarInformation(pillarInfo);
 
 		//Mapping
 		size_t paramIndex = 0;
@@ -1040,7 +1039,7 @@ void IjkGridParametricRepresentation::getXyzPointsOfPatchFromParametricPoints(gs
 						}
 
 						if (previousControlPoint == controlPointCount - 1) {
-							throw invalid_argument("Cannot extrapolate piecewiselinear pillar fo now to explicit a grid node.");
+							throw invalid_argument("Cannot extrapolate piecewiselinear pillar for now to explicit a grid node.");
 						}
 
 						double ratioFromPreviousControlPoint = .0;

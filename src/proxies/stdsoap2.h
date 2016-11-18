@@ -1,5 +1,5 @@
 /*
-        stdsoap2.h 2.8.36
+        stdsoap2.h 2.8.39
 
         gSOAP runtime engine
 
@@ -30,7 +30,7 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 --------------------------------------------------------------------------------
 */
 
-#define GSOAP_VERSION 20836
+#define GSOAP_VERSION 20839
 
 #ifdef WITH_SOAPDEFS_H
 # include "soapdefs.h"          /* include user-defined stuff in soapdefs.h */
@@ -246,6 +246,7 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 #  define HAVE_WCTOMB
 #  define HAVE_MBTOWC
 #  define HAVE_INTTYPES_H
+#  define HAVE_LOCALE_H
 # elif defined(WIN32)
 #  if _MSC_VER >= 1400
 #   define HAVE_SNPRINTF
@@ -254,7 +255,6 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 #  define HAVE_STRTOD
 #  define HAVE_SSCANF
 #  define HAVE_STRTOD_L
-#  define HAVE_SPRINTF_L
 #  define HAVE_STRTOL
 #  define HAVE_STRTOUL
 #  if _MSC_VER >= 1300
@@ -268,6 +268,7 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 #  define HAVE_MBTOWC
 #  define SOAP_LONG_FORMAT "%I64d"
 #  define SOAP_ULONG_FORMAT "%I64u"
+#  define HAVE_LOCALE_H
 # elif defined(__APPLE__)
 #  define HAVE_POLL
 #  define HAVE_SNPRINTF
@@ -277,7 +278,6 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 #  define HAVE_SSCANF
 #  define HAVE_STRTOD_L
 #  define HAVE_SSCANF_L
-#  define HAVE_SPRINTF_L
 #  define HAVE_STRTOL
 #  define HAVE_STRTOUL
 #  define HAVE_STRTOLL
@@ -293,6 +293,7 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 #  define HAVE_WCTOMB
 #  define HAVE_MBTOWC
 #  define HAVE_INTTYPES_H
+#  define HAVE_LOCALE_H
 # elif defined(_AIX43)
 #  define HAVE_SNPRINTF
 #  define HAVE_STRRCHR
@@ -308,6 +309,7 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 #  define HAVE_LOCALTIME_R
 #  define HAVE_WCTOMB
 #  define HAVE_MBTOWC
+#  define HAVE_LOCALE_H
 # elif defined(_AIX41)
 #  define HAVE_SNPRINTF
 #  define HAVE_STRRCHR
@@ -318,6 +320,7 @@ Product and source code licensed by Genivia, Inc., contact@genivia.com
 #  define HAVE_SYS_TIMEB_H
 #  define HAVE_WCTOMB
 #  define HAVE_MBTOWC
+#  define HAVE_LOCALE_H
 # elif defined(HP_UX)
 #  include <sys/_inttypes.h>
 extern intmax_t __strtoll(const char*, char**, int);
@@ -341,6 +344,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_WCTOMB
 #  define HAVE_MBTOWC
 #  define HAVE_ISNAN
+#  define HAVE_LOCALE_H
 # elif defined(FREEBSD) || defined(__FreeBSD__) || defined(OPENBSD)
 #  define HAVE_POLL
 #  define HAVE_SNPRINTF
@@ -350,7 +354,6 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_SSCANF
 #  define HAVE_STRTOD_L
 #  define HAVE_SSCANF_L
-#  define HAVE_SPRINTF_L
 #  define HAVE_STRTOL
 #  define HAVE_STRTOUL
 #  define HAVE_STRTOLL
@@ -367,6 +370,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define SOAP_ULONG_FORMAT "%qu"
 #  define HAVE_ISNAN
 #  define HAVE_ISINF
+#  define HAVE_LOCALE_H
 # elif defined(__VMS)
 #  include <ioctl.h>
 #  define HAVE_SNPRINTF
@@ -383,7 +387,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_LOCALTIME_R
 #  define HAVE_WCTOMB
 #  define HAVE_MBTOWC
-# elif defined(__GLIBC__) || defined(__GNU__)
+# elif defined(__GLIBC__) || defined(__GNU__) || defined(__GNUC__)
 #  define HAVE_POLL
 #  define HAVE_SNPRINTF
 #  define HAVE_STRRCHR
@@ -391,11 +395,11 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_SSCANF
 #  define HAVE_STRTOD_L
 #  define HAVE_SSCANF_L
-#  define HAVE_SPRINTF_L
 #  define HAVE_STRTOL
 #  define HAVE_STRTOUL
 #  define HAVE_STRTOLL
 #  define HAVE_STRTOULL
+#  define HAVE_GETTIMEOFDAY
 #  define HAVE_SYS_TIMEB_H
 #  define HAVE_FTIME
 #  define HAVE_RAND_R
@@ -408,6 +412,9 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_MBTOWC
 #  define HAVE_ISNAN
 #  define HAVE_ISINF
+#  if !defined(__GNUC__) || __GNUC__ >= 4 /* gcc 3 and earlier often refuse to compile _l functions */
+#   define HAVE_LOCALE_H
+#  endif
 # elif defined(TRU64)
 #  define HAVE_SNPRINTF
 #  define HAVE_STRRCHR
@@ -426,6 +433,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_MBTOWC
 #  define SOAP_LONG_FORMAT "%ld"
 #  define SOAP_ULONG_FORMAT "%lu"
+#  define HAVE_LOCALE_H
 # elif defined(MAC_CARBON)
 #  define WITH_NOIO
 #  define HAVE_SNPRINTF
@@ -434,7 +442,6 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_SSCANF
 #  define HAVE_STRTOD_L
 #  define HAVE_SSCANF_L
-#  define HAVE_SPRINTF_L
 #  define HAVE_STRTOL
 #  define HAVE_STRTOUL
 #  define HAVE_FTIME
@@ -544,7 +551,6 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_SNPRINTF
 #  define HAVE_STRRCHR
 #  define HAVE_STRTOD
-#  define HAVE_STRTOD_L
 #  define HAVE_SSCANF
 #  define HAVE_STRTOL
 #  define HAVE_STRTOUL
@@ -558,6 +564,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_ASCTIME_R
 #  define HAVE_LOCALTIME_R
 #  define HAVE_STRERROR_R
+#  define HAVE_LOCALE_H
 #  ifdef MB_LEN_MAX
 #   define HAVE_WCTOMB
 #   define HAVE_MBTOWC
@@ -590,7 +597,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #endif
 
 /* allowing empty struct/union in C is a GNU extension */
-#if !defined(__GNU__)
+#if !defined(__GNU__) && !defined(__GNUC__)
 # define WITH_NOEMPTYSTRUCT
 #endif
 
@@ -612,20 +619,33 @@ extern intmax_t __strtoull(const char*, char**, int);
 # endif
 #endif
 
-/* if we have xlocale.h then we can use it WITH_C_LOCALE enabled to avoid decimal point conversion issues */
+/* if we have locale.h then we should use it WITH_C_LOCALE enabled to avoid decimal point conversion issues */
+#ifdef HAVE_LOCALE_H
+# ifndef WITH_C_LOCALE
+#  define WITH_C_LOCALE
+# endif
+#endif
+
+#ifdef WITH_NO_C_LOCALE
+# undef WITH_C_LOCALE
+#endif
+
 #ifdef WITH_C_LOCALE
+# include <locale.h>
 # ifdef WIN32
-#  include <locale.h>
+#  define SOAP_LOCALE_T _locale_t
 #  define SOAP_LOCALE(soap) ((soap)->c_locale ? (soap)->c_locale : ((soap)->c_locale = _create_locale(LC_ALL, "C")))
+#  define SOAP_FREELOCALE(soap) (void)((soap)->c_locale && (_free_locale((soap)->c_locale), ((soap)->c_locale = NULL)))
 # else
 #  include <xlocale.h>
+#  define SOAP_LOCALE_T locale_t
 #  define SOAP_LOCALE(soap) ((soap)->c_locale ? (soap)->c_locale : ((soap)->c_locale = newlocale(LC_ALL_MASK, "C", NULL)))
+#  define SOAP_FREELOCALE(soap) (void)((soap)->c_locale && (freelocale((soap)->c_locale), ((soap)->c_locale = NULL)))
 # endif
 #else
 # undef HAVE_STRTOF_L
 # undef HAVE_STRTOD_L
 # undef HAVE_SSCANF_L
-# undef HAVE_SPRINTF_L
 #endif
 
 #ifdef TANDEM_NONSTOP /* Support for Guardian */
@@ -970,7 +990,7 @@ extern "C" {
 # endif
 # define soap_strtoll soap_strtol
 # define soap_strtoull soap_strtoul
-#elif !defined(WIN32) || defined(CYGWIN) || defined(__GLIBC__) || defined(__GNU__)
+#elif !defined(WIN32) || defined(CYGWIN) || defined(__GLIBC__) || defined(__GNU__) || defined(__GNUC__)
 # ifndef LONG64
 #  if defined(HAVE_INTTYPES_H)
 #   include <inttypes.h>
@@ -1193,7 +1213,7 @@ extern "C" {
 #endif
 
 /* Max number of EINTR while poll/select on a socket */
-/* Each EINTR can lengthen the I/O blocking time by at most one second */
+/* Each EINTR may increase the I/O blocking time by at most one second */
 #ifndef SOAP_MAXEINTR
 # define SOAP_MAXEINTR (10)
 #endif
@@ -1539,6 +1559,8 @@ typedef soap_int32 soap_status;
 #define SOAP_PUT                2003    /* PUT request */
 #define SOAP_DEL                2004    /* DELETE request */
 #define SOAP_CONNECT            2005    /* CONNECT request */
+#define SOAP_HEAD               2006    /* HEAD request */
+#define SOAP_OPTIONS            2007    /* OPTIONS request */
 
 /* gSOAP DIME */
 
@@ -1572,7 +1594,8 @@ typedef soap_int32 soap_mode;
 
 #define SOAP_ENC                0x00000FFF      /* IO and ENC mask */
 #define SOAP_ENC_LATIN          0x00000020      /* in: accept iso-8859-1 */
-#define SOAP_ENC_XML            0x00000040      /* out: plain (XML or other) body, no HTTP header */
+#define SOAP_ENC_PLAIN          0x00000040      /* out: plain (XML or other) body, no HTTP header */
+#define SOAP_ENC_XML            0x00000040      /* alias for SOAP_ENC_PLAIN */
 #define SOAP_ENC_DIME           0x00000080
 #define SOAP_ENC_MIME           0x00000100
 #define SOAP_ENC_MTOM           0x00000200
@@ -2658,18 +2681,24 @@ struct SOAP_CMAC soap
   const char *prolog;           /* XML declaration prolog */
   unsigned long ip;             /* IP number */
   int port;                     /* port number */
-  short keep_alive;             /* connection should be kept open */
-  short tcp_keep_alive;         /* enable SO_KEEPALIVE */
+  int keep_alive;               /* connection should be kept open (-1, 0, or counts down) */
+  int tcp_keep_alive;           /* enable SO_KEEPALIVE */
   unsigned int tcp_keep_idle;   /* set TCP_KEEPIDLE */
   unsigned int tcp_keep_intvl;  /* set TCP_KEEPINTVL */
   unsigned int tcp_keep_cnt;    /* set TCP_KEEPCNT */
-  unsigned int max_keep_alive;  /* maximum keep-alive session (default=100) */
+  int max_keep_alive;           /* maximum keep-alive session (default=100) 0 to always keep open */
   const char *proxy_http_version;/* HTTP version of proxy "1.0" or "1.1" */
   const char *proxy_host;       /* Proxy Server host name */
   int proxy_port;               /* Proxy Server port (default = 8080) */
   const char *proxy_userid;     /* Proxy Authorization user name */
   const char *proxy_passwd;     /* Proxy Authorization password */
   const char *proxy_from;       /* X-Forwarding-For header returned by proxy */
+  const char *origin;           /* Origin */
+  const char *cors_origin;      /* CORS Allow-Origin */
+  const char *cors_method;      /* CORS Request-Method */
+  const char *cors_header;      /* CORS Request-Headers */
+  const char *cors_methods;     /* CORS Allow-Methods */
+  const char *cors_headers;     /* CORS Allow-Headers */
   int status;                   /* -1 when request, else error code to be returned by server */
   int error;
   int errmode;
@@ -2753,11 +2782,7 @@ struct SOAP_CMAC soap
   char session_host[SOAP_TAGLEN];
   int session_port;
 #ifdef WITH_C_LOCALE
-# ifdef WIN32
-  _locale_t c_locale;           /* set to C locale by default */
-# else
-  locale_t c_locale;            /* set to C locale by default */
-# endif
+  SOAP_LOCALE_T c_locale;       /* set to C locale by default */
 #else
   void *c_locale;
 #endif
@@ -2951,6 +2976,10 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putfault(struct soap*);
 SOAP_FMAC1 void SOAP_FMAC2 soap_ssl_init(void);
 SOAP_FMAC1 void SOAP_FMAC2 soap_ssl_noinit(void);
 SOAP_FMAC1 int SOAP_FMAC2 soap_poll(struct soap*);
+SOAP_FMAC1 int SOAP_FMAC2 soap_GET(struct soap*, const char*, const char*);
+SOAP_FMAC1 int SOAP_FMAC2 soap_PUT(struct soap*, const char*, const char*, const char*);
+SOAP_FMAC1 int SOAP_FMAC2 soap_POST(struct soap*, const char*, const char*, const char*);
+SOAP_FMAC1 int SOAP_FMAC2 soap_DELETE(struct soap*, const char*);
 SOAP_FMAC1 int SOAP_FMAC2 soap_connect_command(struct soap*, int, const char*, const char*);
 SOAP_FMAC1 int SOAP_FMAC2 soap_connect(struct soap*, const char*, const char*);
 SOAP_FMAC1 SOAP_SOCKET SOAP_FMAC2 soap_bind(struct soap*, const char*, int, int);

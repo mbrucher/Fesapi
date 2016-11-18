@@ -62,10 +62,14 @@ namespace resqml2_0_1
 					controlPoints(nullptr), controlPointParameters(nullptr), pillarKind(nullptr), pillarOfSplitCoordLines(nullptr) {}
 
 			~PillarInformation() {
-				if (controlPoints != nullptr) delete [] controlPoints;
-				if (controlPointParameters != nullptr) delete [] controlPointParameters;
-				if (pillarKind != nullptr) delete [] pillarKind;
-				if (pillarOfSplitCoordLines != nullptr) delete [] pillarOfSplitCoordLines;
+				cleanMemory();
+			}
+
+			void cleanMemory() {
+				if (controlPoints != nullptr) delete[] controlPoints;
+				if (controlPointParameters != nullptr) delete[] controlPointParameters;
+				if (pillarKind != nullptr) delete[] pillarKind;
+				if (pillarOfSplitCoordLines != nullptr) delete[] pillarOfSplitCoordLines;
 			}
 		};
 
@@ -106,7 +110,7 @@ namespace resqml2_0_1
 		 * Load in memory all pillar information.
 		 * It allows to accelerate getter of xyz points when reading them by K interface
 		 */
-		PillarInformation loadPillarInformation() const;
+		void loadPillarInformation(PillarInformation & pillarInfo) const;
 
 		/**
 		* Get all the XYZ points of a particular patch of this representation.
