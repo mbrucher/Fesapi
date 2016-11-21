@@ -161,6 +161,11 @@ namespace resqml2
 		std::string getInterpretationUuid() const;
 
 		/**
+		* Get the interpretation content type of this representation
+		*/
+		std::string getInterpretationContentType() const;
+
+		/**
 		* Add a subrepresentation to this representation
 		* Does not add the inverse relationship i.e. from the subrepresentation to this representation.
 		*/

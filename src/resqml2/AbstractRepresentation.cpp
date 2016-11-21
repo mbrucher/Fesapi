@@ -263,12 +263,19 @@ AbstractFeatureInterpretation* AbstractRepresentation::getInterpretation() const
 std::string AbstractRepresentation::getInterpretationUuid() const
 {
 	if (gsoapProxy2_0_1 != nullptr) {
-		if (static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation != nullptr) {
-			return static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation->UUID;
-		}
-		else {
-			return "";
-		}
+		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation != nullptr ?
+			static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation->UUID : "";
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
+std::string AbstractRepresentation::getInterpretationContentType() const
+{
+	if (gsoapProxy2_0_1 != nullptr) {
+		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation != nullptr ?
+			static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation->ContentType : "";
 	}
 	else {
 		throw logic_error("Not implemented yet");

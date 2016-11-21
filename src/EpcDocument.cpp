@@ -872,13 +872,13 @@ vector<PolylineSetRepresentation*> EpcDocument::getFaultPolylineSetRepSet() cons
 	vector<PolylineSetRepresentation*> result;
 
 	vector<Fault*> faultSet = getFaultSet();
-	for (unsigned int featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
+	for (size_t featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
+			for (size_t repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
 				{
@@ -896,13 +896,13 @@ vector<PolylineSetRepresentation*> EpcDocument::getFracturePolylineSetRepSet() c
 	vector<PolylineSetRepresentation*> result;
 
 	vector<Fracture*> fractureSet = getFractureSet();
-	for (unsigned int featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
+	for (size_t featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
+			for (size_t repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
 				{
@@ -920,13 +920,13 @@ vector<PolylineSetRepresentation*> EpcDocument::getFrontierPolylineSetRepSet() c
 	vector<PolylineSetRepresentation*> result;
 
 	vector<FrontierFeature*> frontierSet = getFrontierSet();
-	for (unsigned int featureIndex = 0; featureIndex < frontierSet.size(); featureIndex++)
+	for (size_t featureIndex = 0; featureIndex < frontierSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = frontierSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
+			for (size_t repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
 				{
@@ -944,13 +944,13 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFaultTriangulatedSetRepSe
 	vector<TriangulatedSetRepresentation*> result;
 
 	vector<Fault*> faultSet = getFaultSet();
-	for (unsigned int featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
+	for (size_t featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
+			for (size_t repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
 				{
@@ -968,13 +968,13 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFractureTriangulatedSetRe
 	vector<TriangulatedSetRepresentation*> result;
 
 	vector<Fracture*> fractureSet = getFractureSet();
-	for (unsigned int featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
+	for (size_t featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
 		{
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
+			for (size_t repIndex = 0; repIndex < repSet.size(); repIndex++)
 			{
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
 				{
@@ -992,16 +992,12 @@ vector<Grid2dSetRepresentation*> EpcDocument::getHorizonGrid2dSetRepSet() const
 	vector<Grid2dSetRepresentation*> result;
 
 	vector<Horizon*> horizonSet = getHorizonSet();
-	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
-	{
+	for (size_t featureIndex = 0; featureIndex < horizonSet.size(); ++featureIndex) {
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
-		{
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); ++interpIndex) {
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
-			{
-				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dSetRepresentation)
-				{
+			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dSetRepresentation) {
 					result.push_back(static_cast<Grid2dSetRepresentation*>(repSet[repIndex]));
 				}
 			}
@@ -1016,16 +1012,12 @@ vector<Grid2dRepresentation*> EpcDocument::getHorizonGrid2dRepSet() const
 	vector<Grid2dRepresentation*> result;
 
 	vector<Horizon*> horizonSet = getHorizonSet();
-	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
-	{
+	for (size_t featureIndex = 0; featureIndex < horizonSet.size(); ++featureIndex) {
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
-		{
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); ++interpIndex) {
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
-			{
-				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dRepresentation)
-				{
+			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREGrid2dRepresentation) {
 					result.push_back(static_cast<Grid2dRepresentation*>(repSet[repIndex]));
 				}
 			}
@@ -1040,16 +1032,12 @@ std::vector<PolylineRepresentation*> EpcDocument::getHorizonPolylineRepSet() con
 	vector<PolylineRepresentation*> result;
 
 	vector<Horizon*> horizonSet = getHorizonSet();
-	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
-	{
+	for (size_t featureIndex = 0; featureIndex < horizonSet.size(); ++featureIndex) {
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
-		{
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); ++interpIndex) {
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
-			{
-				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation)
-				{
+			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation) {
 					result.push_back(static_cast<PolylineRepresentation*>(repSet[repIndex]));
 				}
 			}
@@ -1064,16 +1052,12 @@ std::vector<PolylineSetRepresentation*> EpcDocument::getHorizonPolylineSetRepSet
 	vector<PolylineSetRepresentation*> result;
 
 	vector<Horizon*> horizonSet = getHorizonSet();
-	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
-	{
+	for (size_t featureIndex = 0; featureIndex < horizonSet.size(); ++featureIndex) {
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
-		{
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); ++interpIndex) {
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
-			{
-				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation)
-				{
+			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineSetRepresentation) {
 					result.push_back(static_cast<PolylineSetRepresentation*>(repSet[repIndex]));
 				}
 			}
@@ -1088,16 +1072,12 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getHorizonTriangulatedSetRep
 	vector<TriangulatedSetRepresentation*> result;
 
 	vector<Horizon*> horizonSet = getHorizonSet();
-	for (unsigned int featureIndex = 0; featureIndex < horizonSet.size(); featureIndex++)
-	{
+	for (size_t featureIndex = 0; featureIndex < horizonSet.size(); ++featureIndex) {
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = horizonSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
-		{
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); ++interpIndex) {
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
-			{
-				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation)
-				{
+			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCORETriangulatedSetRepresentation) {
 					TriangulatedSetRepresentation* rep = static_cast<TriangulatedSetRepresentation*>(repSet[repIndex]);
 					result.push_back(rep);
 				}
@@ -1112,12 +1092,26 @@ std::vector<resqml2_0_1::TriangulatedSetRepresentation*> EpcDocument::getUnclass
 {
 	vector<TriangulatedSetRepresentation*> result;
 
-	for (unsigned int triRepIndex = 0; triRepIndex < triangulatedSetRepresentationSet.size(); triRepIndex++)
-	{
-		int soapType = triangulatedSetRepresentationSet[triRepIndex]->getInterpretation()->getGsoapType();
-		if (soapType != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFaultInterpretation && soapType != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREHorizonInterpretation)
-		{
+	for (size_t triRepIndex = 0; triRepIndex < triangulatedSetRepresentationSet.size(); ++triRepIndex) {
+		resqml2::AbstractFeatureInterpretation* interp = triangulatedSetRepresentationSet[triRepIndex]->getInterpretation();
+		if (interp == nullptr) {
 			result.push_back(triangulatedSetRepresentationSet[triRepIndex]);
+		}
+		else {
+			if (!interp->isPartial()) {
+				const int soapType = interp->getGsoapType();
+				if (soapType != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREFaultInterpretation &&
+					soapType != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREHorizonInterpretation) {
+					result.push_back(triangulatedSetRepresentationSet[triRepIndex]);
+				}
+			}
+			else {
+				const std::string contentType = triangulatedSetRepresentationSet[triRepIndex]->getInterpretationContentType();
+				if (contentType.find("Horizon") == string::npos &&
+					contentType.find("Fault") == string::npos) {
+					result.push_back(triangulatedSetRepresentationSet[triRepIndex]);
+				}
+			}
 		}
 	}
 
@@ -1128,16 +1122,12 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 {
 	vector<WellboreTrajectoryRepresentation*> result;
 
-	for (unsigned int featureIndex = 0; featureIndex < wellboreSet.size(); featureIndex++)
-	{
+	for (size_t featureIndex = 0; featureIndex < wellboreSet.size(); ++featureIndex) {
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = wellboreSet[featureIndex]->getInterpretationSet();
-		for (unsigned int interpIndex = 0; interpIndex < interpSet.size(); interpIndex++)
-		{
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); ++interpIndex) {
 			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
-			for (unsigned int repIndex = 0; repIndex < repSet.size(); repIndex++)
-			{
-				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreTrajectoryRepresentation)
-				{
+			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreTrajectoryRepresentation) {
 					result.push_back(static_cast<WellboreTrajectoryRepresentation*>(repSet[repIndex]));
 				}
 			}
@@ -1159,10 +1149,11 @@ unsigned int EpcDocument::getRepresentationSetRepresentationCount() const
 
 resqml2::RepresentationSetRepresentation* EpcDocument::getRepresentationSetRepresentation(const unsigned int & index) const
 {
-	if (index >= getRepresentationSetRepresentationCount())
+	if (index >= getRepresentationSetRepresentationCount()) {
 		throw range_error("The index of the representation set representaiton is out of range");
-	else
-		return representationSetRepresentationSet[index];
+	}
+
+	return representationSetRepresentationSet[index];
 }
 
 vector<IjkGridParametricRepresentation*> EpcDocument::getIjkGridParametricRepresentationSet() const
