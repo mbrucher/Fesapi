@@ -43,9 +43,14 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT ContinuousProperty : public resqml2::AbstractValuesProperty
 	{
-	public:
+	protected:
 
+		/**
+		* Default constructor
+		*/
 		ContinuousProperty() {}
+
+	private:
 
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -53,7 +58,20 @@ namespace resqml2_0_1
 		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
-		* @param attachmentKind				The topological orbit which support each value.
+		* @param attachmentKind				The topological orbit which supports each value.
+		*/
+		void init(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind);
+
+	public:
+
+		/**
+		* Creates an instance of this class in a gsoap context based on a standard kind and a standard uom.
+		* @param rep						The representation which supports these property values.
+		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.
+		* @param title						A title for the instance to create.
+		* @param dimension					The dimension of each value (scalar properties == 1).
+		* @param attachmentKind				The topological orbit which supports each value.
 		* @apram uom						The uom of the values
 		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
@@ -61,17 +79,43 @@ namespace resqml2_0_1
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
 
 		/**
-		* Creates an instance of this class in a gsoap context.
+		* Creates an instance of this class in a gsoap context based on a local kind and a standard uom.
 		* @param rep						The representation which supports these property values.
 		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
-		* @param attachmentKind				The topological orbit which support each value.
+		* @param attachmentKind				The topological orbit which supports each value.
 		* @apram uom						The uom of the values
 		* @param localPropType				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
 		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropKind);
+
+		/**
+		* Creates an instance of this class in a gsoap context based on a standard kind and a local uom.
+		* @param rep						The representation which supports these property values.
+		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.
+		* @param title						A title for the instance to create.
+		* @param dimension					The dimension of each value (scalar properties == 1).
+		* @param attachmentKind				The topological orbit which supports each value.
+		* @apram nonStandardUom				The non standard uom of the values
+		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
+		*/
+		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
+
+		/**
+		* Creates an instance of this class in a gsoap context based on a local kind and a local uom.
+		* @param rep						The representation which supports these property values.
+		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.
+		* @param title						A title for the instance to create.
+		* @param dimension					The dimension of each value (scalar properties == 1).
+		* @param attachmentKind				The topological orbit which supports each value.
+		* @apram nonStandardUom				The non standard uom of the values
+		* @param localPropType				The property kind of these property values which must be defined in the EPC document as a local property kind.
+		*/
+		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, resqml2::PropertyKind * localPropKind);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

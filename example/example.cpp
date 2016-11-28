@@ -127,8 +127,8 @@ witsml1_4_1_1::CoordinateReferenceSystem* witsmlCrs;
 
 void serializeWells(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
-	witsml1_4_1_1::Trajectory* witsmlTraj = NULL;
-	witsml1_4_1_1::Log* witsmlLog = NULL;
+	witsml1_4_1_1::Trajectory* witsmlTraj = nullptr;
+	witsml1_4_1_1::Log* witsmlLog = nullptr;
 
 	// WELL
 	witsml1_4_1_1::Well* witsmlWell = pck->createWell("", "Well1", "00:00");
@@ -204,9 +204,10 @@ void serializeWells(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfPro
 	DiscreteProperty* discreteProp = pck->createDiscreteProperty(w1i1FrameRep,"","Wellbore1 Interp1 FrameRep IntervalIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__intervals, unitNumberPropType);
 	long unitNumbers[5] = { 0, 1, 2, 3, 4 };
-	discreteProp->pushBackLongHdf5Array1dOfValues(unitNumbers, 4, hdfProxy, -1);
-	if (witsmlLog)
+	discreteProp->pushBackLongHdf5Array1dOfValues(unitNumbers, 5, hdfProxy, -1);
+	if (witsmlLog != nullptr) {
 		w1i1FrameRep->setWitsmlLog(witsmlLog);
+	}
 }
 
 void serializeStratigraphicModel(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
@@ -395,14 +396,14 @@ void serializeBoundaries(common::EpcDocument * pck, resqml2::AbstractHdfProxy* h
     //**************
     // Properties
     //**************
-	resqml2::PropertyKind * propType1 = pck->createPropertyKind("", "propType1", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
-	ContinuousProperty* contProp1 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "", "Horizon1 Interp1 Grid2dRep Prop1", 2,
-        gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__m, propType1);
+	resqml2::PropertyKind * propType1 = pck->createPropertyKind("f7ad7cf5-f2e7-4daa-8b13-7b3df4edba3b", "propType1", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous);
+	ContinuousProperty* contProp1 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "fcaccfc7-10cb-4f73-800e-a381642478cb", "Horizon1 Interp1 Grid2dRep Prop1", 2,
+        gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, "exoticMeter", propType1);
     double prop1Values[16] = {301,302, 301,302, 351,352, 351,352, 301,302, 301,302, 351,352, 351,352};
     contProp1->pushBackDoubleHdf5Array1dOfValues(prop1Values, 8, hdfProxy);
 
-	resqml2::PropertyKind * propType2 = pck->createPropertyKind("", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
-	ContinuousProperty* contProp2 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "", "Horizon1 Interp1 Grid2dRep Prop2", 1,
+	resqml2::PropertyKind * propType2 = pck->createPropertyKind("7372f8f6-b1fd-4263-b9a8-699d9cbf7da6", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
+	ContinuousProperty* contProp2 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "d3efb337-19f8-4b91-8b4f-3698afe17f01", "Horizon1 Interp1 Grid2dRep Prop2", 1,
         gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, gsoap_resqml2_0_1::resqml2__ResqmlUom__ft, propType2);
     double prop2Values[8] = {302, 302, 352, 352, 302, 302, 352, 352};
     contProp2->pushBackDoubleHdf5Array1dOfValues(prop2Values, 8, hdfProxy);
@@ -2103,6 +2104,8 @@ void deserialize(const string & inputFile)
 	std::cout << endl << pck.getWarnings().size() << " WARNING(S)" << endl;
 	for (size_t i = 0; i < pck.getWarnings().size(); ++i)
 		std::cout << i << " - " << pck.getWarnings()[i] << endl;
+
+	pck.close();
 }
 
 /*

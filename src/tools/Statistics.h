@@ -35,6 +35,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include <cstddef>
 #include <utility>
+#include <stdexcept>
 
 namespace statistics
 {
@@ -45,9 +46,13 @@ namespace statistics
 		const T & noValue,
 		const size_t & valueCount)
 	{
-		size_t i = 0;
+		if (valueCount == 0) {
+			throw std::invalid_argument("You cannot compute min max on an empty array.");
+		}
+
 		std::pair<T, T> minMax(noValue, noValue);
-		while ((values[i] != values[i] || values[i] == noValue) && i < valueCount) ++i;
+		size_t i = 0;
+		while (i < valueCount && (values[i] != values[i] || values[i] == noValue)) ++i;
 		if (i < valueCount)
 		{
 			minMax.first = values[i];

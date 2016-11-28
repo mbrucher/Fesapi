@@ -605,16 +605,14 @@ void AbstractProperty::setLocalPropertyKind(PropertyKind* propKind)
 	propKind->propertySet.push_back(this);
 
 	// XML
-	if (updateXml)
-	{
+	if (updateXml) {
 		setXmlLocalPropertyKind(propKind);
 	}
 }
 
 std::string AbstractProperty::getLocalPropertyKindUuid() const
 {
-	if (!isAssociatedToOneStandardEnergisticsPropertyKind())
-	{
+	if (!isAssociatedToOneStandardEnergisticsPropertyKind()) {
 		if (gsoapProxy2_0_1 != nullptr) {
 			gsoap_resqml2_0_1::resqml2__AbstractProperty* prop = static_cast<gsoap_resqml2_0_1::resqml2__AbstractProperty*>(gsoapProxy2_0_1);
 			return static_cast<gsoap_resqml2_0_1::resqml2__LocalPropertyKind*>(prop->PropertyKind)->LocalPropertyKind->UUID;

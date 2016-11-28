@@ -40,6 +40,10 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT PropertyKind : public resqml2::PropertyKind
 	{
+	private:
+
+		void init(soap* soapContext, const std::string & guid, const std::string & title, const std::string & namingSystem);
+
 	public:
 		/**
 		* Only to be used in partial transfer context
@@ -47,7 +51,7 @@ namespace resqml2_0_1
 		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::PropertyKind(partialObject) {}
 
 		/**
-		* Creates a local property type which derives from a standard Energistics property type.
+		* Creates a local property type which uses a standard uom and which derives from a standard Energistics property type.
 		* @param soapContext					The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title							The title of the instance.
@@ -59,7 +63,7 @@ namespace resqml2_0_1
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind);
 
 		/**
-		* Creates a local property type which derives from another local property type.
+		* Creates a local property type which uses a standard uom and which derives from another local property type.
 		* @param soapContext					The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
 		* @param title							The title of the instance.
@@ -69,6 +73,30 @@ namespace resqml2_0_1
 		*/
 		PropertyKind(soap* soapContext, const std::string & guid, const std::string & title,
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType);
+
+		/**
+		* Creates a local property type which uses a non standard uom and which derives from a standard Energistics property type.
+		* @param soapContext					The soap context where the underlying gsoap proxy is going to be created.
+		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title							The title of the instance.
+		* @param namingSystem					The name of the dictionary within which the property is unique.
+		* @apram nonStandardUom					The non standard uom of the values
+		* @param parentEnergisticsPropertyKind	The name of the parent property type in the Energistics property dictionary.
+		*/
+		PropertyKind(soap* soapContext, const std::string & guid, const std::string & title,
+			const std::string & namingSystem, const std::string & nonStandardUom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind);
+
+		/**
+		* Creates a local property type which uses a non standard uom which derives from another local property type.
+		* @param soapContext					The soap context where the underlying gsoap proxy is going to be created.
+		* @param guid							The guid to set to the local 3d crs. If empty then a new guid will be generated.
+		* @param title							The title of the instance.
+		* @param namingSystem					The name of the dictionary within which the property is unique.
+		* @apram nonStandardUom					The non standard uom of the values
+		* @param parentPropType					The local parent property type in the EPC document.
+		*/
+		PropertyKind(soap* soapContext, const std::string & guid, const std::string & title,
+			const std::string & namingSystem, const std::string & nonStandardUom, resqml2::PropertyKind * parentPropType);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

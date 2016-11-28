@@ -220,7 +220,7 @@ void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, unsigned lon
 void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy * proxy,
 	const long & nullValue)
 {
-	hsize_t numTotalValues = numValues[0];
+	size_t numTotalValues = numValues[0];
 	for (unsigned int dim = 1; dim < numDimensionsInArray; ++dim) {
 		numTotalValues *= numValues[dim];
 	}

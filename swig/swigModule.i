@@ -33,19 +33,19 @@
 // POD C ARRAYS
 //************************
 %include "carrays_indexing64bits.i"
-%array_class(unsigned long long, ULongLongArray);
-%array_class(unsigned long, ULongArray);
-%array_class(unsigned int, UIntArray);
-%array_class(int, IntArray);
-%array_class(long long, LongLongArray);
-%array_class(long, LongArray);
-%array_class(float, FloatArray);
-%array_class(double, DoubleArray);
-%array_class(short, ShortArray);
-%array_class(unsigned short, UShortArray);
-%array_class(char, CharArray);
-%array_class(unsigned char, UCharArray);
-%array_class(bool, BoolArray);
+%array_functions(unsigned long long, ULongLongArray);
+%array_functions(unsigned long, ULongArray);
+%array_functions(unsigned int, UIntArray);
+%array_functions(int, IntArray);
+%array_functions(long long, LongLongArray);
+%array_functions(long, LongArray);
+%array_functions(float, FloatArray);
+%array_functions(double, DoubleArray);
+%array_functions(short, ShortArray);
+%array_functions(unsigned short, UShortArray);
+%array_functions(char, CharArray);
+%array_functions(unsigned char, UCharArray);
+%array_functions(bool, BoolArray);
 
 //************************
 // EXCEPTIONS
@@ -80,6 +80,8 @@
 
 namespace common
 {
+	%typemap(javafinalize) EpcDocument %{
+	%}
 	class EpcDocument
 	{
 	public:
@@ -421,6 +423,12 @@ namespace common
 		resqml2::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType);
 
+		resqml2::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
+			const std::string & namingSystem, const std::string & nonStandardUom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind);
+
+		resqml2::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
+			const std::string & namingSystem, const std::string & nonStandardUom, resqml2::PropertyKind * parentPropType);
+
 		resqml2::PropertyKind* createPartialPropertyKind(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::CommentProperty* createCommentProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -434,6 +442,12 @@ namespace common
 
 		resqml2_0_1::ContinuousProperty* createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropType);
+
+		resqml2_0_1::ContinuousProperty* createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
+
+		resqml2_0_1::ContinuousProperty* createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, resqml2::PropertyKind * localPropType);
 
 		resqml2_0_1::ContinuousPropertySeries* createContinuousPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,

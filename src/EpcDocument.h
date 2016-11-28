@@ -158,10 +158,13 @@ namespace common
 
 		enum openingMode { READ_ONLY = 0, READ_WRITE = 1, OVERWRITE = 2 };
 
-		EpcDocument(const std::string & fileName, const openingMode & hdf5PermissionAccess = READ_WRITE);
-		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, const openingMode & hdf5PermissionAccess = READ_WRITE);
+		EpcDocument(const std::string & fileName, const openingMode & hdf5PermissionAccess = READ_ONLY);
+		EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, const openingMode & hdf5PermissionAccess = READ_ONLY);
 
-		virtual ~EpcDocument();
+		/**
+		* The destructor frees all allocated ressources.
+		*/
+		virtual ~EpcDocument() { close(); }
 
 		// A function pointer definition which allows to build an abstract hdf proxy in writing mode of an epc document
 		typedef resqml2::AbstractHdfProxy* (HdfProxyBuilder)(soap* soapContext, const std::string & guid, const std::string & title, const std::string & packageDirAbsolutePath, const std::string & externalFilePath);
@@ -181,10 +184,11 @@ namespace common
 #endif
 
 		/**
-		 * Open an epc document
-		 * @return	false if the epc document cannot be opened for example if it is already opened.
-		 */
-		bool open(const std::string & fileName);
+		* Open an epc document.
+		* If already opened, the epc document must be closed before to open a new one.
+		* Don't forget to call close() before to destroy this object.
+		*/
+		void open(const std::string & fileName, const openingMode & hdf5PermissionAccess = READ_ONLY);
 	
 		/**
 		 * Free all ressources contained in this package.
@@ -943,6 +947,12 @@ namespace common
 		resqml2::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
 			const std::string & namingSystem, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType);
 
+		resqml2::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
+			const std::string & namingSystem, const std::string & nonStandardUom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind);
+
+		resqml2::PropertyKind* createPropertyKind(const std::string & guid, const std::string & title,
+			const std::string & namingSystem, const std::string & nonStandardUom, resqml2::PropertyKind * parentPropType);
+
 		resqml2::PropertyKind* createPartialPropertyKind(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::CommentProperty* createCommentProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -956,6 +966,12 @@ namespace common
 
 		resqml2_0_1::ContinuousProperty* createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropType);
+
+		resqml2_0_1::ContinuousProperty* createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind);
+
+		resqml2_0_1::ContinuousProperty* createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, resqml2::PropertyKind * localPropType);
 
 		resqml2_0_1::ContinuousPropertySeries* createContinuousPropertySeries(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
 			const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & energisticsPropertyKind,

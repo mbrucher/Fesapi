@@ -42,43 +42,60 @@ using namespace resqml2_0_1;
 using namespace gsoap_resqml2_0_1;
 using namespace epc;
 
-PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
-	const string & namingSystem, const resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
+void PropertyKind::init(soap* soapContext, const std::string & guid, const std::string & title, const std::string & namingSystem)
 {
 	if (soapContext == nullptr)
 		throw invalid_argument("The soap context cannot be null.");
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
 	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
-	
-	propType->NamingSystem = namingSystem;
-	propType->RepresentativeUom = uom;
 
-	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
-	xmlStandardPropKind->Kind = parentEnergisticsPropertyKind;
-	propType->ParentPropertyKind = xmlStandardPropKind;
-	
+	propType->NamingSystem = namingSystem;
+
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
 PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
+	const string & namingSystem, const resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
+{
+	init(soapContext, guid, title, namingSystem);
+	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->RepresentativeUom = uom;
+
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
+	xmlStandardPropKind->Kind = parentEnergisticsPropertyKind;
+	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->ParentPropertyKind = xmlStandardPropKind;
+}
+
+PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
 	const string & namingSystem, const resqml2__ResqmlUom & uom, resqml2::PropertyKind * parentPropType)
 {
-	if (soapContext == nullptr) {
-		throw invalid_argument("The soap context cannot be null.");
-	}
-
-	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREPropertyKind(soapContext, 1);
-	_resqml2__PropertyKind* propType = getSpecializedGsoapProxy();
-	
-	propType->NamingSystem = namingSystem;
-	propType->RepresentativeUom = uom;
+	init(soapContext, guid, title, namingSystem);
+	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->RepresentativeUom = uom;
 
 	setParentPropertyKind(parentPropType);
+}
 
-	initMandatoryMetadata();
-	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
+	const string & namingSystem, const std::string & nonStandardUom, const resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
+{
+	init(soapContext, guid, title, namingSystem);
+	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->RepresentativeUom = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
+	addOrSetExtraMetadata("Uom", nonStandardUom);
+
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
+	xmlStandardPropKind->Kind = parentEnergisticsPropertyKind;
+	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->ParentPropertyKind = xmlStandardPropKind;
+}
+
+PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string & title,
+	const string & namingSystem, const std::string & nonStandardUom, resqml2::PropertyKind * parentPropType)
+{
+	init(soapContext, guid, title, namingSystem);
+	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->RepresentativeUom = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
+	addOrSetExtraMetadata("Uom", nonStandardUom);
+
+	setParentPropertyKind(parentPropType);
 }
 
 _resqml2__PropertyKind* PropertyKind::getSpecializedGsoapProxy() const

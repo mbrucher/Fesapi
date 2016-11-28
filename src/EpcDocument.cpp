@@ -154,21 +154,21 @@ namespace // anonymous namespace. Use only in that file.
 }
 
 EpcDocument::EpcDocument(const string & fileName, const openingMode & hdf5PermissionAccess) :
-	hdf5PermissionAccess(hdf5PermissionAccess), package(nullptr), s(nullptr), propertyKindMapper(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_gsoap_proxy_2_0_1(&default_builder)
+	package(nullptr), s(nullptr), propertyKindMapper(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_gsoap_proxy_2_0_1(&default_builder)
 #ifdef WITH_RESQML2_1
 	, make_hdf_proxy_from_gsoap_proxy_2_1(&default_builder)
 #endif
 {
-	open(fileName);
+	open(fileName, hdf5PermissionAccess);
 }
 
 EpcDocument::EpcDocument(const std::string & fileName, const std::string & propertyKindMappingFilesDirectory, const openingMode & hdf5PermissionAccess) :
-	hdf5PermissionAccess(hdf5PermissionAccess), package(nullptr), s(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_gsoap_proxy_2_0_1(&default_builder)
+	package(nullptr), s(nullptr), make_hdf_proxy(&default_builder), make_hdf_proxy_from_gsoap_proxy_2_0_1(&default_builder)
 #ifdef WITH_RESQML2_1
 	, make_hdf_proxy_from_gsoap_proxy_2_1(&default_builder)
 #endif
 {
-	open(fileName);
+	open(fileName, hdf5PermissionAccess);
 
 	// Load property kind mapping files
 	propertyKindMapper = new PropertyKindMapper(this);
@@ -179,11 +179,6 @@ EpcDocument::EpcDocument(const std::string & fileName, const std::string & prope
 		delete propertyKindMapper;
 		propertyKindMapper = nullptr;
 	}
-}
-
-EpcDocument::~EpcDocument()
-{
-	close();
 }
 
 const EpcDocument::openingMode & EpcDocument::getHdf5PermissionAccess() const
@@ -270,19 +265,18 @@ std::vector<witsml1_4_1_1::Trajectory*> EpcDocument::getWitsmlTrajectorySet() co
 void EpcDocument::addWarning(const std::string & warning) { warnings.push_back(warning); }
 const std::vector<std::string> & EpcDocument::getWarnings() const { return warnings; }
 
-bool EpcDocument::open(const std::string & fileName)
+void  EpcDocument::open(const std::string & fileName, const openingMode & hdf5PermissionAccess)
 {
 	if (s != nullptr || package != nullptr) {
-		return false;
+		throw invalid_argument("The epc document must be closed before to be opened again.");
 	}
 
+	this->hdf5PermissionAccess = hdf5PermissionAccess;
 	setFilePath(fileName);
 
 	s = soap_new2(SOAP_XML_STRICT | SOAP_C_UTFSTRING, SOAP_XML_TREE | SOAP_XML_INDENT | SOAP_XML_CANONICAL | SOAP_C_UTFSTRING); // new context with option
 
 	package = new Package();
-
-	return true;
 }
 
 void EpcDocument::close()
@@ -2025,6 +2019,22 @@ resqml2::PropertyKind* EpcDocument::createPropertyKind(const std::string & guid,
 	return result;
 }
 
+resqml2::PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
+	const std::string & namingSystem, const std::string & nonStandardUom, const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & parentEnergisticsPropertyKind)
+{
+	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(getGsoapContext(), guid, title, namingSystem, nonStandardUom, parentEnergisticsPropertyKind);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+resqml2::PropertyKind* EpcDocument::createPropertyKind(const std::string & guid, const std::string & title,
+	const std::string & namingSystem, const std::string & nonStandardUom, resqml2::PropertyKind * parentPropType)
+{
+	resqml2::PropertyKind* result = new resqml2_0_1::PropertyKind(getGsoapContext(), guid, title, namingSystem, nonStandardUom, parentPropType);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
 resqml2::PropertyKind* EpcDocument::createPartialPropertyKind(const std::string & guid, const std::string & title)
 {
 	eml__DataObjectReference* dor = soap_new_eml__DataObjectReference(s, 1);
@@ -2063,6 +2073,22 @@ ContinuousProperty* EpcDocument::createContinuousProperty(resqml2::AbstractRepre
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropType)
 {
 	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, uom, localPropType);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+ContinuousProperty* EpcDocument::createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
+{
+	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, nonStandardUom, energisticsPropertyKind);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+ContinuousProperty* EpcDocument::createContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, resqml2::PropertyKind * localPropType)
+{
+	ContinuousProperty* result = new ContinuousProperty(rep, guid, title, dimension, attachmentKind, nonStandardUom, localPropType);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }

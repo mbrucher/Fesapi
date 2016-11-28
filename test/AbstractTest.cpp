@@ -18,19 +18,20 @@ AbstractTest::AbstractTest(common::EpcDocument* epcDoc) :
 }
 
 void AbstractTest::serialize() {
-	this->epcDoc = new common::EpcDocument(this->epcDocPath, common::EpcDocument::OVERWRITE);
-	epcDoc->createHdfProxy(uuidHdfProxy, titleHdfProxy, this->epcDoc->getStorageDirectory(), epcDoc->getName() + ".h5");
+	epcDoc = new common::EpcDocument(epcDocPath, common::EpcDocument::OVERWRITE);
+	epcDoc->createHdfProxy(uuidHdfProxy, titleHdfProxy, epcDoc->getStorageDirectory(), epcDoc->getName() + ".h5");
 
-	this->initEpcDoc();
+	initEpcDoc();
 	
-	this->epcDoc->serialize();
-	delete this->epcDoc;
+	epcDoc->serialize();
+	epcDoc->close();
+	delete epcDoc;
 }
 
 void AbstractTest::deserialize() {
-	this->epcDoc = new common::EpcDocument(this->epcDocPath);
+	epcDoc = new common::EpcDocument(epcDocPath);
 
-	std::string validationResult = this->epcDoc->deserialize();
+	std::string validationResult = epcDoc->deserialize();
 	if (validationResult.size() > 0)
 		cout << "Validation error: " << validationResult << endl; 
 	REQUIRE( validationResult.size() == 0 );
@@ -46,7 +47,8 @@ void AbstractTest::deserialize() {
 		cout << endl;
 	}
 
-	this->readEpcDoc();
+	epcDoc->close();
+	readEpcDoc();
 
-	delete this->epcDoc;
+	delete epcDoc;
 }

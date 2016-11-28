@@ -47,18 +47,13 @@ using namespace gsoap_resqml2_0_1;
 
 const char* ContinuousProperty::XML_TAG = "ContinuousProperty";
 
-ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
-	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
+void ContinuousProperty::init(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind)
 {
-	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);
 	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
 	prop->IndexableElement = attachmentKind;
 	prop->Count = dimension;
-	prop->UOM = uom;
-
-	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
-	xmlStandardPropKind->Kind = energisticsPropertyKind;
-	prop->PropertyKind = xmlStandardPropKind;
 
 	setRepresentation(rep);
 
@@ -67,20 +62,49 @@ ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, co
 }
 
 ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
+{
+	init(rep, guid, title, dimension, attachmentKind);
+
+	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->UOM = uom;
+
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
+	xmlStandardPropKind->Kind = energisticsPropertyKind;
+	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->PropertyKind = xmlStandardPropKind;
+}
+
+ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
 	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const gsoap_resqml2_0_1::resqml2__ResqmlUom & uom, resqml2::PropertyKind * localPropKind)
 {
-	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREContinuousProperty(rep->getGsoapContext(), 1);	
-	_resqml2__ContinuousProperty* prop = static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
-	prop->IndexableElement = attachmentKind;
-	prop->Count = dimension;
-	prop->UOM = uom;
+	init(rep, guid, title, dimension, attachmentKind);
 
-	setRepresentation(rep);
+	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->UOM = uom;
 
 	setLocalPropertyKind(localPropKind);
+}
 
-	initMandatoryMetadata();
-	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, const resqml2__ResqmlPropertyKind & energisticsPropertyKind)
+{
+	init(rep, guid, title, dimension, attachmentKind);
+
+	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->UOM = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
+	addOrSetExtraMetadata("Uom", nonStandardUom);
+
+	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
+	xmlStandardPropKind->Kind = energisticsPropertyKind;
+	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->PropertyKind = xmlStandardPropKind;
+}
+
+ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, const string & guid, const string & title,
+	const unsigned int & dimension, const gsoap_resqml2_0_1::resqml2__IndexableElements & attachmentKind, const std::string & nonStandardUom, resqml2::PropertyKind * localPropKind)
+{
+	init(rep, guid, title, dimension, attachmentKind);
+
+	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->UOM = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
+	addOrSetExtraMetadata("Uom", nonStandardUom);
+
+	setLocalPropertyKind(localPropKind);
 }
 
 const gsoap_resqml2_0_1::resqml2__ResqmlUom & ContinuousProperty::getUom() const
