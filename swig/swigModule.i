@@ -534,5 +534,7 @@ namespace common
 			const time_t & dTimCreation,
 			const time_t & dTimLastChange,
 			const std::string & comments);
+				
+		const std::vector<std::string> & getWarnings() const;
 	};
 }
