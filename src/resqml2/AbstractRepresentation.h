@@ -270,7 +270,7 @@ namespace resqml2
 		/**
 		* Pushes back this representaiton into a representation set
 		* @param repSet	The representation set representation which will contain this representation.
-		* @param xml	If set to true (defaultà, then xml relationships will be updated. If set to no, only memory (and epc) relationships will be updated.
+		* @param xml	If set to true (default), then xml relationships will be updated. If set to no, only memory (and epc) relationships will be updated.
 		*/
 		void pushBackIntoRepresentationSet(class RepresentationSetRepresentation * repSet, bool xml = true);
 

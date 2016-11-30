@@ -33,19 +33,39 @@
 // POD C ARRAYS
 //************************
 %include "carrays_indexing64bits.i"
-%array_functions(unsigned long long, ULongLongArray);
-%array_functions(unsigned long, ULongArray);
-%array_functions(unsigned int, UIntArray);
-%array_functions(int, IntArray);
-%array_functions(long long, LongLongArray);
-%array_functions(long, LongArray);
-%array_functions(float, FloatArray);
-%array_functions(double, DoubleArray);
-%array_functions(short, ShortArray);
-%array_functions(unsigned short, UShortArray);
-%array_functions(char, CharArray);
-%array_functions(unsigned char, UCharArray);
-%array_functions(bool, BoolArray);
+#ifdef SWIGJAVA // Use functions instead of classes in java in order to avoid premature garbage collection
+	%array_functions(unsigned long long, ULongLongArray);
+	%array_functions(unsigned long, ULongArray);
+	%array_functions(unsigned int, UIntArray);
+	%array_functions(int, IntArray);
+	%array_functions(long long, LongLongArray);
+	%array_functions(long, LongArray);
+	%array_functions(float, FloatArray);
+	%array_functions(double, DoubleArray);
+	%array_functions(short, ShortArray);
+	%array_functions(unsigned short, UShortArray);
+	%array_functions(char, CharArray);
+	%array_functions(unsigned char, UCharArray);
+	%array_functions(bool, BoolArray);
+#else // Use GC.KeepAlive on these arrays to ensure no premature garbage collection in C#
+	%array_class(unsigned long long, ULongLongArray);
+	%array_class(unsigned long, ULongArray);
+	%array_class(unsigned int, UIntArray);
+	%array_class(int, IntArray);
+	%array_class(long long, LongLongArray);
+	%array_class(long, LongArray);
+	%array_class(float, FloatArray);
+	%array_class(double, DoubleArray);
+	%array_class(short, ShortArray);
+	%array_class(unsigned short, UShortArray);
+	%array_class(char, CharArray);
+	%array_class(unsigned char, UCharArray);
+	%array_class(bool, BoolArray);
+#endif
+// Example below of premature garbage collection
+// DoubleArray myDoubleArray = new DoubleArray(100);
+// myOperations(myDoubleArray.cast());
+// myDoubleArray can be GC after cast and before myOperations has finished.
 
 //************************
 // EXCEPTIONS

@@ -1804,9 +1804,10 @@ void deserialize(const string & inputFile)
 			if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::PARAMETRIC)
 			{
 				std::cout << "This 3d grid has a parametric geometry." << std::endl;
-				if (static_cast<IjkGridParametricRepresentation*>(ijkGrid)->isParametricLineKindConstant())
+				IjkGridParametricRepresentation* paramIjkGrid = static_cast<IjkGridParametricRepresentation*>(ijkGrid);
+				if (paramIjkGrid->isParametricLineKindConstant())
 				{
-					std::cout << "Constant parametric line kind : " << static_cast<IjkGridParametricRepresentation*>(ijkGrid)->getConstantParametricLineKind() << std::endl;
+					std::cout << "Constant parametric line kind : " << paramIjkGrid->getConstantParametricLineKind() << std::endl;
 				}
 				else
 				{
@@ -1829,7 +1830,7 @@ void deserialize(const string & inputFile)
 					delete[] xyzPts;
 				}
 
-
+				ULONG64 pointCountByInterface = paramIjkGrid->getXyzPointCountOfKInterfaceOfPatch(0);
 			}
 			else if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::EXPLICIT)
 			{
