@@ -166,10 +166,11 @@ namespace resqml2
 		std::string getInterpretationContentType() const;
 
 		/**
-		* Add a subrepresentation to this representation
+		* DONOT USE THIS METHOD EXCEPT IF YOU REALLY KNOW WHAT YOU ARE DOING.
+		* Push back a subrepresentation to this representation.
 		* Does not add the inverse relationship i.e. from the subrepresentation to this representation.
 		*/
-		void addSubRepresentation(SubRepresentation* subRep);
+		void pushBackSubRepresentation(class SubRepresentation* subRep);
 
 		/**
 		* Get all the subrepresentations of this instance.

@@ -32,7 +32,8 @@ void SubRepresentationOnPartialGridConnectionSet::initEpcDocHandler()
 
 	resqml2::GridConnectionSetRepresentation* partialGcsr = this->epcDoc->createPartialGridConnectionSetRepresentation("00a7d22f-4746-409b-87dc-5bdb83660d27", "GCSR");
 	REQUIRE(partialGcsr != nullptr);
-	resqml2::SubRepresentation* subRep = this->epcDoc->createSubRepresentation(this->uuid, this->title, partialGcsr);
+	resqml2::SubRepresentation* subRep = epcDoc->createSubRepresentation(this->uuid, this->title);
+	subRep->pushBackSupportingRepresentation(partialGcsr);
 
 	ULONG64 elements[2] = { 1, 2 };
 	subRep->pushBackSubRepresentationPatch(gsoap_resqml2_0_1::resqml2__IndexableElements__cells, 2, elements, hdfProxy);
@@ -43,8 +44,8 @@ void SubRepresentationOnPartialGridConnectionSet::readEpcDocHandler()
 	// getting the subrep
 	resqml2::SubRepresentation* subRep = epcDoc->getResqmlAbstractObjectByUuid<resqml2::SubRepresentation>(this->uuid);
 
-	REQUIRE(subRep->getSupportingRepresentation()->isPartial());
-	REQUIRE(subRep->getSupportingRepresentation()->getXmlTag().compare("GridConnectionSetRepresentation") == 0);
-	REQUIRE(subRep->getSupportingRepresentation()->getUuid().compare("00a7d22f-4746-409b-87dc-5bdb83660d27") == 0);
-	REQUIRE(subRep->getSupportingRepresentation()->getTitle().compare("GCSR") == 0);
+	REQUIRE(subRep->getSupportingRepresentation(0)->isPartial());
+	REQUIRE(subRep->getSupportingRepresentation(0)->getXmlTag().compare("GridConnectionSetRepresentation") == 0);
+	REQUIRE(subRep->getSupportingRepresentation(0)->getUuid().compare("00a7d22f-4746-409b-87dc-5bdb83660d27") == 0);
+	REQUIRE(subRep->getSupportingRepresentation(0)->getTitle().compare("GCSR") == 0);
 }

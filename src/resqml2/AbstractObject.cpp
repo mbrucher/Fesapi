@@ -616,17 +616,8 @@ void AbstractObject::addActivityToResqmlObject(resqml2::Activity* activity, Abst
 	}
 }
 
-void AbstractObject::addOrSetExtraMetadataV2_0_1(const std::string & key, const std::string & value)
+void AbstractObject::pushBackExtraMetadataV2_0_1(const std::string & key, const std::string & value)
 {
-	for (size_t i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); ++i)
-	{
-		if (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Name.compare(key) == 0)
-		{
-			static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Value = value;
-			return;
-		}
-	}
-
 	resqml2__NameValuePair* stringPair = soap_new_resqml2__NameValuePair(gsoapProxy2_0_1->soap, 1);
 	stringPair->Name = key;
 	stringPair->Value = value;
@@ -642,23 +633,20 @@ std::tr1::unordered_map< std::string, std::string > AbstractObject::getExtraMeta
 {
 	std::tr1::unordered_map< std::string, std::string > result;
 #endif
-	for (size_t i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); ++i)
-	{
+	for (size_t i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); ++i) {
 		result[static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Name] = static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Value;
 	}
 
 	return result;
 }
 
-string AbstractObject::getExtraMetadataV2_0_1(const std::string & key)
+vector<string> AbstractObject::getExtraMetadataV2_0_1(const std::string & key)  const
 {
-	string result = "";
+	vector<string> result;
 
-	for (size_t i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); ++i)
-	{
-		if (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Name.compare(key) == 0)
-		{
-			return static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Value;
+	for (size_t i = 0; i < static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata.size(); ++i) {
+		if (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Name.compare(key) == 0) {
+			result.push_back(static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata[i]->Value);
 		}
 	}
 
@@ -672,24 +660,26 @@ unsigned int AbstractObject::getExtraMetadataCountV2_0_1() const
 
 std::string AbstractObject::getExtraMetadataKeyAtIndexV2_0_1(const unsigned int & index) const
 {
-	if (getExtraMetadataCount() <= index)
+	if (getExtraMetadataCount() <= index) {
 		throw out_of_range("The index is out of range.");
+	}
 
 	return (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata)[index]->Name;
 }
 
 std::string AbstractObject::getExtraMetadataStringValueAtIndexV2_0_1(const unsigned int & index) const
 {
-	if (getExtraMetadataCount() <= index)
+	if (getExtraMetadataCount() <= index) {
 		throw out_of_range("The index is out of range.");
+	}
 
 	return (static_cast<resqml2__AbstractResqmlDataObject*>(gsoapProxy2_0_1)->ExtraMetadata)[index]->Value;
 }
 
-void AbstractObject::addOrSetExtraMetadata(const std::string & key, const std::string & value)
+void AbstractObject::pushBackExtraMetadata(const std::string & key, const std::string & value)
 {
 	if (gsoapProxy2_0_1 != nullptr) {
-		addOrSetExtraMetadataV2_0_1(key, value);
+		pushBackExtraMetadataV2_0_1(key, value);
 	}
 	else {
 		throw logic_error("Not implemented yet.");
@@ -717,7 +707,7 @@ std::tr1::unordered_map< std::string, std::string > AbstractObject::getExtraMeta
 * Get an extra metadata according its key.
 * @return An empty string if the extra metadata does not exist. Or the extra metadata value if it exists
 */
-std::string AbstractObject::getExtraMetadata(const std::string & key)
+vector<string> AbstractObject::getExtraMetadata(const std::string & key) const
 {
 	if (gsoapProxy2_0_1 != nullptr) {
 		return getExtraMetadataV2_0_1(key);

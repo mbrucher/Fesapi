@@ -81,7 +81,7 @@ PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string 
 {
 	init(soapContext, guid, title, namingSystem);
 	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->RepresentativeUom = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
-	addOrSetExtraMetadata("Uom", nonStandardUom);
+	pushBackExtraMetadata("Uom", nonStandardUom);
 
 	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlStandardPropKind->Kind = parentEnergisticsPropertyKind;
@@ -93,7 +93,7 @@ PropertyKind::PropertyKind(soap* soapContext, const string & guid, const string 
 {
 	init(soapContext, guid, title, namingSystem);
 	static_cast<_resqml2__PropertyKind*>(gsoapProxy2_0_1)->RepresentativeUom = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
-	addOrSetExtraMetadata("Uom", nonStandardUom);
+	pushBackExtraMetadata("Uom", nonStandardUom);
 
 	setParentPropertyKind(parentPropType);
 }

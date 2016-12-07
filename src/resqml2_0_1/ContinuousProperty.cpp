@@ -89,7 +89,7 @@ ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, co
 	init(rep, guid, title, dimension, attachmentKind);
 
 	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->UOM = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
-	addOrSetExtraMetadata("Uom", nonStandardUom);
+	pushBackExtraMetadata("Uom", nonStandardUom);
 
 	resqml2__StandardPropertyKind* xmlStandardPropKind = soap_new_resqml2__StandardPropertyKind(gsoapProxy2_0_1->soap, 1);
 	xmlStandardPropKind->Kind = energisticsPropertyKind;
@@ -102,7 +102,7 @@ ContinuousProperty::ContinuousProperty(resqml2::AbstractRepresentation * rep, co
 	init(rep, guid, title, dimension, attachmentKind);
 
 	static_cast<_resqml2__ContinuousProperty*>(gsoapProxy2_0_1)->UOM = gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc;
-	addOrSetExtraMetadata("Uom", nonStandardUom);
+	pushBackExtraMetadata("Uom", nonStandardUom);
 
 	setLocalPropertyKind(localPropKind);
 }

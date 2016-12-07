@@ -50,9 +50,9 @@ namespace resqml2
 		void setUuid(const std::string & uuid);
 
 		/**
-		* Add or set (if already exists) an extra metadata (not a standard one)
+		* Push back an extra metadata (not a standard one)
 		*/
-		void addOrSetExtraMetadataV2_0_1(const std::string & key, const std::string & value);
+		void pushBackExtraMetadataV2_0_1(const std::string & key, const std::string & value);
 
 		/**
 		* Getter (in read only mode) of all the extra metadata
@@ -65,9 +65,9 @@ namespace resqml2
 
 		/**
 		* Get an extra metadata according its key.
-		* @return An empty string if the extra metadata does not exist. Or the extra metadata value if it exists
+		* @return An empty vector if the extra metadata does not exist. Or the extra metadata value vector if it exists
 		*/
-		std::string getExtraMetadataV2_0_1(const std::string & key);
+		std::vector<std::string> getExtraMetadataV2_0_1(const std::string & key) const;
 
 		/**
 		* Get the count of extra metadata in the instance.
@@ -251,9 +251,9 @@ namespace resqml2
 		const std::vector<resqml2::Activity*> & getActivitySet() const;
 
 		/**
-		* Add or set (if already exists) an extra metadata (not a standard one)
+		* Push back an extra metadata (not a standard one)
 		*/
-		void addOrSetExtraMetadata(const std::string & key, const std::string & value);
+		void pushBackExtraMetadata(const std::string & key, const std::string & value);
 
 		/**
 		* Getter (in read only mode) of all the extra metadata
@@ -266,9 +266,9 @@ namespace resqml2
 
 		/**
 		* Get an extra metadata according its key.
-		* @return An empty string if the extra metadata does not exist. Or the extra metadata value if it exists
+		* @return An empty vector if the extra metadata does not exist. Or the extra metadata value set if it exists.
 		*/
-		std::string getExtraMetadata(const std::string & key);
+		std::vector<std::string> getExtraMetadata(const std::string & key) const;
 
 		/**
 		* Get the count of extra metadata in the instance.

@@ -53,12 +53,15 @@ vector<Relationship> SubRepresentation::getAllEpcRelationships() const
 {
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
 
-	AbstractRepresentation* supportingRep = getSupportingRepresentation();
-	if (!supportingRep->isPartial())
-	{
-		Relationship rel(supportingRep->getPartNameInEpcDocument(), "", supportingRep->getUuid());
-		rel.setDestinationObjectType();
-		result.push_back(rel);
+	const unsigned int supRepCount = getSupportingRepresentationCount();
+	for (unsigned int supRepIndex = 0; supRepIndex < supRepCount; ++supRepIndex) {
+		AbstractRepresentation* supportingRep = getSupportingRepresentation(supRepIndex);
+		if (!supportingRep->isPartial())
+		{
+			Relationship rel(supportingRep->getPartNameInEpcDocument(), "", supportingRep->getUuid());
+			rel.setDestinationObjectType();
+			result.push_back(rel);
+		}
 	}
     
 	return result;
@@ -69,31 +72,34 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
 
 	// Supporting representation
-	resqml2::AbstractRepresentation* supportingRepInEpc = getSupportingRepresentation();
-	AbstractRepresentation* supportingRep = nullptr;
-	if (supportingRepInEpc == nullptr) { // partial transfer
-		getEpcDocument()->addWarning("The referenced grid \"" + getSupportingRepresentationTitle() + "\" (" + getSupportingRepresentationUuid() + ") is missing.");
-		if (getSupportingRepresentationContentType().find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
-			supportingRep = epcDoc->createPartialUnstructuredGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
-		}
-		else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) != string::npos) {
-			supportingRep = epcDoc->createPartialTruncatedIjkGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
-		}
-		else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
-			supportingRep = epcDoc->createPartialIjkGridRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
-		}
-		else if (getSupportingRepresentationContentType().find(resqml2::GridConnectionSetRepresentation::XML_TAG) != string::npos) {
-			supportingRep = epcDoc->createPartialGridConnectionSetRepresentation(getSupportingRepresentationUuid(), getSupportingRepresentationTitle());
+	const unsigned int supRepCount = getSupportingRepresentationCount();
+	for (unsigned int supRepIndex = 0; supRepIndex < supRepCount; ++supRepIndex) {
+		resqml2::AbstractRepresentation* supportingRepInEpc = getSupportingRepresentation(supRepIndex);
+		AbstractRepresentation* supportingRep = nullptr;
+		if (supportingRepInEpc == nullptr) { // partial transfer
+			getEpcDocument()->addWarning("The referenced representation (" + getSupportingRepresentationUuid(supRepIndex) + ") is missing.");
+			if (getSupportingRepresentationContentType().find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
+				supportingRep = epcDoc->createPartialUnstructuredGridRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
+			}
+			else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) != string::npos) {
+				supportingRep = epcDoc->createPartialTruncatedIjkGridRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
+			}
+			else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
+				supportingRep = epcDoc->createPartialIjkGridRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
+			}
+			else if (getSupportingRepresentationContentType().find(resqml2::GridConnectionSetRepresentation::XML_TAG) != string::npos) {
+				supportingRep = epcDoc->createPartialGridConnectionSetRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
+			}
+			else {
+				throw logic_error("The referenced supporting representation is either not a resqml representation or it is partial and not implemented yet.");
+			}
 		}
 		else {
-			throw logic_error("The referenced supporting representation is either not a resqml representation or it is partial and not implemented yet.");
+			supportingRep = supportingRepInEpc;
 		}
-	}
-	else {
-		supportingRep = supportingRepInEpc;
-	}
 
-	supportingRep->addSubRepresentation(this);
+		supportingRep->pushBackSubRepresentation(this);
+	}
 }
 
 ULONG64 SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
@@ -106,7 +112,7 @@ ULONG64 SubRepresentation::getXyzPointCountOfPatch(const unsigned int & patchInd
 		return getElementCountOfPatch(patchIndex);
 	}
 	else {
-		throw logic_error("Not yet implemented.");
+		throw logic_error("Not implemented yet.");
 	}
 }
 
@@ -119,7 +125,22 @@ void SubRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, dou
 	throw logic_error("Not implemented yet");
 }
 
-resqml2::AbstractRepresentation* SubRepresentation::getSupportingRepresentation() const
+void SubRepresentation::pushBackSupportingRepresentation(AbstractRepresentation * supportingRep)
 {
-	return static_cast<resqml2::AbstractRepresentation*>(getEpcDocument()->getResqmlAbstractObjectByUuid(getSupportingRepresentationUuid()));
+	if (supportingRep == nullptr) {
+		throw invalid_argument("The supporting Representation cannot be null.");
+	}
+
+	// EPC
+	supportingRep->pushBackSubRepresentation(this);
+
+	// XML
+	if (updateXml) {
+		pushBackXmlSupportingRepresentation(supportingRep);
+	}
+}
+
+AbstractRepresentation* SubRepresentation::getSupportingRepresentation(unsigned int index) const
+{
+	return static_cast<AbstractRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingRepresentationUuid(index)));
 }

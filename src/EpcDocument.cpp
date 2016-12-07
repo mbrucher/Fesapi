@@ -1935,17 +1935,17 @@ resqml2::SubRepresentation* EpcDocument::createPartialSubRepresentation(const st
 	return result;
 }
 
-resqml2::SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title, resqml2::AbstractRepresentation * supportingRep)
+resqml2::SubRepresentation* EpcDocument::createSubRepresentation(const std::string & guid, const std::string & title)
 {
-	resqml2::SubRepresentation* result = new SubRepresentation(guid, title, supportingRep);
+	resqml2::SubRepresentation* result = new SubRepresentation(getGsoapContext(), guid, title);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
 resqml2::SubRepresentation* EpcDocument::createSubRepresentation(resqml2::AbstractFeatureInterpretation* interp,
-			const std::string & guid, const std::string & title, resqml2::AbstractRepresentation * supportingRep)
+			const std::string & guid, const std::string & title)
 {
-	resqml2::SubRepresentation* result = new SubRepresentation(interp, guid, title, supportingRep);
+	resqml2::SubRepresentation* result = new SubRepresentation(interp, guid, title);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }

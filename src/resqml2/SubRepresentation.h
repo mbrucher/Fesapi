@@ -56,6 +56,8 @@ namespace resqml2
 		*/
 		SubRepresentation(gsoap_resqml2_0_1::_resqml2__SubRepresentation* fromGsoap) : resqml2::AbstractRepresentation(fromGsoap) {}
 
+		virtual void pushBackXmlSupportingRepresentation(AbstractRepresentation * supportingRep) = 0;
+
 	public:
 
 		/**
@@ -111,12 +113,13 @@ namespace resqml2
 
 		/**
 		* Push back a new patch in the subrepresentation.
-		* @param elementKind		The kind of (indexable) elements which constitutes the subrepresentation.
-        * @param elementCount		The count of elements which constitutes the subrepresentation.
-        * @param elementIndices		The indices of the elements of the instance in the supporting representation.
-        * @param proxy				The HDF proxy where the numerical values (indices) are stored.
+		* @param	elementKind				The kind of (indexable) elements which constitutes the subrepresentation.
+        * @param	elementCount			The count of elements which constitutes the subrepresentation.
+        * @param	elementIndices			The indices of the elements of the instance in the supporting representation.
+        * @param	proxy					The HDF proxy where the numerical values (indices) are stored.
+		* @param	supportingRepIndices	The indices of the supporting represenation for each elment in the supporting representation. The count must be elementCount.
 		*/
-		virtual void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, ULONG64 * elementIndices, resqml2::AbstractHdfProxy* proxy) = 0;
+		virtual void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, ULONG64 * elementIndices, resqml2::AbstractHdfProxy* proxy, short * supportingRepIndices = nullptr) = 0;
 
 		/**
 		* Push back a new patch in the subrepresentation which is constituted by means of pairwise elements.
@@ -135,14 +138,15 @@ namespace resqml2
 		/**
 		* Push back a new patch (without pairwise elements) in the subrepresentation where the indice values have not to be written in the HDF file.
 		* The reason can be that the indice values already exist in an external file (only HDF5 for now) or that the writing of these indice values in the external file is defered in time.
-		* @param	elementKind			The kind of (indexable) elements which constitutes the subrepresentation.
-        * @param	elementCount		The count of elements which constitutes the subrepresentation.
-		* @param	dataset				If empty, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + subRep->uuid + "/subrepresentation_elementIndices0_patch" + patchIndex;
-		* @param	nullValue			The null value which has been chosen in the referenced hdf dataset.
-		* @param	hdfProxy			The HDF5 proxy where the values are already or will be stored.
+		* @param	elementKind				The kind of (indexable) elements which constitutes the subrepresentation.
+        * @param	elementCount			The count of elements which constitutes the subrepresentation.
+		* @param	elementDataset			The HDF5 dataset name where the element indices are stored. If empty, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + subRep->uuid + "/subrepresentation_elementIndices0_patch" + patchIndex;
+		* @param	nullValue				The null value which has been chosen in the referenced hdf dataset.
+		* @param	hdfProxy				The HDF5 proxy where the values are already or will be stored.
+		* @param	supportingRepDataset	The HDF5 dataset name where the element indices are stored. If empty, it won't be exported any information about suppporting rep relying on the fact there is only one suppporting rep for this whole patch.
 		*/
-		virtual void pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & dataset,
-			const LONG64 & nullValue, resqml2::AbstractHdfProxy * proxy) = 0;
+		virtual void pushBackRefToExistingDataset(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, const std::string & elementDataset,
+			const LONG64 & nullValue, resqml2::AbstractHdfProxy * proxy, const std::string & supportingRepDataset = "") = 0;
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 
@@ -155,12 +159,37 @@ namespace resqml2
 
 		virtual unsigned int getPatchCount() const = 0;
 
-		resqml2::AbstractRepresentation* getSupportingRepresentation() const;
+		/**
+		* Push back a representation which is one of the support of this representation.
+		* And push back this representation as a subrepresentation of the representation as well.
+		*/
+		void pushBackSupportingRepresentation(AbstractRepresentation * supportingRep);
 
-		virtual std::string getSupportingRepresentationUuid() const = 0;
+		/**
+		* Get the count of the supporting representations of this subrepresentation.
+		*/
+		virtual unsigned int getSupportingRepresentationCount() const = 0;
 
-		virtual std::string getSupportingRepresentationTitle() const = 0;
+		/**
+		* Get the supporting representation located at a specific index of this subrepresentation.
+		*/
+		AbstractRepresentation* getSupportingRepresentation(unsigned int index) const;
 
+		/**
+		* Get one of the supporting representation uuid of this subrepresentation.
+		*/
+		virtual std::string getSupportingRepresentationUuid(unsigned int index) const = 0;
+
+		/**
+		* Get one of the supporting representation title of this subrepresentation.
+		*/
+		virtual std::string getSupportingRepresentationTitle(unsigned int index) const = 0;
+
+		/**
+		* Get one of the supporting representation content type of this subrepresentation.
+		* It is assumed by fesapi taht all supporting representations must have the same type.
+		* This is a current limitation of fesapi compared the Resqml datamodel.
+		*/
 		virtual std::string getSupportingRepresentationContentType() const = 0;
 
 	private:

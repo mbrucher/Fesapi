@@ -138,7 +138,17 @@ namespace resqml2_0_1
 
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
 
-	private:
-		std::string pushBackOnlyXmlPartOfArrayOfValues(resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		/**
+		* Push back a a reference to an existing (or a "to exist") HDF5 dataset in a particular hdf proxy.
+		* The reason can be that the indice values already exist in an external file (only HDF5 for now) or that the writing of these indice values in the external file is defered in time.
+		* @param	datasetName			The HDF5 dataset name where the values are stored. If empty, the dataset will be named the same as the dataset naming convention of the fesapi : "/RESQML/" + prop->uuid + "/values_patch" + patch->RepresentationPatchIndex;
+		* @param	hdfProxy				The HDF5 proxy where the values are already or will be stored.
+		* @param	nullValue				The null value which has been chosen in the referenced hdf dataset.
+		* @param	minimumValue			The minimum value of the values in the HDF5 dataset.
+		* @param	maximumValue			The maximum value of the values in the HDF5 dataset.
+		* @return	The name of the referenced HDF5 dataset.
+		*/
+		std::string pushBackRefToExistingDataset(const std::string & datasetName, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		std::string pushBackRefToExistingDataset(const std::string & datasetName, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
 	};
 }

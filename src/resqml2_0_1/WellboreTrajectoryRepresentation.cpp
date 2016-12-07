@@ -159,8 +159,7 @@ void WellboreTrajectoryRepresentation::setWitsmlTrajectory(witsml1_4_1_1::Trajec
 	witsmlTrajectory = witsmlTraj;
 	witsmlTraj->resqmlWellboreTrajectoryRepresentation = this;
 
-	if (updateXml)
-	{
+	if (updateXml) {
 		resqml2__obj_USCOREWellboreTrajectoryRepresentation* resqmlTraj = static_cast<resqml2__obj_USCOREWellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 		resqmlTraj->WitsmlTrajectory = witsmlTraj->newResqmlReference();
 	}
@@ -174,40 +173,36 @@ vector<Relationship> WellboreTrajectoryRepresentation::getAllEpcRelationships() 
 
 	// XML forward relationship
 	resqml2::MdDatum* mdDatum = getMdDatum();
-	if (mdDatum != nullptr)
-	{
+	if (mdDatum != nullptr) {
 		Relationship relMdInfo(mdDatum->getPartNameInEpcDocument(), "", getMdDatumUuid());
 		relMdInfo.setDestinationObjectType();
 		result.push_back(relMdInfo);
 	}
-	else
+	else {
 		throw domain_error("The MD information associated to the WellboreFeature trajectory cannot be nullptr.");
+	}
 
 	WellboreTrajectoryRepresentation* parentTraj = getParentTrajectory();
-	if (parentTraj != nullptr)
-	{
+	if (parentTraj != nullptr) {
 		Relationship relParentTraj(parentTraj->getPartNameInEpcDocument(), "", rep->ParentIntersection->ParentTrajectory->UUID);
 		relParentTraj.setDestinationObjectType();
 		result.push_back(relParentTraj);
 	}
 
-	if (witsmlTrajectory != nullptr)
-	{
+	if (witsmlTrajectory != nullptr) {
 		Relationship relWitsmlTraj(witsmlTrajectory->getPartNameInEpcDocument(), "", witsmlTrajectory->getUuid());
 		relWitsmlTraj.setDestinationObjectType();
 		result.push_back(relWitsmlTraj);
 	}
 
 	// XML backward relationship
-	for (size_t i = 0 ; i < childrenTrajSet.size(); i++)
-	{
+	for (size_t i = 0 ; i < childrenTrajSet.size(); ++i) {
 		Relationship relChildrenTraj(childrenTrajSet[i]->getPartNameInEpcDocument(), "", childrenTrajSet[i]->getUuid());
 		relChildrenTraj.setSourceObjectType();
 		result.push_back(relChildrenTraj);
 	}
 
-	for (size_t i = 0; i < wellboreFrameRepresentationSet.size(); i++)
-	{
+	for (size_t i = 0; i < wellboreFrameRepresentationSet.size(); ++i) {
 		Relationship relFrame(wellboreFrameRepresentationSet[i]->getPartNameInEpcDocument(), "", wellboreFrameRepresentationSet[i]->getUuid());
 		relFrame.setSourceObjectType();
 		result.push_back(relFrame);
@@ -222,24 +217,17 @@ void WellboreTrajectoryRepresentation::importRelationshipSetFromEpc(common::EpcD
 
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 
-	AbstractObject* mdDatum = epcDoc->getResqmlAbstractObjectByUuid(getMdDatumUuid());
-	if (dynamic_cast<resqml2::MdDatum*>(mdDatum) != nullptr)
-	{
-		static_cast<resqml2::MdDatum*>(mdDatum)->addWellboreTrajectoryRepresentation(this);
-	}
-	else
-	{
-		throw logic_error("The referenced wellbore trajectory does not look to be a wellbore trajectory.");
+	resqml2::MdDatum* mdDatum = epcDoc->getResqmlAbstractObjectByUuid<resqml2::MdDatum>(getMdDatumUuid());
+	if (mdDatum != nullptr) {
+		mdDatum->addWellboreTrajectoryRepresentation(this);
 	}
 
-	if (rep->ParentIntersection)
-	{
-		WellboreTrajectoryRepresentation* parentTraj = static_cast<WellboreTrajectoryRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->ParentIntersection->ParentTrajectory->UUID));
+	if (rep->ParentIntersection != nullptr) {
+		WellboreTrajectoryRepresentation* parentTraj = epcDoc->getResqmlAbstractObjectByUuid<resqml2_0_1::WellboreTrajectoryRepresentation>(rep->ParentIntersection->ParentTrajectory->UUID);
 		parentTraj->addChildrenTrajectory(this);
 	}
 
-	if (rep->WitsmlTrajectory)
-	{
+	if (rep->WitsmlTrajectory != nullptr) {
 		witsml1_4_1_1::Trajectory* tmp = static_cast<witsml1_4_1_1::Trajectory*>(epcDoc->getWitsmlAbstractObjectByUuid(rep->WitsmlTrajectory->UUID));
 		if (tmp)
 		{
@@ -280,10 +268,12 @@ WellboreTrajectoryRepresentation* WellboreTrajectoryRepresentation::getParentTra
 const double& WellboreTrajectoryRepresentation::getParentTrajectoryMd() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->ParentIntersection != nullptr)
+	if (rep->ParentIntersection != nullptr) {
 		return rep->ParentIntersection->ParentMd;
-	else
+	}
+	else {
 		throw logic_error("This wellbore trajectory has no parent trajecory.");
+	}
 }
 
 const std::vector<WellboreTrajectoryRepresentation*> & WellboreTrajectoryRepresentation::getChildrenTrajectorySet() const
@@ -293,8 +283,9 @@ const std::vector<WellboreTrajectoryRepresentation*> & WellboreTrajectoryReprese
 
 ULONG64 WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const unsigned int & patchIndex) const
 {
-	if (patchIndex >= getPatchCount())
+	if (patchIndex >= getPatchCount()) {
 		throw range_error("The index patch is not in the allowed range of patch.");
+	}
 
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->KnotCount;
@@ -302,17 +293,16 @@ ULONG64 WellboreTrajectoryRepresentation::getXyzPointCountOfPatch(const unsigned
 
 void WellboreTrajectoryRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const
 {
-	if (patchIndex >= getPatchCount())
+	if (patchIndex >= getPatchCount()) {
 		throw range_error("The index patch is not in the allowed range of patch");
+	}
 
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->Geometry != nullptr)
-	{
+	if (rep->Geometry != nullptr) {
 		resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
 		hdfProxy->readArrayNdOfDoubleValues(static_cast<resqml2__Point3dHdf5Array*>(paramLine->ControlPoints)->Coordinates->PathInHdfFile, xyzPoints);
 	}
-	else
-	{
+	else {
 		throw invalid_argument("The wellbore trajectory has no geometry.");
 	}
 }
@@ -320,29 +310,35 @@ void WellboreTrajectoryRepresentation::getXyzPointsOfPatch(const unsigned int & 
 int WellboreTrajectoryRepresentation::getGeometryKind() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->Geometry == nullptr)
+	if (rep->Geometry == nullptr) {
 		return -1;
-	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry)
+	}
+	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry) {
 		throw logic_error("This kind of parametric line is not yet supported for a wellbore trajectory.");
+	}
 	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LineKindIndex;
 }
 
 bool WellboreTrajectoryRepresentation::hasMdValues() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->Geometry == nullptr)
+	if (rep->Geometry == nullptr) {
 		return false;
-	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry)
+	}
+	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry) {
 		throw logic_error("This kind of parametric line is not yet supported for a wellbore trajectory.");
+	}
 	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters != nullptr;
 }
 
 void WellboreTrajectoryRepresentation::getMdValues(double * values)
 {
-	if (hasMdValues() == false)
-		throw invalid_argument("This trajectory has not got any md values.");
-	if (hdfProxy == nullptr)
+	if (!hasMdValues()) {
+		throw invalid_argument("This trajectory has not got any md value.");
+	}
+	if (hdfProxy == nullptr) {
 		throw invalid_argument("The HDF proxy is missing.");
+	}
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 	resqml2__DoubleHdf5Array* xmlControlPointParameters = static_cast<resqml2__DoubleHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters);
@@ -362,17 +358,23 @@ double WellboreTrajectoryRepresentation::getFinishMd() const
 bool WellboreTrajectoryRepresentation::hasTangentVectors() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->Geometry == nullptr)
+	if (rep->Geometry == nullptr) {
 		return false;
-	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry)
-		throw logic_error("This kind of parametric line is not yet supported for a wellbore trajectory.");
+	}
+	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry) {
+		throw logic_error("This kind of parametric line is not supported for a wellbore trajectory yet.");
+	}
 	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->TangentVectors != nullptr;
 }
 
 void WellboreTrajectoryRepresentation::getTangentVectors(double* tangentVectors)
 {
-	if (hdfProxy == nullptr)
+	if (!hasTangentVectors()) {
+		throw invalid_argument("This trajectory has not got any tangent vector.");
+	}
+	if (hdfProxy == nullptr) {
 		throw invalid_argument("The HDF proxy is missing.");
+	}
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 	resqml2__Point3dHdf5Array* xmlTangentVectors = static_cast<resqml2__Point3dHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->TangentVectors);
@@ -392,13 +394,11 @@ std::string WellboreTrajectoryRepresentation::getMdDatumUuid() const
 std::string WellboreTrajectoryRepresentation::getHdfProxyUuid() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->Geometry)
-	{
+	if (rep->Geometry != nullptr) {
 		resqml2__ParametricLineGeometry* paramLine = static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry);
 		return static_cast<resqml2__Point3dHdf5Array*>(paramLine->ControlPoints)->Coordinates->HdfProxy->UUID;
 	}
-	else
-	{
+	else {
 		return "";
 	}
 }

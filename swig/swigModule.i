@@ -415,12 +415,10 @@ namespace common
 		resqml2::SubRepresentation* createPartialSubRepresentation(const std::string & guid, const std::string & title);
 			
 		resqml2::SubRepresentation* createSubRepresentation(
-                const std::string & guid, const std::string & title,
-				resqml2::AbstractRepresentation * supportingRep);
+                const std::string & guid, const std::string & title);
 			
 		resqml2::SubRepresentation* createSubRepresentation(resqml2::AbstractFeatureInterpretation* interp,
-			const std::string & guid, const std::string & title,
-			resqml2::AbstractRepresentation * supportingRep);
+			const std::string & guid, const std::string & title);
 		
 		resqml2::GridConnectionSetRepresentation* createGridConnectionSetRepresentation(const std::string & guid, const std::string & title);
 

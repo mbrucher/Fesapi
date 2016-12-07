@@ -282,7 +282,7 @@ std::string AbstractRepresentation::getInterpretationContentType() const
 	}
 }
 
-void AbstractRepresentation::addSubRepresentation(SubRepresentation* subRep)
+void AbstractRepresentation::pushBackSubRepresentation(SubRepresentation* subRep)
 {
 	if (subRep == nullptr) {
 		throw invalid_argument("Cannot add a null subrepresentation to a representation");

@@ -113,8 +113,8 @@ namespace resqml2
 		std::string getAliasAuthorityAtIndex(const unsigned int & index) const;
 		std::string getAliasTitleAtIndex(const unsigned int & index) const;
 		
-		void addOrSetExtraMetadata(const std::string & key, const std::string & value);
-		std::string getExtraMetadata(const std::string & key);
+		void pushBackExtraMetadata(const std::string & key, const std::string & value);
+		std::vector<std::string> getExtraMetadata(const std::string & key) const;
 		
 		unsigned int getExtraMetadataCount() const;
 		std::string getExtraMetadataKeyAtIndex(const unsigned int & index) const;
@@ -343,7 +343,7 @@ namespace resqml2
 			const unsigned int & elementCountInSlowestDimension,
 			const unsigned int & elementCountInMiddleDimension,
 			const unsigned int & elementCountInFastestDimension);
-		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, ULONG64 * elementIndices, resqml2::AbstractHdfProxy * proxy);
+		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind, const ULONG64 & elementCount, ULONG64 * elementIndices, resqml2::AbstractHdfProxy * proxy, short * supportingRepIndices = nullptr);
 		void pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 			const ULONG64 & elementCount,
 			ULONG64 * elementIndices0, ULONG64 * elementIndices1,
@@ -361,7 +361,13 @@ namespace resqml2
 		ULONG64 getElementCountOfPatch(const unsigned int & patchIndex) const;
 		void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, ULONG64 * elementIndices) const;
 		
-		AbstractRepresentation* getSupportingRepresentation() const;
+
+		void pushBackSupportingRepresentation(AbstractRepresentation * supportingRep);
+		virtual unsigned int getSupportingRepresentationCount() const = 0;
+		AbstractRepresentation* getSupportingRepresentation(unsigned int index) const;
+		virtual std::string getSupportingRepresentationUuid(unsigned int index) const = 0;
+		virtual std::string getSupportingRepresentationTitle(unsigned int index) const = 0;
+		virtual std::string getSupportingRepresentationContentType() const = 0;
 	};
 	
 	class GridConnectionSetRepresentation;

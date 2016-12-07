@@ -195,13 +195,13 @@ namespace resqml2
 		virtual void setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy) = 0;
 
 		/**
-		* Pushes back an interpretation which can be mapped with some connections.
+		* Push back an interpretation which can be mapped with some connections.
 		* @param interp	The interpration to push back.
 		*/
 		void pushBackInterpretation(class AbstractFeatureInterpretation* interp);
 	
 		/**
-		 * Pushes back a grid representation which is one of the support of this representation.
+		 * Push back a grid representation which is one of the support of this representation.
 		 * And push back this representation as a grid connection information of the grid representation as well.
 		 */
 		void pushBackSupportingGridRepresentation(class AbstractGridRepresentation * supportingGridRep);
@@ -217,17 +217,17 @@ namespace resqml2
 		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
 		
 		/**
-		* Get the one of the supporting grid representation uuid of this grid connection representation.
+		* Get one of the supporting grid representation uuid of this grid connection representation.
 		*/
 		virtual std::string getSupportingGridRepresentationUuid(unsigned int index) const = 0;
 
 		/**
-		* Get the one of the supporting grid representation title of this grid connection representation.
+		* Get one of the supporting grid representation title of this grid connection representation.
 		*/
 		virtual std::string getSupportingGridRepresentationTitle(unsigned int index) const = 0;
 
 		/**
-		* Get the one of the supporting grid representation content type of this grid connection representation.
+		* Get one of the supporting grid representation content type of this grid connection representation.
 		*/
 		virtual std::string getSupportingGridRepresentationContentType(unsigned int index) const = 0;
 
