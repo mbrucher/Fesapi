@@ -201,10 +201,10 @@ void serializeWells(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfPro
 
 	resqml2::PropertyKind * unitNumberPropType = pck->createPropertyKind("", "Unit number", "urn:resqml:geosiris.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete);
 
-	DiscreteProperty* discreteProp = pck->createDiscreteProperty(w1i1FrameRep,"","Wellbore1 Interp1 FrameRep IntervalIndex", 1,
+	DiscreteProperty* discreteProp = pck->createDiscreteProperty(w1i1FrameRep,"61c2917c-2334-4205-824e-d4f4a0cf6d8e","Wellbore1 Interp1 FrameRep IntervalIndex", 1,
 		gsoap_resqml2_0_1::resqml2__IndexableElements__intervals, unitNumberPropType);
-	long unitNumbers[5] = { 0, 1, 2, 3, 4 };
-	discreteProp->pushBackLongHdf5Array1dOfValues(unitNumbers, 5, hdfProxy, -1);
+	char unitNumbers[5] = { 0, 1, 2, 3, 4 };
+	discreteProp->pushBackCharHdf5Array1dOfValues(unitNumbers, 5, hdfProxy, -1);
 	if (witsmlLog != nullptr) {
 		w1i1FrameRep->setWitsmlLog(witsmlLog);
 	}
@@ -602,8 +602,8 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
 	//long prop1Values[2] = {0,1};
 	//discreteProp1->pushBackLongHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
-	int prop1Values[2] = { 0, 1 };
-	discreteProp1->pushBackIntHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
+	short prop1Values[2] = { 0, 1 };
+	discreteProp1->pushBackShortHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
 
 	//**************
 	// Time Series

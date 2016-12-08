@@ -111,6 +111,34 @@ void DiscreteProperty::pushBackIntHdf5Array1dOfValues(int * values, const ULONG6
 	pushBackIntHdf5ArrayOfValues(values, valueCountPerDimension, 1, proxy, nullValue);
 }
 
+void DiscreteProperty::pushBackShortHdf5Array1dOfValues(short * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy * proxy,
+	const short & nullValue, const short &  minimumValue, const short &  maximumValue)
+{
+	hsize_t valueCountPerDimension[1] = { valueCount };
+	pushBackShortHdf5ArrayOfValues(values, valueCountPerDimension, 1, proxy, nullValue, minimumValue, maximumValue);
+}
+
+void DiscreteProperty::pushBackShortHdf5Array1dOfValues(short * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy * proxy,
+	const short & nullValue)
+{
+	hsize_t valueCountPerDimension[1] = { valueCount };
+	pushBackShortHdf5ArrayOfValues(values, valueCountPerDimension, 1, proxy, nullValue);
+}
+
+void DiscreteProperty::pushBackCharHdf5Array1dOfValues(char * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy * proxy,
+	const char & nullValue, const char &  minimumValue, const char &  maximumValue)
+{
+	hsize_t valueCountPerDimension[1] = { valueCount };
+	pushBackCharHdf5ArrayOfValues(values, valueCountPerDimension, 1, proxy, nullValue, minimumValue, maximumValue);
+}
+
+void DiscreteProperty::pushBackCharHdf5Array1dOfValues(char * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy * proxy,
+	const char & nullValue)
+{
+	hsize_t valueCountPerDimension[1] = { valueCount };
+	pushBackCharHdf5ArrayOfValues(values, valueCountPerDimension, 1, proxy, nullValue);
+}
+
 void DiscreteProperty::pushBackLongHdf5Array2dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
 			const long & nullValue, const long &  minimumValue, const long &  maximumValue)
 {
@@ -139,6 +167,34 @@ void DiscreteProperty::pushBackIntHdf5Array2dOfValues(int * values, const ULONG6
 	pushBackIntHdf5ArrayOfValues(values, valueCountPerDimension, 2, proxy, nullValue);
 }
 
+void DiscreteProperty::pushBackShortHdf5Array2dOfValues(short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const short & nullValue, const short &  minimumValue, const short &  maximumValue)
+{
+	hsize_t valueCountPerDimension[2] = { valueCountInSlowestDim, valueCountInFastestDim };
+	pushBackShortHdf5ArrayOfValues(values, valueCountPerDimension, 2, proxy, nullValue, minimumValue, maximumValue);
+}
+
+void DiscreteProperty::pushBackShortHdf5Array2dOfValues(short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const short & nullValue)
+{
+	hsize_t valueCountPerDimension[2] = { valueCountInSlowestDim, valueCountInFastestDim };
+	pushBackShortHdf5ArrayOfValues(values, valueCountPerDimension, 2, proxy, nullValue);
+}
+
+void DiscreteProperty::pushBackCharHdf5Array2dOfValues(char * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const char & nullValue, const char &  minimumValue, const char &  maximumValue)
+{
+	hsize_t valueCountPerDimension[2] = { valueCountInSlowestDim, valueCountInFastestDim };
+	pushBackCharHdf5ArrayOfValues(values, valueCountPerDimension, 2, proxy, nullValue, minimumValue, maximumValue);
+}
+
+void DiscreteProperty::pushBackCharHdf5Array2dOfValues(char * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const char & nullValue)
+{
+	hsize_t valueCountPerDimension[2] = { valueCountInSlowestDim, valueCountInFastestDim };
+	pushBackCharHdf5ArrayOfValues(values, valueCountPerDimension, 2, proxy, nullValue);
+}
+
 void DiscreteProperty::pushBackLongHdf5Array3dOfValues(long * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
 			const long & nullValue, const long &  minimumValue, const long &  maximumValue)
 {
@@ -165,6 +221,34 @@ void DiscreteProperty::pushBackIntHdf5Array3dOfValues(int * values, const ULONG6
 {
 	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
 	pushBackIntHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
+}
+
+void DiscreteProperty::pushBackShortHdf5Array3dOfValues(short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const short & nullValue, const short &  minimumValue, const short &  maximumValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
+	pushBackShortHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue, minimumValue, maximumValue);
+}
+
+void DiscreteProperty::pushBackShortHdf5Array3dOfValues(short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const short & nullValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
+	pushBackShortHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
+}
+
+void DiscreteProperty::pushBackCharHdf5Array3dOfValues(char * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const char & nullValue, const char &  minimumValue, const char &  maximumValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
+	pushBackCharHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue, minimumValue, maximumValue);
+}
+
+void DiscreteProperty::pushBackCharHdf5Array3dOfValues(char * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const char & nullValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
+	pushBackCharHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
 }
 
 std::string DiscreteProperty::pushBackRefToExistingDataset(const std::string & datasetName, resqml2::AbstractHdfProxy* proxy, const long & nullValue)
@@ -266,7 +350,52 @@ void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, unsigned long 
 
 	pair<int, int> minMax = statistics::getMinMax(values, nullValue, numTotalValues);
 	pushBackIntHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
+}
 
+void DiscreteProperty::pushBackShortHdf5ArrayOfValues(short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const short & nullValue, const short &  minimumValue, const short &  maximumValue)
+{
+	string datasetName = pushBackRefToExistingDataset("", proxy, nullValue, minimumValue, maximumValue);
+
+	// HDF
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+		datasetName,
+		H5T_NATIVE_SHORT,
+		values,
+		numValues, numDimensionsInArray);
+}
+
+void DiscreteProperty::pushBackShortHdf5ArrayOfValues(short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const short & nullValue)
+{
+	hsize_t numTotalValues = numValues[0];
+	for (unsigned int dim = 1; dim < numDimensionsInArray; ++dim) {
+		numTotalValues *= numValues[dim];
+	}
+
+	pair<short, short> minMax = statistics::getMinMax(values, nullValue, numTotalValues);
+	pushBackShortHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
+}
+
+void DiscreteProperty::pushBackCharHdf5ArrayOfValues(char * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const char & nullValue, const char &  minimumValue, const char &  maximumValue)
+{
+	string datasetName = pushBackRefToExistingDataset("", proxy, nullValue, minimumValue, maximumValue);
+
+	// HDF
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+		datasetName,
+		H5T_NATIVE_CHAR,
+		values,
+		numValues, numDimensionsInArray);
+}
+
+void DiscreteProperty::pushBackCharHdf5ArrayOfValues(char * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const char & nullValue)
+{
+	hsize_t numTotalValues = numValues[0];
+	for (unsigned int dim = 1; dim < numDimensionsInArray; ++dim) {
+		numTotalValues *= numValues[dim];
+	}
+
+	pair<char, char> minMax = statistics::getMinMax(values, nullValue, numTotalValues);
+	pushBackCharHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
 }
 
 gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind DiscreteProperty::getFirstAllowedPropertyKindParent() const
