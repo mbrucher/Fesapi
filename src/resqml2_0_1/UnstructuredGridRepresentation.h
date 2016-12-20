@@ -99,7 +99,7 @@ namespace resqml2_0_1
 		* Only to be used in partial transfer context
 		*/
 		UnstructuredGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject):
-			resqml2::AbstractGridRepresentation(nullptr, partialObject, false), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
+			resqml2::AbstractGridRepresentation(partialObject, false), constantNodeCountPerFace(0), constantFaceCountPerCell(0),
 			cumulativeNodeCountPerFace(nullptr), cumulativeFaceCountPerCell(nullptr),
 			nodeIndicesOfFaces(nullptr), faceIndicesOfCells(nullptr)
 		{

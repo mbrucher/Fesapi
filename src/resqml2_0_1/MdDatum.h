@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT MdDatum : public resqml2::MdDatum
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		MdDatum(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::MdDatum(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param soapContext				The soap context where the underlying gsoap proxy is going to be created.
@@ -66,9 +72,9 @@ namespace resqml2_0_1
 		~MdDatum() {}
 
 		/**
-		* Get the Local 3d CRS uuid where the reference point ordinals are given
+		* Get the Local 3d CRS dor where the reference point ordinals are given
 		*/
-		std::string getLocalCrsUuid() const;
+		gsoap_resqml2_0_1::eml__DataObjectReference* getLocalCrsDor() const;
 
 		/**
 		* Getter of the first ordinal of the reference location.

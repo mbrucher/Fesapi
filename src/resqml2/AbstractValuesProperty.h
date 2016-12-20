@@ -37,7 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2
 {
-	class DLL_IMPORT_OR_EXPORT AbstractValuesProperty : public resqml2::AbstractProperty
+	class DLL_IMPORT_OR_EXPORT AbstractValuesProperty : public AbstractProperty
 	{
 	protected:
 		/**
@@ -50,6 +50,11 @@ namespace resqml2
 	public:
 
 		enum hdfDatatypeEnum { UNKNOWN = 0, DOUBLE = 1, FLOAT = 2, LONG = 3, ULONG = 4, INT = 5, UINT = 6, SHORT = 7, USHORT = 8, CHAR = 9, UCHAR = 10};
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractValuesProperty(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractProperty(partialObject) {}
 
 		/**
 		* Default constructor

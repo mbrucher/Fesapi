@@ -45,6 +45,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT StratigraphicColumnRankInterpretation : public AbstractStratigraphicOrganizationInterpretation
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		StratigraphicColumnRankInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractStratigraphicOrganizationInterpretation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param orgFeat			The feature the instance interprets. It must be a stratigraphic organization feature.

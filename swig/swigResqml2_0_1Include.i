@@ -6,8 +6,7 @@
 #include "resqml2_0_1/MdDatum.h"
 
 #include "resqml2_0_1/Horizon.h"
-#include "resqml2_0_1/Fault.h"
-#include "resqml2_0_1/Fracture.h"
+#include "resqml2_0_1/TectonicBoundaryFeature.h"
 #include "resqml2_0_1/FrontierFeature.h"
 #include "resqml2_0_1/WellboreFeature.h"
 #include "resqml2_0_1/SeismicLineFeature.h"
@@ -76,8 +75,7 @@ namespace resqml2_0_1 {
 	class LocalTime3dCrs;
 	class StratigraphicColumn;
 	class StratigraphicColumnRankInterpretation;
-	class Fault;
-	class Fracture;
+	class TectonicBoundaryFeature;
 	class Horizon;
 	class FrontierFeature;
 	class StratigraphicUnitInterpretation;
@@ -109,8 +107,7 @@ namespace std {
    %template(LocalTime3dCrsVector) vector<resqml2_0_1::LocalTime3dCrs*>;
    %template(StratigraphicColumnVector) vector<resqml2_0_1::StratigraphicColumn*>;
    %template(StratigraphicColumnRankInterpretationVector) vector<resqml2_0_1::StratigraphicColumnRankInterpretation*>;
-   %template(FaultVector) vector<resqml2_0_1::Fault*>;
-   %template(FractureVector) vector<resqml2_0_1::Fracture*>;
+   %template(TectonicBoundaryFeature) vector<resqml2_0_1::TectonicBoundaryFeature*>;
    %template(HorizonVector) vector<resqml2_0_1::Horizon*>;
    %template(FrontierVector) vector<resqml2_0_1::FrontierFeature*>;
    %template(StratigraphicUnitInterpretationVector) vector<resqml2_0_1::StratigraphicUnitInterpretation*>;
@@ -2089,8 +2086,6 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::GeneticBoundaryFeature;
 	%nspace resqml2_0_1::Horizon;
 	%nspace resqml2_0_1::TectonicBoundaryFeature;
-	%nspace resqml2_0_1::Fault;
-	%nspace resqml2_0_1::Fracture;
 	%nspace resqml2_0_1::AbstractTechnicalFeature;
 	%nspace resqml2_0_1::SeismicLineSetFeature;
 	%nspace resqml2_0_1::SeismicLineFeature;
@@ -2239,14 +2234,6 @@ namespace resqml2_0_1
 	{
 	public:
 		bool isAFracture() const;
-	};
-
-	class Fault : public TectonicBoundaryFeature
-	{
-	};
-
-	class Fracture : public TectonicBoundaryFeature
-	{
 	};
 
 	class AbstractTechnicalFeature : public resqml2::AbstractFeature

@@ -45,6 +45,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT WellboreFeature : public AbstractTechnicalFeature
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		WellboreFeature(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :AbstractTechnicalFeature(partialObject) {}
+
 		/**
 		* Default constructor
 		*/

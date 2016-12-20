@@ -1,7 +1,7 @@
 #include "FaultTest.h"
 #include "../catch.hpp"
 #include "EpcDocument.h"
-#include "resqml2_0_1/Fault.h"
+#include "resqml2_0_1/TectonicBoundaryFeature.h"
 #include <stdexcept>
 #include "../config.h"
 
@@ -23,7 +23,7 @@ FaultTest::FaultTest(EpcDocument* epcDoc, bool init)
 }
 
 void FaultTest::initEpcDocHandler() {
-	Fault* fault = this->epcDoc->createFault(this->uuid, this->title);
+	TectonicBoundaryFeature* fault = this->epcDoc->createFault(this->uuid, this->title);
 	REQUIRE( fault != nullptr );
 }
 

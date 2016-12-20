@@ -41,6 +41,12 @@ namespace resqml2
 	class DLL_IMPORT_OR_EXPORT AbstractProperty: public AbstractObject
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractProperty(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(partialObject) {}
+
 		/**
 		* Default constructor
 		* Set the relationship with an AbstractRepresentation and a local property type.
@@ -61,6 +67,11 @@ namespace resqml2
 		 * Set the representation which is associated to the current property.
 		 */
 		void setRepresentation(class AbstractRepresentation * rep);
+
+		/**
+		* @return	null pointer if no representation is associated to this property. Otherwise return the data object reference of the associated representation.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getRepresentationDor() const;
 
 		/**
 		* Getter for the representation which supports this instance values.
@@ -91,6 +102,11 @@ namespace resqml2
 		* Getter for the time series which is associated to this property.
 		*/
 		TimeSeries* getTimeSeries() const;
+
+		/**
+		* @return	null pointer if no time series is associated to this property. Otherwise return the data object reference of the associated time series.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getTimeSeriesDor() const;
 
 		/*
 		* Getter for the uuid of the time series which is associated to this property.
@@ -193,6 +209,11 @@ namespace resqml2
 		* Get the uuid of the localproeprty kind which is associated to this property.
 		*/
 		std::string getLocalPropertyKindUuid() const;
+
+		/**
+		* @return	null pointer if no local proeprty kind is associated to this property. Otherwise return the data object reference of the associated local property kind.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getLocalPropertyKindDor() const;
 
 		/**
 		* Get the title of the localproeprty kind which is associated to this property.

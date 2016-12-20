@@ -57,7 +57,7 @@ namespace resqml2
 		* Only to be used in partial transfer context
 		*/
 		RepresentationSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
-			resqml2::AbstractRepresentation(nullptr, partialObject)
+			resqml2::AbstractRepresentation(partialObject)
 		{
 		}
 
@@ -97,6 +97,11 @@ namespace resqml2
 		* Get a particular representation of this representation set according to its position.
 		*/
 		resqml2::AbstractRepresentation* getRepresentation(const unsigned int & index) const;
+
+		/**
+		* Get a particular representation dor of this representation set according to its position.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getRepresentationDor(const unsigned int & index) const;
 
 		/**
 		* Get a particular representation uuid of this representation set according to its position.

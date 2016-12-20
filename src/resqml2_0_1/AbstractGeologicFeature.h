@@ -39,7 +39,13 @@ namespace resqml2_0_1
 {
 	class DLL_IMPORT_OR_EXPORT AbstractGeologicFeature : public resqml2::AbstractFeature
 	{
-	public:
+	protected:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractGeologicFeature(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractFeature(partialObject) {}
+
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr from superclass constructor
@@ -47,6 +53,9 @@ namespace resqml2_0_1
 		AbstractGeologicFeature() {}
 
 		AbstractGeologicFeature(gsoap_resqml2_0_1::resqml2__AbstractGeologicFeature* fromGsoap) : resqml2::AbstractFeature(fromGsoap) {}
+
+	public:
+
 		virtual ~AbstractGeologicFeature() {}
 
 	};

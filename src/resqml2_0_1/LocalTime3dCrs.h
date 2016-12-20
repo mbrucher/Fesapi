@@ -50,6 +50,12 @@ namespace resqml2_0_1
 		double getZOffset() const {return .0;}
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		LocalTime3dCrs(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractLocal3dCrs(partialObject) {}
+
 		/**
 		* Creates a local depth 3d CRS which is fully identified by means of EPSG code.
 		* @param soapContext		The soap context where the underlying gsoap proxy is going to be created.

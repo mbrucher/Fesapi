@@ -300,9 +300,9 @@ std::string WellboreFrameRepresentation::getWellboreTrajectoryUuid() const
 	return static_cast<_resqml2__WellboreFrameRepresentation*>(gsoapProxy2_0_1)->Trajectory->UUID;
 }
 
-std::string WellboreFrameRepresentation::getLocalCrsUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* WellboreFrameRepresentation::getLocalCrsDor() const
 {
-	return trajectory->getLocalCrsUuid();
+	return trajectory->getLocalCrsDor();
 }
 
 std::string WellboreFrameRepresentation::getHdfProxyUuid() const

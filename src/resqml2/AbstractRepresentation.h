@@ -44,7 +44,7 @@ namespace resqml2
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :AbstractObject(epcDoc, partialObject), interpretation(nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
+		AbstractRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :AbstractObject(partialObject), interpretation(nullptr), hdfProxy(nullptr), localCrs(nullptr) {}
 
 		/** 
 		* Set the domain of the interpretation according to the local CRS
@@ -104,11 +104,16 @@ namespace resqml2
 		* Getter (read/write access) for the localCrs
 		*/
 		class AbstractLocal3dCrs* getLocalCrs() const;
+
+		/**
+		* Get the Local 3d CRS dor where the reference point ordinals are given
+		*/
+		virtual gsoap_resqml2_0_1::eml__DataObjectReference* getLocalCrsDor() const;
 		
 		/**
 		* Get the Local 3d CRS uuid where the reference point ordinals are given
 		*/
-		virtual std::string getLocalCrsUuid() const;
+		std::string getLocalCrsUuid() const;
 
 		/**
 		* Getter (read/write access) for the hdf Proxy
@@ -154,6 +159,11 @@ namespace resqml2
 		* Get the interpretation of this representation
 		*/
 		class AbstractFeatureInterpretation* getInterpretation() const;
+
+		/**
+		* @return	null pointer if no local interpretation is associated to this representation. Otherwise return the data object reference of the associated interpretation.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getInterpretationDor() const;
 
 		/**
 		* Get the interpretation uuid of this representation
@@ -316,7 +326,7 @@ namespace resqml2
 		std::vector<AbstractRepresentation*> 				seismicSupportSet;
 
 		// XML backward relationships
-		std::vector<SubRepresentation*>		subRepresentationSet;
+		std::vector<SubRepresentation*>						subRepresentationSet;
 		std::vector<AbstractProperty*>						propertySet;
 		std::vector<AbstractRepresentation*> 				seismicSupportedRepSet;
 		std::vector<class RepresentationSetRepresentation*>	representationSetRepresentationSet;

@@ -69,12 +69,20 @@ vector<Relationship> RepresentationSetRepresentation::getAllEpcRelationships() c
 void RepresentationSetRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
 	const unsigned int repCount = getRepresentationCount();
-	for (size_t i = 0; i < repCount; ++i)
+	for (unsigned int i = 0; i < repCount; ++i)
 	{
-		AbstractRepresentation* rep = static_cast<AbstractRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(getRepresentationUuid(i)));
-		if (rep != nullptr) {
-			rep->pushBackIntoRepresentationSet(this, false);
+		gsoap_resqml2_0_1::eml__DataObjectReference* dor = getRepresentationDor(i);
+		resqml2::AbstractRepresentation* rep = epcDoc->getResqmlAbstractObjectByUuid<resqml2::AbstractRepresentation>(dor->UUID);
+		if (rep == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			rep = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2::AbstractRepresentation>(dor->UUID);
 		}
+		if (rep == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
+		updateXml = false;
+		rep->pushBackIntoRepresentationSet(this, false);
+		updateXml = true;
 	}
 }
 
@@ -117,18 +125,23 @@ resqml2::AbstractRepresentation* RepresentationSetRepresentation::getRepresentat
 	return static_cast<resqml2::AbstractRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getRepresentationUuid(index)));
 }
 
-std::string RepresentationSetRepresentation::getRepresentationUuid(const unsigned int & index) const
+gsoap_resqml2_0_1::eml__DataObjectReference* RepresentationSetRepresentation::getRepresentationDor(const unsigned int & index) const
 {
 	if (index >= getRepresentationCount()) {
 		throw range_error("The index of the representation to get is out of range in this representaiton set representation");
 	}
 
 	if (gsoapProxy2_0_1 != nullptr) {
-		return static_cast<gsoap_resqml2_0_1::_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1)->Representation[index]->UUID;
+		return static_cast<gsoap_resqml2_0_1::_resqml2__RepresentationSetRepresentation*>(gsoapProxy2_0_1)->Representation[index];
 	}
 	else {
 		throw logic_error("Not implemented yet");
 	}
+}
+
+std::string RepresentationSetRepresentation::getRepresentationUuid(const unsigned int & index) const
+{
+	return getRepresentationDor(index)->UUID;
 }
 
 void RepresentationSetRepresentation::pushBackXmlRepresentation(resqml2::AbstractRepresentation* rep)

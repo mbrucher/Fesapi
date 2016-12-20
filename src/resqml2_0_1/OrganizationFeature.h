@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT OrganizationFeature : public AbstractGeologicFeature
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		OrganizationFeature(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractGeologicFeature(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param epcDoc		The EPC document which will contain the hroizon.

@@ -43,6 +43,12 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		Grid2dSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractSurfaceRepresentation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param soap				The soap context to serialize.

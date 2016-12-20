@@ -1,6 +1,6 @@
 #include "FaultInterpretationTest.h"
 #include "FaultTest.h"
-#include "resqml2_0_1/Fault.h"
+#include "resqml2_0_1/TectonicBoundaryFeature.h"
 #include "resqml2_0_1/FaultInterpretation.h"
 #include "../catch.hpp"
 #include "../config.h"
@@ -30,7 +30,7 @@ void FaultInterpretationTest::initEpcDocHandler()
 	// creating dependencies
 	FaultTest* faultTest = new FaultTest(this->epcDoc, true);
 
-	Fault* fault = static_cast<Fault*>(this->epcDoc->getResqmlAbstractObjectByUuid(uuidFault));
+	TectonicBoundaryFeature* fault = static_cast<TectonicBoundaryFeature*>(this->epcDoc->getResqmlAbstractObjectByUuid(uuidFault));
 	FaultInterpretation* FaultInterp = this->epcDoc->createFaultInterpretation(fault, this->uuid, this->title);
 	REQUIRE( FaultInterp != nullptr );
 

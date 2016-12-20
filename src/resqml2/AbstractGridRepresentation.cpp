@@ -108,7 +108,7 @@ gsoap_resqml2_0_1::resqml2__AbstractParentWindow* AbstractGridRepresentation::ge
 	return nullptr;
 }
 
-std::string AbstractGridRepresentation::getParentGridUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* AbstractGridRepresentation::getParentGridDor() const
 {
 	if (gsoapProxy2_0_1 != nullptr) {
 		gsoap_resqml2_0_1::resqml2__AbstractParentWindow* parentWindow = getParentWindow2_0_1();
@@ -116,15 +116,15 @@ std::string AbstractGridRepresentation::getParentGridUuid() const
 		if (parentWindow != nullptr) {
 			if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IjkParentWindow) {
 				gsoap_resqml2_0_1::resqml2__IjkParentWindow* pw = static_cast<gsoap_resqml2_0_1::resqml2__IjkParentWindow*>(parentWindow);
-				return pw->ParentGrid->UUID;
+				return pw->ParentGrid;
 			}
 			else if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ColumnLayerParentWindow) {
 				gsoap_resqml2_0_1::resqml2__ColumnLayerParentWindow* pw = static_cast<gsoap_resqml2_0_1::resqml2__ColumnLayerParentWindow*>(parentWindow);
-				return pw->ParentGrid->UUID;
+				return pw->ParentGrid;
 			}
 			else if (parentWindow->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__CellParentWindow) {
 				gsoap_resqml2_0_1::resqml2__CellParentWindow* pw = static_cast<gsoap_resqml2_0_1::resqml2__CellParentWindow*>(parentWindow);
-				return pw->ParentGrid->UUID;
+				return pw->ParentGrid;
 			}
 			else {
 				throw logic_error("Unexpected parent window type.");
@@ -134,8 +134,14 @@ std::string AbstractGridRepresentation::getParentGridUuid() const
 	else {
 		throw logic_error("Not implemented yet");
 	}
-	
-	return "";
+
+	return nullptr;
+}
+
+std::string AbstractGridRepresentation::getParentGridUuid() const
+{
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getParentGridDor();
+	return dor == nullptr ? string() : dor->UUID;
 }
 
 AbstractGridRepresentation* AbstractGridRepresentation::getParentGrid() const
@@ -981,14 +987,32 @@ void AbstractGridRepresentation::importRelationshipSetFromEpc(common::EpcDocumen
 	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
 
 	// LGR backward relationships
-	AbstractGridRepresentation* parentGrid = getParentGrid();
-	if (parentGrid != nullptr) {
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getParentGridDor();
+	if (dor != nullptr) {
+		resqml2::AbstractGridRepresentation* parentGrid = epcDoc->getResqmlAbstractObjectByUuid<resqml2::AbstractGridRepresentation>(dor->UUID);
+		if (parentGrid == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			parentGrid = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2::AbstractGridRepresentation>(dor->UUID);
+		}
+		if (parentGrid == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
+		updateXml = false;
 		parentGrid->childGridSet.push_back(this);
+		updateXml = true;
 	}
 
 	// Strati org backward relationships
-	resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrg = getStratigraphicOrganizationInterpretation();
-	if (stratiOrg != nullptr) {
+	dor = getStratigraphicOrganizationInterpretationDor();
+	if (dor != nullptr) {
+		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrg = epcDoc->getResqmlAbstractObjectByUuid<resqml2_0_1::AbstractStratigraphicOrganizationInterpretation>(dor->UUID);
+		if (stratiOrg == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2_0_1::AbstractStratigraphicOrganizationInterpretation>(dor->UUID);
+		}
+		if (stratiOrg == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
 		updateXml = false;
 		setCellAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, stratiOrg);
 		updateXml = true;
@@ -1028,18 +1052,30 @@ void AbstractGridRepresentation::setCellAssociationWithStratigraphicOrganization
 	}
 }
 
-std::string AbstractGridRepresentation::getStratigraphicOrganizationInterpretationUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* AbstractGridRepresentation::getStratigraphicOrganizationInterpretationDor() const
 {
 	if (!hasCellStratigraphicUnitIndices()) {
-		return "";
+		return nullptr;
 	}
 
 	if (gsoapProxy2_0_1 != nullptr) {
-		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1)->CellStratigraphicUnits->StratigraphicOrganization->UUID;
+		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractGridRepresentation*>(gsoapProxy2_0_1)->CellStratigraphicUnits->StratigraphicOrganization;
 	}
 	else {
 		throw logic_error("Not implemented yet");
 	}
+}
+
+std::string AbstractGridRepresentation::getStratigraphicOrganizationInterpretationUuid() const
+{
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getStratigraphicOrganizationInterpretationDor();
+	return dor == nullptr ? string() : dor->UUID;
+}
+
+std::string AbstractGridRepresentation::getStratigraphicOrganizationInterpretationTitle() const
+{
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getStratigraphicOrganizationInterpretationDor();
+	return dor == nullptr ? string() : dor->Title;
 }
 
 resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* AbstractGridRepresentation::getStratigraphicOrganizationInterpretation() const

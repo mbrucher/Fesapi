@@ -42,6 +42,11 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		ActivityTemplate(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::ActivityTemplate(partialObject) {}
+
+		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created.
 		* @param guid			The guid to set to the boundary horizon. If empty then a new guid will be generated.

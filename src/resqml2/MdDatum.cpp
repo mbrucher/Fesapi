@@ -96,6 +96,11 @@ void MdDatum::setLocalCrs(AbstractLocal3dCrs * localCrs)
 	}
 }
 
+std::string MdDatum::getLocalCrsUuid() const
+{
+	return getLocalCrsDor()->UUID;
+}
+
 AbstractLocal3dCrs * MdDatum::getLocalCrs() const
 {
 	const string uuidLocalCrs = getLocalCrsUuid();

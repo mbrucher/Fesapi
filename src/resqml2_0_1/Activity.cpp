@@ -504,10 +504,9 @@ void Activity::setActivityTemplate(resqml2::ActivityTemplate * activityTemplate)
 	}
 }
 
-resqml2::ActivityTemplate* Activity::getActivityTemplate() const
+gsoap_resqml2_0_1::eml__DataObjectReference* Activity::getActivityTemplateDor() const
 {
-	string uuidActTemplate = static_cast<_resqml2__Activity*>(gsoapProxy2_0_1)->ActivityDescriptor->UUID;
-	return static_cast<resqml2::ActivityTemplate*>(getEpcDocument()->getResqmlAbstractObjectByUuid(uuidActTemplate));
+	return static_cast<_resqml2__Activity*>(gsoapProxy2_0_1)->ActivityDescriptor;
 }
 
 std::string Activity::getResqmlVersion() const
@@ -520,25 +519,22 @@ void Activity::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 	_resqml2__Activity* activity = static_cast<_resqml2__Activity*>(gsoapProxy2_0_1);
 
 	// Activity template
-	AbstractObject* activityTemplate = epcDoc->getResqmlAbstractObjectByUuid(activity->ActivityDescriptor->UUID);
-	if (dynamic_cast<resqml2::ActivityTemplate*>(activityTemplate) != nullptr)
-	{
+	resqml2::ActivityTemplate* activityTemplate = epcDoc->getResqmlAbstractObjectByUuid<resqml2::ActivityTemplate>(activity->ActivityDescriptor->UUID);
+	if (activityTemplate != nullptr) {
 		updateXml = false;
 		setActivityTemplate(static_cast<resqml2::ActivityTemplate*>(activityTemplate));
 		updateXml = true;
 	}
-	else
-	{
+	else {
 		throw logic_error("The referenced activity template does not look to be an activity template.");
 	}
 
-	for (unsigned int i = 0; i < activity->Parameter.size(); ++i)
-	{
-		if (activity->Parameter[i]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DataObjectParameter)
-		{
+	for (size_t i = 0; i < activity->Parameter.size(); ++i) {
+		if (activity->Parameter[i]->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DataObjectParameter) {
 			resqml2__DataObjectParameter* dop = static_cast<resqml2__DataObjectParameter*>(activity->Parameter[i]);
-			if (dop->DataObject == nullptr)
+			if (dop->DataObject == nullptr) {
 				throw domain_error("The resqml object of a data object parameter cannot be null.");
+			}
 
 			updateXml = false;
 			pushBackParameter(dop->Title, epcDoc->getResqmlAbstractObjectByUuid(dop->DataObject->UUID));

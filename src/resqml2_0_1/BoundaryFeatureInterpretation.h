@@ -45,7 +45,7 @@ namespace resqml2_0_1
 		/**
 		* Only to be used in partial transfer context
 		*/
-		BoundaryFeatureInterpretation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :resqml2::AbstractFeatureInterpretation(epcDoc, partialObject) {}
+		BoundaryFeatureInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :resqml2::AbstractFeatureInterpretation(partialObject) {}
 
 		/**
 		* Default constructor

@@ -44,6 +44,11 @@ namespace resqml2_0_1
 	{
 	protected:
 
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractOrganizationInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractFeatureInterpretation(partialObject) {}
+
 		AbstractOrganizationInterpretation() {}
 
 		/**

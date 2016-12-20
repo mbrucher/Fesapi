@@ -53,8 +53,7 @@ const char* BlockedWellboreRepresentation::XML_TAG = "BlockedWellboreRepresentat
 
 void BlockedWellboreRepresentation::init(const std::string & guid, const std::string & title, WellboreTrajectoryRepresentation * traj)
 {
-	if (traj == nullptr)
-	{
+	if (traj == nullptr) {
 		throw invalid_argument("The wellbore trajectory of a blocked wellbore cannot be null.");
 	}
 
@@ -75,8 +74,7 @@ BlockedWellboreRepresentation::BlockedWellboreRepresentation(WellboreInterpretat
 {
 	init(guid, title, traj);
 
-	if (interp != nullptr)
-	{
+	if (interp != nullptr) {
 		setInterpretation(interp);
 	}
 }
@@ -86,8 +84,7 @@ vector<Relationship> BlockedWellboreRepresentation::getAllEpcRelationships() con
 	vector<Relationship> result = WellboreFrameRepresentation::getAllEpcRelationships();
 
 	_resqml2__BlockedWellboreRepresentation* rep = static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1);
-	for (size_t i = 0; i < rep->Grid.size(); ++i)
-	{
+	for (size_t i = 0; i < rep->Grid.size(); ++i) {
 		Relationship relSupportingGrid(misc::getPartNameFromReference(rep->Grid[i]), "", rep->Grid[i]->UUID);
 		relSupportingGrid.setDestinationObjectType();
 		result.push_back(relSupportingGrid);
@@ -99,24 +96,19 @@ vector<Relationship> BlockedWellboreRepresentation::getAllEpcRelationships() con
 void BlockedWellboreRepresentation::setIntevalGridCells(unsigned int * gridIndices, unsigned int gridIndicesNullValue, unsigned int cellCount, ULONG64* cellIndices, unsigned char* localFacePairPerCellIndices, unsigned char localFacePairPerCellIndicesNullValue, resqml2::AbstractHdfProxy * hdfProxy)
 {
 	// Preconditions
-	if (getXyzPointCountOfAllPatches() == 0)
-	{
+	if (getXyzPointCountOfAllPatches() == 0) {
 		throw logic_error("You must first provide MD values of the frame before to use this method");
 	}
-	if (gridIndices == nullptr)
-	{
+	if (gridIndices == nullptr) {
 		throw invalid_argument("The grid indices cannot be null.");
 	}
-	if (cellCount == 0)
-	{
+	if (cellCount == 0) {
 		throw invalid_argument("The intersected cell count must not be zero.");
 	}
-	if (cellIndices == nullptr)
-	{
+	if (cellIndices == nullptr) {
 		throw invalid_argument("The cell indices cannot be null.");
 	}
-	if (localFacePairPerCellIndices == nullptr)
-	{
+	if (localFacePairPerCellIndices == nullptr) {
 		throw invalid_argument("The local Face Per Cell Indices cannot be null.");
 	}
 
@@ -215,14 +207,19 @@ void BlockedWellboreRepresentation::pushBackSupportingGridRepresentation(resqml2
 	}
 }
 
-std::string BlockedWellboreRepresentation::getSupportingGridRepresentationUuid(unsigned int index) const
+gsoap_resqml2_0_1::eml__DataObjectReference* BlockedWellboreRepresentation::getSupportingGridRepresentationDor(unsigned int index) const
 {
 	_resqml2__BlockedWellboreRepresentation* rep = static_cast<_resqml2__BlockedWellboreRepresentation*>(gsoapProxy2_0_1);
 
 	if (index >= rep->Grid.size()) {
 		throw range_error("The requested index is out of range of the available supporting grid representations.");
 	}
-	return rep->Grid[index]->UUID;
+	return rep->Grid[index];
+}
+
+std::string BlockedWellboreRepresentation::getSupportingGridRepresentationUuid(unsigned int index) const
+{
+	return getSupportingGridRepresentationDor(index)->UUID;
 }
 
 void BlockedWellboreRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)

@@ -46,6 +46,11 @@ namespace resqml2
 
 	public:
 
+		/**
+		* Only to be used in partial transfer context
+		*/
+		ActivityTemplate(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(partialObject) {}
+
 		virtual ~ActivityTemplate() {}
 		
 		/**

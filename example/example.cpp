@@ -55,7 +55,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/LocalDepth3dCrs.h"
 #include "resqml2_0_1/LocalTime3dCrs.h"
 #include "resqml2_0_1/Horizon.h"
-#include "resqml2_0_1/Fault.h"
+#include "resqml2_0_1/TectonicBoundaryFeature.h"
 #include "resqml2_0_1/GenericFeatureInterpretation.h"
 #include "resqml2_0_1/HorizonInterpretation.h"
 #include "resqml2_0_1/FaultInterpretation.h"
@@ -105,7 +105,7 @@ using namespace resqml2_0_1;
 
 Horizon* horizon1;
 Horizon* horizon2;
-Fault* fault1;
+TectonicBoundaryFeature* fault1;
 HorizonInterpretation* horizon1Interp1;
 HorizonInterpretation* horizon2Interp1;
 FaultInterpretation* fault1Interp1;
@@ -383,7 +383,7 @@ void serializeBoundaries(common::EpcDocument * pck, resqml2::AbstractHdfProxy* h
     // Fault polyline rep
     f1i1PolyLineRep = pck->createPolylineSetRepresentation(
         fault1Interp1, local3dCrs,
-        "",
+        "65c59595-bf48-451e-94aa-120ebdf28d8b",
         "Fault1 Interp1 PolylineRep");
     unsigned int numNodesPerPolylinePerPatch[2] = {3, 2};
     double polylinePoints[15] = {150, 0, 200, 300, 0, 350, 450, 0, 500, 150, 200, 200, 450, 200, 500};
@@ -1475,7 +1475,8 @@ void deserialize(const string & inputFile)
 	string resqmlResult = pck.deserialize();
 	if (!resqmlResult.empty()) {
 		cerr << resqmlResult << endl;
-		return;
+		cout << "Press enter to continue..." << endl;
+		cin.get();
 	}
 	for (size_t warningIndex = 0; warningIndex < pck.getWarnings().size(); ++warningIndex) {
 		cout << "Warning #" << warningIndex << " : " << pck.getWarnings()[warningIndex] << endl;
@@ -1523,7 +1524,7 @@ void deserialize(const string & inputFile)
 	}
 	cout << endl;
 
-	std::vector<Fault*> faultSet = pck.getFaultSet();
+	std::vector<TectonicBoundaryFeature*> faultSet = pck.getFaultSet();
 	std::vector<PolylineSetRepresentation*> faultPolyRep = pck.getFaultPolylineSetRepSet();
 	std::vector<TriangulatedSetRepresentation*> faultTriRepSet = pck.getFaultTriangulatedSetRepSet();
 	std::vector<Horizon*> horizonSet = pck.getHorizonSet();

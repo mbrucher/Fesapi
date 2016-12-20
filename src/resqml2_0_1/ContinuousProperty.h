@@ -66,6 +66,11 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		ContinuousProperty(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractValuesProperty(partialObject) {}
+
+		/**
 		* Creates an instance of this class in a gsoap context based on a standard kind and a standard uom.
 		* @param rep						The representation which supports these property values.
 		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.

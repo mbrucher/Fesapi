@@ -185,20 +185,8 @@ namespace resqml2_0_1
 		unsigned int getSupportingRepresentationCount() const;
 
 		/**
-		* Get one of the supporting representation uuid of this subrepresentation.
+		* Get the supporting representation dor located at a specific index of this subrepresentation.
 		*/
-		std::string getSupportingRepresentationUuid(unsigned int index) const;
-
-		/**
-		* Get one of the supporting representation title of this subrepresentation.
-		*/
-		std::string getSupportingRepresentationTitle(unsigned int index) const;
-
-		/**
-		* Get one of the supporting representation content type of this subrepresentation.
-		* It is assumed by fesapi taht all supporting representations must have the same type.
-		* This is a current limitation of fesapi compared the Resqml datamodel.
-		*/
-		std::string getSupportingRepresentationContentType() const;
+		gsoap_resqml2_0_1::eml__DataObjectReference* getSupportingRepresentationDor(unsigned int index) const;
 	};
 }

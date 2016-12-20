@@ -42,6 +42,11 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		DiscretePropertySeries(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : DiscreteProperty(partialObject) {}
+
+		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param rep						The representation which supports these property values.
 		* @param guid						The guid to set to the fault. If empty then a new guid will be generated.

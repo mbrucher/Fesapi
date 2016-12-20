@@ -74,31 +74,18 @@ void SubRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc
 	// Supporting representation
 	const unsigned int supRepCount = getSupportingRepresentationCount();
 	for (unsigned int supRepIndex = 0; supRepIndex < supRepCount; ++supRepIndex) {
-		resqml2::AbstractRepresentation* supportingRepInEpc = getSupportingRepresentation(supRepIndex);
-		AbstractRepresentation* supportingRep = nullptr;
-		if (supportingRepInEpc == nullptr) { // partial transfer
-			getEpcDocument()->addWarning("The referenced representation (" + getSupportingRepresentationUuid(supRepIndex) + ") is missing.");
-			if (getSupportingRepresentationContentType().find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
-				supportingRep = epcDoc->createPartialUnstructuredGridRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
-			}
-			else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) != string::npos) {
-				supportingRep = epcDoc->createPartialTruncatedIjkGridRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
-			}
-			else if (getSupportingRepresentationContentType().find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
-				supportingRep = epcDoc->createPartialIjkGridRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
-			}
-			else if (getSupportingRepresentationContentType().find(resqml2::GridConnectionSetRepresentation::XML_TAG) != string::npos) {
-				supportingRep = epcDoc->createPartialGridConnectionSetRepresentation(getSupportingRepresentationUuid(supRepIndex), supRepCount == 1 ? getSupportingRepresentationTitle(0) : "Unknown");
-			}
-			else {
-				throw logic_error("The referenced supporting representation is either not a resqml representation or it is partial and not implemented yet.");
-			}
+		gsoap_resqml2_0_1::eml__DataObjectReference* dor = getSupportingRepresentationDor(supRepIndex);
+		resqml2::AbstractRepresentation* supportingRep = epcDoc->getResqmlAbstractObjectByUuid<resqml2::AbstractRepresentation>(dor->UUID);
+		if (supportingRep == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			supportingRep = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2::AbstractRepresentation>(dor->UUID);
 		}
-		else {
-			supportingRep = supportingRepInEpc;
+		if (supportingRep == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
 		}
-
+		updateXml = false;
 		supportingRep->pushBackSubRepresentation(this);
+		updateXml = true;
 	}
 }
 
@@ -143,4 +130,19 @@ void SubRepresentation::pushBackSupportingRepresentation(AbstractRepresentation 
 AbstractRepresentation* SubRepresentation::getSupportingRepresentation(unsigned int index) const
 {
 	return static_cast<AbstractRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingRepresentationUuid(index)));
+}
+
+std::string SubRepresentation::getSupportingRepresentationUuid(unsigned int index) const
+{
+	return getSupportingRepresentationDor(index)->UUID;
+}
+
+std::string SubRepresentation::getSupportingRepresentationTitle(unsigned int index) const
+{
+	return getSupportingRepresentationDor(index)->Title;
+}
+
+std::string SubRepresentation::getSupportingRepresentationContentType() const
+{
+	return getSupportingRepresentationDor(0)->ContentType;
 }

@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT CategoricalPropertySeries : public CategoricalProperty
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		CategoricalPropertySeries(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : CategoricalProperty(partialObject) {}
+
 		/**
 		* Creates an instance of this class for time series in a gsoap context.
 		* @param rep						The representation which supports these property values.

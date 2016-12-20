@@ -122,7 +122,7 @@ gsoap_resqml2_0_1::resqml2__MdReference MdDatum::getOriginKind() const
 	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->MdReference;
 }
 
-std::string MdDatum::getLocalCrsUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* MdDatum::getLocalCrsDor() const
 {
-	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->LocalCrs->UUID;
+	return static_cast<_resqml2__MdDatum*>(gsoapProxy2_0_1)->LocalCrs;
 }

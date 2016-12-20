@@ -43,6 +43,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT StratigraphicColumn : public resqml2::AbstractObject
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		StratigraphicColumn(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractObject(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param epcDoc		The EPC document which will contain the hroizon.

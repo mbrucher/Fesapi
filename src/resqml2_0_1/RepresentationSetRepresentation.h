@@ -45,6 +45,12 @@ namespace resqml2_0_1
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const { return nullptr; }
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		RepresentationSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::RepresentationSetRepresentation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param horizon the feature the instance interprets.

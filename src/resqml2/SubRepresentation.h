@@ -45,7 +45,7 @@ namespace resqml2
 		* Only to be used in partial transfer context
 		*/
 		SubRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
-			resqml2::AbstractRepresentation(nullptr, partialObject)
+			resqml2::AbstractRepresentation(partialObject)
 		{
 		}
 
@@ -176,21 +176,26 @@ namespace resqml2
 		AbstractRepresentation* getSupportingRepresentation(unsigned int index) const;
 
 		/**
+		* Get the supporting representation dor located at a specific index of this subrepresentation.
+		*/
+		virtual gsoap_resqml2_0_1::eml__DataObjectReference* getSupportingRepresentationDor(unsigned int index) const = 0;
+
+		/**
 		* Get one of the supporting representation uuid of this subrepresentation.
 		*/
-		virtual std::string getSupportingRepresentationUuid(unsigned int index) const = 0;
+		std::string getSupportingRepresentationUuid(unsigned int index) const;
 
 		/**
 		* Get one of the supporting representation title of this subrepresentation.
 		*/
-		virtual std::string getSupportingRepresentationTitle(unsigned int index) const = 0;
+		std::string getSupportingRepresentationTitle(unsigned int index) const;
 
 		/**
 		* Get one of the supporting representation content type of this subrepresentation.
 		* It is assumed by fesapi taht all supporting representations must have the same type.
 		* This is a current limitation of fesapi compared the Resqml datamodel.
 		*/
-		virtual std::string getSupportingRepresentationContentType() const = 0;
+		std::string getSupportingRepresentationContentType() const;
 
 	private:
 

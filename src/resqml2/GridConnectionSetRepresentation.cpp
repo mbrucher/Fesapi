@@ -119,32 +119,21 @@ void GridConnectionSetRepresentation::importRelationshipSetFromEpc(common::EpcDo
 	AbstractRepresentation::importRelationshipSetFromEpc(epcDoc);
 
 	// Supporting grid representation
-	updateXml = false;
 	unsigned int supportingGridCount = getSupportingGridRepresentationCount();
 	for (unsigned int i = 0; i < supportingGridCount; ++i) {
-		string uuidSupportingGrid = getSupportingGridRepresentationUuid(i);
-		string titleSupportingGrid = getSupportingGridRepresentationTitle(i);
-		AbstractGridRepresentation* supportingGridRep = getSupportingGridRepresentation(i);
+		gsoap_resqml2_0_1::eml__DataObjectReference* dor = getSupportingGridRepresentationDor(i);
+		resqml2::AbstractGridRepresentation* supportingGridRep = epcDoc->getResqmlAbstractObjectByUuid<resqml2::AbstractGridRepresentation>(dor->UUID);
+		if (supportingGridRep == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			supportingGridRep = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2::AbstractGridRepresentation>(dor->UUID);
+		}
 		if (supportingGridRep == nullptr) {
-			getEpcDocument()->addWarning("The referenced grid \"" + titleSupportingGrid + "\" (" + uuidSupportingGrid + ") is missing.");
-			if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::UnstructuredGridRepresentation::XML_TAG) != string::npos) {
-				pushBackSupportingGridRepresentation(epcDoc->createPartialUnstructuredGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
-			}
-			else if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG_TRUNCATED) != string::npos) {
-				pushBackSupportingGridRepresentation(epcDoc->createPartialTruncatedIjkGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
-			}
-			else if (getSupportingGridRepresentationContentType(i).find(resqml2_0_1::AbstractIjkGridRepresentation::XML_TAG) != string::npos) {
-				pushBackSupportingGridRepresentation(epcDoc->createPartialIjkGridRepresentation(uuidSupportingGrid, titleSupportingGrid));
-			}
-			else {
-				throw logic_error("The referenced supporting representation is either not a resqml grid representation or it is partial and not implemented yet.");
-			}
+			throw invalid_argument("The DOR looks invalid.");
 		}
-		else {
-			pushBackSupportingGridRepresentation(supportingGridRep);
-		}
+		updateXml = false;
+		pushBackSupportingGridRepresentation(supportingGridRep);
+		updateXml = true;
 	}
-	updateXml = true;
 
 	if (isAssociatedToInterpretations()) {
 		updateXml = false;
@@ -193,4 +182,19 @@ AbstractFeatureInterpretation * GridConnectionSetRepresentation::getInterpretati
 AbstractGridRepresentation* GridConnectionSetRepresentation::getSupportingGridRepresentation(unsigned int index) const 
 {
 	return static_cast<AbstractGridRepresentation*>(epcDocument->getResqmlAbstractObjectByUuid(getSupportingGridRepresentationUuid(index)));
+}
+
+std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid(unsigned int index) const
+{
+	return getSupportingGridRepresentationDor(index)->UUID;
+}
+
+std::string GridConnectionSetRepresentation::getSupportingGridRepresentationTitle(unsigned int index) const
+{
+	return getSupportingGridRepresentationDor(index)->Title;
+}
+
+std::string GridConnectionSetRepresentation::getSupportingGridRepresentationContentType(unsigned int index) const
+{
+	return getSupportingGridRepresentationDor(index)->ContentType;
 }

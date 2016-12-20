@@ -45,7 +45,11 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT StratigraphicOccurrenceInterpretation : public AbstractStratigraphicOrganizationInterpretation
 	{
 	public:
-		static int GSOAP_TYPE;
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		StratigraphicOccurrenceInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractStratigraphicOrganizationInterpretation(partialObject) {}
 
 		/**
 		* Creates an instance of this class in a gsoap context.

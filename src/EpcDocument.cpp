@@ -33,7 +33,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #include "EpcDocument.h"
 
-#include<locale>
 #include <sstream>
 #include <stdexcept>
 
@@ -44,10 +43,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2_0_1/LocalDepth3dCrs.h"
 #include "resqml2_0_1/LocalTime3dCrs.h"
-#include "resqml2_0_1/Fault.h"
-#include "resqml2_0_1/Fracture.h"
 #include "resqml2_0_1/Horizon.h"
 #include "resqml2_0_1/FluidBoundaryFeature.h"
+#include "resqml2_0_1/TectonicBoundaryFeature.h"
 #include "resqml2_0_1/FrontierFeature.h"
 #include "resqml2_0_1/GenericFeatureInterpretation.h"
 #include "resqml2_0_1/FaultInterpretation.h"
@@ -132,6 +130,13 @@ const char* EpcDocument::DOCUMENT_EXTENSION = ".epc";
 		GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(className);\
 	}
 
+// Create a fesapi partial wrappe based on a content type
+#define CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(className)\
+	(resqmlContentType.compare(className::XML_TAG) == 0)\
+	{\
+		return createPartial<className>(dor->UUID, dor->Title);\
+	}
+
 
 namespace // anonymous namespace. Use only in that file.
 {
@@ -204,9 +209,9 @@ const std::vector<resqml2_0_1::StratigraphicColumn*> & EpcDocument::getStratigra
 
 const std::vector<resqml2_0_1::Horizon*> & EpcDocument::getHorizonSet() const { return horizonSet; }
 
-const std::vector<resqml2_0_1::Fault*> & EpcDocument::getFaultSet() const { return faultSet; }
+const std::vector<resqml2_0_1::TectonicBoundaryFeature*> & EpcDocument::getFaultSet() const { return faultSet; }
 
-const std::vector<resqml2_0_1::Fracture*> & EpcDocument::getFractureSet() const { return fractureSet; }
+const std::vector<resqml2_0_1::TectonicBoundaryFeature*> & EpcDocument::getFractureSet() const { return fractureSet; }
 
 const std::vector<resqml2_0_1::TriangulatedSetRepresentation*> & EpcDocument::getAllTriangulatedSetRepSet() const { return triangulatedSetRepresentationSet; }
 
@@ -421,10 +426,10 @@ void EpcDocument::addGsoapProxy(resqml2::AbstractObject* proxy)
 	string xmlTag = proxy->getXmlTag();
 	if (xmlTag.compare(TectonicBoundaryFeature::XML_TAG) == 0) {
 		if (!static_cast<const TectonicBoundaryFeature* const>(proxy)->isAFracture()) {
-			faultSet.push_back(static_cast<Fault* const>(proxy));
+			faultSet.push_back(static_cast<TectonicBoundaryFeature* const>(proxy));
 		}
 		else {
-			fractureSet.push_back(static_cast<Fracture* const>(proxy));
+			fractureSet.push_back(static_cast<TectonicBoundaryFeature* const>(proxy));
 		}
 	}
 	else if (xmlTag.compare(GeneticBoundaryFeature::XML_TAG) == 0) {
@@ -596,6 +601,7 @@ void EpcDocument::serialize(bool useZip64)
 
 string EpcDocument::deserialize()
 {
+	string result;
 	warnings.clear();
 	package->openForReading(filePath);
 
@@ -644,11 +650,14 @@ string EpcDocument::deserialize()
 			}
 			
 			if (wrapper != nullptr) {
-				addFesapiWrapperAndDeleteItIfException(wrapper);
 				if (s->error != SOAP_OK) {
 					ostringstream oss;
 					soap_stream_fault(s, oss);
-					return oss.str() + " IN " + it->second.getExtensionOrPartName();
+					result += oss.str() + " IN " + it->second.getExtensionOrPartName() + "\n";
+					delete wrapper;
+				}
+				else {
+					addFesapiWrapperAndDeleteItIfException(wrapper);
 				}
 			}
 			else {
@@ -705,11 +714,14 @@ string EpcDocument::deserialize()
 			
 			if (wrapper != nullptr)
 			{
-				addFesapiWrapperAndDeleteItIfException(wrapper);
 				if (s->error != SOAP_OK) {
 					ostringstream oss;
 					soap_stream_fault(s, oss);
-					return oss.str() + " IN " + it->second.getExtensionOrPartName();
+					result += oss.str() + " IN " + it->second.getExtensionOrPartName() + "\n";
+					delete wrapper;
+				}
+				else {
+					addFesapiWrapperAndDeleteItIfException(wrapper);
 				}
 			}
 		}
@@ -717,7 +729,7 @@ string EpcDocument::deserialize()
 
 	updateAllRelationships();
 
-	return string();
+	return result;
 }
 
 resqml2::AbstractObject* EpcDocument::getResqml2_0_1WrapperFromGsoapContext(const std::string & resqmlContentType)
@@ -733,16 +745,7 @@ resqml2::AbstractObject* EpcDocument::getResqml2_0_1WrapperFromGsoapContext(cons
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(FrontierFeature)
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(LocalDepth3dCrs)
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(LocalTime3dCrs)
-	else if (resqmlContentType.compare(TectonicBoundaryFeature::XML_TAG) == 0)
-	{
-		GET_RESQML_2_0_1_GSOAP_PROXY_FROM_GSOAP_CONTEXT(TectonicBoundaryFeature)
-		if (read->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fault) {
-			wrapper = new Fault(read);
-		}
-		else if (read->TectonicBoundaryKind == gsoap_resqml2_0_1::resqml2__TectonicBoundaryKind__fracture) {
-			wrapper = new Fracture(read);
-		}
-	}
+	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(TectonicBoundaryFeature)
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(GeneticBoundaryFeature)
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(BoundaryFeature)
 	else if CHECK_AND_GET_RESQML_2_0_1_FESAPI_WRAPPER_FROM_GSOAP_CONTEXT(WellboreFeature)
@@ -865,7 +868,7 @@ vector<PolylineSetRepresentation*> EpcDocument::getFaultPolylineSetRepSet() cons
 {
 	vector<PolylineSetRepresentation*> result;
 
-	vector<Fault*> faultSet = getFaultSet();
+	vector<TectonicBoundaryFeature*> faultSet = getFaultSet();
 	for (size_t featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
@@ -889,7 +892,7 @@ vector<PolylineSetRepresentation*> EpcDocument::getFracturePolylineSetRepSet() c
 {
 	vector<PolylineSetRepresentation*> result;
 
-	vector<Fracture*> fractureSet = getFractureSet();
+	vector<TectonicBoundaryFeature*> fractureSet = getFractureSet();
 	for (size_t featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
@@ -937,7 +940,7 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFaultTriangulatedSetRepSe
 {
 	vector<TriangulatedSetRepresentation*> result;
 
-	vector<Fault*> faultSet = getFaultSet();
+	vector<TectonicBoundaryFeature*> faultSet = getFaultSet();
 	for (size_t featureIndex = 0; featureIndex < faultSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = faultSet[featureIndex]->getInterpretationSet();
@@ -961,7 +964,7 @@ vector<TriangulatedSetRepresentation*> EpcDocument::getFractureTriangulatedSetRe
 {
 	vector<TriangulatedSetRepresentation*> result;
 
-	vector<Fracture*> fractureSet = getFractureSet();
+	vector<TectonicBoundaryFeature*> fractureSet = getFractureSet();
 	for (size_t featureIndex = 0; featureIndex < fractureSet.size(); featureIndex++)
 	{
 		vector<resqml2::AbstractFeatureInterpretation*> interpSet = fractureSet[featureIndex]->getInterpretationSet();
@@ -1212,8 +1215,9 @@ vector<IjkGridLatticeRepresentation*> EpcDocument::getIjkSeismicCubeGridRepresen
 
 resqml2::AbstractHdfProxy* EpcDocument::getHdfProxy(const unsigned int & index) const
 {
-	if (index >= hdfProxySet.size())
+	if (index >= hdfProxySet.size()) {
 		throw range_error("The index of the requested hdf proxy is out of range");
+	}
 
 	return hdfProxySet[index];
 }
@@ -1221,17 +1225,19 @@ resqml2::AbstractHdfProxy* EpcDocument::getHdfProxy(const unsigned int & index) 
 string EpcDocument::getStorageDirectory() const
 {
 	size_t slashPos = filePath.find_last_of("/\\");
-	if (slashPos != string::npos)
-		return filePath.substr(0, slashPos+1);
-	else
-		return string();
+	if (slashPos != string::npos) {
+		return filePath.substr(0, slashPos + 1);
+	}
+
+	return string();
 }
 
 string EpcDocument::getName() const
 {
 	size_t slashPos = filePath.find_last_of("/\\");
-	if (slashPos == string::npos)
+	if (slashPos == string::npos) {
 		return string();
+	}
 
 	// Remove the extension
 	string nameSuffixed = filePath.substr(slashPos+1, filePath.size());
@@ -1246,8 +1252,9 @@ void EpcDocument::updateAllRelationships()
 	for (std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #endif
 	{
-		if (!it->second->isPartial())
+		if (!it->second->isPartial()) {
 			it->second->importRelationshipSetFromEpc(this);
+		}
 	}
 
 
@@ -1277,12 +1284,77 @@ void EpcDocument::setExtendedCoreProperty(const std::string & key, const std::st
 
 std::string EpcDocument::getExtendedCoreProperty(const std::string & key)
 {
-	if (package->getExtendedCoreProperty().find(key) != package->getExtendedCoreProperty().end())
+	if (package->getExtendedCoreProperty().find(key) != package->getExtendedCoreProperty().end()) {
 		return (package->getExtendedCoreProperty())[key];
-	else
-		return string();
+	}
+
+	return string();
 }
 
+resqml2::AbstractObject* EpcDocument::createPartial(gsoap_resqml2_0_1::eml__DataObjectReference* dor)
+{
+	const size_t lastEqualCharPos = dor->ContentType.find_last_of('_'); // The XML tag is after "obj_"
+	const string resqmlContentType = dor->ContentType.substr(lastEqualCharPos + 1);
+
+	if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(MdDatum)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(Activity)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(ActivityTemplate)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(SeismicLatticeFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(SeismicLineFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(SeismicLineSetFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(FrontierFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(LocalDepth3dCrs)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(LocalTime3dCrs)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(TectonicBoundaryFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(GeneticBoundaryFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(BoundaryFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(WellboreFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(StratigraphicUnitFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(StratigraphicColumn)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(GenericFeatureInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(BoundaryFeatureInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(WellboreInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(FaultInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(HorizonInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(StratigraphicUnitInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(StratigraphicColumnRankInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(StratigraphicOccurrenceInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(WellboreFrameRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(WellboreMarkerFrameRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(WellboreTrajectoryRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(PolylineSetRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(PointSetRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(PlaneSetRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(PolylineRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(Grid2dSetRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(Grid2dRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(TriangulatedSetRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(BlockedWellboreRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(AbstractIjkGridRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(UnstructuredGridRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(PropertyKind)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(ContinuousProperty)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(ContinuousPropertySeries)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(CategoricalProperty)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(CategoricalPropertySeries)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(DiscreteProperty)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(DiscretePropertySeries)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(CommentProperty)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(StringTableLookup)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(EarthModelInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(OrganizationFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(StructuralOrganizationInterpretation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(FluidBoundaryFeature)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(SubRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(GridConnectionSetRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(TimeSeries)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(RepresentationSetRepresentation)
+	else if CREATE_RESQML_2_0_1_FESAPI_PARTIAL_WRAPPER(SealedSurfaceFrameworkRepresentation)
+	else if (dor->ContentType.compare(resqml2::EpcExternalPartReference::XML_TAG) == 0)
+	{
+		throw invalid_argument("Please handle this type outside this method since it is not only XML related.");
+	}
+}
 
 //************************************
 //************ HDF *******************
@@ -1437,23 +1509,16 @@ Horizon* EpcDocument::createHorizon(const std::string & guid, const std::string 
 	return result;
 }
 
-TectonicBoundaryFeature* EpcDocument::createTectonicBoundaryFeature(const std::string & guid, const std::string & title)
+TectonicBoundaryFeature* EpcDocument::createFault(const std::string & guid, const std::string & title)
 {
-	TectonicBoundaryFeature* result = new TectonicBoundaryFeature(getGsoapContext(), guid, title);
+	TectonicBoundaryFeature* result = new TectonicBoundaryFeature(getGsoapContext(), guid, title, false);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
 
-Fault* EpcDocument::createFault(const std::string & guid, const std::string & title)
+TectonicBoundaryFeature* EpcDocument::createFracture(const std::string & guid, const std::string & title)
 {
-	Fault* result = new Fault(getGsoapContext(), guid, title);
-	addFesapiWrapperAndDeleteItIfException(result);
-	return result;
-}
-
-Fracture* EpcDocument::createFracture(const std::string & guid, const std::string & title)
-{
-	Fracture* result = new Fracture(getGsoapContext(), guid, title);
+	TectonicBoundaryFeature* result = new TectonicBoundaryFeature(getGsoapContext(), guid, title, true);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }
@@ -1567,7 +1632,7 @@ HorizonInterpretation* EpcDocument::createHorizonInterpretation(Horizon * horizo
 	return result;
 }
 
-FaultInterpretation* EpcDocument::createFaultInterpretation(Fault * fault, const std::string & guid, const std::string & title)
+FaultInterpretation* EpcDocument::createFaultInterpretation(TectonicBoundaryFeature * fault, const std::string & guid, const std::string & title)
 {
 	FaultInterpretation* result = new FaultInterpretation(fault, guid, title);
 	addFesapiWrapperAndDeleteItIfException(result);

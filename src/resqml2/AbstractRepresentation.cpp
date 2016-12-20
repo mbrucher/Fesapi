@@ -171,20 +171,26 @@ AbstractLocal3dCrs * AbstractRepresentation::getLocalCrs() const
 	return localCrs;
 }
 
-std::string AbstractRepresentation::getLocalCrsUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* AbstractRepresentation::getLocalCrsDor() const
 {
 	if (gsoapProxy2_0_1 != nullptr) {
 		gsoap_resqml2_0_1::resqml2__PointGeometry* pointGeom = getPointGeometry2_0_1(0);
 		if (pointGeom != nullptr) {
-			return pointGeom->LocalCrs->UUID;
+			return pointGeom->LocalCrs;
 		}
 		else {
-			return "";
+			return nullptr;
 		}
 	}
 	else {
 		throw logic_error("Not implemented yet");
 	}
+}
+
+std::string AbstractRepresentation::getLocalCrsUuid() const
+{
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getLocalCrsDor();
+	return dor == nullptr ? string() : dor->UUID;
 }
 
 AbstractHdfProxy * AbstractRepresentation::getHdfProxy() const
@@ -260,26 +266,27 @@ AbstractFeatureInterpretation* AbstractRepresentation::getInterpretation() const
 	return interpretation;
 }
 
-std::string AbstractRepresentation::getInterpretationUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* AbstractRepresentation::getInterpretationDor() const
 {
 	if (gsoapProxy2_0_1 != nullptr) {
 		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation != nullptr ?
-			static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation->UUID : "";
+			static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation : nullptr;
 	}
 	else {
 		throw logic_error("Not implemented yet");
 	}
 }
 
+std::string AbstractRepresentation::getInterpretationUuid() const
+{
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getInterpretationDor();
+	return dor == nullptr ? string() : dor->UUID;
+}
+
 std::string AbstractRepresentation::getInterpretationContentType() const
 {
-	if (gsoapProxy2_0_1 != nullptr) {
-		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation != nullptr ?
-			static_cast<gsoap_resqml2_0_1::resqml2__AbstractRepresentation*>(gsoapProxy2_0_1)->RepresentedInterpretation->ContentType : "";
-	}
-	else {
-		throw logic_error("Not implemented yet");
-	}
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getInterpretationDor();
+	return dor == nullptr ? string() : dor->ContentType;
 }
 
 void AbstractRepresentation::pushBackSubRepresentation(SubRepresentation* subRep)
@@ -441,23 +448,38 @@ void AbstractRepresentation::setHdfProxy(AbstractHdfProxy * proxy)
 
 void AbstractRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	string uuid = getInterpretationUuid();
-	if (!uuid.empty()) {
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getInterpretationDor();
+	if (dor != nullptr) {
+		resqml2::AbstractFeatureInterpretation* interp = epcDoc->getResqmlAbstractObjectByUuid<resqml2::AbstractFeatureInterpretation>(dor->UUID);
+		if (interp == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			interp = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2::AbstractFeatureInterpretation>(dor->UUID);
+		}
+		if (interp == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
 		updateXml = false;
-		setInterpretation(epcDoc->getResqmlAbstractObjectByUuid<AbstractFeatureInterpretation>(uuid));
+		setInterpretation(interp);
 		updateXml = true;
 	}
 
 	// Local CRS
-	uuid = getLocalCrsUuid();
-	if (!uuid.empty()) {
-		localCrs = epcDoc->getResqmlAbstractObjectByUuid<AbstractLocal3dCrs>(uuid);
-		if (localCrs != nullptr) {
-			localCrs->addRepresentation(this);
+	dor = getLocalCrsDor();
+	if (dor != nullptr) {
+		localCrs = epcDoc->getResqmlAbstractObjectByUuid<AbstractLocal3dCrs>(dor->UUID);
+		if (localCrs == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			localCrs = getEpcDocument()->getResqmlAbstractObjectByUuid<AbstractLocal3dCrs>(dor->UUID);
 		}
+		if (localCrs == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
+		updateXml = false;
+		localCrs->addRepresentation(this);
+		updateXml = true;
 	}
 
-	uuid = getHdfProxyUuid();
+	const std::string uuid = getHdfProxyUuid();
 	if (!uuid.empty()) {
 		resqml2::AbstractHdfProxy* const hdfProxy = epcDoc->getResqmlAbstractObjectByUuid<AbstractHdfProxy>(uuid);
 		if (hdfProxy != nullptr) {

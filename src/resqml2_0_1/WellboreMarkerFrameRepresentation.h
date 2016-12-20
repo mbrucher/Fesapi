@@ -47,6 +47,14 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		WellboreMarkerFrameRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
+			WellboreFrameRepresentation(partialObject)
+		{
+		}
+
+		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param interp		The WellboreFeature interpretation the instance represents.
 		* @param guid		The guid to set to the new instance. If empty then a new guid will be generated.

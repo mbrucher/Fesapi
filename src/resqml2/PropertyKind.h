@@ -49,7 +49,7 @@ namespace resqml2
 		/**
 		* Only to be used in partial transfer context
 		*/
-		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(nullptr, partialObject) {}
+		PropertyKind(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(partialObject) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.

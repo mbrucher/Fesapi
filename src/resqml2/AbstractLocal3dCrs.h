@@ -41,6 +41,11 @@ namespace resqml2
 	{
 	protected:
 
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractLocal3dCrs(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(partialObject) {}
+
 		AbstractLocal3dCrs() {}
 
 		/**

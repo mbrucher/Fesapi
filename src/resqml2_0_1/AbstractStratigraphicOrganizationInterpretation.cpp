@@ -48,8 +48,7 @@ unsigned int AbstractStratigraphicOrganizationInterpretation::getGridRepresentat
 
 resqml2::AbstractGridRepresentation* AbstractStratigraphicOrganizationInterpretation::getGridRepresentation(const unsigned int & index) const
 {
-	if (index >= getGridRepresentationCount())
-	{
+	if (index >= getGridRepresentationCount()) {
 		throw range_error("The index of the grid representation to get is out of range.");
 	}
 

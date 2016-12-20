@@ -68,7 +68,7 @@ namespace resqml2
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject, bool withTruncatedPillars) :AbstractRepresentation(epcDoc, partialObject), withTruncatedPillars(withTruncatedPillars)  {}
+		AbstractGridRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject, bool withTruncatedPillars) :AbstractRepresentation(partialObject), withTruncatedPillars(withTruncatedPillars)  {}
 		
 		/**
 		* Default constructor
@@ -123,6 +123,12 @@ namespace resqml2
 		* @return	nullptr if the grid is not a child grid (not a LGR)
 		*/
 		AbstractGridRepresentation* getParentGrid() const;
+
+		/**
+		* Get the parent grid dor of this grid.
+		* @return	null pointer if the grid is not a child grid (not a LGR)
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getParentGridDor() const;
 
 		/**
 		* Get the parent grid uuid of this grid.
@@ -344,9 +350,19 @@ namespace resqml2
 		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* getStratigraphicOrganizationInterpretation() const;
 
 		/**
+		* @return	null pointer if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the data objet reference of the associated stratigraphic organization interpretation.
+		*/
+		virtual gsoap_resqml2_0_1::eml__DataObjectReference* getStratigraphicOrganizationInterpretationDor() const;
+
+		/**
 		* @return	empty string if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the uuid of the associated stratigraphic organization interpretation.
 		*/
-		virtual std::string getStratigraphicOrganizationInterpretationUuid() const;
+		std::string getStratigraphicOrganizationInterpretationUuid() const;
+
+		/**
+		* @return	empty string if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the title of the associated stratigraphic organization interpretation.
+		*/
+		std::string getStratigraphicOrganizationInterpretationTitle() const;
 		
 		/**
 		* @return	true if this grid representation has got some association between stratigraphic unit indices and cell.

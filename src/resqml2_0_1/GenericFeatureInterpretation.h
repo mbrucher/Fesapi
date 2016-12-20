@@ -42,6 +42,11 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		GenericFeatureInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractFeatureInterpretation(partialObject) {}
+
+		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param feature	The feature the instance interprets.
 		* @param guid		The guid to set to the interpretation. If empty then a new guid will be generated.

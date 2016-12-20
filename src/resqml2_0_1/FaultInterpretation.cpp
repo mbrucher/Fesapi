@@ -37,7 +37,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdexcept>
 
 #include "resqml2_0_1/GeneticBoundaryFeature.h"
-#include "resqml2_0_1/Fault.h"
+#include "resqml2_0_1/TectonicBoundaryFeature.h"
 #include "resqml2_0_1/StructuralOrganizationInterpretation.h"
 
 using namespace std;
@@ -47,10 +47,13 @@ using namespace epc;
 
 const char* FaultInterpretation::XML_TAG = "FaultInterpretation";
 
-FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, const string & title)
+FaultInterpretation::FaultInterpretation(TectonicBoundaryFeature * fault, const string & guid, const string & title)
 {
 	if (fault == nullptr) {
 		throw invalid_argument("The interpreted fault cannot be null.");
+	}
+	if (fault->isAFracture()) {
+		throw invalid_argument("The interpreted fault cannot be a fracture.");
 	}
 
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);
@@ -62,9 +65,16 @@ FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, con
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
 
-FaultInterpretation::FaultInterpretation(Fault * fault, const string & guid, const string & title,
+FaultInterpretation::FaultInterpretation(TectonicBoundaryFeature * fault, const string & guid, const string & title,
 										GeneticBoundaryFeature * chronoTop, GeneticBoundaryFeature * chronoBtm)
 {
+	if (fault == nullptr) {
+		throw invalid_argument("The interpreted fault cannot be null.");
+	}
+	if (fault->isAFracture()) {
+		throw invalid_argument("The interpreted fault cannot be a fracture.");
+	}
+
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREFaultInterpretation(fault->getGsoapContext(), 1);	
 	_resqml2__FaultInterpretation* interp = static_cast<_resqml2__FaultInterpretation*>(gsoapProxy2_0_1);
 	interp->Domain = resqml2__Domain__mixed;

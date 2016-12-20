@@ -379,7 +379,7 @@ unsigned int SubRepresentation::getSupportingRepresentationCount() const
 	return count < 2 ? 1 : count;
 }
 
-std::string SubRepresentation::getSupportingRepresentationUuid(unsigned int index) const
+gsoap_resqml2_0_1::eml__DataObjectReference* SubRepresentation::getSupportingRepresentationDor(unsigned int index) const
 {
 	unsigned int supRepCount = getSupportingRepresentationCount();
 
@@ -390,31 +390,15 @@ std::string SubRepresentation::getSupportingRepresentationUuid(unsigned int inde
 		throw range_error("The index of the supporting represenation is out of range.");
 	}
 
-	return supRepCount == 1 ?
-		getSpecializedGsoapProxy()->SupportingRepresentation->UUID :
-		getExtraMetadata("SupportingRepresentation")[index];
-}
-
-std::string SubRepresentation::getSupportingRepresentationTitle(unsigned int index) const
-{
-	unsigned int supRepCount = getSupportingRepresentationCount();
-
-	if (supRepCount != 1) {
-		throw invalid_argument("One and only one supporting rep must be used in order to get its title.");
+	if (supRepCount == 1) {
+		return getSpecializedGsoapProxy()->SupportingRepresentation;
 	}
 
-	return getSpecializedGsoapProxy()->SupportingRepresentation->Title;
-}
-
-std::string SubRepresentation::getSupportingRepresentationContentType() const
-{
-	unsigned int supRepCount = getSupportingRepresentationCount();
-
-	if (supRepCount == 0) {
-		throw invalid_argument("No supporting rep");
-	}
-
-	return getSpecializedGsoapProxy()->SupportingRepresentation->ContentType;
+	eml__DataObjectReference* result = soap_new_eml__DataObjectReference(getGsoapContext(), 1);
+	result->ContentType = getSpecializedGsoapProxy()->SupportingRepresentation->ContentType;
+	result->Title = getSpecializedGsoapProxy()->SupportingRepresentation->Title;
+	result->UUID = getExtraMetadata("SupportingRepresentation")[index];
+	return result;
 }
 
 void SubRepresentation::pushBackXmlSupportingRepresentation(resqml2::AbstractRepresentation * supportingRep)

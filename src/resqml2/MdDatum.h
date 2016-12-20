@@ -57,6 +57,12 @@ namespace resqml2
 		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap) :AbstractObject(fromGsoap) {}
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		MdDatum(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(partialObject) {}
+
 		/**
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
@@ -82,9 +88,14 @@ namespace resqml2
 		class AbstractLocal3dCrs * getLocalCrs() const;
 
 		/**
+		* Get the Local 3d CRS dor where the reference point ordinals are given
+		*/
+		virtual gsoap_resqml2_0_1::eml__DataObjectReference* getLocalCrsDor() const = 0;
+
+		/**
 		* Get the Local 3d CRS uuid where the reference point ordinals are given
 		*/
-		virtual std::string getLocalCrsUuid() const = 0;
+		std::string getLocalCrsUuid() const;
 
 		/**
 		* Getter of the first ordinal of the reference location.

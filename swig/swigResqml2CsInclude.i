@@ -125,11 +125,7 @@ public static f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instant
     }
     else if (type == "TectonicBoundaryFeature")
     {
-		f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature tmp = new f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
-		if (tmp.isAFracture() == true)
-			return new f2i.energisticsStandardsApi.resqml2_0_1.Fracture(cPtr, owner);
-		else
-			return new f2i.energisticsStandardsApi.resqml2_0_1.Fault(cPtr, owner);
+        return new f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
     }
     else if (type == "WellboreFeature")
     {

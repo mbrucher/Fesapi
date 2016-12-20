@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT FrontierFeature : public AbstractTechnicalFeature
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		FrontierFeature(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractTechnicalFeature(partialObject) {}
+
 		/**
 		* Creates an instance of this class in an EPC document.
 		* @param soapContext The soap context where the underlying gsoap proxy is going to be created.

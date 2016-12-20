@@ -48,6 +48,12 @@ namespace resqml2_0_1
 		void init(const std::string & guid, const std::string & title, class WellboreTrajectoryRepresentation * traj);
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		BlockedWellboreRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : WellboreFrameRepresentation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param interp	The interpretation the instance represents.
@@ -106,12 +112,17 @@ namespace resqml2_0_1
 		unsigned int getSupportingGridRepresentationCount() const;
 
 		/**
-		* Get the supporting grid representation located at a specific index of this grid connection representation.
+		* Get the supporting grid representation located at a specific index of this blocked wellbore representation.
 		*/
 		resqml2::AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
+
+		/**
+		* Get the supporting grid representation dor located at a specific index of this blocked wellbore representation.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getSupportingGridRepresentationDor(unsigned int index) const;
 		
 		/**
-		* Get the first supporting grid representation uuid of this grid connection representation.
+		* Get the supporting grid representation uuid located at a specific index of this blocked wellbore representation.
 		*/
 		std::string getSupportingGridRepresentationUuid(unsigned int index) const;
 

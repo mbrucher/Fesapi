@@ -40,16 +40,22 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT AbstractSurfaceRepresentation : public resqml2::AbstractRepresentation
 	{
 	protected:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		AbstractSurfaceRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractRepresentation(partialObject) {}
+
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr.
 		*/
-		AbstractSurfaceRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : AbstractRepresentation(interp, crs) {}
+		AbstractSurfaceRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs) : resqml2::AbstractRepresentation(interp, crs) {}
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
 		*/
-		AbstractSurfaceRepresentation(gsoap_resqml2_0_1::resqml2__AbstractSurfaceRepresentation* fromGsoap): AbstractRepresentation(fromGsoap) {}
+		AbstractSurfaceRepresentation(gsoap_resqml2_0_1::resqml2__AbstractSurfaceRepresentation* fromGsoap) : resqml2::AbstractRepresentation(fromGsoap) {}
 
 		/**
 		* Try to get a Point3dFromRepresentationLatticeArray from the geometry of a patch of the representation.

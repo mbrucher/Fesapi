@@ -98,7 +98,7 @@ namespace resqml2
 		/**
 		* Constructor for partial transfer
 		*/
-		AbstractObject(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject);
+		AbstractObject(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject);
 
 		AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* proxy = nullptr);
 

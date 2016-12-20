@@ -53,6 +53,14 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		WellboreFrameRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
+			resqml2::AbstractRepresentation(partialObject)
+		{
+		}
+
+		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param interp		The WellboreFeature interpretation the instance represents.
 		* @param guid		The guid to set to the new instance. If empty then a new guid will be generated.
@@ -143,7 +151,7 @@ namespace resqml2_0_1
 		*/
 		class WellboreTrajectoryRepresentation* getWellboreTrajectory() {return trajectory;}
 
-		std::string getLocalCrsUuid() const;
+		gsoap_resqml2_0_1::eml__DataObjectReference* getLocalCrsDor() const;
 
 		std::string getHdfProxyUuid() const;
 

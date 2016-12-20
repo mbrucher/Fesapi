@@ -45,6 +45,12 @@ namespace resqml2_0_1
 	{
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		SealedSurfaceFrameworkRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : RepresentationSetRepresentation(partialObject) {}
+
 		/**
 		 * Creates an instance of this class in a gsoap context.
 		 * @param interp    The structural organization interpretation the instance interprets.

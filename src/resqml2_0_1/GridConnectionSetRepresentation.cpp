@@ -440,16 +440,6 @@ void GridConnectionSetRepresentation::pushBackXmlSupportingGridRepresentation(re
 	static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.push_back(supportingGridRep->newResqmlReference());
 }
 
-std::string GridConnectionSetRepresentation::getSupportingGridRepresentationUuid(unsigned int index) const
-{
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
-
-	if (index >= rep->Grid.size()) {
-		throw range_error("The requested index is out of range of the available supporting grid representations.");
-	}
-	return rep->Grid[index]->UUID;
-}
-
 void GridConnectionSetRepresentation::setConnectionInterpretationIndices(unsigned int * interpretationIndices, const unsigned int & interpretationIndiceCount, const ULONG64 & nullValue, resqml2::AbstractHdfProxy * proxy)
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
@@ -497,22 +487,12 @@ unsigned int GridConnectionSetRepresentation::getSupportingGridRepresentationCou
 	return static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1)->Grid.size(); 
 }
 
-std::string GridConnectionSetRepresentation::getSupportingGridRepresentationTitle(unsigned int index) const
+gsoap_resqml2_0_1::eml__DataObjectReference* GridConnectionSetRepresentation::getSupportingGridRepresentationDor(unsigned int index) const
 {
 	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
 
 	if (index >= rep->Grid.size()) {
 		throw range_error("The requested index is out of range of the available supporting grid representations.");
 	}
-	return rep->Grid[index]->Title;
-}
-
-std::string GridConnectionSetRepresentation::getSupportingGridRepresentationContentType(unsigned int index) const
-{
-	_resqml2__GridConnectionSetRepresentation* rep = static_cast<_resqml2__GridConnectionSetRepresentation*>(gsoapProxy2_0_1);
-
-	if (index >= rep->Grid.size()) {
-		throw range_error("The requested index is out of range of the available supporting grid representations.");
-	}
-	return rep->Grid[index]->ContentType;
+	return rep->Grid[index];
 }

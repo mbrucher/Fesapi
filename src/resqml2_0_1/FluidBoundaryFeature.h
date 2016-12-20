@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT FluidBoundaryFeature : public BoundaryFeature
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		FluidBoundaryFeature(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : BoundaryFeature(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param epcDoc		The EPC document which will contain the hroizon.

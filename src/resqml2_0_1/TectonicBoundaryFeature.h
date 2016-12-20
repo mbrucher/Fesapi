@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT TectonicBoundaryFeature : public BoundaryFeature
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		TectonicBoundaryFeature(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : BoundaryFeature(partialObject) {}
+
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr from superclass constructor
@@ -51,8 +57,9 @@ namespace resqml2_0_1
 		* @param soapContext	The soap context where the underlying gsoap proxy is going to be created
 		* @param guid			The guid to set to the boundary horizon. If empty then a new guid will be generated.
 		* @param title			A title for the instance to create.
+		* @param isAFracture	if true, a fracture will be created else a fault will be created.
 		*/
-		TectonicBoundaryFeature(soap* soapContext, const std::string & guid, const std::string & title);
+		TectonicBoundaryFeature(soap* soapContext, const std::string & guid, const std::string & title, const bool isAFracture);
 
 		TectonicBoundaryFeature(gsoap_resqml2_0_1::_resqml2__TectonicBoundaryFeature* fromGsoap): BoundaryFeature(fromGsoap) {}
 		virtual ~TectonicBoundaryFeature() {}

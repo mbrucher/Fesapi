@@ -83,8 +83,6 @@ namespace resqml2_0_1
 	class PropertyKindMapper;
 	class LocalDepth3dCrs;
 	class LocalTime3dCrs;
-	class Fault;
-	class Fracture;
 	class Horizon;
 	class WellboreFeature;
 	class SeismicLineFeature;
@@ -354,12 +352,12 @@ namespace common
 		/**
 		* Get all the faults contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::Fault*> & getFaultSet() const;
+		const std::vector<resqml2_0_1::TectonicBoundaryFeature*> & getFaultSet() const;
 
 		/**
 		* Get all the fractures contained into the EPC document
 		*/
-		const std::vector<resqml2_0_1::Fracture*> & getFractureSet() const;
+		const std::vector<resqml2_0_1::TectonicBoundaryFeature*> & getFractureSet() const;
 
 		/**
 		* Get all the individual representations of faults which are associated to a polyline topology
@@ -558,6 +556,25 @@ namespace common
 		*/
 		std::string getExtendedCoreProperty(const std::string & key);
 
+		/**
+		* Create a partial object in this EpcDocument based on a Data Object Reference
+		*/
+		resqml2::AbstractObject* createPartial(gsoap_resqml2_0_1::eml__DataObjectReference* dor);
+
+		/**
+		* Create a partial object i.e. a data object reference (DOR)
+		*/
+		template <class valueType>
+		valueType* createPartial(const std::string & guid, const std::string & title)
+		{
+			gsoap_resqml2_0_1::eml__DataObjectReference* dor = gsoap_resqml2_0_1::soap_new_eml__DataObjectReference(s, 1);
+			dor->UUID = guid;
+			dor->Title = title;
+			valueType* result = new valueType(dor);
+			addFesapiWrapperAndDeleteItIfException(result);
+			return result;
+		}
+
 		//************************************
 		//************ HDF *******************
 		//************************************
@@ -748,11 +765,9 @@ namespace common
 
 		resqml2_0_1::Horizon* createHorizon(const std::string & guid, const std::string & title);
 
-		resqml2_0_1::TectonicBoundaryFeature* createTectonicBoundaryFeature(const std::string & guid, const std::string & title);
+		resqml2_0_1::TectonicBoundaryFeature* createFault(const std::string & guid, const std::string & title);
 
-		resqml2_0_1::Fault* createFault(const std::string & guid, const std::string & title);
-
-		resqml2_0_1::Fracture* createFracture(const std::string & guid, const std::string & title);
+		resqml2_0_1::TectonicBoundaryFeature* createFracture(const std::string & guid, const std::string & title);
 
 		resqml2_0_1::WellboreFeature* createWellboreFeature(const std::string & guid, const std::string & title);
 
@@ -790,7 +805,7 @@ namespace common
 
 		resqml2_0_1::HorizonInterpretation* createHorizonInterpretation(resqml2_0_1::Horizon * horizon, const std::string & guid, const std::string & title);
 
-		resqml2_0_1::FaultInterpretation* createFaultInterpretation(resqml2_0_1::Fault * fault, const std::string & guid, const std::string & title);
+		resqml2_0_1::FaultInterpretation* createFaultInterpretation(resqml2_0_1::TectonicBoundaryFeature * fault, const std::string & guid, const std::string & title);
 
 		resqml2_0_1::WellboreInterpretation* createWellboreInterpretation(resqml2_0_1::WellboreFeature * wellbore, const std::string & guid, const std::string & title, bool isDrilled);
                 
@@ -1128,8 +1143,8 @@ namespace common
 		// Even if redundant with resqmlAbstractObjectSet
 		std::vector<resqml2_0_1::LocalDepth3dCrs*>					localDepth3dCrsSet;
 		std::vector<resqml2_0_1::LocalTime3dCrs*>					localTime3dCrsSet;
-		std::vector<resqml2_0_1::Fault*>							faultSet;
-		std::vector<resqml2_0_1::Fracture*>							fractureSet;
+		std::vector<resqml2_0_1::TectonicBoundaryFeature*>			faultSet;
+		std::vector<resqml2_0_1::TectonicBoundaryFeature*>			fractureSet;
 		std::vector<resqml2_0_1::Horizon*>							horizonSet;
 		std::vector<resqml2_0_1::SeismicLineFeature*>				seismicLineSet;
 		std::vector<resqml2::AbstractHdfProxy*>						hdfProxySet;

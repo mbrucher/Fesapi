@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT BoundaryFeature : public AbstractGeologicFeature
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		BoundaryFeature(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractGeologicFeature(partialObject) {}
+
 		/**
 		* Default constructor
 		* Set the gsoap proxy to nullptr from superclass constructor

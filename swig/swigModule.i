@@ -138,8 +138,8 @@ namespace common
 		
 		const std::vector<resqml2_0_1::StratigraphicColumn*> & getStratigraphicColumnSet() const;
 		
-		const std::vector<resqml2_0_1::Fault*> & getFaultSet() const;
-		const std::vector<resqml2_0_1::Fracture*> & getFractureSet() const {return fractureSet;}
+		const std::vector<resqml2_0_1::TectonicBoundaryFeature*> & getFaultSet() const;
+		const std::vector<resqml2_0_1::TectonicBoundaryFeature*> & getFractureSet() const {return fractureSet;}
 		const std::vector<resqml2_0_1::FrontierFeature*> & getFrontierSet() const;
 		std::vector<resqml2_0_1::PolylineSetRepresentation*> getFaultPolylineSetRepSet() const;
 		std::vector<resqml2_0_1::PolylineSetRepresentation*> getFracturePolylineSetRepSet() const;
@@ -263,11 +263,9 @@ namespace common
 
 		resqml2_0_1::Horizon* createHorizon(const std::string & guid, const std::string & title);
 
-		resqml2_0_1::TectonicBoundaryFeature* createTectonicBoundaryFeature(const std::string & guid, const std::string & title);
-
-		resqml2_0_1::Fault* createFault(const std::string & guid, const std::string & title);
+		resqml2_0_1::TectonicBoundaryFeature* createFault(const std::string & guid, const std::string & title);
 		
-		resqml2_0_1::Fracture* createFracture(const std::string & guid, const std::string & title);
+		resqml2_0_1::TectonicBoundaryFeature* createFracture(const std::string & guid, const std::string & title);
 		
 		resqml2_0_1::WellboreFeature* createWellboreFeature(const std::string & guid, const std::string & title);
 		
@@ -303,7 +301,7 @@ namespace common
 
 		resqml2_0_1::HorizonInterpretation* createHorizonInterpretation(resqml2_0_1::Horizon * horizon, const std::string & guid, const std::string & title);
 
-		resqml2_0_1::FaultInterpretation* createFaultInterpretation(resqml2_0_1::Fault * fault, const std::string & guid, const std::string & title);
+		resqml2_0_1::FaultInterpretation* createFaultInterpretation(resqml2_0_1::TectonicBoundaryFeature* fault, const std::string & guid, const std::string & title);
 		
 		resqml2_0_1::WellboreInterpretation* createWellboreInterpretation(resqml2_0_1::WellboreFeature * wellbore, const std::string & guid, const std::string & title, bool isDrilled);
 		

@@ -50,6 +50,11 @@ namespace resqml2_0_1
 	public:
 
 		/**
+		* Only to be used in partial transfer context
+		*/
+		Activity(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::Activity(partialObject) {}
+
+		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param guid		The guid to set to the boundary horizon. If empty then a new guid will be generated.
 		* @param title		A title for the instance to create.
@@ -125,7 +130,8 @@ namespace resqml2_0_1
 		* Set the activity template of the activity
 		**/
 		void setActivityTemplate(resqml2::ActivityTemplate* activityTemplate);
-		resqml2::ActivityTemplate* getActivityTemplate() const;
+
+		gsoap_resqml2_0_1::eml__DataObjectReference* getActivityTemplateDor() const;
 
 		std::string getResqmlVersion() const;
 

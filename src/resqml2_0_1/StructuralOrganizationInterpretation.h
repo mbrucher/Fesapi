@@ -41,6 +41,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT StructuralOrganizationInterpretation : public AbstractOrganizationInterpretation
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		StructuralOrganizationInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractOrganizationInterpretation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param orgFeat			The feature the instance interprets. It must be a structural organization feature.

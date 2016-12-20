@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT StringTableLookup : public resqml2::AbstractObject
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		StringTableLookup(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractObject(partialObject) {}
+
 		/**
 		* Default constructor
 		*/

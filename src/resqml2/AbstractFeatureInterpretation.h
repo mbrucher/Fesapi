@@ -49,7 +49,7 @@ namespace resqml2
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractFeatureInterpretation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :AbstractObject(epcDoc, partialObject) {}
+		AbstractFeatureInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :AbstractObject(partialObject) {}
 
 		/**
 		* Default constructor
@@ -70,6 +70,11 @@ namespace resqml2
 		* Destructor does nothing since the memory is managed by the gsoap context.
 		*/
 		virtual ~AbstractFeatureInterpretation() {}
+
+		/**
+		* @return	null pointer if no interpreted feature is associated to this interpretation. Otherwise return the data objet reference of the associated interpreted feature.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getInterpretedFeatureDor() const;
 
 		std::string getInterpretedFeatureUuid() const;
 

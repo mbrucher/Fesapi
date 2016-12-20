@@ -115,29 +115,28 @@ void AbstractColumnLayerGridRepresentation::setIntervalAssociationWithStratigrap
 	}
 }
 
-std::string AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationInterpretationUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* AbstractColumnLayerGridRepresentation::getStratigraphicOrganizationInterpretationDor() const
 {
-	string result = resqml2::AbstractGridRepresentation::getStratigraphicOrganizationInterpretationUuid();
-	if (!result.empty()) {
+	gsoap_resqml2_0_1::eml__DataObjectReference* result = resqml2::AbstractGridRepresentation::getStratigraphicOrganizationInterpretationDor();
+	if (result != nullptr) {
 		return result;
 	}
 
 	if (gsoapProxy2_0_1 != nullptr) {
 		if (isTruncated()) {
-			return "";
+			return nullptr;
 		}
 
 		resqml2__AbstractColumnLayerGridRepresentation* rep = static_cast<resqml2__AbstractColumnLayerGridRepresentation*>(gsoapProxy2_0_1);
 		if (rep->IntervalStratigraphicUnits == nullptr) {
-			return "";
+			return nullptr;
 		}
-		return rep->IntervalStratigraphicUnits->StratigraphicOrganization->UUID;
+		return rep->IntervalStratigraphicUnits->StratigraphicOrganization;
 	}
 	else {
 		throw logic_error("Only version 2_0_1 is implemented yet");
 	}
 }
-
 
 bool AbstractColumnLayerGridRepresentation::hasIntervalStratigraphicUnitIndices() const
 {
@@ -200,13 +199,17 @@ void AbstractColumnLayerGridRepresentation::importRelationshipSetFromEpc(common:
 
 	// Strati org backward relationships
 	if (hasIntervalStratigraphicUnitIndices()) {
-		string stratiOrgInterpUuid = getStratigraphicOrganizationInterpretationUuid();
-		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2_0_1::AbstractStratigraphicOrganizationInterpretation>(stratiOrgInterpUuid);
-		if (stratiOrg != nullptr)
-		{
-			updateXml = false;
-			setIntervalAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, stratiOrg);
-			updateXml = true;
+		gsoap_resqml2_0_1::eml__DataObjectReference* dor = getStratigraphicOrganizationInterpretationDor();
+		resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2_0_1::AbstractStratigraphicOrganizationInterpretation>(dor->UUID);
+		if (stratiOrg == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dor);
+			stratiOrg = getEpcDocument()->getResqmlAbstractObjectByUuid<resqml2_0_1::AbstractStratigraphicOrganizationInterpretation>(dor->UUID);
 		}
+		if (stratiOrg == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
+		updateXml = false;
+		setIntervalAssociationWithStratigraphicOrganizationInterpretation(nullptr, 0, stratiOrg);
+		updateXml = true;
 	}
 }

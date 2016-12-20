@@ -46,6 +46,11 @@ namespace resqml2
 
 	public:
 
+		/**
+		* Only to be used in partial transfer context
+		*/
+		Activity(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractObject(partialObject) {}
+
 		virtual ~Activity() {}
 
 		/**
@@ -107,9 +112,14 @@ namespace resqml2
 		virtual void setActivityTemplate(class ActivityTemplate* activityTemplate) = 0;
 
 		/**
+		* Get the activity template dor of the activity
+		**/
+		virtual gsoap_resqml2_0_1::eml__DataObjectReference* getActivityTemplateDor() const = 0;
+		
+		/**
 		* Get the activity template of the activity
 		**/
-		virtual class ActivityTemplate* getActivityTemplate() const = 0;
+		class ActivityTemplate* getActivityTemplate() const;
 
 		/**
 		* Get all objects which are either input or output of this acitivty

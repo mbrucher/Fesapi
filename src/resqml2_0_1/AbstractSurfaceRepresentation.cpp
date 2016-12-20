@@ -60,27 +60,23 @@ const gsoap_resqml2_0_1::resqml2__SurfaceRole & AbstractSurfaceRepresentation::g
 
 resqml2__Point3dFromRepresentationLatticeArray* AbstractSurfaceRepresentation::getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(resqml2__PointGeometry* patch) const
 {
-	if (patch)
-	{
+	if (patch != nullptr) {
 		resqml2__Point3dFromRepresentationLatticeArray* patchOfSupportingRep = nullptr;
 
-		if (patch->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray)
-		{
+		if (patch->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray) {
 			resqml2__Point3dZValueArray* zValuesPatch = static_cast<resqml2__Point3dZValueArray*>(patch->Points);
-			if (zValuesPatch->SupportingGeometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dFromRepresentationLatticeArray)
-			{
+			if (zValuesPatch->SupportingGeometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dFromRepresentationLatticeArray) {
 				patchOfSupportingRep = static_cast<resqml2__Point3dFromRepresentationLatticeArray*>(zValuesPatch->SupportingGeometry);
 			}
 		}
-		else if (patch->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dFromRepresentationLatticeArray)
-		{
+		else if (patch->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dFromRepresentationLatticeArray) {
 			patchOfSupportingRep = static_cast<resqml2__Point3dFromRepresentationLatticeArray*>(patch->Points);
 		}
 
 		return patchOfSupportingRep;
 	}
-	else
-		return nullptr;
+	
+	return nullptr;
 }
 
 resqml2__PointGeometry* AbstractSurfaceRepresentation::createArray2dOfLatticePoints3d(
@@ -252,10 +248,8 @@ vector<Relationship> AbstractSurfaceRepresentation::getAllEpcRelationships() con
 	vector<Relationship> result = AbstractRepresentation::getAllEpcRelationships();
 
 	// Outer rings
-	for(vector<PolylineRepresentation*>::const_iterator it = outerRingSet.begin(); it != outerRingSet.end(); ++it)
-	{
-		if (it == outerRingSet.begin() || std::find(outerRingSet.begin(), it, *it) != outerRingSet.end()) //  No need to add the rel twice
-		{
+	for(vector<PolylineRepresentation*>::const_iterator it = outerRingSet.begin(); it != outerRingSet.end(); ++it) {
+		if (it == outerRingSet.begin() || std::find(outerRingSet.begin(), it, *it) != outerRingSet.end()) { //  No need to add the rel twice
 			Relationship relOuterRing((*it)->getPartNameInEpcDocument(), "", (*it)->getUuid());
 			relOuterRing.setDestinationObjectType();
 			result.push_back(relOuterRing);
@@ -271,12 +265,9 @@ void AbstractSurfaceRepresentation::importRelationshipSetFromEpc(common::EpcDocu
 
 	resqml2__AbstractSurfaceRepresentation* rep = static_cast<resqml2__AbstractSurfaceRepresentation*>(gsoapProxy2_0_1);
 
-	for (unsigned int i = 0; i < rep->Boundaries.size(); i++)
-	{
-		if (rep->Boundaries[i]->OuterRing)
-		{
-			if (rep->Boundaries[i]->OuterRing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation)
-			{
+	for (size_t i = 0; i < rep->Boundaries.size(); ++i) {
+		if (rep->Boundaries[i]->OuterRing != nullptr) {
+			if (rep->Boundaries[i]->OuterRing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREPolylineRepresentation) {
 				pushBackOuterRing(static_cast<PolylineRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(rep->Boundaries[i]->OuterRing->UUID)));
 			}
 		}

@@ -46,6 +46,12 @@ namespace resqml2_0_1
 	private :
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const;
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		TriangulatedSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : AbstractSurfaceRepresentation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param interp						The interpretation this representation represents.

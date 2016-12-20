@@ -45,7 +45,7 @@ namespace resqml2
 		* Only to be used in partial transfer context
 		*/
 		GridConnectionSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) :
-			AbstractRepresentation(nullptr, partialObject) {}
+			AbstractRepresentation(partialObject) {}
 
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -215,21 +215,26 @@ namespace resqml2
 		* Get the supporting grid representation located at a specific index of this grid connection representation.
 		*/
 		class AbstractGridRepresentation* getSupportingGridRepresentation(unsigned int index) const;
+
+		/**
+		* Get one of the supporting grid representation dor of this grid connection representation.
+		*/
+		virtual gsoap_resqml2_0_1::eml__DataObjectReference* getSupportingGridRepresentationDor(unsigned int index) const = 0;
 		
 		/**
 		* Get one of the supporting grid representation uuid of this grid connection representation.
 		*/
-		virtual std::string getSupportingGridRepresentationUuid(unsigned int index) const = 0;
+		std::string getSupportingGridRepresentationUuid(unsigned int index) const;
 
 		/**
 		* Get one of the supporting grid representation title of this grid connection representation.
 		*/
-		virtual std::string getSupportingGridRepresentationTitle(unsigned int index) const = 0;
+		std::string getSupportingGridRepresentationTitle(unsigned int index) const;
 
 		/**
 		* Get one of the supporting grid representation content type of this grid connection representation.
 		*/
-		virtual std::string getSupportingGridRepresentationContentType(unsigned int index) const = 0;
+		std::string getSupportingGridRepresentationContentType(unsigned int index) const;
 
 		ULONG64 getXyzPointCountOfPatch(const unsigned int & patchIndex) const;
 

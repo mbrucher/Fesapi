@@ -45,6 +45,11 @@ namespace resqml2_0_1
 				  const std::string & guid, const std::string & title);
 
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		PolylineSetRepresentation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractRepresentation(partialObject) {}
 		
 		/**
 		* Creates an instance of this class in a gsoap context.

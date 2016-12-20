@@ -41,6 +41,11 @@ namespace resqml2_0_1
 	{
 	public:
 
+		/**
+		* Only to be used in partial transfer context
+		*/
+		CategoricalProperty(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractValuesProperty(partialObject) {}
+
 		CategoricalProperty(StringTableLookup* strLookup): stringLookup(strLookup) {}
 
 		/**

@@ -49,7 +49,7 @@ namespace resqml2
 		/**
 		* Only to be used in partial transfer context
 		*/
-		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject, bool withTruncatedPillars) :resqml2::AbstractGridRepresentation(epcDoc, partialObject, withTruncatedPillars) {}
+		AbstractColumnLayerGridRepresentation(common::EpcDocument * epcDoc, gsoap_resqml2_0_1::eml__DataObjectReference* partialObject, bool withTruncatedPillars) :resqml2::AbstractGridRepresentation(partialObject, withTruncatedPillars) {}
 
 		/**
 		* Default constructor
@@ -96,9 +96,9 @@ namespace resqml2
 		void setIntervalAssociationWithStratigraphicOrganizationInterpretation(ULONG64 * stratiUnitIndices, const ULONG64 & nullValue, resqml2_0_1::AbstractStratigraphicOrganizationInterpretation* stratiOrgInterp);
 
 		/**
-		* @return	empty string if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the uuid of the associated stratigraphic organization interpretation.
+		* @return	null pointer if no stratigraphic organization interpretation is associated to this grid representation. Otherwise return the data objet reference of the associated stratigraphic organization interpretation.
 		*/
-		std::string getStratigraphicOrganizationInterpretationUuid() const;
+		gsoap_resqml2_0_1::eml__DataObjectReference* getStratigraphicOrganizationInterpretationDor() const;
 
 		/**
 		* @return	true if this grid representation has got some association between stratigraphic unit indices and interval. Intervals = layers + K gaps.

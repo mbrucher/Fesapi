@@ -125,11 +125,7 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     }
     else if (type.equals("TectonicBoundaryFeature"))
     {
-		com.f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature tmp = new com.f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
-		if (tmp.isAFracture() == true)
-			return new com.f2i.energisticsStandardsApi.resqml2_0_1.Fracture(cPtr, owner);
-		else
-			return new com.f2i.energisticsStandardsApi.resqml2_0_1.Fault(cPtr, owner);
+        return new com.f2i.energisticsStandardsApi.resqml2_0_1.TectonicBoundaryFeature(cPtr, owner);
     }
     else if (type.equals("WellboreFeature"))
     {

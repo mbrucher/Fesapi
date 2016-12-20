@@ -40,6 +40,12 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT CommentProperty : public resqml2::AbstractValuesProperty
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		CommentProperty(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : resqml2::AbstractValuesProperty(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param rep						The representation which supports these property values.

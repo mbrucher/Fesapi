@@ -72,9 +72,17 @@ void AbstractFeatureInterpretation::setInterpretedFeature(resqml2::AbstractFeatu
 
 void AbstractFeatureInterpretation::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	resqml2::AbstractFeature* interpretedFeature = epcDoc->getResqmlAbstractObjectByUuid<AbstractFeature>(getInterpretedFeatureUuid());
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getInterpretedFeatureDor();
+	resqml2::AbstractFeature* interpretedFeature = epcDoc->getResqmlAbstractObjectByUuid<AbstractFeature>(dor->UUID);
+	if (interpretedFeature == nullptr) { // partial transfer
+		getEpcDocument()->createPartial(dor);
+		interpretedFeature = getEpcDocument()->getResqmlAbstractObjectByUuid<AbstractFeature>(dor->UUID);
+	}
+	if (interpretedFeature == nullptr) {
+		throw invalid_argument("The DOR looks invalid.");
+	}
 	updateXml = false;
-	setInterpretedFeature(static_cast<resqml2::AbstractFeature*>(interpretedFeature));
+	setInterpretedFeature(interpretedFeature);
 	updateXml = true;
 }
 
@@ -135,14 +143,19 @@ vector<Relationship> AbstractFeatureInterpretation::getAllEpcRelationships() con
 	return result;
 }
 
-std::string AbstractFeatureInterpretation::getInterpretedFeatureUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* AbstractFeatureInterpretation::getInterpretedFeatureDor() const
 {
 	if (gsoapProxy2_0_1 != nullptr) {
-		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->InterpretedFeature->UUID;
+		return static_cast<gsoap_resqml2_0_1::resqml2__AbstractFeatureInterpretation*>(gsoapProxy2_0_1)->InterpretedFeature;
 	}
 	else {
 		throw logic_error("Not implemented yet");
 	}
+}
+
+std::string AbstractFeatureInterpretation::getInterpretedFeatureUuid() const
+{
+	return getInterpretedFeatureDor()->UUID;
 }
 
 resqml2::AbstractFeature* AbstractFeatureInterpretation::getInterpretedFeature() const

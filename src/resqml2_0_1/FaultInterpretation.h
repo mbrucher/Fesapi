@@ -41,13 +41,19 @@ namespace resqml2_0_1
 	class DLL_IMPORT_OR_EXPORT FaultInterpretation : public BoundaryFeatureInterpretation
 	{
 	public:
+
+		/**
+		* Only to be used in partial transfer context
+		*/
+		FaultInterpretation(gsoap_resqml2_0_1::eml__DataObjectReference* partialObject) : BoundaryFeatureInterpretation(partialObject) {}
+
 		/**
 		* Creates an instance of this class in a gsoap context.
 		* @param fault	The feature the instance interprets.
 		* @param guid	The guid to set to the new instance. If empty then a new guid will be generated.
 		* @param title	A title for the instance to create.
 		*/
-		FaultInterpretation(class Fault * fault, const std::string & guid, const std::string & title);
+		FaultInterpretation(class TectonicBoundaryFeature * fault, const std::string & guid, const std::string & title);
 
 		/**
 		* Creates an instance of this class in a gsoap context.
@@ -57,7 +63,7 @@ namespace resqml2_0_1
 		* @param chronoTop	The genetic feature which represent the time end of the fault activity.
 		* @param chronoBtm	The genetic feature which represent the time beginning of the fault activity.
 		*/
-		FaultInterpretation(class Fault * fault, const std::string & guid, const std::string & title,
+		FaultInterpretation(class TectonicBoundaryFeature * fault, const std::string & guid, const std::string & title,
 							class GeneticBoundaryFeature * chronoTop, class GeneticBoundaryFeature * chronoBtm);
 
 		/**

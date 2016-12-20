@@ -403,15 +403,10 @@ std::string WellboreTrajectoryRepresentation::getHdfProxyUuid() const
 	}
 }
 
-std::string WellboreTrajectoryRepresentation::getLocalCrsUuid() const
+gsoap_resqml2_0_1::eml__DataObjectReference* WellboreTrajectoryRepresentation::getLocalCrsDor() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	if (rep->Geometry != nullptr) {
-		return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LocalCrs->UUID;
-	}
-	else {
-		return "";
-	}
+	return rep->Geometry != nullptr ? static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LocalCrs : nullptr;
 }
 
 bool WellboreTrajectoryRepresentation::hasGeometry() const
