@@ -107,7 +107,7 @@ namespace std {
    %template(LocalTime3dCrsVector) vector<resqml2_0_1::LocalTime3dCrs*>;
    %template(StratigraphicColumnVector) vector<resqml2_0_1::StratigraphicColumn*>;
    %template(StratigraphicColumnRankInterpretationVector) vector<resqml2_0_1::StratigraphicColumnRankInterpretation*>;
-   %template(TectonicBoundaryFeature) vector<resqml2_0_1::TectonicBoundaryFeature*>;
+   %template(TectonicBoundaryFeatureVector) vector<resqml2_0_1::TectonicBoundaryFeature*>;
    %template(HorizonVector) vector<resqml2_0_1::Horizon*>;
    %template(FrontierVector) vector<resqml2_0_1::FrontierFeature*>;
    %template(StratigraphicUnitInterpretationVector) vector<resqml2_0_1::StratigraphicUnitInterpretation*>;
