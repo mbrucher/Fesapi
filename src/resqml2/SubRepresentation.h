@@ -79,9 +79,17 @@ namespace resqml2
 		virtual ULONG64 getElementCountOfPatch(const unsigned int & patchIndex) const = 0;
 
 		/**
-		* Get the indices of the selected elements in the supporting representation for a particular patch of this subrepresentation.
+		* Get the indices of the selected elements for a particular patch of this subrepresentation.
+		* @param	elementIndicesIndex	Must be equal to 0 if the element indices are not pairwise.
+		* @param	elementIndices		This array must be preallocated with getElementCountOfPatch() size.
 		*/
 		virtual void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, ULONG64 * elementIndices) const = 0;
+
+		/**
+		* Get the indices of the supporting representations of the selected elements for a particular patch of this subrepresentation.
+		* @param	supportingRepresentationIndices	This array must be preallocated with getElementCountOfPatch() size.
+		*/
+		virtual void getSupportingRepresentationIndicesOfPatch(const unsigned int & patchIndex, short * supportingRepresentationIndices) const = 0;
 
 		/**
 		* Check if the element of a particular patch are pairwise or not.

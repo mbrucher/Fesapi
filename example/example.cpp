@@ -1308,17 +1308,35 @@ void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix =
 
 void showAllSubRepresentations(const vector<resqml2::SubRepresentation*> & subRepSet)
 {
-	if (subRepSet.size() > 0)
+	if (subRepSet.size() > 0) {
 		cout << "SUBREPRESENTATIONS" << std::endl;
+	}
 	std::cout << "\t--------------------------------------------------" << std::endl;
-	for (unsigned int subRepIndex = 0 ; subRepIndex < subRepSet.size(); ++subRepIndex)
+	for (size_t subRepIndex = 0; subRepIndex < subRepSet.size(); ++subRepIndex)
 	{
 		showAllMetadata(subRepSet[subRepIndex], "\t");
 		if (!subRepSet[subRepIndex]->isPartial()) {
-			const long indiceCount = subRepSet[subRepIndex]->getElementCountOfPatch(0);
+			const ULONG64 indiceCount = subRepSet[subRepIndex]->getElementCountOfPatch(0);
+
+			// element indices
 			ULONG64 * elementIndices = new ULONG64[indiceCount];
 			subRepSet[subRepIndex]->getElementIndicesOfPatch(0, 0, elementIndices);
-			delete [] elementIndices;
+			for (unsigned int i = 0; i < indiceCount && i < 10; ++i) {
+				std::cout << "Element indice at position " << i << " : " << elementIndices[i] << std::endl;
+			}
+			delete[] elementIndices;
+
+			// Supporting rep indices
+			short * supRepIndices = new short[indiceCount];
+			subRepSet[subRepIndex]->getSupportingRepresentationIndicesOfPatch(0, supRepIndices);
+			for (unsigned int i = 0; i < indiceCount && i < 10; ++i) {
+				std::cout << "Supporting rep indice at position " << i << " : " << supRepIndices[i] << std::endl;
+			}
+			delete[] supRepIndices;
+
+		}
+		else {
+			std::cout << "IS PARTIAL!" << std::endl;
 		}
 	}
 }

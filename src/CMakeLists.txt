@@ -1,6 +1,12 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 3.1.0)
 
+
 PROJECT (Fesapi_SRC)
+set (Fesapi_SRC_VERSION_MAJOR 0)
+set (Fesapi_SRC_VERSION_MINOR 10)
+set (Fesapi_SRC_VERSION_PATCH 0)
+set (Fesapi_SRC_VERSION_TWEAK 0)
+set (Fesapi_SRC_VERSION ${Fesapi_SRC_VERSION_MAJOR}.${Fesapi_SRC_VERSION_MINOR}.${Fesapi_SRC_VERSION_PATCH}.${Fesapi_SRC_VERSION_TWEAK})
 
 # ============================================================================
 # Resqml/Witsqml proxies generation
@@ -225,7 +231,7 @@ IF (WITH_DOTNET_WRAPPING)
 	execute_process(COMMAND powershell "Remove-Item ${FESAPI_ROOT_DIR}/cs/src/* -recurse")
 	
 	# Filling
-	set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -csharp -dllimport FesapiCpp.dll -namespace f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedCsWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/cs/src ${FESAPI_ROOT_DIR}/swig/swigModule.i")
+	set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -csharp -dllimport FesapiCpp.${Fesapi_SRC_VERSION}.dll -namespace f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedCsWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/cs/src ${FESAPI_ROOT_DIR}/swig/swigModule.i")
 	execute_process(COMMAND powershell  ${EXECUTE_COMMAND})
 	message("SWIG files have been generated")
 
@@ -305,15 +311,22 @@ IF (WIN32)
 	else ()
 		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIBRARY} ${HDF5_C_STATIC_LIBRARY})
 	endif ()
-	SET_TARGET_PROPERTIES (FesapiCpp PROPERTIES LINK_FLAGS "/INCREMENTAL:NO /OPT:REF")
-	SET_TARGET_PROPERTIES (FesapiCpp PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${FESAPI_BINARY_DIR})
+	SET_TARGET_PROPERTIES(FesapiCpp PROPERTIES
+									LINK_FLAGS "/INCREMENTAL:NO /OPT:REF"
+									RUNTIME_OUTPUT_DIRECTORY ${FESAPI_BINARY_DIR}
+									SUFFIX ".${Fesapi_SRC_VERSION}.dll"
+									IMPORT_SUFFIX ".${Fesapi_SRC_VERSION}.lib"
+									VERSION ${Fesapi_SRC_VERSION_MAJOR}.${Fesapi_SRC_VERSION_MINOR})
 ELSEIF (UNIX)
 	IF (WITH_SZIP)
 		TARGET_LINK_LIBRARIES (FesapiCpp ${UUID_LIBRARIES} ${SZIP_LIBRARIES} ${ZLIB_LIBRARIES} ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
 	ELSE (WITH_SZIP)
 		TARGET_LINK_LIBRARIES (FesapiCpp ${UUID_LIBRARIES} ${ZLIB_LIBRARIES} ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
 	ENDIF (WITH_SZIP)
-	SET_TARGET_PROPERTIES(FesapiCpp PROPERTIES COMPILE_FLAGS "-fPIC")
+	SET_TARGET_PROPERTIES(FesapiCpp PROPERTIES
+									COMPILE_FLAGS "-fPIC"
+									VERSION ${Fesapi_SRC_VERSION}
+									SOVERSION ${Fesapi_SRC_VERSION_MAJOR}.${Fesapi_SRC_VERSION_MINOR})
 ENDIF (WIN32)
 
 # ============================================================================

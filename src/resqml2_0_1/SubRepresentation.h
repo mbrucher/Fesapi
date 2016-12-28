@@ -60,6 +60,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackXmlSupportingRepresentation(resqml2::AbstractRepresentation * supportingRep);
 
+		class DiscreteProperty* getSupportingRepresentationIndicesDiscretPropOfPatch(const unsigned int & patchIndex) const;
+
 	public:
 
 		/**
@@ -109,8 +111,16 @@ namespace resqml2_0_1
 
 		/**
 		* Get the indices of the selected elements in the supporting representation for a particular patch of this subrepresentation.
+		* @param	elementIndicesIndex	Must be equal to 0 if the element indices are not pairwise.
+		* @param	elementIndices		This array must be preallocated with getElementCountOfPatch() size.
 		*/
 		void getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, ULONG64 * elementIndices) const;
+
+		/**
+		* Get the indices of the supporting representations of the selected elements for a particular patch of this subrepresentation.
+		* @param	supportingRepresentationIndices	This array must be preallocated with getElementCountOfPatch() size.
+		*/
+		void getSupportingRepresentationIndicesOfPatch(const unsigned int & patchIndex, short * supportingRepresentationIndices) const;
 
 		/**
 		* Check if the element of a particular patch are pairwise or not.

@@ -188,6 +188,16 @@ void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::re
   }
 }
 
+DiscreteProperty* SubRepresentation::getSupportingRepresentationIndicesDiscretPropOfPatch(const unsigned int & patchIndex) const
+{
+	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
+
+	ostringstream oss;
+	oss << "SubRepresentationPatch[" << patchIndex << "]/ElementIndices/SupportingRepresentationIndex";
+	vector<string> uuid = getExtraMetadata(oss.str());
+	return getEpcDocument()->getResqmlAbstractObjectByUuid<DiscreteProperty>(uuid[0]);
+}
+
 void SubRepresentation::pushBackSubRepresentationPatch(const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind0, const gsoap_resqml2_0_1::resqml2__IndexableElements & elementKind1,
 	const ULONG64 & elementCount,
 	ULONG64 * elementIndices0, ULONG64 * elementIndices1,
@@ -332,14 +342,17 @@ ULONG64 SubRepresentation::getLatticeElementIndicesOffsetCount(const unsigned in
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 
-	if (areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex) == false)
+	if (!areElementIndicesBasedOnLattice(patchIndex, elementIndicesIndex)) {
 		throw invalid_argument("The element indices are not based on a lattice.");
-	if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex)
+	}
+	if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex) {
 		throw range_error("The element indices index is out of range.");
+	}
 
 	resqml2__IntegerLatticeArray* lattice = static_cast<resqml2__IntegerLatticeArray*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices);
-	if (lattice->Offset.size() <= latticeDimensionIndex)
+	if (lattice->Offset.size() <= latticeDimensionIndex) {
 		throw range_error("The lattice dimension index is out of range.");
+	}
 
 	return lattice->Offset[latticeDimensionIndex]->Count;
 }
@@ -347,20 +360,38 @@ ULONG64 SubRepresentation::getLatticeElementIndicesOffsetCount(const unsigned in
 void SubRepresentation::getElementIndicesOfPatch(const unsigned int & patchIndex, const unsigned int & elementIndicesIndex, ULONG64 * elementIndices) const
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
-	if (rep->SubRepresentationPatch.size() > patchIndex)
-	{
-		if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() > elementIndicesIndex)
-		{
-			if (rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array)
-				hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices)->Values->PathInHdfFile, elementIndices);
-			else
-				throw logic_error("Not yet implemented");
-		}
-		else
-			throw range_error("The elementIndices does not exist at this index.");
-	}
-	else
+	if (rep->SubRepresentationPatch.size() <= patchIndex) {
 		throw range_error("The patch does not exist at this index.");
+	}
+	if (rep->SubRepresentationPatch[patchIndex]->ElementIndices.size() <= elementIndicesIndex) {
+		throw range_error("The elementIndices does not exist at this index.");
+	}
+
+	if (rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__IntegerHdf5Array) {
+		hdfProxy->readArrayNdOfGSoapULong64Values(static_cast<resqml2__IntegerHdf5Array*>(rep->SubRepresentationPatch[patchIndex]->ElementIndices[elementIndicesIndex]->Indices)->Values->PathInHdfFile, elementIndices);
+	}
+	else {
+		throw logic_error("Not yet implemented");
+	}
+}
+
+void SubRepresentation::getSupportingRepresentationIndicesOfPatch(const unsigned int & patchIndex, short * supportingRepresentationIndices) const
+{
+	const _resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
+	if (rep->SubRepresentationPatch.size() <= patchIndex) {
+		throw range_error("The patch does not exist at this index.");
+	}
+
+	if (getSupportingRepresentationCount() == 1) {
+		const ULONG64 elementCount = getElementCountOfPatch(patchIndex);
+		for (ULONG64 i = 0; i < elementCount; ++i) {
+			supportingRepresentationIndices[i] = 0;
+		}
+		return;
+	}
+
+	DiscreteProperty* prop = getSupportingRepresentationIndicesDiscretPropOfPatch(patchIndex);
+	prop->getShortValuesOfPatch(0, supportingRepresentationIndices);
 }
 
 unsigned int SubRepresentation::getPatchCount() const
@@ -375,13 +406,13 @@ unsigned int SubRepresentation::getSupportingRepresentationCount() const
 		return 0;
 	}
 
-	size_t count = getExtraMetadata("SupportingRepresentation").size();
+	const size_t count = getExtraMetadata("SupportingRepresentation").size();
 	return count < 2 ? 1 : count;
 }
 
 gsoap_resqml2_0_1::eml__DataObjectReference* SubRepresentation::getSupportingRepresentationDor(unsigned int index) const
 {
-	unsigned int supRepCount = getSupportingRepresentationCount();
+	const unsigned int supRepCount = getSupportingRepresentationCount();
 
 	if (supRepCount == 0) {
 		throw invalid_argument("No supporting rep");
