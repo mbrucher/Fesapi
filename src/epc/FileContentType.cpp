@@ -83,9 +83,6 @@ void FileContentType::addContentType(const ContentType & contentType)
 	if (contentTypeMap.find(contentType.getExtensionOrPartName()) == contentTypeMap.end()) {
 		contentTypeMap[contentType.getExtensionOrPartName()] = contentType;
 	}
-	else {
-		throw invalid_argument("You cannot have two content type entries in your epc document for the same part or for the same extension.");
-	}
 }
 
 void FileContentType::readFromString(const string & textInput)

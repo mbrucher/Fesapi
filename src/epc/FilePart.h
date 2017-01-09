@@ -47,6 +47,9 @@ namespace epc
 		FileRelationship fileRelationship;	/// The associated rel file to the part
 
 	public:
+
+		FilePart();
+
 		/**
 		* Constructor
 		* @param inputContent		The content which will be included into a part of the package

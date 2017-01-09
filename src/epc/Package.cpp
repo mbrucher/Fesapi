@@ -198,10 +198,6 @@ fileCoreProperties(pkgFileCP), fileContentType(pkgFileCT), filePrincipalRelation
 
 Package::CheshireCat::~CheshireCat()
 {
-	for (PartMap::const_iterator i = allFileParts.begin(); i != allFileParts.end(); ++i)
-	{
-		delete i->second;
-	}
 	close();
 }
 
@@ -234,8 +230,9 @@ void Package::openForWriting(const std::string & pkgPathName, bool useZip64)
 	d_ptr->pathName.assign(pkgPathName);
 
 	// Clean the potential ending slashes
-	while (d_ptr->pathName[d_ptr->pathName.size() - 1] == '/' || d_ptr->pathName[d_ptr->pathName.size() - 1] == '\\')
+	while (d_ptr->pathName[d_ptr->pathName.size() - 1] == '/' || d_ptr->pathName[d_ptr->pathName.size() - 1] == '\\') {
 		d_ptr->pathName = d_ptr->pathName.substr(0, d_ptr->pathName.size() - 1);
+	}
 
 	ContentType contentTypeRel(true, "application/vnd.openxmlformats-package.relationships+xml", ".rels");
 	addContentType(contentTypeRel);
@@ -247,12 +244,7 @@ void Package::openForWriting(const std::string & pkgPathName, bool useZip64)
 	addRelationship(relToCoreProp);
 
 	d_ptr->isZip64 = useZip64;
-	if (useZip64) {
-		d_ptr->zf = zipOpen64(d_ptr->pathName.c_str(), 0);
-	}
-	else {
-		d_ptr->zf = zipOpen(d_ptr->pathName.c_str(), 0);
-	}
+	d_ptr->zf = useZip64 ? zipOpen64(d_ptr->pathName.c_str(), 0) : zipOpen(d_ptr->pathName.c_str(), 0);
 
 	if (d_ptr->zf == nullptr) {
 		throw invalid_argument("The file " + pkgPathName + " could not be opened");
@@ -265,8 +257,7 @@ void Package::openForReading(const std::string & pkgPathName)
 	
 	d_ptr->unzipped = unzOpen64(d_ptr->pathName.c_str());
 
-	if (d_ptr->unzipped == nullptr)
-    {
+	if (d_ptr->unzipped == nullptr) {
 		throw invalid_argument("Cannot unzip " + pkgPathName);
     }
 
@@ -462,16 +453,16 @@ void Package::addRelationship(const Relationship & relationship)
 
 FilePart* Package::createPart(const std::string & inputContent, const std::string & outputPartPath)
 {
-	FilePart* fp = new FilePart(outputPartPath);
+	FilePart fp(outputPartPath);
 	d_ptr->allFileParts[outputPartPath] = fp;
     writeStringIntoNewPart( inputContent, outputPartPath );
-	return fp;
+	return &(d_ptr->allFileParts[outputPartPath]);
 }
 
-FilePart* Package::findPart(const std::string & outputPartPath) const
+const FilePart* Package::findPart(const std::string & outputPartPath) const
 {
 	PartMap::const_iterator it = d_ptr->allFileParts.find(outputPartPath);
-	return it == d_ptr->allFileParts.end() ? nullptr : it->second;
+	return it == d_ptr->allFileParts.end() ? nullptr : &(it->second);
 }
 
 uLong buildTimeInfo(const char *filename, tm_zip *tmzip, uLong *dostime)
@@ -602,10 +593,9 @@ void Package::writePackage()
 	
 	// Write all the part relationships
 	for (PartMap::iterator i = d_ptr->allFileParts.begin(); i != d_ptr->allFileParts.end(); i++){
-        FilePart* part = i->second;
-		if (!part->getFileRelationship().isEmpty())
+		if (!i->second.getFileRelationship().isEmpty())
 		{
-			writeStringIntoNewPart(part->getFileRelationship().toString(), part->getFileRelationship().getPathName());
+			writeStringIntoNewPart(i->second.getFileRelationship().toString(), i->second.getFileRelationship().getPathName());
 		}
 	}
 

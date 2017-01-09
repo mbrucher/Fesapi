@@ -564,14 +564,14 @@ void EpcDocument::serialize(bool useZip64)
 	for (std::tr1::unordered_map< std::string, resqml2::AbstractObject* >::const_iterator it = resqmlAbstractObjectSet.begin(); it != resqmlAbstractObjectSet.end(); ++it)
 #endif
 	{
-		if (it->second->isPartial() == false)
-		{
+		if (!it->second->isPartial()) {
 			string str = it->second->serializeIntoString();
 
 			epc::FilePart* fp = package->createPart(str, it->second->getPartNameInEpcDocument());
 			std::vector<epc::Relationship> relSet = it->second->getAllEpcRelationships();
-			for (size_t relIndex = 0; relIndex < relSet.size(); relIndex++)
+			for (size_t relIndex = 0; relIndex < relSet.size(); relIndex++) {
 				fp->addRelationship(relSet[relIndex]);
+			}
 
 			epc::ContentType contentType(false, it->second->getContentType(), it->second->getPartNameInEpcDocument());
 			package->addContentType(contentType);
@@ -589,8 +589,9 @@ void EpcDocument::serialize(bool useZip64)
 
 		epc::FilePart* fp = package->createPart(str, it->second->getPartNameInEpcDocument());
 		std::vector<epc::Relationship> relSet = it->second->getAllEpcRelationships();
-		for (size_t relIndex = 0; relIndex < relSet.size(); relIndex++)
+		for (size_t relIndex = 0; relIndex < relSet.size(); relIndex++) {
 			fp->addRelationship(relSet[relIndex]);
+		}
 
 		epc::ContentType contentType(false, it->second->getContentType(), it->second->getPartNameInEpcDocument());
 		package->addContentType(contentType);

@@ -85,8 +85,7 @@ string FileRelationship::toString() const
 		oss << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" << endl << "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">" << endl;
 
 		// parcourir le vector...
-		int numRelationship = relationship.size();
-		for (int i = 0; i < numRelationship; i++)
+		for (size_t i = 0; i < relationship.size(); ++i)
 		{
 			oss << "\t" << relationship[i].toString() << endl;
 		}
@@ -104,8 +103,7 @@ void FileRelationship::setPathName(const std::string & frPathName)
 
 void FileRelationship::addRelationship(const Relationship & frRelationship)
 {
-	if (std::find(relationship.begin(), relationship.end(), frRelationship) == relationship.end())
-	{
+	if (std::find(relationship.begin(), relationship.end(), frRelationship) == relationship.end()) {
 		relationship.push_back(frRelationship);
 	}
 }
@@ -115,10 +113,10 @@ void FileRelationship::readFromString(const string & textInput)
 	relationship.clear();
 
 	size_t pos = textInput.find("Relationship ");
-	if (pos == string::npos)
+	if (pos == string::npos) {
 		pos = textInput.find("Relationship>");
-	while (pos != string::npos)
-	{
+	}
+	while (pos != string::npos) {
 		size_t end = textInput.find("/>", pos + 12);
 		if (end == string::npos)
 			end = textInput.find("Relationship>", pos + 12); // closing tag : </Relationship>

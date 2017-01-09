@@ -39,21 +39,22 @@ knowledge of the CeCILL-B license and that you accept its terms.
 using namespace std;
 using namespace epc;
 
+FilePart::FilePart():finalPathName(string())
+{}
+
 FilePart::FilePart(const string & outputPartPath):
 	finalPathName(outputPartPath)
 {
 	string directoryOfPart(outputPartPath);
 
 	// Clean the potential ending slashes of directoryOfPart
-	while (directoryOfPart[directoryOfPart.size() - 1] == '/' || directoryOfPart[directoryOfPart.size() - 1] == '\\')
-		directoryOfPart = directoryOfPart.substr(0, directoryOfPart.size()-1);
+	while (directoryOfPart[directoryOfPart.size() - 1] == '/' || directoryOfPart[directoryOfPart.size() - 1] == '\\') {
+		directoryOfPart = directoryOfPart.substr(0, directoryOfPart.size() - 1);
+	}
 
 	// extract the directory path
 	size_t slashPos = directoryOfPart.find_last_of("/\\");
-	if (slashPos == string::npos)
-		directoryOfPart = "";
-	else
-		directoryOfPart = directoryOfPart.substr(0, slashPos + 1);
+	directoryOfPart = slashPos == string::npos ? string() : directoryOfPart.substr(0, slashPos + 1);
 
 	// Create the path for the associated relationship part
 	string wkRelsPathname = directoryOfPart + "_rels/" + outputPartPath + ".rels";

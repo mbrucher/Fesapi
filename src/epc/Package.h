@@ -43,6 +43,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "FileCoreProperties.h"
 #include "FileContentType.h"
 #include "FileRelationship.h"
+#include "FilePart.h"
 
 namespace epc
 {
@@ -54,9 +55,9 @@ namespace epc
 		CheshireCat * d_ptr;              // opaque pointer
 
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
-		typedef std::unordered_map<std::string, class FilePart*> PartMap;
+		typedef std::unordered_map<std::string, FilePart> PartMap;
 #else
-		typedef std::tr1::unordered_map<std::string, class FilePart*> PartMap;
+		typedef std::tr1::unordered_map<std::string, FilePart> PartMap;
 #endif
 
 		/**
@@ -172,21 +173,15 @@ namespace epc
 		void addRelationship(const Relationship & relationship);
 
 		/**
-		* @brief set all Parts file.
-		* @param pkgFilePart	a vector of Part file.
-		*/
-		void setAllFilePart(const std::vector<class FilePart*> & pkgFilePart);
-
-		/**
 		* @brief Creates a part in the package and returns it. This part will be automatically destroy with the package.
 		* @return a new part.
 		*/
-		class FilePart* createPart(const std::string & inputContent, const std::string & outputPartPath);
+		FilePart* createPart(const std::string & inputContent, const std::string & outputPartPath);
 
         /**
          * @brief Find a part corresponding to the given path
          */
-        class FilePart* findPart(const std::string & outputPartPath) const;
+		const FilePart* findPart(const std::string & outputPartPath) const;
 		
         /**
          * Check that a given file exists in the zip file
