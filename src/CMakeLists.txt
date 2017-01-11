@@ -2,10 +2,13 @@ CMAKE_MINIMUM_REQUIRED (VERSION 3.1.0)
 
 
 PROJECT (Fesapi_SRC)
+
+# version mechanism
 set (Fesapi_SRC_VERSION_MAJOR 0)
 set (Fesapi_SRC_VERSION_MINOR 10)
 set (Fesapi_SRC_VERSION_PATCH 0)
 set (Fesapi_SRC_VERSION_TWEAK 0)
+
 set (Fesapi_SRC_VERSION ${Fesapi_SRC_VERSION_MAJOR}.${Fesapi_SRC_VERSION_MINOR}.${Fesapi_SRC_VERSION_PATCH}.${Fesapi_SRC_VERSION_TWEAK})
 
 # ============================================================================
@@ -231,7 +234,7 @@ IF (WITH_DOTNET_WRAPPING)
 	execute_process(COMMAND powershell "Remove-Item ${FESAPI_ROOT_DIR}/cs/src/* -recurse")
 	
 	# Filling
-	set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -csharp -dllimport FesapiCpp.${Fesapi_SRC_VERSION}.dll -namespace f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedCsWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/cs/src ${FESAPI_ROOT_DIR}/swig/swigModule.i")
+	set ( EXECUTE_COMMAND "${SWIG_EXECUTABLE} -c++ -csharp -dllimport ${CPP_LIBRARY_NAME}.${Fesapi_SRC_VERSION}.dll -namespace f2i.energisticsStandardsApi -o ${FESAPI_ROOT_DIR}/swig/swigGeneratedCsWrapper.cpp -outdir ${FESAPI_ROOT_DIR}/cs/src ${FESAPI_ROOT_DIR}/swig/swigModule.i")
 	execute_process(COMMAND powershell  ${EXECUTE_COMMAND})
 	message("SWIG files have been generated")
 
@@ -245,8 +248,9 @@ IF (WITH_DOTNET_WRAPPING)
 	CONFIGURE_FILE(${FESAPI_ROOT_DIR}/cmake/UTF8Marshaler.cs ${FESAPI_ROOT_DIR}/cs/src/UTF8Marshaler.cs) # Overwrite if different
 	
 	# Create the Visual Studio project from a template file
-	FILE(TO_NATIVE_PATH "${FESAPI_ROOT_DIR}/cs/src" DOS_STYLE_SOURCE_DIR)
+	#FILE(TO_NATIVE_PATH "${FESAPI_ROOT_DIR}/cs/src" DOS_STYLE_SOURCE_DIR)
 	CONFIGURE_FILE(${FESAPI_ROOT_DIR}/cmake/fesapiCs.csproj.template ${FESAPI_ROOT_DIR}/cs/fesapiCs.csproj) # Overwrite if different
+	CONFIGURE_FILE(${FESAPI_ROOT_DIR}/cmake/AssemblyInfo.cs ${FESAPI_ROOT_DIR}/cs/Properties/AssemblyInfo.cs) # Overwrite if different
 ENDIF (WITH_DOTNET_WRAPPING)
 
 # organizing sources and headers in the Visual Studio Project
@@ -303,15 +307,15 @@ if (${WITH_RESQML2_1})
 	ADD_DEFINITIONS (/DWITH_RESQML2_1)
 endif (${WITH_RESQML2_1})
 
-ADD_LIBRARY (FesapiCpp ${LIB_TYPE} ${ALL_SOURCES_AND_HEADERS})
+ADD_LIBRARY (${CPP_LIBRARY_NAME} ${LIB_TYPE} ${ALL_SOURCES_AND_HEADERS})
 
 IF (WIN32)
 	if(${WITH_HDF5_SHARED_LIBRARIES})
-		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIBRARY} ${HDF5_C_SHARED_LIBRARY})
+		TARGET_LINK_LIBRARIES (${CPP_LIBRARY_NAME} ${MINIZIP_LIBRARY} ${HDF5_C_SHARED_LIBRARY})
 	else ()
-		TARGET_LINK_LIBRARIES (FesapiCpp ${MINIZIP_LIBRARY} ${HDF5_C_STATIC_LIBRARY})
+		TARGET_LINK_LIBRARIES (${CPP_LIBRARY_NAME} ${MINIZIP_LIBRARY} ${HDF5_C_STATIC_LIBRARY})
 	endif ()
-	SET_TARGET_PROPERTIES(FesapiCpp PROPERTIES
+	SET_TARGET_PROPERTIES(${CPP_LIBRARY_NAME} PROPERTIES
 									LINK_FLAGS "/INCREMENTAL:NO /OPT:REF"
 									RUNTIME_OUTPUT_DIRECTORY ${FESAPI_BINARY_DIR}
 									SUFFIX ".${Fesapi_SRC_VERSION}.dll"
@@ -319,11 +323,11 @@ IF (WIN32)
 									VERSION ${Fesapi_SRC_VERSION_MAJOR}.${Fesapi_SRC_VERSION_MINOR})
 ELSEIF (UNIX)
 	IF (WITH_SZIP)
-		TARGET_LINK_LIBRARIES (FesapiCpp ${UUID_LIBRARIES} ${SZIP_LIBRARIES} ${ZLIB_LIBRARIES} ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
+		TARGET_LINK_LIBRARIES (${CPP_LIBRARY_NAME} ${UUID_LIBRARIES} ${SZIP_LIBRARIES} ${ZLIB_LIBRARIES} ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
 	ELSE (WITH_SZIP)
-		TARGET_LINK_LIBRARIES (FesapiCpp ${UUID_LIBRARIES} ${ZLIB_LIBRARIES} ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
+		TARGET_LINK_LIBRARIES (${CPP_LIBRARY_NAME} ${UUID_LIBRARIES} ${ZLIB_LIBRARIES} ${GSOAP_LIBRARIES} ${MINIZIP_LIBRARY} ${HDF5_hdf5_LIBRARY_RELEASE})
 	ENDIF (WITH_SZIP)
-	SET_TARGET_PROPERTIES(FesapiCpp PROPERTIES
+	SET_TARGET_PROPERTIES(${CPP_LIBRARY_NAME} PROPERTIES
 									COMPILE_FLAGS "-fPIC"
 									VERSION ${Fesapi_SRC_VERSION}
 									SOVERSION ${Fesapi_SRC_VERSION_MAJOR}.${Fesapi_SRC_VERSION_MINOR})
@@ -334,7 +338,7 @@ ENDIF (WIN32)
 # ============================================================================
 
 INSTALL (
-	TARGETS FesapiCpp
+	TARGETS ${CPP_LIBRARY_NAME}
 	DESTINATION lib
 )
 

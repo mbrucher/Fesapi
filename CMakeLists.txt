@@ -5,6 +5,15 @@ PROJECT (Fesapi)
 SET (FESAPI_ROOT_DIR ${CMAKE_SOURCE_DIR})
 SET (FESAPI_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
+set (CPP_LIBRARY_NAME FesapiCpp)
+set (CS_LIBRARY_NAME FesapiCs)
+SET (UNDER_DEV TRUE)
+if (${UNDER_DEV})
+	set (CPP_LIBRARY_NAME ${CPP_LIBRARY_NAME}UnderDev)
+	set (CS_LIBRARY_NAME ${CS_LIBRARY_NAME}UnderDev)
+endif (${UNDER_DEV})
+
+
 # ============================================================================
 # user variables
 # ============================================================================

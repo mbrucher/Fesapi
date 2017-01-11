@@ -49,7 +49,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #endif
 
 #if defined(_WIN32) && defined(FESAPI_DLL)
-	#ifdef FesapiCpp_EXPORTS
+	#if defined(FesapiCpp_EXPORTS) || defined(FesapiCppUnderDev_EXPORTS)
 		#define DLL_IMPORT_OR_EXPORT __declspec(dllexport)
 	#else
 		#define DLL_IMPORT_OR_EXPORT __declspec(dllimport) 

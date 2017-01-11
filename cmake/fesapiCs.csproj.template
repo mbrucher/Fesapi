@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>f2i.energisticsStandardsApi</RootNamespace>
-    <AssemblyName>FesapiCs</AssemblyName>
+    <AssemblyName>${CS_LIBRARY_NAME}.${Fesapi_SRC_VERSION}</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -90,7 +90,8 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="${DOS_STYLE_SOURCE_DIR}\**\*.cs" />
+    <Compile Include="src\**\*.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
