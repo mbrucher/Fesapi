@@ -213,7 +213,7 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 				throw invalid_argument("The DOR looks invalid.");
 			}
 		}
-		else {
+		else if (!pk->isPartial()) {
 			if (pk->isAbstract()) {
 				throw invalid_argument("A property cannot be associated to a local property kind which is abstract.");
 			}

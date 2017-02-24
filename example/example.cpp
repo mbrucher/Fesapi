@@ -1583,6 +1583,10 @@ void deserialize(const string & inputFile)
 		}
 		delete [] allXyzPoints;
 		deserializeActivity(faultPolyRep[i]);
+
+		if (faultPolyRep[i]->areAllPolylinesClosedOfAllPatches()) {
+			std::cout << "All polylines of the fault are closed" << endl;
+		}
 /*
 		std::cout << "\tSEISMIC INFO" << endl;
 		double* inlines = new double[nodeCount];
@@ -1839,56 +1843,61 @@ void deserialize(const string & inputFile)
 		}
 		if (ijkGrid->getGeometryKind() != AbstractIjkGridRepresentation::NO_GEOMETRY)
 		{
-			if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::PARAMETRIC)
-			{
-				std::cout << "This 3d grid has a parametric geometry." << std::endl;
-				IjkGridParametricRepresentation* paramIjkGrid = static_cast<IjkGridParametricRepresentation*>(ijkGrid);
-				if (paramIjkGrid->isParametricLineKindConstant())
+			if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::LATTICE) {
+				std::cout << "This 3d grid has a lattice geometry." << std::endl;
+			}
+			else {
+				if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::PARAMETRIC)
 				{
-					std::cout << "Constant parametric line kind : " << paramIjkGrid->getConstantParametricLineKind() << std::endl;
+					std::cout << "This 3d grid has a parametric geometry." << std::endl;
+					IjkGridParametricRepresentation* paramIjkGrid = static_cast<IjkGridParametricRepresentation*>(ijkGrid);
+					if (paramIjkGrid->isParametricLineKindConstant())
+					{
+						std::cout << "Constant parametric line kind : " << paramIjkGrid->getConstantParametricLineKind() << std::endl;
+					}
+					else
+					{
+						std::cout << "Non constant parametric line kind" << std::endl;
+					}
+
+					long patchCount = ijkGrid->getPatchCount();
+					for (long currentPatch = 0; currentPatch < patchCount; ++currentPatch) {
+						long nbVertex = ijkGrid->getXyzPointCountOfPatch(currentPatch);
+
+						double* xyzPts = new double[nbVertex * 3];
+						ijkGrid->getXyzPointsOfPatch(currentPatch, xyzPts);
+
+						for (int vIndex = 0; vIndex < nbVertex; ++vIndex) {
+							double x = xyzPts[vIndex * 3];
+							double y = xyzPts[vIndex * 3 + 1];
+							double z = xyzPts[vIndex * 3 + 2];
+						}
+
+						delete[] xyzPts;
+					}
+
+					ULONG64 pointCountByInterface = paramIjkGrid->getXyzPointCountOfKInterfaceOfPatch(0);
+				}
+				else if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::EXPLICIT)
+				{
+					std::cout << "This 3d grid has an explicit geometry." << std::endl;
 				}
 				else
 				{
-					std::cout << "Non constant parametric line kind" << std::endl;
+					std::cout << "This 3d grid has an unknown geometry." << std::endl;
 				}
 
-				long patchCount = ijkGrid->getPatchCount();
-				for (long currentPatch = 0; currentPatch < patchCount; ++currentPatch) {
-					long nbVertex = ijkGrid->getXyzPointCountOfPatch(currentPatch);
+				// read points
+				ULONG64 xyzPointCount = ijkGrid->getXyzPointCountOfAllPatches();
+				std::cout << "\t XYZ points count :" << xyzPointCount << std::endl;
+				std::cout << "\t Start reading XYZ points..." << std::endl;
+				double* xyzPoints = new double[xyzPointCount * 3];
+				ijkGrid->getXyzPointsOfAllPatches(xyzPoints);
+				delete[] xyzPoints;
+				std::cout << "\t Stop reading XYZ points :" << std::endl;
 
-					double* xyzPts = new double[nbVertex * 3];
-					ijkGrid->getXyzPointsOfPatch(currentPatch, xyzPts);
-
-					for (int vIndex = 0; vIndex < nbVertex; ++vIndex) {
-						double x = xyzPts[vIndex * 3];
-						double y = xyzPts[vIndex * 3 + 1];
-						double z = xyzPts[vIndex * 3 + 2];
-					}
-
-					delete[] xyzPts;
-				}
-
-				ULONG64 pointCountByInterface = paramIjkGrid->getXyzPointCountOfKInterfaceOfPatch(0);
+				std::cout << "Split coordinate line count is : " << ijkGrid->getSplitCoordinateLineCount() << std::endl;
 			}
-			else if (ijkGrid->getGeometryKind() == AbstractIjkGridRepresentation::EXPLICIT)
-			{
-				std::cout << "This 3d grid has an explicit geometry." << std::endl;
-			}
-			else
-			{
-				std::cout << "This 3d grid has a lattice geometry." << std::endl;
-			}
-
-			// read points
-			ULONG64 xyzPointCount = ijkGrid->getXyzPointCountOfAllPatches();
-			std::cout << "\t XYZ points count :" << xyzPointCount << std::endl;
-			std::cout << "\t Start reading XYZ points..." << std::endl;
-			double* xyzPoints = new double[xyzPointCount*3];
-			ijkGrid->getXyzPointsOfAllPatches(xyzPoints);
-			delete [] xyzPoints;
-			std::cout << "\t Stop reading XYZ points :" << std::endl;
-
-			std::cout << "Split coordinate line count is : " << ijkGrid->getSplitCoordinateLineCount() << std::endl;
 		}
 		else
 			std::cout << "This 3d grid has no geometry." << std::endl;
