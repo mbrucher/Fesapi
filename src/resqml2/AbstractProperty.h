@@ -206,17 +206,17 @@ namespace resqml2
 		void setLocalPropertyKind(class PropertyKind* propKind);
 
 		/**
-		* Get the uuid of the localproeprty kind which is associated to this property.
-		*/
-		std::string getLocalPropertyKindUuid() const;
-
-		/**
-		* @return	null pointer if no local proeprty kind is associated to this property. Otherwise return the data object reference of the associated local property kind.
+		* @return	null pointer if no local property kind is associated to this property. Otherwise return the data object reference of the associated local property kind.
 		*/
 		gsoap_resqml2_0_1::eml__DataObjectReference* getLocalPropertyKindDor() const;
 
 		/**
-		* Get the title of the localproeprty kind which is associated to this property.
+		* Get the uuid of the local property kind which is associated to this property.
+		*/
+		std::string getLocalPropertyKindUuid() const;
+
+		/**
+		* Get the title of the local property kind which is associated to this property.
 		*/
 		std::string getLocalPropertyKindTitle() const;
 

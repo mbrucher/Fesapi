@@ -93,7 +93,19 @@ namespace resqml2
 		*/
 		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getParentEnergisticsPropertyKind() const;
 
+		/**
+		* @return	null pointer if no local parent property kind is associated to this property. Otherwise return the data object reference of the associated parent local property kind.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getParentLocalPropertyKindDor() const;
+
+		/**
+		* Get the uuid of the local parent property kind which is associated to this property.
+		*/
 		std::string getParentLocalPropertyKindUuid() const;
+
+		/**
+		* Get the uuid of the local parent property kind which is associated to this property.
+		*/
 		std::string getParentLocalPropertyKindTitle() const;
 
 		/**

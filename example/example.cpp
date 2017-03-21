@@ -1284,6 +1284,7 @@ bool serialize(const string & filePath)
 
 	hdfProxy->close();
 
+	cout << "Start serialization of " << pck.getName() << " in " << (pck.getStorageDirectory().empty() ? "working directory." : pck.getStorageDirectory()) << endl;
 	pck.serialize();
 	return true;
 }
@@ -1308,7 +1309,7 @@ void showAllMetadata(resqml2::AbstractObject * obj, const std::string & prefix =
 
 void showAllSubRepresentations(const vector<resqml2::SubRepresentation*> & subRepSet)
 {
-	if (subRepSet.size() > 0) {
+	if (!subRepSet.empty()) {
 		cout << "SUBREPRESENTATIONS" << std::endl;
 	}
 	std::cout << "\t--------------------------------------------------" << std::endl;
@@ -1488,8 +1489,9 @@ void deserializeStratiColumn(StratigraphicColumn * stratiColumn)
 void deserialize(const string & inputFile)
 {
 	common::EpcDocument pck(inputFile, common::EpcDocument::READ_ONLY);
-	//common::EpcDocument pck(inputFile, "C:/Users/Philippe/dev/fesapi/resources", common::EpcDocument::READ_ONLY);
+	//common::EpcDocument pck(inputFile, "C:/Users/Philippe/dev/fesapiEnv/fesapi/resources", common::EpcDocument::READ_ONLY);
     //common::EpcDocument pck(inputFile, "/home/philippe/dev/fesapi/resources", common::EpcDocument::READ_ONLY);
+	cout << "Start deserialization of " << pck.getName() << " in " << (pck.getStorageDirectory().empty() ? "working directory." : pck.getStorageDirectory()) << endl;
 	string resqmlResult = pck.deserialize();
 	if (!resqmlResult.empty()) {
 		cerr << resqmlResult << endl;

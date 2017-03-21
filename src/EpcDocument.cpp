@@ -180,9 +180,9 @@ EpcDocument::EpcDocument(const std::string & fileName, const std::string & prope
 	string error = propertyKindMapper->loadMappingFilesFromDirectory(propertyKindMappingFilesDirectory);
 	if (error.size() != 0)
 	{
-		throw invalid_argument("Could not import property kind mappers : " + error);
 		delete propertyKindMapper;
 		propertyKindMapper = nullptr;
+		throw invalid_argument("Could not import property kind mappers : " + error);
 	}
 }
 
@@ -662,7 +662,7 @@ string EpcDocument::deserialize()
 				}
 			}
 			else {
-				warnings.push_back("The content type " + resqmlContentType + "could not be wrapped by fesapi. The related instance will be ignored.");
+				warnings.push_back("The content type " + resqmlContentType + " could not be wrapped by fesapi. The related instance will be ignored.");
 			}
 		}
 		else if (it->second.getContentTypeString().find("application/x-witsml+xml;version=1.4.1.1;type=") == 0)
@@ -1225,23 +1225,17 @@ resqml2::AbstractHdfProxy* EpcDocument::getHdfProxy(const unsigned int & index) 
 
 string EpcDocument::getStorageDirectory() const
 {
-	size_t slashPos = filePath.find_last_of("/\\");
-	if (slashPos != string::npos) {
-		return filePath.substr(0, slashPos + 1);
-	}
-
-	return string();
+	const size_t slashPos = filePath.find_last_of("/\\");
+	return slashPos != string::npos ? filePath.substr(0, slashPos + 1) : string();
 }
 
 string EpcDocument::getName() const
 {
-	size_t slashPos = filePath.find_last_of("/\\");
-	if (slashPos == string::npos) {
-		return string();
-	}
+	// Remove the directories from the file path
+	const size_t slashPos = filePath.find_last_of("/\\");
+	const string nameSuffixed = slashPos != string::npos ? filePath.substr(slashPos + 1, filePath.size()) : filePath;
 
 	// Remove the extension
-	string nameSuffixed = filePath.substr(slashPos+1, filePath.size());
 	return nameSuffixed.substr(0, nameSuffixed.size() - strlen(DOCUMENT_EXTENSION));
 }
 

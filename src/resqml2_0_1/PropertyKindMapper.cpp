@@ -55,41 +55,36 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 	HANDLE handle = FindFirstFile((directory+"\\*").c_str(), &search_data);
 
 	vector<string> files;
-	if (handle == INVALID_HANDLE_VALUE)
-		return "";
+	if (handle == INVALID_HANDLE_VALUE){
+		throw invalid_argument("Cannot open the directory where the property kind mapper is located : " + directory);
+	}
 
-	do
-	{
+	do {
 		string fileName(search_data.cFileName);
 #else
 	DIR* rep = nullptr;
 	rep = opendir(directory.c_str());
-	if (rep == nullptr)
-		throw invalid_argument("Cannot open the directory.");
+	if (rep == nullptr) {
+		throw invalid_argument("Cannot open the directory where the property kind mapper is located : " + directory);
+	}
 
 	struct dirent* currentFile = readdir(rep); // first file
-	do
-	{
+	do {
 		string fileName = currentFile->d_name;
 #endif
 		unsigned int pos = fileName.find_last_of('.');
-		if (pos < fileName.size())
-		{
-			if (fileName.substr(pos).compare(".xml") == 0 && fileName.find("PropertyKind") != std::string::npos)
-			{
-				if (fileName.compare("PropertyKindMapping.xml") == 0)
-				{
+		if (pos < fileName.size()) {
+			if (fileName.substr(pos).compare(".xml") == 0 && fileName.find("PropertyKind") != std::string::npos) {
+				if (fileName.compare("PropertyKindMapping.xml") == 0) {
 					std::ifstream file( (directory + "/PropertyKindMapping.xml").c_str() );
 
-					if ( file )
-					{
+					if ( file ) {
 						epcDocument->getGsoapContext()->is = &file;
 						gsoap_resqml2_0_1::_ptm__standardEnergisticsPropertyTypeSet* read = gsoap_resqml2_0_1::soap_new_ptm__standardEnergisticsPropertyTypeSet(epcDocument->getGsoapContext(), 1);
 						soap_read_ptm__standardEnergisticsPropertyTypeSet(epcDocument->getGsoapContext(), read);
 						file.close();
 
-						if (epcDocument->getGsoapContext()->error == SOAP_OK)
-						{
+						if (epcDocument->getGsoapContext()->error == SOAP_OK) {
 							for (size_t propIndex = 0; propIndex < read->standardEnergisticsPropertyType.size(); ++propIndex)
 							{
 								resqmlStandardPropertyKindNameToApplicationPropertyKindName[read->standardEnergisticsPropertyType[propIndex]->name] = read->standardEnergisticsPropertyType[propIndex];
@@ -100,50 +95,44 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 								}
 							}
 						}
-						else
-						{
+						else {
 							ostringstream oss;
 							soap_stream_fault(epcDocument->getGsoapContext(), oss);
 							return oss.str() + " in PropertyKindMapping.xml";
 						}
 					}
-					else
+					else {
 						throw domain_error("The PropertyKindMapping.xml file cannot be opened");
+					}
 				}
-				else
-				{
+				else {
 					std::ifstream file( (directory + "/" + fileName).c_str() );
 
-					if ( file )
-					{
+					if ( file ) {
 						epcDocument->getGsoapContext()->is = &file;
 						gsoap_resqml2_0_1::_resqml2__PropertyKind* read = gsoap_resqml2_0_1::soap_new_resqml2__obj_USCOREPropertyKind(epcDocument->getGsoapContext(), 1);
 						soap_read_resqml2__obj_USCOREPropertyKind(epcDocument->getGsoapContext(), read);
 						file.close();
 
-						if (epcDocument->getGsoapContext()->error == SOAP_OK)
-						{
+						if (epcDocument->getGsoapContext()->error == SOAP_OK) {
 							resqmlLocalPropertyKindUuidToResqmlLocalPropertyKind[read->uuid] = read;
-							for (size_t aliasIndex = 0; aliasIndex < read->Aliases.size(); ++aliasIndex)
-							{
-								if (read->Aliases[aliasIndex]->authority)
-								{
+							for (size_t aliasIndex = 0; aliasIndex < read->Aliases.size(); ++aliasIndex) {
+								if (read->Aliases[aliasIndex]->authority) {
 									string namingSystem = *read->Aliases[aliasIndex]->authority;
 									resqmlLocalPropertyKindUuidToApplicationPropertyKindName[namingSystem][read->uuid] = read->Aliases[aliasIndex]->Identifier;
 									applicationPropertyKindNameToResqmlLocalPropertyKindUuid[namingSystem][read->Aliases[aliasIndex]->Identifier] = read->uuid;
 								}
 							}
 						}
-						else
-						{
+						else {
 							ostringstream oss;
 							soap_stream_fault(epcDocument->getGsoapContext(), oss);
 							return oss.str() + " in " + fileName;
 						}
 					}
-					else
+					else {
 						throw domain_error("The property type config file " + directory + "/" + fileName + " cannot be opened.");
-
+					}
 				}
 			}
 		}
@@ -153,14 +142,15 @@ string PropertyKindMapper::loadMappingFilesFromDirectory(const string & director
 
 	//Close the handle after use or memory/resource leak
 	FindClose(handle);
-	return "";
+	return string();
 #else
 	while ((currentFile = readdir(rep)) != nullptr);
 
-	if (closedir(rep) == -1)
+	if (closedir(rep) == -1) {
 		throw invalid_argument("Cannot close the directory.");
+	}
 
-	return "";
+	return string();
 #endif
 }
 

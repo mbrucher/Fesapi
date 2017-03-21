@@ -116,36 +116,29 @@ PropertyKind* PropertyKind::getParentLocalPropertyKind() const
 	return static_cast<PropertyKind*>(epcDocument->getResqmlAbstractObjectByUuid(getParentLocalPropertyKindUuid()));
 }
 
+gsoap_resqml2_0_1::eml__DataObjectReference* PropertyKind::getParentLocalPropertyKindDor() const
+{
+	if (isParentAnEnergisticsPropertyKind()) {
+		throw invalid_argument("The property kind parent of this property kind is not a local one.");
+	}
+
+	if (gsoapProxy2_0_1 != nullptr) {
+		gsoap_resqml2_0_1::_resqml2__PropertyKind* propKind = static_cast<gsoap_resqml2_0_1::_resqml2__PropertyKind*>(gsoapProxy2_0_1);
+		return static_cast<gsoap_resqml2_0_1::resqml2__LocalPropertyKind*>(propKind->ParentPropertyKind)->LocalPropertyKind;
+	}
+	else {
+		throw logic_error("Not implemented yet");
+	}
+}
+
 std::string PropertyKind::getParentLocalPropertyKindUuid() const
 {
-	if (!isParentAnEnergisticsPropertyKind())
-	{
-		if (gsoapProxy2_0_1 != nullptr) {
-			gsoap_resqml2_0_1::_resqml2__PropertyKind* propKind = static_cast<gsoap_resqml2_0_1::_resqml2__PropertyKind*>(gsoapProxy2_0_1);
-			return static_cast<gsoap_resqml2_0_1::resqml2__LocalPropertyKind*>(propKind->ParentPropertyKind)->LocalPropertyKind->UUID;
-		}
-		else {
-			throw logic_error("Not implemented yet");
-		}
-	}
-	
-	throw invalid_argument("The property kind parent of this property kind is not a local one.");
+	return getParentLocalPropertyKindDor()->UUID;
 }
 
 std::string PropertyKind::getParentLocalPropertyKindTitle() const
 {
-	if (!isParentAnEnergisticsPropertyKind())
-	{
-		if (gsoapProxy2_0_1 != nullptr) {
-			gsoap_resqml2_0_1::_resqml2__PropertyKind* propKind = static_cast<gsoap_resqml2_0_1::_resqml2__PropertyKind*>(gsoapProxy2_0_1);
-			return static_cast<gsoap_resqml2_0_1::resqml2__LocalPropertyKind*>(propKind->ParentPropertyKind)->LocalPropertyKind->Title;
-		}
-		else {
-			throw logic_error("Not implemented yet");
-		}
-	}
-
-	throw invalid_argument("The property kind parent of this property kind is not a local one.");
+	return getParentLocalPropertyKindDor()->Title;
 }
 
 void PropertyKind::setParentPropertyKind(PropertyKind* parentPropertyKind)
@@ -190,8 +183,18 @@ vector<Relationship> PropertyKind::getAllEpcRelationships() const
 
 void PropertyKind::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 {
-	if (!isParentAnEnergisticsPropertyKind()) {
-		getParentLocalPropertyKind()->childPropertyKind.push_back(this);
+	if (isParentAnEnergisticsPropertyKind()) {
+		return;
 	}
-}
 
+	gsoap_resqml2_0_1::eml__DataObjectReference* dor = getParentLocalPropertyKindDor();
+	resqml2::PropertyKind* parentPk = epcDoc->getResqmlAbstractObjectByUuid<PropertyKind>(dor->UUID);
+	if (parentPk == nullptr) {
+		epcDoc->createPartial(dor);
+		parentPk = epcDoc->getResqmlAbstractObjectByUuid<PropertyKind>(dor->UUID);
+		if (parentPk == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
+	}
+	parentPk->childPropertyKind.push_back(this);
+}
