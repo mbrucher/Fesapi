@@ -95,16 +95,3 @@ ContinuousPropertySeries::ContinuousPropertySeries(resqml2::AbstractRepresentati
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
-
-void ContinuousPropertySeries::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
-{
-	ContinuousProperty:: importRelationshipSetFromEpc(epcDoc);
-
-	_resqml2__ContinuousPropertySeries* prop = static_cast<_resqml2__ContinuousPropertySeries*>(gsoapProxy2_0_1);
-	if (prop->SeriesTimeIndices != nullptr)
-	{
-		updateXml = false;
-		setTimeSeries(static_cast<TimeSeries*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SeriesTimeIndices->TimeSeries->UUID)));
-		updateXml = true;
-	}
-}

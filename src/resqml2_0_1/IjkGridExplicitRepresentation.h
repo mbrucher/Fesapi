@@ -75,12 +75,24 @@ namespace resqml2_0_1
 		/**
 		* Get all the XYZ points of a particular patch of this representation.
 		* XYZ points are given in the local CRS.
-		* @param xyzPoints A linearized 2d array where the first (quickest) dimension is coordinate dimension (XYZ) and second dimension is vertex dimension. It must be pre allocated.
+		* @param xyzPoints XYZ double triplets ordered by i then j then split then k. It must be pre allocated with a count of ((iCellCount+1) * (jCellCount+1) + splitCoordinateLineCount) * kCellCount.
 		*/
 		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		/**
-		* Set the geometry of the IJK grid as explicit coordinate line nodes
+		* Set the geometry of the IJK grid as explicit coordinate line nodes. See Resqml Usage, Technical guide and Enterprise Architect diagrams for details.
+		* @mostComplexPillarGeometry					The most complex pillar geometry which occurs on this reservoir grid.
+		* @kDirectionKind								The direction of the K axis on the earth. It is not directly related to Z of the vertical CRS but to the physical earth (as the vertical CRS is).
+		* @isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
+		* @points										XYZ double triplets ordered by i then j then split then k. Count must be ((iCellCount+1) * (jCellCount+1) + splitCoordinateLineCount) * kCellCount.
+		* @proxy										The HDF proxy where all numerical values will be stored.
+		* @splitCoordinateLineCount						The count of split coordinate line. A grid pillar is splitted in up to 4 coordinate lines.
+		* @pillarOfCoordinateLine						For each split coordinate line, indicates which pillar it belongs to. Pillars are identified by their absolute 1d index (iPillar + jPillar*iPillarCount) where iPillarCount == iCellCount+1. Count is splitCoordinateLineCount.
+		* @splitCoordinateLineColumnCumulativeCount		For each split coordinate line, indicates how many columns of the ijk grid are incident to it (minimum is one and maximum is 3) + the count of all incident columns of previous spit coordinate lines in the array.
+		*												For example {1, 4, 6} would mean that the first split coordinate line is incident to only one column, the second split coordinate line is incident to 4-1=3 columns and the third column is incident to 6-4=2 columns.
+		*												Count is splitCoordinateLineCount.
+		* @splitCoordinateLineColumns					For each split coordinate line, indicates which columns are incident to it. Count is the last value in the splitCoordinateLineColumnCumulativeCount array.
+		*												Columns are identified by their absolute 1d index (iColumn + jColumn*iColumnCount) where *Column* == *Cell*.
 		*/
 		void setGeometryAsCoordinateLineNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,

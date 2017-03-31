@@ -103,16 +103,3 @@ CategoricalPropertySeries::CategoricalPropertySeries(resqml2::AbstractRepresenta
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
-
-void CategoricalPropertySeries::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
-{
-	CategoricalProperty:: importRelationshipSetFromEpc(epcDoc);
-
-	_resqml2__CategoricalPropertySeries* prop = static_cast<_resqml2__CategoricalPropertySeries*>(gsoapProxy2_0_1);
-	if (prop->SeriesTimeIndices != nullptr)
-	{
-		updateXml = false;
-		setTimeSeries(static_cast<TimeSeries*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SeriesTimeIndices->TimeSeries->UUID)));
-		updateXml = true;
-	}
-}

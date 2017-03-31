@@ -1349,6 +1349,8 @@ resqml2::AbstractObject* EpcDocument::createPartial(gsoap_resqml2_0_1::eml__Data
 	{
 		throw invalid_argument("Please handle this type outside this method since it is not only XML related.");
 	}
+
+	throw invalid_argument("The content type " + resqmlContentType + "of the partial object (DOR) to create has not been recognized by fesapi.");
 }
 
 //************************************

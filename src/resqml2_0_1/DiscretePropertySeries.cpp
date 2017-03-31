@@ -93,16 +93,3 @@ DiscretePropertySeries::DiscretePropertySeries(resqml2::AbstractRepresentation *
 	initMandatoryMetadata();
 	setMetadata(guid, title, "", -1, "", "", -1, "", "");
 }
-
-void DiscretePropertySeries::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
-{
-	DiscreteProperty:: importRelationshipSetFromEpc(epcDoc);
-
-	_resqml2__DiscretePropertySeries* prop = static_cast<_resqml2__DiscretePropertySeries*>(gsoapProxy2_0_1);
-	if (prop->SeriesTimeIndices != nullptr)
-	{
-		updateXml = false;
-		setTimeSeries(static_cast<TimeSeries*>(epcDoc->getResqmlAbstractObjectByUuid(prop->SeriesTimeIndices->TimeSeries->UUID)));
-		updateXml = true;
-	}
-}

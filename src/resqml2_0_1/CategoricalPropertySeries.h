@@ -94,9 +94,6 @@ namespace resqml2_0_1
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		std::string getResqmlVersion() const {return "2.0.1";}
-
-	protected:
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 	};
 }
 

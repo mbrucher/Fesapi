@@ -37,6 +37,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
+	/**
+	* This class is mainly useful for describing temporal properties on well objects.
+	* The prefered approach to describe temporal properties on Reservoir grids is to use one instance of ContinuousProperty per time step.
+	*/
 	class DLL_IMPORT_OR_EXPORT ContinuousPropertySeries : public ContinuousProperty
 	{
 	public:
@@ -94,8 +98,5 @@ namespace resqml2_0_1
 		virtual std::string getXmlTag() const {return XML_TAG;}
 
 		std::string getResqmlVersion() const {return "2.0.1";}
-
-	protected:
-		void importRelationshipSetFromEpc(common::EpcDocument* epcDoc);
 	};
 }
