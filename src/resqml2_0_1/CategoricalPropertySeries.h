@@ -37,6 +37,10 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 namespace resqml2_0_1
 {
+	/**
+	* This class is mainly useful for describing temporal properties on well objects.
+	* The prefered approach to describe temporal properties on Reservoir grids is to use one instance of CategoricalProperty per time step.
+	*/
 	class DLL_IMPORT_OR_EXPORT CategoricalPropertySeries : public CategoricalProperty
 	{
 	public:

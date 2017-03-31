@@ -77,7 +77,7 @@ namespace resqml2_0_1
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which supports each value.
-		* @apram uom						The uom of the values
+		* @param uom						The uom of the values. Please check EpcDocument::getEnergisticsUnitOfMeasure(const std::string & energisticsUomName) in order to minimize the use of non standard uom.
 		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
 		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -90,7 +90,7 @@ namespace resqml2_0_1
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which supports each value.
-		* @apram uom						The uom of the values
+		* @param uom						The uom of the values. Please check EpcDocument::getEnergisticsUnitOfMeasure(const std::string & energisticsUomName) in order to minimize the use of non standard uom.
 		* @param localPropType				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
 		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -103,7 +103,7 @@ namespace resqml2_0_1
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which supports each value.
-		* @apram nonStandardUom				The non standard uom of the values
+		* @param nonStandardUom				The non standard uom of the values. Please check EpcDocument::getEnergisticsUnitOfMeasure(const std::string & energisticsUomName) in order to minimize the use of non standard uom.
 		* @param energisticsPropertyKind	The property kind of these property values which must be defined in the standard energistics property type dictionary.
 		*/
 		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -116,7 +116,7 @@ namespace resqml2_0_1
 		* @param title						A title for the instance to create.
 		* @param dimension					The dimension of each value (scalar properties == 1).
 		* @param attachmentKind				The topological orbit which supports each value.
-		* @apram nonStandardUom				The non standard uom of the values
+		* @param nonStandardUom				The non standard uom of the values. Please check EpcDocument::getEnergisticsUnitOfMeasure(const std::string & energisticsUomName) in order to minimize the use of non standard uom.
 		* @param localPropType				The property kind of these property values which must be defined in the EPC document as a local property kind.
 		*/
 		ContinuousProperty(resqml2::AbstractRepresentation * rep, const std::string & guid, const std::string & title,
@@ -137,11 +137,13 @@ namespace resqml2_0_1
 
 		/**
 		* Get the unit of measure of the values of this property.
+		* If 'Euc'  is returned, you should check if an extrametadata called "Uom" also exists. If so, it would mean that the property uses a non standard uom. This is an official workaround for a known issue of Resqml 2.0.1.
 		*/
 		const gsoap_resqml2_0_1::resqml2__ResqmlUom & getUom() const;
 
 		/**
 		* Get the unit of measure of the values of this property as a string.
+		* If 'Euc'  is returned, you should check if an extrametadata called "Uom" also exists. If so, it would mean that the property uses a non standard uom. This is an official workaround for a known issue of Resqml 2.0.1.
 		*/
 		std::string getUomAsString() const;
 
