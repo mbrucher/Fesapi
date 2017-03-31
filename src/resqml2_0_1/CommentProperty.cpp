@@ -85,22 +85,7 @@ CommentProperty::CommentProperty(resqml2::AbstractRepresentation * rep, const st
 void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values,
 	resqml2::AbstractHdfProxy * proxy)
 {
-	setHdfProxy(proxy);
-    _resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy2_0_1);
-
-	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
-	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
-
-	// XML
-	ostringstream oss;
-    resqml2__StringHdf5Array* xmlValues = soap_new_resqml2__StringHdf5Array(gsoapProxy2_0_1->soap, 1);
-	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-	xmlValues->Values->HdfProxy = proxy->newResqmlReference();;
-	ostringstream ossForHdf;
-	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
-	xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
-	patch->Values = xmlValues;
+	const string datasetName = pushBackRefToExistingDataset(proxy, "");
 
 	// Build the CHAR array
 	hsize_t dimTwo = 0;
@@ -110,8 +95,7 @@ void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::str
 	}
 
 	hsize_t strNb = values.size();
-	unsigned char* cTab;
-	cTab = new unsigned char[strNb*dimTwo];
+	unsigned char* cTab = new unsigned char[strNb*dimTwo];
 
 	int indStr = 0;
 	for (std::vector<std::string>::const_iterator it = values.begin() ; it!= values.end() ; it++){
@@ -128,16 +112,45 @@ void CommentProperty::pushBackStringHdf5ArrayOfValues(const std::vector<std::str
 	const unsigned int nbDimensions = 2;
 
     // HDF
-	proxy->writeArrayNd(prop->uuid,
-                    ossForHdf.str(),
-                    H5T_NATIVE_UCHAR,
-                    cTab,
-                    nbValPerDim,   // 0 = number of strings, 1 = length of the longest string 
-					nbDimensions); // 2
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+		datasetName,
+        H5T_NATIVE_UCHAR,
+        cTab,
+        nbValPerDim,   // 0 = number of strings, 1 = length of the longest string 
+		nbDimensions); // 2
 
     delete [] cTab;
+}
+
+std::string CommentProperty::pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName, const long & nullValue)
+{
+	setHdfProxy(hdfProxy);
+	_resqml2__CommentProperty* prop = static_cast<_resqml2__CommentProperty*>(gsoapProxy2_0_1);
+
+	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
+	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
+	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
+
+	// XML
+	ostringstream oss;
+	resqml2__StringHdf5Array* xmlValues = soap_new_resqml2__StringHdf5Array(gsoapProxy2_0_1->soap, 1);
+	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
+	xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
+
+	if (datasetName.empty()) {
+		ostringstream ossForHdf;
+		ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
+		xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
+	}
+	else {
+		xmlValues->Values->PathInHdfFile = datasetName;
+	}
+
+	patch->Values = xmlValues;
 
 	prop->PatchOfValues.push_back(patch);
+
+	return xmlValues->Values->PathInHdfFile;
 }
 
 std::vector<std::string> CommentProperty::getStringValuesOfPatch(const unsigned int & patchIndex)

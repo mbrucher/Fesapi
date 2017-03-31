@@ -140,6 +140,8 @@ namespace resqml2_0_1
 		void pushBackIntHdf5Array3dOfValues(int * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
 		void pushBackShortHdf5Array3dOfValues(short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const short & nullValue, const short & minimumValue, const short & maximumValue);
 		void pushBackShortHdf5Array3dOfValues(short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const short & nullValue);
+		void pushBackUShortHdf5Array3dOfValues(unsigned short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const unsigned short & nullValue, const unsigned short & minimumValue, const unsigned short & maximumValue);
+		void pushBackUShortHdf5Array3dOfValues(unsigned short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const unsigned short & nullValue);
 		void pushBackCharHdf5Array3dOfValues(char * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const char & nullValue, const char & minimumValue, const char & maximumValue);
 		void pushBackCharHdf5Array3dOfValues(char * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy, const char & nullValue);
 
@@ -158,6 +160,8 @@ namespace resqml2_0_1
 		void pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue);
 		void pushBackShortHdf5ArrayOfValues(short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const short & nullValue, const short & minimumValue, const short & maximumValue);
 		void pushBackShortHdf5ArrayOfValues(short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const short & nullValue);
+		void pushBackUShortHdf5ArrayOfValues(unsigned short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const unsigned short & nullValue, const unsigned short & minimumValue, const unsigned short & maximumValue);
+		void pushBackUShortHdf5ArrayOfValues(unsigned short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const unsigned short & nullValue);
 		void pushBackCharHdf5ArrayOfValues(char * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const char & nullValue, const char & minimumValue, const char & maximumValue);
 		void pushBackCharHdf5ArrayOfValues(char * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const char & nullValue);
 
@@ -173,7 +177,7 @@ namespace resqml2_0_1
 		* @param	maximumValue			The maximum value of the values in the HDF5 dataset.
 		* @return	The name of the referenced HDF5 dataset.
 		*/
-		std::string pushBackRefToExistingDataset(const std::string & datasetName, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
-		std::string pushBackRefToExistingDataset(const std::string & datasetName, resqml2::AbstractHdfProxy* proxy, const long & nullValue);
+		std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* proxy, const std::string & datasetName, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
+		std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & dataset = "", const long & nullValue = (std::numeric_limits<long>::max)());
 	};
 }

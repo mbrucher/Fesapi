@@ -400,7 +400,7 @@ void serializeBoundaries(common::EpcDocument * pck, resqml2::AbstractHdfProxy* h
 	ContinuousProperty* contProp1 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "fcaccfc7-10cb-4f73-800e-a381642478cb", "Horizon1 Interp1 Grid2dRep Prop1", 2,
         gsoap_resqml2_0_1::resqml2__IndexableElements__nodes, "exoticMeter", propType1);
     double prop1Values[16] = {301,302, 301,302, 351,352, 351,352, 301,302, 301,302, 351,352, 351,352};
-    contProp1->pushBackDoubleHdf5Array1dOfValues(prop1Values, 8, hdfProxy);
+    contProp1->pushBackDoubleHdf5Array2dOfValues(prop1Values, 2, 8, hdfProxy);
 
 	resqml2::PropertyKind * propType2 = pck->createPropertyKind("7372f8f6-b1fd-4263-b9a8-699d9cbf7da6", "propType2", "urn:resqml:f2i.com:testingAPI", gsoap_resqml2_0_1::resqml2__ResqmlUom__Euc, propType1);
 	ContinuousProperty* contProp2 = pck->createContinuousProperty(h1i1SingleGrid2dRep, "d3efb337-19f8-4b91-8b4f-3698afe17f01", "Horizon1 Interp1 Grid2dRep Prop2", 1,
@@ -602,8 +602,10 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
 	//long prop1Values[2] = {0,1};
 	//discreteProp1->pushBackLongHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
-	short prop1Values[2] = { 0, 1 };
-	discreteProp1->pushBackShortHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
+	//short prop1Values[2] = { 0, 1 };
+	//discreteProp1->pushBackShortHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
+	unsigned short prop1Values[2] = { 0, 1 };
+	discreteProp1->pushBackUShortHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
 
 	//**************
 	// Time Series

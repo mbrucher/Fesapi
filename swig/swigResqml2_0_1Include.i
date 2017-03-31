@@ -2861,13 +2861,13 @@ namespace resqml2_0_1
 		void pushBackDoubleHdf5ArrayOfValues(double * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
 			double * minimumValue = nullptr, double * maximumValue = nullptr);
 		void pushBackFloatHdf5Array1dOfValues(float * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy,
-			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
+			const float & minimumValue = std::numeric_limits<float>::quiet_NaN(), const float & maximumValue = std::numeric_limits<float>::quiet_NaN());
 		void pushBackFloatHdf5Array2dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
-			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
+			const float & minimumValue = std::numeric_limits<float>::quiet_NaN(), const float & maximumValue = std::numeric_limits<float>::quiet_NaN());
 		void pushBackFloatHdf5Array3dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
-			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
+			const float & minimumValue = std::numeric_limits<float>::quiet_NaN(), const float & maximumValue = std::numeric_limits<float>::quiet_NaN());
 		void pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
-			double * minimumValue = nullptr, double * maximumValue = nullptr);
+			float * minimumValue = nullptr, float * maximumValue = nullptr);
 
 
 		void createFloatHdf5ArrayOfValues(

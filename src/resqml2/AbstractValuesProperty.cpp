@@ -114,7 +114,7 @@ AbstractValuesProperty::hdfDatatypeEnum AbstractValuesProperty::getValuesHdfData
 	return AbstractValuesProperty::UNKNOWN; // unknwown datatype...
 }
 
-void AbstractValuesProperty::pushBackRefToExistingDataset(resqml2::AbstractHdfProxy * hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset)
+std::string AbstractValuesProperty::pushBackRefToExistingIntegerDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName, const long & nullValue)
 {
 	setHdfProxy(hdfProxy);
 	if (gsoapProxy2_0_1 != nullptr) {
@@ -125,30 +125,25 @@ void AbstractValuesProperty::pushBackRefToExistingDataset(resqml2::AbstractHdfPr
 		*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
 
 		// XML
-		gsoap_resqml2_0_1::eml__Hdf5Dataset* datasetRef = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-		datasetRef->HdfProxy = hdfProxy->newResqmlReference();
-		if (dataset.empty()) {
-			std::ostringstream ossForHdf;
+		gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
+		xmlValues->NullValue = nullValue;
+		xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
+		xmlValues->Values->HdfProxy = hdfProxy->newResqmlReference();
+
+		if (datasetName.empty()) {
+			ostringstream ossForHdf;
 			ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
-			datasetRef->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
+			xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
 		}
 		else {
-			datasetRef->PathInHdfFile = dataset;
+			xmlValues->Values->PathInHdfFile = datasetName;
 		}
 
-		if (isAnIntegerDataset) {
-			gsoap_resqml2_0_1::resqml2__IntegerHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
-			xmlValues->Values = datasetRef;
-			xmlValues->NullValue = (std::numeric_limits<long>::max)();
-			patch->Values = xmlValues;
-		}
-		else {
-			gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy2_0_1->soap, 1);
-			xmlValues->Values = datasetRef;
-			patch->Values = xmlValues;
-		}
-			
+		patch->Values = xmlValues;
+
 		prop->PatchOfValues.push_back(patch);
+
+		return xmlValues->Values->PathInHdfFile;
 	}
 	else {
 		throw logic_error("Not implemented yet");

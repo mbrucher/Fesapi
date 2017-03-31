@@ -90,6 +90,8 @@ namespace resqml2_0_1
 		*/
 		void pushBackStringHdf5ArrayOfValues(const std::vector<std::string> & values, resqml2::AbstractHdfProxy* proxy);
 
+		std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName = "", const long & nullValue = (std::numeric_limits<long>::max)());
+
 		/**
 		* Get all the values of the instance which are supposed to be string ones.
 		*/

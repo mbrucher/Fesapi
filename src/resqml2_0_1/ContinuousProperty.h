@@ -204,7 +204,7 @@ namespace resqml2_0_1
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
 		void pushBackFloatHdf5Array1dOfValues(float * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy* proxy,
-			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
+			const float & minimumValue = std::numeric_limits<float>::quiet_NaN(), const float & maximumValue = std::numeric_limits<float>::quiet_NaN());
 
 		/**
 		* Add a 2d array of explicit float values to the property values.
@@ -216,7 +216,7 @@ namespace resqml2_0_1
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
 		void pushBackFloatHdf5Array2dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
-			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
+			const float & minimumValue = std::numeric_limits<float>::quiet_NaN(), const float & maximumValue = std::numeric_limits<float>::quiet_NaN());
 
 		/**
 		* Add a 3d array of explicit float values to the property values.
@@ -229,7 +229,7 @@ namespace resqml2_0_1
 		* @param maximumValue			The maximum value of the values to add. If NAN is provided then the maximum value will be computed from the values.
 		*/
 		void pushBackFloatHdf5Array3dOfValues(float * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy* proxy,
-			const double & minimumValue = std::numeric_limits<double>::quiet_NaN(), const double & maximumValue = std::numeric_limits<double>::quiet_NaN());
+			const float & minimumValue = std::numeric_limits<float>::quiet_NaN(), const float & maximumValue = std::numeric_limits<float>::quiet_NaN());
 
 		/**
 		* Add an array (potentially multi dimensions) of explicit float values to the property values.
@@ -241,7 +241,7 @@ namespace resqml2_0_1
 		* @param maximumValue			The maximum value (or value vector) of the values to add. If nullptr is provided and the dimension of value is 1 then the maximum value will be computed from the values.
 		*/
 		void pushBackFloatHdf5ArrayOfValues(float * values, unsigned long long * numValues, const unsigned int & numArrayDimensions, resqml2::AbstractHdfProxy* proxy,
-			double * minimumValue = nullptr, double * maximumValue = nullptr);
+			float * minimumValue = nullptr, float * maximumValue = nullptr);
 
 		/**
 		* Create an array (potentially multi dimensions) of explicit float values to the property values. No values are written to this array yet.
@@ -309,6 +309,16 @@ namespace resqml2_0_1
 		);
 
 		/**
+		* Push back a new patch of values for this property where the values have not to be written in the HDF file.
+		* The reason can be that the values already exist in an external file (only HDF5 for now) or that the writing of the values in the external file is defered in time.
+		* @param	hdfProxy			The HDF5 proxy where the values are already or will be stored.
+		* @param	datasetName			If not provided during the method call, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + prop->uuid + "/values_patch" + patchIndex;
+		* @param	nullValue			Only relevant for integer hdf5 datasets. Indeed, Resqml (and fesapi) forces null value for floating point ot be NaN value.
+		* @return	The name of the hdf5 dataset.
+		*/
+		std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName = "", const long & nullValue = (std::numeric_limits<long>::max)());
+
+		/**
 		* Get all the values of the instance which are supposed to be double ones.
 		* @param values	The array (pointer) of values must be preallocated.
 		*/
@@ -370,144 +380,69 @@ namespace resqml2_0_1
 		* @param values				The array of values.
 		* @param numValues			The number of property values in each dimension.
 		* @param numArrayDimensions	The number of dimensions of the array.
+		* @param minimumValue		If this value and \p maximumValue are defined then the method does not compute the min but forces it to this value.
+		* @param maximumValue		If this value and \p minimumValue are defined then the method does not compute the max but forces it to this value.
 		*/
 		template <class T>
 		void setPropertyMinMax(
 			T* values, 
 			unsigned long long* numValuesInEachDimension,
-			const unsigned int& numArrayDimensions
-		) {
-			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = 
-				static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
-			if (prop->Count == 1) {
+			const unsigned int& numArrayDimensions,
+			T * minimumValue = nullptr, T * maximumValue = nullptr)
+		{
+			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
+			prop->MinimumValue.clear();
+			prop->MaximumValue.clear();
+
+			if (minimumValue != nullptr && maximumValue != nullptr) {
+				for (unsigned int i = 0; i < prop->Count; ++i)
+				{
+					prop->MinimumValue.push_back(minimumValue[i]);
+					prop->MaximumValue.push_back(maximumValue[i]);
+				}
+			}
+			else {
 
 				ULONG64 nValues = numValuesInEachDimension[0];
-
-				for (unsigned int dim = 1; dim < numArrayDimensions; dim++) {
-					nValues *= numValuesInEachDimension[dim];
-				}
-
-				T computedMin = prop->MinimumValue[0];
-				T computedMax = prop->MaximumValue[0];
-
-				for (ULONG64 i = 0; i < nValues; ++i) {
-					if( values[i] < computedMin ) {
-						computedMin = values[i];
-					} else if( values[i] > computedMax ) {
-						computedMax = values[i];
+				if (prop->Count == 1) {
+					for (unsigned int dim = 1; dim < numArrayDimensions; dim++) {
+						nValues *= numValuesInEachDimension[dim];
 					}
 				}
-				prop->MinimumValue[0] = computedMin;
-				prop->MaximumValue[0] = computedMax;
-			} else if (prop->Count > 1) {
-				//In this case, the last (fastest) dimension 
-				//has the number of elements in the representation.
-				ULONG64 nValues = numValuesInEachDimension[0];
-
-				for (unsigned int dim = 1; dim < numArrayDimensions-1; dim++) {
-					nValues *= numValuesInEachDimension[dim];
+				else if (prop->Count > 1) {
+					//In this case, the last (fastest) dimension has the number of properties per indexable element of the representation.
+					for (unsigned int dim = 1; dim < numArrayDimensions - 1; dim++) {
+						nValues *= numValuesInEachDimension[dim];
+					}
+				}
+				else {
+					throw std::invalid_argument("Cannot compute and set min and max value on a property which has a Count set to zero or negative.");
 				}
 
-				const int nProperties = prop->Count;
+				for (unsigned int propIndex = 0; propIndex < prop->Count; ++propIndex) {
+					size_t i = propIndex;
+					T computedMin = std::numeric_limits<T>::quiet_NaN();
+					T computedMax = std::numeric_limits<T>::quiet_NaN();
+					while (i < nValues && values[i] != values[i]) i += prop->Count;
+					if (i >= nValues) {
+						throw std::invalid_argument("All values of a dimension of the vectorial property look to be only NaN values.");
+					}
+					computedMin = values[i];
+					computedMax = values[i];
 
-				for(int propIndex = 0; propIndex < nProperties; ++propIndex) {
-					T computedMin = prop->MinimumValue[propIndex];
-					T computedMax = prop->MaximumValue[propIndex];
-
-					for (ULONG64 valIndex = 0; valIndex < nValues; ++valIndex) {
-						T propVal = values[propIndex+(nProperties*valIndex)];
-						if( propVal < computedMin ) {
-							computedMin = values[valIndex];
-						} else if( propVal > computedMax ) {
-							computedMax = values[valIndex];
+					for (; i < nValues; i += prop->Count) {
+						T propVal = values[i];
+						if (propVal < computedMin) {
+							computedMin = propVal;
+						}
+						else if (propVal > computedMax) {
+							computedMax = propVal;
 						}
 					}
 					prop->MinimumValue.push_back(computedMin);
 					prop->MaximumValue.push_back(computedMax);
 				}
 			}
-		}
-
-		template <class valueType>
-		void pushBackXmlPartOfArrayNdOfExplicitValues(valueType * values, unsigned long long * numValues, const unsigned int & numValueDimensions, resqml2::AbstractHdfProxy * proxy,
-			double * minimumValue = nullptr, double * maximumValue = nullptr)
-		{
-			setHdfProxy(proxy);
-			gsoap_resqml2_0_1::_resqml2__ContinuousProperty* prop = static_cast<gsoap_resqml2_0_1::_resqml2__ContinuousProperty*>(gsoapProxy2_0_1);
-
-			if (prop->Count == 1)
-			{
-				double computedMinimumValue;
-				double computedMaximumValue;
-				if (minimumValue == nullptr || maximumValue == nullptr)
-				{
-					ULONG64 numTotalValues = numValues[0];
-					for (unsigned int dim = 1; dim < numValueDimensions; dim++)
-						numTotalValues *= numValues[dim];
-
-					unsigned int i = 0;
-					computedMinimumValue = std::numeric_limits<double>::quiet_NaN();
-					computedMaximumValue = std::numeric_limits<double>::quiet_NaN();
-					while (values[i] != values[i]) ++i;
-					if (i < numTotalValues)
-					{
-						computedMinimumValue = values[i];
-						computedMaximumValue = values[i];
-					}
-					for (; i < numTotalValues; ++i)
-					{
-						if (values[i] == values[i])
-						{
-							if (values[i] > computedMaximumValue)
-								computedMaximumValue = values[i];
-							else if (values[i] < computedMinimumValue)
-								computedMinimumValue = values[i];
-						}
-					}
-				}
-				else
-				{
-					computedMinimumValue = minimumValue[0];
-					computedMaximumValue = maximumValue[0];
-				}
-
-				prop->MinimumValue.push_back(computedMinimumValue);
-				prop->MaximumValue.push_back(computedMaximumValue);
-			}
-			else if (minimumValue || maximumValue)
-			{
-				if (minimumValue)
-				{
-					prop->MinimumValue.clear();
-					for (unsigned int i = 0; i < prop->Count; i++)
-					{
-						prop->MinimumValue.push_back(minimumValue[i]);
-					}
-				}
-				if (maximumValue)
-				{
-					prop->MaximumValue.clear();
-					for (unsigned int i = 0; i < prop->Count; i++)
-					{
-						prop->MaximumValue.push_back(maximumValue[i]);
-					}
-				}
-			}
-
-			gsoap_resqml2_0_1::resqml2__PatchOfValues* patch = gsoap_resqml2_0_1::soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
-			patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
-			*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
-
-			// XML
-			gsoap_resqml2_0_1::resqml2__DoubleHdf5Array* xmlValues = gsoap_resqml2_0_1::soap_new_resqml2__DoubleHdf5Array(gsoapProxy2_0_1->soap, 1);
-			xmlValues->Values = gsoap_resqml2_0_1::soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-			xmlValues->Values->HdfProxy = proxy->newResqmlReference();
-			std::ostringstream ossForHdf;
-			ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
-			xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
-			patch->Values = xmlValues;
-			
-			prop->PatchOfValues.push_back(patch);
 		}
 	};
 }

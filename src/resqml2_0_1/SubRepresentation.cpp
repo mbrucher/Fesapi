@@ -167,7 +167,7 @@ void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::re
   resqml2__IntegerHdf5Array * integerArray = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
   eml__Hdf5Dataset * resqmlHDF5dataset = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
   resqmlHDF5dataset->HdfProxy = hdfProxy->newResqmlReference();
-  if (elementDataset.empty() == true) {
+  if (elementDataset.empty()) {
     ostringstream ossForHdf;
     ossForHdf << "subrepresentation_elementIndices0_patch" << patch->PatchIndex;
     resqmlHDF5dataset->PathInHdfFile = "/RESQML/" + rep->uuid + "/" + ossForHdf.str();
@@ -184,7 +184,7 @@ void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::re
 	  ostringstream oss;
 	  oss << "SubRepresentationPatch[" << rep->SubRepresentationPatch.size() - 1 << "]/ElementIndices/SupportingRepresentationIndex";
 	  pushBackExtraMetadata(oss.str(), discreteProp->getUuid());
-	  discreteProp->pushBackRefToExistingDataset(supportingRepDataset, proxy, nullValue);
+	  discreteProp->pushBackRefToExistingDataset(proxy, supportingRepDataset, nullValue);
   }
 }
 

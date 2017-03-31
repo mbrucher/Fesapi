@@ -142,32 +142,49 @@ void CategoricalProperty::pushBackLongHdf5Array3dOfValues(long * values, const U
 
 void CategoricalProperty::pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
 {
-	setHdfProxy(proxy);
-	_resqml2__CategoricalProperty* prop = static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1);
-
-	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
-	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
-
-	// XML
-	ostringstream oss;
-	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
-	xmlValues->NullValue = nullValue;
-	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-	xmlValues->Values->HdfProxy = proxy->newResqmlReference();;
-	ostringstream ossForHdf;
-	ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
-	xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
-	patch->Values = xmlValues;
+	const string datasetName = pushBackRefToExistingDataset(proxy, "", nullValue);
 
 	// HDF
-	proxy->writeArrayNd(prop->uuid,
-			ossForHdf.str(),
-			H5T_NATIVE_LONG,
-			values,
-			numValues, numDimensionsInArray);
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+		datasetName,
+		H5T_NATIVE_LONG,
+		values,
+		numValues, numDimensionsInArray);
+}
 
-	prop->PatchOfValues.push_back(patch);
+void CategoricalProperty::pushBackUShortHdf5Array1dOfValues(unsigned short * values, const ULONG64 & valueCount, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCount };
+	pushBackUShortHdf5ArrayOfValues(values, valueCountPerDimension, 1, proxy, nullValue);
+}
+
+void CategoricalProperty::pushBackUShortHdf5Array2dOfValues(unsigned short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInFastestDim };
+	pushBackUShortHdf5ArrayOfValues(values, valueCountPerDimension, 2, proxy, nullValue);
+}
+
+void CategoricalProperty::pushBackUShortHdf5Array3dOfValues(unsigned short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy, const long & nullValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
+	pushBackUShortHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
+}
+
+void CategoricalProperty::pushBackUShortHdf5ArrayOfValues(unsigned short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const unsigned short & nullValue)
+{
+	const string datasetName = pushBackRefToExistingDataset(proxy, "", nullValue);
+
+	// HDF
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+		datasetName,
+		H5T_NATIVE_USHORT,
+		values,
+		numValues, numDimensionsInArray);
+}
+
+std::string CategoricalProperty::pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName, const long & nullValue)
+{
+	return pushBackRefToExistingIntegerDataset(hdfProxy, datasetName, nullValue);
 }
 
 std::string CategoricalProperty::getStringLookupUuid() const

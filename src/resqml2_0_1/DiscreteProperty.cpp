@@ -237,6 +237,20 @@ void DiscreteProperty::pushBackShortHdf5Array3dOfValues(short * values, const UL
 	pushBackShortHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
 }
 
+void DiscreteProperty::pushBackUShortHdf5Array3dOfValues(unsigned short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const unsigned short & nullValue, const unsigned short &  minimumValue, const unsigned short &  maximumValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
+	pushBackUShortHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue, minimumValue, maximumValue);
+}
+
+void DiscreteProperty::pushBackUShortHdf5Array3dOfValues(unsigned short * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
+	const unsigned short & nullValue)
+{
+	hsize_t valueCountPerDimension[3] = { valueCountInSlowestDim, valueCountInMiddleDim, valueCountInFastestDim };
+	pushBackUShortHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
+}
+
 void DiscreteProperty::pushBackCharHdf5Array3dOfValues(char * values, const ULONG64 & valueCountInFastestDim, const ULONG64 & valueCountInMiddleDim, const ULONG64 & valueCountInSlowestDim, resqml2::AbstractHdfProxy * proxy,
 	const char & nullValue, const char &  minimumValue, const char &  maximumValue)
 {
@@ -251,40 +265,14 @@ void DiscreteProperty::pushBackCharHdf5Array3dOfValues(char * values, const ULON
 	pushBackCharHdf5ArrayOfValues(values, valueCountPerDimension, 3, proxy, nullValue);
 }
 
-std::string DiscreteProperty::pushBackRefToExistingDataset(const std::string & datasetName, resqml2::AbstractHdfProxy* proxy, const long & nullValue)
+std::string DiscreteProperty::pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName, const long & nullValue)
 {
-	setHdfProxy(proxy);
-	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy2_0_1);
-
-	resqml2__PatchOfValues* patch = soap_new_resqml2__PatchOfValues(gsoapProxy2_0_1->soap, 1);
-	patch->RepresentationPatchIndex = static_cast<ULONG64*>(soap_malloc(gsoapProxy2_0_1->soap, sizeof(ULONG64)));
-	*(patch->RepresentationPatchIndex) = prop->PatchOfValues.size();
-
-	// XML
-	resqml2__IntegerHdf5Array* xmlValues = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
-	xmlValues->NullValue = nullValue;
-	xmlValues->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
-	xmlValues->Values->HdfProxy = proxy->newResqmlReference();
-
-	if (datasetName.empty() == true) {
-		ostringstream ossForHdf;
-		ossForHdf << "values_patch" << *(patch->RepresentationPatchIndex);
-		xmlValues->Values->PathInHdfFile = "/RESQML/" + prop->uuid + "/" + ossForHdf.str();
-	}
-	else {
-		xmlValues->Values->PathInHdfFile = datasetName;
-	}
-	
-	patch->Values = xmlValues;
-
-	prop->PatchOfValues.push_back(patch);
-
-	return xmlValues->Values->PathInHdfFile;
+	return pushBackRefToExistingIntegerDataset(hdfProxy, datasetName, nullValue);
 }
 
-std::string DiscreteProperty::pushBackRefToExistingDataset(const std::string & datasetName, resqml2::AbstractHdfProxy* proxy, const long & nullValue, const long &  minimumValue, const long &  maximumValue)
+std::string DiscreteProperty::pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* proxy, const std::string & datasetName, const long & nullValue, const long &  minimumValue, const long &  maximumValue)
 {
-	std::string result = pushBackRefToExistingDataset(datasetName, proxy, nullValue);
+	const string result = pushBackRefToExistingDataset(proxy, datasetName, nullValue);
 
 	_resqml2__DiscreteProperty* prop = static_cast<_resqml2__DiscreteProperty*>(gsoapProxy2_0_1);
 
@@ -307,7 +295,7 @@ std::string DiscreteProperty::pushBackRefToExistingDataset(const std::string & d
 void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy * proxy,
 	const long & nullValue, const long & minimumValue, const long & maximumValue)
 {
-	string datasetName = pushBackRefToExistingDataset("", proxy, nullValue, minimumValue, maximumValue);
+	const string datasetName = pushBackRefToExistingDataset(proxy, "", nullValue, minimumValue, maximumValue);
 
 	// HDF
 	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
@@ -331,7 +319,7 @@ void DiscreteProperty::pushBackLongHdf5ArrayOfValues(long * values, unsigned lon
 
 void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const int & nullValue, const int &  minimumValue, const int &  maximumValue)
 {
-	string datasetName = pushBackRefToExistingDataset("", proxy, nullValue, minimumValue, maximumValue);
+	const string datasetName = pushBackRefToExistingDataset(proxy, "", nullValue, minimumValue, maximumValue);
 
 	// HDF
 	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
@@ -354,7 +342,7 @@ void DiscreteProperty::pushBackIntHdf5ArrayOfValues(int * values, unsigned long 
 
 void DiscreteProperty::pushBackShortHdf5ArrayOfValues(short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const short & nullValue, const short &  minimumValue, const short &  maximumValue)
 {
-	string datasetName = pushBackRefToExistingDataset("", proxy, nullValue, minimumValue, maximumValue);
+	const string datasetName = pushBackRefToExistingDataset(proxy, "", nullValue, minimumValue, maximumValue);
 
 	// HDF
 	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
@@ -375,9 +363,32 @@ void DiscreteProperty::pushBackShortHdf5ArrayOfValues(short * values, unsigned l
 	pushBackShortHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
 }
 
+void DiscreteProperty::pushBackUShortHdf5ArrayOfValues(unsigned short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const unsigned short & nullValue, const unsigned short &  minimumValue, const unsigned short &  maximumValue)
+{
+	const string datasetName = pushBackRefToExistingDataset(proxy, "", nullValue, minimumValue, maximumValue);
+
+	// HDF
+	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,
+		datasetName,
+		H5T_NATIVE_USHORT,
+		values,
+		numValues, numDimensionsInArray);
+}
+
+void DiscreteProperty::pushBackUShortHdf5ArrayOfValues(unsigned short * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const unsigned short & nullValue)
+{
+	hsize_t numTotalValues = numValues[0];
+	for (unsigned int dim = 1; dim < numDimensionsInArray; ++dim) {
+		numTotalValues *= numValues[dim];
+	}
+
+	pair<unsigned short, unsigned short> minMax = statistics::getMinMax(values, nullValue, numTotalValues);
+	pushBackUShortHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
+}
+
 void DiscreteProperty::pushBackCharHdf5ArrayOfValues(char * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const char & nullValue, const char &  minimumValue, const char &  maximumValue)
 {
-	string datasetName = pushBackRefToExistingDataset("", proxy, nullValue, minimumValue, maximumValue);
+	const string datasetName = pushBackRefToExistingDataset(proxy, "", nullValue, minimumValue, maximumValue);
 
 	// HDF
 	proxy->writeArrayNd(gsoapProxy2_0_1->uuid,

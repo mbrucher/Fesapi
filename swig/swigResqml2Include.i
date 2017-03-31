@@ -540,6 +540,7 @@ namespace resqml2
 	public:
 		enum hdfDatatypeEnum { UNKNOWN = 0, DOUBLE = 1, FLOAT = 2, LONG = 3, ULONG = 4, INT = 5, UINT = 6, SHORT = 7, USHORT = 8, CHAR = 9, UCHAR = 10};
 		AbstractValuesProperty::hdfDatatypeEnum getValuesHdfDatatype() const;
+		virtual std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName, const long & nullValue) = 0;
 		
 		long getNullValueOfPatch(const unsigned int & patchIndex);
 		long getLongValuesOfPatch(const unsigned int & patchIndex, long * values);

@@ -33,6 +33,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
+#include <limits>
 #include "resqml2/AbstractProperty.h"
 
 namespace resqml2
@@ -46,6 +47,16 @@ namespace resqml2
 		* @param  nullValue	If possible, this function will set this parameter to the Resqml null value of the dataset. If not, it will return long.min
 		*/
 		std::string getPathInHdfFileOfPatch(const unsigned int & patchIndex, LONG64 & nullValue) const;
+
+		/**
+		* Push back a new patch of integer values for this property where the values have not to be written in the HDF file.
+		* The reason can be that the values already exist in an external file (only HDF5 for now) or that the writing of the values in the external file is defered in time.
+		* @param	hdfProxy			The HDF5 proxy where the values are already or will be stored.
+		* @param	datasetName			If not provided during the method call, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + prop->uuid + "/values_patch" + patchIndex;
+		* @param	nullValue			Only relevant for integer hdf5 datasets. Indeed, Resqml (and fesapi) forces null value for floating point ot be NaN value.
+		* @return	The name of the hdf5 dataset.
+		*/
+		std::string pushBackRefToExistingIntegerDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName = "", const long & nullValue = (std::numeric_limits<long>::max)());
 
 	public:
 
@@ -86,10 +97,11 @@ namespace resqml2
 		* Push back a new patch of values for this property where the values have not to be written in the HDF file.
 		* The reason can be that the values already exist in an external file (only HDF5 for now) or that the writing of the values in the external file is defered in time.
 		* @param	hdfProxy			The HDF5 proxy where the values are already or will be stored.
-		* @param	isAnIntegerDataset	If false, indicates that this dataset contains some floating point values. If true, this dataset contains some integer values.
-		* @param	dataset				If not provided during the method call, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + prop->uuid + "/values_patch" + patchIndex;
+		* @param	datasetName			If not provided during the method call, the dataset will be named the same as the dataset naming convention of the fesapi :"/RESQML/" + prop->uuid + "/values_patch" + patchIndex;
+		* @param	nullValue			Only relevant for integer hdf5 datasets. Indeed, Resqml (and fesapi) forces null value for floating point to be NaN value.
+		* @return	The name of the hdf5 dataset.
 		*/
-		void pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const bool & isAnIntegerDataset, const std::string & dataset = "");
+		virtual std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & datasetName = "", const long & nullValue = (std::numeric_limits<long>::max)()) = 0;
 
 		/**
 		* Get all the values of the instance which are supposed to be long ones.
