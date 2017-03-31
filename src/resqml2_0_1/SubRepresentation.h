@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014-2016) 
+Copyright F2I-CONSULTING, (2014-2017)
 
 philippe.verney@f2i-consulting.com
 
@@ -60,7 +60,7 @@ namespace resqml2_0_1
 		*/
 		void pushBackXmlSupportingRepresentation(resqml2::AbstractRepresentation * supportingRep);
 
-		class DiscreteProperty* getSupportingRepresentationIndicesDiscretPropOfPatch(const unsigned int & patchIndex) const;
+		class DiscreteProperty* getSupportingRepresentationIndicesDiscretePropOfPatch(const unsigned int & patchIndex) const;
 
 	public:
 

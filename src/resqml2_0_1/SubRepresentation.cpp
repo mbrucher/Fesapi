@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-Copyright F2I-CONSULTING, (2014-2016) 
+Copyright F2I-CONSULTING, (2014-2017)
 
 philippe.verney@f2i-consulting.com
 
@@ -188,7 +188,7 @@ void SubRepresentation::pushBackRefToExistingDataset(const gsoap_resqml2_0_1::re
   }
 }
 
-DiscreteProperty* SubRepresentation::getSupportingRepresentationIndicesDiscretPropOfPatch(const unsigned int & patchIndex) const
+DiscreteProperty* SubRepresentation::getSupportingRepresentationIndicesDiscretePropOfPatch(const unsigned int & patchIndex) const
 {
 	_resqml2__SubRepresentation* rep = getSpecializedGsoapProxy();
 
@@ -390,7 +390,7 @@ void SubRepresentation::getSupportingRepresentationIndicesOfPatch(const unsigned
 		return;
 	}
 
-	DiscreteProperty* prop = getSupportingRepresentationIndicesDiscretPropOfPatch(patchIndex);
+	DiscreteProperty* prop = getSupportingRepresentationIndicesDiscretePropOfPatch(patchIndex);
 	prop->getShortValuesOfPatch(0, supportingRepresentationIndices);
 }
 
