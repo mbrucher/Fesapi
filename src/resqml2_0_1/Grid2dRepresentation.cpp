@@ -370,16 +370,18 @@ bool Grid2dRepresentation::isJSpacingConstant() const
 	const resqml2__Point3dLatticeArray* const arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
 	if (arrayLatticeOfPoints3d != nullptr) {
-		if (arrayLatticeOfPoints3d->Offset[0]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray) {
-			return true;
+		if (!arrayLatticeOfPoints3d->Offset.empty()) {
+			return arrayLatticeOfPoints3d->Offset[0]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray;
+		}
+		else {
+			throw invalid_argument("This 2d grid representation does not look to have dimensions.");
 		}
 	}
-	else if (getSupportingRepresentationUuid().size())
-	{
+	else if (!getSupportingRepresentationUuid().empty()) {
 		return supportingRepresentation->isJSpacingConstant();
 	}
-	else
-		throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
+
+	throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
 }
 
 bool Grid2dRepresentation::isISpacingConstant() const
@@ -388,20 +390,17 @@ bool Grid2dRepresentation::isISpacingConstant() const
 
 	if (arrayLatticeOfPoints3d != nullptr) {
 		if (arrayLatticeOfPoints3d->Offset.size() > 1) {
-			if (arrayLatticeOfPoints3d->Offset[1]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray) {
-				return true;
-			}
+			return arrayLatticeOfPoints3d->Offset[1]->Spacing->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleConstantArray;
 		}
 		else {
-			throw invalid_argument("This 2d grid representation dees not look to have (at least) 2 dimensions.");
+			throw invalid_argument("This 2d grid representation does not look to have (at least) 2 dimensions.");
 		}
 	}
-	else if (getSupportingRepresentationUuid().size())
-	{
+	else if (!getSupportingRepresentationUuid().empty()) {
 		return supportingRepresentation->isISpacingConstant();
 	}
-	else
-		throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
+
+	throw logic_error("This 2D grid representation looks not valid : no lattice geometry and non supporting grid 2D representation.");
 }
 
 double Grid2dRepresentation::getJSpacing() const
@@ -617,22 +616,19 @@ void Grid2dRepresentation::setGeometryAsArray2dOfExplicitZ(
 std::string Grid2dRepresentation::getSupportingRepresentationUuid() const
 {
 	_resqml2__Grid2dRepresentation* singleGrid2dRep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1);
-	if (singleGrid2dRep && singleGrid2dRep->Grid2dPatch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray)
-	{
+	if (singleGrid2dRep != nullptr && singleGrid2dRep->Grid2dPatch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray) {
 		resqml2__Point3dZValueArray* tmp = static_cast<resqml2__Point3dZValueArray*>(singleGrid2dRep->Grid2dPatch->Geometry->Points);
-		if (tmp->SupportingGeometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dFromRepresentationLatticeArray)
-		{
+		if (tmp->SupportingGeometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dFromRepresentationLatticeArray) {
 			return static_cast<resqml2__Point3dFromRepresentationLatticeArray*>(tmp->SupportingGeometry)->SupportingRepresentation->UUID;
 		}
 	}
 
-	return "";
+	return string();
 }
 
 void Grid2dRepresentation::setSupportingRepresentation(Grid2dRepresentation * supportingRep)
 {
-	if (supportingRep == nullptr)
-	{
+	if (supportingRep == nullptr) {
 		throw invalid_argument("The supporting representation to set cannot be null.");
 	}
 
@@ -644,17 +640,18 @@ int Grid2dRepresentation::getIndexOriginOnSupportingRepresentation() const
 {
 	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch->Geometry);
 
-	if (geom)
+	if (geom != nullptr) {
 		return geom->NodeIndicesOnSupportingRepresentation->StartValue;
-	else
-		throw invalid_argument("It does not exist supporting representation for this representation.");
+	}
+
+	throw invalid_argument("It does not exist supporting representation for this representation.");
 }
 
 int Grid2dRepresentation::getIndexOriginOnSupportingRepresentation(const unsigned int & dimension) const
 {
 	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch->Geometry);
 
-	if (geom)
+	if (geom != nullptr)
 	{
 		if (dimension == 0) // J dimension : slowest
 			return geom->NodeIndicesOnSupportingRepresentation->StartValue / supportingRepresentation->getNodeCountAlongIAxis();
@@ -662,28 +659,30 @@ int Grid2dRepresentation::getIndexOriginOnSupportingRepresentation(const unsigne
 			return geom->NodeIndicesOnSupportingRepresentation->StartValue % supportingRepresentation->getNodeCountAlongIAxis();
 		throw invalid_argument("There cannot be more than 2 dimensions for a grid 2d representation.");
 	}
-	else
-		throw invalid_argument("It does not exist supporting representation for this representation.");
+
+	throw invalid_argument("It does not exist supporting representation for this representation.");
 }
 
 int Grid2dRepresentation::getNodeCountOnSupportingRepresentation(const unsigned int & dimension) const
 {
 	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch->Geometry);
 
-	if (geom)
+	if (geom != nullptr) {
 		return geom->NodeIndicesOnSupportingRepresentation->Offset[dimension]->Count + 1;
-	else
-		throw invalid_argument("It does not exist supporting representation for this representation.");
+	}
+	
+	throw invalid_argument("It does not exist supporting representation for this representation.");
 }
 
 int Grid2dRepresentation::getIndexOffsetOnSupportingRepresentation(const unsigned int & dimension) const
 {
 	resqml2__Point3dFromRepresentationLatticeArray* geom = getPoint3dFromRepresentationLatticeArrayFromPointGeometryPatch(static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch->Geometry);
 
-	if (geom)
+	if (geom != nullptr) {
 		return geom->NodeIndicesOnSupportingRepresentation->Offset[dimension]->Value;
-	else
-		throw invalid_argument("It does not exist supporting representation for this representation.");
+	}
+
+	throw invalid_argument("It does not exist supporting representation for this representation.");
 }
 
 vector<Relationship> Grid2dRepresentation::getAllEpcRelationships() const
@@ -719,17 +718,15 @@ void Grid2dRepresentation::importRelationshipSetFromEpc(common::EpcDocument* epc
 	_resqml2__Grid2dRepresentation* singleGrid2dRep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1);
 
 	// Base representation
-	string supportingRepUuid = getSupportingRepresentationUuid();
+	const string supportingRepUuid = getSupportingRepresentationUuid();
 	if (!supportingRepUuid.empty())
 	{
-		AbstractObject* obj = epcDoc->getResqmlAbstractObjectByUuid(supportingRepUuid);
-		if (dynamic_cast<Grid2dRepresentation*>(obj) != nullptr)
-		{
-			setSupportingRepresentation(static_cast<Grid2dRepresentation*>(epcDoc->getResqmlAbstractObjectByUuid(supportingRepUuid)));
+		Grid2dRepresentation* grid2d = epcDoc->getResqmlAbstractObjectByUuid<Grid2dRepresentation>(supportingRepUuid);
+		if (grid2d != nullptr) {
+			setSupportingRepresentation(grid2d);
 		}
-		else
-		{
-			throw logic_error("The referenced supporting representation does not look to be a 2d grid.");
+		else {
+			throw logic_error(getUuid() + "The referenced supporting representation does not look to be a 2d grid or is partial.");
 		}
 	}
 }

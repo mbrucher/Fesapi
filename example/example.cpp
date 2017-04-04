@@ -252,16 +252,16 @@ void serializeStratigraphicModel(common::EpcDocument * pck, resqml2::AbstractHdf
 void serializeBoundaries(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProxy)
 {
 	// Seismic Lattice
-    SeismicLatticeFeature* seismicLattice = pck->createSeismicLattice("", "Seismic lattice", 2, 2, 150, 152, 4, 2);
-    GenericFeatureInterpretation* seismicLatticeInterp = pck->createGenericFeatureInterpretation(seismicLattice, "", "Seismic lattice Interp");
-    Grid2dRepresentation* seismicLatticeRep = pck->createGrid2dRepresentation(seismicLatticeInterp, local3dCrs, "", "Seismic lattice Rep");
+    SeismicLatticeFeature* seismicLattice = pck->createSeismicLattice("eb6a5e97-4d86-4809-b136-051f34cfcb51", "Seismic lattice", 2, 2, 150, 152, 4, 2);
+    GenericFeatureInterpretation* seismicLatticeInterp = pck->createGenericFeatureInterpretation(seismicLattice, "97816427-6ef6-4776-b21c-5b93c8a6310a", "Seismic lattice Interp");
+    Grid2dRepresentation* seismicLatticeRep = pck->createGrid2dRepresentation(seismicLatticeInterp, local3dCrs, "aa5b90f1-2eab-4fa6-8720-69dd4fd51a4d", "Seismic lattice Rep");
     seismicLatticeRep->setGeometryAsArray2dOfLatticePoints3d(4,2,0,0,0,1,0,0,0,1,0,250,200);
 	
     // Seismic Line Set
-    SeismicLineSetFeature* seismicLineSet = pck->createSeismicLineSet("", "Seismic line Set");
+    SeismicLineSetFeature* seismicLineSet = pck->createSeismicLineSet("53c6a0be-c901-4bb6-845b-fba79745da02", "Seismic line Set");
 
     // Seismic Line
-    SeismicLineFeature* seismicLine = pck->createSeismicLine("", "Seismic line", 1, 0, 5);
+    SeismicLineFeature* seismicLine = pck->createSeismicLine("117f9bf6-6bb0-49f2-9cee-46912300bff6", "Seismic line", 1, 0, 5);
     seismicLine->setSeismicLineSet(seismicLineSet);
     GenericFeatureInterpretation* seismicLineInterp = pck->createGenericFeatureInterpretation(seismicLine, "", "Seismic line Interp");
     PolylineRepresentation* seismicLineRep = pck->createPolylineRepresentation(seismicLineInterp, local3dCrs, "", "Seismic line Rep");
@@ -1681,6 +1681,18 @@ void deserialize(const string & inputFile)
 		cout << "YIOffset : " << horizonGrid2dSet[i]->getYIOffsetInGlobalCrs() << endl;
 		cout << "XJOffset : " << horizonGrid2dSet[i]->getXJOffsetInGlobalCrs() << endl;
 		cout << "YJOffset : " << horizonGrid2dSet[i]->getYJOffsetInGlobalCrs() << endl;
+		if (horizonGrid2dSet[i]->isISpacingConstant()) {
+			cout << "Spacing in I is constant : " << horizonGrid2dSet[i]->getISpacing() << endl;
+		}
+		else {
+			cout << "Spacing in I is not constant." << endl;
+		}
+		if (horizonGrid2dSet[i]->isJSpacingConstant()) {
+			cout << "Spacing in J is constant : " << horizonGrid2dSet[i]->getJSpacing() << endl;
+		}
+		else {
+			cout << "Spacing in J is not constant." << endl;
+		}
 		
 		deserializeActivity(horizonGrid2dSet[i]);
 		showAllProperties(horizonGrid2dSet[i]);
