@@ -258,7 +258,7 @@ void Package::openForReading(const std::string & pkgPathName)
 	d_ptr->unzipped = unzOpen64(d_ptr->pathName.c_str());
 
 	if (d_ptr->unzipped == nullptr) {
-		throw invalid_argument("Cannot unzip " + pkgPathName);
+		throw invalid_argument("Cannot unzip " + pkgPathName + ". Please verify the path of the file and if you can open it with a third party archiver.");
     }
 
 #ifdef CACHE_FILE_DESCRIPTOR
@@ -616,7 +616,7 @@ string do_extract_currentfile(unzFile uf, const char* password)
     buf = (void*)malloc(size_buf);
     if (buf == nullptr)
     {
-		throw invalid_argument("Error allocating memory " + size_buf);
+		throw invalid_argument("Error allocating memory " + std::to_string(size_buf));
     }
 
     err = unzOpenCurrentFilePassword(uf,password);

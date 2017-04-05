@@ -1124,8 +1124,13 @@ void IjkGridParametricRepresentation::loadPillarInformation(IjkGridParametricRep
 			vector<double> yValues;
 			for (unsigned int cpIndex = 0; cpIndex < pillarInfo.maxControlPointCount; ++cpIndex) {
 				unsigned int globalCpIndex = parametricLineIndex + cpIndex*pillarInfo.parametricLineCount;
-				if (pillarInfo.controlPointParameters[globalCpIndex] == pillarInfo.controlPointParameters[globalCpIndex]) {
+				if (pillarInfo.controlPointParameters != nullptr && pillarInfo.controlPointParameters[globalCpIndex] == pillarInfo.controlPointParameters[globalCpIndex]) {
 					parameters.push_back(pillarInfo.controlPointParameters[globalCpIndex]);
+					xValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3]);
+					yValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3 + 1]);
+				}
+				else if (pillarInfo.pillarKind[parametricLineIndex] == 4 && pillarInfo.controlPointParameters == nullptr && pillarInfo.controlPoints[globalCpIndex * 3] == pillarInfo.controlPoints[globalCpIndex * 3]) {
+					parameters.push_back(pillarInfo.controlPoints[globalCpIndex * 3 + 2]);
 					xValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3]);
 					yValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3 + 1]);
 				}
