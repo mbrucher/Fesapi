@@ -122,7 +122,7 @@ namespace resqml2
 		static void addActivityToResqmlObject(resqml2::Activity* activity, AbstractObject* resqmlObject);
 
 		/**
-		* It is too dangerous for now to modify the uuid because too much things depend on it. That's why this method is only portected : it is only used by derived class constructor.
+		* It is too dangerous for now to modify the uuid because too much things depend on it. That's why this method is only protected : it is only used by derived class constructor.
 		* Set a title and other common metadata for the resqml instance. Set to empty string or zero if you don't want to use.
 		* @param title				The title to set to the resqml instance. Set to empty string if you don't want to set it.
 		*/
