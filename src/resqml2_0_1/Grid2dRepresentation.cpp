@@ -105,24 +105,27 @@ void Grid2dRepresentation::getXyzPointsOfPatch(const unsigned int & patchIndex, 
 	if (patchIndex >= getPatchCount())
 		throw range_error("The index patch is not in the allowed range of patch.");
 
-	throw logic_error("Please use compute X and Y values with th elattice information.");
+	throw logic_error("Please compute X and Y values with the lattice information.");
 }
 
 void Grid2dRepresentation::getZValues(double* values) const
 {
 	_resqml2__Grid2dRepresentation* rep = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1);
-	resqml2__AbstractDoubleArray* zValues = static_cast<resqml2__Point3dZValueArray*>(rep->Grid2dPatch->Geometry->Points)->ZValues;
-	string datasetName = "";
-	if (zValues->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array)
-	{
-		datasetName = static_cast<resqml2__DoubleHdf5Array*>(zValues)->Values->PathInHdfFile;
-	}
-	else
-	{
-		return;
-	}
 
-	hdfProxy->readArrayNdOfDoubleValues(datasetName, values);
+	if (rep->Grid2dPatch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray) {
+		resqml2__AbstractDoubleArray* zValues = static_cast<resqml2__Point3dZValueArray*>(rep->Grid2dPatch->Geometry->Points)->ZValues;
+		string datasetName = "";
+		if (zValues->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array) {
+			datasetName = static_cast<resqml2__DoubleHdf5Array*>(zValues)->Values->PathInHdfFile;
+			hdfProxy->readArrayNdOfDoubleValues(datasetName, values);
+		}
+		else {
+			throw std::logic_error("The Z values can only be retrieved if they are described as a DoubleHdf5Array.");
+		}
+	}
+	else {
+		throw std::logic_error("The Z values can only be retrieved for a Point3dZValueArray geometry.");
+	}
 }
 
 void Grid2dRepresentation::getZValuesInGlobalCrs(double * values) const
@@ -147,15 +150,12 @@ resqml2__Point3dLatticeArray* Grid2dRepresentation::getArrayLatticeOfPoints3d() 
 	resqml2__Point3dLatticeArray* result = nullptr;
 
 	resqml2__Grid2dPatch* patch = static_cast<_resqml2__Grid2dRepresentation*>(gsoapProxy2_0_1)->Grid2dPatch;
-	if (patch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray)
-	{
+	if (patch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray) {
 		result = static_cast<resqml2__Point3dLatticeArray*>(patch->Geometry->Points);
 	}
-	else if (patch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray)
-	{
+	else if (patch->Geometry->Points->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dZValueArray) {
 		resqml2__Point3dZValueArray* arrayOfZValuePoints3d = static_cast<resqml2__Point3dZValueArray*>(patch->Geometry->Points);
-		if (arrayOfZValuePoints3d->SupportingGeometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray)
-		{
+		if (arrayOfZValuePoints3d->SupportingGeometry->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__Point3dLatticeArray) {
 			result = static_cast<resqml2__Point3dLatticeArray*>(arrayOfZValuePoints3d->SupportingGeometry);
 		}
 	}
@@ -167,29 +167,28 @@ double Grid2dRepresentation::getXOrigin() const
 {
 	resqml2__Point3dLatticeArray* arrayLatticeOfPoints3d = getArrayLatticeOfPoints3d();
 
-	if (arrayLatticeOfPoints3d)
+	if (arrayLatticeOfPoints3d) {
 		return arrayLatticeOfPoints3d->Origin->Coordinate1;
-	else if (getSupportingRepresentationUuid().size())
-	{
+	}
+	else if (!getSupportingRepresentationUuid().empty()) {
 		int iOrigin = getIndexOriginOnSupportingRepresentation(1); // I is fastest
 		int jOrigin = getIndexOriginOnSupportingRepresentation(0); // J is slowest
 
 		double xOrigin = supportingRepresentation->getXOrigin();
 
-		if (iOrigin != 0 || jOrigin != 0)
-		{
+		if (iOrigin != 0 || jOrigin != 0) {
 			double xIOffset = supportingRepresentation->getXIOffset();
 			double xJOffset = supportingRepresentation->getXJOffset();
 
 			return xOrigin + iOrigin*xIOffset + jOrigin*xJOffset;
 		}
-		else
-		{
+		else {
 			return xOrigin;
 		}
 	}
-	else
+	else {
 		return std::numeric_limits<double>::signaling_NaN();
+	}
 }
 
 double Grid2dRepresentation::getYOrigin() const

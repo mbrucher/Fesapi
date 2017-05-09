@@ -1129,7 +1129,8 @@ void IjkGridParametricRepresentation::loadPillarInformation(IjkGridParametricRep
 					xValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3]);
 					yValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3 + 1]);
 				}
-				else if (pillarInfo.pillarKind[parametricLineIndex] == 4 && pillarInfo.controlPointParameters == nullptr && pillarInfo.controlPoints[globalCpIndex * 3] == pillarInfo.controlPoints[globalCpIndex * 3]) {
+				// A variant in v2.0.1 when the KIL about presency of control point parameters was not existing yet.
+				else if (pillarInfo.pillarKind[parametricLineIndex] == 4 && pillarInfo.controlPoints[globalCpIndex * 3] == pillarInfo.controlPoints[globalCpIndex * 3]) {
 					parameters.push_back(pillarInfo.controlPoints[globalCpIndex * 3 + 2]);
 					xValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3]);
 					yValues.push_back(pillarInfo.controlPoints[globalCpIndex * 3 + 1]);

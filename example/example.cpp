@@ -1878,7 +1878,7 @@ void deserialize(const string & inputFile)
 
 					long patchCount = ijkGrid->getPatchCount();
 					for (long currentPatch = 0; currentPatch < patchCount; ++currentPatch) {
-						long nbVertex = ijkGrid->getXyzPointCountOfPatch(currentPatch);
+						ULONG64 nbVertex = ijkGrid->getXyzPointCountOfPatch(currentPatch);
 
 						double* xyzPts = new double[nbVertex * 3];
 						ijkGrid->getXyzPointsOfPatch(currentPatch, xyzPts);
@@ -2088,7 +2088,7 @@ void deserialize(const string & inputFile)
 		{
 			std::cout << "Node count is : " << unstructuredGridRepSet[i]->getXyzPointCountOfPatch(0) << std::endl;
 
-			unsigned int faceCount = 0;
+			ULONG64 faceCount = 0;
 			if (!unstructuredGridRepSet[i]->isFaceCountOfCellsConstant())
 			{
 				ULONG64 * faceCountOfCells = new ULONG64[unstructuredGridRepSet[i]->getCellCount()];

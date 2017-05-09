@@ -307,6 +307,7 @@ void Package::openForReading(const std::string & pkgPathName)
 			if (target.size() > 1 && target[0] == '/' && target[1] != '/') { // Rule 8 of A.3 paragraph Open Packaging Conventions (ECMA version)
 				target = target.substr(1);
 			}
+			target = "docProps/" + target; // always prefixed by "docProps/" because core.xml is always in folder docProps by business rule
 			string extendedCorePropFile = extractFile(target.c_str(), "");
 			std::istringstream iss(extendedCorePropFile);
 
@@ -579,10 +580,10 @@ void Package::writePackage()
 		addContentType(contentTypeExtendedCoreProp);
 		
 		// Relationhsip with the standard core properties part
-		Relationship relToExtCoreProp("docProps/extendedCore.xml", EXTENDED_CORE_PROP_REL_TYPE, "ExtendedCoreProperties");
-		FileRelationship fileExtCorePropRep(relToExtCoreProp);
-		fileExtCorePropRep.setPathName("docProps/_rels/core.xml.rels");
-		writeStringIntoNewPart(fileExtCorePropRep.toString(), fileExtCorePropRep.getPathName());
+		Relationship relToExtCoreProp("extendedCore.xml", EXTENDED_CORE_PROP_REL_TYPE, "ExtendedCoreProperties");
+		FileRelationship fileRelToExtCoreProp(relToExtCoreProp);
+		fileRelToExtCoreProp.setPathName("docProps/_rels/core.xml.rels");
+		writeStringIntoNewPart(fileRelToExtCoreProp.toString(), fileRelToExtCoreProp.getPathName());
 	}
 
 	writeStringIntoNewPart(d_ptr->fileContentType.toString(), "[Content_Types].xml");
