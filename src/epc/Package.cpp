@@ -251,8 +251,9 @@ void Package::openForWriting(const std::string & pkgPathName, bool useZip64)
 	}
 }
 
-void Package::openForReading(const std::string & pkgPathName)
+std::vector<std::string> Package::openForReading(const std::string & pkgPathName)
 {
+	std::vector<std::string> result;
 	d_ptr->pathName.assign(pkgPathName);
 	
 	d_ptr->unzipped = unzOpen64(d_ptr->pathName.c_str());
@@ -308,6 +309,11 @@ void Package::openForReading(const std::string & pkgPathName)
 				target = target.substr(1);
 			}
 			target = "docProps/" + target; // always prefixed by "docProps/" because core.xml is always in folder docProps by business rule
+			if (!fileExists(target))
+			{
+				result.push_back("The extended core properties file " + target + " targeted in docProps/_rels/core.xml.rels is not present in the Epc document");
+				continue;
+			}
 			string extendedCorePropFile = extractFile(target.c_str(), "");
 			std::istringstream iss(extendedCorePropFile);
 
@@ -334,6 +340,8 @@ void Package::openForReading(const std::string & pkgPathName)
 	// Package content type
 	string contentTypeFile = extractFile("[Content_Types].xml", "");
 	d_ptr->fileContentType.readFromString(contentTypeFile);
+
+	return result;
 }
 
 void Package::close()

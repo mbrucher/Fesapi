@@ -34,6 +34,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #ifndef PACKAGE_H
 #define PACKAGE_H
 
+#include <vector>
+#include <string>
+
 #if (defined(_WIN32) && _MSC_VER >= 1600) || defined(__APPLE__)
 #include <unordered_map>
 #else
@@ -92,8 +95,9 @@ namespace epc
 
 		/**
 		* Open the package for reading purpose
+		* @return empty vector if nothing went wrong. Otherwise, return warnings.
 		*/
-		void openForReading(const std::string & pkgPathName);
+		std::vector<std::string> openForReading(const std::string & pkgPathName);
 
 		/**
 		* Close the package

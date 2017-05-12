@@ -219,7 +219,7 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 			}
 			if (epcDocument->getPropertyKindMapper() != nullptr) {
 				if (!pk->isChildOf(getFirstAllowedPropertyKindParent())) {
-					throw invalid_argument("A property cannot be associated to a local property kind which does not derive from the main kind (i.e discret, categorical or continuous) of the property.");
+					throw invalid_argument("A property cannot be associated to a local property kind which does not derive from the main kind (i.e discrete, categorical or continuous) of the property.");
 				}
 			}
 			else {

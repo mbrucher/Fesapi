@@ -142,7 +142,7 @@ namespace resqml2_0_1
 		void getXyzPointsOfPatch(const unsigned int & patchIndex, double * xyzPoints) const;
 
 		/**
-		* Indicates if the wellbore trajectory has got md values atatched to each trajectory station.
+		* Indicates if the wellbore trajectory has got md values attached to each trajectory station.
 		*/
 		bool hasMdValues() const;
 
@@ -162,7 +162,7 @@ namespace resqml2_0_1
 		double getFinishMd() const;
 
 		/**
-		* Indicates if the wellbore trajectory has got tangent vectors atatched to each trajectory station.
+		* Indicates if the wellbore trajectory has got tangent vectors attached to each trajectory station.
 		*/
 		bool hasTangentVectors() const;
 
@@ -205,16 +205,16 @@ namespace resqml2_0_1
 		const std::vector<class WellboreFrameRepresentation*>& getWellboreFrameRepresentationSet() const {return wellboreFrameRepresentationSet;}
 
 		/**
-		 * Get the count of wellbore frame representation which are associated with this wellbore trajectory.
+		* Get the count of wellbore frame representation which are associated with this wellbore trajectory.
 		* Necessary for now in SWIG context because I am not sure if I can always wrap a vector of polymorphic class yet.
-		 */
+		*/
 		unsigned int getWellboreFrameRepresentationCount() const {return wellboreFrameRepresentationSet.size();}
 
 		/**
-		 * Get a particular wellbore frame representation of this wellbore trajectory representation according to its position in the EPC document.
-		* Necessary for now in SWIG context because I ma not sure if I can always wrap a vector of polymorphic class yet.
+		* Get a particular wellbore frame representation of this wellbore trajectory representation according to its position in the EPC document.
+		* Necessary for now in SWIG context because I am not sure if I can always wrap a vector of polymorphic class yet.
 		* Throw an out of bound exception if the index is superior or equal to the count of values property.
-		 */
+		*/
 		class WellboreFrameRepresentation* getWellboreFrameRepresentation(const unsigned int & index) const {return wellboreFrameRepresentationSet[index];}
 
 		gsoap_resqml2_0_1::eml__DataObjectReference* getLocalCrsDor() const;

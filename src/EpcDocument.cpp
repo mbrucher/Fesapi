@@ -603,8 +603,7 @@ void EpcDocument::serialize(bool useZip64)
 string EpcDocument::deserialize()
 {
 	string result;
-	warnings.clear();
-	package->openForReading(filePath);
+	warnings = package->openForReading(filePath);
 
 	// Read all Resqml objects
 	FileContentType::ContentTypeMap contentTypes = package->getFileContentType().getAllContentType();
