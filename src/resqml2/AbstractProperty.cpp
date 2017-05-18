@@ -213,35 +213,16 @@ void AbstractProperty::importRelationshipSetFromEpc(common::EpcDocument* epcDoc)
 				throw invalid_argument("The DOR looks invalid.");
 			}
 		}
-		else if (!pk->isPartial()) {
-			if (pk->isAbstract()) {
-				throw invalid_argument("A property cannot be associated to a local property kind which is abstract.");
-			}
-			if (epcDocument->getPropertyKindMapper() != nullptr) {
-				if (!pk->isChildOf(getFirstAllowedPropertyKindParent())) {
-					throw invalid_argument("A property cannot be associated to a local property kind which does not derive from the main kind (i.e discrete, categorical or continuous) of the property.");
-				}
-			}
-			else {
-				epcDoc->addWarning("Cannot verify if the parent property kind of the property is right because no property kind mapping files have been loaded.");
-			}
-		}
+
+		validatePropertyKindAssociation(pk);
+
 		updateXml = false;
 		setLocalPropertyKind(pk);
 		updateXml = true;
 	}
 	else {
-		if (epcDocument->getPropertyKindMapper() != nullptr) {
-			if (epcDocument->getPropertyKindMapper()->isAbstract(getEnergisticsPropertyKind())) {
-				throw invalid_argument("A property cannot be associated to a resqml property kind which is abstract.");
-			}
-			if (!epcDocument->getPropertyKindMapper()->isChildOf(getEnergisticsPropertyKind(), getFirstAllowedPropertyKindParent())) {
-				throw invalid_argument("A property cannot be associated to a resqml property kind which does not derive from the main kind (i.e discret, categorical or continuous) of the property.");
-			}
-		}
-		else {
-			epcDoc->addWarning("Cannot verify if the resqml property kind is abstract or not because no property kind mapping files have been loaded.");
-		}
+
+		validatePropertyKindAssociation(getEnergisticsPropertyKind());
 	}
 
 	string uuidHdfProxy = getHdfProxyUuid();
@@ -613,9 +594,4 @@ std::string AbstractProperty::getLocalPropertyKindTitle() const
 PropertyKind* AbstractProperty::getLocalPropertyKind() const
 {
 	return getEpcDocument()->getResqmlAbstractObjectByUuid<PropertyKind>(getLocalPropertyKindUuid());
-}
-
-gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind AbstractProperty::getFirstAllowedPropertyKindParent() const
-{
-	return gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__RESQML_x0020root_x0020property;
 }

@@ -371,7 +371,15 @@ namespace resqml2_0_1
 		double getMinimumValue();
 		double getMaximumValue();
 
-		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
+		/**
+		* Check if the associated local property kind is allowed for this property.
+		*/
+		bool validatePropertyKindAssociation(resqml2::PropertyKind* pk) const;
+
+		/**
+		* Check if the associated standard property kind is allowed for this property.
+		*/
+		bool validatePropertyKindAssociation(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & pk) const;
 
 	private:
 

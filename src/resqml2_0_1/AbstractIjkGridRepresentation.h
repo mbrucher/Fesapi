@@ -214,6 +214,7 @@ namespace resqml2_0_1
 		 * Get the information on the dead/invisible cells.
 		 * The enabledCells array must have a count of getCellCount() and must follow the index ordering i then j then k.
 		 * A zero value in enabledCells means that the corresponding cell is disabled. A non zero value means that the corresponding cell is enabled.
+		 * @param	enabledCells	It must be preallocated with the size of the cell count in the ijk grid. It won't be disallocated.
 		 */
 		void getEnabledCells(bool * enabledCells, bool reverseIAxis = false, bool reverseJAxis= false, bool reverseKAxis= false) const;
 

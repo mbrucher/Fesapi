@@ -453,7 +453,43 @@ double ContinuousProperty::getMaximumValue()
 	return prop->MaximumValue[0];
 }
 
-gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind ContinuousProperty::getFirstAllowedPropertyKindParent() const
+bool ContinuousProperty::validatePropertyKindAssociation(resqml2::PropertyKind* pk) const
 {
-	return gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__continuous;
+	if (pk == nullptr) {
+		throw invalid_argument("The property kind to validate cannot be null.");
+	}
+
+	if (!pk->isPartial()) {
+		if (pk->isAbstract()) {
+			throw invalid_argument("A property cannot be associated to a local property kind which is abstract.");
+		}
+		if (epcDocument->getPropertyKindMapper() != nullptr) {
+			if (!pk->isChildOf(resqml2__ResqmlPropertyKind__continuous)) {
+				throw invalid_argument("A continuous property cannot be associated to a local property kind which does not derive from the continuous standard property kind.");
+			}
+		}
+		else {
+			epcDocument->addWarning("Cannot verify if the parent property kind of the property is right because no property kind mapping files have been loaded.");
+		}
+	}
+
+	return true;
+}
+
+bool ContinuousProperty::validatePropertyKindAssociation(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & pk) const
+{
+	PropertyKindMapper* pkMapper = epcDocument->getPropertyKindMapper();
+	if (pkMapper != nullptr) {
+		if (pkMapper->isAbstract(pk)) {
+			throw invalid_argument("A property cannot be associated to a resqml property kind which is abstract.");
+		}
+		if (!pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__continuous)) {
+			throw invalid_argument("A continuous property cannot be associated to a local property kind which does not derive from the continuous standard property kind.");
+		}
+	}
+	else {
+		epcDocument->addWarning("Cannot verify if the resqml property kind is abstract or not because no property kind mapping files have been loaded.");
+	}
+
+	return true;
 }

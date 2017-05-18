@@ -1287,6 +1287,8 @@ std::string EpcDocument::getExtendedCoreProperty(const std::string & key)
 
 resqml2::AbstractObject* EpcDocument::createPartial(gsoap_resqml2_0_1::eml__DataObjectReference* dor)
 {
+	addWarning("Create a partial object for object \"" + dor->Title + "\" with UUID " + dor->UUID + " and content type " + dor->ContentType);
+
 	const size_t lastEqualCharPos = dor->ContentType.find_last_of('_'); // The XML tag is after "obj_"
 	const string resqmlContentType = dor->ContentType.substr(lastEqualCharPos + 1);
 

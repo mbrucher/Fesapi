@@ -1344,14 +1344,14 @@ void showAllSubRepresentations(const vector<resqml2::SubRepresentation*> & subRe
 	}
 }
 
-void showAllProperties(resqml2::AbstractRepresentation * rep)
+void showAllProperties(resqml2::AbstractRepresentation * rep, bool* enabledCells = nullptr)
 {
 	std::vector<resqml2::AbstractValuesProperty*> propertyValuesSet = rep->getValuesPropertySet();
 	if (propertyValuesSet.empty() == false)
 		cout << "PROPERTIES" << std::endl;
-	std::cout << "\t--------------------------------------------------" << std::endl;
 	for (size_t propIndex = 0; propIndex < propertyValuesSet.size(); ++propIndex)
 	{
+		std::cout << "\t--------------------------------------------------" << std::endl;
 		resqml2::AbstractValuesProperty* propVal = propertyValuesSet[propIndex];
 		showAllMetadata(propVal, "\t");
 
@@ -1434,10 +1434,25 @@ void showAllProperties(resqml2::AbstractRepresentation * rep)
 			}
 			else
 			{
+				ContinuousProperty* continuousProp = static_cast<ContinuousProperty*>(propVal);
+				const double maxValue = continuousProp->getMaximumValue();
+				const double minValue = continuousProp->getMinimumValue();
+				std::cout << "\tMax value is " << maxValue << endl;
+				std::cout << "\tMin value is " << minValue << endl;
 				double* values = new double[valueCount];
-				static_cast<ContinuousProperty*>(propVal)->getDoubleValuesOfPatch(0, values);
+				continuousProp->getDoubleValuesOfPatch(0, values);
 				std::cout << "\tFirst value is " << values[0] << endl;
 				std::cout << "\tSecond value is " << values[1] << endl;
+
+				for (size_t cellIndex = 0; cellIndex < valueCount; ++cellIndex) {
+					if (enabledCells != nullptr && !enabledCells[cellIndex]) {
+						continue;
+					}
+					if (values[cellIndex] > maxValue || values[cellIndex] < minValue) {
+						std::cerr << "\tERROR of min max range on : cell " << cellIndex << " has value " << values[cellIndex] << endl;
+					}
+				}
+
 				delete [] values;
 			}
 		}
@@ -1936,13 +1951,6 @@ void deserialize(const string & inputFile)
 
 		showAllSubRepresentations(ijkGrid->getSubRepresentationSet());
 
-		if (ijkGrid->hasEnabledCellInformation()) {
-			std::cout << "Has enabled/disabled cell information" << std::endl;
-			bool * enabledCells = new bool [ijkGrid->getCellCount()];
-			ijkGrid->getEnabledCells(enabledCells);
-			delete [] enabledCells;
-		}
-
 		//*****************************
 		// TRUNCATION
 		//*****************************
@@ -2076,8 +2084,17 @@ void deserialize(const string & inputFile)
 		{
 			cout << "\t\t No link with stratigraphy." << endl;
 		}
-	
-		showAllProperties(ijkGrid);
+
+		bool * enabledCells = nullptr;
+		if (ijkGrid->hasEnabledCellInformation()) {
+			std::cout << "Has enabled/disabled cell information" << std::endl;
+			enabledCells = new bool[ijkGrid->getCellCount()];
+			ijkGrid->getEnabledCells(enabledCells);
+		}
+		showAllProperties(ijkGrid, enabledCells);
+		if (enabledCells != nullptr) {
+			delete [] enabledCells;
+		}
 	}
 
 	std::cout << endl << "UNSTRUCTURED GRID REP" << endl;

@@ -165,8 +165,6 @@ namespace resqml2_0_1
 		void pushBackCharHdf5ArrayOfValues(char * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const char & nullValue, const char & minimumValue, const char & maximumValue);
 		void pushBackCharHdf5ArrayOfValues(char * values, unsigned long long * numValues, const unsigned int & numDimensionsInArray, resqml2::AbstractHdfProxy* proxy, const char & nullValue);
 
-		gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
-
 		/**
 		* Push back a a reference to an existing (or a "to exist") HDF5 dataset in a particular hdf proxy.
 		* The reason can be that the indice values already exist in an external file (only HDF5 for now) or that the writing of these indice values in the external file is defered in time.
@@ -179,5 +177,15 @@ namespace resqml2_0_1
 		*/
 		std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* proxy, const std::string & datasetName, const long & nullValue, const long &  minimumValue, const long &  maximumValue);
 		std::string pushBackRefToExistingDataset(resqml2::AbstractHdfProxy* hdfProxy, const std::string & dataset = "", const long & nullValue = (std::numeric_limits<long>::max)());
+
+		/**
+		* Check if the associated local property kind is allowed for this property.
+		*/
+		bool validatePropertyKindAssociation(resqml2::PropertyKind* pk) const;
+
+		/**
+		* Check if the associated standard property kind is allowed for this property.
+		*/
+		bool validatePropertyKindAssociation(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & pk) const;
 	};
 }

@@ -40,8 +40,9 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "tools/Statistics.h"
 #include "resqml2/AbstractRepresentation.h"
-#include "resqml2_0_1/PropertyKind.h"
+#include "resqml2/PropertyKind.h"
 #include "resqml2/AbstractHdfProxy.h"
+#include "resqml2_0_1/PropertyKindMapper.h"
 
 using namespace std;
 using namespace resqml2_0_1;
@@ -409,7 +410,53 @@ void DiscreteProperty::pushBackCharHdf5ArrayOfValues(char * values, unsigned lon
 	pushBackCharHdf5ArrayOfValues(values, numValues, numDimensionsInArray, proxy, nullValue, minMax.first, minMax.second);
 }
 
-gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind DiscreteProperty::getFirstAllowedPropertyKindParent() const
+bool DiscreteProperty::validatePropertyKindAssociation(resqml2::PropertyKind* pk) const
 {
-	return gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__discrete;
+	if (pk == nullptr) {
+		throw invalid_argument("The property kind to validate cannot be null.");
+	}
+
+	if (!pk->isPartial()) {
+		if (pk->isAbstract()) {
+			throw invalid_argument("A property cannot be associated to a local property kind which is abstract.");
+		}
+		if (epcDocument->getPropertyKindMapper() != nullptr) {
+			if (!pk->isChildOf(resqml2__ResqmlPropertyKind__discrete)) {
+				if (!pk->isChildOf(resqml2__ResqmlPropertyKind__categorical)) {
+					throw invalid_argument("A discrete property cannot be associated to a local property kind which does not derive from the discrete or categorical standard property kind.");
+				}
+				else {
+					epcDocument->addWarning("The discrete property " + getUuid() + " is associated to a categorical property kind.");
+				}
+			}
+		}
+		else {
+			epcDocument->addWarning("Cannot verify if the parent property kind of the property is right because no property kind mapping files have been loaded.");
+		}
+	}
+
+	return true;
+}
+
+bool DiscreteProperty::validatePropertyKindAssociation(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & pk) const
+{
+	PropertyKindMapper* pkMapper = epcDocument->getPropertyKindMapper();
+	if (pkMapper != nullptr) {
+		if (pkMapper->isAbstract(pk)) {
+			throw invalid_argument("A property cannot be associated to a resqml property kind which is abstract.");
+		}
+		if (!pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__discrete)) {
+			if (!pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__categorical)) {
+				throw invalid_argument("A discrete property cannot be associated to a local property kind which does not derive from the discrete or categorical standard property kind.");
+			}
+			else {
+				getEpcDocument()->addWarning("The discrete property " + getUuid() + " is associated to a categorical property kind.");
+			}
+		}
+	}
+	else {
+		epcDocument->addWarning("Cannot verify if the resqml property kind is abstract or not because no property kind mapping files have been loaded.");
+	}
+
+	return true;
 }

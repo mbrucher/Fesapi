@@ -227,9 +227,14 @@ namespace resqml2
 		class PropertyKind* getLocalPropertyKind() const;
 
 		/**
-		* Check if the associated prop kind is allowed for this property.
+		* Check if the associated local property kind is allowed for this property.
 		*/
-		virtual gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind getFirstAllowedPropertyKindParent() const;
+		virtual bool validatePropertyKindAssociation(class PropertyKind* pk) const = 0;
+
+		/**
+		* Check if the associated standard property kind is allowed for this property.
+		*/
+		virtual bool validatePropertyKindAssociation(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & pk) const = 0;
 
 	protected:
 

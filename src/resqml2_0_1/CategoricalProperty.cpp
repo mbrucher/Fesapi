@@ -192,7 +192,53 @@ std::string CategoricalProperty::getStringLookupUuid() const
 	return static_cast<_resqml2__CategoricalProperty*>(gsoapProxy2_0_1)->Lookup->UUID;
 }
 
-gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind CategoricalProperty::getFirstAllowedPropertyKindParent() const
+bool CategoricalProperty::validatePropertyKindAssociation(resqml2::PropertyKind* pk) const
 {
-	return gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind__categorical;
+	if (pk == nullptr) {
+		throw invalid_argument("The property kind to validate cannot be null.");
+	}
+
+	if (!pk->isPartial()) {
+		if (pk->isAbstract()) {
+			throw invalid_argument("A property cannot be associated to a local property kind which is abstract.");
+		}
+		if (epcDocument->getPropertyKindMapper() != nullptr) {
+			if (!pk->isChildOf(resqml2__ResqmlPropertyKind__categorical)) {
+				if (!pk->isChildOf(resqml2__ResqmlPropertyKind__discrete)) {
+					throw invalid_argument("A categorical property cannot be associated to a local property kind which does not derive from the discrete or categorical standard property kind.");
+				}
+				else {
+					epcDocument->addWarning("The categorical property " + getUuid() + " is associated to a discrete property kind.");
+				}
+			}
+		}
+		else {
+			epcDocument->addWarning("Cannot verify if the parent property kind of the property is right because no property kind mapping files have been loaded.");
+		}
+	}
+
+	return true;
+}
+
+bool CategoricalProperty::validatePropertyKindAssociation(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & pk) const
+{
+	PropertyKindMapper* pkMapper = epcDocument->getPropertyKindMapper();
+	if (pkMapper != nullptr) {
+		if (pkMapper->isAbstract(pk)) {
+			throw invalid_argument("A property cannot be associated to a resqml property kind which is abstract.");
+		}
+		if (!pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__categorical)) {
+			if (!pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__discrete)) {
+				throw invalid_argument("A categorical property cannot be associated to a local property kind which does not derive from the discrete or categorical standard property kind.");
+			}
+			else {
+				getEpcDocument()->addWarning("The categorical property " + getUuid() + " is associated to a discrete property kind.");
+			}
+		}
+	}
+	else {
+		epcDocument->addWarning("Cannot verify if the resqml property kind is abstract or not because no property kind mapping files have been loaded.");
+	}
+
+	return true;
 }

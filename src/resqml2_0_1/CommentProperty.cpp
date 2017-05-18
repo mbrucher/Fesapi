@@ -205,3 +205,44 @@ std::vector<std::string> CommentProperty::getStringValuesOfPatch(const unsigned 
 
 	return result;
 }
+
+bool CommentProperty::validatePropertyKindAssociation(resqml2::PropertyKind* pk) const
+{
+	if (pk == nullptr) {
+		throw invalid_argument("The property kind to validate cannot be null.");
+	}
+
+	if (!pk->isPartial()) {
+		if (pk->isAbstract()) {
+			throw invalid_argument("A property cannot be associated to a local property kind which is abstract.");
+		}
+		if (epcDocument->getPropertyKindMapper() != nullptr) {
+			if (pk->isChildOf(resqml2__ResqmlPropertyKind__continuous) || pk->isChildOf(resqml2__ResqmlPropertyKind__discrete) || pk->isChildOf(resqml2__ResqmlPropertyKind__categorical)) {
+				throw invalid_argument("A comment property cannot be associated to a local property kind which is either a continuous, discrete or categorical standard property kind..");
+			}
+		}
+		else {
+			epcDocument->addWarning("Cannot verify if the parent property kind of the property is right because no property kind mapping files have been loaded.");
+		}
+	}
+
+	return true;
+}
+
+bool CommentProperty::validatePropertyKindAssociation(const gsoap_resqml2_0_1::resqml2__ResqmlPropertyKind & pk) const
+{
+	PropertyKindMapper* pkMapper = epcDocument->getPropertyKindMapper();
+	if (pkMapper != nullptr) {
+		if (pkMapper->isAbstract(pk)) {
+			throw invalid_argument("A property cannot be associated to a resqml property kind which is abstract.");
+		}
+		if (pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__continuous) || pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__discrete) || pkMapper->isChildOf(pk, resqml2__ResqmlPropertyKind__categorical)) {
+			throw invalid_argument("A comment property cannot be associated to a local property kind which is either a continuous, discrete or categorical standard property kind..");
+		}
+	}
+	else {
+		epcDocument->addWarning("Cannot verify if the resqml property kind is abstract or not because no property kind mapping files have been loaded.");
+	}
+
+	return true;
+}
