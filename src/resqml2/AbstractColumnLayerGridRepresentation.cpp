@@ -48,7 +48,7 @@ using namespace epc;
 unsigned int AbstractColumnLayerGridRepresentation::getKCellCount() const
 {
 	if (isPartial()) {
-		throw logic_error("Partial object");
+		throw logic_error("This method cannot be called on a partial object");
 	}
 
 	if (gsoapProxy2_0_1 != nullptr) {

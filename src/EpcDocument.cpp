@@ -62,6 +62,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2_0_1/WellboreInterpretation.h"
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
+#include "resqml2_0_1/DeviationSurveyRepresentation.h"
 #include "resqml2_0_1/MdDatum.h"
 #include "resqml2_0_1/PolylineRepresentation.h"
 #include "resqml2_0_1/SubRepresentation.h"
@@ -1115,7 +1116,7 @@ std::vector<resqml2_0_1::TriangulatedSetRepresentation*> EpcDocument::getUnclass
 	return result;
 }
 
-vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLineTrajRepSet() const
+vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreTrajectoryRepresentationSet() const
 {
 	vector<WellboreTrajectoryRepresentation*> result;
 
@@ -1126,6 +1127,25 @@ vector<WellboreTrajectoryRepresentation*> EpcDocument::getWellboreCubicParamLine
 			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
 				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREWellboreTrajectoryRepresentation) {
 					result.push_back(static_cast<WellboreTrajectoryRepresentation*>(repSet[repIndex]));
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
+vector<DeviationSurveyRepresentation*> EpcDocument::getDeviationSurveyRepresentationSet() const
+{
+	vector<DeviationSurveyRepresentation*> result;
+
+	for (size_t featureIndex = 0; featureIndex < wellboreSet.size(); ++featureIndex) {
+		vector<resqml2::AbstractFeatureInterpretation*> interpSet = wellboreSet[featureIndex]->getInterpretationSet();
+		for (size_t interpIndex = 0; interpIndex < interpSet.size(); ++interpIndex) {
+			vector<resqml2::AbstractRepresentation*> repSet = interpSet[interpIndex]->getRepresentationSet();
+			for (size_t repIndex = 0; repIndex < repSet.size(); ++repIndex) {
+				if (repSet[repIndex]->getGsoapType() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__obj_USCOREDeviationSurveyRepresentation) {
+					result.push_back(static_cast<DeviationSurveyRepresentation*>(repSet[repIndex]));
 				}
 			}
 		}
@@ -1801,6 +1821,20 @@ Grid2dRepresentation* EpcDocument::createGrid2dRepresentation(resqml2::AbstractF
 WellboreTrajectoryRepresentation* EpcDocument::createWellboreTrajectoryRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2::MdDatum * mdInfo)
 {
 	WellboreTrajectoryRepresentation* result = new WellboreTrajectoryRepresentation(interp, guid, title, mdInfo);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+WellboreTrajectoryRepresentation* EpcDocument::createWellboreTrajectoryRepresentation(WellboreInterpretation* interp, const std::string & guid, const std::string & title, DeviationSurveyRepresentation * deviationSurvey)
+{
+	WellboreTrajectoryRepresentation* result = new WellboreTrajectoryRepresentation(interp, guid, title, deviationSurvey);
+	addFesapiWrapperAndDeleteItIfException(result);
+	return result;
+}
+
+resqml2_0_1::DeviationSurveyRepresentation* EpcDocument::createDeviationSurveyRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, const bool & isFinal, resqml2::MdDatum * mdInfo)
+{
+	DeviationSurveyRepresentation* result = new DeviationSurveyRepresentation(interp, guid, title, isFinal, mdInfo);
 	addFesapiWrapperAndDeleteItIfException(result);
 	return result;
 }

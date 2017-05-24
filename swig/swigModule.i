@@ -159,7 +159,8 @@ namespace common
 		const std::vector<resqml2_0_1::SeismicLineFeature*> & getSeismicLineSet() const;
 		
 		const std::vector<resqml2_0_1::WellboreFeature*> & getWellboreSet() const;
-		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreCubicParamLineTrajRepSet() const;
+		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreTrajectoryRepresentationSet() const;
+		std::vector<resqml2_0_1::DeviationSurveyRepresentation*> getDeviationSurveyRepresentationSet() const;
 		
 		unsigned int getRepresentationSetRepresentationCount() const;
 		resqml2::RepresentationSetRepresentation* getRepresentationSetRepresentation(const unsigned int & index) const;
@@ -342,8 +343,11 @@ namespace common
 
 		resqml2_0_1::Grid2dRepresentation* createGrid2dRepresentation(resqml2::AbstractFeatureInterpretation* interp, resqml2::AbstractLocal3dCrs * crs, const std::string & guid, const std::string & title);
 
-		resqml2_0_1::WellboreTrajectoryRepresentation* createWellboreTrajectoryRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::MdDatum * mdInfo);
-
+		resqml2_0_1::WellboreTrajectoryRepresentation* createWellboreTrajectoryRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::MdDatum * mdInfo);	
+		resqml2_0_1::WellboreTrajectoryRepresentation* createWellboreTrajectoryRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::DeviationSurveyRepresentation* deviationSurvey);
+		
+		resqml2_0_1::DeviationSurveyRepresentation* createDeviationSurveyRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, const bool & isFinal, resqml2::MdDatum * mdInfo);
+		
 		resqml2_0_1::WellboreFrameRepresentation* createWellboreFrameRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);
 
 		resqml2_0_1::WellboreMarkerFrameRepresentation* createWellboreMarkerFrameRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);

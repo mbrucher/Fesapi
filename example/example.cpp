@@ -440,7 +440,7 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	ijkgridParametric->setGeometryAsParametricSplittedPillarNodes(gsoap_resqml2_0_1::resqml2__KDirection__down, false, parameters, controlPoints, NULL, 1, 0, hdfProxy,
 		2, pillarOfCoordinateLine, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineColumns);
 	
-	// FOUR SUGARS PARAMETRIC different line kind an one cubic pillar
+	// FOUR SUGARS PARAMETRIC different line kind and one cubic pillar
 	IjkGridParametricRepresentation* ijkgridParametricNotSameLineKind = pck->createIjkGridParametricRepresentation(local3dCrs, "3ce91933-4f6f-4f35-b0ac-4ba4672f0a87", "Four faulted sugar cubes with one cubic pillar", 2, 1, 2);
 	const double nan = numeric_limits<double>::quiet_NaN();
 	double controlPointsNotSameLineKind[54] = { 0, 0, 300, 375, 0, 300, 700, 0, 350, 0, 150, 300, 375, 150, 300, 700, 150, 350,
@@ -606,6 +606,14 @@ void serializeGrid(common::EpcDocument * pck, resqml2::AbstractHdfProxy* hdfProx
 	//discreteProp1->pushBackShortHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
 	unsigned short prop1Values[2] = { 0, 1 };
 	discreteProp1->pushBackUShortHdf5Array3dOfValues(prop1Values, 2, 1, 1, hdfProxy, -1);
+
+
+	DiscreteProperty* discreteProp1OnIjkgridParametric = pck->createDiscreteProperty(ijkgridParametric, "eb3dbf6c-5745-4e41-9d09-672f6fbab414", "Four sugar cubes cellIndex", 1,
+		gsoap_resqml2_0_1::resqml2__IndexableElements__cells, propType1);
+	unsigned short prop1ValuesOnIjkgridParametric[4] = { 0, 1, 2, 3 };
+	discreteProp1OnIjkgridParametric->pushBackUShortHdf5Array3dOfValues(prop1ValuesOnIjkgridParametric, 2, 1, 2, hdfProxy, -1);
+	//Move this prop to another same ninjnk ijk grid
+	discreteProp1OnIjkgridParametric->setRepresentation(ijkgridParametricNotSameLineKind);
 
 	//**************
 	// Time Series
@@ -1515,6 +1523,12 @@ void deserialize(const string & inputFile)
 		cout << "Press enter to continue..." << endl;
 		cin.get();
 	}
+
+	unsigned int hdfProxyCount = pck.getHdfProxyCount();
+	cout << "There are " << pck.getHdfProxyCount() << " hdf files associated to this epc document." << endl;
+	for (unsigned int hdfProxyIndex = 0; hdfProxyIndex < hdfProxyCount; ++hdfProxyIndex) {
+		cout << "Hdf file relative path : " << pck.getHdfProxy(hdfProxyIndex)->getRelativePath() << endl;
+	}
 	for (size_t warningIndex = 0; warningIndex < pck.getWarnings().size(); ++warningIndex) {
 		cout << "Warning #" << warningIndex << " : " << pck.getWarnings()[warningIndex] << endl;
 	}
@@ -1569,7 +1583,7 @@ void deserialize(const string & inputFile)
 	std::vector<TriangulatedSetRepresentation*> horizonTriRepSet = pck.getHorizonTriangulatedSetRepSet();
 	std::vector<PolylineRepresentation*> horizonSinglePolylineRepSet = pck.getHorizonPolylineRepSet();
 	std::vector<WellboreFeature*> wellboreSet = pck.getWellboreSet();
-	std::vector<WellboreTrajectoryRepresentation*> wellboreCubicTrajSet = pck.getWellboreCubicParamLineTrajRepSet();
+	std::vector<WellboreTrajectoryRepresentation*> wellboreCubicTrajSet = pck.getWellboreTrajectoryRepresentationSet();
 	std::vector<UnstructuredGridRepresentation*> unstructuredGridRepSet = pck.getUnstructuredGridRepresentationSet();
 	std::vector<resqml2::TimeSeries*> timeSeriesSet = pck.getTimeSeriesSet();
 	std::vector<StratigraphicColumn*> stratiColumnSet = pck.getStratigraphicColumnSet();

@@ -57,6 +57,11 @@ namespace resqml2
 		*/
 		~EpcExternalPartReference() {}
 
+		/**
+		* Get the relative path regarding packageDirectoryAbsolutePath where the external resource is located.
+		*/
+		std::string getRelativePath() const { return relativeFilePath; }
+
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const;
 

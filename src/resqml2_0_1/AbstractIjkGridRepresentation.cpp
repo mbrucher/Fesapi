@@ -116,19 +116,13 @@ AbstractIjkGridRepresentation::AbstractIjkGridRepresentation(resqml2::AbstractFe
 
 _resqml2__IjkGridRepresentation* AbstractIjkGridRepresentation::getSpecializedGsoapProxy() const
 {
-	if (isPartial()) {
-		throw logic_error("Partial object");
-	}
-
+	cannotBePartial();
 	return static_cast<_resqml2__IjkGridRepresentation*>(gsoapProxy2_0_1);
 }
 
 gsoap_resqml2_0_1::_resqml2__TruncatedIjkGridRepresentation* AbstractIjkGridRepresentation::getSpecializedTruncatedGsoapProxy() const
 {
-	if (isPartial()) {
-		throw logic_error("Partial object");
-	}
-
+	cannotBePartial();
 	return static_cast<_resqml2__TruncatedIjkGridRepresentation*>(gsoapProxy2_0_1);
 }
 

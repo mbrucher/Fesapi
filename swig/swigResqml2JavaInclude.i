@@ -258,6 +258,10 @@ Basically this file add methods resqml2_0_instantiate* which will create the rig
     {
        return new com.f2i.energisticsStandardsApi.resqml2_0_1.WellboreTrajectoryRepresentation(cPtr, owner);
     }
+    else if (type.equals("DeviationSurveyRepresentation"))
+    {
+       return new com.f2i.energisticsStandardsApi.resqml2_0_1.DeviationSurveyRepresentation(cPtr, owner);
+    }
 	else
 		return null;
   }

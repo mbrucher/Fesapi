@@ -59,8 +59,36 @@ WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInter
 	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getGsoapContext(), 1);	
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 
-	rep->MdDatum = mdInfo->newResqmlReference();
-	mdInfo->addWellboreTrajectoryRepresentation(this);
+	setMdDatum(mdInfo);
+
+	localCrs = mdInfo->getLocalCrs();
+	localCrs->addRepresentation(this);
+
+	setInterpretation(interp);
+
+	initMandatoryMetadata();
+	setMetadata(guid, title, "", -1, "", "", -1, "", "");
+
+	if (dynamic_cast<resqml2::AbstractLocal3dCrs*>(mdInfo->getLocalCrs()) != nullptr) {
+		rep->MdUom = static_cast<resqml2::AbstractLocal3dCrs*>(mdInfo->getLocalCrs())->getVerticalCrsUnit();
+	}
+}
+
+WellboreTrajectoryRepresentation::WellboreTrajectoryRepresentation(WellboreInterpretation* interp, const string & guid, const std::string & title, DeviationSurveyRepresentation * deviationSurvey) :
+	AbstractRepresentation(interp, deviationSurvey->getLocalCrs()), witsmlTrajectory(nullptr)
+{
+	gsoapProxy2_0_1 = soap_new_resqml2__obj_USCOREWellboreTrajectoryRepresentation(interp->getGsoapContext(), 1);
+	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
+
+	resqml2::MdDatum * mdInfo = deviationSurvey->getMdDatum();
+	setMdDatum(mdInfo);
+
+	ULONG64 stationCount = deviationSurvey->getXyzPointCountOfPatch(0);
+	double* mdValues = new double[stationCount];
+	deviationSurvey->getMdValues(mdValues);
+	rep->StartMd = mdValues[0];
+	rep->FinishMd = mdValues[stationCount-1];
+	delete[] mdValues;
 
 	localCrs = mdInfo->getLocalCrs();
 	localCrs->addRepresentation(this);
@@ -182,6 +210,13 @@ vector<Relationship> WellboreTrajectoryRepresentation::getAllEpcRelationships() 
 		throw domain_error("The MD information associated to the WellboreFeature trajectory cannot be nullptr.");
 	}
 
+	DeviationSurveyRepresentation* dsr = getDeviationSurvey();
+	if (dsr != nullptr) {
+		Relationship relDsr(dsr->getPartNameInEpcDocument(), "", getDeviationSurveyDor()->Title);
+		relDsr.setDestinationObjectType();
+		result.push_back(relDsr);
+	}
+
 	WellboreTrajectoryRepresentation* parentTraj = getParentTrajectory();
 	if (parentTraj != nullptr) {
 		Relationship relParentTraj(parentTraj->getPartNameInEpcDocument(), "", rep->ParentIntersection->ParentTrajectory->UUID);
@@ -219,7 +254,25 @@ void WellboreTrajectoryRepresentation::importRelationshipSetFromEpc(common::EpcD
 
 	resqml2::MdDatum* mdDatum = epcDoc->getResqmlAbstractObjectByUuid<resqml2::MdDatum>(getMdDatumUuid());
 	if (mdDatum != nullptr) {
-		mdDatum->addWellboreTrajectoryRepresentation(this);
+		updateXml = false;
+		setMdDatum(mdDatum);
+		updateXml = true;
+	}
+
+	gsoap_resqml2_0_1::eml__DataObjectReference* dsrDor = getDeviationSurveyDor();
+	if (dsrDor != nullptr)
+	{
+		DeviationSurveyRepresentation* dsr = epcDoc->getResqmlAbstractObjectByUuid<DeviationSurveyRepresentation>(dsrDor->UUID);
+		if (dsr == nullptr) { // partial transfer
+			getEpcDocument()->createPartial(dsrDor);
+			dsr = getEpcDocument()->getResqmlAbstractObjectByUuid<DeviationSurveyRepresentation>(dsrDor->UUID);
+		}
+		if (dsr == nullptr) {
+			throw invalid_argument("The DOR looks invalid.");
+		}
+		updateXml = false;
+		setDeviationSurvey(dsr);
+		updateXml = true;
 	}
 
 	if (rep->ParentIntersection != nullptr) {
@@ -311,7 +364,7 @@ int WellboreTrajectoryRepresentation::getGeometryKind() const
 {
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
 	if (rep->Geometry == nullptr) {
-		return -1;
+		throw logic_error("This trajectory has not got any geometry.");
 	}
 	if (rep->Geometry->soap_type() != SOAP_TYPE_gsoap_resqml2_0_1_resqml2__ParametricLineGeometry) {
 		throw logic_error("This kind of parametric line is not yet supported for a wellbore trajectory.");
@@ -331,6 +384,11 @@ bool WellboreTrajectoryRepresentation::hasMdValues() const
 	return static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters != nullptr;
 }
 
+gsoap_resqml2_0_1::eml__LengthUom WellboreTrajectoryRepresentation::getMdUom() const
+{
+	return static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1)->MdUom;
+}
+
 void WellboreTrajectoryRepresentation::getMdValues(double * values)
 {
 	if (!hasMdValues()) {
@@ -341,8 +399,13 @@ void WellboreTrajectoryRepresentation::getMdValues(double * values)
 	}
 		
 	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
-	resqml2__DoubleHdf5Array* xmlControlPointParameters = static_cast<resqml2__DoubleHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters);
-	hdfProxy->readArrayNdOfDoubleValues(xmlControlPointParameters->Values->PathInHdfFile, values);
+	if (static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters->soap_type() == SOAP_TYPE_gsoap_resqml2_0_1_resqml2__DoubleHdf5Array) {
+		resqml2__DoubleHdf5Array* xmlControlPointParameters = static_cast<resqml2__DoubleHdf5Array*>(static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->ControlPointParameters);
+		hdfProxy->readArrayNdOfDoubleValues(xmlControlPointParameters->Values->PathInHdfFile, values);
+	}
+	else {
+		throw invalid_argument("Mds can only be defined using DoubleHdf5Array for now in fesapi.");
+	}
 }
 
 double WellboreTrajectoryRepresentation::getStartMd() const
@@ -381,6 +444,19 @@ void WellboreTrajectoryRepresentation::getTangentVectors(double* tangentVectors)
 	hdfProxy->readArrayNdOfDoubleValues(xmlTangentVectors->Coordinates->PathInHdfFile, tangentVectors);
 }
 
+void WellboreTrajectoryRepresentation::setMdDatum(resqml2::MdDatum* mdDatum)
+{
+	if (mdDatum == nullptr) {
+		throw invalid_argument("The md Datum is missing.");
+	}
+
+	mdDatum->addWellboreTrajectoryRepresentation(this);
+
+	if (updateXml) {
+		static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1)->MdDatum = mdDatum->newResqmlReference();
+	}
+}
+
 resqml2::MdDatum * WellboreTrajectoryRepresentation::getMdDatum() const
 {
 	return static_cast<resqml2::MdDatum*>(getEpcDocument()->getResqmlAbstractObjectByUuid(getMdDatumUuid()));
@@ -403,13 +479,41 @@ std::string WellboreTrajectoryRepresentation::getHdfProxyUuid() const
 	}
 }
 
+gsoap_resqml2_0_1::_resqml2__WellboreTrajectoryRepresentation* WellboreTrajectoryRepresentation::getSpecializedGsoapProxy() const
+{
+	cannotBePartial();
+
+	return static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
+}
+
 gsoap_resqml2_0_1::eml__DataObjectReference* WellboreTrajectoryRepresentation::getLocalCrsDor() const
 {
-	_resqml2__WellboreTrajectoryRepresentation* rep = static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1);
+	_resqml2__WellboreTrajectoryRepresentation* rep = getSpecializedGsoapProxy();
 	return rep->Geometry != nullptr ? static_cast<resqml2__ParametricLineGeometry*>(rep->Geometry)->LocalCrs : nullptr;
+}
+
+gsoap_resqml2_0_1::eml__DataObjectReference* WellboreTrajectoryRepresentation::getDeviationSurveyDor() const
+{
+	return getSpecializedGsoapProxy()->DeviationSurvey;
 }
 
 bool WellboreTrajectoryRepresentation::hasGeometry() const
 {
-	return static_cast<_resqml2__WellboreTrajectoryRepresentation*>(gsoapProxy2_0_1)->Geometry != nullptr;
+	return getSpecializedGsoapProxy()->Geometry != nullptr;
+}
+
+void WellboreTrajectoryRepresentation::setDeviationSurvey(DeviationSurveyRepresentation* deviationSurvey)
+{
+	if (updateXml) {
+		getSpecializedGsoapProxy()->DeviationSurvey = deviationSurvey->newResqmlReference();
+	}
+
+	deviationSurvey->addTrajectory(this);
+}
+
+DeviationSurveyRepresentation* WellboreTrajectoryRepresentation::getDeviationSurvey() const
+{
+	gsoap_resqml2_0_1::eml__DataObjectReference* dsDor = getDeviationSurveyDor();
+
+	return dsDor == nullptr ? nullptr : epcDocument->getResqmlAbstractObjectByUuid<DeviationSurveyRepresentation>(dsDor->UUID);
 }

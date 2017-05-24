@@ -73,6 +73,11 @@ AbstractObject::AbstractObject(gsoap_resqml2_0_1::eml__AbstractCitedDataObject* 
 	epcDocument(nullptr), updateXml(true) {
 }
 
+void AbstractObject::cannotBePartial() const {
+	if (isPartial()) {
+		throw logic_error("This method cannot be called on a partial object");
+	}
+}
 
 soap* AbstractObject::getGsoapContext() const
 {

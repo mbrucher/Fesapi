@@ -129,6 +129,8 @@ namespace resqml2
 		void setMetadata(const std::string & guid, const std::string & title, const std::string & editor, const time_t & creation, const std::string & originator,
 			const std::string & description, const time_t & lastUpdate, const std::string & format, const std::string & descriptiveKeywords);
 
+		void cannotBePartial() const;
+
 	public:
 		virtual ~AbstractObject() {}
 

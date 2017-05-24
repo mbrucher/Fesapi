@@ -35,11 +35,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "resqml2/AbstractRepresentation.h"
 
-namespace resqml2
-{
-	class MdDatum;
-}
-
 namespace witsml1_4_1_1
 {
 	class Trajectory;
@@ -51,6 +46,8 @@ namespace resqml2_0_1
 	{
 	private:
 		gsoap_resqml2_0_1::resqml2__PointGeometry* getPointGeometry2_0_1(const unsigned int & patchIndex) const {return nullptr;}
+
+		gsoap_resqml2_0_1::_resqml2__WellboreTrajectoryRepresentation* getSpecializedGsoapProxy() const;
 
 	public:
 
@@ -68,6 +65,11 @@ namespace resqml2_0_1
 		* @param mdInfo					The MD information of the trajectory, mainly the well reference point.
 		*/
 		WellboreTrajectoryRepresentation(class WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2::MdDatum * mdInfo);
+
+		/**
+		* Creates an instance with an existing deviation survey as its origin.
+		*/
+		WellboreTrajectoryRepresentation(class WellboreInterpretation* interp, const std::string & guid, const std::string & title, DeviationSurveyRepresentation* deviationSurvey);
 
 		/**
 		* Creates an instance of this class by wrapping a gsoap instance.
@@ -120,6 +122,11 @@ namespace resqml2_0_1
 		int getGeometryKind() const;
 
 		/**
+		* Set the Md datum of this trajectory
+		*/
+		void setMdDatum(resqml2::MdDatum* mdDatum);
+
+		/**
 		* Getter of the md information associated to this WellboreFeature trajectory representation.
 		*/
 		resqml2::MdDatum * getMdDatum() const;
@@ -145,6 +152,11 @@ namespace resqml2_0_1
 		* Indicates if the wellbore trajectory has got md values attached to each trajectory station.
 		*/
 		bool hasMdValues() const;
+
+		/**
+		* Units of measure of the measured depths along this trajectory.
+		*/
+		gsoap_resqml2_0_1::eml__LengthUom getMdUom() const;
 
 		/**
 		* Getter of the md double values associated to each trajectory station of this WellboreFeature trajectory representation.
@@ -194,13 +206,13 @@ namespace resqml2_0_1
 		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
 
 		/**
-		* Add a WellboreFeature frame to this trajectory.
+		* Add a Wellbore frame representation to this trajectory.
 		* Does not add the inverse relationship i.e. from the WellboreFeature frame to this trajectory
 		*/
 		void addWellboreFrameRepresentation(class WellboreFrameRepresentation* WellboreFrameRepresentation) {wellboreFrameRepresentationSet.push_back(WellboreFrameRepresentation);}
 
 		/**
-		* Getter (in read only mode) of all the associated WellboreFeature frames
+		* Getter (in read only mode) of all the associated Wellbore frame representations
 		*/
 		const std::vector<class WellboreFrameRepresentation*>& getWellboreFrameRepresentationSet() const {return wellboreFrameRepresentationSet;}
 
@@ -212,11 +224,24 @@ namespace resqml2_0_1
 
 		/**
 		* Get a particular wellbore frame representation of this wellbore trajectory representation according to its position in the EPC document.
-		* Necessary for now in SWIG context because I am not sure if I can always wrap a vector of polymorphic class yet.
-		* Throw an out of bound exception if the index is superior or equal to the count of values property.
+		* Necessary for now in SWIG context because I mm not sure if I can always wrap a vector of polymorphic class yet.
+		* Throw an out of bound exception if the index is superior or equal to the count of wellbore frame representation.
 		*/
 		class WellboreFrameRepresentation* getWellboreFrameRepresentation(const unsigned int & index) const {return wellboreFrameRepresentationSet[index];}
 
+		/**
+		* Set the deviation survey which is the source of this trajectory.
+		*/
+		void setDeviationSurvey(class DeviationSurveyRepresentation* deviationSurvey);
+
+		/**
+		* Get the deviation survey which is the source of this trajectory. It can return a null pointer.
+		*/
+		class DeviationSurveyRepresentation* getDeviationSurvey() const;
+
+		/**
+		* Get the information to resolve the associated local CRS.
+		*/
 		gsoap_resqml2_0_1::eml__DataObjectReference* getLocalCrsDor() const;
 
 		std::string getHdfProxyUuid() const;
@@ -233,7 +258,12 @@ namespace resqml2_0_1
 		* Add a children parent to this trajectory in case of trajectory branching.
 		* Does not add the inverse relationship i.e. from the children trajectory to this trajectory
 		*/
-		void addChildrenTrajectory(WellboreTrajectoryRepresentation* childrenTraj) {childrenTrajSet.push_back(childrenTraj);}
+		void addChildrenTrajectory(WellboreTrajectoryRepresentation* childrenTraj) { childrenTrajSet.push_back(childrenTraj); }
+
+		/**
+		* Get the information to resolve the associated deviation survey. It can return a null pointer.
+		*/
+		gsoap_resqml2_0_1::eml__DataObjectReference* getDeviationSurveyDor() const;
 
 	protected:
 

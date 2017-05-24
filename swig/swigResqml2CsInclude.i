@@ -255,6 +255,10 @@ public static f2i.energisticsStandardsApi.resqml2.AbstractObject resqml2_instant
     {
        return new f2i.energisticsStandardsApi.resqml2_0_1.WellboreTrajectoryRepresentation(cPtr, owner);
     }
+    else if (type == "DeviationSurveyRepresentation")
+    {
+       return new f2i.energisticsStandardsApi.resqml2_0_1.DeviationSurveyRepresentation(cPtr, owner);
+    }
 	else
 		return null;
   }

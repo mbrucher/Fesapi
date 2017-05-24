@@ -33,11 +33,12 @@ knowledge of the CeCILL-B license and that you accept its terms.
 -----------------------------------------------------------------------*/
 #pragma once
 
-#include "resqml2/AbstractObject.h"
+#include "resqml2_0_1/DeviationSurveyRepresentation.h"
 
-namespace resqml2
+namespace resqml2_0_1
 {
 	class WellboreTrajectoryRepresentation;
+	class DeviationSurveyRepresentation;
 }
 
 namespace resqml2
@@ -56,6 +57,20 @@ namespace resqml2
 		*/
 		MdDatum(gsoap_resqml2_0_1::_resqml2__MdDatum* fromGsoap) :AbstractObject(fromGsoap) {}
 
+	private :
+
+		/**
+		* Add a Wellbore trajectory which uses this MD information
+		* Does not add the inverse relationship i.e. from the Wellbore trajectory to this MD information.
+		*/
+		void addWellboreTrajectoryRepresentation(resqml2_0_1::WellboreTrajectoryRepresentation* traj) { wellboreTrajectoryRepresentationSet.push_back(traj); }
+
+		/**
+		* Add a Deviation Survey which uses this MD information
+		* Does not add the inverse relationship i.e. from the deviation survey to this MD information.
+		*/
+		void addDeviationSurveyRepresentation(resqml2_0_1::DeviationSurveyRepresentation* deviationSurvey)  { deviationSurveyRepresentationSet.push_back(deviationSurvey); }
+
 	public:
 
 		/**
@@ -70,12 +85,6 @@ namespace resqml2
 
 		static const char* XML_TAG;
 		virtual std::string getXmlTag() const {return XML_TAG;}
-
-		/**
-		* Add a WellboreFeature trajectory which uses this MD information
-		* Does not add the inverse relationship i.e. from the WellboreFeature trajectory to this MD information.
-		*/
-		void addWellboreTrajectoryRepresentation(resqml2_0_1::WellboreTrajectoryRepresentation* traj) { wellboreTrajectoryRepresentationSet.push_back(traj); }
 
 		/**
 		* Set the local CR Swhere the reference point ordinals are given
@@ -122,6 +131,9 @@ namespace resqml2
 
 	protected:
 
+		friend void resqml2_0_1::WellboreTrajectoryRepresentation::setMdDatum(resqml2::MdDatum* mdDatum);
+		friend void resqml2_0_1::DeviationSurveyRepresentation::setMdDatum(resqml2::MdDatum* mdDatum);
+
 		virtual void setXmlLocalCrs(resqml2::AbstractLocal3dCrs * localCrs) = 0;
 
 		std::vector<epc::Relationship> getAllEpcRelationships() const;
@@ -129,5 +141,6 @@ namespace resqml2
 
 		// XML backward relationship
 		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> wellboreTrajectoryRepresentationSet;
+		std::vector<resqml2_0_1::DeviationSurveyRepresentation*> deviationSurveyRepresentationSet;
 	};
 }

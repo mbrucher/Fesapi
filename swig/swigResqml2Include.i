@@ -128,6 +128,7 @@ namespace resqml2
 	//************************************
 	class EpcExternalPartReference : public AbstractObject
 	{
+		std::string getRelativePath();
 	};
 	
 	class AbstractHdfProxy : public EpcExternalPartReference
@@ -512,6 +513,7 @@ namespace resqml2
 	public:
 		std::string getRepresentationUuid() const;
 		AbstractRepresentation* getRepresentation();
+		void setRepresentation(AbstractRepresentation * rep);
 		
 		std::string getHdfProxyUuid() const;
 		resqml2::AbstractHdfProxy* getHdfProxy();

@@ -34,6 +34,7 @@
 #include "resqml2_0_1/Grid2dSetRepresentation.h"
 #include "resqml2_0_1/TriangulatedSetRepresentation.h"
 #include "resqml2_0_1/WellboreTrajectoryRepresentation.h"
+#include "resqml2_0_1/DeviationSurveyRepresentation.h"
 #include "resqml2_0_1/WellboreMarker.h"
 #include "resqml2_0_1/WellboreMarkerFrameRepresentation.h"
 #include "resqml2_0_1/NonSealedSurfaceFrameworkRepresentation.h"
@@ -90,6 +91,7 @@ namespace resqml2_0_1 {
 	class SeismicLineFeature;
 	class WellboreFeature;
 	class WellboreTrajectoryRepresentation;
+	class DeviationSurveyRepresentation;
 	class WellboreMarkerFrameRepresentation;
 	class UnstructuredGridRepresentation;
 	class WellboreMarker;
@@ -121,6 +123,7 @@ namespace std {
    %template(SeismicLineFeatureVector) vector<resqml2_0_1::SeismicLineFeature*>;
    %template(WellboreFeatureVector) vector<resqml2_0_1::WellboreFeature*>;
    %template(WellboreTrajectoryRepresentationVector) vector<resqml2_0_1::WellboreTrajectoryRepresentation*>;
+   %template(DeviationSurveyRepresentationVector) vector<resqml2_0_1::DeviationSurveyRepresentation*>;
    %template(WellboreMarkerFrameRepresentationVector) vector<resqml2_0_1::WellboreMarkerFrameRepresentation*>;
    %template(UnstructuredGridRepresentationVector) vector<resqml2_0_1::UnstructuredGridRepresentation*>;
    %template(StringVector) vector<std::string>;
@@ -230,6 +233,22 @@ namespace gsoap_resqml2_0_1
 		eml__LengthUom__yd_x005bSe_x005d = 189,
 		eml__LengthUom__yd_x005bSeT_x005d = 190,
 		eml__LengthUom__yd_x005bUS_x005d = 191
+	};
+	enum eml__PlaneAngleUom {
+		eml__PlaneAngleUom__0_x002e001_x0020seca = 0,
+		eml__PlaneAngleUom__ccgr = 1,
+		eml__PlaneAngleUom__cgr = 2,
+		eml__PlaneAngleUom__dega = 3,
+		eml__PlaneAngleUom__gon = 4,
+		eml__PlaneAngleUom__krad = 5,
+		eml__PlaneAngleUom__mila = 6,
+		eml__PlaneAngleUom__mina = 7,
+		eml__PlaneAngleUom__Mrad = 8,
+		eml__PlaneAngleUom__mrad = 9,
+		eml__PlaneAngleUom__rad = 10,
+		eml__PlaneAngleUom__rev = 11,
+		eml__PlaneAngleUom__seca = 12,
+		eml__PlaneAngleUom__urad = 13
 	};
 
 	enum eml__TimeUom {
@@ -2115,6 +2134,7 @@ namespace resqml2_0_1
 	%nspace resqml2_0_1::Grid2dSetRepresentation;
 	%nspace resqml2_0_1::TriangulatedSetRepresentation;
 	%nspace resqml2_0_1::WellboreTrajectoryRepresentation;
+	%nspace resqml2_0_1::DeviationSurveyRepresentation;
 	%nspace resqml2_0_1::WellboreFrameRepresentation;
 	%nspace resqml2_0_1::WellboreMarker;
 	%nspace resqml2_0_1::WellboreMarkerFrameRepresentation;
@@ -2583,18 +2603,50 @@ namespace resqml2_0_1
 		const double& getParentTrajectoryMd() const;
 		const std::vector<WellboreTrajectoryRepresentation*> & getChildrenTrajectorySet() const;
 
+		bool hasGeometry() const;
 		int getGeometryKind() const;
 
 		bool hasTangentVectors() const;
 		void getTangentVectors(double* tangentVectors);
 
 		bool hasMdValues() const;
+		gsoap_resqml2_0_1::eml__LengthUom getMdUom() const;
 		void getMdValues(double* values);
 		double getStartMd() const;
 		double getFinishMd() const;
+		
+		void setDeviationSurvey(class DeviationSurveyRepresentation* deviationSurvey);
+		class DeviationSurveyRepresentation* getDeviationSurvey() const;
 
 		void setWitsmlTrajectory(witsml1_4_1_1::Trajectory * witsmlTraj);
 		witsml1_4_1_1::Trajectory * getWitsmlTrajectory();
+	};
+	
+	class DeviationSurveyRepresentation : public resqml2::AbstractRepresentation
+	{
+	public:
+		void setGeometry(double * firstStationLocation, const ULONG64 & stationCount,
+			const gsoap_resqml2_0_1::eml__LengthUom & mdUom, double * mds,
+			const gsoap_resqml2_0_1::eml__PlaneAngleUom & angleUom, double * azimuths, double * inclinations,
+			resqml2::AbstractHdfProxy* proxy);
+
+		resqml2::MdDatum * getMdDatum() const;
+		std::string getMdDatumUuid() const;
+
+		bool isFinal() const;
+
+		gsoap_resqml2_0_1::eml__LengthUom getMdUom() const;
+		gsoap_resqml2_0_1::eml__PlaneAngleUom getAngleUom() const;
+
+		void getMdValues(double* values);
+		void getInclinatations(double* values);
+		void getAzimuths(double* values);
+
+		unsigned int getWellboreFrameRepresentationCount() const;
+		class WellboreFrameRepresentation* getWellboreFrameRepresentation(unsigned int index) const;
+
+		unsigned int getWellboreTrajectoryRepresentationCount() const;
+		WellboreTrajectoryRepresentation* getWellboreTrajectoryRepresentation(const unsigned int & index) const;
 	};
 	
 	class WellboreFrameRepresentation : public resqml2::AbstractRepresentation

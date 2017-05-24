@@ -93,6 +93,7 @@ namespace resqml2_0_1
 	class Grid2dSetRepresentation;
 	class Grid2dRepresentation;
 	class WellboreTrajectoryRepresentation;
+	class DeviationSurveyRepresentation;
 	class AbstractIjkGridRepresentation;
 	class IjkGridExplicitRepresentation;
 	class IjkGridParametricRepresentation;
@@ -435,9 +436,14 @@ namespace common
 		const std::vector<resqml2_0_1::WellboreFeature*> & getWellboreSet() const;
 
 		/**
-		* Get all the individual representations of wellbores which uses a cubic parametric line geometry.
+		* Get all the trajectory representations of all wellbores.
 		*/
-		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreCubicParamLineTrajRepSet() const;
+		std::vector<resqml2_0_1::WellboreTrajectoryRepresentation*> getWellboreTrajectoryRepresentationSet() const;
+
+		/**
+		* Get all the devaition survey of all wellbores.
+		*/
+		std::vector<resqml2_0_1::DeviationSurveyRepresentation*> getDeviationSurveyRepresentationSet() const;
 
 		/**
 		* Get all the representationset representations contained into the EPC document
@@ -857,6 +863,9 @@ namespace common
 			const std::string & guid, const std::string & title);
 
 		resqml2_0_1::WellboreTrajectoryRepresentation* createWellboreTrajectoryRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2::MdDatum * mdInfo);
+		resqml2_0_1::WellboreTrajectoryRepresentation* createWellboreTrajectoryRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::DeviationSurveyRepresentation* deviationSurvey);
+
+		resqml2_0_1::DeviationSurveyRepresentation* createDeviationSurveyRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, const bool & isFinal, resqml2::MdDatum * mdInfo);
 
 		resqml2_0_1::WellboreFrameRepresentation* createWellboreFrameRepresentation(resqml2_0_1::WellboreInterpretation* interp, const std::string & guid, const std::string & title, resqml2_0_1::WellboreTrajectoryRepresentation * traj);
 

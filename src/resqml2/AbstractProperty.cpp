@@ -34,6 +34,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include "resqml2/AbstractProperty.h"
 
 #include <stdexcept>
+#include <algorithm>
 
 #include "resqml2/SubRepresentation.h"
 #include "resqml2_0_1/UnstructuredGridRepresentation.h"
@@ -244,6 +245,11 @@ void AbstractProperty::setRepresentation(AbstractRepresentation * rep)
 	}
 
 	// EPC
+	gsoap_resqml2_0_1::eml__DataObjectReference* repDor = getRepresentationDor();
+	if (repDor != nullptr) { // already associated to a representation -> Need to remove exisitn association
+		std::vector<AbstractProperty*>& currentRepPropertySet = getRepresentation()->propertySet;
+		currentRepPropertySet.erase(remove(currentRepPropertySet.begin(), currentRepPropertySet.end(), this), currentRepPropertySet.end());
+	}
 	rep->propertySet.push_back(this);
 
 	// XML

@@ -161,7 +161,7 @@ namespace resqml2
 		class AbstractFeatureInterpretation* getInterpretation() const;
 
 		/**
-		* @return	null pointer if no local interpretation is associated to this representation. Otherwise return the data object reference of the associated interpretation.
+		* @return	null pointer if no interpretation is associated to this representation. Otherwise return the data object reference of the associated interpretation.
 		*/
 		gsoap_resqml2_0_1::eml__DataObjectReference* getInterpretationDor() const;
 
