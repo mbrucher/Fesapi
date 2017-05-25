@@ -124,22 +124,21 @@ void IjkGridExplicitRepresentation::getXyzPointsOfPatch(const unsigned int & pat
 	}
 }
 
-void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
-	const resqml2__PillarShape & mostComplexPillarGeometry,
-	const resqml2__KDirection & kDirectionKind,
-	const bool & isRightHanded,
-	double * points, resqml2::AbstractHdfProxy * proxy,
-	const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
-	unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns)
+void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodesUsingExistingDatasets(
+	const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+	const std::string & points, resqml2::AbstractHdfProxy* proxy,
+	const unsigned long & splitCoordinateLineCount, const std::string & pillarOfCoordinateLine,
+	const std::string & splitCoordinateLineColumnCumulativeCount, const std::string & splitCoordinateLineColumns,
+	const std::string & definedPillars)
 {
 	if (proxy == nullptr) {
 		throw invalid_argument("The hdf proxy cannot be null.");
 	}
-	if (points == nullptr) {
-		throw invalid_argument("The points of the ijk grid cannot be null.");
+	if (points.empty()) {
+		throw invalid_argument("The points HDF dataset of the ijk grid cannot be empty.");
 	}
-	if (splitCoordinateLineCount != 0 && (pillarOfCoordinateLine == nullptr || splitCoordinateLineColumnCumulativeCount == nullptr || splitCoordinateLineColumns == nullptr)) {
-		throw invalid_argument("The definition of the split coordinate lines is incomplete.");
+	if (splitCoordinateLineCount != 0 && (pillarOfCoordinateLine.empty() || splitCoordinateLineColumnCumulativeCount.empty() || splitCoordinateLineColumns.empty())) {
+		throw invalid_argument("The definition of the split coordinate lines HDF dataset is incomplete.");
 	}
 
 	setHdfProxy(proxy);
@@ -157,41 +156,29 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 	geom->KDirection = kDirectionKind;
 
 	// Pillar defined
-	resqml2__BooleanConstantArray* definedPillars = soap_new_resqml2__BooleanConstantArray(gsoapProxy2_0_1->soap, 1);
-	geom->PillarGeometryIsDefined = definedPillars;
-	definedPillars->Count = (getICellCount() + 1) * (getJCellCount() + 1);
-	definedPillars->Value = true;
+	if (definedPillars.empty()) {
+		resqml2__BooleanConstantArray* definedPillars = soap_new_resqml2__BooleanConstantArray(gsoapProxy2_0_1->soap, 1);
+		geom->PillarGeometryIsDefined = definedPillars;
+		definedPillars->Count = (getICellCount() + 1) * (getJCellCount() + 1);
+		definedPillars->Value = true;
+	}
+	else {
+		resqml2__BooleanHdf5Array* xmlDefinedPillars = soap_new_resqml2__BooleanHdf5Array(gsoapProxy2_0_1->soap, 1);
+		geom->PillarGeometryIsDefined = xmlDefinedPillars;
+		xmlDefinedPillars->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
+		xmlDefinedPillars->Values->HdfProxy = proxy->newResqmlReference();
+		xmlDefinedPillars->Values->PathInHdfFile = definedPillars;
+	}
 
 	// XML coordinate lines
 	resqml2__Point3dHdf5Array* xmlPoints = soap_new_resqml2__Point3dHdf5Array(gsoapProxy2_0_1->soap, 1);
 	geom->Points = xmlPoints;
 	xmlPoints->Coordinates = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 	xmlPoints->Coordinates->HdfProxy = proxy->newResqmlReference();
-	xmlPoints->Coordinates->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/Points";
+	xmlPoints->Coordinates->PathInHdfFile = points;
 
-	if (splitCoordinateLineCount == 0)
+	if (splitCoordinateLineCount > 0)
 	{
-		// HDF
-		hsize_t * numValues = new hsize_t[4];
-		numValues[0] = getKCellCount() + 1;
-		numValues[1] = getJCellCount() + 1;
-		numValues[2] = getICellCount() + 1;
-		numValues[3] = 3; // 3 for X, Y and Z
-	
-		hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy2_0_1->uuid, "Points", points, numValues, 4);
-		delete [] numValues;
-	}
-	else
-	{
-		// HDF
-		hsize_t * numValues = new hsize_t[3];
-		numValues[0] = getKCellCount() + 1;
-		numValues[1] = (getJCellCount() + 1) * (getICellCount() + 1) + splitCoordinateLineCount;
-		numValues[2] = 3; // 3 for X, Y and Z
-	
-		hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy2_0_1->uuid, "Points", points, numValues, 3);
-		delete [] numValues;
-		
 		// XML split coordinate lines
 		geom->SplitCoordinateLines = soap_new_resqml2__ColumnLayerSplitCoordinateLines(gsoapProxy2_0_1->soap, 1);;
 		geom->SplitCoordinateLines->Count = splitCoordinateLineCount;
@@ -202,12 +189,7 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 		pillarIndices->NullValue = getPillarCount();
 		pillarIndices->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 		pillarIndices->Values->HdfProxy = proxy->newResqmlReference();
-		pillarIndices->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/PillarIndices";
-		// HDF
-		numValues = new hsize_t[1];
-		numValues[0] = splitCoordinateLineCount;
-		hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "PillarIndices", H5T_NATIVE_UINT, pillarOfCoordinateLine, numValues, 1);
-		delete [] numValues;
+		pillarIndices->Values->PathInHdfFile = pillarOfCoordinateLine;
 
 		//XML
 		geom->SplitCoordinateLines->ColumnsPerSplitCoordinateLine = soap_new_resqml2__ResqmlJaggedArray(gsoapProxy2_0_1->soap, 1);
@@ -217,16 +199,75 @@ void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
 		cumulativeLength->NullValue = splitCoordinateLineColumnCumulativeCount[splitCoordinateLineCount - 1] + 1;
 		cumulativeLength->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 		cumulativeLength->Values->HdfProxy = proxy->newResqmlReference();
-		cumulativeLength->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/ColumnsPerSplitCoordinateLine/" + CUMULATIVE_LENGTH_DS_NAME;
+		cumulativeLength->Values->PathInHdfFile = splitCoordinateLineColumnCumulativeCount;
 		// Elements
 		resqml2__IntegerHdf5Array* elements = soap_new_resqml2__IntegerHdf5Array(gsoapProxy2_0_1->soap, 1);
 		geom->SplitCoordinateLines->ColumnsPerSplitCoordinateLine->Elements = elements;
 		elements->NullValue = getColumnCount();
 		elements->Values = soap_new_eml__Hdf5Dataset(gsoapProxy2_0_1->soap, 1);
 		elements->Values->HdfProxy = proxy->newResqmlReference();
-		elements->Values->PathInHdfFile = "/RESQML/" + gsoapProxy2_0_1->uuid + "/ColumnsPerSplitCoordinateLine/" + ELEMENTS_DS_NAME;
+		elements->Values->PathInHdfFile = splitCoordinateLineColumns;
+	}
+}
 
-		// HDF
+
+void IjkGridExplicitRepresentation::setGeometryAsCoordinateLineNodes(
+	const resqml2__PillarShape & mostComplexPillarGeometry,
+	const resqml2__KDirection & kDirectionKind,
+	const bool & isRightHanded,
+	double * points, resqml2::AbstractHdfProxy * proxy,
+	const unsigned long & splitCoordinateLineCount, unsigned int * pillarOfCoordinateLine,
+	unsigned int * splitCoordinateLineColumnCumulativeCount, unsigned int * splitCoordinateLineColumns,
+	char * definedPillars)
+{
+	if (points == nullptr) {
+		throw invalid_argument("The points of the ijk grid cannot be null.");
+	}
+	if (splitCoordinateLineCount != 0 && (pillarOfCoordinateLine == nullptr || splitCoordinateLineColumnCumulativeCount == nullptr || splitCoordinateLineColumns == nullptr)) {
+		throw invalid_argument("The definition of the split coordinate lines is incomplete.");
+	}
+
+	const std::string hdfDatasetPrefix = "/RESQML/" + gsoapProxy2_0_1->uuid;
+	setGeometryAsCoordinateLineNodesUsingExistingDatasets(mostComplexPillarGeometry, kDirectionKind, isRightHanded,
+		hdfDatasetPrefix + "/Points", proxy,
+		splitCoordinateLineCount, pillarOfCoordinateLine == nullptr ? "" : hdfDatasetPrefix + "/PillarIndices",
+		splitCoordinateLineColumnCumulativeCount == nullptr ? "" : hdfDatasetPrefix + "/ColumnsPerSplitCoordinateLine/" + CUMULATIVE_LENGTH_DS_NAME, splitCoordinateLineColumns == nullptr ? "" : hdfDatasetPrefix + "/ColumnsPerSplitCoordinateLine/" + ELEMENTS_DS_NAME,
+		definedPillars == nullptr ? "" : hdfDatasetPrefix + "/PillarGeometryIsDefined");
+
+	// Pillar defined
+	if (definedPillars != nullptr) {
+		hsize_t * pillarGeometryIsDefinedCount = new hsize_t[2];
+		pillarGeometryIsDefinedCount[0] = getJCellCount() + 1;
+		pillarGeometryIsDefinedCount[1] = getICellCount() + 1;
+		hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "PillarGeometryIsDefined", H5T_NATIVE_CHAR, definedPillars, pillarGeometryIsDefinedCount, 2);
+	}
+
+	if (splitCoordinateLineCount == 0)
+	{
+		// Points
+		hsize_t * numValues = new hsize_t[4];
+		numValues[0] = getKCellCount() + 1;
+		numValues[1] = getJCellCount() + 1;
+		numValues[2] = getICellCount() + 1;
+		numValues[3] = 3; // 3 for X, Y and Z	
+		hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy2_0_1->uuid, "Points", points, numValues, 4);
+		delete [] numValues;
+	}
+	else
+	{
+		// Points
+		hsize_t * numValues = new hsize_t[3];
+		numValues[0] = getKCellCount() + 1;
+		numValues[1] = (getJCellCount() + 1) * (getICellCount() + 1) + splitCoordinateLineCount;
+		numValues[2] = 3; // 3 for X, Y and Z
+		hdfProxy->writeArrayNdOfDoubleValues(gsoapProxy2_0_1->uuid, "Points", points, numValues, 3);
+		delete [] numValues;
+		
+		// split coordinate lines
+		numValues = new hsize_t[1];
+		numValues[0] = splitCoordinateLineCount;
+		hdfProxy->writeArrayNd(gsoapProxy2_0_1->uuid, "PillarIndices", H5T_NATIVE_UINT, pillarOfCoordinateLine, numValues, 1);
+		delete [] numValues;
 		hdfProxy->writeItemizedListOfList(gsoapProxy2_0_1->uuid, "ColumnsPerSplitCoordinateLine", H5T_NATIVE_UINT, splitCoordinateLineColumnCumulativeCount, splitCoordinateLineCount, H5T_NATIVE_UINT, splitCoordinateLineColumns, splitCoordinateLineColumnCumulativeCount[splitCoordinateLineCount - 1]);
 	}
 }

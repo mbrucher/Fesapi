@@ -86,19 +86,31 @@ namespace resqml2_0_1
 		* @param isRightHanded								Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
 		* @param points										XYZ double triplets ordered by i then j then split then k. Count must be ((iCellCount+1) * (jCellCount+1) + splitCoordinateLineCount) * kCellCount.
 		* @param proxy										The HDF proxy where all numerical values will be stored.
-		* @param splitCoordinateLineCount						The count of split coordinate line. A grid pillar is splitted in up to 4 coordinate lines.
+		* @param splitCoordinateLineCount					The count of split coordinate line. A grid pillar is splitted in up to 4 coordinate lines.
 		* @param pillarOfCoordinateLine						For each split coordinate line, indicates which pillar it belongs to. Pillars are identified by their absolute 1d index (iPillar + jPillar*iPillarCount) where iPillarCount == iCellCount+1. Count is splitCoordinateLineCount.
-		* @param splitCoordinateLineColumnCumulativeCount		For each split coordinate line, indicates how many columns of the ijk grid are incident to it (minimum is one and maximum is 3) + the count of all incident columns of previous spit coordinate lines in the array.
-		*												For example {1, 4, 6} would mean that the first split coordinate line is incident to only one column, the second split coordinate line is incident to 4-1=3 columns and the third column is incident to 6-4=2 columns.
-		*												Count is splitCoordinateLineCount.
+		* @param splitCoordinateLineColumnCumulativeCount	For each split coordinate line, indicates how many columns of the ijk grid are incident to it (minimum is one and maximum is 3) + the count of all incident columns of previous spit coordinate lines in the array.
+		*													For example {1, 4, 6} would mean that the first split coordinate line is incident to only one column, the second split coordinate line is incident to 4-1=3 columns and the third column is incident to 6-4=2 columns.
+		*													Count is splitCoordinateLineCount.
 		* @param splitCoordinateLineColumns					For each split coordinate line, indicates which columns are incident to it. Count is the last value in the splitCoordinateLineColumnCumulativeCount array.
-		*												Columns are identified by their absolute 1d index (iColumn + jColumn*iColumnCount) where *Column* == *Cell*.
+		*													Columns are identified by their absolute 1d index (iColumn + jColumn*iColumnCount) where *Column* == *Cell*.
+		* @param definedPillars								For each pillar : 0 if pillar is not defined (i.e points equal to NaN) else the pillar is defined.  This information overrides any pillar geometry information. If null, then all pillars are assumed to be defined.
 		*/
 		void setGeometryAsCoordinateLineNodes(
 			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
 			double * points, resqml2::AbstractHdfProxy* proxy,
 			const unsigned long & splitCoordinateLineCount = 0, unsigned int * pillarOfCoordinateLine = nullptr,
-			unsigned int * splitCoordinateLineColumnCumulativeCount = nullptr, unsigned int * splitCoordinateLineColumns = nullptr);
+			unsigned int * splitCoordinateLineColumnCumulativeCount = nullptr, unsigned int * splitCoordinateLineColumns = nullptr,
+			char * definedPillars = nullptr);
+
+		/**
+		* Same as setGeometryAsCoordinateLineNodes where the hdf datasets are already written in the the file.
+		*/
+		void setGeometryAsCoordinateLineNodesUsingExistingDatasets(
+			const gsoap_resqml2_0_1::resqml2__PillarShape & mostComplexPillarGeometry, const gsoap_resqml2_0_1::resqml2__KDirection & kDirectionKind, const bool & isRightHanded,
+			const std::string & points, resqml2::AbstractHdfProxy* proxy,
+			const unsigned long & splitCoordinateLineCount = 0, const std::string & pillarOfCoordinateLine = "",
+			const std::string & splitCoordinateLineColumnCumulativeCount = "", const std::string & splitCoordinateLineColumns = "",
+			const std::string & definedPillars = "");
 
 		geometryKind getGeometryKind() const;
 	};
