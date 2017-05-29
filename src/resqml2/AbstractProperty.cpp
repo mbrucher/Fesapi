@@ -246,7 +246,7 @@ void AbstractProperty::setRepresentation(AbstractRepresentation * rep)
 
 	// EPC
 	gsoap_resqml2_0_1::eml__DataObjectReference* repDor = getRepresentationDor();
-	if (repDor != nullptr) { // already associated to a representation -> Need to remove exisitn association
+	if (repDor != nullptr) { // already associated to a representation -> Need to remove existing association
 		std::vector<AbstractProperty*>& currentRepPropertySet = getRepresentation()->propertySet;
 		currentRepPropertySet.erase(remove(currentRepPropertySet.begin(), currentRepPropertySet.end(), this), currentRepPropertySet.end());
 	}
