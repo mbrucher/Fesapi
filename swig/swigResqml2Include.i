@@ -75,9 +75,6 @@ namespace resqml2
 	%nodefaultctor; // Disable creation of default constructors
 		
 	class Activity;
-#ifdef SWIGPYTHON
-	%rename(Resqml2AbstractObject) AbstractObject;
-#endif
 	class AbstractObject
 	{
 	public:
@@ -130,14 +127,14 @@ namespace resqml2
 	{
 		std::string getRelativePath();
 	};
-	
+
 	class AbstractHdfProxy : public EpcExternalPartReference
 	{
 	public:
 		virtual bool isOpened() = 0;
 		virtual void close() = 0;
 	};
-	
+
 	class HdfProxy : public AbstractHdfProxy
 	{
 	public:
