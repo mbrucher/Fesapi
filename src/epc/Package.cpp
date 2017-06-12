@@ -58,7 +58,6 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #endif
 
 #define CASESENSITIVITY (0)
-#define WRITEBUFFERSIZE (8192)
 
 using namespace std; // in order not to prefix by "std::" for each class in the "std" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
 using namespace epc; // in order not to prefix by "epc::" for each class in the "epc" namespace. Never use "using namespace" in *.h file but only in *.cpp file!!!
@@ -619,13 +618,14 @@ string do_extract_currentfile(unzFile uf, const char* password)
 {
     int err=UNZ_OK;
     void* buf;
-    uInt size_buf;
+    const unsigned size_buf = 8192;
 
-    size_buf = WRITEBUFFERSIZE;
     buf = (void*)malloc(size_buf);
     if (buf == nullptr)
     {
-		throw invalid_argument("Error allocating memory " + std::to_string(size_buf));
+    	ostringstream oss;
+    	oss << "Error allocating " <<  size_buf << " bytes.";
+		throw invalid_argument(oss.str());
     }
 
     err = unzOpenCurrentFilePassword(uf,password);
